@@ -1,0 +1,131 @@
+import { useEffect, useState } from "react";
+import { getFollowersService } from "../../services/follows";
+import { getProfileService } from "../../services/auth";
+import useAPI from "../../hooks/useAPI";
+import { useRefreshData } from "../../hooks/useRefreshData";
+import { LoadingScreen, Typography } from "../../components/custom";
+import {
+  AvatarProfile,
+  LayoutProfile,
+  Inf,
+  Follows,
+  TabsMyProfile,
+  MyPosts,
+  IncompleteInfo,
+  MyShares,
+  MySaves,
+  MyMenu,
+  CtoProfile
+} from "./Components";
+import { useNavigation } from "../../components/native";
+import Signup from "../auth/Signup";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+
+type Props = {};
+
+const MyProfile = (props: Props) => {
+  const { isAuthenticated, isLoadingApp } = useSelector((state: RootState) => state.auth);
+  const navigation = useNavigation();
+  const [alertShown, setAlertShown] = useState(false);
+
+  const {
+    data: followersData,
+    isLoading: isLoadingFollowers,
+    refetch: refetchFollowers,
+    error: followersError,
+  } = useAPI({
+    queryKey: ["get-Followers-Services"],
+    queryFn: () => getFollowersService(),
+  });
+
+  const {
+    data: userProfileData,
+    isLoading: isLoadingProfile,
+    refetch: refetchProfile,
+    error: profileError,
+  } = useAPI({
+    queryKey: ["get-Profile-Services"],
+    queryFn: () => getProfileService(),
+  });
+
+  const { isRefreshing, onRefresh } = useRefreshData([
+    refetchProfile,
+    refetchFollowers,
+  ]);
+
+  useEffect(() => {
+    console.log("isAuthenticated changed:", isAuthenticated);
+    if (isAuthenticated) {
+      refetchProfile();
+      refetchFollowers();
+    }
+  }, [isAuthenticated, refetchProfile, refetchFollowers]);
+
+  useEffect(() => {
+    console.log("Loading states changed:", { isLoadingApp, isLoadingFollowers, isLoadingProfile });
+    if (!isLoadingApp && !isLoadingFollowers && !isLoadingProfile) {
+      if (isAuthenticated) {
+        refetchProfile();
+        refetchFollowers();
+      }
+    }
+  }, [isLoadingApp, isLoadingFollowers, isLoadingProfile, isAuthenticated, refetchProfile, refetchFollowers]);
+
+  if (isLoadingApp || isLoadingFollowers || isLoadingProfile) {
+    return <LoadingScreen />;
+  }
+
+  if (!isAuthenticated && !isLoadingApp) {
+    return <Signup />;
+  }
+
+  if (followersError || profileError) {
+    console.error("Error fetching data:", { followersError, profileError });
+    return (
+      <LayoutProfile
+        data={null}
+        isRefreshing={isRefreshing}
+        onRefresh={onRefresh}
+      >
+        <Typography variant="H4title">Error fetching data</Typography>
+      </LayoutProfile>
+    );
+  }
+
+  return (
+    <LayoutProfile
+      data={userProfileData}
+      isRefreshing={isRefreshing}
+      onRefresh={onRefresh}
+    >
+      <AvatarProfile data={userProfileData} refetch={refetchProfile} />
+      <Inf data={userProfileData} />
+      <CtoProfile data={userProfileData}/>
+      <Follows
+        data={followersData}
+        onPressFollowing={() =>
+          navigation.navigate("Followers", {
+            initialIndex: 1,
+            username: userProfileData?.username,
+          })
+        }
+        onPressFollowers={() =>
+          navigation.navigate("Followers", {
+            initialIndex: 0,
+            username: userProfileData?.username,
+          })
+        }
+      />
+      {/* <IncompleteInfo visible={true} /> */}
+      <TabsMyProfile 
+      MyPosts={<MyPosts />} 
+      Myshares={<MyShares />} 
+      MySaves={<MySaves />} 
+      MyMenu={<MyMenu />} 
+      />
+    </LayoutProfile>
+  );
+};
+
+export default MyProfile;

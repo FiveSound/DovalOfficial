@@ -1,0 +1,54 @@
+# Ayuda para crear un gitignore
+
+# Node modules
+node_modules/
+# Evitar archivos de macOS
+.DS_Store
+
+# Evitar configuraciones de Rider
+/Rider/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Build directories
+dist/
+build/
+
+# Miscellaneous
+.DS_Store
+.env
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+Thumbs.db
+.DS_Store
+*.bak
+*.tmp
+
+# TypeScript
+*.tsbuildinfo
+
+# Yarn
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# End of Selection

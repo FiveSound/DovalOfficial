@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "doval",
+    "slug": "doval",
+    "scheme": "doval",
+    "version": "1.6.1",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.doval.doval",
+      "associatedDomains": [
+        "applinks:doval.io"
+      ],
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "{{i18next.t('Allow $(PRODUCT_NAME) to access your location while using the app to offer you recipes and delivery services tailored to your immediate surroundings, such as finding the daily special at a nearby restaurant or the fastest delivery option available in your area.')}}",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "{{i18next.t('Allow $(PRODUCT_NAME) to always access your location to provide notifications and updates even when the app is not in use.')}}"
+      }
+    },
+    "android": {
+      "package": "com.doval.doval",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5500fa17-a41b-4860-a113-b8d7bbb9dd4a"
+      }
+    },
+    "owner": "doval",
+    "plugins": [
+      "expo-font",
+      "expo-localization",
+      "expo-video",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
+  }
+}
