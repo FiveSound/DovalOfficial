@@ -49,6 +49,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ item, index, scrollX }) => {
         source={{ uri: `${CLOUDFRONT}${item.key}` }}
         priority="high"
         cachePolicy="memory-disk"
+        placeholderSource={`${CLOUDFRONT}${item.key}`}
       />
     </Animated.View>
   );

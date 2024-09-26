@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactNode } from "react";
 import { ViewStyle } from "react-native";
-import { SafeAreaView, KeyboardAwareScrollView } from "../../native";
+import { SafeAreaView, KeyboardAwareScrollView, RefreshControl, ScrollView } from "../../native";
 import FlexContainer from "../FlexContainer";
 import { SIZES } from "../../../constants/theme";
 import { Search } from "../Inputs";
@@ -13,11 +13,13 @@ type Props = {
   children?: ReactNode;
   onChange?: (text: string) => void;
   container?: ViewStyle;
-  Components?: ReactNode; // Corregido typo
+  Components?: ReactNode; 
   placeholder?: string;
   showChildren?: boolean;
   showLine?: boolean;
-  value?: string; // Agregado para controlar el valor
+  value?: string; 
+  isRefreshing: boolean;
+  onRefresh: () => void;
 };
 
 const Headers = ({ onChange, placeholder, value }: { onChange?: (text: string) => void; placeholder?: string; value?: string }) => {
@@ -52,6 +54,8 @@ const SearchLayout = ({
   placeholder,
   showChildren = true,
   showLine = true,
+  isRefreshing,
+  onRefresh,
   value = "",
 }: Props) => {
   const { BackgroundMain } = useTheme();
@@ -74,16 +78,20 @@ const SearchLayout = ({
         }} />}
       {Components}
       {showChildren &&
-        <KeyboardAwareScrollView
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
           decelerationRate="fast"
           contentContainerStyle={{
             flex: 1,
             backgroundColor: "transparent",
-            paddingHorizontal: SIZES.gapMedium
+            paddingHorizontal: SIZES.gapMedium,
+            paddingBottom: SIZES.height / 4
           }}
         >
           {children}
-        </KeyboardAwareScrollView>}
+        </ScrollView>}
     </SafeAreaView>
   );
 };

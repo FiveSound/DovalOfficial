@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { useAuth } from "../../context/AuthContext";
 import Signup from "../auth/Signup";
 import {
   Layout,
@@ -13,9 +12,7 @@ import {
 } from "./components";
 import { View } from "../../components/native";
 import { SIZES } from "../../constants/theme";
-import i18next from "../../Translate";
-import { LoadingScreen, TabsMain } from "../../components/custom";
-import data from "./data";
+import { LineDivider, LoadingScreen, TabsMain } from "../../components/custom";
 import { useAppSelector } from "../../redux";
 import { RootState } from "../../redux/store";
 
@@ -24,8 +21,6 @@ const Home = () => {
     isLoadingApp,
     isAuthenticated,
   } = useAppSelector((state: RootState) => state.auth);
-  const [ Loader, setLoader] = useState(true)
-  const [Offert, setOffert] = useState(false)
 
   if (isLoadingApp) {
     return <LoadingScreen />;
@@ -35,39 +30,31 @@ const Home = () => {
     return <Signup />;
   }
 
-  useEffect(() => {
-    if (data) {
-       setLoader(false)
-       setOffert(true)
-    } else if (!data) {
-      setOffert(false)
-    }
-  },[data])
 
+  // const routes = [
+  //   { key: "first", title: i18next.t("Restaurants") },
+  //   { key: "second", title: i18next.t("Orders") },
+  //   { key: "third", title: i18next.t("Recipies") },
+  // ];
 
-  const routes = [
-    { key: "first", title: i18next.t("Restaurants") },
-    { key: "second", title: i18next.t("Orders") },
-    { key: "third", title: i18next.t("Recipies") },
-  ];
-
-  const scenes = {
-    first: Restaurants,
-    second: Orders,
-    third: Recipies,
-  };
+  // const scenes = {
+  //   first: Restaurants,
+  //   second: Orders,
+  //   third: Recipies,
+  // };
 
   return (
     <Layout
-    Append={<LiveOrders />}
-    >   
-      {Offert &&
-       <Promotions 
-       data={data}
-       IsLoading={Loader}/>}
+      Append={<LiveOrders />}
+    >
+        {/* <Promotions
+          data={data}
+          IsLoading={Loader} /> */}
+      <View style={styles.marginBottom} />
       <Categories />
       <View style={styles.marginBottom} />
-      <TabsMain routes={routes} scenes={scenes} />
+      <Restaurants />
+      {/* <TabsMain routes={routes} scenes={scenes} /> */}
     </Layout>
   );
 };

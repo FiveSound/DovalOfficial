@@ -10,6 +10,7 @@ type Props = {
 
 const BannerBusiness = (props: Props) => {
     const { banner, avatar } = props;
+    
     return (
         <FlexContainer>
             <Image
@@ -18,6 +19,8 @@ const BannerBusiness = (props: Props) => {
                 priority='high'
                 style={styles.banner}
                 contentFit='cover'
+                showPlaceholder={true}
+                placeholderSource={banner}
             />
             <FlexContainer style={styles.containerAvatar}>
                 <Avatars
@@ -34,9 +37,7 @@ const BannerBusiness = (props: Props) => {
 const styles = StyleSheet.create({
     banner: {
         width: SIZES.width,
-        height: SIZES.height / 4,
-        borderBottomRightRadius: SIZES.gapLarge,
-        borderBottomLeftRadius: SIZES.gapLarge
+        height: SIZES.height / 5,
     },
     containerAvatar: {
         position: 'relative',

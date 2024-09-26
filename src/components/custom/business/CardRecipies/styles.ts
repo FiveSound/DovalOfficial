@@ -4,35 +4,57 @@ import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/
 const styles = StyleSheet.create({
     flexContainer: {
         paddingHorizontal: SIZES.gapLarge,
-        width: SIZES.width
+        width: SIZES.width,
+        paddingVertical: SIZES.gapMedium,
     },
     touchableOpacity: {
-        alignItems: "center",
-        justifyContent: "space-between",
+        alignItems: 'flex-start',
         height: "auto",
-        paddingVertical: SIZES.padding,
         flexDirection: 'row',
+        alignSelf: 'flex-start',
+        gap: SIZES.gapLarge,
+        width: SIZES.width,
     },
     typographyName: {
-        width: SIZES.width / 1.6,
-        ...FONTS.semi18
+        width: SIZES.width / 1.2,
+        ...FONTS.semi16
     },
     typographyDescription: {
-        width: SIZES.width / 1.6,
+        width: SIZES.width / 1.2,
         marginRight: SIZES.padding,
-        ...FONTS.text16
+        ...FONTS.text14
     },
     priceContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom: SIZES.radius,
+        width: SIZES.width / 1.4,
     },
     addButton: {
+        backgroundColor: 'transparent',
+        paddingHorizontal: SIZES.gapLarge,
+        paddingVertical: SIZES.gapSmall / 2,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: SIZES.gapSmall,
+        borderWidth: SIZES.borderWidth,
+        borderColor: COLORS.primary,
     },
     lineDivider: {
         height: responsiveFontSize(1),
+        marginTop: SIZES.gapMedium
     },
+    textContainer: {
+        gap: SIZES.gapSmall,
+    },
+    flexContainers: {
+        justifyContent: "space-between",
+        alignItems: 'flex-start'
+    },
+    typographyAdd: {
+        ...FONTS.semi14,
+        color: COLORS.primary
+    }
 });
 
 export default styles;

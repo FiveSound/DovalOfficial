@@ -1,12 +1,13 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { CardUserSkeleton, FlexContainer, IsLoading, ScreenEmpty, Search } from "../../../components/custom";
-import { useTheme } from "../../../hooks";
+import { useRefreshData, useTheme } from "../../../hooks";
 import { CLOUDFRONT } from "../../../services";
 import i18next from "../../../Translate";
 import { COLORS, FONTS, SIZES } from "../../../constants/theme";
 import { FlatList } from "../../../components/native";
 import { Ilustrations } from "../../../constants";
+import { useAuth } from "../../../context/AuthContext";
 const Follow = lazy(() => import('../../../components/custom/Cards/CardUsers'))
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
   onFollow: (userID: string) => void;
   onShearch: (text: string) => void;
   searching?: boolean;
+  isFetching: () => void;
 };
 
 interface PropsFollower {
@@ -28,11 +30,14 @@ interface PropsFollower {
 }
 
 
-const Layout = ({ userID, data, onFollow, onShearch, searching }: Props) => {
+const Layout = ({ userID, data, onFollow, onShearch, searching, isFetching }: Props) => {
   const [focus, setFocus] = useState(false);
   const [search, setSearch] = useState("");
   const { borderInput } = useTheme();
   const [isLoading, setIsLoading] = useState(true); 
+  const { isRefreshing , onRefresh } = useRefreshData([isFetching])
+  const { user } = useAuth()
+  console.log('user', user);
   
   useEffect(() => {
     if (data.length > 0) {
@@ -62,7 +67,7 @@ const Layout = ({ userID, data, onFollow, onShearch, searching }: Props) => {
           />
       </Suspense>
     )
-  },[data, isLoading])
+  },[data])
 
   return (
     <FlexContainer newStyle={styles.containerMain}>
@@ -87,8 +92,8 @@ const Layout = ({ userID, data, onFollow, onShearch, searching }: Props) => {
         data={data}
         keyExtractor={(item) => item.userID}
         renderItem={renderItem}
-        // onRefresh={onRefresh}
-        // refreshing={isRefreshing}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
         initialNumToRender={3}
         maxToRenderPerBatch={3}
         contentContainerStyle={{

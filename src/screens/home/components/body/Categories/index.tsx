@@ -54,6 +54,9 @@ const Categories = (props: Props) => {
                 source={item.icon}
                 style={styles.icon}
                 contentFit="cover"
+                showPlaceholder={true}
+                placeholderSource={item.icon}
+                server={false}
               />
             )}
           </FlexContainer>
@@ -71,23 +74,26 @@ const Categories = (props: Props) => {
   );
 
     return (
-        <ScrollView
-          horizontal
-          contentContainerStyle={styles.listContainer}
-          nestedScrollEnabled={true}
-        >
+        // <ScrollView
+        //   horizontal
+        //   contentContainerStyle={styles.listContainer}
+        //   nestedScrollEnabled={true}
+        // >
+         <FlexContainer variant="row">
           {categories.map((item) => (
             <View key={item.id}>
               {renderItem({ item })}
             </View>
           ))}
-        </ScrollView>
+          </FlexContainer>
+        // </ScrollView>
       );
 };
 
 const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: SIZES.gapSmall,
+    zIndex: 10000,
   },
   itemContainer: {
     alignItems: "center",

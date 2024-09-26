@@ -10,28 +10,11 @@ interface PropsPromotion {
 }
 
 const RenderItem = ({ item, index, scrollX }: PropsPromotion) => {
-    const inputRange = [
-        (index - 1) * SIZES.BtnWidth,
-        index * SIZES.BtnWidth,
-        (index + 1) * SIZES.BtnWidth,
-    ];
-
-    const scale = scrollX.interpolate({
-        inputRange,
-        outputRange: [0.8, 1, 0.8], // Increased the scale difference for more noticeable animation
-        extrapolate: 'clamp',
-    });
-
-    const opacity = scrollX.interpolate({
-        inputRange,
-        outputRange: [0.5, 1, 0.5], // Increased the opacity difference for more noticeable animation
-        extrapolate: 'clamp',
-    });
 
     return (
         <Animated.View
             key={index}
-            style={[styles.touchableOpacity, { transform: [{ scale }], opacity }]}
+            style={styles.touchableOpacity}
         >
             <FlexContainer>
                 <Typography variant='subtitle' newStyle={styles.title}>{item.label}</Typography>

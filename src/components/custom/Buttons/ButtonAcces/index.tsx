@@ -46,7 +46,7 @@ const ButtonAcces = ({
               append
             )
           }
-          <Typography variant='H4title' newStyle={StyleSheet.flatten([labelStyle, { color: Title, width: SIZES.width / 3}])}>
+          <Typography variant='H4title' newStyle={StyleSheet.flatten([labelStyle, { color: Title, width: SIZES.width / 2.4}])}>
             {label}
           </Typography>
          <FlexContainer>
@@ -59,7 +59,7 @@ const ButtonAcces = ({
          </FlexContainer>
         </FlexContainer>
         <FlexContainer variant="row" newStyle={styles.flexContainerRow}>
-          <Text numberOfLines={1} style={{ color: Description, ...FONTS.text14, width: SIZES.width / 3, textAlign: 'right' }}>
+          <Text numberOfLines={1} style={{ color: Description, ...FONTS.semi14, width: SIZES.width / 3, textAlign: 'right' }}>
             {labelPreview}
           </Text>
           <ArrowRight01Icon
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: SIZES.gapSmall,
     marginLeft: SIZES.gapSmall,
-    width: SIZES.BtnWidth
+    width: SIZES.width
   },
   flexContainer: {
     backgroundColor: "transparent",

@@ -8,21 +8,17 @@ import {
   responsiveFontSize,
   SIZES,
 } from "../../../../../constants/theme";
-import SkeletonPosts from "../../../SkeletonPosts";
 import { FlexContainer, IsLoading, LoadingScreen, ScreenEmpty } from "../../../../../components/custom";
 import { Ilustrations } from "../../../../../constants";
 import {
-  FlashList,
   RefreshControl,
   ScrollView,
   useNavigation,
-  View,
 } from "../../../../../components/native";
 import styles from "../styles";
 import { ListRenderItem } from "@shopify/flash-list";
-const LazyCardPosts = lazy(
-  () => import("../../../../../components/custom/Cards/Posts")
-);
+import { PostsList } from "./Components";
+const LazyCardPosts = lazy(() => import("../../../../../components/custom/Cards/Posts"));
 
 const Main = (props: any) => {
   const { isOffline, user } = useAuth();
@@ -43,19 +39,10 @@ const Main = (props: any) => {
         <Suspense fallback={<IsLoading />}>
           <FlexContainer newStyle={styles.grid}>
             <LazyCardPosts
-              source={`${CLOUDFRONT}${item.thumbnail}`}
-              streaming={0}
-              postID={item.id}
+              row={item}
               posterHeight={responsiveFontSize(172)}
               posterWidth={SIZES.width / 3.06}
-              mediaType={item.mediaType}
-              onPress={() => {
-                navigation.navigate("PostsDetails", {
-                  selectedItem: item,
-                  allData: data,
-                  selectedIndex: index,
-                });
-              }}
+              onPress={() => console.log("item")}
             />
           </FlexContainer>
         </Suspense>
@@ -65,7 +52,7 @@ const Main = (props: any) => {
   );
 
   const estimatedItemSize = useMemo(() => {
-    return 529;
+    return 158;
   }, []);
 
   if (isLoading) {
@@ -73,18 +60,12 @@ const Main = (props: any) => {
   } else if (data.length > 0) {
     return (
       <FlexContainer newStyle={styles.containerGrid}>
-        <FlashList
+        <PostsList
           data={data}
           renderItem={renderItem}
-          numColumns={3}
-          keyExtractor={item => item.id.toString()}
-          refreshing={isRefreshing}
+          isRefreshing={isRefreshing}
           onRefresh={onRefresh}
-          contentContainerStyle={styles.flatListContent}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={<View style={{ height: responsiveFontSize(100) }} />}
           estimatedItemSize={estimatedItemSize}
-          getItemType={(item) => item.mediaType}
         />
       </FlexContainer>
     );

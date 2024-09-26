@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { QueryKeyType } from "../../types/ReactQuery.type";
 
 export const getMyBusinessService = async () => {
   try {
@@ -142,11 +143,15 @@ export const getNearbyBusinessService = async (location: object) => {
   }
 };
 
-export const getRecipesByBusinessIDService = async (businessID: string) => {
+export const getRecipesByBusinessIDService = async (
+{ queryKey }: QueryKeyType
+) => {
   try {
     const response = await axios.post(`${API_URL}/api/business/recipes`, {
-      businessID,
+     businessID: queryKey[1],
+     ...queryKey[2],
     });
+    console.log('queryKey', queryKey)
     return response.data;
   } catch (error) {
     return error;

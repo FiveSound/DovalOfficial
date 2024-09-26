@@ -4,7 +4,7 @@ import LoaderMain from './components/LoaderMain';
 import { useAuth } from "../../context/AuthContext";
 import useRangeNearbyLocation from "../../hooks/useRangeNearbyLocation";
 import { Main } from "./components";
-import { useAPI, useLocation } from "../../hooks";
+import { useAPI } from "../../hooks";
 import { endOnboardingService } from "../../services/personalized";
 import { useDispatch } from "react-redux";
 import { openOnboardingModal } from "../../redux/slides/modalSlice";
@@ -15,7 +15,7 @@ const Home = () => {
   const [isLocationLoaded, setIsLocationLoaded] = useState(false);
   const [locationReady, setLocationReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { data: endOnboarding, isLoading: isLoadingEndOnboarding, refetch: refetchEndOnboarding } = useAPI({
+  const { data: endOnboarding, isLoading: isLoadingEndOnboarding } = useAPI({
     queryKey: ["endOnboardingService"],
     queryFn: () => endOnboardingService(),
   });
@@ -28,33 +28,19 @@ const Home = () => {
   const { currentLocation, permissionGranted, permissionChecked } = useRangeNearbyLocation(navigateToPermissionScreen);
 
   useEffect(() => {
-    const setupLocation = async () => {
-      try {
-        if (!isDataReady) {
-          if (permissionChecked) {
-            if (currentLocation === null) {
-              navigateToPermissionScreen();
-              setLocationReady(true);
-              setIsLocationLoaded(true);
-            } else if (!permissionGranted) {
-              setIsLocationLoaded(true);
-            } else {
-              setIsLocationLoaded(true);
-              setLocationReady(true);
-            }
+    const setupLocation = () => {
+      if (!isDataReady) {
+        if (permissionChecked) {
+          if (currentLocation !== null && permissionGranted) {
+            setLocationReady(true);
           }
+          setIsLocationLoaded(true);
         }
-      } catch (error) {
-        setError('Error setting up location');
-        console.error('Error setting up location:', error);
       }
     };
 
     setupLocation();
-  }, [currentLocation, permissionGranted, permissionChecked, user, isDataReady]);
-
-  useEffect(() => {
-  }, [isLocationLoaded, locationReady]);
+  }, [currentLocation, permissionGranted, permissionChecked, isDataReady]);
 
   // useEffect(() => {
   //   if (!isDataReady && !isLoadingApp && user && endOnboarding?.success) {

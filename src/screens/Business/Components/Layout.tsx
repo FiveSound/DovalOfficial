@@ -6,25 +6,19 @@ import { useCart } from '../../../context/CartContext';
 import useCustomNavigation from '../../../context/useCustomNavigation';
 import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
 import { Container, FlexContainer, Typography } from '../../../components/custom';
-import { useNavigation, View } from '../../../components/native';
+import { RefreshControl, useNavigation, View } from '../../../components/native';
 import BannerBusiness from './BannerBusiness';
 
 type Props = {
     children: ReactNode;
     banner: string;
     avatar: string;
+    isRefreshing: boolean;
+    onRefresh: () => void;
 }
 
 const Layout = (props: Props) => {
-    const { children, banner, avatar } = props;
-    const { BackgroundMain , backgroundMaingrey} = useTheme()
-    const { cart } = useCart()
-    const { navigation } = useCustomNavigation();
-    const handleNavigate = () => {
-        navigation.navigate("VerificarOrdenes", {
-          locationID: null,
-        });
-      };
+    const { children, banner, avatar, isRefreshing, onRefresh } = props;
 
     return (
         <Container 
@@ -34,14 +28,18 @@ const Layout = (props: Props) => {
         }}>
             <BusinessHeader />
             <ScrollView
+                 refreshControl={<RefreshControl
+                    refreshing={isRefreshing}
+                    onRefresh={onRefresh}
+                 />}
                 showsVerticalScrollIndicator={false}
                 nestedScrollEnabled={true}
-                scrollEnabled={false}
+                scrollEnabled={true}
                 contentContainerStyle={{
                     alignItems: "center",
                     width: SIZES.width,
                     backgroundColor: 'transparent',
-                    paddingBottom: SIZES.height / 1,
+                    paddingBottom: responsiveFontSize(100),
                 }}
             >
                 <BannerBusiness
@@ -49,19 +47,6 @@ const Layout = (props: Props) => {
                     avatar={avatar}
                 />
                 {children}
-          {/* {cart.length !== 0 &&
-            <FlexContainer 
-            newStyle={{
-                zIndex: 1000,
-                position: 'absolute',
-                top: SIZES.height / 1.14
-            }}>
-                <FooterCart 
-            ProductsLength={cart.length}
-            FooterPress={handleNavigate}
-            />
-            </FlexContainer>
-            } */}
             </ScrollView>
         </Container>
     )

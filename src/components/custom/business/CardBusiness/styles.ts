@@ -4,25 +4,27 @@ import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/
 const styles = StyleSheet.create({
   flexContainer: {
     paddingHorizontal: SIZES.gapMedium,
-    borderRadius: SIZES.radius,
-    marginVertical: SIZES.gapMedium
+    borderRadius: SIZES.gapMedium,
+    marginVertical: SIZES.gapMedium,
+    width: "98%",
+    alignSelf: "center"
   },
   touchableOpacity: {
     alignItems: "center",
-    justifyContent: "space-between",
     height: "auto",
-    paddingVertical: SIZES.padding,
+    paddingVertical: SIZES.gapMedium,
     flexDirection: 'row',
+    gap: SIZES.gapLarge
   },
   businessName: {
     width: SIZES.width / 1.6,
-    ...FONTS.heading18
+    ...FONTS.semi16
   },
   flexContainerInner: {
 
   },
   timeSend: {
-    width: responsiveFontSize(160),
+    width: SIZES.width / 1.5,
     marginRight: SIZES.padding,
   },
   view: {
@@ -32,8 +34,8 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.radius,
   },
   storeStatus: {
-    paddingHorizontal: SIZES.margin,
-    borderRadius: SIZES.radius,
+    color: COLORS.error,
+    marginBottom: SIZES.gapSmall
   },
   storeStatusText: {
     color: COLORS.dark,
@@ -66,10 +68,17 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.gapMedium
   },
   buttonscontainerOthers: {
+    backgroundColor: COLORS.primary,
     borderRadius: SIZES.radius,
     height: responsiveFontSize(34),
     borderWidth: 0,
-    width: responsiveFontSize(140),
+    marginVertical: SIZES.gapMedium,
+    paddingHorizontal: SIZES.gapLarge,
+    alignItems: 'center'
+  },
+  openClose: {
+    marginLeft: SIZES.gapSmall,
+    color: COLORS.dark
   }
 });
 

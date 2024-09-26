@@ -83,7 +83,7 @@ const Verified = (props: Props) => {
     if (isVerified && !isLoadingApp) {
       setTimeout(() => {
         if (method === 0 ? Form : !Form) {
-          navigation.navigate("SignupForm", { token: token, method, provided }); 
+          navigation.navigate("SignupForm", { method, provided }); 
         } else {
           navigation.navigate("TabsNavigation");
         }

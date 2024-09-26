@@ -2,7 +2,6 @@ import {
   lazy,
   Suspense,
   useCallback,
-  useMemo,
 } from "react";
 import { FlatList } from "react-native";
 import {
@@ -13,13 +12,11 @@ import {
   ToggleFilter,
 } from "../../../components/custom";
 import { useRefreshData, useTheme } from "../../../hooks";
-import { SIZES } from "../../../constants/theme";
+import { responsiveFontSize, SIZES } from "../../../constants/theme";
 import i18next from "../../../Translate";
 import { Ilustrations } from "../../../constants";
 import { RefreshControl, ScrollView, View } from "../../../components/native";
-const LazyCard = lazy(
-  () => import("../../../components/custom/business/CardBusiness")
-);
+const LazyCard = lazy(() => import("../../../components/custom/business/CardBusiness"));
 
 type Props = {
   filteredData: any[];
@@ -81,11 +78,11 @@ const Main = ({
 
   return (
     <SearchLayout
-      placeholder={i18next.t(
-        "Search for nearby restaurants, and businesses"
-      )}
+      placeholder={i18next.t("Search for nearby restaurants, and businesses")}
       container={{ backgroundColor: backgroundMaingrey }}
       onChange={handleSearch}
+      isRefreshing={isRefreshing}
+      onRefresh={onRefresh}
       Compenents={
         <ToggleFilter
           onPressStores={toggleFilterStores}
@@ -124,6 +121,9 @@ const Main = ({
           renderItem={renderItem}
           onRefresh={refetchPostData}
           refreshing={isLoading}
+          contentContainerStyle={{ paddingBottom: responsiveFontSize(100) }}
+          initialNumToRender={3}
+          maxToRenderPerBatch={3}
         />
       )}
     </SearchLayout>

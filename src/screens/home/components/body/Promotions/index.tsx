@@ -34,6 +34,10 @@ const Promotions = (props: Props) => {
                     [{ nativeEvent: { contentOffset: { x: scrollX } } }],
                     { useNativeDriver: true }
                 )}
+                contentContainerStyle={{
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
             />
         </View>
     );
@@ -42,8 +46,8 @@ const Promotions = (props: Props) => {
 const styles = StyleSheet.create({
     view: {
         height: responsiveFontSize(140),
-        width: SIZES.width,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
 

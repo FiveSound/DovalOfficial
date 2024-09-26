@@ -1,7 +1,6 @@
 import React from "react";
 import { Image, TouchableOpacity, useNavigation } from "../../../native";
-import { ArrowLeft } from "../../../../constants/IconsPro";
-import { SIZES } from "../../../../constants/theme";
+import { COLORS, SIZES } from "../../../../constants/theme";
 import { useTheme } from "../../../../hooks";
 import { iconsNative } from "../../../../constants";
 import { StyleSheet } from "react-native";
@@ -19,7 +18,8 @@ const ArrowBack = (props: Props) => {
         cachePolicy="memory-disk"
         style={styles.imag}
         tintColor={Title}
-        source={iconsNative.arrowBack}
+        placeholderSource={iconsNative.arrowBack}
+        server={false}
       />
     </TouchableOpacity>
   );

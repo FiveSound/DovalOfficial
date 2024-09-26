@@ -51,6 +51,8 @@ const PersonalInf = (props: props) => {
                                     onPress={() => {
                                         navigation.navigate(content.navigation)
                                     }}
+                                    container={styles.buttonContainer}
+                                    
                                 />
                             ))}
                         </FlexContainer>
@@ -77,7 +79,11 @@ const styles = StyleSheet.create({
     },
     title: {
         marginBottom: SIZES.gapLarge
-    }
+    },
+    buttonContainer: {
+        width: SIZES.BtnWidth / 1.02,
+        paddingHorizontal: SIZES.gapSmall
+    }   
 });
 
 export default PersonalInf; 

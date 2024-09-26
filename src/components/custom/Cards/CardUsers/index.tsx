@@ -28,6 +28,7 @@ export type PropsCardUser = {
   ShowButton?: boolean;
   LoaderButton?: boolean;
   isLoading?: boolean;
+  businessID: string;
 };
 
 const CardUsers = ({
@@ -45,6 +46,7 @@ const CardUsers = ({
   ShowButton = true,
   LoaderButton,
   isLoading = true,
+  businessID
 }: PropsCardUser) => {
   const { Description, backgroundMaingrey } = useTheme();
   const navigation = useNavigation();
@@ -55,7 +57,7 @@ const CardUsers = ({
     if (MyProfile) {
       navigation.navigate("MyProfile");
     } else {
-      navigation.navigate("UserProfile", { username });
+      navigation.navigate("UserProfile", { username: username, businessID: businessID });
     }
   };
 

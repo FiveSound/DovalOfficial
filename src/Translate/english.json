@@ -522,5 +522,18 @@
   "reports error": "Error",
   "reports error message": "There was an error submitting your report. Please try again later.",
   "Report User": "Report User",
-  "Review your order!": "Review your order!"
+  "Review your order!": "Review your order!",
+  "Tell us about yourself": "Tell us about yourself",
+  "These help us to introduce you": "These help us to introduce you",
+  "Add your name": "Add your name",
+  "Add your username": "Add your username",
+  "Enter password": "Enter password",
+  "Repeat password": "Repeat password",
+  "Your password must be at least:": "Your password must be at least:",
+  "8 characters": "8 characters",
+  "1 uppercase letter": "1 uppercase letter",
+  "1 lowercase letter": "1 lowercase letter",
+  "1 number": "1 number",
+  "1 special character": "1 special character",
+  "Update your profile": "Update my profile"
 }

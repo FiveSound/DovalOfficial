@@ -20,7 +20,7 @@ const TabFollowing = ({ username }: Props) => {
 
   let queryKey = "component-following";
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: [queryKey, user?.userID, username],
     queryFn: ({ queryKey }) =>
       getFollowingAccountsService(queryKey[1], queryKey[2], page),
@@ -65,6 +65,7 @@ const TabFollowing = ({ username }: Props) => {
         onFollow={(userID) => mutation.mutate(userID)}
         onShearch={(text) => handleSearch(text)}
         searching={mutationSearch.isPending}
+        isFetching={refetch}
       />
     );
   }

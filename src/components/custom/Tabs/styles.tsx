@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     },
     tabHeaders: {
       flexDirection: 'row',
-      borderBottomWidth: 1,
+      // borderBottomWidth: 1,
       position: 'relative',
       borderColor: COLORS.Description
     },
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     activeTabIndicator: {
       position: 'absolute',
       bottom: 0,
-      height: SIZES.borderWidth,
+      height: SIZES.borderWidth * 2,
       backgroundColor: COLORS.primary,
     },
     tabTitle: {

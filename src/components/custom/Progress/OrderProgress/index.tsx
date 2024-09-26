@@ -90,7 +90,10 @@ const OrderProgress: React.FC<OrderProgressProps> = ({ steps, currentStep, showH
           </FlexContainer>
          }
          {
-          !showHero && <FlexContainer key={activeStep.id} newStyle={styles.activeStepContainerNoHero}>
+          !showHero && <FlexContainer key={activeStep.id} newStyle={[styles.activeStepContainer, {
+            backgroundColor: backSuccess,
+            borderColor: theme === 'dark' ? COLORS.success : COLORS.success
+          }]}>
             <Typography variant='title' newStyle={styles.descriptionNoHero}>
             {activeStep.title} || {activeStep.timeEstimated}
             </Typography>

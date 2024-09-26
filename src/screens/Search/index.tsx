@@ -12,7 +12,6 @@ const LazyCardUser = lazy(() => import("../../components/custom/Cards/CardUsers"
 
 const Search = () => {
   const dispatch = useDispatch<AppDispatch>();
-
   const {
     query,
     users,

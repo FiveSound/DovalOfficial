@@ -457,13 +457,11 @@ export const signInEmailAndPasswordService = async (
 };
 
 export const verifyCodeService = async (user: string, code: string) => {
-  console.log("Calling verifyCodeService with user:", user, "and code:", code); // Log event
   try {
     const response = await axios.post(`${API_URL}/api/auth/v2/verify`, {
       user: user,
       code: code,
     });
-    console.log("Verification response:", response.data); // Log event
     return response.data;
   } catch (error) {
     console.error("Verification error:", error); // Log event
@@ -511,17 +509,21 @@ export const completeWithPhoneService = async (
 };
 
 type EmailDetails = {
-  email: string;
   name: string;
   username: string;
+  country: null;
+  contact_policy: boolean;
   password: string;
+  email: string;
 };
 
 export const completeWithEmailService = async (
   body: EmailDetails,
-  token: string
 ) => {
+
   try {
+    const userToken = await AsyncStorage.getItem("userToken");
+    console.log("Calling completeWithEmailService with body:", body, "and token:", userToken); 
     const response = await axios.post(
       `${API_URL}/api/auth/v2/email/complete`,
       {
@@ -529,13 +531,11 @@ export const completeWithEmailService = async (
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${userToken}`,
         },
       }
     );
-
-    // Despues de verificar el codigo (email) enviar 'EmailDetails' para completar el registro
-    // Respuesta: { success: true, userID: uuidv4() }
+    
     return response.data;
   } catch (error) {
     return {

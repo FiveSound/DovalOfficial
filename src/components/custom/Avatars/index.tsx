@@ -60,7 +60,7 @@ const ImgSkeleton = ({ size }: { size: AvatarSize }) => {
   );
 };
 
-const Avatars = (props: Props) => {
+const Avatars = React.memo((props: Props) => {
   const {
     source,
     size,
@@ -106,6 +106,8 @@ const Avatars = (props: Props) => {
         >
           <Image
             source={{ uri: source }}
+            placeholderSource={source}
+            showPlaceholder={false}
             contentFit="cover"
             priority="high"
             cachePolicy="memory-disk"
@@ -149,7 +151,7 @@ const Avatars = (props: Props) => {
       {Loading && <IsLoading showLabel={true} label={label} />}
     </>
   );
-};
+});
 
 const styles = StyleSheet.create({
   touchableOpacity: {

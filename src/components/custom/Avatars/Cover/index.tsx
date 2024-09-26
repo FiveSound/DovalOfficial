@@ -7,11 +7,12 @@ import IsLoading from "../../Loaders/IsLoading";
 
 type Props = {
   source: string;
+  size: 'small' | 'medium' | 'large';
 };
 
-const Cover = ({ source }: Props) => {
+const Cover = ({ source, size = 'medium' }: Props) => {
   const theme = useColorScheme();
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(true)
 
   useEffect(() => {
     if (source) {
@@ -25,17 +26,33 @@ const Cover = ({ source }: Props) => {
     }
   }, [source]);
 
+  const getSize = () => {
+    switch (size) {
+      case 'small':
+        return responsiveFontSize(54);
+      case 'medium':
+        return responsiveFontSize(80);
+      case 'large':
+        return responsiveFontSize(160);
+      default:
+        return responsiveFontSize(80);
+    }
+  };
+
+  const imageSize = getSize();
+
   return loader ? (
     <IsLoading />
-  ) : (
-    <Image
+  ) : ( <Image
       source={{ uri: source }}
+      placeholderSource={source}
+      showPlaceholder={true}
       contentFit="cover"
       cachePolicy="memory-disk"
       priority="high"
       style={{
-        width: responsiveFontSize(80),
-        height: responsiveFontSize(80),
+        width: imageSize,
+        height: imageSize,
         borderRadius: SIZES.gapMedium,
       }}
     />

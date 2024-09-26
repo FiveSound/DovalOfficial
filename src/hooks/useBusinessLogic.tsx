@@ -46,7 +46,7 @@ export function useBusinessLogic({
     const filterData = useMemo(() => (data, search: string, filterStores: boolean, freeShipping: boolean) => {
         return data.filter((item) => {
             const matchesSearch = item.business_name.toLowerCase().includes(search.toLowerCase());
-            const matchesStores = !filterStores || item.store === true;
+            const matchesStores = !filterStores || item.open === true;
             const matchesFreeShipping = !freeShipping || item.amountSend === "Free";
             return matchesSearch && matchesStores && matchesFreeShipping;
         });

@@ -3,7 +3,6 @@ import { UserType } from '../../types/User.types';
 import { verifyCodeService, signInEmailService, signInPhoneService, signInEmailAndPasswordService } from '../../services/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Interfaces para las respuestas de los servicios
 interface VerifyCodeResponse {
   success: boolean;
   token?: string;
@@ -74,11 +73,14 @@ export const verifyCode = createAsyncThunk<
       const response = await verifyCodeService(user, code);
       if (response.success && response.token && response.userDetails) {
         await AsyncStorage.setItem('userToken', response.token);
+        console.log('verifyCode fulfilled:', response);
         return { success: true, token: response.token, userDetails: response.userDetails };
       } else {
+        console.log('verifyCode rejected:', response.message);
         return thunkAPI.rejectWithValue(response.message || 'Error al verificar el código');
       }
     } catch (error) {
+      console.log('verifyCode error:', error);
       return thunkAPI.rejectWithValue('Error al verificar el código');
     }
   }
@@ -97,11 +99,14 @@ export const resendCode = createAsyncThunk<
         ? await signInPhoneService(phone) 
         : await signInEmailService(user);
       if (response.success) {
+        console.log('resendCode fulfilled:', response);
         return { success: true };
       } else {
+        console.log('resendCode rejected:', response.error);
         return thunkAPI.rejectWithValue(response.error || 'Error al reenviar el código');
       }
     } catch (error) {
+      console.log('resendCode error:', error);
       return thunkAPI.rejectWithValue('Error al reenviar el código');
     }
   }
@@ -119,11 +124,14 @@ export const login = createAsyncThunk<
       const response = await signInEmailAndPasswordService(email, password);
       if (response.success && response.token && response.userDetails) {
         await AsyncStorage.setItem('userToken', response.token);
+        console.log('login fulfilled:', response);
         return { success: true, token: response.token, userDetails: response.userDetails };
       } else {
+        console.log('login rejected:', response.message);
         return thunkAPI.rejectWithValue(response.message || 'Error al iniciar sesión');
       }
     } catch (error) {
+      console.log('login error:', error);
       return thunkAPI.rejectWithValue('Error al iniciar sesión');
     }
   }
@@ -134,26 +142,35 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     signInStart(state) {
+      console.log('signInStart');
       state.isLoadingApp = true;
     },
     signInSuccess(state, action: PayloadAction<UserType>) {
+      console.log('signInSuccess:', action.payload);
       state.user = action.payload;
       state.isAuthenticated = true;
       state.isLoadingApp = false;
     },
     signInFailure(state) {
+      console.log('signInFailure');
       state.isLoadingApp = false;
     },
     signOut(state) {
+      console.log('signOut');
       state.user = null;
       state.isAuthenticated = false;
       state.isLoadingApp = false;
       state.token = null; // Limpiar el token al cerrar sesión
     },
+    refreshProfileData(state, action: PayloadAction<boolean>) {
+      console.log('refreshProfileData');
+      state.isLoadingApp = action.payload;
+    },
   },
   extraReducers: (builder) => {
     // Thunk para verificar el código
     builder.addCase(verifyCode.pending, (state) => {
+      console.log('verifyCode pending');
       state.isVerifying = true;
       state.isLoadingApp = true;
       state.message = null;
@@ -161,6 +178,7 @@ const authSlice = createSlice({
       state.codeSuccess = false;
     });
     builder.addCase(verifyCode.fulfilled, (state, action) => {
+      console.log('verifyCode fulfilled:', action.payload);
       state.isVerifying = false;
       state.isLoadingApp = false;
       state.isVerified = true;
@@ -171,6 +189,7 @@ const authSlice = createSlice({
       state.token = action.payload.token || null; // Almacenar el token en el estado
     });
     builder.addCase(verifyCode.rejected, (state, action) => {
+      console.log('verifyCode rejected:', action.payload);
       state.isVerifying = false;
       state.isLoadingApp = false;
       state.codeError = true;
@@ -179,11 +198,13 @@ const authSlice = createSlice({
 
     // Thunk para reenviar el código
     builder.addCase(resendCode.pending, (state) => {
+      console.log('resendCode pending');
       state.isResending = true;
       state.isLoadingApp = true;
       state.message = null;
     });
     builder.addCase(resendCode.fulfilled, (state) => {
+      console.log('resendCode fulfilled');
       state.isResending = false;
       state.isLoadingApp = false;
       state.message = 'Código reenviado con éxito';
@@ -191,6 +212,7 @@ const authSlice = createSlice({
       state.canResend = false;
     });
     builder.addCase(resendCode.rejected, (state, action) => {
+      console.log('resendCode rejected:', action.payload);
       state.isResending = false;
       state.isLoadingApp = false;
       state.message = action.payload || 'Error al reenviar el código';
@@ -198,11 +220,13 @@ const authSlice = createSlice({
 
     // Thunk para el inicio de sesión
     builder.addCase(login.pending, (state) => {
+      console.log('login pending');
       state.loginLoading = true;
       state.loginError = false;
       state.loginMessage = null;
     });
     builder.addCase(login.fulfilled, (state, action) => {
+      console.log('login fulfilled:', action.payload);
       state.loginLoading = false;
       state.isAuthenticated = true;
       state.user = action.payload.userDetails || null;
@@ -210,6 +234,7 @@ const authSlice = createSlice({
       state.loginMessage = 'Inicio de sesión exitoso';
     });
     builder.addCase(login.rejected, (state, action) => {
+      console.log('login rejected:', action.payload);
       state.loginLoading = false;
       state.loginError = true;
       state.loginMessage = action.payload || 'Error al iniciar sesión';
@@ -217,5 +242,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { signInStart, signInSuccess, signInFailure, signOut } = authSlice.actions;
+export const { signInStart, signInSuccess, signInFailure, signOut, refreshProfileData } = authSlice.actions;
 export default authSlice.reducer;

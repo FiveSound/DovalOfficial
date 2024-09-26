@@ -10,6 +10,7 @@ import { MyMenu, MyPosts, MySaves, MyShares, CtoUserProfile } from "./Components
 
 interface RouteParams {
     username: string;
+    businessID: string;
 }
 
 type Props = {
@@ -17,7 +18,7 @@ type Props = {
 
 const UserProfile = (props: Props) => {
     const route = useRoute<RouteProp<{ params: RouteParams }, 'params'>>();
-    const { username } = route.params;
+    const { username, businessID } = route.params;
     const { user, currentLocation } = useAuth();
     const navigation = useNavigation()
     const [refreshing, setRefreshing] = useState(false);
@@ -80,7 +81,7 @@ const UserProfile = (props: Props) => {
                 MyPosts={<MyPosts username={username} currentLocation={currentLocation} />}
                 Myshares={<MyShares username={username} />}
                 MySaves={<MySaves username={username} />}
-                MyMenu={<MyMenu username={username} />}
+                MyMenu={<MyMenu businessID={businessID} />}
             />
         </LayoutProfile>
     );

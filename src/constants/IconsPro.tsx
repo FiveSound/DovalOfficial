@@ -154,6 +154,15 @@ const EyeIcon = (props: SvgProps) => (
   </Svg>
 );
 
+const ShoppingBasketAdd03Icon = (props: SvgProps) => (
+<Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+    <Path d="M17.2069 6.73792C17.2069 3.70035 14.7445 1.23792 11.7069 1.23792C8.66932 1.23792 6.20689 3.70035 6.20689 6.73792" stroke="currentColor" strokeWidth="1.5" />
+    <Path d="M3.7207 17.5L10.4995 17.5" stroke="currentColor" strokeWidth="1.5" />
+    <Path d="M12.5 18H20.5M16.5 22V14" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    <Path d="M10.0071 21.5H4.50154L2.0015 7.11698C1.99088 7.05589 2.03797 7 2.10006 7H20.8999C20.962 7 21.0091 7.05586 20.9985 7.11694L20.0547 12.5535" stroke="currentColor" strokeWidth="1.5" />
+  </Svg>
+);
+
 const ShoppingBagAddIcon = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -1998,6 +2007,7 @@ const LanguageSkillIcon = (props: SvgProps) => (
 );
 
 export {
+  ShoppingBasketAdd03Icon,
   AlertSquareIconStroke,
   ComplaintIcon,
   UserBlock01IconStroke,

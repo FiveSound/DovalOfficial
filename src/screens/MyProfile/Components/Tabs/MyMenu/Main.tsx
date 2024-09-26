@@ -1,62 +1,84 @@
-import { ListRenderItem, RefreshControl, StyleSheet } from "react-native";
+import React, { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { RefreshControl, StyleSheet } from "react-native";
 import { useRefreshData } from "../../../../../hooks/useRefreshData";
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import i18next from "../../../../../Translate";
 import { useAuth } from "../../../../../context/AuthContext";
-import { FlexContainer, Icons, IsLoading, LoadingScreen, ScreenEmpty, Search } from "../../../../../components/custom";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../../constants/theme";
+import { Buttons, FlexContainer, IsLoading, LoadingScreen, ScreenEmpty, Typography } from "../../../../../components/custom";
+import { COLORS, FONTS, SIZES } from "../../../../../constants/theme";
 import { Ilustrations } from "../../../../../constants";
-import { FlashList, ScrollView, View } from "../../../../../components/native";
-import { GridViewIcon, PlusSignIcon } from "../../../../../constants/IconsPro";
-import { useTheme } from "../../../../../hooks";
-const LazyCard = lazy(() => import("../../../../../components/custom/business/CardRecipies"))
+import { ScrollView } from "../../../../../components/native";
+import { RecipeList, SearchBar } from "./Components";
+const LazyCard = lazy(() => import("../../../../../components/custom/business/CardRecipies"));
 
-interface listInterface {
+interface Recipe {
   name: string;
+  description: string;
+  thumbnail: string;
+  price: string;
   id: number;
+  businessID: number;
+  cover: string;
+}
+
+interface MainProps {
+  data: Recipe[];
+  isLoading: boolean;
+  isError: boolean;
+  refetch: () => void;
 }
 
 
-const Main = (props: any) => {
-  const { data, isLoading, isError, refetch: RefreshData } = props;
-  const [view, setView] = useState(false);
-  const { Description } = useTheme()
-  const { user } = useAuth()
-  const userSellers = user?.businessID !== null ? true : false
-  const [focus, setFocus] = useState(false)
-  const { onRefresh, isRefreshing } = useRefreshData([RefreshData]);
+const Main: React.FC<MainProps> = (props: MainProps) => {
+  const { data, isLoading, isError, refetch } = props;
+  const { user } = useAuth();
+  const userSellers = user?.businessID !== null;
+  const [focus, setFocus] = useState(false);
+  const { onRefresh, isRefreshing } = useRefreshData([refetch]);
   const [searchText, setSearchText] = useState('');
-  const filteredData = data ? data.filter((item: listInterface) =>
-    item.name.toLowerCase().includes(searchText.toLowerCase())
-  ) : [];
-  const handleSearch = (text: string) => {
+  const PLACEHOLDER_TEXT = i18next.t("Find recipes from your favorite");
+  const EMPTY_STATE_LABEL = i18next.t("You don't have posts yet");
+  const EMPTY_STATE_SUBLABEL = i18next.t("Upload your content today");
+  const EMPTY_STATE_BUTTON_LABEL = i18next.t("Upload posts");
+
+  const filteredData = useMemo(() => {
+    return Array.isArray(data) ? data.filter((item: Recipe) =>
+      item.name.toLowerCase().includes(searchText.toLowerCase())
+    ) : [];
+  }, [data, searchText]);
+
+  const handleSearch = useCallback((text: string) => {
     setSearchText(text);
-  };
-  useEffect(() => {
-  }, [data]);
-
-
-  const renderItem: ListRenderItem<any> = useCallback(
-    ({ item, index }) => {
-      return (
-        <Suspense fallback={<IsLoading />}>
-          <LazyCard row={item} />
-        </Suspense>
-      );
-    },
-    [data]
-  );
-
-  const estimatedItemSize = useMemo(() => {
-    return 529;
   }, []);
 
-  if (isLoading) return <LoadingScreen />
+  const renderItem = useCallback(
+    ({ item }: { item: Recipe }) => (
+      <Suspense fallback={<IsLoading />}>
+        <LazyCard row={item} />
+      </Suspense>
+    ),
+    []
+  );
+
+  const onViewGrid = useCallback(() => {
+    console.log('View grid');
+  }, []);
+
+  if (isLoading) return <LoadingScreen />;
+
+  if (isError) {
+    return (
+      <FlexContainer newStyle={styles.errorContainer}>
+        <Typography variant='H4title' newStyle={styles.errorText}>Ocurrió un error al cargar los datos.</Typography>
+        <Buttons label="Reintentar" onPress={refetch} />
+      </FlexContainer>
+    );
+  }
+
 
   if (data && Array.isArray(data)) {
     return (
       <>
-        {data.length === 0 && (
+        {data.length === 0 ? (
           <ScrollView
             refreshControl={
               <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
@@ -70,9 +92,9 @@ const Main = (props: any) => {
               }}
             >
               <ScreenEmpty
-                labelPart1={i18next.t("You don't have posts yet")}
-                subLabel={i18next.t("Upload your content today")}
-                labelButton={i18next.t("Upload posts")}
+                labelPart1={EMPTY_STATE_LABEL}
+                subLabel={EMPTY_STATE_SUBLABEL}
+                labelButton={EMPTY_STATE_BUTTON_LABEL}
                 onPress={() => console.log('')}
                 labelStylePart1={{
                   ...FONTS.LargeTitle,
@@ -86,56 +108,43 @@ const Main = (props: any) => {
               />
             </FlexContainer>
           </ScrollView>
+        ) : (
+          <>
+            <SearchBar
+              searchText={searchText}
+              placeholder={PLACEHOLDER_TEXT}
+              handleSearch={handleSearch}
+              onViewGrid={onViewGrid}
+              focus={focus}
+              setFocus={setFocus}
+            />
+            <RecipeList
+              data={filteredData}
+              renderItem={renderItem}
+              isRefreshing={isRefreshing}
+              onRefresh={onRefresh}
+            />
+          </>
         )}
-        <>
-          {data.length >= 1 &&
-            <FlexContainer newStyle={styles.searchContainer} variant='row'>
-              <Search
-                value=""
-                placeholder={i18next.t('Find recipes from your favorite')}
-                onChange={handleSearch}
-                onBlur={() => setFocus(false)}
-                onFocus={() => setFocus(true)}
-                containerStyle={{
-                  width: SIZES.width / 1.2,
-                }}
-              />
-              <Icons
-                appendIcons={<GridViewIcon width={SIZES.icons} height={SIZES.icons} color={Description}/>}
-                onPress={() => console.log('View grid')}
-              />
-            </FlexContainer>
-
-          }
-         <FlashList
-            data={data}
-            renderItem={renderItem}
-            numColumns={3}
-            keyExtractor={item => item.id.toString()}
-            refreshing={isRefreshing}
-            onRefresh={onRefresh}
-            contentContainerStyle={styles.flatListContent}
-            showsVerticalScrollIndicator={false}
-            ListFooterComponent={<View style={{ height: responsiveFontSize(100) }} />}
-            estimatedItemSize={estimatedItemSize}
-            getItemType={(item) => item.mediaType}
-          />
-        </>
       </>
     );
   }
+
+  return null;
 };
 
 const styles = StyleSheet.create({
-  searchContainer: {
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "transparent",
-    justifyContent: "space-between",
-    paddingHorizontal: SIZES.gapLarge
+    padding: SIZES.gapLarge,
   },
-  flatListContent: {
-    paddingBottom: SIZES.height / 4,
+  errorText: {
+    ...FONTS.semi16,
+    color: COLORS.error,
+    marginBottom: SIZES.gapMedium,
   },
-})
+});
 
 export default Main;

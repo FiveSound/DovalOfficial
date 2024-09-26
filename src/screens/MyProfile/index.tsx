@@ -11,7 +11,6 @@ import {
   Follows,
   TabsMyProfile,
   MyPosts,
-  IncompleteInfo,
   MyShares,
   MySaves,
   MyMenu,
@@ -55,7 +54,6 @@ const MyProfile = (props: Props) => {
   ]);
 
   useEffect(() => {
-    console.log("isAuthenticated changed:", isAuthenticated);
     if (isAuthenticated) {
       refetchProfile();
       refetchFollowers();
@@ -63,7 +61,6 @@ const MyProfile = (props: Props) => {
   }, [isAuthenticated, refetchProfile, refetchFollowers]);
 
   useEffect(() => {
-    console.log("Loading states changed:", { isLoadingApp, isLoadingFollowers, isLoadingProfile });
     if (!isLoadingApp && !isLoadingFollowers && !isLoadingProfile) {
       if (isAuthenticated) {
         refetchProfile();
@@ -92,40 +89,42 @@ const MyProfile = (props: Props) => {
       </LayoutProfile>
     );
   }
-
-  return (
-    <LayoutProfile
-      data={userProfileData}
-      isRefreshing={isRefreshing}
-      onRefresh={onRefresh}
-    >
-      <AvatarProfile data={userProfileData} refetch={refetchProfile} />
-      <Inf data={userProfileData} />
-      <CtoProfile data={userProfileData}/>
-      <Follows
-        data={followersData}
-        onPressFollowing={() =>
-          navigation.navigate("Followers", {
-            initialIndex: 1,
-            username: userProfileData?.username,
-          })
-        }
-        onPressFollowers={() =>
-          navigation.navigate("Followers", {
-            initialIndex: 0,
-            username: userProfileData?.username,
-          })
-        }
-      />
-      {/* <IncompleteInfo visible={true} /> */}
-      <TabsMyProfile 
-      MyPosts={<MyPosts />} 
-      Myshares={<MyShares />} 
-      MySaves={<MySaves />} 
-      MyMenu={<MyMenu />} 
-      />
-    </LayoutProfile>
-  );
+   
+  if(userProfileData && followersData){
+    return (
+      <LayoutProfile
+        data={userProfileData}
+        isRefreshing={isRefreshing}
+        onRefresh={onRefresh}
+      >
+        <AvatarProfile data={userProfileData} refetch={refetchProfile} />
+        <Inf data={userProfileData} />
+        <CtoProfile data={userProfileData}/>
+        <Follows
+          data={followersData}
+          onPressFollowing={() =>
+            navigation.navigate("Followers", {
+              initialIndex: 1,
+              username: userProfileData?.username,
+            })
+          }
+          onPressFollowers={() =>
+            navigation.navigate("Followers", {
+              initialIndex: 0,
+              username: userProfileData?.username,
+            })
+          }
+        />
+        {/* <IncompleteInfo visible={true} /> */}
+        <TabsMyProfile 
+        MyPosts={<MyPosts />} 
+        Myshares={<MyShares />} 
+        MySaves={<MySaves />} 
+        MyMenu={<MyMenu />} 
+        />
+      </LayoutProfile>
+    );
+   }
 };
 
 export default MyProfile;

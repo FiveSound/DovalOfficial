@@ -420,7 +420,7 @@ export const FONTS = {
   text14: {
     fontFamily: "PlusJakartaSans-Regular",
     fontSize: SIZES.text14,
-    lineHeight: SIZES.text14,
+    lineHeight: SIZES.text14 * 1.2,
   },
 
   text12: {

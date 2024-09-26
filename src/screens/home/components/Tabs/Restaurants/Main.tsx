@@ -54,25 +54,14 @@ const Main = ({
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);
 
   const toggleFilterStores = useCallback(() => {
-    console.log("toggleFilterStores clicked");
     setFilterStores((prev) => !prev);
   }, [setFilterStores]);
 
   const toggleFreeShipping = useCallback(() => {
-    console.log("toggleFreeShipping clicked");
     setFreeShipping((prev) => !prev);
   }, [setFreeShipping]);
 
-  const renderItem = useCallback(({ item }: { item: any }) => {
-    return (
-      <Suspense fallback={<IsLoading />}>
-        <LazyCard item={item} />
-      </Suspense>
-    );
-  }, []);
-
-  const emptyComponent = useMemo(
-    () => (
+  const emptyComponent = () => (
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
@@ -94,9 +83,16 @@ const Main = ({
           ShowButton={false}
         />
       </ScrollView>
-    ),
-    [isRefreshing, onRefresh]
-  );
+    )
+
+  const renderItem = useCallback(({ item }: { item: any }) => {
+    return (
+      <Suspense fallback={<IsLoading />}>
+        <LazyCard item={item} />
+      </Suspense>
+    );
+  }, []);
+
 
   if (isLoading) {
     return <IsLoading label="Loading business" />;
@@ -128,7 +124,7 @@ const Main = ({
       />
       <FlatList
         data={filteredData}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item) => item.businessID.toString()}
         renderItem={renderItem}
         initialNumToRender={3}
         maxToRenderPerBatch={3}
@@ -136,11 +132,11 @@ const Main = ({
         onRefresh={onRefresh}
         refreshing={isRefreshing}
         contentContainerStyle={{
-            paddingBottom: SIZES.height / 1,
+            paddingBottom: SIZES.height / 4,
         }}
       />
     </FlexContainer>
   );
 };
 
-export default React.memo(Main);
+export default Main;

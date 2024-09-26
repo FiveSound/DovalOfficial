@@ -11,7 +11,6 @@ import FlexContainer from "../FlexContainer";
 import Typography from "../Typography";
 import { COLORS, FONTS, SIZES } from "../../../constants/theme";
 import { Image } from "../../native";
-import TextButton from "../Buttons/TextButton";
 import Buttons from "../Buttons/Buttons";
 
 type Props = {
@@ -21,7 +20,7 @@ type Props = {
   labelStylePart2?: TextStyle;
   sublabelStyles?:TextStyle;
   subLabel?: string;
-  source?: ImageProps;
+  source?: string;
   ImageStyle?: StyleProp<ImageStyle>;
   Lottiew?: boolean;
   sourceLottiew?: string;
@@ -72,6 +71,9 @@ const ScreenEmpty = ({
       {!top && (
         <Image
           source={source}
+          placeholderSource={source}
+          server={false}
+          showPlaceholder={true}
           style={{
             ...styles.image,
             ...(ImageStyle as object),
@@ -99,7 +101,10 @@ const ScreenEmpty = ({
       </Typography>
       {top && (
         <Image
-          source={source}
+        source={source}
+        placeholderSource={source}
+        server={false}
+        showPlaceholder={true}
           style={{
             ...styles.image,
             ...(ImageStyle as object),

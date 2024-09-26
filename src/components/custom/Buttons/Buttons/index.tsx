@@ -58,7 +58,7 @@ const Buttons = (props: Props) => {
       onPress={handlePress}
       style={[
         styles.container,
-        containerButtons, // Asegúrate de que containerButtons se aplica aquí
+        containerButtons, 
         { backgroundColor: getBackgroundColor() }, 
       ]}
       disabled={disabled}
@@ -85,7 +85,7 @@ const Buttons = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     width: SIZES.BtnWidth,
-    height: SIZES.BtnHeight,
+    height: SIZES.BtnHeight / 1.2,
     borderRadius: SIZES.smallRadius,
     alignItems: "center",
     justifyContent: "center",

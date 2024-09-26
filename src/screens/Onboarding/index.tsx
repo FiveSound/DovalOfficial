@@ -24,6 +24,7 @@ import { useTheme } from "../../hooks";
 import i18next from "../../Translate";
 import { useDispatch } from "react-redux";
 import { closeOnboardingModal } from "../../redux/slides/modalSlice";
+import { refreshProfileData } from "../../redux/slides/authSlice";
 
 type Props = {};
 
@@ -31,9 +32,7 @@ const Onboarding = (props: Props) => {
   const { data, isLoading, refetch } = useAPI({
     queryKey: ["getInterestsService"],
     queryFn: () => getInterestsService(),
-  });
-
-  
+  });  
   const { backgroundMaingrey, Title } = useTheme();
   const navigation = useNavigation();
   const [selectedInterests, setSelectedInterests] = useState<Interests[]>([]);
@@ -56,9 +55,11 @@ const Onboarding = (props: Props) => {
     try {
       const response = await saveInterestsService(selectedInterests);
       setSaveSuccess(response.success);
+      dispatch(refreshProfileData(true)); 
       if (response.success) {
         setTimeout(() => {
           navigation.navigate('TabsNavigation');
+          dispatch(refreshProfileData(false)); 
         }, 500);
       }
     } catch (error) {

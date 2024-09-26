@@ -20,7 +20,6 @@ const Restaurants = () => {
     refetchPostData,
     Loader
 } = useBusinessLogic({ Search, filterStores, freeShipping, navigateToPermissionScreen });
-
   return (
      <Main
        filteredData={filteredData}

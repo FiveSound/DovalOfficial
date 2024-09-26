@@ -14,7 +14,8 @@ item: {
   follower_count: string;
   verify: number;
   ProfileName: string;
-  mediaType: number
+  mediaType: number;
+  userID: string;
 }
 };
 
@@ -22,13 +23,14 @@ const UserInfo = React.memo(({
   item
 }: Props) => {
   const navigation = useNavigation();
+
   const { user } = useAuth()
   const MyProfile = useMemo(() => user?.username === item.username, [user?.username, item.username]);
   const handleNavigation = () => {
     if (MyProfile) {
       navigation.navigate("MyProfile");
     } else {
-      navigation.navigate("UserProfile", { username: item.username });
+      navigation.navigate("UserProfile", { username: item.username, businessID: item.userID });
     }
   };
 
@@ -38,7 +40,7 @@ const UserInfo = React.memo(({
       onPress={handleNavigation}
       style={styles.container}
     >
-      <Avatars size='medium' source={`${CLOUDFRONT}${item.avatar}`}/>
+      <Avatars size='medium' source={`${CLOUDFRONT}${item.avatar}`} />
       <FlexContainer>
         <FlexContainer newStyle={{ flexDirection: "row", alignItems: "center" }}>
           <Typography
