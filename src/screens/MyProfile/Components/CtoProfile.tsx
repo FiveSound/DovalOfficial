@@ -10,6 +10,7 @@ import { Buttons, FlexContainer, Icons, Typography } from "../../../components/c
 import { COLORS, FONTS, SIZES } from "../../../constants/theme";
 import { TouchableOpacity, useNavigation} from "../../../components/native";
 import * as Haptics from "expo-haptics";
+import i18next from "../../../Translate";
 
 type Props = {
   label?: string | undefined;
@@ -39,7 +40,7 @@ const CtoProfile = ({
     <Website />
       <FlexContainer variant="row" newStyle={styles.container}>
         <Buttons
-          label="Editar"
+          label={i18next.t("Editar")}
           variant="primary"
           onPress={() => navigation.navigate('ProfileStack')}
           containerButtons={{

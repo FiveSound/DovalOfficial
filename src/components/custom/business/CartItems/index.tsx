@@ -1,6 +1,5 @@
 import React, { useState, memo, useCallback } from "react";
 import { StyleSheet } from "react-native";
-import { useCart } from "../../../../context/CartContext";
 import { CLOUDFRONT } from "../../../../services";
 import {
   COLORS,
@@ -32,17 +31,7 @@ const CartItem: React.FC<Props> = ({
   qty,
   thumbnail,
 }) => {
-  const [load, setLoad] = useState<boolean>(false);
   const { backgroundMaingrey } = useTheme();
-  const { addProduct, removeProduct } = useCart();
-
-  const handleAdd = useCallback(() => {
-    addProduct(recipeID, setLoad);
-  }, [addProduct, recipeID]);
-
-  const handleRemove = useCallback(() => {
-    removeProduct(recipeID, setLoad);
-  }, [removeProduct, recipeID]);
 
   return (
     <FlexContainer
@@ -64,9 +53,11 @@ const CartItem: React.FC<Props> = ({
       >
         <Image
           source={{ uri: `${CLOUDFRONT}${thumbnail}`}}
+          placeholderSource={`${CLOUDFRONT}${thumbnail}`}
           style={styles.thumbnail}
           cachePolicy="memory-disk"
           priority="high"
+          contentFit='cover'
           accessibilityLabel={`${name} imagen`}
         />
         <FlexContainer newStyle={styles.containerText}>
@@ -92,10 +83,7 @@ const CartItem: React.FC<Props> = ({
       <LineDivider />
       <ToggleAdd 
         recipeID={recipeID}
-        setLoad={setLoad}
         qty={qty}
-        onAdd={handleAdd}
-        onRemove={handleRemove}
       />
     </FlexContainer>
   );

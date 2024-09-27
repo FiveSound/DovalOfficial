@@ -6,6 +6,7 @@ import { ArrowDown01Icon, ArrowDown01IconStroke, LoginMethodIcon, SafeDelivery01
 import { FlexContainer, InfoCard } from '../../../../components/custom';
 import { useDispatch } from 'react-redux';
 import { closeModalPin } from '../../../../redux/slides/modalSlice';
+import i18next from '../../../../Translate';
 
 const ModalPin = () => {
     const { backgroundMaingrey, Title } = useTheme();
@@ -19,25 +20,25 @@ const ModalPin = () => {
               <TouchableOpacity onPress={handleClose}>
               <InfoCard
                 icon={<ArrowDown01IconStroke  width={SIZES.icons * 1.4} height={SIZES.icons * 1.4} color={Title}/>}
-                title="Confirm delivery with your Pin"
-                description="After you get your order, tell the delivery person your PIN."
+                title={i18next.t("Confirm delivery with your Pin")}
+                description={i18next.t("After you get your order, tell the delivery person your PIN.")}  
                 orientation='RIGHT'
             />
               </TouchableOpacity>
             <InfoCard
                 icon={<SecurityCheckIconSharp  width={SIZES.icons * 1.4} height={SIZES.icons * 1.4} color={Title}/>}
-                title="Fraud Protection"
-                description="The unique PIN ensures only you can confirm the delivery, preventing fraud."
+                title={i18next.t("Fraud Protection")}
+                description={i18next.t("The unique PIN ensures only you can confirm the delivery, preventing fraud.")}
             />
             <InfoCard
                 icon={<SafeDelivery01Icon  width={SIZES.icons * 1.4} height={SIZES.icons * 1.4} color={Title}/>}
-                title="Secure Delivery"
-                description="Provide the PIN to the delivery person to ensure your order reaches you."
+                title={i18next.t("Secure Delivery")}
+                description={i18next.t("Provide the PIN to the delivery person to ensure your order reaches you.")}
             />
             <InfoCard
                 icon={<LoginMethodIcon  width={SIZES.icons * 1.4} height={SIZES.icons * 1.4} color={Title}/>}
-                title="Delivery Verification"
-                description="Use the PIN to confirm receipt and avoid delivery mistakes."
+                title={i18next.t("Delivery Verification")}
+                description={i18next.t("Use the PIN to confirm receipt and avoid delivery mistakes.")}
             />
         </FlexContainer>
     );

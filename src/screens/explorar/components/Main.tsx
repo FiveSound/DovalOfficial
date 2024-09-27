@@ -118,7 +118,6 @@ const Main = memo(({ currentLocation }: MainProps) => {
     />
   ), [focusedIndex]);
 
-  if (isLoading) return <LoaderMain ShowHeader={false} />;
 
   return (
     <FlexContainer newStyle={styles.container}>

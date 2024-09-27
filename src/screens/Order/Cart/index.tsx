@@ -13,9 +13,15 @@ import styles from "./styles";
 import i18next from "i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { useQuery } from "@tanstack/react-query";
+import { getCartService } from "../../../services/cart";
 
 const Cart = () => {
-  const { cart, isLoading, refetching } = useCart();
+  const { data, isLoading, isFetching, refetch } = useQuery({
+    queryKey: ["cart-screen"],
+    queryFn: getCartService,
+  });
+  console.log('data', data);
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
   const {
@@ -26,7 +32,7 @@ const Cart = () => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await refetching();
+    await refetch();
     setRefreshing(false);
   };
 
@@ -42,16 +48,16 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (cart.list.length === 0 && !isLoading && !isLoadingApp && isAuthenticated) {
-        await refetching();
+      if (data.list.length === 0 && !isLoading && !isLoadingApp && isAuthenticated) {
+        await refetch();
       }
     };
     fetchData();
-  }, [cart, isLoading, isLoadingApp, isAuthenticated, refetching]);
+  }, [data, isLoading, isLoadingApp, isAuthenticated]);
 
-  if (isLoading && isLoadingApp) return <LoadingScreen />;
+  if (isLoading || isLoadingApp || isFetching) return <LoadingScreen />;
 
-  if (cart.list.length === 0 && isAuthenticated) {
+  if (data.list.length === 0  && isAuthenticated) {
     return (
       <Container 
       showBack={true} 
@@ -81,7 +87,7 @@ const Cart = () => {
     );
   }
 
-  if (cart.list.length > 0 && isAuthenticated) {
+  if (data.list.length > 0 && isAuthenticated) {
     return (
       <Container
         showBack={true}
@@ -89,9 +95,9 @@ const Cart = () => {
         label={i18next.t("Cart")}
         showFooterCart={true}
         FooterPress={handleNavigate}
-        ProductsLength={cart.list.flat().length || 0}
+        ProductsLength={data.list.flat().length || 0}
         labelAdd={i18next.t("Checkout")}
-        TotalPrice={cart.total || '0'}
+        TotalPrice={data.total || '0'}
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -99,7 +105,7 @@ const Cart = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          {cart.list.map((row: any) => (
+          {data.list.map((row: any) => (
             <Accordion
               key={row.businessID}
               row={row}

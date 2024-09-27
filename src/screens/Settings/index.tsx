@@ -26,7 +26,7 @@ const Settings = () => {
     <FlexContainer>
       <Typography variant='H4title' newStyle={{
         color: Description
-      }}>Login</Typography>
+      }}>{i18next.t('Logout')}</Typography>
       <SignOut />
     </FlexContainer>
   )
@@ -34,11 +34,11 @@ const Settings = () => {
   const Settings = [
     {
         id: 'General',
-        label: 'General',
+        label: i18next.t('General'),
         content: [
             {
                 id: 'Account',
-                label: 'Account',
+                label: i18next.t('Account'),
                 navigation: 'Account',
                 icon: <UserStatusIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
@@ -56,79 +56,79 @@ const Settings = () => {
             // },
             {
                 id: 'Paymentmethods',
-                label: 'Payment methods',
+                label: i18next.t('Payment methods'),
                 navigation: 'PaymentsGeneral',
                 icon: <Wallet02Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
             {
                 id: 'MyLocations',
-                label: 'My Locations',
+                label: i18next.t('My Locations'),
                 navigation: 'MyLocationsGeneral',
                 icon: <Location09Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
-            {
-                id: 'MyCoupons',
-                label: 'My Coupons',
-                navigation: 'Coupons',
-                icon: <Coupon01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
-            }
+            // {
+            //     id: 'MyCoupons',
+            //     label: 'My Coupons',
+            //     navigation: 'Coupons',
+            //     icon: <Coupon01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
+            // }
         ]
     },
-    {
-        id: 'Display',
-        label: 'Display',
-        content: [
-            {
-                id: 'Notifications',
-                label: 'Notifications',
-                navigation: 'Notifications',
-                icon: <Notification03IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>
-            },
-            {
-                id: 'Languages & Currency',
-                label: 'Languages & Currency',
-                navigation: 'Languages',
-                icon: <LanguageSkillIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
-            },
+    // {
+    //     id: 'Display',
+    //     label: 'Display',
+    //     content: [
+    //         {
+    //             id: 'Notifications',
+    //             label: 'Notifications',
+    //             navigation: 'Notifications',
+    //             icon: <Notification03IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>
+    //         },
+    //         {
+    //             id: 'Languages & Currency',
+    //             label: 'Languages & Currency',
+    //             navigation: 'Languages',
+    //             icon: <LanguageSkillIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
+    //         },
             // {
             //     id: 'Dark Mode',
             //     label: 'Dark Mode',
             //     navigation: 'Dark Mode',
             //     icon: <AddCircleHalfDotIcon />
             // }
-        ]
-    },
+    //     ]
+    // },
     {
         id: 'Support and about',
-        label: 'Support and about',
+        label: i18next.t('Support and about'),
         content: [
             {
                 id: 'Legal',
-                label: 'Legal',
+                label: i18next.t('Legal'),
                 navigation: 'Legal',
                 icon: <Legal01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
             {
                 id: 'Support',
-                label: 'Support',
+                label: i18next.t('Support'),
                 navigation: 'Support',
                 icon: <HelpSquareIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
             {
                 id: 'Report a problem',
-                label: 'Report a problem',
+                label: i18next.t('Report a problem'),
                 navigation: 'Report',
                 icon: <HelpSquareIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
             {
                 id: 'Register business',
-                label: 'Register business',
+                label: i18next.t('Register business'),
                 navigation: 'RegisterBusiness',
                 icon: <Store01IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
             {
                 id: 'Register delivery',
-                label: 'Register delivery',
+                label: i18next.t('Register delivery'),
                 navigation: 'RegisterDelivery',
                 icon: <AddCircleHalfDotIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
             }

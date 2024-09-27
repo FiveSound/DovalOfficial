@@ -140,7 +140,7 @@ const InputLabel = (props: Props) => {
 const styles = StyleSheet.create({
     container: {
       backgroundColor: 'transparent',
-      width: SIZES.width,
+      width: '100%',
       paddingHorizontal: SIZES.gapLarge,
       marginVertical: SIZES.gapSmall,
     },

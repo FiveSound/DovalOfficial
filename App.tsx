@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import {
   Platform,
   SafeAreaView,
@@ -14,20 +14,34 @@ import {
   LoadingScreen,
 } from "./src/components/custom";
 import { LogBox } from "react-native";
-import { usePrepareApp, useTheme } from "./src/hooks";
+import { useLocation, usePrepareApp, useTheme } from "./src/hooks";
 import styles from "./AppStyles";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Provider } from 'react-redux';
-import store from './src/redux/store';
 import { AuthProvider } from "./src/context/AuthContext";
 import Modal from "./src/screens/Modal";
 import { CartProvider } from "./src/context/CartContext";
 import { DashboardProvider } from "./src/context/DashboardContext";
+import { CountryLanguageMap } from "./src/constants/CountryLanguageMap";
+import i18next from "./src/Translate";
+import { useAppSelector } from "./src/redux";
+import { RootState } from './src/redux/store';
 
 const queryClient = new QueryClient();
-export default function App() {
-  LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
+
+const App: React.FC = () => {
+  const countryKey = useAppSelector((state: RootState) => state.location.countryKey);
+  // console.log('countryKey', countryKey);
+  // useLocation();
+  // useEffect(() => {
+  //   if (countryKey && CountryLanguageMap[countryKey]) {
+  //     i18next.changeLanguage(CountryLanguageMap[countryKey]);
+  //   } else {
+  //     i18next.changeLanguage('en');
+  //   }
+  // }, [countryKey]);
+
   const [appIsReady, setAppIsReady] = useState(false);
   const linking = useMemo(
     () => ({
@@ -56,30 +70,29 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <SafeAreaProvider onLayout={onLayoutRootView} style={styles.flexContainer}>
-          <NavigationContainer linking={linking}>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider onLayout={onLayoutRootView} style={styles.flexContainer}>
+        <NavigationContainer linking={linking}>
           <AuthProvider>
-          <DashboardProvider>
-            <CartProvider>
-            <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-                {Platform.OS === "android" ? (
-                  <SafeAreaView style={styles.safeAreaView}>
+            <DashboardProvider>
+              <CartProvider>
+                <GestureHandlerRootView style={styles.gestureHandlerRootView}>
+                  {Platform.OS === "android" ? (
+                    <SafeAreaView style={styles.safeAreaView}>
+                      <RootNavigation />
+                    </SafeAreaView>
+                  ) : (
                     <RootNavigation />
-                  </SafeAreaView>
-                ) : (
-                  <RootNavigation />
-                )}
-
-              <Modal />
-            </GestureHandlerRootView>
-            </CartProvider>
+                  )}
+                  <Modal />
+                </GestureHandlerRootView>
+              </CartProvider>
             </DashboardProvider>
-            </AuthProvider>
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </QueryClientProvider>
-    </Provider>
+          </AuthProvider>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </QueryClientProvider>
   );
-}
+};
+
+export default App;

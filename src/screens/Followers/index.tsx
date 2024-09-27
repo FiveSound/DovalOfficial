@@ -3,7 +3,12 @@ import useTheme from "../../hooks/useTheme";
 import { TabFollowers, TabFollowing, Tabs } from "./Components";
 
 type Props = {
-  route: any;
+  route: {
+    params: {
+      initialIndex: number;
+      username: string;
+    };
+  };
 };
 
 const Followers = (props: Props) => {

@@ -72,7 +72,7 @@ const TrackingInf = (props: Props) => {
               <Animated.View style={{ transform: [{ translateY: translateYAnim }] }}>
                 <InfoCard
                   icon={<GridViewIcon color={Title} width={SIZES.icons * 1.2} height={SIZES.icons * 1.2}/>}
-                  title={`Confirm order PIN: ${verification_code}`}
+                  title={i18next.t('Confirm order PIN')}
                   description={i18next.t('Confirm your order to avoid fraud')}
                   showArrow={true}
                   showLineDivider={true}

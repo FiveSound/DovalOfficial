@@ -1102,6 +1102,13 @@ export const Delete03IconSharp = (props: SvgProps) => (
   </Svg>
 );
 
+const Remove01Icon = (props: SvgProps) => (
+  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+    <Path d="M20 12L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  </Svg>
+);
+
+
 const Delete03IconStroke = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -2007,6 +2014,7 @@ const LanguageSkillIcon = (props: SvgProps) => (
 );
 
 export {
+  Remove01Icon,
   ShoppingBasketAdd03Icon,
   AlertSquareIconStroke,
   ComplaintIcon,

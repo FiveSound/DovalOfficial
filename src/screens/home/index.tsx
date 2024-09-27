@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import Signup from "../auth/Signup";
 import {
@@ -6,13 +6,10 @@ import {
   LiveOrders,
   Categories,
   Restaurants,
-  Orders,
-  Recipies,
-  Promotions,
 } from "./components";
 import { View } from "../../components/native";
 import { SIZES } from "../../constants/theme";
-import { LineDivider, LoadingScreen, TabsMain } from "../../components/custom";
+import { LoadingScreen } from "../../components/custom";
 import { useAppSelector } from "../../redux";
 import { RootState } from "../../redux/store";
 

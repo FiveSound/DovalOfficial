@@ -83,7 +83,7 @@ const CtoUserProfile = ({
         <FlexContainer variant="row" newStyle={styles.container}>
           <Buttons
             loading={isLoading || isFetching}
-            label={user?.userID === data?.userID ? "Editar" : followed ? i18next.t("Following") : isLoading || isFetching ? '' : i18next.t("Follow")}
+            label={user?.userID === data?.userID ? i18next.t("Editar") : followed ? i18next.t("Following") : isLoading || isFetching ? '' : i18next.t("Follow")}
             variant={user?.userID === data?.userID ? "disabled" : followed ? 'disabled' : "primary"}
             onPress={user?.userID === data?.userID ? () => navigation.navigate('ProfileStack') :
               () => {

@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import * as Location from 'expo-location';
 import { useDispatch } from 'react-redux';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { isLocationInCountry } from '../constants/SellersCountry';
 import KeyApi from '../constants/KeyApi';
 import { Country } from '../constants/Country';
@@ -9,35 +10,42 @@ import { setLocationData } from '../redux/slides/locationSlice';
 
 export const useLocation = () => {
     const dispatch = useDispatch();
+    const navigation = useNavigation<NavigationProp<any>>();
 
     useEffect(() => {
         const fetchLocation = async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 console.log('Permission to access location was denied');
-                dispatch(setLocationData({ isLoading: false }));
+                navigation.navigate('Locations');
                 return;
             }
-            let location = await Location.getCurrentPositionAsync({});
-            const { latitude, longitude } = location.coords;
-            const countryName = await getCountryName(latitude, longitude);
-            const countryISO = getCountryISO(countryName);
-            const isInCountry = countryISO ? isLocationInCountry(latitude, longitude, countryISO) : false;
 
-            dispatch(setLocationData({
-                location,
-                country: countryName,
-                isLocationAvailable: isInCountry,
-                isLoading: false,
-                countryKey: isInCountry ? countryISO : null,
-                latitude,
-                longitude,
-                countryCode: countryISO
-            }));
+            try {
+                let location = await Location.getCurrentPositionAsync({});
+                const { latitude, longitude } = location.coords;
+                const countryName = await getCountryName(latitude, longitude);
+                const countryISO = getCountryISO(countryName);
+                const isInCountry = countryISO ? isLocationInCountry(latitude, longitude, countryISO) : false;
+
+                dispatch(setLocationData({
+                    location,
+                    country: countryName,
+                    isLocationAvailable: isInCountry,
+                    isLoading: false,
+                    countryKey: isInCountry ? countryISO : null,
+                    latitude,
+                    longitude,
+                    countryCode: countryISO
+                }));
+            } catch (error) {
+                console.error('Error al obtener la ubicación:', error);
+                dispatch(setLocationData({ isLoading: false }));
+            }
         };
 
         fetchLocation();
-    }, [KeyApi.GoogleMapApi, dispatch]);
+    }, [dispatch, navigation]);
 
     const getCountryName = useCallback(async (latitude: number, longitude: number) => {
         const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KeyApi.GoogleMapApi}`);

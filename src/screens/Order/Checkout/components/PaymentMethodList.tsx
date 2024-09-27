@@ -37,19 +37,19 @@ const PaymentMethodList = (props: Props) => {
         <FlexContainer newStyle={styles.container}>
           <FlexContainer newStyle={styles.header}>
             <Typography variant="H4title">
-              {!props.card ? 'Select Payment Method' : `${hat} ${props.card.last4}`}
+              {!props.card ? i18next.t("Select Payment Method") : `${hat} ${props.card.last4}`}
             </Typography>
             <Icons
               onPress={handleChange}
               styles={{
                 borderRadius: SIZES.radius,
               }}
-              appendIcons={<Typography variant="H4title">Change</Typography>}
+              appendIcons={<Typography variant="H4title">{i18next.t("Change")}</Typography>}
             />
           </FlexContainer>
           <LineDivider />
           <ButtonAcces
-            label="Add Coupons"
+            label={i18next.t("Add Coupons")}
             ShowLineDivider={false}
             onPress={() => console.log('Add Coupons')}
           />

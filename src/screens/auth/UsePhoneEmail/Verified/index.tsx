@@ -16,6 +16,7 @@ import styles from "./styles";
 import { useAppDispatch, useAppSelector } from "../../../../redux";
 import { verifyCode, resendCode } from "../../../../redux/slides/authSlice";
 import { RootState } from "../../../../redux/store";
+import i18next from "../../../../Translate";
 
 type Props = {};
 type RouteParams = {
@@ -97,35 +98,35 @@ const Verified = (props: Props) => {
 
   return (
     <Container style={styles.container} useSafeArea={true}>
-      <TwoIconsLabel label="Verified Code" />
+      <TwoIconsLabel label={i18next.t('Verified Code')} />
       <InputStep
         isVerified={codeSuccess}
         hasError={codeError}
         onCodeFilled={handleCodeFilled}
-        label="Enter 6-digit code"
+        label={i18next.t('Enter 6-digit code')}
         sublabel={method === 0 ? `Tu código fue enviado a ${phone}` : `Tu código fue enviado a ${user}`}
       />
       {(isVerifying || isResending) && (
         <IsLoading
-          label={isVerifying ? "Verificando código" : "Reenviando código"}
+          label={isVerifying ? i18next.t('Verifying code') : i18next.t('Resending code')}
           style={styles.IsLoading}
           showLabel={false}
         />
       )}
       {codeError && (
-        <Perks label={message || "Código incorrecto, por favor intenta nuevamente"} status="error" />
+        <Perks label={message || i18next.t('Incorrect code, please try again')} status="error" />
       )}
       {codeSuccess && (
-        <Perks label="Código verificado correctamente" status="success" />
+        <Perks label={i18next.t('Code verified correctly')} status="success" />
       )}
 
       <FlexContainer style={styles.buttons}>
         {canResend || localTimer === 0 ? (
           <>
-            {message && <Perks label="¿No recibiste un código?" status="error" />}
+            {message && <Perks label={i18next.t('Didn\'t receive a code?')} status="error" />}
             {!isResending && (
               <Buttons
-                label="Reenviar código"
+                label={i18next.t('Resend code')}
                 onPress={handleResendCode}
                 loading={isResending}
               />
@@ -134,11 +135,11 @@ const Verified = (props: Props) => {
         ) : (
           !codeSuccess && (
             <Typography variant="SubDescription">
-              Reenviar código en{" "}
+              {i18next.t('Resend code in')}
               <Typography variant="SubDescription" newStyle={styles.text}>
                 {localTimer}
               </Typography>{" "}
-              segundos
+              {i18next.t('seconds')}
             </Typography>
           )
         )}

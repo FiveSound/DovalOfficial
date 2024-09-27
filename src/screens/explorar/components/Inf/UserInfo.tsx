@@ -19,9 +19,7 @@ item: {
 }
 };
 
-const UserInfo = React.memo(({
-  item
-}: Props) => {
+const UserInfo = React.memo(({item}: Props) => {
   const navigation = useNavigation();
 
   const { user } = useAuth()

@@ -5,6 +5,7 @@ import * as Haptics from "expo-haptics";
 import UploadAvatar from "./UploadAvatar";
 import { StyleSheet } from "react-native";
 import { SIZES } from "../../../constants/theme";
+import i18next from "../../../Translate";
 
 type Props = {
     data: {
@@ -21,9 +22,6 @@ const AvatarProfile = (props: Props) => {
     const [uploadStatus, setUploadStatus] = useState<"success" | "error" | null>(
         null
     );
-
-    console.log('data', data);
-    
 
     const updateAvatar = useCallback(() => {
         UploadAvatar(
@@ -43,17 +41,17 @@ const AvatarProfile = (props: Props) => {
                 size='xxLarge'
                 Upload={true}
                 onPress={updateAvatar}
-                label={"Upload Image.."}
+                label={i18next.t("Upload Image..")}
                 IsLoading={avatarLoader}
                 onPressAvatar={() => {
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                 }}
             />
             {uploadStatus === "success" && (
-                <Perks status="success" label="Avatar updated successfully" />
+                <Perks status="success" label={i18next.t("Avatar updated successfully")} />
             )}
             {uploadStatus === "error" && (
-                <Perks status="error" label="Failed to update avatar" />
+                <Perks status="error" label={i18next.t("Failed to update avatar")} />
             )}
         </FlexContainer>
     );

@@ -38,7 +38,7 @@ const Checkout = ({ route }: Props) => {
       showBack={true}
       showHeader={true}
       showFooter={true}
-      labels={i18next.t("Order Now")}
+      labels={submitting? i18next.t("Loading...") : i18next.t("Order Now")}
       onPressButtons={createNewOrder}
       loading={submitting}
       disabled={!available || submitting}

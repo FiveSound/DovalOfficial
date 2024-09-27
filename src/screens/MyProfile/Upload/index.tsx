@@ -6,6 +6,7 @@ import { useNavigation } from '../../../components/native';
 import { useAppDispatch } from '../../../redux';
 import { closeUploadModal } from '../../../redux/slides/modalSlice';
 import { ImageUpload01Icon, PackageAddIcon } from '../../../constants/IconsPro';
+import i18next from '../../../Translate';
 
 type props = {}
 
@@ -16,16 +17,16 @@ const dispatch = useAppDispatch();
 const data = [
   {
       id: 1,
-      title: "New Post:",
-      description: "Share your culinary creations, restaurant reviews, or food experiences.",
+      title: i18next.t("New Post:"),
+      description: i18next.t("Share your culinary creations, restaurant reviews, or food experiences."),
       icon: <ImageUpload01Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.dark} />, 
       showLineDivider: true,
       navigation: "NewPost"
   },
   {
       id: 2,
-      title: "Create & Sell Recipe:",
-      description: "Upload your favorite recipes to share or sell them to the community.",
+      title: i18next.t("Create & Sell Recipe:"),
+      description: i18next.t("Upload your favorite recipes to share or sell them to the community."),
       icon: <PackageAddIcon width={SIZES.icons} height={SIZES.icons} color={COLORS.dark} />,
       showLineDivider: true,
       navigation: "NewRecipie"

@@ -32,10 +32,10 @@ const SignOut = (props: Props) => {
             color={COLORS.error}
           />
           <Typography
-            variant='subtitle'
+            variant='H4title'
             newStyle={styles.typography}
           >
-            {i18next.t('Sign off')}
+            {i18next.t('Sign Out')}
           </Typography>
         </TouchableOpacity>
 
@@ -55,15 +55,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: SIZES.gapMedium,
-    height: SIZES.BtnHeight / 1.2,
+    height: SIZES.BtnHeight / 1.4,
     paddingHorizontal: SIZES.gapLarge,
     borderRadius: SIZES.radius2,
     borderWidth: SIZES.borderWidth / 2,
     borderColor: COLORS.error,
+    marginVertical: SIZES.gapSmall
   },
   innerButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: SIZES.gapSmall
   },
   typography: {
     color: COLORS.error,

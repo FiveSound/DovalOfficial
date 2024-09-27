@@ -166,7 +166,7 @@ const SignUpEmail = () => {
       )}
       {state.exist && (
         <Buttons
-          label={state.loading ? i18next.t("Iniciar seccion") : i18next.t("Iniciar seccion")}
+          label={state.loading ? i18next.t("") : i18next.t("Sign in")}
           loading={state.loading}
           disabled={state.disable}
           onPress={handleLogin}

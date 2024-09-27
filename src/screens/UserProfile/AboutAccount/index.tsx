@@ -38,7 +38,7 @@ const AboutAccount = () => {
                        {i18next.t('About to')} {row.userDetails.name}
                     </Typography>
                     <Typography variant='SubDescription' newStyle={styles.title}>
-                        {row.userDetails.transparencyDescription || 'To foster transparency and build trust, Doval displays key information about each creators account.'}</Typography>
+                        {row.userDetails.transparencyDescription || i18next.t('To foster transparency and build trust, Doval displays key information about each creators account.')}</Typography>
                     <FlexContainer newStyle={styles.iconsContainer}>
                         <Icons
                             styles={styles.icon}

@@ -10,6 +10,7 @@ import { COLORS, SIZES } from "../../../../constants/theme";
 import { useDispatch } from "react-redux";
 import { openModalPin } from "../../../../redux/slides/modalSlice";
 import { ArrowUp, Location09Icon } from "../../../../constants/IconsPro";
+import i18next from "../../../../Translate";
 
 type Props = {
     data: {
@@ -43,7 +44,7 @@ const Footer = (props: Props) => {
             color={COLORS.primary}
           />
         }
-        title="You receive it in"
+        title={i18next.t("You receive it in")}
         description={data.locationDetails || ''}
         orientation="LEGHT"
         showArrow={true}

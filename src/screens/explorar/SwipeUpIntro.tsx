@@ -4,6 +4,7 @@ import LottieView from 'lottie-react-native';
 import { COLORS, FONTS, SIZES } from '../../constants/theme';
 import { Typography } from '../../components/custom';
 import { TouchableOpacity } from '../../components/native';
+import i18next from '../../Translate';
 
 type Props = {
   onSwipeUp: () => void;
@@ -30,7 +31,7 @@ const SwipeUpIntro = ({ onSwipeUp, isVisible }: Props) => {
           variant='H4title'
           newStyle={styles.text}
         >
-          Swipe up for more
+          {i18next.t('Swipe up for more')}
         </Typography>
       </TouchableOpacity>
     )

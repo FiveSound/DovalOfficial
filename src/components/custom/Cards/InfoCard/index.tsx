@@ -9,13 +9,14 @@ import { TouchableOpacity } from '../../../native';
 interface InfoCardProps {
     icon?: any;
     title: string;
-    description: string;
+    description?: string;
     orientation?: 'LEGHT' | 'RIGHT'
     showArrow?: boolean;
     showLineDivider?: boolean;
     onPress?: () => void;
     labelStyle?: TextStyle
     lineStyle?: ViewStyle   
+    containerStyle?: ViewStyle
 }
 
 const InfoCard: React.FC<InfoCardProps> = (
@@ -28,12 +29,13 @@ const InfoCard: React.FC<InfoCardProps> = (
      showLineDivider=false, 
      onPress, 
      labelStyle, 
-     lineStyle
+     lineStyle,
+     containerStyle
     }) => {
 const {Title, Description } = useTheme()
     return (
         <TouchableOpacity onPress={onPress}>
-        <FlexContainer newStyle={styles.card}>
+        <FlexContainer newStyle={[styles.card, containerStyle]}>
             {orientation === 'LEGHT' && icon}
             <FlexContainer newStyle={styles.textContainer}>
                 <Typography variant='subtitle' newStyle={labelStyle}>{title}</Typography>

@@ -37,7 +37,6 @@ const Layout = ({ userID, data, onFollow, onShearch, searching, isFetching }: Pr
   const [isLoading, setIsLoading] = useState(true); 
   const { isRefreshing , onRefresh } = useRefreshData([isFetching])
   const { user } = useAuth()
-  console.log('user', user);
   
   useEffect(() => {
     if (data.length > 0) {
@@ -63,7 +62,7 @@ const Layout = ({ userID, data, onFollow, onShearch, searching, isFetching }: Pr
             ShowLine={false}
             ShowAccess={false}
             ShowName={true}
-            isLoading={isLoading}
+            isLoading={false}
           />
       </Suspense>
     )
@@ -73,7 +72,7 @@ const Layout = ({ userID, data, onFollow, onShearch, searching, isFetching }: Pr
     <FlexContainer newStyle={styles.containerMain}>
       <FlexContainer newStyle={styles.container}>
       <Search
-        placeholder={i18next.t("Search")}
+        placeholder={i18next.t("Search users")}
         containerStyle={{
           borderColor: focus ? COLORS.primary : borderInput,
           height: SIZES.InputsHeight / 1.2,

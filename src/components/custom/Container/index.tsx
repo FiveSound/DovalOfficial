@@ -40,6 +40,7 @@ type Props = {
   add?: () => void;
   remove?: () => void;
   qty?: number;
+  disabledCart?: boolean;
 }
 
 const Container = ({ useSafeArea = true, style, children, label, showBack, onPress, showHeader = false, showTwoIconsLabel = true, showSkip = false,
@@ -63,7 +64,8 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
   onPressSkip,
   add,
   remove,
-  qty
+  qty,
+  disabledCart
 }: Props) => {
   const Component = useSafeArea ? SafeAreaView : View;
   const { BackgroundMain } = useTheme()
@@ -78,7 +80,8 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
       {showLineDivider && <LineDivider />}
       {children}
       {showFooter &&
-        <FooterButtons
+       <SafeAreaView>
+         <FooterButtons
           label={labels}
           loading={loading}
           disabled={disabled}
@@ -89,10 +92,12 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
           variant={disabled ? 'disabled' : 'primary'}
           onPress={onPressButtons}
         />
+       </SafeAreaView>
       }
       {showFooterCart &&
         <>
           <LineDivider />
+          <SafeAreaView>
           <FooterCart
             FooterPress={FooterPress}
             ProductsLength={ProductsLength}
@@ -102,8 +107,9 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
             add={add}
             remove={remove}
             qty={qty}
+            disabledCart={disabledCart}
           />
-
+          </SafeAreaView>
         </>
       }
     </Component>

@@ -8,6 +8,7 @@ import { responsiveFontSize, SIZES } from '../../constants/theme';
 import { GetMenuBusiness, GetRecipiesBusiness, Layout, Overview, ProfileBusiness , SocialMedia} from './Components';
 import { CLOUDFRONT } from '../../services';
 import { useNavigation } from '../../components/native';
+import i18next from '../../Translate';
 
 type RouteParams = {
     id: string;
@@ -28,8 +29,8 @@ const Business: React.FC = () => {
     const { isRefreshing, onRefresh } = useRefreshData([refetch])
 
     const tabs = [
-        { key: 'Menu1', title: 'Menu', content: <GetMenuBusiness businessID={businessID} /> },
-        { key: 'Overview3', title: 'Overview', content: <Overview data={data} />},
+        { key: 'Menu1', title: i18next.t('Menu'), content: <GetMenuBusiness businessID={businessID} /> },
+        { key: 'Overview3', title: i18next.t('Overview'), content: <Overview data={data} />},
       ];
  
 
@@ -38,7 +39,7 @@ const Business: React.FC = () => {
     }, [currentLocation]);
 
     if (isLoading) {
-        return <LoadingScreen label='Loading'/>
+        return <LoadingScreen label={i18next.t('Loading')}/>
     }
 
     

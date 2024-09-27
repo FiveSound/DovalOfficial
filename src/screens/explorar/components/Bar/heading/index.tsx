@@ -7,6 +7,7 @@ import { FlexContainer, Typography } from "../../../../../components/custom";
 import { COLORS, FONTS, SIZES } from "../../../../../constants/theme";
 import Shoppings from "./Shoppings";
 import ButtonAlert from "./ButtonAlert";
+import i18next from "../../../../../Translate";
 
 type Props = {
   isFocused: boolean;
@@ -19,7 +20,7 @@ const cartItems = [{ id: 1 }, { id: 2 }, { id: 3 }];
   return (
     <FlexContainer newStyle={styles.container}>
       <SearchHome />
-      <Typography variant="H4title" newStyle={styles.title}> Recipes for you </Typography>
+      <Typography variant="H4title" newStyle={styles.title}>{i18next.t('Recipes for you')}</Typography>
       <FlexContainer newStyle={styles.subContainer}>
         <Shoppings cartItems={cartItems} isFocused={isFocused}/>
         <ButtonAlert />

@@ -58,10 +58,8 @@ const InputMain = (props: Props) => {
           multiline
           onFocus={() => {
             setIsFocused(true);
-            onFocusInput();
           }}
           onBlur={() => setIsFocused(false)}
-          showDivider={false}
         />
         <TouchableOpacity onPress={onPressChat} style={styles.uploadIcon}>
           <Upload05Icon color={Title} />

@@ -4,6 +4,7 @@ import { Skeleton } from "moti/skeleton";
 import { responsiveFontSize, SIZES } from "../../../../constants/theme";
 import { Image } from "../../../native";
 import IsLoading from "../../Loaders/IsLoading";
+import { Loading } from "../../../native/Image";
 
 type Props = {
   source: string;
@@ -21,7 +22,7 @@ const Cover = ({ source, size = 'medium' }: Props) => {
         if (source) {
           setLoader(false);
         }
-      }, 1500);
+      }, 100);
       return () => clearTimeout(timer);
     }
   }, [source]);
@@ -42,7 +43,7 @@ const Cover = ({ source, size = 'medium' }: Props) => {
   const imageSize = getSize();
 
   return loader ? (
-    <IsLoading />
+    <Loading isLoading={loader} height={imageSize} width={imageSize} />
   ) : ( <Image
       source={{ uri: source }}
       placeholderSource={source}

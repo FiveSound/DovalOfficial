@@ -73,7 +73,7 @@ const Main = ({
   }, []);
 
   if (isLoading) {
-    return <LoadingScreen label="Loading business" />;
+    return <LoadingScreen label={i18next.t("Loading business")}/>;
   }
 
   return (

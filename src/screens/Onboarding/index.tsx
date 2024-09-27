@@ -76,7 +76,7 @@ const Onboarding = (props: Props) => {
   };
 
   if (isLoading) {
-    return <LoadingScreen label="Loading interest" />;
+    return <LoadingScreen label={i18next.t("Loading interest")} />;
   }
 
   return (
@@ -85,15 +85,15 @@ const Onboarding = (props: Props) => {
       useSafeArea={true}
       showTwoIconsLabel={false}
       showSkip={true}
-      label="Skip"
+      label={i18next.t("Skip")}
       onPressSkip={closeOnboarding}
       >
       <Hero
-        label="Choose Yours intereses"
-        sublabel="Personalize your experiencie by picking 3 or more topics"
+        label={i18next.t("Choose Yours intereses")}
+        sublabel={i18next.t("Personalize your experiencie by picking 3 or more topics")}
       />
-      {saveError && <Perks label="Interests saved error!" status='error'/>}
-      {saveSuccess && <Perks label="Interests saved successfully!" status="success"/>}
+      {saveError && <Perks label={i18next.t("Interests saved error!")} status='error'/>}
+      {saveSuccess && <Perks label={i18next.t("Interests saved successfully!")} status="success"/>}
       <ScrollView>
         {data.map((category: any, index: number) => (
           <FlexContainer key={index} newStyle={styles.categoryContainer}>
@@ -126,7 +126,7 @@ const Onboarding = (props: Props) => {
       </ScrollView>
       <FlexContainer newStyle={styles.nextButton}>
         <Buttons 
-          label="next" 
+          label={i18next.t("next")} 
           disabled={selectedInterests.length < 3} 
           onPress={saveInterests} 
           loading={isSaving}

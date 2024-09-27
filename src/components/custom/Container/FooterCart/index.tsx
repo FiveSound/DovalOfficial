@@ -1,31 +1,28 @@
 import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
 import i18next from "../../../../Translate";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import FlexContainer from "../../FlexContainer";
 import Typography from "../../Typography";
-
 import { IsLoading } from "../../Loaders";
 import { AddRemove } from "../../business/CartItems/ToggleAdd";
 import React from "react";
 import Buttons from "../../Buttons/Buttons";
 
 export const FooterCart = (props: any) => {
-  const { TotalPrice, FooterPress, labelAdd, loading = false, qty, add, remove } = props;
+  const { TotalPrice, FooterPress, labelAdd, loading = false, qty, add, remove, disabledCart } = props;
+
   return (
     <FlexContainer newStyle={styles.containerMain}>
      <FlexContainer variant="row" newStyle={styles.container}>
       <Typography variant='title'>{i18next.t("Your Product")}</Typography>
       {
-        loading ? <IsLoading /> : <Typography variant='title'>{TotalPrice}</Typography>
+        qty == 0 ? <IsLoading /> : <Typography variant='title'>{TotalPrice}</Typography>
       }
      </FlexContainer>
 
      {/* Buttons */}
-      <FlexContainer
-        newStyle={styles.container}
-      >
+      <FlexContainer newStyle={styles.container}>
         <FlexContainer newStyle={styles.innerContainer}>
-
           <FlexContainer variant="row" newStyle={styles.rowContainer}>
             <FlexContainer>
               <AddRemove 
@@ -37,8 +34,9 @@ export const FooterCart = (props: any) => {
             <Buttons
               label={labelAdd}
               onPress={FooterPress}
-              variant="primary"
+              variant={disabledCart ? 'disabled' : 'primary'}
               containerButtons={styles.button}
+              disabled={disabledCart}
             />
          </FlexContainer>
         </FlexContainer>
@@ -50,10 +48,10 @@ export const FooterCart = (props: any) => {
 const styles = StyleSheet.create({
   containerMain: {
     paddingHorizontal: SIZES.gapLarge,
-    paddingVertical: SIZES.gapLarge,
+    paddingVertical: SIZES.gapSmall,
   },
   container: {
-    height: responsiveFontSize(60),
+    height: responsiveFontSize(44),
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -81,7 +79,8 @@ const styles = StyleSheet.create({
     ...FONTS.semi16
   },
   button: {
-   width: '70%'
+   flex: 1,
+   borderRadius: 0
   },
   buttonText: {
     color: COLORS.TitleColor

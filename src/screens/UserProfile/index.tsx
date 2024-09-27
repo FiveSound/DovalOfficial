@@ -7,6 +7,7 @@ import { LoadingScreen, Typography } from "../../components/custom";
 import { useNavigation } from "../../components/native";
 import { AvatarProfile, Follows, Inf, LayoutProfile, TabsMyProfile } from "../MyProfile/Components";
 import { MyMenu, MyPosts, MySaves, MyShares, CtoUserProfile } from "./Components";
+import i18next from "../../Translate";
 
 interface RouteParams {
     username: string;
@@ -48,7 +49,7 @@ const UserProfile = (props: Props) => {
             isRefreshing={isRefetching}
             onRefresh={refetch}
           >
-            <Typography variant="H4title">Error fetching data</Typography>
+            <Typography variant="H4title">{i18next.t("Error fetching data")}</Typography>
           </LayoutProfile>
         );
       }

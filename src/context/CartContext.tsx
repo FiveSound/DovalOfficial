@@ -50,70 +50,82 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
   let remove = true;
 
   const handleEditCart = (recipeID: number, remove?: boolean) => {
-    const updateCart = cart.map((innerArray) => {
-      return innerArray.map((row) => {
-        if (row.recipeID === recipeID) {
-          let newQty = remove ? row.qty - 1 : row.qty + 1;
-          return { ...row, qty: newQty };
-        }
-        return row;
-      });
+    console.log('handleEditCart called with recipeID:', recipeID, 'remove:', remove);
+    const updatedCart = cart.list.map((item) => {
+      if (item.recipeID === recipeID) {
+        const newQty = remove ? item.qty - 1 : item.qty + 1;
+        console.log('Updating qty for recipeID:', recipeID, 'newQty:', newQty);
+        return { ...item, qty: newQty };
+      }
+      return item;
     });
-
-    setCart(updateCart);
+    console.log('Updated cart:', updatedCart);
+    setCart(updatedCart);
   };
 
   const handleRemoveCart = (recipeID: number) => {
-    const updatedCart = cart.map((innerArray) => {
-      return innerArray.filter((row) => !(row.recipeID === recipeID));
-    });
-
-    const model = updatedCart.filter((row) => row.length > 0);
-
-    setCart(model);
+    console.log('handleRemoveCart called with recipeID:', recipeID);
+    const updatedCart = cart.filter((item) => item.recipeID !== recipeID);
+    console.log('Updated cart after removal:', updatedCart);
+    setCart(updatedCart);
   };
 
   const addProduct = async (
     recipeID: number,
     setLoad: (load: boolean) => void
   ) => {
-    console.log("Adding product", recipeID);
-    setLoad(true);
+    try {
+      console.log("Adding product", recipeID);
+      setLoad(true);
 
-    handleEditCart(recipeID);
+      handleEditCart(recipeID);
 
-    const response = await addToCartService(recipeID, [], 1);
-    console.log("Response from add to cart service", response);
+      const response = await addToCartService(recipeID, [], 1);
+      console.log("Response from add to cart service", response);
 
-    if (!response.success) {
-      handleEditCart(response.recipeID, true);
+      if (!response.success) {
+        handleEditCart(recipeID, true);
+        Alert.alert("Error al agregar el producto al carrito");
+      }
+
+      if (response.isNew) {
+        await refetching();
+      }
+    } catch (error) {
+      console.error("Error en addProduct:", error);
+      Alert.alert("Error al agregar el producto al carrito");
+    } finally {
+      setLoad(false);
     }
-
-    if (response.isNew) {
-      refetching();
-    }
-    setLoad(false);
   };
 
   const removeProduct = async (
     recipeID: number,
     setLoad: (load: boolean) => void
   ) => {
-    setLoad(true);
+    try {
+      console.log("Removing product", recipeID);
+      setLoad(true);
 
-    handleEditCart(recipeID, remove);
+      handleEditCart(recipeID, true);
 
-    const response = await removerCartService(recipeID);
+      const response = await removerCartService(recipeID);
+      console.log("Response from remove cart service", response);
 
-    if (!response.success) {
-      handleEditCart(response.recipeID);
+      if (!response?.success) {
+        handleEditCart(recipeID);
+        Alert.alert("Error al eliminar el producto del carrito");
+      }
+
+      if (response?.isLast) {
+        handleRemoveCart(recipeID);
+      }
+    } catch (error) {
+      console.error("Error en removeProduct:", error);
+      Alert.alert("Error al eliminar el producto del carrito");
+    } finally {
+      setLoad(false);
     }
-
-    if (response.isLast) {
-      handleRemoveCart(response.recipeID);
-    }
-
-    setLoad(false);
   };
 
   const createNewOrder = async () => {

@@ -8,17 +8,18 @@ import {
   SIZES,
 } from "../../../../constants/theme";
 import FlexContainer from "../../FlexContainer";
-import { useTheme } from "../../../../hooks";
 import Typography from "../../Typography";
-import { Clock01Icon, ShoppingBag01Icon, Store01Icon } from "../../../../constants/IconsPro";
-import Icons from "../../Icons";
-import i18next from "../../../../Translate";
+import { CLOUDFRONT } from "../../../../services";
+import InfoCard from "../InfoCard";
+import Avatars from "../../Avatars";
 
 interface Product {
   name: string;
   description: string;
   thumbnail: string;
   userID: string;
+  business_name: string;
+  cover: string;
 }
 
 type Props = {
@@ -26,12 +27,32 @@ type Props = {
 }
 
 const ProductCard: React.FC<Props> = React.memo(({ product }) => {
-  const { Title } = useTheme();
   const navigation = useNavigation()
+  const coverRecipie = `${CLOUDFRONT}${product.thumbnail}`
+  const coverBusiness = `${CLOUDFRONT}${product.cover}`
 
   return (
     <FlexContainer newStyle={styles.container}>
-      <FlexContainer>
+      <Image
+        placeholderSource={coverRecipie}
+        showPlaceholder={true}
+        style={styles.image}
+        contentFit='cover'
+        priority="high"
+        cachePolicy="memory-disk"
+      />
+      <InfoCard 
+      title={product?.business_name || 'business name'}
+      description='Business verificad'
+      showArrow={true}
+      showLineDivider={true}
+      containerStyle={styles.containerInfoCard}
+      orientation='LEGHT'
+      icon={< Avatars source={coverBusiness} size='medium' />}
+      onPress={() => navigation.navigate('Business', { id: product.userID })}
+      lineStyle={styles.lineDivider}
+      />
+      <FlexContainer newStyle={styles.containerheaders}>
         <FlexContainer newStyle={styles.containerheader}>
           <Typography variant="subtitle" newStyle={styles.name}>
             {product?.name || ''}
@@ -44,59 +65,36 @@ const ProductCard: React.FC<Props> = React.memo(({ product }) => {
             {product?.description || ''}
           </Typography>
         </FlexContainer>
-        <FlexContainer>
-          <Icons
-            styles={styles.buttonscontainer}
-            onPress={() => navigation.navigate('Business', { id: product.userID})}
-            appendIcons={
-              <FlexContainer variant="row" newStyle={{
-                gap: SIZES.gapSmall,
-                alignItems: 'center'
-              }}>
-                <ShoppingBag01Icon
-                  color={COLORS.dark}
-                  width={SIZES.icons}
-                  height={SIZES.icons}
-                />
-                <Typography variant='H4title' newStyle={styles.deliveryTime}>{i18next.t('Visit Store')}</Typography>
-              </FlexContainer>
-            }
-          />
-
-        </FlexContainer>
       </FlexContainer>
-      <Image
-        source={{ uri: product?.thumbnail || '' }}
-        style={styles.image}
-        contentFit='cover'
-        priority="high"
-        cachePolicy="memory-disk"
-      />
     </FlexContainer>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: "center",
-    justifyContent: 'space-between'
+    marginBottom: SIZES.gapMedium,
+    alignSelf: 'center',
+    paddingHorizontal: SIZES.gapLarge,
+    gap: SIZES.gapLarge
   },
   containerheader: {
-    maxWidth: SIZES.width / 1.4
+    maxWidth: SIZES.width / 1.4,
+
+  },
+  containerheaders: {
+    paddingHorizontal: SIZES.gapLarge
   },
   image: {
-    width: responsiveFontSize(110),
-    height: responsiveFontSize(98),
-    borderRadius: SIZES.radius,
+    width: SIZES.width,
+    height: SIZES.height / 3,
   },
   name: {
-    ...FONTS.heading21,
+    ...FONTS.semi18,
     width: SIZES.width / 1.8,
   },
   description: {
     width: SIZES.width / 1.8,
-    ...FONTS.text16, 
+    ...FONTS.text16,
     marginBottom: SIZES.gapSmall
   },
   deliveryTime: {
@@ -120,6 +118,13 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     width: responsiveFontSize(120),
     backgroundColor: 'transparent'
+  },
+  containerInfoCard: {
+    margin: 0,
+    paddingHorizontal: SIZES.gapLarge,
+  },
+  lineDivider: {
+    height: SIZES.gapSmall,
   }
 });
 

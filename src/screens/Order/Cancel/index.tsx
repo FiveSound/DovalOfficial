@@ -7,6 +7,7 @@ import styles from "../ConfirmOrder/styles";
 import ThreeIcons from "../../../components/custom/Bar/ThreeIcons";
 import { closeModalPin } from "../../../redux/slides/modalSlice";
 import { useDispatch } from "react-redux";
+import i18next from "../../../Translate";
 
 interface Props {}
 
@@ -38,7 +39,7 @@ const Cancel = (props: Props) => {
   return (
     <Container 
     showFooter={false} 
-    label="Oops! Your order has been canceled" 
+    label={i18next.t("Oops! Your order has been canceled")} 
     disabled={false}
     showHeader={true}
     >
@@ -52,9 +53,9 @@ const Cancel = (props: Props) => {
         source={Ilustrations.CharcoPet}
         ImgWidth={SIZES.width}
         ImgHeigth={responsiveFontSize(261)}
-        labelPart1="Oops!"
-        labelPart2="Your order has been canceled."
-        subLabel="We apologize for the inconvenience. Please try again."
+        labelPart1={i18next.t("Oops!")}  
+        labelPart2={i18next.t("Your order has been canceled.")}
+        subLabel={i18next.t("We apologize for the inconvenience. Please try again.")}
         labelStylePart1={[styles.labelThank, {
           color: COLORS.error
         }]}
@@ -63,7 +64,7 @@ const Cancel = (props: Props) => {
         }]}
         sublabelStyles={styles.description}
         onPress={handleNavegate}
-        labelButton={`Go to explorar ${counter}`}
+        labelButton={`${i18next.t("Go to explorar")} ${counter}`}
         ShowButton={true}
       />
       </ScrollView>

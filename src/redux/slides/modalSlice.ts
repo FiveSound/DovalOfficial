@@ -149,7 +149,7 @@ export const {
   closeModalMoreOptionsProfile,
   openModalAboutAccount,
   closeModalAboutAccount,
+  closeAddressModal
 } = modalSlice.actions;
 
-// Exporta el reducer para integrarlo en el store
 export default modalSlice.reducer;

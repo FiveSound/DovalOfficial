@@ -33,7 +33,7 @@ const AddressList = (props: Props) => {
   };
 
   return (
-    <Box title={i18next.t("Deliver To")}>
+    <Box title={i18next.t("Deliver to")}>
       <FlexContainer newStyle={styles.header}>
         {location.details ? (
           <FlexContainer newStyle={styles.container}>

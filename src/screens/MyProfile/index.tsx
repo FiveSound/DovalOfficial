@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getFollowersService } from "../../services/follows";
 import { getProfileService } from "../../services/auth";
 import useAPI from "../../hooks/useAPI";
@@ -20,13 +20,13 @@ import { useNavigation } from "../../components/native";
 import Signup from "../auth/Signup";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import i18next from "../../Translate";
 
 type Props = {};
 
 const MyProfile = (props: Props) => {
   const { isAuthenticated, isLoadingApp } = useSelector((state: RootState) => state.auth);
   const navigation = useNavigation();
-  const [alertShown, setAlertShown] = useState(false);
 
   const {
     data: followersData,
@@ -85,7 +85,7 @@ const MyProfile = (props: Props) => {
         isRefreshing={isRefreshing}
         onRefresh={onRefresh}
       >
-        <Typography variant="H4title">Error fetching data</Typography>
+        <Typography variant="H4title">{i18next.t("Error fetching data")}</Typography>
       </LayoutProfile>
     );
   }

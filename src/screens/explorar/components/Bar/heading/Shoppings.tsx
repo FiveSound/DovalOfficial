@@ -11,6 +11,7 @@ import { getTutorialStatus, setTutorialStatus } from "../../../../../hooks";
 import { TouchableOpacity, View , Text, useNavigation} from "../../../../../components/native";
 import * as Haptics from "expo-haptics";
 import { useCart } from "../../../../../context/CartContext";
+import i18next from "../../../../../Translate";
 type Props = {
   cartItems: any[];
   isFocused: boolean;
@@ -39,7 +40,9 @@ const Shoppings = (props: Props) => {
 
   const handleCart = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    navigation.navigate('OrderStack') 
+    navigation.navigate('OrderStack', {
+      screen: 'Cart'
+    }) 
     // navigation.navigate('Complete') 
   }
   if(isLoading) return <IsLoading />
@@ -52,16 +55,16 @@ const Shoppings = (props: Props) => {
           height={SIZES.icons * 1.1}
           color={COLORS.light}
         />
-        {/* {cart?.list.length > 0 && (
+        {cart?.list?.length > 0 && (
           <View style={styles.badgeContainer}>
             <Typography newStyle={styles.badgeText} variant='H4title'>
               {cart.list.length}
             </Typography>
           </View>
-        )} */}
+        )}
       </TouchableOpacity>
       <Hint 
-        label="You have a product available, Check cart now!"
+        label={i18next.t('You have a product available, Check cart now!')}
         showLabel={true}
         position='right'
         orientation='top'
@@ -77,12 +80,12 @@ const Shoppings = (props: Props) => {
 const styles = StyleSheet.create({
   badgeContainer: {
     position: "absolute",
-    top: responsiveFontSize(-8),
-    right: responsiveFontSize(-8),
-    backgroundColor: "red",
-    borderRadius: responsiveFontSize(10),
-    width: responsiveFontSize(20),
-    height: responsiveFontSize(20),
+    right: responsiveFontSize(-4),
+    top: responsiveFontSize(-6),
+    backgroundColor: COLORS.error,
+    borderRadius: responsiveFontSize(8),
+    width: responsiveFontSize(SIZES.icons),
+    height: responsiveFontSize(SIZES.icons),
     justifyContent: "center",
     alignItems: "center",
   },

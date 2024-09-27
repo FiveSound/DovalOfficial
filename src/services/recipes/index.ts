@@ -61,20 +61,10 @@ export const getMyRecipesService = async () => {
 export const getExploreData = async (location: object | null, page: number) => {
   const userToken = await AsyncStorage.getItem("userToken");
 
-  let testLocation = {
-    // latitude: "4.5367154", //"18.277677",
-    // longitude: "-75.6789604", //"-70.331809",
-    latitude: "18.2801579", //"4.5343382",
-    longitude: "-70.3393274", //"-75.6778836"
-  };
-  // console.log({ location });
-
   if (!userToken) {
-    // Explorar sin estar logueado...
     let response = await axios.post(`${API_URL}/api/explore/public`, {
       page,
-      ...testLocation,
-      // ...location,
+      ...location,
     });
 
     return response.data;
@@ -85,8 +75,7 @@ export const getExploreData = async (location: object | null, page: number) => {
     `${API_URL}/api/explore`,
     {
       page,
-      ...testLocation,
-      // ...location,
+      ...location,
     },
     {
       headers: {

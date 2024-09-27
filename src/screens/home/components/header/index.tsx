@@ -46,7 +46,8 @@ const Header = () => {
   const { cart } = useCart();
   const dispatch = useAppDispatch();
   const OpenModal = useSelector((state: RootState) => state.modal.open);
-
+  console.log('cart', cart);
+  
   const {
     data: LocationDefault,
     isLoading,
@@ -86,11 +87,21 @@ const Header = () => {
       <Icons
         onPress={() => navigation.navigate("OrderStack")}
         appendIcons={
+          <>
+            {cart?.list.length > 0 && (
+              <FlexContainer newStyle={styles.cartBadge}>
+                <Typography variant="H4title" style={styles.cartText}>
+                  {cart.list.length}
+                </Typography>
+              </FlexContainer>
+            )}
+  
           <ShoppingBag01Icon
             width={SIZES.icons}
             height={SIZES.icons}
             color={color}
           />
+          </>
         }
         styles={styles.icons}
       />
@@ -161,8 +172,8 @@ const styles = StyleSheet.create({
     top: responsiveFontSize(-6),
     backgroundColor: COLORS.error,
     borderRadius: responsiveFontSize(8),
-    width: responsiveFontSize(SIZES.icons / 2),
-    height: responsiveFontSize(SIZES.icons / 2),
+    width: responsiveFontSize(SIZES.icons),
+    height: responsiveFontSize(SIZES.icons),
     justifyContent: "center",
     alignItems: "center",
   },

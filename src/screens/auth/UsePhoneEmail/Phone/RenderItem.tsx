@@ -28,7 +28,6 @@ const RenderItem = (props: Props) => {
                   subLabel=''
                   labelPreview={`${"+"}${item.CodePostal.toString()}`}
                   onPress={() => {
-                      console.log("Item selected:", item);
                       onSelectItem(item);
                   }}
               />

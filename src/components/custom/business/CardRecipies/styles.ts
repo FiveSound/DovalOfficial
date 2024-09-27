@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: SIZES.gapSmall,
         borderWidth: SIZES.borderWidth,
-        borderColor: COLORS.primary,
+        borderColor: COLORS.primaryDark700,
     },
     lineDivider: {
         height: responsiveFontSize(1),

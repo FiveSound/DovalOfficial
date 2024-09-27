@@ -99,7 +99,7 @@ const Main = ({
   }
 
   return !isLoading && filteredData && filteredData.length === 0 ? (
-    emptyComponent
+    emptyComponent()
   ) : (
     <FlexContainer
       newStyle={{ marginTop: SIZES.gapMedium, gap: SIZES.gapMedium }}

@@ -9,6 +9,7 @@ import { blockService } from '../../../services/shares';
 import { useAuth } from '../../../context/AuthContext';
 import data from './data';
 import { RootState } from '../../../redux/store';
+import i18next from '../../../Translate';
 
 type props = {}
 
@@ -22,36 +23,34 @@ const {
 
 
  if(block) {
-    console.log("handleBlock called");
-    console.log('userData', userData.userID);
     const BlockUser = async () => {
       try {
         await blockService(userData.userID);
-        Alert.alert("Success", "User has been blocked successfully.");
+        Alert.alert(i18next.t("Success"), i18next.t("User has been blocked successfully."));
         console.log("User blocked successfully");
         dispatch(closeModalMoreOptionsProfile())  
         navigation.goBack()
       } catch (error) {
         console.error("Error blocking user:", error);
         Alert.alert(
-          "Error",
-          "There was an error blocking the user. Please try again."
+          i18next.t("Error"),
+          i18next.t("There was an error blocking the user. Please try again.")
         );
       }
     };
   
     Alert.alert(
-      "Are you sure you want to block this user?",
-      "Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content.",
+      i18next.t("Are you sure you want to block this user?"),
+      i18next.t("Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content."),
       [
         {
-          text: "Cancel",
+          text: i18next.t("Cancel"),
           onPress: () => {
             console.log("Cancel Pressed", );
           },
           style: "cancel",
         },
-        { text: "Block", onPress: BlockUser },
+        { text: i18next.t("Block"), onPress: BlockUser },
       ],
       { cancelable: false }
     );

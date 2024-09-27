@@ -65,7 +65,7 @@ const Buttons = (props: Props) => {
     >
       {loading && <IsLoading style={{ borderColor: COLORS.dark }} />}
       {orientationsIcons === "Left" && Icons}
-      <Typography
+      {!loading && <Typography
         variant="SubDescription"
         newStyle={[
           styles.label,
@@ -76,7 +76,7 @@ const Buttons = (props: Props) => {
         ]}
       >
         {label}
-      </Typography>
+      </Typography>}
       {orientationsIcons === "Right" && Icons}
     </TouchableOpacity>
   );

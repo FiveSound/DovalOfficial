@@ -5,6 +5,7 @@ import { Ilustrations } from "../../../constants";
 import { responsiveFontSize, SIZES } from "../../../constants/theme";
 import styles from "../ConfirmOrder/styles";
 import ThreeIcons from "../../../components/custom/Bar/ThreeIcons";
+import i18next from "../../../Translate";
 
 interface Props {}
 
@@ -35,7 +36,7 @@ const Complete = (props: Props) => {
   return (
     <Container 
     showFooter={true} 
-    labels="Submit Review" 
+    labels={i18next.t("Submit Review")} 
     disabled={false}
     >
       <ThreeIcons 
@@ -53,19 +54,20 @@ const Complete = (props: Props) => {
         source={Ilustrations.GoodJob}
         ImgWidth={SIZES.width}
         ImgHeigth={responsiveFontSize(261)}
-        labelPart1="Congratulations!"
-        labelPart2="Your order has been delivered successfully."
-        subLabel="We appreciate your preference and hope you enjoy your meal."
+        labelPart1={i18next.t("Congratulations!")}
+        labelPart2={i18next.t("Your order has been delivered successfully.")}
+        subLabel={i18next.t("We appreciate your preference and hope you enjoy your meal.")}
         labelStylePart1={styles.labelThank}
         labelStylePart2={styles.labelThank}
         sublabelStyles={styles.description}
         onPress={handleNavigateToTracking}
-        labelButton={`Go to Tracking (${counter})`}
+        labelButton={`${i18next.t("Go to Tracking")} (${counter})`}
         ShowButton={false}
       />
       <Rating rating={4}/>
       <InputLabel 
-      placeholder="Enter your review"/>
+      placeholder={i18next.t("Enter your review")}
+      />
       </ScrollView>
     </Container>
   );

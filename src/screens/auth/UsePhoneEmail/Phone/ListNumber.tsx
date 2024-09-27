@@ -14,7 +14,7 @@ import { COLORS, SIZES } from "../../../../constants/theme";
 import { useAPI, useTheme } from "../../../../hooks";
 import { Country } from "../../../../constants";
 import RenderItem from "./RenderItem";
-import { getCountryListService } from "../../../../services/auth";
+import i18next from "../../../../Translate";
 
 type Props = {
   visible: boolean;
@@ -57,13 +57,13 @@ const ListNumber = (props: Props) => {
       onRequestClose={onRequestClose}>
       <Container useSafeArea={true} style={styles.container}>
         <TwoIconsLabel
-          label="Select your country"
+          label={i18next.t('Select your country')}
           showBack={false}
           onPress={onRequestClose}
         />
         <Search
-          label="Search preferred language"
-          placeholder="Search preferred language"
+          label={i18next.t('Search my country')}
+          placeholder={i18next.t('Search my country')}
           value={searchQuery}
           onBlur={() => setFocus(false)}
           onFocus={() => setFocus(true)}

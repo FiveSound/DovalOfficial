@@ -46,7 +46,6 @@ const Payments = ({ route }: Props) => {
 
   if (data) {
     const { list, selected, resume } = data;
-    console.log('resume', list);
 
 
     return (

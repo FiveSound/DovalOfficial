@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Box, FlexContainer, LineDivider, Typography } from "../../../../components/custom";
 import { SIZES } from "../../../../constants/theme";
 import { formatPrice } from "../../../../utils/format";
+import i18next from "../../../../Translate";
 
 type Props = {
   details: {
@@ -19,15 +20,14 @@ const ResumeOrderList = ({ details }: Props) => {
   const productCost = total - delivery - service
 
   return (
-    <Box
-    title="Resume Order list">
-     <TypographyOrders label="Hora estimada" sublabel={duration}/>
-     <TypographyOrders label="Servicio" sublabel={service} />
-     <TypographyOrders label="Delivery" sublabel={delivery} />
-     <TypographyOrders label="Products" sublabel={products} />
-     <TypographyOrders label="Descuento" sublabel={discount} />
+    <Box title={i18next.t("Resume Order list")}>
+     <TypographyOrders label={i18next.t("Estimated Time")} sublabel={duration}/>
+     <TypographyOrders label={i18next.t("Service")} sublabel={service} />
+     <TypographyOrders label={i18next.t("Delivery")} sublabel={delivery} />
+     <TypographyOrders label={i18next.t("Products")} sublabel={products} />
+     <TypographyOrders label={i18next.t("Discount")} sublabel={discount} />
      <LineDivider />
-     <TypographyOrders label="Total" sublabel={total} />
+     <TypographyOrders label={i18next.t("Total")} sublabel={total} />
     </Box>
   );
 };

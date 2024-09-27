@@ -157,7 +157,7 @@ const Tracking = ({ route }: Props) => {
             rider_waiting={rider_waiting && status !== 'DELIVERED'}
             status={status}
           />
-          {!sucess ? <IsLoading label={i18next.t("IsLoading...")} /> :
+          {!sucess ? <IsLoading label={i18next.t("Loading...")} /> :
             <>
             </>
           }

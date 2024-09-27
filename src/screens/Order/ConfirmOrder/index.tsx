@@ -5,6 +5,7 @@ import { SIZES } from "../../../constants/theme"
 import styles from "./styles"
 import { useTheme } from "../../../hooks"
 import { useNavigation } from "../../../components/native"
+import i18next from "../../../Translate"
 
 interface Props {
     route: {
@@ -44,15 +45,15 @@ const ConfirmOrder = ({ route }: Props) => {
                     source={Ilustrations.GoodJob}
                     ImgWidth={SIZES.width}
                     ImgHeigth={SIZES.height / 2.4}
-                    labelPart1="Thank you"
-                    labelPart2=" for your order"
-                    subLabel="We are excited to prepare your meal for you! You can follow the status of your order in real time."
+                    labelPart1={i18next.t("Thank you")}
+                    labelPart2={i18next.t(" for your order")}
+                    subLabel={i18next.t("We are excited to prepare your meal for you! You can follow the status of your order in real time.")}
                     labelStylePart1={styles.labelThank}
                     labelStylePart2={[styles.label,{
                         color: Title
                     }]}
                     sublabelStyles={styles.description}
-                    labelButton={`Go to Tracking in (${counter})`}
+                    labelButton={`${i18next.t("Go to Tracking")} (${counter})`}
                 />
             </Container>
         )

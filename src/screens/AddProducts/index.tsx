@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Container, InputLabel, LineDivider, LoadingScreen, OptionList, ProductCard, Typography } from "../../components/custom";
 import { Alert, StyleSheet } from "react-native";
-import { ScrollView, TouchableOpacity, useNavigation, View, Image, Text } from "../../components/native";
+import { useNavigation, RefreshControl, KeyboardAwareScrollView } from "../../components/native";
 import { SIZES } from "../../constants/theme";
 import { addToCartService, getRecipeVariantsService, getTotalVariantsService } from "../../services/cart";
 import { useQuery } from "@tanstack/react-query";
 import i18next from "../../Translate";
-import { iconsNative } from "../../constants";
+import { useRefreshData } from "../../hooks";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import Signup from "../auth/Signup";
 
 type Props = {
   route?: {
@@ -38,7 +41,12 @@ const AddProducts: React.FC<Props> = ({ route }) => {
   const [required, setRequired] = useState<null | number>(null);
   const [subVariants, setSubVariants] = useState<number[]>([]);
   const [limites, setLimites] = useState<{ [key: number]: boolean }>({});
+  const [isFormValid, setIsFormValid] = useState(false); // Nuevo estado
   const navigation = useNavigation();
+  const {
+    isAuthenticated,
+    isLoadingApp
+  } = useSelector((state: RootState) => state.auth)
 
   const total = useQuery({
     queryKey: ["cart-total-screen", recipeID, JSON.stringify(subVariants), qty],
@@ -46,12 +54,12 @@ const AddProducts: React.FC<Props> = ({ route }) => {
     enabled: !!recipeID,
   });
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["cart-variants-screen", recipeID],
     queryFn: getRecipeVariantsService,
     enabled: !!recipeID,
   });
-
+  const { isRefreshing, onRefresh } = useRefreshData([refetch])
 
   const resetState = () => {
     setLoad(false);
@@ -60,7 +68,6 @@ const AddProducts: React.FC<Props> = ({ route }) => {
     setSubVariants([]);
     setLimites({});
   };
-
 
   const handlePress = useCallback((id: number, variantID: number) => {
     setSubVariants((prevSubVariants) => {
@@ -99,10 +106,29 @@ const AddProducts: React.FC<Props> = ({ route }) => {
   }, [data]);
 
   useEffect(() => {
-    if (total.data) {
+    if (total) {
       setLoad(false);
     }
-  }, [total.data]);
+  }, [total]);
+
+  useEffect(() => {
+    if (!data) {
+      setIsFormValid(false);
+      return;
+    }
+
+    const requiredVariants = data.variants.filter((variant: TypeVariant) => variant.required);
+
+    const allRequiredSelected = requiredVariants.every((variant) => {
+      const selected = subVariants.filter((subId) => {
+        const sub = data.subvariants.find((s) => s.id === subId);
+        return sub?.variantID === variant.id;
+      });
+      return selected.length >= variant.limit_qty;
+    });
+
+    setIsFormValid(allRequiredSelected);
+  }, [data, subVariants]);
 
   const onSubmit = useCallback(async () => {
     let success = false;
@@ -175,26 +201,31 @@ const AddProducts: React.FC<Props> = ({ route }) => {
         setLoad(false);
       }
     } else {
-      // Manejar caso donde no se cumple la condición de éxito
     }
   }, [data, recipeID, subVariants, qty, resetState]);
 
-  if (isLoading || isFetching) {
+  if (!isAuthenticated) {
+    return <Signup />;
+  }
+
+  if (isLoading || isFetching || isLoadingApp) {
     return <LoadingScreen />;
   }
 
   return (
     <Container
       useSafeArea={true}
+      label={data.name || ''}
       style={styles.container}
       showHeader={true}
+      showBack={true}
       showTwoIconsLabel={true}
       showFooter={false}
       showFooterCart={true}
       FooterPress={onSubmit}
       labelAdd={i18next.t("Add to cart")}
       loading={load}
-      disabled={load}
+      disabledCart={load ||!isFormValid}
       TotalPrice={total.data?.amount || "0"}
       add={() => setQty(qty + 1)}
       remove={() => {
@@ -203,15 +234,20 @@ const AddProducts: React.FC<Props> = ({ route }) => {
         }
       }}
       qty={qty}
+
     >
-      <ScrollView contentContainerStyle={styles.containerScroll}>
+      <KeyboardAwareScrollView 
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
+        contentContainerStyle={styles.containerScroll}
+        extraScrollHeight={SIZES.gapLarge * 2}
+      >
         <ProductCard product={data} />
         <LineDivider />
         {data?.variants.map((variant: TypeVariant) => {
           const subvariants = data.subvariants.filter((sub: TypeSubVariant) => sub.variantID === variant.id);
           return (
             <OptionList
-              key={variant.id}
+              key={variant.recipeID}
               option={subvariants}
               title={variant.title}
               required={variant.required ? 1 : 0}
@@ -219,6 +255,7 @@ const AddProducts: React.FC<Props> = ({ route }) => {
               onPress={(id: number) => handlePress(id, variant.id)}
               limites={limites}
               variantID={variant.id}
+              limit_qty={variant.limit_qty}
             />
           );
         })}
@@ -228,7 +265,7 @@ const AddProducts: React.FC<Props> = ({ route }) => {
           placeholder={i18next.t("Notes for riderMan")}
           onSize={true}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </Container>
   );
 };
@@ -236,9 +273,12 @@ const AddProducts: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 0,
+    width: SIZES.width,
   },
   containerScroll: {
-    paddingHorizontal: SIZES.gapLarge
+    paddingHorizontal: SIZES.gapLarge,
+    paddingBottom: SIZES.height / 4
   },
 });
 

@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { useTheme } from "../../../hooks";
 import { FlexContainer, Typography } from "../../../components/custom";
 import { FONTS, SIZES } from "../../../constants/theme";
+import i18next from "../../../Translate";
 
 type Props = {
   data: {
@@ -36,7 +37,7 @@ const Inf = (props: Props) => {
           <Typography
             variant="SubDescription"
             newStyle={styles.biotext}>
-            Add bio
+            {i18next.t("Add bio")}
           </Typography>
         </TouchableOpacity>
       ) : (

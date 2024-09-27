@@ -107,7 +107,7 @@ const Avatars = React.memo((props: Props) => {
           <Image
             source={{ uri: source }}
             placeholderSource={source}
-            showPlaceholder={false}
+            showPlaceholder={true}
             contentFit="cover"
             priority="high"
             cachePolicy="memory-disk"

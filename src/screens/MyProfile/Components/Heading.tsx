@@ -1,14 +1,11 @@
 import React, { memo } from "react";
 import { StyleSheet } from "react-native";
 import {
-  ArrowLeft,
   Menu01Icon,
-  MoreHorizontalSquare01Icon,
   Notification03IconStroke,
   UploadCircle01Icon,
   VerifyIcons,
 } from "../../../constants/IconsPro";
-import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../../hooks";
 import { ArrowBack, FlexContainer, Typography } from "../../../components/custom";
 import { FONTS, SIZES } from "../../../constants/theme";
@@ -35,7 +32,6 @@ const Heading = ({
   ArrowbackNavigation,
 }: PropsHeader) => {
   const { color, Description } = useTheme();
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   return (

@@ -6,7 +6,6 @@ import { QueryKeyType } from "../types/ReactQuery.type";
 export const getCartService = async () => {
   try {
     const userToken = await AsyncStorage.getItem("userToken");
-
     const response = await axios.post(
       `${API_URL}/api/cart/get`,
       {},
@@ -28,7 +27,9 @@ export const addToCartService = async (
   subvariants: number[],
   qty: number
 ) => {
-
+  console.log('recipeID', recipeID);
+  console.log('subvariants', subvariants);
+  console.log('qty', qty);
   const userToken = await AsyncStorage.getItem("userToken");
   const response = await axios.post(
     `${API_URL}/api/cart`,
@@ -43,11 +44,13 @@ export const addToCartService = async (
       },
     }
   );
+  console.log('response', response.data);
   return response.data;
   
 };
 
 export const removerCartService = async (recipeID: number) => {
+  console.log('recipeID', recipeID);
   try {
     const userToken = await AsyncStorage.getItem("userToken");
 
@@ -57,8 +60,10 @@ export const removerCartService = async (recipeID: number) => {
         Authorization: `Bearer ${userToken}`,
       },
     });
+    console.log('response', response.data);
     return response.data;
   } catch (error) {
+    console.log('error', error);
     return null;
   }
 };
