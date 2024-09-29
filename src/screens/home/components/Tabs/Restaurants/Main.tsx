@@ -5,6 +5,7 @@ import {
   ButtonAcces,
   FlexContainer,
   IsLoading,
+  LoadingScreen,
   ScreenEmpty,
   ToggleFilter,
 } from "../../../../../components/custom";
@@ -54,11 +55,11 @@ const Main = ({
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);
 
   const toggleFilterStores = useCallback(() => {
-    setFilterStores((prev) => !prev);
+    setFilterStores((prev: boolean) => !prev);
   }, [setFilterStores]);
 
   const toggleFreeShipping = useCallback(() => {
-    setFreeShipping((prev) => !prev);
+    setFreeShipping((prev: boolean) => !prev);
   }, [setFreeShipping]);
 
   const emptyComponent = () => (
@@ -95,7 +96,7 @@ const Main = ({
 
 
   if (isLoading) {
-    return <IsLoading label="Loading business" />;
+    return <LoadingScreen label={i18next.t('Loading business')} />;
   }
 
   return !isLoading && filteredData && filteredData.length === 0 ? (

@@ -4,24 +4,24 @@ import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/
 const styles = StyleSheet.create({
   flexContainer: {
     paddingHorizontal: SIZES.gapMedium,
-    borderRadius: SIZES.gapMedium,
-    marginVertical: SIZES.gapMedium,
+    marginVertical: SIZES.gapSmall,
     width: "98%",
     alignSelf: "center"
   },
   touchableOpacity: {
     alignItems: "center",
     height: "auto",
-    paddingVertical: SIZES.gapMedium,
+    paddingVertical: SIZES.gapSmall,
     flexDirection: 'row',
-    gap: SIZES.gapLarge
+    width: "98%",
+    justifyContent: "space-between"
   },
   businessName: {
     width: SIZES.width / 1.6,
     ...FONTS.semi16
   },
   flexContainerInner: {
-
+    marginLeft: SIZES.gapSmall
   },
   timeSend: {
     width: SIZES.width / 1.5,
@@ -31,11 +31,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: SIZES.radius,
   },
   storeStatus: {
     color: COLORS.error,
-    marginBottom: SIZES.gapSmall
   },
   storeStatusText: {
     color: COLORS.dark,
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   lineDivider: {
-    height: responsiveFontSize(1),
+    height: SIZES.gapSmall,
   },
   buttonscontainer: {
     backgroundColor: COLORS.primary,

@@ -1,37 +1,54 @@
-import React, { useState, memo, useCallback } from "react";
+import React, {memo, useState } from "react";
 import { StyleSheet } from "react-native";
 import { CLOUDFRONT } from "../../../../services";
 import {
-  COLORS,
   FONTS,
-  responsiveFontSize,
   SIZES,
 } from "../../../../constants/theme";
 import FlexContainer from "../../FlexContainer";
-import { Image } from "../../../native";
 import { useTheme } from "../../../../hooks";
 import Typography from "../../Typography";
-import LineDivider from "../../LineDivider";
-import ToggleAdd from "./ToggleAdd";
+import { AddRemove } from "./ToggleAdd";
+import Cover from "../../Avatars/Cover";
+import { addToCartService, removerCartService } from "../../../../services/cart";
+
+interface row {
+  recipeID: number,
+  name: string,
+  description: string,
+  formatprice: string,
+  qty: number,
+  thumbnail: string,
+  variants: number[]
+}
 
 type Props = {
-  recipeID: number;
-  name: string;
-  description: string;
-  price: number;
-  qty: number;
-  thumbnail: string;
+  row: row,
+  refetch: () => void
 };
 
 const CartItem: React.FC<Props> = ({
-  recipeID,
-  name,
-  description,
-  price,
-  qty,
-  thumbnail,
+  row, refetch
 }) => {
   const { backgroundMaingrey } = useTheme();
+  const { recipeID, name, description, formatprice, qty, thumbnail, variants} = row;
+  const [localQty, setLocalQty] = useState(qty); // Local state for quantity
+
+  const addToCart = async (recipeID: number, subVariants: number[], qty: number) => {
+    setLocalQty((prevQty) => prevQty + 1); // Update local state immediately
+    const response = await addToCartService(recipeID, subVariants, qty);
+    if (response.success) {
+      refetch();
+    }
+  };
+
+  const removeCart = async (recipeID: number, subVariants: number[]) => {
+    setLocalQty((prevQty) => Math.max(prevQty - 1, 0)); // Update local state immediately
+    const response = await removerCartService(recipeID, subVariants);
+    if (response.success) {
+      refetch();
+    }
+  };
 
   return (
     <FlexContainer
@@ -51,15 +68,7 @@ const CartItem: React.FC<Props> = ({
           },
         ]}
       >
-        <Image
-          source={{ uri: `${CLOUDFRONT}${thumbnail}`}}
-          placeholderSource={`${CLOUDFRONT}${thumbnail}`}
-          style={styles.thumbnail}
-          cachePolicy="memory-disk"
-          priority="high"
-          contentFit='cover'
-          accessibilityLabel={`${name} imagen`}
-        />
+        <Cover source={`${CLOUDFRONT}${thumbnail}`} size='medium' />
         <FlexContainer newStyle={styles.containerText}>
           <Typography
             newStyle={styles.maxText}
@@ -75,16 +84,18 @@ const CartItem: React.FC<Props> = ({
           >
             {description}
           </Typography>
-          <Typography variant="subtitle" newStyle={styles.price}>
-            {price}
-          </Typography>
+          <FlexContainer variant="row" newStyle={styles.containerprice}>
+            <Typography variant="subtitle" newStyle={styles.price}>
+              {formatprice}
+            </Typography>
+            <AddRemove
+              add={() => addToCart(recipeID, variants, 1)}
+              remove={() => removeCart(recipeID, variants)}
+              qty={localQty}
+            />
+          </FlexContainer>
         </FlexContainer>
       </FlexContainer>
-      <LineDivider />
-      <ToggleAdd 
-        recipeID={recipeID}
-        qty={qty}
-      />
     </FlexContainer>
   );
 };
@@ -95,25 +106,24 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: SIZES.gapMedium,
     width: "100%",
-    padding: SIZES.gapMedium,
-    gap: SIZES.gapLarge,
+    padding: SIZES.gapLarge,
     borderRadius: SIZES.radius,
   },
   containerExtra: {
     gap: SIZES.gapLarge,
   },
-  thumbnail: {
-    width: responsiveFontSize(98),
-    height: responsiveFontSize(98),
-    borderRadius: SIZES.radius * 2,
-  },
   maxText: {
     width: SIZES.width / 1.4,
   },
   price: {
-    ...FONTS.heading24,
+    ...FONTS.semi18,
   },
   containerText: {
-    gap: SIZES.gapLarge,
+    gap: SIZES.gapSmall,
   },
+  containerprice: {
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingRight: SIZES.gapLarge,
+  }
 });

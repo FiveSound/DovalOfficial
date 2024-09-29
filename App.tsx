@@ -31,7 +31,7 @@ const queryClient = new QueryClient();
 LogBox.ignoreAllLogs();
 
 const App: React.FC = () => {
-  const countryKey = useAppSelector((state: RootState) => state.location.countryKey);
+  // const countryKey = useAppSelector((state: RootState) => state.location.countryKey);
   // console.log('countryKey', countryKey);
   // useLocation();
   // useEffect(() => {

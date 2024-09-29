@@ -8,13 +8,13 @@ interface LineDividerProps {
 }
 
 const LineDivider: React.FC<LineDividerProps> = ({ lineStyle }) => {
-  const { borderInput } = useTheme();
+  const { border } = useTheme();
   return (
     <View
       style={{
         height: SIZES.borderWidth,
         width: "100%",
-        backgroundColor: borderInput,
+        backgroundColor: border,
         ...lineStyle,
       }}
     />

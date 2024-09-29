@@ -9,7 +9,7 @@ import React from "react";
 import Buttons from "../../Buttons/Buttons";
 
 export const FooterCart = (props: any) => {
-  const { TotalPrice, FooterPress, labelAdd, loading = false, qty, add, remove, disabledCart } = props;
+const { TotalPrice, FooterPress, labelAdd, loading = false, qty, add, remove, disabledCart, showAdd = true } = props;
 
   return (
     <FlexContainer newStyle={styles.containerMain}>
@@ -24,13 +24,13 @@ export const FooterCart = (props: any) => {
       <FlexContainer newStyle={styles.container}>
         <FlexContainer newStyle={styles.innerContainer}>
           <FlexContainer variant="row" newStyle={styles.rowContainer}>
-            <FlexContainer>
+            {showAdd && <FlexContainer>
               <AddRemove 
               add={add}
               remove={remove}
               qty={qty}
               />
-            </FlexContainer>
+            </FlexContainer>}
             <Buttons
               label={labelAdd}
               onPress={FooterPress}

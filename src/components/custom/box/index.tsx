@@ -4,6 +4,7 @@ import { SIZES } from "../../../constants/theme";
 import FlexContainer from "../FlexContainer";
 import Typography from "../Typography";
 import { useTheme } from "../../../hooks";
+import LineDivider from "../LineDivider";
 
 interface BoxProps {
   children?: ReactNode;
@@ -16,13 +17,16 @@ const Box = ({ children, title, variant }: BoxProps) => {
   const { backgroundMaingrey, border } = useTheme()
 
   return (
+   <>
     <FlexContainer newStyle={styles.container}>
-      {title && <Typography variant='title'>{title}</Typography>}
+      {title && <Typography variant='subtitle'>{title}</Typography>}
       {children && <FlexContainer newStyle={[styles.box,{
         borderColor: border,
         backgroundColor: backgroundMaingrey
       }]}>{children}</FlexContainer>}
     </FlexContainer>
+    <LineDivider lineStyle={styles.line}/>
+   </>
   );
 };
 
@@ -38,8 +42,10 @@ const createStyles = (variant: boolean) => {
     box: {
       padding: SIZES.gapMedium,
       borderRadius: SIZES.radius,
-      borderWidth: SIZES.borderWidth,
     },
+    line: {
+      height: SIZES.gapSmall,
+    }
   });
 };
 

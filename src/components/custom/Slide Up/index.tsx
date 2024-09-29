@@ -1,7 +1,7 @@
 import React from 'react';
+import BottomSheet from './BottomSheet';
+import Carrousel from './Carrousel';
 
-const BottomSheet = React.lazy(() => import("./BottomSheet"));
-const Carrousel = React.lazy(() => import("./Carrousel"));
 
 export {
     BottomSheet,

@@ -1,89 +1,108 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DarkMode from "../../../hooks/DarkMode";
 import useTheme from "../../../hooks/useTheme";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { FavouriteIcon, FavouriteIconStroke, Location09Icon, Share08Icon, ShoppingBag01IconStroke, StarIcon } from "../../../constants/IconsPro";
-import { FlexContainer, Typography } from "../../../components/custom";
-import { COLORS, FONTS, SIZES } from "../../../constants/theme";
+import { Animated, StyleSheet, TouchableOpacity } from "react-native";
+import { FavouriteIcon, FavouriteIconStroke, Location09Icon, Share08Icon, ShoppingBag01IconStroke, StarIcon, Store01Icon } from "../../../constants/IconsPro";
+import { FlexContainer, Icons, Typography } from "../../../components/custom";
+import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../constants/theme";
+import i18next from "../../../Translate";
 
-type Props = {
-  business_name: string | undefined;
-  Like: boolean | undefined;
-  Rating: string | undefined;
-  SuccessOrders: string | undefined;
-  addressBusiness: string | undefined;
+type Propsdata = {
+  business_name: string;
+  bio: string;
+  details: string;
+  open: boolean;
 };
 
-const ProfileBusiness = ({
-  business_name,
-  Like,
-  Rating,
-  SuccessOrders,
-  addressBusiness
-}: Props) => {
-  const { Bg: Background, color: colorTitle, Description } = useTheme();
-  const { SecundaryText } = DarkMode()
-  const [extend, setExtend] = useState(false)
+type Props = {
+  data: Propsdata
+}
 
+
+const ProfileBusiness = ({
+  data
+}: Props) => {
+  const { backgroundMaingrey, Description } = useTheme();
+  const { business_name, bio , details, open } = data
+
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1.2,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [pulseAnim]);
+  
   return (
     <FlexContainer newStyle={styles.flexContainer}>
       <FlexContainer newStyle={styles.innerFlexContainer}>
         <FlexContainer>
-          <Typography newStyle={styles.businessName} variant="H4title" numberOfLines={1}>
+          <Typography newStyle={styles.businessName} variant="H4title" numberOfLines={2}>
             {business_name}
           </Typography>
+          <Typography newStyle={styles.address} variant='SubDescription' numberOfLines={2}>
+            {bio}
+          </Typography>
           <FlexContainer newStyle={styles.locationContainer} variant='row'>
-            <Location09Icon width={SIZES.icons / 1.4} height={SIZES.icons / 1.4} color={COLORS.primary} />
+            <Location09Icon width={SIZES.icons} height={SIZES.icons} color={Description} />
             <Typography newStyle={styles.address} variant='SubDescription' numberOfLines={1}>
-              {addressBusiness}
+              {details}
             </Typography>
           </FlexContainer>
-          <FlexContainer newStyle={styles.ratingContainer} variant='row'>
-            <FlexContainer newStyle={styles.ratingInnerContainer} variant='row'>
-              <StarIcon width={SIZES.icons / 1.5} height={SIZES.icons / 1.5} color={COLORS.support4} />
-              <Typography newStyle={styles.ratingText} variant='SubDescription' numberOfLines={1}>
-                {Rating}
-              </Typography>
-            </FlexContainer>
-            <FlexContainer newStyle={styles.ordersContainer} variant='row'>
-              <ShoppingBag01IconStroke width={SIZES.icons / 1.5} height={SIZES.icons / 1.5} color={Description} />
-              <Typography newStyle={styles.ordersText} variant='SubDescription' numberOfLines={1}>
-                {SuccessOrders}
-              </Typography>
-            </FlexContainer>
-          </FlexContainer>
+
         </FlexContainer>
-        <FlexContainer newStyle={styles.containerButtons} variant='row'>
-          <TouchableOpacity>
-            {!Like ?
-              <FavouriteIconStroke width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> :
-              <FavouriteIcon width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} color={COLORS.error} />
-            }
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Share08Icon width={SIZES.icons} height={SIZES.icons} />
-          </TouchableOpacity>
-        </FlexContainer>
+        <FlexContainer newStyle={[styles.containerButtons, {
+          backgroundColor: backgroundMaingrey
+        }]} variant='row'>
+        <Animated.View
+          style={[
+            styles.pulsingCircle,
+            open ? styles.pulsingCircleGreen : styles.pulsingCircleRed,
+            { transform: [{ scale: pulseAnim }] },
+          ]}
+        />
+        <Typography variant='H4title'>{open ? i18next.t('Open') : i18next.t('Closed')}</Typography>
+      </FlexContainer>
       </FlexContainer>
     </FlexContainer>
   );
 };
 
 const styles = StyleSheet.create({
+  storeContainer: {
+    alignItems: 'center',
+    gap: SIZES.gapSmall,
+  },
+  storeText: {
+    color: COLORS.dark,
+  },
   flexContainer: {
-    width: SIZES.BtnWidth,
+    width: SIZES.width,
     backgroundColor: 'transparent',
     justifyContent: 'center',
+    paddingHorizontal: SIZES.gapLarge,
   },
   innerFlexContainer: {
     backgroundColor: 'transparent',
     paddingHorizontal: SIZES.radius,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   businessName: {
-    ...FONTS.h2,
-    maxWidth: SIZES.width / 1.8,
+    ...FONTS.heading21,
+    maxWidth: SIZES.width / 1.4,
     alignItems: 'flex-start',
     gap: SIZES.gapSmall,
   },
@@ -94,6 +113,7 @@ const styles = StyleSheet.create({
   address: {
     maxWidth: SIZES.width / 1.8,
     alignItems: 'flex-start',
+    ...FONTS.semi14
   },
   ratingContainer: {
     alignItems: 'center',
@@ -119,6 +139,20 @@ const styles = StyleSheet.create({
   containerButtons: {
     alignItems: 'center',
     gap: SIZES.gapMedium,
+    height: SIZES.InputsHeight,
+    paddingHorizontal: SIZES.gapMedium,
+    borderRadius: SIZES.radius,
+  },
+  pulsingCircle: {
+    width: responsiveFontSize(14),
+    height: responsiveFontSize(14),
+    borderRadius: responsiveFontSize(14),
+  },
+  pulsingCircleGreen: {
+    backgroundColor: COLORS.success,
+  },
+  pulsingCircleRed: {
+    backgroundColor: COLORS.error,
   },
 });
 

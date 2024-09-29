@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, LayoutAnimation, Platform, UIManager } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { StyleSheet, Animated, Easing, View } from "react-native";
 import {
   COLORS,
   FONTS,
@@ -37,11 +37,34 @@ interface Props {
 const OptionList: React.FC<Props> = React.memo(({ option, title, required, onPress, value, limites, variantID, limit_qty }) => {
   const { backgroundMaingrey, Title } = useTheme();
   const [expanded, setExpanded] = useState<boolean>(true);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+  const animation = useRef(new Animated.Value(expanded ? 1 : 0)).current;
+  const [isMeasured, setIsMeasured] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isMeasured) {
+      Animated.timing(animation, {
+        toValue: expanded ? 1 : 0,
+        duration: 300,
+        easing: Easing.ease,
+        useNativeDriver: false,
+      }).start();
+    }
+  }, [expanded, animation, isMeasured]);
 
   const toggleExpand = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpanded(!expanded);
   };
+
+  const animatedHeight = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, contentHeight],
+  });
+
+  const animatedRotate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
 
   return (
     <FlexContainer
@@ -57,48 +80,90 @@ const OptionList: React.FC<Props> = React.memo(({ option, title, required, onPre
           {title}
         </Typography>
         <FlexContainer variant="row">
-        {required === 1 && 
-          <Perks 
-            status={!limites[variantID] ? 'error' : 'success'} 
-            label={!limites[variantID] ? ` ${i18next.t("Required")} ${limit_qty}` : i18next.t("completed")}
-          />
-        }
-          <Icons 
-          onPress={toggleExpand}
-            appendIcons={
-            <ArrowDown 
-            color={Title} 
-            width={SIZES.icons}
-            height={SIZES.icons}
-            style={{ transform: [{ rotate: expanded ? '180deg' : '0deg' }] }} />
-            
+          {required === 1 && 
+            <Perks 
+              status={!limites[variantID] ? 'error' : 'success'} 
+              label={!limites[variantID] ? ` ${i18next.t("Required")} ${limit_qty}` : i18next.t("completed")}
+            />
           }
+          <Icons 
+            onPress={toggleExpand}
+            appendIcons={
+              <Animated.View style={{ transform: [{ rotate: animatedRotate }] }}>
+                <ArrowDown 
+                  color={Title} 
+                  width={SIZES.icons}
+                  height={SIZES.icons}
+                />
+              </Animated.View>
+            }
           />
         </FlexContainer>
       </FlexContainer>
-      {expanded && (
-        <FlexContainer newStyle={styles.optionsContainer}>
-          {option.map((item) => (
-            <TouchableOpacity 
-              key={item.id} 
-              style={styles.item}
-              onPress={() => onPress && onPress(item.id)}
-            >
-              <Typography variant="H4title" newStyle={styles.itemName}>
-                {item.name}
-              </Typography>
-              <FlexContainer newStyle={styles.containerPrices} variant="row">
+      
+      {/* Vista de Medición Oculta */}
+      {!isMeasured && (
+        <View
+          style={styles.hiddenContainer}
+          onLayout={(event) => {
+            const height = event.nativeEvent.layout.height;
+            setContentHeight(height);
+            setIsMeasured(true);
+          }}
+        >
+          <FlexContainer>
+            {option.map((item) => (
+              <TouchableOpacity 
+                key={item.id} 
+                style={styles.item}
+                onPress={() => onPress && onPress(item.id)}
+              >
                 <Typography variant="H4title" newStyle={styles.itemName}>
-                  {parseFloat(item.price) > 0 ? `+$${item.price}` : "Free"}
+                  {item.name}
                 </Typography>
-                <StaticCheckbox 
-                  checked={value.includes(item.id)} 
-                  showLabel={false} 
-                />
-              </FlexContainer>
-            </TouchableOpacity>
-          ))}
-        </FlexContainer>
+                <FlexContainer newStyle={styles.containerPrices} variant="row">
+                  <Typography variant="H4title" newStyle={styles.itemName}>
+                    {parseFloat(item.price) > 0 ? `+$${item.price}` : "Free"}
+                  </Typography>
+                  <StaticCheckbox 
+                    checked={value.includes(item.id)} 
+                    showLabel={false} 
+                  />
+                </FlexContainer>
+              </TouchableOpacity>
+            ))}
+          </FlexContainer>
+        </View>
+      )}
+
+      {/* Contenido Animado */}
+      {isMeasured && (
+        <Animated.View style={[styles.optionsContainer, { height: animatedHeight, overflow: 'hidden' }]}>
+          <Animated.View style={{ opacity: animation }}>
+            <FlexContainer>
+              {option.map((item) => (
+                <TouchableOpacity 
+                  key={item.id} 
+                  style={styles.item}
+                  onPress={() => onPress && onPress(item.id)}
+                >
+                  <Typography variant="H4title" newStyle={styles.itemName}>
+                    {item.name}
+                  </Typography>
+                  <FlexContainer newStyle={styles.containerPrices} variant="row">
+                    <Typography variant="H4title" newStyle={styles.itemName}>
+                      {parseFloat(item.price) > 0 ? `+$${item.price}` : "Free"}
+                    </Typography>
+                    <StaticCheckbox 
+                      checked={value.includes(item.id)} 
+                      showLabel={false} 
+                    />
+                  </FlexContainer>
+                </TouchableOpacity>
+              ))}
+            </FlexContainer>
+          </Animated.View>
+        </Animated.View>
       )}
     </FlexContainer>
   );
@@ -142,6 +207,13 @@ const styles = StyleSheet.create({
   },
   optionsContainer: {
     marginTop: SIZES.base,
+  },
+  hiddenContainer: {
+    position: 'absolute',
+    top: -1000, // Colocado fuera de la pantalla
+    left: 0,
+    right: 0,
+    opacity: 0,
   },
 });
 

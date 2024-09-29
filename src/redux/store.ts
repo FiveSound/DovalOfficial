@@ -8,7 +8,8 @@ import searchReducer from './slides/searchSlice';
 import signupFormReducer from "./slides/SignForm";
 import personalizedReducer from "./slides/personalizedSlice";
 import locationReducer from './slides/locationSlice';
-import cartReducer from './slides/cartSlice';
+import navigationReducer from './slides/navigations';
+import scrollReducer from './slides/scrollSlice';
 
 const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ const store = configureStore({
     signupForm: signupFormReducer,
     personalized: personalizedReducer,
     location: locationReducer,
-    cart: cartReducer,
+    navigation: navigationReducer,
+    scroll: scrollReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

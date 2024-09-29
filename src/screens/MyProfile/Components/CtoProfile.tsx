@@ -37,7 +37,7 @@ const CtoProfile = ({
 
   return (
     <>
-    <Website />
+    {/* <Website /> */}
       <FlexContainer variant="row" newStyle={styles.container}>
         <Buttons
           label={i18next.t("Editar")}
@@ -65,7 +65,7 @@ const handleNavigation = useCallback(() => {
 
   return (
     <FlexContainer variant="row" newStyle={styles.moreOptionsContainer}>
-      <Icons appendIcons={<StoreLocation01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>} onPress={handleNavigation}/>
+      {/* <Icons appendIcons={<StoreLocation01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>} onPress={handleNavigation}/> */}
       <Icons 
       appendIcons={<MoreHorizontalCircle01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>}
       />

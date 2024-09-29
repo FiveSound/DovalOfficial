@@ -41,6 +41,7 @@ type Props = {
   remove?: () => void;
   qty?: number;
   disabledCart?: boolean;
+  showAdd?: boolean;
 }
 
 const Container = ({ useSafeArea = true, style, children, label, showBack, onPress, showHeader = false, showTwoIconsLabel = true, showSkip = false,
@@ -65,7 +66,8 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
   add,
   remove,
   qty,
-  disabledCart
+  disabledCart,
+  showAdd
 }: Props) => {
   const Component = useSafeArea ? SafeAreaView : View;
   const { BackgroundMain } = useTheme()
@@ -108,6 +110,7 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
             remove={remove}
             qty={qty}
             disabledCart={disabledCart}
+            showAdd={showAdd}
           />
           </SafeAreaView>
         </>

@@ -21,7 +21,6 @@ const Cart = () => {
     queryKey: ["cart-screen"],
     queryFn: getCartService,
   });
-  console.log('data', data);
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
   const {
@@ -55,7 +54,7 @@ const Cart = () => {
     fetchData();
   }, [data, isLoading, isLoadingApp, isAuthenticated]);
 
-  if (isLoading || isLoadingApp || isFetching) return <LoadingScreen />;
+  if (isLoading || isLoadingApp ) return <LoadingScreen />;
 
   if (data.list.length === 0  && isAuthenticated) {
     return (
@@ -98,6 +97,7 @@ const Cart = () => {
         ProductsLength={data.list.flat().length || 0}
         labelAdd={i18next.t("Checkout")}
         TotalPrice={data.total || '0'}
+        showAdd={false}
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -109,6 +109,7 @@ const Cart = () => {
             <Accordion
               key={row.businessID}
               row={row}
+              refetch={refetch}
             />
           ))}
         </ScrollView>

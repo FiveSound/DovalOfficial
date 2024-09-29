@@ -613,5 +613,8 @@
   "Are you sure you want to block this user?": "Are you sure you want to block this user?",
   "Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content.": "Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content.",
   "Block": "Block",
-  "There was an error blocking the user. Please try again.": "There was an error blocking the user. Please try again."
+  "There was an error blocking the user. Please try again.": "There was an error blocking the user. Please try again.",
+  "closed for moments": "closed for moments",
+  "Send": "Send",
+  "View order": "View order"
 }

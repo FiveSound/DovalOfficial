@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlashList, FlatList, View } from '../../../../../../components/native';
-import { responsiveFontSize } from '../../../../../../constants/theme';
+import { responsiveFontSize, SIZES } from '../../../../../../constants/theme';
 
 interface RecipeListProps {
   data: any[];
@@ -19,7 +19,7 @@ const PostsList: React.FC<RecipeListProps> = ({ data, renderItem, isRefreshing, 
       keyExtractor={item => item.id.toString()}
       refreshing={isRefreshing}
       onRefresh={onRefresh}
-      contentContainerStyle={{ paddingBottom: responsiveFontSize(100) }}
+      contentContainerStyle={{ paddingBottom: SIZES.height / 2 }}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={<View style={{ height: responsiveFontSize(100) }} />}
       estimatedItemSize={estimatedItemSize}

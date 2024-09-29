@@ -1,9 +1,10 @@
 import React, { useCallback, useRef, useState } from "react";
 import { StyleSheet, ViewToken, FlatList, Animated } from "react-native";
 import { COLORS, SIZES } from "../../../../constants/theme";
-import { FlexContainer, Dots, Buttons, ButtonAcces } from "../..";
-import { useNavigation, View } from "../../../native";
+import { FlexContainer, Dots, Buttons, ButtonAcces, Typography, Icons } from "../..";
+import { TouchableOpacity, useNavigation, View } from "../../../native";
 import { useTheme } from "../../../../hooks";
+import i18next from "../../../../Translate";
 
 type Order = {
   currentStep: number;
@@ -57,6 +58,31 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
   if (row && row.length > 0) {
     return (
       <View style={styles.main}>
+        <FlexContainer newStyle={styles.container} variant="row">
+         <Dots
+            totalSteps={row.length}
+            currentStep={currentVisibleIndex}
+            activeColor={COLORS.primary}
+            inactiveColor={border}
+          />
+          <Icons 
+          appendIcons={
+              <Typography variant='H4title' newStyle={styles.text}>
+                {i18next.t('View order')}
+              </Typography>
+          }
+          onPress={() => {
+            if (activeOrder) {
+              navigation.navigate("OrderStack", {
+                screen: "Tracking",
+                params: {
+                  orderID: activeOrder.orderID
+                },
+              });
+            }
+          }}
+          />
+        </FlexContainer>
         <Animated.FlatList
           ref={flatListRef}
           data={row}
@@ -76,35 +102,12 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
             { useNativeDriver: true }
           )}
         />
-        <FlexContainer newStyle={styles.container}>
-          <ButtonAcces
-            label={label}
-            labelPreview='View order'
-            onPress={() => {
-              if (activeOrder) {
-                navigation.navigate("OrderStack", {
-                  screen: "Tracking",
-                  params: {
-                    orderID: activeOrder.orderID
-                  },
-                });
-              } else {
-                console.warn("No active order found.");
-              }
-            }}
-          />
-           <Dots
-            totalSteps={row.length}
-            currentStep={currentVisibleIndex}
-            activeColor={Title}
-            inactiveColor={border}
-          />
-        </FlexContainer>
+        
       </View>
     );
   }
 
-  return null; // Opcional: Retornar algo cuando no hay datos
+  return null;
 };
 
 const styles = StyleSheet.create({
@@ -113,8 +116,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container: {
-    // Agrega estilos necesarios si los hay
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: SIZES.padding,
+    justifyContent: 'space-between'
   },
+  text: {
+    justifyContent: "flex-end",
+    width: "100%",
+    textAlign: "right",
+  }
 });
 
 export default React.memo(Carrousel);

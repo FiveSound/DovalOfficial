@@ -6,9 +6,11 @@ import Typography from "../../Typography";
 import Cover from "../../Avatars/Cover";
 import { useTheme } from "../../../../hooks";
 import styles from "./styles";
-import { useNavigation } from "../../../native";
-import * as Haptics from "expo-haptics";
+import { useNavigation } from "../../../native"
 import { CLOUDFRONT } from "../../../../services";
+import i18next from "../../../../Translate";
+import { ArrowRight01Icon } from "../../../../constants/IconsPro";
+import { SIZES } from "../../../../constants/theme";
 
 export type businessListitems = {
   id: number;
@@ -42,15 +44,11 @@ const CardBusiness = ({
     businessID,
     bio
   } = item;
-  const { color, greyText, backgroundMaingrey } = useTheme();
+  const { Title } = useTheme();
   const navigation = useNavigation();
   const handleNavigation = useCallback(() => {
      if(item) {navigation.navigate("Business", { id: businessID });}
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   }, [navigation]);
-
-  const handleFavouritePress = useCallback(() => {
-  }, []);
 
   return (
     <FlexContainer key={id} newStyle={styles.flexContainer}>
@@ -59,14 +57,14 @@ const CardBusiness = ({
         numberOfLines={1}
         newStyle={styles.storeStatus}
       >
-        closed for moments
+        {i18next.t('closed for moments')}
       </Typography>}
       <TouchableOpacity
         onPress={handleNavigation}
         style={styles.touchableOpacity}
       >
         <Cover source={`${CLOUDFRONT}${avatar}`} size="small" />
-        <View>
+        <View style={styles.flexContainerInner}>
           <Typography
             variant="subtitle"
             numberOfLines={1}
@@ -82,12 +80,13 @@ const CardBusiness = ({
               {timeSend}
             </Typography>
             <Typography variant="SubDescription">
-              Send {amountSend}
+              {i18next.t('Send')} {amountSend}
             </Typography>
           </FlexContainer>
         </View>
+        <ArrowRight01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
       </TouchableOpacity>
-      <LineDivider />
+      <LineDivider lineStyle={styles.lineDivider}/>
     </FlexContainer>
   );
 };

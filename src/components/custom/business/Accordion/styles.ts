@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
       gap: SIZES.gapMedium,
     },
     business: {
-    ...FONTS.heading18
+    ...FONTS.semi18
     },
     arrow: {
       transform: "rotate(180deg)",
@@ -49,6 +49,13 @@ const styles = StyleSheet.create({
       borderRadius: SIZES.radius,
       marginTop: SIZES.radius,
       backgroundColor: "transparent",
+    },
+    hiddenContainer: {
+      position: 'absolute',
+      top: -1000, 
+      left: 0,
+      right: 0,
+      opacity: 0,
     },
   });
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useTheme } from '../../../../../hooks';
-import { Buttons, FlexContainer, LabelContainer, Typography } from '../../../../../components/custom';
+import { Box, Buttons, FlexContainer, IsLoading, LabelContainer, Typography } from '../../../../../components/custom';
 import { responsiveFontSize, SIZES } from '../../../../../constants/theme';
 import { Location09Icon } from '../../../../../constants/IconsPro';
 
@@ -41,29 +41,11 @@ const Location = ({ address, latitude, longitude }: Props) => {
     return () => clearTimeout(timer); 
   }, [mapLoaded]);
 
-  const Label = ({ Labeladdress }: any) => {
-    return (
-      <FlexContainer variant='row'
-        newStyle={{
-          alignItems: 'flex-start',
-          gap: SIZES.gapSmall,
-          marginVertical: SIZES.gapSmall
-        }}>
-        <Location09Icon
-          width={SIZES.icons / 1.4}
-          height={SIZES.icons / 1.4}
-          color={Description}
-        />
-        <Typography variant='H4title'>{Labeladdress}</Typography>
-      </FlexContainer>
-    )
-  }
 
   return (
-    <LabelContainer label='Location'>
+    <Box title='Location'>
       <FlexContainer newStyle={{ alignItems: 'center' }}>
-        <Label Labeladdress={address} />
-        {!mapLoaded && <ActivityIndicator size="large"  />}
+        {!mapLoaded && <IsLoading  />}
         <MapView
           ref={mapRef}
           style={styles.map}
@@ -95,7 +77,7 @@ const Location = ({ address, latitude, longitude }: Props) => {
           />
         )}
       </FlexContainer>
-    </LabelContainer>
+    </Box>
   );
 };
 

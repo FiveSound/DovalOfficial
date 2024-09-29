@@ -41,8 +41,10 @@ const styles = StyleSheet.create({
         borderColor: COLORS.primaryDark700,
     },
     lineDivider: {
-        height: responsiveFontSize(1),
-        marginTop: SIZES.gapMedium
+        height: SIZES.gapSmall,
+        marginTop: SIZES.gapMedium,
+        width: SIZES.width,
+        alignSelf: 'center'
     },
     textContainer: {
         gap: SIZES.gapSmall,

@@ -1,53 +1,81 @@
-import React, { memo, useState, useCallback } from "react";
+import React, { memo, useState, useCallback, useRef, useEffect } from "react";
+import { Animated, Easing, View } from "react-native";
 import { useTheme } from "../../../../hooks";
 import FlexContainer from "../../FlexContainer";
-import { TouchableOpacity, View } from "react-native";
 import Avatars from "../../Avatars";
 import Typography from "../../Typography";
-import { ArrowDown, ArrowUp } from "../../../../constants/IconsPro";
-import { responsiveFontSize, SIZES } from "../../../../constants/theme";
+import {  ArrowUp } from "../../../../constants/IconsPro";
+import {  SIZES } from "../../../../constants/theme";
 import LineDivider from "../../LineDivider";
 import CartItem from "../CartItems";
 import styles from "./styles";
 import { CLOUDFRONT } from "../../../../services";
 import i18next from "../../../../Translate";
+import { Pressable } from "../../../native";
 
 type CartItemType = {
-  postID: number;
+  cartItemID: number;
   recipeID: number;
   name: string;
   description: string;
-  price: number;
+  formatprice: string;
   thumbnail: string;
   qty: number;
   businessID: number;
   business_name: string;
   cover: string;
+  variants: number[]
 };
 
 type Props = {
   row: CartItemType[];
+  refetch: () => void;
 };
 
-const Accordion: React.FC<Props> = ({ row }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { Description, Title } = useTheme();
+const Accordion: React.FC<Props> = ({ row, refetch }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const { Title } = useTheme();
   const business = row[0];
+
+
+  // Animaciones
+  const animation = useRef(new Animated.Value(isOpen ? 1 : 0)).current;
+  const [contentHeight, setContentHeight] = useState<number>(0);
+  const [isMeasured, setIsMeasured] = useState<boolean>(false);
+
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: isOpen ? 1 : 0,
+      duration: 300,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  }, [isOpen, animation]);
 
   const toggleAccordion = useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
 
+  const animatedHeight = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, contentHeight],
+  });
+
+  const animatedRotate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
   return (
     <FlexContainer newStyle={styles.container}>
-      <TouchableOpacity
+      <Pressable
         onPress={toggleAccordion}
         style={styles.header}
         accessibilityLabel={isOpen ? "Cerrar detalles del negocio" : "Abrir detalles del negocio"}
         accessibilityRole="button"
       >
         <View style={styles.subheader}>
-          <Avatars 
+          <Avatars
             source={`${CLOUDFRONT}${business.cover}`}
             size="medium"
           />
@@ -63,31 +91,49 @@ const Accordion: React.FC<Props> = ({ row }) => {
             </Typography>
           </FlexContainer>
         </View>
-        {isOpen ? 
-          <ArrowUp 
+        <Animated.View style={{ transform: [{ rotate: animatedRotate }] }}>
+          <ArrowUp
             width={SIZES.icons}
             height={SIZES.icons}
             color={Title}
             accessibilityLabel="Contraer lista de productos"
-          /> :
-          <ArrowDown 
-            width={SIZES.icons}
-            height={SIZES.icons}
-            color={Title}
-            accessibilityLabel="Expandir lista de productos"
-          />}
-      </TouchableOpacity>
+          />
+        </Animated.View>
+      </Pressable>
       <LineDivider
         lineStyle={{
           marginBottom: SIZES.gapSmall,
+          height: SIZES.gapSmall
         }}
       />
-      {isOpen && (
-        <View style={styles.dropdown}>
+
+      {/* Vista de Medición Oculta */}
+      {!isMeasured && (
+        <View
+          style={styles.hiddenContainer}
+          onLayout={(event) => {
+            const height = event.nativeEvent.layout.height;
+            setContentHeight(height);
+            setIsMeasured(true);
+          }}
+        >
+          <View style={styles.dropdown}>
           {row.map((item) => (
-            <CartItem key={item.postID} {...item} />
-          ))}
+              <CartItem key={item.cartItemID} row={item} refetch={refetch}/>
+            ))}
+          </View>
         </View>
+      )}
+
+      {/* Contenido Animado */}
+      {isMeasured && (
+        <Animated.View style={[styles.dropdown, { height: animatedHeight, overflow: 'hidden' }]}>
+          <Animated.View style={{ opacity: animation }}>
+            {row.map((item) => (
+              <CartItem key={item.cartItemID} row={item} refetch={refetch}/>
+            ))}
+          </Animated.View>
+        </Animated.View>
       )}
     </FlexContainer>
   );

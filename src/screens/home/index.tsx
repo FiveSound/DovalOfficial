@@ -6,14 +6,21 @@ import {
   LiveOrders,
   Categories,
   Restaurants,
+  Orders,
 } from "./components";
 import { View } from "../../components/native";
 import { SIZES } from "../../constants/theme";
-import { LoadingScreen } from "../../components/custom";
+import { LoadingScreen, Tabs } from "../../components/custom";
 import { useAppSelector } from "../../redux";
 import { RootState } from "../../redux/store";
+import i18next from "../../Translate";
 
 const Home = () => {
+  const tabs = [
+    { key: 'Restaurants', title: i18next.t("Restaurants"), content: <Restaurants /> },
+    { key: 'Orders', title: i18next.t("Orders"), content: <Orders /> },
+  ]
+
   const {
     isLoadingApp,
     isAuthenticated,
@@ -28,30 +35,14 @@ const Home = () => {
   }
 
 
-  // const routes = [
-  //   { key: "first", title: i18next.t("Restaurants") },
-  //   { key: "second", title: i18next.t("Orders") },
-  //   { key: "third", title: i18next.t("Recipies") },
-  // ];
-
-  // const scenes = {
-  //   first: Restaurants,
-  //   second: Orders,
-  //   third: Recipies,
-  // };
-
   return (
     <Layout
       Append={<LiveOrders />}
     >
-        {/* <Promotions
-          data={data}
-          IsLoading={Loader} /> */}
       <View style={styles.marginBottom} />
       <Categories />
       <View style={styles.marginBottom} />
-      <Restaurants />
-      {/* <TabsMain routes={routes} scenes={scenes} /> */}
+      <Tabs tabs={tabs} />
     </Layout>
   );
 };

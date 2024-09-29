@@ -10,6 +10,8 @@ import { CLOUDFRONT } from "../../../../services";
 import styles from "./styles";
 import { TouchableOpacity, useNavigation, View } from "../../../native";
 import i18next from "../../../../Translate";
+import { useAppDispatch } from "../../../../redux";
+import { setRecipeID } from "../../../../redux/slides/navigations";
 
 interface Row {
     name: string;
@@ -28,9 +30,13 @@ type props = {
 
 const CardMenu = (props: props) => {
     const { row } = props;
+    const dispatch = useAppDispatch()
     const navigation = useNavigation()
     const { color } = useTheme();
-    const handleProduct = () => { if (row.id) { navigation.navigate("AddProducts", { recipeID: row.id }) } }
+    const handleProduct = () => { if (row.id) { 
+        dispatch(setRecipeID(row.id))
+        navigation.navigate("AddProducts") 
+    } }
 
     if (row) {
         const { price, name, description, thumbnail, cover, ordenable } = row

@@ -18,6 +18,7 @@ interface Recipe {
   id: number;
   businessID: number;
   cover: string;
+  ordenable: boolean;
 }
 
 interface MainProps {
@@ -77,7 +78,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 
   if (data && Array.isArray(data)) {
     return (
-      <>
+       <FlexContainer>
         {data.length === 0 ? (
           <ScrollView
             refreshControl={
@@ -109,7 +110,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
             </FlexContainer>
           </ScrollView>
         ) : (
-          <>
+         <>
             <SearchBar
               searchText={searchText}
               placeholder={PLACEHOLDER_TEXT}
@@ -126,7 +127,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
             />
           </>
         )}
-      </>
+      </FlexContainer>
     );
   }
 

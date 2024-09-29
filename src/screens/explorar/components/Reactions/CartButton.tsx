@@ -7,6 +7,8 @@ import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
 import styles from "./styles";
 import { Typography } from "../../../../components/custom";
 import { useNavigation } from "../../../../components/native";
+import { useAppDispatch } from "../../../../redux";
+import { setRecipeID } from "../../../../redux/slides/navigations";
 
 interface Props {
   recipeID: number;
@@ -15,8 +17,11 @@ interface Props {
 const CartButton = memo(({ recipeID }: Props) => {
   const [load, setLoad] = useState(false);
   const navigation = useNavigation()
+  const dispatch = useAppDispatch();
+  
   const handleProduct = () => {
     navigation.navigate("AddProducts", { recipeID })
+    dispatch(setRecipeID(recipeID));
   }
 
   return (

@@ -52,12 +52,9 @@ const EditRecipie = () => {
   const { border, Description } = useTheme();
   return (
     <TouchableOpacity
-      style={[
-        styles.containerIcons,
-        {
-          backgroundColor: border,
-        },
-      ]}
+      style={[styles.containerIcons, {
+        borderColor: Description
+      }]}
     >
       <Icons
         appendIcons={
@@ -67,11 +64,7 @@ const EditRecipie = () => {
             color={Description}
           />
         }
-        styles={{
-          backgroundColor: border,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        styles={styles.containerIconsEdit}
       />
       <Typography variant="H4title">{i18next.t("Edit")}</Typography>
     </TouchableOpacity>
@@ -130,6 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: SIZES.InputsHeight,
     borderWidth: SIZES.borderWidth,
+     backgroundColor: 'transparent'
   },
   containerIconsEdit: {
    backgroundColor: 'transparent'

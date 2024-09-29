@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { SIZES } from '../../../../../constants/theme';
-import { LabelContainer, Typography } from '../../../../../components/custom';
+import { Box, LabelContainer, Typography } from '../../../../../components/custom';
 
 
 type Props = {
@@ -12,7 +12,7 @@ const Bio = (props: Props) => {
     const { bio } = props;
     const [expand, setExpand] = useState(false)
     return (
-   <LabelContainer label='Bio'>
+   <Box title='Bio'>
          <TouchableOpacity
         onPress={() => setExpand(!expand)}>
             <Typography
@@ -21,7 +21,7 @@ const Bio = (props: Props) => {
             </Typography>
 
         </TouchableOpacity>
-   </LabelContainer>
+   </Box>
     )
 }
 

@@ -72,7 +72,7 @@ const ThreeIcons = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: SIZES.width,
+    width: SIZES.BtnWidth,
     paddingHorizontal: SIZES.gapLarge,
     alignItems: "center",
     flexDirection: "row",

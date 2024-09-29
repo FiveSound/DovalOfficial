@@ -78,6 +78,11 @@ const Tracking = ({ route }: Props) => {
     }
   }, [data]);
 
+  const handlePress = () => {
+    dispatch(closeModalPin())
+    navigation.navigate('TabsNavigation')
+  }
+
   useEffect(() => {
     if (socket) {
       const orderEvent = `event-realtime-order-${orderID}`;
@@ -147,7 +152,7 @@ const Tracking = ({ route }: Props) => {
           <ThreeIcons
             showBack={false}
             label={i18next.t("Tracking order")}
-            onPress={() => console.log('pressed Tracking order')}
+            onPress={handlePress}
           />
           <OrderProgress
             steps={steps}

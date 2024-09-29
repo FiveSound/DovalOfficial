@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: SIZES.width,
-    height: SIZES.height / 3,
+    height: SIZES.height / 3.5,
   },
   name: {
     ...FONTS.semi18,
