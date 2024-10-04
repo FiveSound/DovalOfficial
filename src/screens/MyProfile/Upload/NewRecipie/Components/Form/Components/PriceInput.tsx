@@ -14,24 +14,6 @@ interface Props {
 const PriceInput: React.FC<Props> = ({ setValue, onSaveDraft, value }) => {
 const { user } = useSelector((state: RootState) => state.auth)
 const businessCurrency = getCurrencyByCountryCode(user?.country)
-console.log('businessCurrency', businessCurrency);
-
-const handleBlur = () => {
-  const normalizedValue = value.replace(/\./g, '').replace(',', '.');
-  const number = parseFloat(normalizedValue);
-  if (!isNaN(number)) {
-    let format = new Intl.NumberFormat('es-DO', {
-      style: 'currency',
-      currency: businessCurrency,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(number);
-    setValue('price', format);
-    onSaveDraft({ price: format });
-  }
-};
-
-
 return (
   <InputLabel
   placeholder={`Price ${businessCurrency}$0`}
@@ -40,7 +22,6 @@ return (
   onChangeText={(txt) => {
     setValue('price', txt);
   }}
-  onBlur={handleBlur}
 />
 );
 };
