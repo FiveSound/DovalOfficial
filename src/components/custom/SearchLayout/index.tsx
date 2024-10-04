@@ -1,13 +1,14 @@
 import React from "react";
 import { ReactNode } from "react";
 import { ViewStyle } from "react-native";
-import { SafeAreaView, KeyboardAwareScrollView, RefreshControl, ScrollView } from "../../native";
+import { SafeAreaView, KeyboardAwareScrollView, RefreshControl } from "../../native";
 import FlexContainer from "../FlexContainer";
 import { SIZES } from "../../../constants/theme";
 import { Search } from "../Inputs";
 import LineDivider from "../LineDivider";
 import { ArrowBack } from "../Arrows";
 import { useTheme } from "../../../hooks";
+import { ScrollView } from 'react-native-virtualized-view'
 
 type Props = {
   children?: ReactNode;

@@ -41,7 +41,11 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ item, index, scrollX }) => {
   return (
     <Animated.View
       key={item.key}
-      style={[styles.container, { transform: [{ scale }], opacity }]}
+      style={[
+        styles.container,
+        { transform: [{ scale }], opacity },
+        index === 0 && styles.centerFirstItem,
+      ]}
     >
       <Image
         contentFit='cover'
@@ -66,6 +70,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "74%",
     borderRadius: SIZES.gapLarge,
+  },
+  centerFirstItem: {
+    width: SIZES.width,
+    marginLeft: (SIZES.width * -0.1), 
   },
 });
 

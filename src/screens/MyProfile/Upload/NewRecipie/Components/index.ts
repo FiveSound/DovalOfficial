@@ -1,9 +1,9 @@
 import Categories from "./Categories";
-import Details from "./Details";
+import Details from "./Form";
 import Drafts from "./Drafts";
 import FoodTypes from "./FoodTypes";
 import Variants from "./Variants";
-import Media from "./Media";
+import Media from "./Media/Media";
 
 export {
     Categories,

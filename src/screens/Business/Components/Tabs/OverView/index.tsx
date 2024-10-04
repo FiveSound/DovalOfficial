@@ -21,7 +21,7 @@ const { data } = props;
         <View style={{marginBottom: SIZES.gapLarge}}/>
         <OpeningHours  openingDays={data.opening_days || []} />
         <View style={{marginBottom: SIZES.gapLarge}}/>
-        <Location address={data.details} latitude={data.latitude} longitude={data.longitude} />
+        {/* <Location address={data.details} latitude={data.latitude} longitude={data.longitude} /> */}
         <View style={{marginBottom: SIZES.gapLarge}}/>
         {/* <Reviews reviews={reviews} /> */}
     </ScrollView>

@@ -78,6 +78,7 @@ const UserProfile = (props: Props) => {
               })
             }
             />
+      
             <TabsMyProfile
                 MyPosts={<MyPosts username={username} currentLocation={currentLocation} />}
                 Myshares={<MyShares username={username} />}

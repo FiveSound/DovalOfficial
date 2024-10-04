@@ -10,6 +10,7 @@ import personalizedReducer from "./slides/personalizedSlice";
 import locationReducer from './slides/locationSlice';
 import navigationReducer from './slides/navigations';
 import scrollReducer from './slides/scrollSlice';
+import uploadReducer from './slides/uploadSlice';
 
 const store = configureStore({
   reducer: {
@@ -24,11 +25,12 @@ const store = configureStore({
     location: locationReducer,
     navigation: navigationReducer,
     scroll: scrollReducer,
+    upload: uploadReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false, 
-    }),
+    })
 });
 
 export type RootState = ReturnType<typeof store.getState>;

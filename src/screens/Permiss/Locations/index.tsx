@@ -24,6 +24,7 @@ const Locations = () => {
 
   return (
     <Container
+      useSafeArea={true}
       showHeader={false}
       showFooter={true}
       labels={i18next.t("Next")}
@@ -33,17 +34,20 @@ const Locations = () => {
       label={i18next.t("Location Permit Required")}
       style={styles.container}
     >
-      <ScrollView scrollEnabled={false}>
-        <Image
-          source={Ilustrations.CharcoPet}
-          style={styles.Img}
-          contentFit='contain'
-        />
+      <ScrollView scrollEnabled={false} contentContainerStyle={styles.containerScroll}>
+        <FlexContainer>
+          <Image
+            source={Ilustrations.CharcoPet}
+            server={false}
+            style={styles.Img}
+            contentFit='cover'
+          />
+        </FlexContainer>
+        <FlexContainer newStyle={styles.flexContainer}>
         <Hero
           label={i18next.t("Location Permit Required")}
           sublabel={i18next.t('We will use your location to improve your experience and improve our delivery services.')}
         />
-        <FlexContainer newStyle={styles.flexContainer}>
           {features.map((feature) => (
             <FlexContainer
               key={feature.key}
@@ -72,6 +76,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: SIZES.gapLarge,
+  },
+  containerScroll: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   labelStylePart1: {
     textAlign: 'center',

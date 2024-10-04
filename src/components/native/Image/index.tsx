@@ -13,12 +13,14 @@ type Props = ImageProps & {
   cachePolicy?: 'memory-disk' | 'disk' | 'memory'
   retryLimit?: number
   retryDelay?: number
+  source?: string
 }
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
 
 const ImageComponent: React.FC<Props> = ({
-  placeholderSource,
+  source,
+  placeholderSource = source,
   style,
   showPlaceholder = true,
   server = true,
@@ -30,6 +32,7 @@ const ImageComponent: React.FC<Props> = ({
   const [hasError, setHasError] = useState(false)
   const [retryCount, setRetryCount] = useState(0)
   const fadeAnim = useRef(new Animated.Value(0)).current
+  
   const handleLoad = useCallback(() => {
     setIsLoading(false)
     Animated.timing(fadeAnim, {

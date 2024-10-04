@@ -10,6 +10,7 @@ import {
   ScreenEmpty,
   SearchLayout,
   ToggleFilter,
+  Typography,
 } from "../../../components/custom";
 import { useRefreshData, useTheme } from "../../../hooks";
 import { responsiveFontSize, SIZES } from "../../../constants/theme";
@@ -117,7 +118,7 @@ const Main = ({
       ) : (
         <FlatList
           data={filteredData}
-          keyExtractor={(item) => `${item.id}`}
+          keyExtractor={(item) => item.businessID.toString()}
           renderItem={renderItem}
           onRefresh={refetchPostData}
           refreshing={isLoading}
@@ -126,6 +127,7 @@ const Main = ({
           maxToRenderPerBatch={3}
         />
       )}
+
     </SearchLayout>
   );
 };

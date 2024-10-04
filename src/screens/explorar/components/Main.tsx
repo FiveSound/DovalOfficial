@@ -27,7 +27,7 @@ const Main = memo(({ currentLocation }: MainProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [localCurrentLocation, setLocalCurrentLocation] = useState<object | null>(currentLocation);
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 10 });
-  const isFocused = useIsFocused();
+  const isFocused = useIsFocused(); 
 
   const fetchData = useCallback(async () => {
     try {
@@ -147,10 +147,8 @@ const Main = memo(({ currentLocation }: MainProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.dark,
-    height: SIZES.height,
+    backgroundColor: '#000',
     width: SIZES.width,
-    flex: 1,
   },
 });
 

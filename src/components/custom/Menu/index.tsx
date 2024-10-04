@@ -27,7 +27,7 @@ const { Description } = useTheme()
       newStyle={{
         ...styles.iconText,
         color: focused ? COLORS.primary : Description,
-        ...(focused ? FONTS.semi14 : FONTS.semi14)
+        ...(focused ? FONTS.semi14 : FONTS.text14)
       }}>
       {label}
     </Typography>
@@ -51,7 +51,6 @@ export const styles = StyleSheet.create({
       backgroundColor: 'transparent'
     },
     iconText: {
-      marginTop: SIZES.radius2,
     },
   });
 export default MenuItems

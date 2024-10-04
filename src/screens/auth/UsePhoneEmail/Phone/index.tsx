@@ -10,7 +10,7 @@ import { StyleSheet } from "react-native";
 import { FONTS, SIZES } from "../../../../constants/theme";
 import i18next from "../../../../Translate";
 import { signInPhoneService } from "../../../../services/auth";
-import { useNavigation, View } from "../../../../components/native";
+import { Platform, useNavigation, View } from "../../../../components/native";
 import ListNumber from "./ListNumber";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { signInStart, signInSuccess, signInFailure } from "../../../../redux/slides/authSlice";
@@ -51,7 +51,6 @@ const Phone = () => {
     dispatch(signInStart());
     try {
       const response = await signInPhoneService(`${phoneData.countryCode}${phoneData.phoneNumber}`);
-      console.log("signInPhoneService response:", response);
       if (response.success) {
         const phoneValue = `${phoneData.countryCode}${phoneData.phoneNumber}`;
         setUiState(prev => ({ ...prev, success: true }));
@@ -102,6 +101,7 @@ const Phone = () => {
       <Buttons
         label={uiState.loading ? i18next.t("") : i18next.t("Send code")}
         loading={uiState.loading}
+        color={uiState.loading ? "dark" : "primary"}
         disabled={phoneData.phoneNumber.length <= 6}
         onPress={handleSendCode}
       />
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   container: {
     gap: SIZES.gapLarge,
     alignItems: "center",
+    paddingHorizontal: SIZES.gapLarge * 2,
   },
   label: {
     textAlign: "center",

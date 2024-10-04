@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import { SIZES } from '../../../constants/theme'
-import { SafeAreaView, View } from '../../native'
+import { Platform, SafeAreaView, View } from '../../native'
 import { Skip, TwoIconsLabel } from '../Bar'
 import { useTheme } from '../../../hooks'
 import FooterButtons from '../Buttons/FooterButtons'
@@ -69,8 +69,7 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
   disabledCart,
   showAdd
 }: Props) => {
-  const Component = useSafeArea ? SafeAreaView : View;
-  const { BackgroundMain } = useTheme()
+  const Component = useSafeArea ? Platform.OS === 'ios' ? SafeAreaView : View : View;
   return (
     <Component style={[styles.container, style]}>
       {showHeader && (
@@ -122,7 +121,7 @@ const Container = ({ useSafeArea = true, style, children, label, showBack, onPre
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: SIZES.gapLarge * 2,
+    paddingHorizontal: Platform.OS === 'ios' ? SIZES.gapLarge * 2 : 0,
     width: SIZES.width,
   }
 })

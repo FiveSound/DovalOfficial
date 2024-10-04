@@ -19,7 +19,9 @@ export type ButtonsAccessProps = {
   container?: ViewStyle;
   append?: ReactNode;
   showAppend?: boolean;
-  showAppendBottom?: boolean;
+  showAppendBottom?: 'UP' | 'DOWN';
+  AppendPreview?: ReactNode;
+  ShowAppendPreview?: boolean;
 };
 
 const ButtonAcces = ({
@@ -33,7 +35,9 @@ const ButtonAcces = ({
   container,
   append,
   showAppend = true,
-  showAppendBottom = false,
+  showAppendBottom = 'UP',
+  AppendPreview,
+  ShowAppendPreview
 }: ButtonsAccessProps) => {
   const { color, greyText, Description, Title } = useTheme();
 
@@ -41,11 +45,7 @@ const ButtonAcces = ({
     <>
       <TouchableOpacity onPress={onPress} style={[styles.touchableOpacity, container]}>
         <FlexContainer newStyle={styles.flexContainer} variant="row">
-          {
-            showAppend && (
-              append
-            )
-          }
+          {showAppendBottom === 'UP' && append}
           <Typography variant='H4title' newStyle={StyleSheet.flatten([labelStyle, { color: Title, width: SIZES.width / 2.4}])}>
             {label}
           </Typography>
@@ -59,7 +59,9 @@ const ButtonAcces = ({
          </FlexContainer>
         </FlexContainer>
         <FlexContainer variant="row" newStyle={styles.flexContainerRow}>
-          <Text numberOfLines={1} style={{ color: Description, ...FONTS.semi14, width: SIZES.width / 3, textAlign: 'right' }}>
+          {
+            ShowAppendPreview ? <>
+            <Text numberOfLines={1} style={{ color: Description, ...FONTS.semi14, width: SIZES.width / 3, textAlign: 'right' }}>
             {labelPreview}
           </Text>
           <ArrowRight01Icon
@@ -67,12 +69,15 @@ const ButtonAcces = ({
             height={SIZES.icons * 1.2}
             color={Description}
           />
+          </> : AppendPreview
+          }
         </FlexContainer>
       </TouchableOpacity>
-      {showAppendBottom &&  <FlexContainer>
+      {showAppendBottom === 'DOWN' &&  
+      <FlexContainer newStyle={styles.flexContainerAppend}>
        {append}
       </FlexContainer> }
-      {ShowLineDivider && <LineDivider />}
+      {ShowLineDivider && <LineDivider variant="secondary"/>}
     </>
   );
 };
@@ -100,6 +105,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "transparent",
     maxWidth: SIZES.width / 2,
+  },
+  flexContainerAppend: {
+    width: SIZES.width,
   },
 });
 

@@ -67,6 +67,17 @@ export function debounce(func: (...args: any[]) => void, wait: number, immediate
   };
 }
 
+   /**
+    * Generates a unique ID by combining the current timestamp with a random string.
+    * @returns {string} A unique identifier.
+    */
+   export const generateUniqueId = (): string => {
+    const timestamp = Date.now().toString();
+    const randomStr = Math.random().toString(36).substr(2, 5); // Generates a random string
+    return `${timestamp}-${randomStr}`;
+  };
+
+  
 const utils = {
   isValidEmail,
   validateEmail,

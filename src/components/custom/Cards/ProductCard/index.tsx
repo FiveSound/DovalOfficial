@@ -12,57 +12,55 @@ import Typography from "../../Typography";
 import { CLOUDFRONT } from "../../../../services";
 import InfoCard from "../InfoCard";
 import Avatars from "../../Avatars";
+import { Carrousel } from "../../Slide Up";
+import CoverProducts from "./CoverProducts";
+
+interface Cover {
+  key: string;
+}
 
 interface Product {
   name: string;
   description: string;
-  thumbnail: string;
+  business_cover: string;
   userID: string;
   business_name: string;
-  cover: string;
+  cover: Cover[];
 }
 
 type Props = {
   product: Product;
-}
+};
 
 const ProductCard: React.FC<Props> = React.memo(({ product }) => {
-  const navigation = useNavigation()
-  const coverRecipie = `${CLOUDFRONT}${product.thumbnail}`
-  const coverBusiness = `${CLOUDFRONT}${product.cover}`
+  const navigation = useNavigation();
+  const coverBusiness = `${CLOUDFRONT}${product.business_cover}`;
 
   return (
     <FlexContainer newStyle={styles.container}>
-      <Image
-        placeholderSource={coverRecipie}
-        showPlaceholder={true}
-        style={styles.image}
-        contentFit='cover'
-        priority="high"
-        cachePolicy="memory-disk"
-      />
-      <InfoCard 
-      title={product?.business_name || 'business name'}
-      description='Business verificad'
-      showArrow={true}
-      showLineDivider={true}
-      containerStyle={styles.containerInfoCard}
-      orientation='LEGHT'
-      icon={< Avatars source={coverBusiness} size='medium' />}
-      onPress={() => navigation.navigate('Business', { id: product.userID })}
-      lineStyle={styles.lineDivider}
+      <CoverProducts row={product.cover} />
+      <InfoCard
+        title={product?.business_name || "business name"}
+        description="Business verification"
+        showArrow={true}
+        showLineDivider={true}
+        containerStyle={styles.containerInfoCard}
+        orientation="LEGHT"
+        icon={<Avatars source={coverBusiness} size="medium" />}
+        onPress={() => navigation.navigate("Business", { id: product.userID })}
+        lineStyle={styles.lineDivider}
       />
       <FlexContainer newStyle={styles.containerheaders}>
         <FlexContainer newStyle={styles.containerheader}>
           <Typography variant="subtitle" newStyle={styles.name}>
-            {product?.name || ''}
+            {product?.name || ""}
           </Typography>
           <Typography
             numberOfLines={3}
             variant="SubDescription"
             newStyle={styles.description}
           >
-            {product?.description || ''}
+            {product?.description || ""}
           </Typography>
         </FlexContainer>
       </FlexContainer>
@@ -73,59 +71,31 @@ const ProductCard: React.FC<Props> = React.memo(({ product }) => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: SIZES.gapMedium,
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingHorizontal: SIZES.gapLarge,
-    gap: SIZES.gapLarge
   },
   containerheader: {
     maxWidth: SIZES.width / 1.4,
-
   },
   containerheaders: {
-    paddingHorizontal: SIZES.gapLarge
-  },
-  image: {
-    width: SIZES.width,
-    height: SIZES.height / 3.5,
+    paddingHorizontal: SIZES.gapLarge,
   },
   name: {
     ...FONTS.semi18,
-    width: SIZES.width / 1.8,
+    width: SIZES.width / 1.08,
   },
   description: {
-    width: SIZES.width / 1.8,
-    ...FONTS.text16,
-    marginBottom: SIZES.gapSmall
-  },
-  deliveryTime: {
-    color: COLORS.dark,
-  },
-  freeShipping: {
-    ...FONTS.body4,
-    color: COLORS.success,
-  },
-  buttonscontainer: {
-    backgroundColor: COLORS.primary,
-    width: responsiveFontSize(120),
-    borderRadius: SIZES.radius2 / 2,
-    borderWidth: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonscontainerOthers: {
-    borderRadius: SIZES.radius,
-    height: responsiveFontSize(34),
-    borderWidth: 0,
-    width: responsiveFontSize(120),
-    backgroundColor: 'transparent'
+    width: SIZES.width / 1.1,
+    ...FONTS.text14,
+    marginBottom: SIZES.gapSmall,
   },
   containerInfoCard: {
     margin: 0,
     paddingHorizontal: SIZES.gapLarge,
   },
   lineDivider: {
-    height: SIZES.gapSmall,
-  }
+    height: SIZES.gapMedium,
+  },
 });
 
 export default ProductCard;

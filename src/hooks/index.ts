@@ -7,6 +7,7 @@ import { useLocation } from './useLocation';
 import { getTutorialStatus, setTutorialStatus} from './tutorialStorage'
 import useAPI from "./useAPI";
 import useDebounce from "./useDebounce";
+import useUploadMedia from "./useUploadMedia";
 
 export { 
     useRangeNearbyLocation,
@@ -18,5 +19,6 @@ export {
     getTutorialStatus,
     setTutorialStatus,
     useAPI,
-    useDebounce
+    useDebounce,
+    useUploadMedia
 }

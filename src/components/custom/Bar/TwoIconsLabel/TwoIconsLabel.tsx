@@ -41,7 +41,7 @@ const TwoIconsLabel = (props: Props) => {
     <View style={styles.container}>
       {showBack && <ArrowBack />}
       {!showBack && <Close onPress={onPress}/>}
-      <Typography variant="subtitle">{label}</Typography>
+      <Typography variant="subtitle" numberOfLines={1} newStyle={styles.label}>{label}</Typography>
       <Actions onPress={() => setShow(!show)}>
         <HelpCircleIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
       </Actions>
@@ -66,5 +66,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: 'transparent'
   },
+  label: {
+    width: SIZES.width / 1.5
+  }
 });
 export default TwoIconsLabel;

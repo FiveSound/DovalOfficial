@@ -46,6 +46,7 @@ type Props = {
   onContentSizeChange?: (event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>) => void;
   onSize?: boolean;
   orientation?: 'Up' | 'Down';
+  returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
 };
 
 const InputLabel = (props: Props) => {
@@ -71,7 +72,8 @@ const InputLabel = (props: Props) => {
     labelStyle,
     onContentSizeChange,
     onSize = false,
-    orientation = 'Up'
+    orientation = 'Up',
+    returnKeyType
   } = props;
   const { Description, Title , borderInput} = useTheme();
   const [height, setHeight] = useState(SIZES.InputsHeight);
@@ -123,6 +125,7 @@ const InputLabel = (props: Props) => {
           multiline={multiline}
           onFocus={handleFocus}
           onContentSizeChange={handleContentSizeChange}
+          returnKeyType={returnKeyType}
         />
       <LineDivider lineStyle={{...lineStyle, backgroundColor: isFocused ? COLORS.success : borderInput, marginTop: SIZES.gapSmall }}/>
       {

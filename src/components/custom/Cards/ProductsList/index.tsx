@@ -82,6 +82,7 @@ const OptionList: React.FC<Props> = React.memo(({ option, title, required, onPre
         <FlexContainer variant="row">
           {required === 1 && 
             <Perks 
+              Reverse={false}
               status={!limites[variantID] ? 'error' : 'success'} 
               label={!limites[variantID] ? ` ${i18next.t("Required")} ${limit_qty}` : i18next.t("completed")}
             />

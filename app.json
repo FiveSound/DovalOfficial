@@ -6,7 +6,7 @@
     "version": "1.6.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "Ligth",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -19,8 +19,8 @@
         "applinks:doval.io"
       ],
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "{{i18next.t('Allow $(PRODUCT_NAME) to access your location while using the app to offer you recipes and delivery services tailored to your immediate surroundings, such as finding the daily special at a nearby restaurant or the fastest delivery option available in your area.')}}",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "{{i18next.t('Allow $(PRODUCT_NAME) to always access your location to provide notifications and updates even when the app is not in use.')}}"
+        "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location while using the app to offer you recipes and delivery services tailored to your immediate surroundings, such as finding the daily special at a nearby restaurant or the fastest delivery option available in your area.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to always access your location to provide notifications and updates even when the app is not in use."
       }
     },
     "android": {
@@ -47,6 +47,12 @@
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ]
     ]

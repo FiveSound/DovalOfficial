@@ -64,7 +64,9 @@ export const getExploreData = async (location: object | null, page: number) => {
   if (!userToken) {
     let response = await axios.post(`${API_URL}/api/explore/public`, {
       page,
-      ...location,
+      // ...location, // Comentado para usar ubicación estática
+      latitude: 18.280367,
+      longitude: -70.33672,
     });
 
     return response.data;
@@ -75,7 +77,9 @@ export const getExploreData = async (location: object | null, page: number) => {
     `${API_URL}/api/explore`,
     {
       page,
-      ...location,
+      // ...location, // Comentado para usar ubicación estática
+      latitude: 18.280367,
+      longitude: -70.33672,
     },
     {
       headers: {
@@ -135,7 +139,6 @@ export const getCategoriesByRecipeID = async ({ queryKey }: any) => {
 export const addDraftService = async (body: object) => {
   try {
     const userToken = await AsyncStorage.getItem("userToken");
-
     const response = await axios.post(
       `${API_URL}/api/recipes/draft`,
       {

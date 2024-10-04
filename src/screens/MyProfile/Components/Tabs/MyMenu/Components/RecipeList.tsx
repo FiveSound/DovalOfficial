@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View } from '../../../../../../components/native';
-import { responsiveFontSize } from '../../../../../../constants/theme';
+import { responsiveFontSize, SIZES } from '../../../../../../constants/theme';
 import { FlexContainer } from '../../../../../../components/custom';
 
 interface RecipeListProps {
@@ -11,6 +11,7 @@ interface RecipeListProps {
 }
 
 const RecipeList: React.FC<RecipeListProps> = ({ data, renderItem, isRefreshing, onRefresh }) => {
+
   return (
     <FlexContainer>
       <FlatList
@@ -21,7 +22,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ data, renderItem, isRefreshing,
       keyExtractor={(item) => item.id.toString()}
       refreshing={isRefreshing}
       onRefresh={onRefresh}
-      contentContainerStyle={{ paddingBottom: responsiveFontSize(100) }}
+      contentContainerStyle={{ paddingBottom: SIZES.height / 4}}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={<View style={{ height: responsiveFontSize(100) }} />}
       initialNumToRender={3}

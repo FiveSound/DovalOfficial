@@ -8,21 +8,23 @@ import { COLORS, FONTS, SIZES } from "../../../constants/theme";
 type Props = {
   label: string;
   status: 'error' | 'success';
+  Reverse?: boolean;
 };
 
 const Perks = (props: Props) => {
-  const { label, status } = props;
+  const { label, status, Reverse = true } = props;
   const isError = status === 'error';
 
   return (
-    <FlexContainer variant='row' newStyle={styles.container}>
+    <FlexContainer  newStyle={[styles.container, {
+          flexDirection: Reverse ? 'row' : 'row-reverse'
+    }]}>
       {isError ? (
         <HelpCircleIcon color={COLORS.error} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
       ) : (
         <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
       )}
-      <Typography variant='H4title'
-        newStyle={styles.label}>{label}</Typography>
+      <Typography variant='H4title'newStyle={styles.label}>{label}</Typography>
     </FlexContainer>
   );
 };

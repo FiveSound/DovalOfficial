@@ -1,6 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface LocationState {
+    location: {
+        accuracy: number;
+        altitude: number;
+        altitudeAccuracy: number;
+        heading: number;
+        latitude: number;
+        longitude: number;
+        speed: number;
+    } | null ;
+    country: string;
+    isLocationAvailable: boolean;
+    isLoading: boolean;
+    countryKey: string | null;
+    latitude: number | null;
+    longitude: number | null;
+}
+
+const initialState: LocationState = {
     location: null,
     country: '',
     isLocationAvailable: false,
@@ -14,8 +32,15 @@ const locationSlice = createSlice({
     name: 'location',
     initialState,
     reducers: {
-        setLocationData: (state, action) => {
-            return { ...state, ...action.payload };
+        setLocationData: (state, action: PayloadAction<LocationState['location']>) => {
+            state.location = action.payload;
+            if (action.payload) {
+                state.latitude = action.payload.latitude;
+                state.longitude = action.payload.longitude;
+                state.isLocationAvailable = true;
+            } else {
+                state.isLocationAvailable = false;
+            }
         }
     }
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { FlexContainer, InfoCard } from '../../../components/custom';
 import { COLORS, SIZES } from '../../../constants/theme';
@@ -7,12 +7,18 @@ import { useAppDispatch } from '../../../redux';
 import { closeUploadModal } from '../../../redux/slides/modalSlice';
 import { ImageUpload01Icon, PackageAddIcon } from '../../../constants/IconsPro';
 import i18next from '../../../Translate';
+import { RootState } from '../../../redux/store';
+import { useSelector } from 'react-redux';
 
 type props = {}
 
 const Upload = (props: props) => {
 const navigation = useNavigation();
 const dispatch = useAppDispatch();
+const { business } = useSelector((state: RootState) => state.auth)
+
+useEffect(() => {
+}, [business]);
 
 const data = [
   {
@@ -21,7 +27,8 @@ const data = [
       description: i18next.t("Share your culinary creations, restaurant reviews, or food experiences."),
       icon: <ImageUpload01Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.dark} />, 
       showLineDivider: true,
-      navigation: "NewPost"
+      navigation: "NewPost",
+      show: true
   },
   {
       id: 2,
@@ -29,7 +36,8 @@ const data = [
       description: i18next.t("Upload your favorite recipes to share or sell them to the community."),
       icon: <PackageAddIcon width={SIZES.icons} height={SIZES.icons} color={COLORS.dark} />,
       showLineDivider: true,
-      navigation: "NewRecipie"
+      navigation: "NewRecipie",
+      show: business ? true : false
   },
   // {
   //     id: 3,
@@ -51,21 +59,23 @@ const data = [
     <FlexContainer newStyle={styles.container}>
       {data.map((row, index) => {
         return (
+         row.show && (
           <InfoCard
-            key={index}
-            title={row.title}
-            description={row.description}
-            icon={row.icon}
-            showLineDivider={row.showLineDivider}
-            showArrow={true}
-            onPress={() => {
-              dispatch(closeUploadModal())
-              navigation.navigate(row.navigation)
-            }}
-            labelStyle={{
-              color: COLORS.dark
-            }}
-          />
+          key={index}
+          title={row.title}
+          description={row.description}
+          icon={row.icon}
+          showLineDivider={row.showLineDivider}
+          showArrow={true}
+          onPress={() => {
+            dispatch(closeUploadModal())
+            navigation.navigate(row.navigation)
+          }}
+          labelStyle={{
+            color: COLORS.dark
+          }}
+        />
+         )
         )
       })}
     </FlexContainer>

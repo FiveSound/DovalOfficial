@@ -7,6 +7,9 @@ import { useTheme } from "../../../../hooks";
 import IsLoading from "../../Loaders/IsLoading";
 import * as Haptics from "expo-haptics";
 
+type VariantLabel = "primary" | "secondary" | "disabled" | "Primary" | undefined;
+
+
 type Props = {
   label: string;
   onPress?: () => void;
@@ -16,11 +19,14 @@ type Props = {
   labelStyle?: TextStyle;
   Icons?: ReactNode;
   orientationsIcons?: "Left" | "Right";
-  variant?: "primary" | "secondary" | "disabled";
+  variant?: "primary" | "secondary" | "disabled" | "transparent";
+  color?: "primary" | "dark";
+  showLabel?: boolean
+  variantLabel?: VariantLabel
 };
 
 const Buttons = (props: Props) => {
-  const { onPress, disabled, label, loading, containerButtons, labelStyle, Icons, orientationsIcons, variant } = props;
+  const { onPress, disabled, label, loading, containerButtons, labelStyle, Icons, orientationsIcons, variant, color, showLabel = true, variantLabel } = props;
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     onPress && onPress();
@@ -35,15 +41,17 @@ const Buttons = (props: Props) => {
         return COLORS.primary;
       case "disabled":
         return backgroundMaingrey;
+        case "transparent":
+        return "transparent";
       default:
         return COLORS.primary;
     }
   };
 
   const getLabelColor = () => {
-    switch (variant) {
+    switch (variantLabel) {
       case "primary":
-        return COLORS.dark;
+        return COLORS.primary;
       case "secondary":
         return COLORS.dark;
       case "disabled":
@@ -63,9 +71,9 @@ const Buttons = (props: Props) => {
       ]}
       disabled={disabled}
     >
-      {loading && <IsLoading style={{ borderColor: COLORS.dark }} />}
+      {loading && <IsLoading color={color} size='medium' sizesActivityIndicator='small'/>}
       {orientationsIcons === "Left" && Icons}
-      {!loading && <Typography
+      {showLabel && <Typography
         variant="SubDescription"
         newStyle={[
           styles.label,

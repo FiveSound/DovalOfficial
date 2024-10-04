@@ -24,6 +24,7 @@ import {
   InterestsButton,
 } from "../Inf";
 import Media from "./Media";
+import { Platform } from "../../../../components/native";
 
 type PropsRenderItem = {
   item: TypeProducts;
@@ -112,10 +113,12 @@ class RenderItem extends PureComponent<PropsRenderItem> {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "red",
+  },
   containerInfo: {
     position: "absolute",
-    bottom: SIZES.gapLarge,
+    bottom: Platform.OS === 'ios' ? SIZES.gapLarge : SIZES.gapLarge ,
     backgroundColor: "transparent",
     width: SIZES.width / 1.2,
     paddingHorizontal: SIZES.gapMedium,
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: SIZES.padding,
     marginRight: SIZES.radius / 2,
-    bottom: responsiveFontSize(10),
+    bottom: Platform.OS === 'ios' ? responsiveFontSize(10) : responsiveFontSize(10),
     right: responsiveFontSize(4),
     gap: SIZES.gapLarge,
     zIndex: 100

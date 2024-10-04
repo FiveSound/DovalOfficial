@@ -73,6 +73,7 @@ const TabsMyProfile = (props: Props) => {
         borderBottomWidth: responsiveFontSize(1),
         borderColor: borderInput,
         width: SIZES.width,
+        shadowColor: 'transparent',
       }}
       indicatorStyle={{
         backgroundColor: COLORS.primary,

@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   lineDivider: {
-    height: SIZES.gapSmall,
+    alignSelf: 'flex-start',
+    width: SIZES.width
   },
   buttonscontainer: {
     backgroundColor: COLORS.primary,

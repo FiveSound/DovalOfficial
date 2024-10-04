@@ -18,7 +18,6 @@ const SearchBusiness = () => {
     isError,
     error,
     refetchPostData,
-    Loader
 } = useBusinessLogic({ Search, filterStores, freeShipping, navigateToPermissionScreen });
 
   return (

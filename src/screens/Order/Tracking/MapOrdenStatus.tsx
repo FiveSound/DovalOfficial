@@ -92,7 +92,7 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
         height: mapHeight,
       }}
       region={region}
-      mapType="standard"
+      mapType='standard'
       customMapStyle={mapStyle}
       zoomControlEnabled={true}
       scrollEnabled={true}
@@ -141,13 +141,13 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
         }
       />
 
-      {props.coords && (
+      {/* {props.coords && (
         <Polyline
           coordinates={props.coords}
           strokeWidth={5}
           strokeColor={COLORS.primary}
         />
-      )}
+      )} */}
     </MapView>
   );
 };

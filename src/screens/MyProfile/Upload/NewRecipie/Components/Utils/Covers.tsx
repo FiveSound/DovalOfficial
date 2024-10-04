@@ -1,48 +1,86 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { StyleSheet, ViewToken } from 'react-native';
-import { Video, ResizeMode } from 'expo-av';
 import { useTheme } from '../../../../../../hooks';
 import { View, Image, FlatList } from '../../../../../../components/native';
-import { SIZES } from '../../../../../../constants/theme';
+import { COLORS, SIZES } from '../../../../../../constants/theme';
 import { Dots, LineDivider } from '../../../../../../components/custom';
+import { CLOUDFRONT } from '../../../../../../services';
+import { Ilustrations } from '../../../../../../constants';
 
 interface MediaItem {
-    uri: string;
+    key: string;
     type: 'photo' | 'video';
     id: string;
     extension?: string;
 }
 
-interface VideoPreviewProps {
-    data: string;
+interface CoversProps {
+    data: MediaItem[];
     ShowDivider?: boolean;
-    ShowDot?: boolean;
 }
 
-const Covers = React.memo(({ data, ShowDivider = false, ShowDot = true, }: VideoPreviewProps) => {
+const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
     const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
-    const { borderInput } = useTheme()
-    const flatListRef = useRef(null);
+    const { borderInput, backgroundMaingrey } = useTheme();
+   
     const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
         if (viewableItems.length > 0 && viewableItems[0].index !== null) {
-            setCurrentVisibleIndex(viewableItems[0].index);
+            setCurrentVisibleIndex(viewableItems[0].index!);
         }
     }).current;
 
-    return (
-        <>
-            <View style={styles.main}>
-                <Image
-                    contentFit='cover'
-                    style={[styles.media, { borderColor: borderInput }]}
-                    source={{ uri: data }}
+    const viewabilityConfig = {
+        itemVisiblePercentThreshold: 50,
+    };
+
+    const renderItem = useCallback(({ item }: { item: MediaItem }) => (
+        <View style={styles.main}>
+            <Image
+                contentFit='cover'
+                style={[styles.media, { borderColor: borderInput }]}
+                placeholderSource={`${CLOUDFRONT}${item.key}`}
+                cachePolicy='memory-disk'
+                
+            />
+        </View>
+    ), [borderInput]);
+
+    if(data?.length === 0 || 0) {
+        return (
+            <Image 
+            server={false}
+            placeholderSource={Ilustrations.EmptyMedia}
+            style={styles.mediaEmpty}
+            contentFit='cover'
+            />
+        )
+    }
+
+    if(data) {
+        return (
+            <>
+                <FlatList
+                    data={data}
+                    horizontal
+                    decelerationRate='fast'
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    onViewableItemsChanged={onViewableItemsChanged}
+                    viewabilityConfig={viewabilityConfig}
+                    style={styles.container}
                 />
-            </View>
-            {ShowDivider &&
-                <LineDivider />
-            }
-        </>
-    );
+                <Dots 
+                currentStep={currentVisibleIndex}
+                totalSteps={data.length}
+                activeColor={COLORS.primary}
+                inactiveColor={backgroundMaingrey}
+                />
+                {ShowDivider && <LineDivider variant='secondary' />}
+            </>
+        );
+    }
 });
 
 const styles = StyleSheet.create({
@@ -51,19 +89,21 @@ const styles = StyleSheet.create({
         height: SIZES.height / 2.3,
         backgroundColor: 'transparent',
         alignItems: 'center',
+        justifyContent: 'center',
     },
     container: {
         width: SIZES.width,
-        marginVertical: SIZES.gapMedium,
-        alignItems: 'center',
-        justifyContent: 'center'
+        marginVertical: SIZES.gapMedium
     },
     media: {
-        width: SIZES.width / 1.8,
+        width: SIZES.width / 1.2,
         height: SIZES.height / 2.4,
-        borderRadius: SIZES.radiusExtra,
-        borderWidth: SIZES.borderWidth / 2
+        borderRadius: SIZES.radius,
     },
+    mediaEmpty: {
+        height: SIZES.height / 2.5,
+        width: SIZES.width
+    }
 });
 
 export default Covers;

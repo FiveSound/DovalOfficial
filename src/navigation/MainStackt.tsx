@@ -21,10 +21,15 @@ import ReportUsers from "../screens/Reports/ReportUsers";
 import Search from "../screens/Search";
 import NewRecipie from "../screens/MyProfile/Upload/NewRecipie";
 import OrderList from "../screens/home/components/body/LiveOrders/OrderList";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import AlbumsPermission from "../screens/Permiss/Locations/Albums/AlbumsPermission";
+import UploadStack from "./UploadStack";
 
 const MainStackt = () => {
     const Stack = createNativeStackNavigator();
-
+    const { isLoadingApp } = useSelector((state: RootState) => state.auth);
+    
     return (
         <Stack.Navigator
             screenOptions={{ headerShown: false }}
@@ -51,6 +56,8 @@ const MainStackt = () => {
             <Stack.Screen name="Search" component={Search}/>
             <Stack.Screen name="NewRecipie" component={NewRecipie}/>
             <Stack.Screen name="OrderList" component={OrderList}/>
+            <Stack.Screen name="AlbumsPermission" component={AlbumsPermission}/>
+            <Stack.Screen name="UploadStack" component={UploadStack}/>
         </Stack.Navigator>
     )
 };

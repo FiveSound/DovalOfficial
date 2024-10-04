@@ -47,47 +47,50 @@ const CardBusiness = ({
   const { Title } = useTheme();
   const navigation = useNavigation();
   const handleNavigation = useCallback(() => {
-     if(item) {navigation.navigate("Business", { id: businessID });}
+    if (item) { navigation.navigate("Business", { id: businessID }); }
   }, [navigation]);
 
   return (
-    <FlexContainer key={id} newStyle={styles.flexContainer}>
-      {!open && <Typography
-        variant='H4title'
-        numberOfLines={1}
-        newStyle={styles.storeStatus}
-      >
-        {i18next.t('closed for moments')}
-      </Typography>}
-      <TouchableOpacity
-        onPress={handleNavigation}
-        style={styles.touchableOpacity}
-      >
-        <Cover source={`${CLOUDFRONT}${avatar}`} size="small" />
-        <View style={styles.flexContainerInner}>
-          <Typography
-            variant="subtitle"
-            numberOfLines={1}
-            newStyle={styles.businessName}
-          >
-            {business_name}
-          </Typography>
-          <FlexContainer newStyle={styles.flexContainerInner}>
-            <Typography variant="SubDescription" newStyle={styles.timeSend} numberOfLines={1}>
-              {bio}
+    <>
+      <FlexContainer key={id} newStyle={styles.flexContainer}>
+        {!open && <Typography
+          variant='H4title'
+          numberOfLines={1}
+          newStyle={styles.storeStatus}
+        >
+          {i18next.t('closed for moments')}
+        </Typography>}
+        <TouchableOpacity
+          onPress={handleNavigation}
+          style={styles.touchableOpacity}
+        >
+          <Cover source={`${CLOUDFRONT}${avatar}`} size="small" />
+          <View style={styles.flexContainerInner}>
+            <Typography
+              variant="subtitle"
+              numberOfLines={1}
+              newStyle={styles.businessName}
+            >
+              {business_name}
             </Typography>
-            <Typography variant="SubDescription" newStyle={styles.timeSend}>
-              {timeSend}
-            </Typography>
-            <Typography variant="SubDescription">
-              {i18next.t('Send')} {amountSend}
-            </Typography>
-          </FlexContainer>
-        </View>
-        <ArrowRight01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
-      </TouchableOpacity>
-      <LineDivider lineStyle={styles.lineDivider}/>
-    </FlexContainer>
+            <FlexContainer newStyle={styles.flexContainerInner}>
+              <Typography variant="SubDescription" newStyle={styles.timeSend} numberOfLines={1}>
+                {bio}
+              </Typography>
+              <Typography variant="SubDescription" newStyle={styles.timeSend}>
+                {timeSend}
+              </Typography>
+              <Typography variant="SubDescription">
+                {i18next.t('Send')} {amountSend}
+              </Typography>
+            </FlexContainer>
+          </View>
+          <ArrowRight01Icon width={SIZES.icons} height={SIZES.icons} color={Title} />
+        </TouchableOpacity>
+      </FlexContainer>
+      <LineDivider lineStyle={styles.lineDivider} variant="secondary" />
+    </>
+
   );
 };
 

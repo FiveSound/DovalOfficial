@@ -51,7 +51,7 @@ const BaseCheckbox = ({
             styles.checkbox,
             isChecked && styles.checked,
             {
-              borderColor: isChecked ? "transparent" : borderInput,
+              borderColor: isChecked ? borderInput : borderInput,
             },
           ]}
         ></View>
@@ -63,7 +63,7 @@ const BaseCheckbox = ({
         />
       )}
       {showLabel ? (
-        <Typography newStyle={[styles.label, LabelStyle]} variant="H4title">
+        <Typography newStyle={[styles.label, LabelStyle]} variant='SubDescription'>
           {label}
         </Typography>
       ) : null}
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   checkbox: {
     width: SIZES.icons / 1.1,
     height: SIZES.icons / 1.1,
-    // borderWidth: SIZES.borderWidth,
+    borderWidth: SIZES.borderWidth,
     borderRadius: responsiveFontSize(40),
   },
   checked: {},

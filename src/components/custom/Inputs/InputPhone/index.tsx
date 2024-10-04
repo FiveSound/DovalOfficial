@@ -29,7 +29,7 @@ const InputPhone = ({
   codigoISO,
   onPress
 }: Props) => {
-  const { Title } = useTheme();
+  const { Title, Description } = useTheme();
 
   const handlePress = useCallback(() => {
     onPress();
@@ -59,6 +59,7 @@ const InputPhone = ({
           keyboardType="phone-pad"
           value={phoneNumber}
           onChangeText={onPhoneNumberChange}
+          placeholderTextColor={Description}
         />
         {phoneNumber.length > 0 && (
           <TouchableOpacity onPress={() => onPhoneNumberChange("")}>

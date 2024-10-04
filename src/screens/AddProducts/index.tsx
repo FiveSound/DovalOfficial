@@ -29,7 +29,6 @@ const {
   limites,
   subVariants
   } = useAddProducts();
- console.log(data)
   
   if (!isAuthenticated) {
     return <Signup />;
@@ -39,63 +38,65 @@ const {
     return <LoadingScreen />;
   }
 
-  return (
-    <Container
-      useSafeArea={true}
-      label={data.name}
-      style={styles.container}
-      showHeader={true}
-      showBack={true}
-      showTwoIconsLabel={true}
-      showFooter={false}
-      showFooterCart={true}
-      FooterPress={handleSubmit}
-      labelAdd={i18next.t("Add to cart")}
-      loading={load}
-      disabled={load}
-      TotalPrice={total.data?.amount || "0"}
-      add={() => handleQuantityChange(qty + 1)}
-      remove={() => {
-        if (qty > 1) {
-          handleQuantityChange(qty - 1);
-        }
-      }}
-      qty={qty}
-      disabledCart={load || !isFormValid}
-    >
-      <KeyboardAwareScrollView 
-      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
-      contentContainerStyle={styles.containerScroll}
-      extraScrollHeight={SIZES.gapLarge * 2}
-
+  if(data) {
+    return (
+      <Container
+        useSafeArea={true}
+        label={data.name}
+        style={styles.container}
+        showHeader={true}
+        showBack={true}
+        showTwoIconsLabel={true}
+        showFooter={false}
+        showFooterCart={true}
+        FooterPress={handleSubmit}
+        labelAdd={i18next.t("Add to cart")}
+        loading={load}
+        disabled={load}
+        TotalPrice={total.data?.amount || "0"}
+        add={() => handleQuantityChange(qty + 1)}
+        remove={() => {
+          if (qty > 1) {
+            handleQuantityChange(qty - 1);
+          }
+        }}
+        qty={qty}
+        disabledCart={load || !isFormValid}
       >
-        <ProductCard product={data} />
-        <LineDivider lineStyle={styles.lineDivider}/>
-        {data?.variants.map((variant: TypeVariant) => {
-          const subvariants = data.subvariants.filter((sub: TypeSubVariant) => sub.variantID === variant.id);
-          return (
-            <OptionList
-            key={`${variant.recipeID}-${variant.id}`}
-              option={subvariants}
-              title={variant.title}
-              required={variant.required ? 1 : 0}
-              value={subVariants}
-              onPress={(id: number) => handleOptionPress(id, variant.id)}
-              limites={limites}
-              variantID={variant.id}
-              limit_qty={variant.limit_qty}
-            />
-          );
-        })}
-        <Typography variant='subtitle'>{i18next.t("Notes")}</Typography>
-        <InputLabel
-          label={i18next.t("Notes")}
-          placeholder={i18next.t("Notes for riderMan")}
-          onSize={true}
-        />
-      </KeyboardAwareScrollView>
-    </Container>
-  );
+        <KeyboardAwareScrollView 
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
+        contentContainerStyle={styles.containerScroll}
+        extraScrollHeight={SIZES.gapLarge * 2}
+  
+        >
+          <ProductCard product={data} />
+          <LineDivider lineStyle={styles.lineDivider}/>
+          {data?.variants.map((variant: TypeVariant) => {
+            const subvariants = data.subvariants.filter((sub: TypeSubVariant) => sub.variantID === variant.id);
+            return (
+              <OptionList
+               key={`${variant.recipeID}-${variant.id}`}
+                option={subvariants}
+                title={variant.title}
+                required={variant.required ? 1 : 0}
+                value={subVariants}
+                onPress={(id: number) => handleOptionPress(id, variant.id)}
+                limites={limites}
+                variantID={variant.id}
+                limit_qty={variant.limit_qty}
+              />
+            );
+          })}
+          <Typography variant='subtitle'>{i18next.t("Notes")}</Typography>
+          <InputLabel
+            label={i18next.t("Notes")}
+            placeholder={i18next.t("Notes for riderMan")}
+            onSize={true}
+          />
+        </KeyboardAwareScrollView>
+      </Container>
+    );
+  } 
 };
 
 const styles = StyleSheet.create({
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     paddingBottom: SIZES.height / 4
   },
   lineDivider: {
-    height: SIZES.gapSmall,
+    height: SIZES.gapMedium,
     width: SIZES.width,
     alignItems: 'center',
     alignSelf: 'center'

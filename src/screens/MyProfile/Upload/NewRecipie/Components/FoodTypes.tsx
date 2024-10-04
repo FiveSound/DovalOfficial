@@ -13,6 +13,8 @@ import {
   getListTypesService,
   selectedTypeFromListService,
 } from "../../../../../services/recipes";
+import { Container, IsLoading, LineDivider, Perks, SearchHeader } from "../../../../../components/custom";
+import { LabelVariants } from "./LabelVariants";
 
 type CategoryType = {
   id: number;
@@ -64,32 +66,23 @@ const FoodTypes = () => {
 
   if (data) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Food Type</Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search categories"
-        />
-
-        {data.list.map((row: CategoryType) => (
-          <TouchableOpacity
-            key={row.id}
-            onPress={() => mutation.mutate(row.id)}
-            style={[
-              styles.item,
-              {
-                backgroundColor: row.selected ? "#DDD" : "transparent",
-              },
-            ]}
-          >
-            <Text>{row.name}</Text>
-            <Text>{row.description}</Text>
-          </TouchableOpacity>
-        ))}
-
-        {success && <Text>Guardado con exito!</Text>}
-        {mutation.isPending && <ActivityIndicator size={40} />}
-      </View>
+      <Container 
+      style={styles.container}
+      label="Categorias"
+      showBack={true}
+      showHeader={true}
+      >
+        {/* <SearchHeader
+          onChange={(text) => {
+            setSearchTerm(text); 
+          }}
+          placeholder="Buscar categorias"
+        /> */}
+        <LineDivider variant='secondary' />
+        <LabelVariants data={data} onPress={(id) => mutation.mutate(id)} isLoading={isLoading}/>
+      {success && <Perks status='success' label="Guardado con exito!" Reverse={false}/>}
+      {mutation.isPending && <IsLoading />}
+    </Container>
     );
   }
 };
@@ -98,8 +91,6 @@ export default FoodTypes;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
-    flex: 1,
     alignItems: "center",
   },
   title: {

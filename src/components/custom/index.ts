@@ -27,7 +27,7 @@ import { BottomSheet , Carrousel} from "./Slide Up"
 import LoginAlert from "./Alert/Login"
 import FooterButtons from "./Buttons/FooterButtons"
 import { Checkbox } from "./Checkbox"
-import { OrderProgress } from "./Progress"
+import { OrderProgress, ProgressBar } from "./Progress"
 import TabsMain from "./Tabs/TabsMain"
 import { ToggleFilter , Accordion} from "./business"
 import Cover from "./Avatars/Cover"
@@ -38,6 +38,7 @@ import Box from './box'
 import Rating from './Rate/Rating'
 import { PersonalInf } from './Info'
 import NavCustom from './NavCustom'
+import { SearchHeader } from './Search'
 
 export {
     IsLoading,
@@ -96,5 +97,7 @@ export {
     CardUsers,
     CardUserSkeleton,
     NavCustom,
-    Carrousel
+    Carrousel,
+    ProgressBar,
+    SearchHeader
 }

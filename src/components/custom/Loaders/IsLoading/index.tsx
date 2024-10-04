@@ -17,10 +17,12 @@ type props = {
   showLabel?: boolean;
   style?: ViewStyle;
   size?: "small" | "medium" | "large";
+  color?: 'primary' | 'dark';
+  sizesActivityIndicator?: 'small' | 'large';
 };
 
 const IsLoading = (props: props) => {
-  const { label, showLabel = false, style, size = "medium" } = props;
+  const { label, showLabel = false, style, size = "medium", color = "primary", sizesActivityIndicator = 'large'} = props;
   const { Bg } = useTheme();
   const rotation = useSharedValue(0);
 
@@ -50,13 +52,26 @@ const IsLoading = (props: props) => {
     }
   };
 
+  const getColor = () => {
+    switch (color) {
+      case 'primary':
+        return COLORS.primary;
+      case 'dark':
+        return COLORS.dark;
+      default:
+        return COLORS.primary;
+    }
+  };
+
+
+
   return (
     <View style={[styles.container]}>
       {Platform.OS === "android" ? (
-        <ActivityIndicator size="small" color={COLORS.primary} style={style}/>
+        <ActivityIndicator size={sizesActivityIndicator} color={getColor()}/>
       ) : (
         <Animated.View
-          style={[styles.circle, getSizeStyle(), animatedStyle, { ...style }]}
+          style={[styles.circle, getSizeStyle(), animatedStyle, { ...style, borderColor: getColor() }]}
         />
       )}
       {showLabel && (
@@ -78,7 +93,6 @@ const styles = StyleSheet.create({
     borderWidth: responsiveFontSize(3),
     borderRadius: responsiveFontSize(15),
     borderTopColor: "transparent",
-    borderColor: COLORS.primary,
   },
   small: {
     width: responsiveFontSize(10),

@@ -1,7 +1,6 @@
 import { lazy, Suspense, useCallback, useMemo, memo } from "react";
 import { useRefreshData } from "../../../../../hooks";
 import i18next from "../../../../../Translate";
-import { CLOUDFRONT } from "../../../../../services";
 import { useAuth } from "../../../../../context/AuthContext";
 import {
   COLORS,

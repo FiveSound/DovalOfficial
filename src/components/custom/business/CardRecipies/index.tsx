@@ -1,7 +1,7 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { useTheme } from "../../../../hooks";
 import FlexContainer from "../../FlexContainer";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
+import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
 import Typography from "../../Typography";
 import { ShoppingBasketAdd03Icon } from "../../../../constants/IconsPro";
 import LineDivider from "../../LineDivider";
@@ -39,8 +39,8 @@ const CardMenu = (props: props) => {
     } }
 
     if (row) {
-        const { price, name, description, thumbnail, cover, ordenable } = row
-        const covers = thumbnail !== "" ? `${CLOUDFRONT}${thumbnail}` : cover[0]
+        const { price, name, description, thumbnail, ordenable } = row
+        const covers = `${CLOUDFRONT}${thumbnail}`
 
         return (
             <FlexContainer newStyle={styles.flexContainer}>
@@ -67,7 +67,7 @@ const CardMenu = (props: props) => {
                             <Typography variant='subtitle' newStyle={{ color: color, ...FONTS.heading18 }}>
                                 {price}
                             </Typography>
-                            {ordenable && <TouchableOpacity
+                            {true && <TouchableOpacity
                                 style={styles.addButton}
                                 onPress={handleProduct}
                             >
@@ -81,7 +81,7 @@ const CardMenu = (props: props) => {
                         </FlexContainer>
                     </View>
                 </FlexContainer>
-                <LineDivider lineStyle={styles.lineDivider} />
+                <LineDivider  variant='secondary' lineStyle={styles.lineDivider}/>
             </FlexContainer>
         );
     }

@@ -1,12 +1,12 @@
-import { Dimensions, Platform } from "react-native";
+import { Dimensions, PixelRatio, Platform } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 export const COLORS = {
   ///Transparent
-  BackgroundMain: Platform.OS === 'ios' ? "#09090b" : "#181818",
-  BackgroundMainLight: Platform.OS === 'ios' ? "#F9F9F9" : "#F9F9F9",
-  backgroundMaingrey: Platform.OS === 'ios' ? '#181818' : "#222222",
-  backgroundMaingreyLight: Platform.OS === 'ios' ? '#ECECEC' : "#ECECEC",
+  BackgroundMain: "#09090b",
+  BackgroundMainLight: "#F9F9F9",
+  backgroundMaingrey: '#181818' ,
+  backgroundMaingreyLight:'#ECECEC' ,
   TranspDark: "rgba(0, 0, 0, 0.6)",
   MainTransparents: "rgba(255, 255, 255, 0.1)",
   TranspLight: "rgba(255, 255, 255, 0.8)",
@@ -40,7 +40,7 @@ export const COLORS = {
   error40Dark: "#f31260",
 
   // Primary Light
-  primary: "#FF5500",
+  primary: "#FF5F00",
   primary80: "#B45A1E",
   primary60: "#8A4319",
   primary70: "#A24F1C",
@@ -264,13 +264,18 @@ export const SuccessDark = {
 export const responsiveFontSize = (fontSize: number): number => {
   const { width, height } = Dimensions.get("window");
   const standardScreenHeight = 812;
-  const standardScreenWidth = 375; 
-  
-  const scaleFactor = Math.min(width / standardScreenWidth, height / standardScreenHeight);
+  const standardScreenWidth = 375;
 
-  const adjustmentFactor = scaleFactor < 1 ? 0.9 : 0.88;
+  const scaleWidth = width / standardScreenWidth;
+  const scaleHeight = height / standardScreenHeight;
+  const scale = Math.min(scaleWidth, scaleHeight);
 
-  return Math.round(fontSize * scaleFactor * adjustmentFactor);
+  // Ajuste específico para Android si es necesario
+  const adjustmentFactor = Platform.OS === 'android' ? 0.92 : 0.88;
+
+  const scaledFontSize = fontSize * scale * adjustmentFactor;
+
+  return Math.round(PixelRatio.roundToNearestPixel(scaledFontSize));
 };
 
 export const SIZES = {
@@ -364,7 +369,7 @@ export const FONTS = {
   heading18: {
     fontFamily: "PlusJakartaSans-Bold",
     fontSize: SIZES.heading18,
-    lineHeight: SIZES.heading18,
+    lineHeight: SIZES.heading18 * 1.6,
   },
 
   // bold

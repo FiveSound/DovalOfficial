@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useQuery } from "@tanstack/react-query";
 import { getDraftService } from "../../../../services/recipes";
-import { IsLoading } from "../../../../components/custom";
+import { IsLoading, LoadingScreen } from "../../../../components/custom";
 import { Categories, Details, Drafts, FoodTypes, Media, Variants } from "./Components";
 
 const Stack = createNativeStackNavigator();
@@ -63,7 +63,7 @@ const NewRecipie = ({ route }: Props) => {
     queryFn: getDraftService,
   });
 
-  if (isLoading || isFetching) return <IsLoading />;
+  if (isLoading || isFetching) return <LoadingScreen />;
 
   if (data) {
     return <Container defaultValues={{ ...data }} />;

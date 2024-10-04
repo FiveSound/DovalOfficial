@@ -104,7 +104,7 @@ const Verified = (props: Props) => {
         hasError={codeError}
         onCodeFilled={handleCodeFilled}
         label={i18next.t('Enter 6-digit code')}
-        sublabel={method === 0 ? `Tu código fue enviado a ${phone}` : `Tu código fue enviado a ${user}`}
+        sublabel={method === 0 ? `Your code was sent to ${phone}` : `Your code was sent to ${user}`}
       />
       {(isVerifying || isResending) && (
         <IsLoading

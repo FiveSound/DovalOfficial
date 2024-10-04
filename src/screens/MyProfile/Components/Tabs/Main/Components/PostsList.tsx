@@ -23,6 +23,7 @@ const PostsList: React.FC<RecipeListProps> = ({ data, renderItem, isRefreshing, 
       showsVerticalScrollIndicator={false}
       ListFooterComponent={<View style={{ height: responsiveFontSize(100) }} />}
       estimatedItemSize={estimatedItemSize}
+      scrollEnabled={false}
     />
   );
 };

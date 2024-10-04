@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react';
 import { useNavigation } from '../../../../../components/native';
 import { useBusinessLogic } from '../../../../../hooks/useBusinessLogic';
 import Main from './Main';
@@ -12,14 +12,14 @@ const Restaurants = () => {
   const [Search, setSearch] = useState("");
   const [filterStores, setFilterStores] = useState(false);
   const [freeShipping, setFreeShipping] = useState(false);
+  
   const {
     filteredData,
     isLoading,
     isError,
     error,
-    refetchPostData,
-    Loader
-} = useBusinessLogic({ Search, filterStores, freeShipping, navigateToPermissionScreen });
+    refetchPostData
+  } = useBusinessLogic({ Search, filterStores, freeShipping, navigateToPermissionScreen });
 
   return (
      <Main

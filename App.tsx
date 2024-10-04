@@ -1,7 +1,5 @@
-import React, { useCallback, useState, useMemo, useEffect } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import {
-  Platform,
-  SafeAreaView,
   Linking,
   SplashScreen,
 } from "./src/components/native";
@@ -13,8 +11,8 @@ import RootNavigation from "./src/navigation";
 import {
   LoadingScreen,
 } from "./src/components/custom";
-import { LogBox } from "react-native";
-import { useLocation, usePrepareApp, useTheme } from "./src/hooks";
+import { LogBox, StatusBar } from "react-native";
+import { usePrepareApp, useTheme} from "./src/hooks";
 import styles from "./AppStyles";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -22,25 +20,13 @@ import { AuthProvider } from "./src/context/AuthContext";
 import Modal from "./src/screens/Modal";
 import { CartProvider } from "./src/context/CartContext";
 import { DashboardProvider } from "./src/context/DashboardContext";
-import { CountryLanguageMap } from "./src/constants/CountryLanguageMap";
-import i18next from "./src/Translate";
-import { useAppSelector } from "./src/redux";
-import { RootState } from './src/redux/store';
 
 const queryClient = new QueryClient();
 LogBox.ignoreAllLogs();
 
 const App: React.FC = () => {
-  // const countryKey = useAppSelector((state: RootState) => state.location.countryKey);
-  // console.log('countryKey', countryKey);
-  // useLocation();
-  // useEffect(() => {
-  //   if (countryKey && CountryLanguageMap[countryKey]) {
-  //     i18next.changeLanguage(CountryLanguageMap[countryKey]);
-  //   } else {
-  //     i18next.changeLanguage('en');
-  //   }
-  // }, [countryKey]);
+const { BackgroundMain } = useTheme();
+
 
   const [appIsReady, setAppIsReady] = useState(false);
   const linking = useMemo(
@@ -77,13 +63,8 @@ const App: React.FC = () => {
             <DashboardProvider>
               <CartProvider>
                 <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-                  {Platform.OS === "android" ? (
-                    <SafeAreaView style={styles.safeAreaView}>
-                      <RootNavigation />
-                    </SafeAreaView>
-                  ) : (
+                  <StatusBar barStyle='default' backgroundColor={BackgroundMain} />
                     <RootNavigation />
-                  )}
                   <Modal />
                 </GestureHandlerRootView>
               </CartProvider>

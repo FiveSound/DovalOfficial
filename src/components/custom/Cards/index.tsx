@@ -1,3 +1,4 @@
+import CardGallery from "./CardGallery";
 import CardsPreview from "./CardsPreview";
 import CardUsers from "./CardUsers";
 import { CardUserSkeleton } from "./CardUsers/CardUserSkeleton";
@@ -17,5 +18,6 @@ export {
     InfoCard,
     CardsPreview,
     CardUserSkeleton,
-    CardUsers
+    CardUsers,
+    CardGallery
 }

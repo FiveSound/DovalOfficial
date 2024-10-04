@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
         width: SIZES.width,
     },
     typographyName: {
-        width: SIZES.width / 1.2,
+        width: SIZES.width / 1.4,
         ...FONTS.semi16
     },
     typographyDescription: {
-        width: SIZES.width / 1.2,
+        width: SIZES.width / 1.4,
         marginRight: SIZES.padding,
         ...FONTS.text14
     },
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
         borderColor: COLORS.primaryDark700,
     },
     lineDivider: {
-        height: SIZES.gapSmall,
         marginTop: SIZES.gapMedium,
         width: SIZES.width,
         alignSelf: 'center'

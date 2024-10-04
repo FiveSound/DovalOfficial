@@ -1,8 +1,8 @@
 import React, { ReactNode, useState } from "react";
-import { Image, TouchableOpacity, View, ViewStyle } from "react-native";
+import { TouchableOpacity, View, ViewStyle } from "react-native";
 import useTheme from "../../hooks/useTheme";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { SafeAreaView, useNavigation } from "../../components/native";
+import { SafeAreaView, useNavigation, Image } from "../../components/native";
 import { FlexContainer, LineDivider, Search } from "../../components/custom";
 import { COLORS, SIZES } from "../../constants/theme";
 import { iconsNative } from "../../constants";
@@ -45,7 +45,7 @@ const Headers = ({ onChange, placeholder }: PropsH) => {
       >
         <Image
           source={iconsNative.arrowBack}
-          resizeMode="contain"
+          contentFit="contain"
           style={{
             width: SIZES.icons / 1.6,
             height: SIZES.icons / 1.6,

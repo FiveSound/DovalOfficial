@@ -25,6 +25,7 @@ interface LoginResponse {
 // Estado inicial
 interface AuthState {
   user: UserType | null;
+  business: boolean | null;
   isAuthenticated: boolean;
   isLoadingApp: boolean;
   isVerifying: boolean;
@@ -44,6 +45,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   user: null,
+  business: null,
   isAuthenticated: false,
   isLoadingApp: false,
   isVerifying: false,
@@ -142,28 +144,25 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     signInStart(state) {
-      console.log('signInStart');
       state.isLoadingApp = true;
     },
     signInSuccess(state, action: PayloadAction<UserType>) {
-      console.log('signInSuccess:', action.payload);
       state.user = action.payload;
       state.isAuthenticated = true;
       state.isLoadingApp = false;
+      state.business = action.payload.businessID !== null ? true : false;
     },
     signInFailure(state) {
-      console.log('signInFailure');
       state.isLoadingApp = false;
     },
     signOut(state) {
-      console.log('signOut');
       state.user = null;
       state.isAuthenticated = false;
       state.isLoadingApp = false;
-      state.token = null; // Limpiar el token al cerrar sesión
+      state.token = null; 
+      state.business = null;
     },
     refreshProfileData(state, action: PayloadAction<boolean>) {
-      console.log('refreshProfileData');
       state.isLoadingApp = action.payload;
     },
   },
@@ -186,7 +185,7 @@ const authSlice = createSlice({
       state.message = 'Código verificado correctamente';
       state.user = action.payload.userDetails || null;
       state.isAuthenticated = true;
-      state.token = action.payload.token || null; // Almacenar el token en el estado
+      state.token = action.payload.token || null; 
     });
     builder.addCase(verifyCode.rejected, (state, action) => {
       console.log('verifyCode rejected:', action.payload);

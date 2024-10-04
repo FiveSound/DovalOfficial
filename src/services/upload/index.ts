@@ -3,10 +3,14 @@ import AWS from "aws-sdk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "../index";
 
+interface UploadProgressCallback {
+  (progress: number): void;
+}
+
 export const uploadImageService = async (
   file: any,
   response_id: string,
-  setUploadProgress: any
+  setUploadProgress?: UploadProgressCallback
 ) => {
   try {
     const userToken = await AsyncStorage.getItem("userToken");
@@ -22,7 +26,10 @@ export const uploadImageService = async (
         Authorization: `Bearer ${userToken}`,
       },
       onUploadProgress: (progressEvent) => {
-        setUploadProgress(progressEvent.progress);
+        if (setUploadProgress) {
+          const progress = progressEvent.loaded / (progressEvent.total || 1);
+          setUploadProgress(progress);
+        }
       },
     });
 
@@ -35,8 +42,8 @@ export const uploadImageService = async (
 
 export const uploadVideoService = async (
   file: any,
-  response_id: any,
-  setProgress: any
+  response_id: string,
+  setUploadProgress?: UploadProgressCallback
 ) => {
   try {
     const userToken = await AsyncStorage.getItem("userToken");
@@ -51,7 +58,10 @@ export const uploadVideoService = async (
         Authorization: `Bearer ${userToken}`,
       },
       onUploadProgress: (progressEvent) => {
-        setProgress(progressEvent.progress);
+        if (setUploadProgress) {
+          const progress = progressEvent.loaded / (progressEvent.total || 1);
+          setUploadProgress(progress);
+        }
       },
     });
 

@@ -5,8 +5,8 @@ import {
   StyleSheet,
 } from "react-native";
 import { getListCategoriesService, selectedCategoriesFromListService } from "../../../../../services/recipes";
-import { IsLoading } from "../../../../../components/custom";
-import { TextInput, View, Text, TouchableOpacity } from "../../../../../components/native";
+import { Container, FlexContainer, IsLoading, LineDivider, LoadingScreen, Perks, SearchHeader, Typography } from "../../../../../components/custom";
+import { LabelVariants } from "./LabelVariants";
 
 type CategoryType = {
   id: number;
@@ -17,6 +17,8 @@ type CategoryType = {
 
 const Categories = () => {
   const { watch } = useFormContext();
+  const [searchTerm, setSearchTerm] = useState(""); 
+
   const values = watch();
 
   const [success, setSuccess] = useState(false);
@@ -52,40 +54,30 @@ const Categories = () => {
     },
   });
 
-  if (isLoading || isFetching) return <IsLoading />;
+  if (isLoading || isFetching) return <LoadingScreen label="Cargando categorias" />;
 
-  if (isError) return <Text>An ocurred error fetch!</Text>;
+  if (isError) return <Typography variant='H4title'>An ocurred error fetch!</Typography>;
 
   if (data) {
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Categories</Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search categories"
-        />
-
-        {/* <Text>{JSON.stringify(data, null, 2)}</Text> */}
-
-        {data.list.map((row: CategoryType) => (
-          <TouchableOpacity
-            key={row.id}
-            onPress={() => mutation.mutate(row.id)}
-            style={[
-              styles.item,
-              {
-                backgroundColor: row.selected ? "#DDD" : "transparent",
-              },
-            ]}
-          >
-            <Text>{row.name}</Text>
-            <Text>{row.description}</Text>
-          </TouchableOpacity>
-        ))}
-
-        {success && <Text>Guardado con exito!</Text>}
+      <Container 
+      style={styles.container}
+      label="Categorias"
+      showBack={true}
+      showHeader={true}
+      >
+        {/* <SearchHeader
+          onChange={(text) => {
+            setSearchTerm(text); 
+          }}
+          placeholder="Buscar categorias"
+        /> */}
+        <LineDivider variant='secondary' />
+        <LabelVariants data={data} onPress={(id) => mutation.mutate(id)} isLoading={isLoading}/>
+        {success && <Perks status='success' label="Guardado con exito!" Reverse={false}/>}
         {mutation.isPending && <IsLoading />}
-      </View>
+      </Container>
     );
   }
 };
@@ -94,8 +86,6 @@ export default Categories;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
-    flex: 1,
     alignItems: "center",
   },
   title: {
@@ -108,8 +98,5 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 1,
   },
-  item: {
-    padding: 10,
-    width: "100%",
-  },
+
 });

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useCallback, useMemo } from "react";
+import React, { lazy, Suspense, useCallback } from "react";
 import { RefreshControl } from "react-native";
 import { useRefreshData } from "../../../../../hooks";
 import {
@@ -99,6 +99,22 @@ const Main = ({
     return <LoadingScreen label={i18next.t('Loading business')} />;
   }
 
+  if (isError) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ScreenEmpty
+          labelPart1={i18next.t("Error loading data")}
+          subLabel={error?.message || i18next.t("An unexpected error occurred. Please try again.")}
+          source={Ilustrations.Error}
+          ImgWidth={SIZES.width / 2}
+          ImgHeigth={SIZES.height / 4}
+          ShowButton={true}
+          onPress={refetchPostData}
+        />
+      </View>
+    );
+  }
+
   return !isLoading && filteredData && filteredData.length === 0 ? (
     emptyComponent()
   ) : (
@@ -111,7 +127,7 @@ const Main = ({
           console.log("Navigating to SearchBusiness");
           navigation.navigate("SearchBusiness");
         }}
-        ShowLineDivider={true}
+        ShowLineDivider={false}
         labelPreview={i18next.t("More")}
         labelStyle={{
           ...FONTS.heading18,
@@ -129,8 +145,8 @@ const Main = ({
         renderItem={renderItem}
         initialNumToRender={3}
         maxToRenderPerBatch={3}
-        nestedScrollEnabled={true}
         onRefresh={onRefresh}
+        scrollEnabled={false}
         refreshing={isRefreshing}
         contentContainerStyle={{
             paddingBottom: SIZES.height / 4,

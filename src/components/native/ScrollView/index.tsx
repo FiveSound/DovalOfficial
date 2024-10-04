@@ -1,5 +1,6 @@
 import React from 'react'
-import { ScrollView as RNScrollView, ScrollViewProps } from 'react-native'
+import { ScrollViewProps, ScrollView as RNScrollView} from 'react-native'
+// import { ScrollView as RNScrollViewNew } from 'react-native-virtualized-view'
 
 type Props = ScrollViewProps
 
