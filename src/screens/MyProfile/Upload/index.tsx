@@ -16,6 +16,7 @@ const Upload = (props: props) => {
 const navigation = useNavigation();
 const dispatch = useAppDispatch();
 const { business } = useSelector((state: RootState) => state.auth)
+console.log(business);
 
 useEffect(() => {
 }, [business]);

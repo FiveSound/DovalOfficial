@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { InputLabel } from '../../../../../../../components/custom';
-import { FONTS, SIZES } from '../../../../../../../constants/theme';
+import { InputLabel } from '../../../../../../components/custom';
+import { FONTS, SIZES } from '../../../../../../constants/theme';
 
 interface Props {
   setValue: (name: string, value: any) => void;

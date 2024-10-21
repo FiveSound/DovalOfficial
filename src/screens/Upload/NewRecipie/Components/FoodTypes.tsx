@@ -2,10 +2,18 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  ActivityIndicator,
   StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { getListCategoriesService, selectedCategoriesFromListService } from "../../../../../services/recipes";
-import { Container, FlexContainer, IsLoading, LineDivider, LoadingScreen, Perks, SearchHeader, Typography } from "../../../../../components/custom";
+import {
+  getListTypesService,
+  selectedTypeFromListService,
+} from "../../../../services/recipes";
+import { Container, IsLoading, LineDivider, Perks, SearchHeader } from "../../../../components/custom";
 import { LabelVariants } from "./LabelVariants";
 
 type CategoryType = {
@@ -15,29 +23,27 @@ type CategoryType = {
   selected: boolean;
 };
 
-const Categories = () => {
+const FoodTypes = () => {
   const { watch } = useFormContext();
-  const [searchTerm, setSearchTerm] = useState(""); 
-
   const values = watch();
 
   const [success, setSuccess] = useState(false);
 
   let { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ["recipe-list-categories", values.id],
-    queryFn: getListCategoriesService,
+    queryKey: ["recipe-list-types", values.id],
+    queryFn: getListTypesService,
   });
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationKey: ["recipe-list-categories", values.id],
+    mutationKey: ["recipe-list-types", values.id],
     mutationFn: async (typeID: number) => {
-      return await selectedCategoriesFromListService(values.id, typeID);
+      return await selectedTypeFromListService(values.id, typeID);
     },
     onSuccess: (result) => {
       queryClient.setQueryData(
-        ["recipe-list-categories", values.id],
+        ["recipe-list-types", values.id],
         (oldData: { list: CategoryType[] }) => ({
           ...oldData,
           list: oldData.list.map((row) => ({
@@ -54,12 +60,11 @@ const Categories = () => {
     },
   });
 
-  if (isLoading || isFetching) return <LoadingScreen label="Cargando categorias" />;
+  if (isLoading || isFetching) return <ActivityIndicator />;
 
-  if (isError) return <Typography variant='H4title'>An ocurred error fetch!</Typography>;
+  if (isError) return <Text>An ocurred error fetch!</Text>;
 
   if (data) {
-
     return (
       <Container 
       style={styles.container}
@@ -75,14 +80,14 @@ const Categories = () => {
         /> */}
         <LineDivider variant='secondary' />
         <LabelVariants data={data} onPress={(id) => mutation.mutate(id)} isLoading={isLoading}/>
-        {success && <Perks status='success' label="Guardado con exito!" Reverse={false}/>}
-        {mutation.isPending && <IsLoading />}
-      </Container>
+      {success && <Perks status='success' label="Guardado con exito!" Reverse={false}/>}
+      {mutation.isPending && <IsLoading />}
+    </Container>
     );
   }
 };
 
-export default Categories;
+export default FoodTypes;
 
 const styles = StyleSheet.create({
   container: {
@@ -98,5 +103,8 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 1,
   },
-
+  item: {
+    padding: 10,
+    width: "100%",
+  },
 });

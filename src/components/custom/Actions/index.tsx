@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { TouchableOpacity } from '../../native'
 
 type Props = {
-    onPress: () => void;
+    onPress?: () => void;
     children: React.ReactNode;
 }
 

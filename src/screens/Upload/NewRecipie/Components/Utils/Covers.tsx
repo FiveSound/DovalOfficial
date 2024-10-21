@@ -1,11 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { StyleSheet, ViewToken } from 'react-native';
-import { useTheme } from '../../../../../../hooks';
-import { View, Image, FlatList } from '../../../../../../components/native';
-import { COLORS, SIZES } from '../../../../../../constants/theme';
-import { Dots, LineDivider } from '../../../../../../components/custom';
-import { CLOUDFRONT } from '../../../../../../services';
-import { Ilustrations } from '../../../../../../constants';
+import { useTheme } from '../../../../../hooks';
+import { View, Image, FlatList } from '../../../../../components/native';
+import { COLORS, SIZES } from '../../../../../constants/theme';
+import { Dots, LineDivider } from '../../../../../components/custom';
+import { CLOUDFRONT } from '../../../../../services';
+import { Ilustrations } from '../../../../../constants';
 
 interface MediaItem {
     key: string;
@@ -77,7 +77,7 @@ const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
                 activeColor={COLORS.primary}
                 inactiveColor={backgroundMaingrey}
                 />
-                {ShowDivider && <LineDivider variant='secondary' />}
+                {ShowDivider && <LineDivider variant='primary' />}
             </>
         );
     }

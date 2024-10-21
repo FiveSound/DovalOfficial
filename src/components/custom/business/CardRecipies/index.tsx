@@ -67,7 +67,7 @@ const CardMenu = (props: props) => {
                             <Typography variant='subtitle' newStyle={{ color: color, ...FONTS.heading18 }}>
                                 {price}
                             </Typography>
-                            {true && <TouchableOpacity
+                            {ordenable && <TouchableOpacity
                                 style={styles.addButton}
                                 onPress={handleProduct}
                             >

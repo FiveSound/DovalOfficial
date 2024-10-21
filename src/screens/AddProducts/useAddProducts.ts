@@ -27,6 +27,9 @@ type TypeSubVariant = {
   price: string;
 };
 
+const QueryKey = 'total-variants'
+const QueryKeyData = 'data-variants'
+
 export const useAddProducts = () => {
   const navigation = useNavigation();
   const { isAuthenticated, isLoadingApp } = useSelector((state: RootState) => state.auth);
@@ -37,19 +40,23 @@ export const useAddProducts = () => {
   const [limites, setLimites] = useState<{ [key: number]: boolean }>({});
   const [isFormValid, setIsFormValid] = useState(false);
   const { recipeID } = useSelector((state: RootState) => state.navigation);
+  console.log('recipeID en recibiodo', recipeID);
  
   const total = useQuery({
-    queryKey: ["cart-total-screen", recipeID, JSON.stringify(subVariants), qty],
+    queryKey: [QueryKey, recipeID, JSON.stringify(subVariants), qty],
     queryFn: getTotalVariantsService,
     enabled: !!recipeID,
   });
 
+  console.log('recipeID en total', total);
+
   const { data, isLoading, isFetching, refetch } = useQuery({
-    queryKey: ["cart-variants-screen", recipeID],
+    queryKey: [QueryKeyData, recipeID],
     queryFn: getRecipeVariantsService,
     enabled: !!recipeID
   });
-
+  console.log('recipeID en data', data);
+  
   const { isRefreshing, onRefresh } = useRefreshData([refetch]);
 
   const resetState = useCallback(() => {

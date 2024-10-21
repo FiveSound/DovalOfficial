@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateVariantService, updateSubVariantService, removeSubVariantService } from "../../../../../../services/recipes";
+import { updateVariantService, updateSubVariantService, removeSubVariantService } from "../../../../../services/recipes";
 import { TypeData, TypeVariant } from "./types";
 import { styles } from "./styles";
-import { TouchableOpacity, View, Text, TextInput, Switch, Pressable } from "../../../../../../components/native";
-import { Buttons, Checkbox, FlexContainer, LineDivider, Perks, Typography } from "../../../../../../components/custom";
-import { useTheme } from "../../../../../../hooks";
-import { SIZES } from "../../../../../../constants/theme";
+import { TouchableOpacity, View, Text, TextInput, Switch, Pressable } from "../../../../../components/native";
+import { Buttons, Checkbox, FlexContainer, LineDivider, Perks, Typography } from "../../../../../components/custom";
+import { useTheme } from "../../../../../hooks";
+import { SIZES } from "../../../../../constants/theme";
 
 const Variant = React.memo((props: TypeVariant) => {
   const {

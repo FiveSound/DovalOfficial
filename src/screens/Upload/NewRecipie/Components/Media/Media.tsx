@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 import {
-  StyleSheet,
-  View,
-  Button,
-  Image,
+  StyleSheet
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useFormContext } from "react-hook-form";
-import { addDraftService } from "../../../../../../services/recipes";
-import { Buttons, Container, FlexContainer, IsLoading, LineDivider, ProgressBar } from "../../../../../../components/custom";
-import useUploadMedia from "../../../../../../hooks/useUploadMedia";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../../../constants/theme";
-
+import { addDraftService } from "../../../../../services/recipes";
+import { Buttons, Container, FlexContainer, IsLoading, LineDivider, ProgressBar } from "../../../../../components/custom";
+import useUploadMedia from "../../../../../hooks/useUploadMedia";
+import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../../constants/theme";
 import { Covers } from "../Utils";
-import { useNavigation } from "../../../../../../components/native";
-import { useTheme } from "../../../../../../hooks";
+import { useNavigation } from "../../../../../components/native";
+import { useTheme } from "../../../../../hooks";
 import { useDispatch } from "react-redux";
-import { resetProgress } from "../../../../../../redux/slides/uploadSlice";
-import i18next from "../../../../../../Translate";
+import { resetProgress } from "../../../../../redux/slides/uploadSlice";
+import i18next from "../../../../../Translate";
 
 const Media = () => {
   const dispatch = useDispatch();
@@ -66,7 +62,7 @@ const Media = () => {
       });
 
       try {
-         uploadMedia(media); 
+        uploadMedia(media);
       } catch (error) {
         console.error('Upload failed', error);
       }
@@ -78,24 +74,24 @@ const Media = () => {
     if (photos.length > 0) {
       const updatedKeys = [...keys, ...photos];
       setValue("key", updatedKeys, { shouldValidate: true, shouldDirty: true });
-      
+
       addDraftService({
         cover: updatedKeys,
       })
-      .then((response) => {
-        console.log('response addDraftService', response);
-        if (response.success) {
-          console.log('Guardado con éxito...');
-          setValue("id", response.id);
-        }
-        // Reset progress
-        dispatch(resetProgress());
-      })
-      .catch(error => {
-        console.error('Add Draft Failed', error);
-        // Reset progress even if adding draft fails
-        dispatch(resetProgress());
-      });
+        .then((response) => {
+          console.log('response addDraftService', response);
+          if (response.success) {
+            console.log('Guardado con éxito...');
+            setValue("id", response.id);
+          }
+          // Reset progress
+          dispatch(resetProgress());
+        })
+        .catch(error => {
+          console.error('Add Draft Failed', error);
+          // Reset progress even if adding draft fails
+          dispatch(resetProgress());
+        });
     }
   }, [photos]);
 
@@ -105,31 +101,19 @@ const Media = () => {
       showHeader={true}
       label={i18next.t("Upload Media")}
       style={styles.container}>
-       <LineDivider variant='secondary' lineStyle={styles.lineStyle}/>
+      <LineDivider variant='primary' lineStyle={styles.lineStyle} />
       <FlexContainer newStyle={styles.actions}>
-        <Buttons
-          label={i18next.t("Drafts")}
-          onPress={() => navigation.navigate("RecipeDrafts")}
-          containerButtons={styles.containerButtonss}
-          variant='transparent'
-          labelStyle={{
-            ...FONTS.semi16
-          }}
-        />
-        <Buttons
-          label={i18next.t("Continue")}
-          onPress={() => navigation.navigate("RecipeDetails")}
-          disabled={keys.length === 0}
-          variant={keys.length === 0 ? 'disabled' : 'primary'}
-          variantLabel={keys.length === 0 ? 'disabled' : 'secondary'}
-          containerButtons={styles.containerButtonss}
-          labelStyle={{
-            ...FONTS.semi16
-          }}
-        />
+      <Buttons
+            label={i18next.t("Continue")}
+            onPress={() => navigation.navigate("RecipeDetails")}
+            disabled={keys.length === 0}
+            variant={keys.length === 0 ? 'disabled' : 'primary'}
+            variantLabel={keys.length === 0 ? 'disabled' : 'secondary'}
+            containerButtons={styles.containerButtonss}
+          />
       </FlexContainer>
       <FlexContainer>
-        <Covers data={keys} ShowDivider={true}/>
+        <Covers data={keys} ShowDivider={false} />
         <FlexContainer newStyle={styles.progressContainer}>
           {(isSubmittingLocal || isLoading) && progress > 0 && (
             <ProgressBar progress={progress} />
@@ -141,6 +125,13 @@ const Media = () => {
             variant={isSubmittingLocal || isLoading ? 'disabled' : 'primary'}
             labelStyle={styles.labelStyle}
             color={isSubmittingLocal || isLoading ? 'primary' : 'dark'}
+          />
+
+          <Buttons
+            label={i18next.t("Drafts")}
+            onPress={() => navigation.navigate("RecipeDrafts")}
+            containerButtons={styles.containerButtonss}
+            variant='transparent'
           />
         </FlexContainer>
       </FlexContainer>
@@ -171,7 +162,7 @@ export const styles = StyleSheet.create({
     marginBottom: SIZES.gapLarge
   },
   containerButtons: {
-    width: SIZES.width / 3 ,
+    width: SIZES.width / 3,
     backgroundColor: 'transparent'
   },
   labelStyle: {
@@ -185,7 +176,22 @@ export const styles = StyleSheet.create({
     marginBottom: SIZES.gapLarge,
   },
   containerButtonss: {
-    width: "30%"
+    width: "30%",
+  },
+  icon: {
+    width: SIZES.icons,
+    height: SIZES.icons
+  },
+  stylesMedia: {
+    width: responsiveFontSize(140),
+    height: responsiveFontSize(160),
+  },
+  stylesMain: {
+    width: SIZES.width / 3,
+    height: SIZES.height / 6,
+    backgroundColor: 'transparent',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   }
 });
 

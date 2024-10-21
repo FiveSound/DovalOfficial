@@ -46,7 +46,7 @@ const ButtonAcces = ({
       <TouchableOpacity onPress={onPress} style={[styles.touchableOpacity, container]}>
         <FlexContainer newStyle={styles.flexContainer} variant="row">
           {showAppendBottom === 'UP' && append}
-          <Typography variant='H4title' newStyle={StyleSheet.flatten([labelStyle, { color: Title, width: SIZES.width / 2.4}])}>
+          <Typography variant='H4title' newStyle={{...labelStyle, width: SIZES.width / 2.4}}>
             {label}
           </Typography>
          <FlexContainer>

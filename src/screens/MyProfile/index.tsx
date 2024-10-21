@@ -25,7 +25,7 @@ import i18next from "../../Translate";
 type Props = {};
 
 const MyProfile = (props: Props) => {
-  const { isAuthenticated, isLoadingApp } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, isLoadingApp, business } = useSelector((state: RootState) => state.auth);
   const navigation = useNavigation();
 
   const {
@@ -52,6 +52,9 @@ const MyProfile = (props: Props) => {
     refetchProfile,
     refetchFollowers,
   ]);
+
+  useEffect(() => {
+  }, [business])
 
   useEffect(() => {
     if (isAuthenticated) {

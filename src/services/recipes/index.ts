@@ -64,9 +64,9 @@ export const getExploreData = async (location: object | null, page: number) => {
   if (!userToken) {
     let response = await axios.post(`${API_URL}/api/explore/public`, {
       page,
-      // ...location, // Comentado para usar ubicación estática
-      latitude: 18.280367,
-      longitude: -70.33672,
+      ...location,
+      // latitude: 18.280367,
+      // longitude: -70.33672,
     });
 
     return response.data;
@@ -77,9 +77,9 @@ export const getExploreData = async (location: object | null, page: number) => {
     `${API_URL}/api/explore`,
     {
       page,
-      // ...location, // Comentado para usar ubicación estática
-      latitude: 18.280367,
-      longitude: -70.33672,
+      ...location
+      // latitude: 18.280367,
+      // longitude: -70.33672,
     },
     {
       headers: {

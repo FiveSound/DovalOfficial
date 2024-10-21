@@ -1,9 +1,9 @@
-import { ActivityIndicator } from "react-native";
+
 import { FormProvider, useForm } from "react-hook-form";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useQuery } from "@tanstack/react-query";
-import { getDraftService } from "../../../../services/recipes";
-import { IsLoading, LoadingScreen } from "../../../../components/custom";
+import { getDraftService } from "../../../services/recipes";
+import { IsLoading, LoadingScreen } from "../../../components/custom";
 import { Categories, Details, Drafts, FoodTypes, Media, Variants } from "./Components";
 
 const Stack = createNativeStackNavigator();

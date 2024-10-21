@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../../../../constants/theme";
+import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../../../constants/theme";
 
 const styles = StyleSheet.create({
     flexContainer: {

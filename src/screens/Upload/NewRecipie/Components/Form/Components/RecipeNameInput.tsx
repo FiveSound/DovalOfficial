@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputLabel } from '../../../../../../../components/custom';
+import { InputLabel } from '../../../../../../components/custom';
 
 interface Props {
   setValue: (name: string, value: any) => void;

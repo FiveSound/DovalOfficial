@@ -6,18 +6,22 @@ import {
   Buttons,
   Container,
   FlexContainer,
+  Icons,
   LineDivider,
   Perks,
-} from "../../../../../../components/custom";
+} from "../../../../../components/custom";
 import { Covers } from "../Utils";
-import { KeyboardAwareScrollView, useNavigation } from '../../../../../../components/native';
+import { KeyboardAwareScrollView, useNavigation } from '../../../../../components/native';
 import { CategoriesSelector, FoodTypeSelector, PriceInput, RecipeDescriptionInput, RecipeNameInput, SideDishSelector } from './Components';
-import { getListCategoriesService, getListTypesService, getVariantsByRecipeService, onCompleteService, onSaveDraftService } from '../../../../../../services/recipes';
-import { FONTS, SIZES } from '../../../../../../constants/theme';
+import { getListCategoriesService, getListTypesService, getVariantsByRecipeService, onCompleteService, onSaveDraftService } from '../../../../../services/recipes';
+import { FONTS, responsiveFontSize, SIZES } from '../../../../../constants/theme';
 import { styles } from '../Media/Media';
-import i18next from '../../../../../../Translate';
+import i18next from '../../../../../Translate';
+import { ArrowLeft, CloseIcon } from '../../../../../constants/IconsPro';
+import { useTheme } from '../../../../../hooks';
 
 const Details = () => {
+  const { Title } = useTheme();
   const navigation = useNavigation();
   const { setValue, watch } = useFormContext();
   const values = watch();
@@ -47,7 +51,6 @@ const Details = () => {
     queryFn: getVariantsByRecipeService,
   });
 
-  console.log('variants', variants);
   
   const disable =
   !values.name ||
@@ -120,14 +123,12 @@ const Details = () => {
       showBack={false}
     >
       <FlexContainer newStyle={styles.actions}>
-        <Buttons
-          label={i18next.t("Drafts")}
-          onPress={() => navigation.navigate("RecipeDrafts")}
-          containerButtons={styles.containerButtonss}
-          variant={disable ? 'transparent' : 'transparent'}
-          labelStyle={{
-            ...FONTS.semi16
-          }}
+        <Icons 
+        appendIcons={<CloseIcon color={Title}
+        width={SIZES.icons}
+        height={SIZES.icons}
+        />}
+        onPress={() => navigation.goBack()}
         />
         <Buttons
           label={i18next.t("Continue")}
@@ -137,21 +138,27 @@ const Details = () => {
           variant={disable ? 'disabled' : 'primary'}
           disabled={disable}
           labelStyle={{
-            ...FONTS.semi16
+            ...FONTS.semi16,
           }}
         />
       </FlexContainer>
-      <LineDivider variant='secondary' />
-      <KeyboardAwareScrollView>
+      <LineDivider variant='primary' />
+      <KeyboardAwareScrollView
+       extraScrollHeight={responsiveFontSize(100)} 
+       enableOnAndroid={true} 
+       keyboardOpeningTime={0} 
+       resetScrollToCoords={{ x: 0, y: 0 }} 
+       scrollEnabled={true} 
+      >
         <FlexContainer newStyle={styles.container}>
           <Covers data={values.key} ShowDivider={true} />
           <RecipeNameInput setValue={setValue} onSaveDraft={onSaveDraft} value={values.name} />
           <RecipeDescriptionInput setValue={setValue} onSaveDraft={onSaveDraft} value={values.description} />
           <PriceInput setValue={setValue} onSaveDraft={onSaveDraft} value={values.price} />
           <CategoriesSelector categories={categories} navigation={navigation} />
-          <LineDivider variant='secondary' />
+          <LineDivider variant='primary' />
           <FoodTypeSelector foodTypes={foodTypes} navigation={navigation} />
-          <LineDivider variant='secondary' />
+          <LineDivider variant='primary' />
           <SideDishSelector variants={variants} navigation={navigation} />
         </FlexContainer>
       </KeyboardAwareScrollView>

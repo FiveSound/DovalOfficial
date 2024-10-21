@@ -1,10 +1,9 @@
 import React from 'react';
 import { NavigationProp } from "@react-navigation/native";
 import { useQuery } from '@tanstack/react-query';
-import { ScrollView} from '../../../../../../../components/native';
-import { ButtonAcces, Container, FlexContainer, Icons, IsLoading, Perks, Typography } from '../../../../../../../components/custom';
+import { ScrollView} from '../../../../../../components/native';
+import { ButtonAcces, Container, FlexContainer, Icons, IsLoading, Perks, Typography } from '../../../../../../components/custom';
 import styles from './styles';
-import { getVariantsByRecipeService } from '../../../../../../../services/recipes';
 import { useFormContext } from 'react-hook-form';
 
 interface VariantItem {

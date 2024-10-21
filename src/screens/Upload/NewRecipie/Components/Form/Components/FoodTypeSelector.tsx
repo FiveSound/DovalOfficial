@@ -1,34 +1,36 @@
 import React from 'react';
 import { NavigationProp } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
-import { IsLoading , ButtonAcces, Typography, Icons, FlexContainer, Perks} from '../../../../../../../components/custom';
-import { ScrollView } from '../../../../../../../components/native';
+import { useQuery } from '@tanstack/react-query';
+import { ButtonAcces, FlexContainer, Icons, IsLoading, Perks, Typography } from '../../../../../../components/custom';
+import { ScrollView } from '../../../../../../components/native';
 import styles from './styles';
-import { FONTS } from '../../../../../../../constants/theme';
+import { useTheme } from '../../../../../../hooks';
 
 interface Props {
-  categories: ReturnType<typeof useQuery>;
+  foodTypes: ReturnType<typeof useQuery>;
   navigation: NavigationProp<any>;
 }
 
-const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
-  const isAtLeastOneSelected = categories.data?.list.some((item: any) => item.selected);
-  
+const FoodTypeSelector: React.FC<Props> = ({ foodTypes, navigation }) => {
+const { Description} = useTheme()
+const isAtLeastOneSelected = foodTypes.data?.list.some((item: any) => item.selected);
+
+
   return (
-    <>
-     <ButtonAcces
-      label="Categories"
+    <ButtonAcces
+      label="Food Type"
       labelPreview='Required'
-      onPress={() => navigation.navigate("RecipeCategories")}
+      onPress={() => navigation.navigate("RecipeType")}
       showAppendBottom='DOWN'
       ShowLineDivider={false}
       container={styles.containerButton}
+      labelStyle={{color: Description}}
       ShowAppendPreview={false}
       AppendPreview={
-        <Perks label={!isAtLeastOneSelected? 'Required' : 'Completed'} status={!isAtLeastOneSelected ? 'error' : 'success'} Reverse={false} />
+        <Perks label={!isAtLeastOneSelected ? 'Required' : 'Completed'} status={!isAtLeastOneSelected ? 'error' : 'success'} Reverse={false}/>
       }
       append={
-        categories.isLoading ? (
+        foodTypes.isLoading ? (
           <IsLoading />
         ) : (
           <ScrollView 
@@ -36,7 +38,7 @@ const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
           horizontal={true} 
           contentContainerStyle={styles.scrollView}>
             <FlexContainer variant='row' newStyle={styles.flexContainer}>
-              {categories.data?.list.map((row: any) => (
+              {foodTypes.data?.list.map((row: any) => (
                 row.selected && (<Icons 
                   key={row.id}
                   appendIcons={<Typography variant='H4title' newStyle={styles.text}>{row.name}</Typography>} 
@@ -47,13 +49,9 @@ const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
           </ScrollView>
         )
       }
-    
     />
 
-    </>
   );
 };
 
-
-
-export default CategoriesSelector;
+export default FoodTypeSelector;

@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { getRecipeDrafts } from "../../../../../services/recipes";
+import { getRecipeDrafts } from "../../../../services/recipes";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Recipe } from "../../../../../types/comments/types";
+import { Recipe } from "../../../../types/comments/types";
 
 const Drafts = () => {
   const navigation = useNavigation<NavigationProp<any>>();

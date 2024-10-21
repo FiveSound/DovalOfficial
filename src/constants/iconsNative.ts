@@ -23,7 +23,7 @@ const cardTouch = require("../../assets/icons/CardTouch.png")
 const dot = require("../../assets/icons/Dots.png")
 const Contactless = require("../../assets/icons/Contactless.png")
 const CardBrand = require("../../assets/icons/Cards_brand.png")
-
+const x = require("../../assets/icons/x.png")
 
 export default {
     google,
@@ -50,5 +50,6 @@ export default {
     cardTouch,
     dot,
     Contactless,
-    CardBrand
+    CardBrand,
+    x
 }

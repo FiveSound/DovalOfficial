@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { FlexContainer, IsLoading, Perks, Typography } from "../../../../../components/custom";
-import { TouchableOpacity } from "../../../../../components/native";
-import { COLORS, SIZES } from "../../../../../constants/theme";
+import { FlexContainer, IsLoading, Perks, Typography } from "../../../../components/custom";
+import { TouchableOpacity } from "../../../../components/native";
+import { COLORS, SIZES } from "../../../../constants/theme";
 
 type props = {
     data: any,

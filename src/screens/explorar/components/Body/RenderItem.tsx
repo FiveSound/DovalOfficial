@@ -55,9 +55,9 @@ class RenderItem extends PureComponent<PropsRenderItem> {
 
     return (
       <FlexContainer newStyle={styles.containerReactions}>
-        {item.recipeID && item.ordenable && (
+        {/* {item.recipeID && item.ordenable && ( */}
           <CartButton recipeID={item.recipeID} />
-        )}
+        {/* )} */}
         <ViewsButton postID={item.id} />
         <LikeButton postID={item.id} onLikeChange={this.handleLikeChange} />
         <CommentButton postID={item.id} />

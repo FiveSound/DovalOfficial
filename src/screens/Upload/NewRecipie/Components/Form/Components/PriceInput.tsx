@@ -1,8 +1,8 @@
 import React from 'react';
-import { InputLabel } from '../../../../../../../components/custom';
+import { InputLabel } from '../../../../../../components/custom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../../../../../redux/store';
-import { getCurrencyByCountryCode } from '../../../../../../../utils/formatCurrency';
+import { RootState } from '../../../../../../redux/store';
+import { getCurrencyByCountryCode } from '../../../../../../utils/formatCurrency';
 
 
 interface Props {

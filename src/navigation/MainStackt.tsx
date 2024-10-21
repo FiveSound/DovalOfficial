@@ -19,7 +19,7 @@ import UserProfile from "../screens/UserProfile";
 import Followers from "../screens/Followers";
 import ReportUsers from "../screens/Reports/ReportUsers";
 import Search from "../screens/Search";
-import NewRecipie from "../screens/MyProfile/Upload/NewRecipie";
+import NewRecipie from "../screens/Upload/NewRecipie";
 import OrderList from "../screens/home/components/body/LiveOrders/OrderList";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";

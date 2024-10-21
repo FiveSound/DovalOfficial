@@ -5,13 +5,13 @@ import {
     addVariantService,
     getVariantsByRecipeService,
     removeVariantService,
-  } from "../../../../../../services/recipes";
+  } from "../../../../../services/recipes";
   import { useFormContext } from "react-hook-form";
-import { Container, Hero, IsLoading, LoadingScreen, Typography } from "../../../../../../components/custom";
+import { Container, Hero, IsLoading, LoadingScreen, Typography } from "../../../../../components/custom";
 import { styles } from "./styles";
 import VariantComponent from "./Variant";
 import { SubVariant, TypeData, Variant } from "./types";
-import {  ScrollView, View } from "../../../../../../components/native";
+import {  ScrollView, View } from "../../../../../components/native";
   
   
   
