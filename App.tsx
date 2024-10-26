@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import {
   Linking,
   SplashScreen,
@@ -11,8 +11,8 @@ import RootNavigation from "./src/navigation";
 import {
   LoadingScreen,
 } from "./src/components/custom";
-import { LogBox, StatusBar } from "react-native";
-import { usePrepareApp, useTheme} from "./src/hooks";
+import { LogBox, ScrollView, StatusBar} from "react-native";
+import { usePrepareApp, useTheme } from "./src/hooks";
 import styles from "./AppStyles";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -20,14 +20,12 @@ import { AuthProvider } from "./src/context/AuthContext";
 import Modal from "./src/screens/Modal";
 import { CartProvider } from "./src/context/CartContext";
 import { DashboardProvider } from "./src/context/DashboardContext";
-
 const queryClient = new QueryClient();
 LogBox.ignoreAllLogs();
 
-const App: React.FC = () => {
-const { BackgroundMain } = useTheme();
 
-
+const App = () => {
+  const { BackgroundMain } = useTheme();
   const [appIsReady, setAppIsReady] = useState(false);
   const linking = useMemo(
     () => ({
@@ -48,8 +46,13 @@ const { BackgroundMain } = useTheme();
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
+      console.log("SplashScreen ocultado. La aplicación está lista.");
     }
   }, [appIsReady]);
+
+ 
+
+
 
   if (!appIsReady) {
     return <LoadingScreen />;
@@ -63,9 +66,10 @@ const { BackgroundMain } = useTheme();
             <DashboardProvider>
               <CartProvider>
                 <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-                  <StatusBar barStyle='default' backgroundColor={BackgroundMain} />
-                    <RootNavigation />
+                  <StatusBar barStyle='dark-content' backgroundColor={BackgroundMain} />
+                  <RootNavigation />
                   <Modal />
+
                 </GestureHandlerRootView>
               </CartProvider>
             </DashboardProvider>
@@ -75,5 +79,6 @@ const { BackgroundMain } = useTheme();
     </QueryClientProvider>
   );
 };
+
 
 export default App;

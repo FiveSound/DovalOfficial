@@ -39,6 +39,11 @@ import Rating from './Rate/Rating'
 import { PersonalInf } from './Info'
 import NavCustom from './NavCustom'
 import { SearchHeader } from './Search'
+import { Chip } from './Chips'
+import Pagination from './Pagination'
+import PaginationHeader from './Pagination/PaginationHeader'
+import { TabList } from './Table'
+import { MapSelector, TextSelector } from './Select'
 
 export {
     IsLoading,
@@ -99,5 +104,11 @@ export {
     NavCustom,
     Carrousel,
     ProgressBar,
-    SearchHeader
+    SearchHeader,
+    Chip,
+    Pagination,
+    PaginationHeader,
+    TabList,
+    MapSelector,
+    TextSelector
 }

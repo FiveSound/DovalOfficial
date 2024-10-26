@@ -11,7 +11,7 @@ import locationReducer from './slides/locationSlice';
 import navigationReducer from './slides/navigations';
 import scrollReducer from './slides/scrollSlice';
 import uploadReducer from './slides/uploadSlice';
-
+import appReducer from './slides/appSlice';
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -26,6 +26,7 @@ const store = configureStore({
     navigation: navigationReducer,
     scroll: scrollReducer,
     upload: uploadReducer,
+    app: appReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

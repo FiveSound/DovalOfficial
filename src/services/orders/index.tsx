@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "../index";
 import { QueryKeyType } from "../../types/ReactQuery.type";
 import KeyApi from "../../constants/KeyApi";
+import { BusinessAddressType } from "../../types/FormType";
 
 export const createOrderService = async () => {
   try {
@@ -46,7 +47,7 @@ export const getOrderIDService = async ({ queryKey }: QueryKeyType) => {
   }
 };
 
-export const searchLocationsService = async ({ queryKey }: QueryKeyType) => {
+export const searchLocationsService = async ({ queryKey }: QueryKeyType): Promise<BusinessAddressType[]> => {
   try {
     const direccion = queryKey[1];
 
@@ -60,24 +61,47 @@ export const searchLocationsService = async ({ queryKey }: QueryKeyType) => {
 
       const predictions = result.data?.predictions;
 
-      return predictions ? predictions : [];
+      if (predictions && predictions.length > 0) {
+        // Mapea las predicciones a BusinessAddressType
+        return predictions.map((prediction: any) => ({
+          address: prediction.description,
+          latitude: 0, // Se actualizará al seleccionar una ubicación
+          longitude: 0, // Se actualizará al seleccionar una ubicación
+        }));
+      }
     }
 
     return [];
   } catch (error) {
+    console.error("Error en searchLocationsService:", error);
     return [];
   }
 };
 
-export const searchLocationByPlaceID = async ({ queryKey }: QueryKeyType) => {
+export const searchLocationByPlaceID = async ({ queryKey }: QueryKeyType): Promise<BusinessAddressType> => {
   try {
     const placeID = queryKey[1];
-    const respnse = await axios.get(
+    const response = await axios.get(
       `https://maps.googleapis.com/maps/api/geocode/json?place_id=${placeID}&key=${KeyApi.GoogleMapApi}`
     );
-    return respnse.data;
+
+    if (response.data && response.data.results && response.data.results.length > 0) {
+      const result = response.data.results[0];
+      const address = result.formatted_address;
+      const latitude = result.geometry.location.lat;
+      const longitude = result.geometry.location.lng;
+
+      return {
+        address,
+        latitude,
+        longitude,
+      };
+    }
+
+    return {} as BusinessAddressType;
   } catch (error) {
-    return {};
+    console.error("Error en searchLocationByPlaceID:", error);
+    return {} as BusinessAddressType;
   }
 };
 
@@ -305,5 +329,52 @@ export const getRiderDetailsService = async ({ queryKey }: QueryKeyType) => {
     return {};
   } catch (error) {
     return error;
+  }
+};
+
+export const getCurrentLocationService = (): Promise<BusinessAddressType | null> => {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KeyApi.GoogleMapApi}`;
+
+        axios
+          .get(geocodingUrl)
+          .then((response) => {
+            if (
+              response.data &&
+              response.data.results &&
+              response.data.results.length > 0
+            ) {
+              const address = response.data.results[0].formatted_address;
+              resolve({ address, latitude, longitude });
+            } else {
+              console.error("No se encontraron resultados en la Geocoding API.");
+              resolve(null);
+            }
+          })
+          .catch((error) => {
+            console.error("Error en la solicitud de Geocoding:", error);
+            resolve(null); // Evita rechazar la promesa para manejarlo en el componente
+          });
+      },
+      (error) => {
+        console.error("Error obteniendo ubicación actual:", error);
+        reject(error);
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  });
+};
+
+// Nuevo servicio para obtener todos los eventos
+export const fetchAllEventsService = async (): Promise<EventType[]> => {
+  try {
+    const response = await axios.get(`${KeyApi.API_URL}/events`);
+    return response.data.events;
+  } catch (error) {
+    console.error("Error en fetchAllEventsService:", error);
+    return [];
   }
 };

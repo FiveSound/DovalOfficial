@@ -1,13 +1,12 @@
 import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import App from '../App';
-import { store } from './redux';
-
+import store from './redux/store';
+import AppWithReload from './AppWithReload';
 
 const ReduxApp: React.FC = () => (
   <ReduxProvider store={store}>
-            <App />
+    <AppWithReload />
   </ReduxProvider>
 );
 
-export default ReduxApp;
+export default ReduxApp

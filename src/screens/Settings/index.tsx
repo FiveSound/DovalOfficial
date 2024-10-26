@@ -123,7 +123,7 @@ const Settings = () => {
             {
                 id: 'Register business',
                 label: i18next.t('Register business'),
-                navigation: 'RegisterBusiness',
+                navigation: 'OnboardingVerified',
                 icon: <Store01IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>
             },
             {

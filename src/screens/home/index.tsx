@@ -24,6 +24,8 @@ const Home = () => {
   const {
     isLoadingApp,
     isAuthenticated,
+    business,
+    user
   } = useAppSelector((state: RootState) => state.auth);
 
   if (isLoadingApp) {
@@ -34,7 +36,9 @@ const Home = () => {
     return <Signup />;
   }
 
+  console.log(user);
 
+  
   return (
     <Layout
       Append={<LiveOrders />}

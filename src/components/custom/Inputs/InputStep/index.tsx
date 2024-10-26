@@ -9,8 +9,8 @@ type Props = {
   onCodeFilled: (code: string) => void;
   label?: string;
   sublabel?: string;
-  isVerified: boolean; // Nueva propiedad para verificación
-  hasError: boolean; // Nueva propiedad para error
+  isVerified: boolean; 
+  hasError: boolean;
 };
 
 const InputStep = ({ onCodeFilled, label, sublabel, isVerified, hasError }: Props) => {

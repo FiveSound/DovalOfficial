@@ -3,18 +3,20 @@
     "name": "doval",
     "slug": "doval",
     "scheme": "doval",
-    "version": "1.6.2",
+    "version": "1.6.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.doval.doval",
+      "config": {
+        "googleMapsApiKey": "AIzaSyB0zu_snYOixCixdrrRinmoqbMk7sKfWEI"
+      },
       "associatedDomains": [
         "applinks:doval.io"
       ],
@@ -26,8 +28,12 @@
     "android": {
       "package": "com.doval.doval",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/adaptive-icon.png"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB0zu_snYOixCixdrrRinmoqbMk7sKfWEI"
+        }
       }
     },
     "web": {
@@ -39,6 +45,9 @@
       }
     },
     "owner": "doval",
+    "cli": {
+      "appVersionSource": "local" 
+    },
     "plugins": [
       "expo-font",
       "expo-localization",

@@ -15,7 +15,7 @@ const useUploadMedia = () => {
     error,
   } = useSelector((state: RootState) => state.upload);
 
-  const handleUploadMedia = (pickedMedia: Media[]) => {
+  const handleUploadMedia = (pickedMedia: any[]) => {
     dispatch(uploadMedia(pickedMedia));
   };
 

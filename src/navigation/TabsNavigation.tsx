@@ -5,24 +5,24 @@
    import { Home01Icon, Home01IconStroke, UserIcons, UserIconsStrike } from "../constants/IconsPro";
    import { COLORS, responsiveFontSize, SIZES } from "../constants/theme";
    import Explorar from "../screens/explorar";
-   import { MenuItems } from "../components/custom";
+   import { LoadingScreen, MenuItems } from "../components/custom";
    import { styles } from "../components/custom/Menu";
    import Home from "../screens/home";
    import { useSelector } from "react-redux";
    import { RootState } from "../redux/store";
 import { Platform } from "../components/native";
+import DashboardScreen from "../screens/Dashboard";
    
    const Tab = createBottomTabNavigator();
    
    const TabsNavigation = () => {
      const { Bg: bg, Description, borderInput } = useTheme();
      const { business, isLoadingApp } = useSelector((state: RootState) => state.auth);
-     const isBusiness = !isLoadingApp && business;
      
    
 
      if (isLoadingApp) {
-       return null; 
+       return <LoadingScreen />; 
      }
    
      return (
@@ -60,13 +60,13 @@ import { Platform } from "../components/native";
            }}
          />
          <Tab.Screen
-           name="Home"
-           component={Home}
+           name="Dashboard"
+           component={DashboardScreen}
            options={{
              tabBarIcon: ({ focused }) => (
                <MenuItems
                  focused={focused}
-                 label="Home"
+                 label={business ? 'Tablero' : 'Home'}
                  focusedIcon={<Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons} />}
                  unfocusedIcon={<Home01IconStroke color={Description} width={SIZES.icons} height={SIZES.icons} />}
                />

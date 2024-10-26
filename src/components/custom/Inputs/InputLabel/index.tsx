@@ -155,7 +155,9 @@ const styles = StyleSheet.create({
     innerRow: {
       alignItems: 'center',
       gap: SIZES.gapMedium,
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+      justifyContent: 'flex-end',
+      width: '90%'
     },
     textInput: {
       maxWidth: SIZES.width,

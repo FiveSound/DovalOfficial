@@ -21,14 +21,14 @@ import ReportUsers from "../screens/Reports/ReportUsers";
 import Search from "../screens/Search";
 import NewRecipie from "../screens/Upload/NewRecipie";
 import OrderList from "../screens/home/components/body/LiveOrders/OrderList";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import AlbumsPermission from "../screens/Permiss/Locations/Albums/AlbumsPermission";
 import UploadStack from "./UploadStack";
+import OrderID from "../screens/Dashboard/screen/OrderID";
+import OnboardingVerified from "../screens/Dashboard/FormBusiness/OnboardingForm";
+import FormVerified from "../screens/Dashboard/FormBusiness";
 
 const MainStackt = () => {
     const Stack = createNativeStackNavigator();
-    const { isLoadingApp } = useSelector((state: RootState) => state.auth);
     
     return (
         <Stack.Navigator
@@ -58,6 +58,9 @@ const MainStackt = () => {
             <Stack.Screen name="OrderList" component={OrderList}/>
             <Stack.Screen name="AlbumsPermission" component={AlbumsPermission}/>
             <Stack.Screen name="UploadStack" component={UploadStack}/>
+            <Stack.Screen name="Dashboard/Business/OrderID" component={OrderID}/>
+            <Stack.Screen name="FormVerified" component={FormVerified}/>
+            <Stack.Screen name="OnboardingVerified" component={OnboardingVerified}/>
         </Stack.Navigator>
     )
 };

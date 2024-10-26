@@ -46,7 +46,6 @@ const Header = () => {
   const { cart } = useCart();
   const dispatch = useAppDispatch();
   const OpenModal = useSelector((state: RootState) => state.modal.open);
-  console.log('cart', cart);
   
   const {
     data: LocationDefault,
@@ -88,13 +87,13 @@ const Header = () => {
         onPress={() => navigation.navigate("OrderStack")}
         appendIcons={
           <>
-            {cart?.list.length > 0 && (
+            {/* {cart?.list.length > 0 && (
               <FlexContainer newStyle={styles.cartBadge}>
                 <Typography variant="H4title" style={styles.cartText}>
                   {cart.list.length}
                 </Typography>
               </FlexContainer>
-            )}
+            )} */}
   
           <ShoppingBag01Icon
             width={SIZES.icons}

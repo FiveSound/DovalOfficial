@@ -13,7 +13,7 @@ type Props = {
 const Hero = (props: Props) => {
   const { label, sublabel, style } = props;
   return (
-    <FlexContainer newStyle={styles.Container}>
+    <FlexContainer newStyle={[styles.Container, style]}>
       <Typography variant="title" newStyle={styles.label}>
         {label}
       </Typography>
