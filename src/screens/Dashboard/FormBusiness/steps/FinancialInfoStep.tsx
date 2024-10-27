@@ -1,52 +1,49 @@
 import React from 'react';
-import Input from '../../components/Input';
-import Select from '../../components/Select';
-import { FlexContainer } from '../../../../../components';
-import Hero from '../../../../../components/custom/hero';
 import { ListBank } from './data';
-import { BankIcon, BubbleChatQuestionIcon } from '../../../../../constants/IconsPro';
-import { COLORS, SIZES } from '../../../../../constants';
+import { FlexContainer, Hero } from '../../../../components/custom';
+import { Input, Select } from '../components';
+import i18next from '../../../../Translate';
 
 const FinancialInfoStep = ({ control }: any) => {
   return (
     <FlexContainer>
-      <Hero label='Financial Information' sublabel='Please fill in the following information to complete the process.' />
+      <Hero label={i18next.t('Financial Information')} sublabel={i18next.t('Please fill in the following information to complete the process.')} />
       <Select
         control={control}
         name="bank_details"
         list={ListBank}
-        defaultValue="Nombre del banco*"
-        placeholder="Nombre del banco*"
+        defaultValue={i18next.t('Bank name*')}
+        placeholder={i18next.t('Bank name*')}
         required
-        IconsendComponent={<BankIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>}
+        // IconsendComponent={<BankIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>}
       />
          <Select
         control={control}
         name="account_currency"
         list={[
-          { label: "Pesos Dominicanos", value: "DOP" },
-          { label: "Dólares Americanos", value: "USD" },
+          { label: i18next.t('Dominican Pesos'), value: "DOP" },
+          { label: i18next.t('US Dollars'), value: "USD" },
         ]}
-        defaultValue="Moneda*"
-        placeholder="Moneda*"
+        defaultValue={i18next.t('Currency*')}
+        placeholder={i18next.t('Currency*')}
         required
-        IconsendComponent={<BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>}
+        // IconsendComponent={<BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>}
       />
          <Select
         control={control}
         name="account_type"
         list={[
-          { label: "Corriente", value: "Corriente" },
-          { label: "Ahorros", value: "Ahorros" },
+          { label: i18next.t('Current'), value: "Corriente" },
+          { label: i18next.t('Savings'), value: "Ahorros" },
         ]}
-        defaultValue="Corriente"
-        placeholder="Tipo de cuenta*"
+        defaultValue={i18next.t('Account type*')}
+        placeholder={i18next.t('Account type*')}
         required
-        IconsendComponent={<BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>}
+        // IconsendComponent={<BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>}
       />
-      <Input control={control} name="account_number" placeholder="Número de cuenta*" required keyboardType='numeric'/>
-      <Input control={control} name="account_titular" placeholder="Nombre del titular de la cuenta*" required />
-      <Input control={control} name="fiscal_identification" placeholder="Número de identificación del titular*" required keyboardType='numeric'/>
+      <Input control={control} name="account_number" placeholder={i18next.t('Account number*')} required keyboardType='numeric'/>
+      <Input control={control} name="account_holder_name" placeholder={i18next.t('Account holder name*')} required />
+      <Input control={control} name="fiscal_identification" placeholder={i18next.t('Fiscal identification*')} required keyboardType='numeric'/>
     </FlexContainer>
   );
 };

@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { FlexContainer, LineDivider } from '../../../../../components';
-import Hero from '../../../../../components/custom/hero';
-import { InfoCard } from '../../../../../components/custom';
-import { COLORS, FONTS, SIZES } from '../../../../../constants';
-import { Checkbox } from '../../../../../components/custom/Checkbox';
-import { BubbleChatQuestionIcon } from '../../../../../constants/IconsPro';
+import { StyleSheet, View } from 'react-native';
+import { FlexContainer, Hero, LineDivider, InfoCard } from '../../../../components/custom';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
+import { Checkbox } from '../../../../components/custom/Checkbox';
+import { CheckmarkCircle02Icon } from '../../../../constants/IconsPro';
+import { BusinessRegistrationForm } from '../../../../types/FormType';
+import i18next from '../../../../Translate';
 
-const AgreementsStep = ({ data, onAgreementChange, onNavigate }: any) => {
+type props = {
+  data: BusinessRegistrationForm;
+  onAgreementChange: (checked: boolean) => void;
+  onNavigate: (index: number) => void;
+}
+
+const AgreementsStep = ({ data, onAgreementChange, onNavigate }: props) => {
   const [checkboxes, setCheckboxes] = useState({
     terms: false,
     privacy: false,
@@ -22,79 +28,112 @@ const AgreementsStep = ({ data, onAgreementChange, onNavigate }: any) => {
   const handleCheckboxChange = (name: string, checked: boolean) => {
     setCheckboxes((prev) => ({ ...prev, [name]: checked }));
   };
+
+  console.log('datadatadata', data);
+
+  const formatBusinessTypes = (businessTypes: Array<{ label: string }>) => {
+    if (!businessTypes || businessTypes.length === 0) return '';
+    return businessTypes.map(bt => bt.label).join(', ');
+  };
+
+  const schedules: Array<{
+    days: string[];
+    opening_time: string;
+    closing_time: string;
+  }> = [];
+
+  if (data.schedule_1_days) {
+    schedules.push({
+      days: data.schedule_1_days.map(d => d.value),
+      opening_time: data.schedule_1_openingTime || 'No especificado',
+      closing_time: data.schedule_1_closingTime || 'No especificado',
+    });
+  }
+
   const infoCards = [
-    // Step 1: Personal Information
-    { label: 'Nombre Completo', value: data.fullname, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>},
-    { label: 'Número de Identidad', value: data.identity_card, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>},
-    { label: 'Fecha de Nacimiento', value: new Date(data.date_of_birth).toLocaleDateString(), icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>},
-    { label: 'Género', value: data.gender, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/>},
+    // Step 1: Basic Business Information
+    { label: 'Business types', value: formatBusinessTypes(data.business_types), icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Business Name', value: data.business_name, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Business Description', value: data.business_description, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Tax Identification Number', value: data.tax_identification_number, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
     // Divider
     { label: '---', value: '---' },
     // Step 2: Professional Information
-    { label: 'País', value: data.country_code, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Licencia de Conducir', value: data.driver_license, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Fecha de Expiración', value: new Date(data.expiration_license).toLocaleDateString(), icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Tipo de Vehículo', value: data.vehicle, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Marca de Vehículo', value: data.vehicle_model_brand, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Modelo Vehículo', value: data.vehicle_year, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
+    { label: 'Full Name', value: data.full_name, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Identification Number', value: data.identification_number, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Role', value: data.role, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Email', value: data.email, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Phone Number', value: data.phone_number, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
     // Divider
     { label: '---', value: '---' },
     // Step 3: Financial Information
-    { label: 'Nombre del Banco', value: data.bank_details, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Moneda', value: data.account_currency, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Tipo de Cuenta', value: data.account_type, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Número de Cuenta', value: data.account_number, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Nombre del Titular', value: data.account_titular, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
-    { label: 'Identificación Fiscal', value: data.fiscal_identification, icons: <BubbleChatQuestionIcon color={COLORS.dark} width={SIZES.icons} height={SIZES.icons}/> },
+    { label: 'Street', value: data.address, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'City', value: data.city, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Country', value: data.country, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Zip Code', value: data.postal_code, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
     // Divider
     { label: '---', value: '---' },
-    // Step 4: Media Confidencial
-    // Assuming media information is not displayed here
+    // Step 4: Operations Information
+    { label: 'Schedule Days', value: schedules.map(schedule => schedule.days.join(', ')).join('; '), icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Opening Time', value: schedules.map(schedule => schedule.opening_time).join('; '), icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Closing Time', value: schedules.map(schedule => schedule.closing_time).join('; '), icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Our Rider', value: Array.isArray(data.OurRiders) ? data.OurRiders.map(rider => rider.label).join(', ') : '', icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },    // Divider
+    { label: '---', value: '---' },
+    // Step 5: Financial Information
+    { label: 'Bank Name', value: data.bank_details, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Currency', value: data.account_currency, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Account Type', value: data.account_type, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Account Number', value: data.account_number, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Account Holder Name', value: data.account_holder_name, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    { label: 'Fiscal Identification', value: data.fiscal_identification, icons: <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} /> },
+    // Divider
+    { label: '---', value: '---' },
   ];
 
   return (
     <FlexContainer>
       <Hero
-        label='Confirmar tus datos y aceptar los acuerdos'
-        sublabel='Por favor, confirma tus datos y acepta los acuerdos para continuar con el proceso de registro.'
+        label={i18next.t('Confirm your data and accept the agreements')}
+        sublabel={i18next.t('Please confirm your data and accept the agreements to continue with the registration process.')}
       />
       <LineDivider variant='secondary' />
 
       {infoCards.map((info, index) => (
-  info.label === '---' ? (
-    <LineDivider variant='secondary' key={`divider-${index}`} />
-  ) : (
-      <FlexContainer newStyle={styles.infoCard}>
-        <InfoCard
-          title={info.label}
-          description={info.value}
-          icon={info.icons}
-          showArrow={true}
-          onPress={() => {
-            onNavigate(index);
-          }}
-        />
-      </FlexContainer>
-  )
-))}
+        info.label === '---' ? (
+          <LineDivider variant='secondary' key={`divider-${index}`} />
+        ) : (
+          <FlexContainer newStyle={styles.infoCard} key={`info-${info.label}-${index}`}>
+            <InfoCard
+              title={info.label}
+              description={info.value}
+              icon={info.icons}
+              showArrow={true}
+              onPress={() => {
+                onNavigate(index);
+              }}
+            />
+          </FlexContainer>
+        )
+      ))}
+
       <FlexContainer newStyle={styles.checkboxContainer}>
-      <Checkbox 
+        <Checkbox
           checked={checkboxes.terms}
-          label='Acepto Términos y Condiciones'
+          label={i18next.t('I accept the terms and conditions')}
           showLabel={true}
           LabelStyle={styles.checkboxLabel}
           onChange={(checked) => handleCheckboxChange('terms', checked)}
         />
-        <Checkbox 
+        <Checkbox
           checked={checkboxes.privacy}
-          label='Acepto Política de Privacidad'
+          label={i18next.t('I accept the privacy policy')}
           showLabel={true}
           LabelStyle={styles.checkboxLabel}
           onChange={(checked) => handleCheckboxChange('privacy', checked)}
         />
-        <Checkbox 
+        <Checkbox
           checked={checkboxes.verification}
-          label='Autorizo Verificación de Datos'
+          label={i18next.t('I authorize data verification')}
           showLabel={true}
           LabelStyle={styles.checkboxLabel}
           onChange={(checked) => handleCheckboxChange('verification', checked)}
@@ -106,15 +145,16 @@ const AgreementsStep = ({ data, onAgreementChange, onNavigate }: any) => {
 
 const styles = StyleSheet.create({
   infoCard: {
-    paddingHorizontal: SIZES.gapLarge
+    paddingHorizontal: SIZES.gapLarge,
+    marginVertical: SIZES.gapSmall,
   },
   checkboxContainer: {
     gap: SIZES.gapMedium,
-    marginTop: SIZES.gapMedium
+    marginTop: SIZES.gapMedium,
   },
   checkboxLabel: {
-    ...FONTS.semi14
-  }
-})
+    ...FONTS.semi14,
+  },
+});
 
 export default AgreementsStep;

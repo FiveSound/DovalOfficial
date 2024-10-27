@@ -8,7 +8,7 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
-  const totalSections = 7;
+  const totalSections = 6;
   const filledSections = Math.floor(progress / (100 / totalSections));
   const { backgroundMaingrey, backSuccess } = useTheme()
   return (

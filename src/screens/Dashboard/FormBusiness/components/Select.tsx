@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Controller } from 'react-hook-form';
-import { StyleSheet, TextStyle, View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { Platform, StyleSheet, TextStyle, View, Text, Modal } from 'react-native';
+import { Controller, Control, FieldValues } from 'react-hook-form';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Button, TouchableOpacity } from '../../../../components/native';
-import { FONTS } from '../../../../constants/theme';
-import TextSelector from '../../../../components/custom/Select/TextSelector';
+import { FONTS, SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
+import TextSelector from '../../../../components/custom/Select/TextSelector';
+import { FlexContainer, Typography } from '../../../../components/custom';
 
 type SelectProps = {
-  control: any;
+  control: Control<FieldValues>;
   name: string;
   list?: { label: string; value: string }[];
-  defaultValue: string | any[]; // Soporta string o array para multi selección
+  defaultValue: string | any[] | Date | null; // Soporta string, array o Date para multi selección y pickers de tiempo
   placeholder: string;
   required: boolean;
   isDatePicker?: boolean;
@@ -28,37 +29,65 @@ type SelectProps = {
     }[];
   }[];
   inputStyle?: TextStyle;
+  maxSelections?: number; // Nueva prop para la cantidad máxima de selecciones
+  onChange?: (value: any) => void; // Callback adicional para manejar cambios externos
 };
 
 const Select = ({
-  control, 
-  name, 
-  list = [], 
-  defaultValue, 
-  placeholder, 
-  required, 
-  isDatePicker = false, 
-  isMultiSelect = false, 
-  IconsendComponent, 
+  control,
+  name,
+  list = [],
+  defaultValue,
+  placeholder,
+  required,
+  isDatePicker = false,
+  isMultiSelect = false,
+  IconsendComponent,
   listTextSelector,
-  inputStyle
+  inputStyle,
+  maxSelections = 2, // Valor por defecto si no se proporciona
+  onChange,
 }: SelectProps) => {
-  const { backgroundMaingrey } = useTheme();
+  const { backgroundMaingrey, Title } = useTheme();
   const [isPickerVisible, setPickerVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
+  const [isDropdownVisible, setDropdownVisible] = useState(false); // Nuevo estado para Picker Dropdown
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedItems, setSelectedItems] = useState<any[]>([]); // Para multi selección
 
-  useEffect(() => {
-    if (!isMultiSelect) {
-      setSelectedItems([]);
+  const handleDateChange = (
+    event: any,
+    date?: Date,
+    onChangeField?: (date: Date | null) => void
+  ) => {
+    if (Platform.OS === 'android') {
+      if (event.type === 'set' && date) {
+        onChangeField && onChangeField(date);
+        if (onChange) {
+          onChange(date);
+        }
+      } else {
+        onChangeField && onChangeField(null);
+      }
+      setPickerVisible(false);
+    } else {
+      if (date) {
+        setSelectedDate(date);
+        onChangeField && onChangeField(date);
+        if (onChange) {
+          onChange(date);
+        }
+      }
+      // En iOS, no cerrar el picker automáticamente
     }
-  }, [isMultiSelect]);
+  };
 
-  const handleDateChange = (event: any, date?: Date) => {
-    if (date) {
-      setSelectedDate(date);
-      control.setValue(name, date);
+  const handleConfirm = (
+    onChangeField: (value: any) => void
+  ) => {
+    if (selectedDate) {
+      onChangeField(selectedDate);
+      if (onChange) {
+        onChange(selectedDate);
+      }
     }
     setPickerVisible(false);
   };
@@ -67,84 +96,187 @@ const Select = ({
     setPickerVisible(false);
   };
 
-  const renderSelectedValue = () => {
-    if (isMultiSelect) {
-      return selectedItems.length > 0
-        ? selectedItems.map(item => item.label).join(', ')
-        : placeholder;
-    } else if (isDatePicker) {
-      return selectedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    } else {
-      return selectedValue || placeholder;
-    }
+  const handleDropdownClose = () => {
+    setDropdownVisible(false);
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={[styles.inputContainer, inputStyle, {backgroundColor: backgroundMaingrey}]}
-        onPress={() => setPickerVisible(true)}
-        activeOpacity={0.7}
-      >
-        <Text style={[styles.inputText, selectedValue || (isMultiSelect && selectedItems.length > 0) ? styles.selectedText : styles.placeholderText]}>
-          {renderSelectedValue()}
-        </Text>
-        {IconsendComponent && <View style={styles.iconContainer}>{IconsendComponent}</View>}
-      </TouchableOpacity>
-
-      {isPickerVisible && (
-        isDatePicker ? (
-          <View style={styles.pickerContainer} testID="date-picker">
-            <DateTimePicker
-              value={selectedDate}
-              mode="time"
-              display="default"
-              onChange={handleDateChange}
+    <Controller
+      control={control}
+      rules={{ required: required }}
+      defaultValue={defaultValue}
+      name={name}
+      render={({
+        field: { onChange: onChangeField, onBlur, value },
+        fieldState: { error },
+      }) => (
+        <View style={styles.container}>
+          {isMultiSelect ? (
+            <TextSelector
+              data={listTextSelector}
+              value={value || []}
+              onChange={(items) => {
+                onChangeField(items);
+                if (onChange) {
+                  onChange(items);
+                }
+              }}
+              maxSelections={maxSelections}
             />
-            <Button
-              title='Confirmar'
-              onPress={handlePickerClose}
-              testID="confirm-button"
-              style={styles.confirmButton}
-            />
-          </View>
-        ) : isMultiSelect ? (
-          <TextSelector
-            data={listTextSelector}
-            value={selectedItems}
-            onChange={(items) => {
-              setSelectedItems(items);
-              control.setValue(name, items);
-              setPickerVisible(false);
-            }}
-          />
-        ) : (
-          <View style={styles.pickerContainer}>
-            <Controller
-              control={control}
-              rules={{ required: required }}
-              defaultValue={defaultValue}
-              render={({ field: { onChange } }) => (
-                <Picker
-                  selectedValue={selectedValue}
-                  onValueChange={(itemValue) => {
-                    setSelectedValue(itemValue);
-                    onChange(itemValue);
-                    setPickerVisible(false);
-                  }}
-                  style={styles.picker}
-                >
-                  {list.map((item) => (
-                    <Picker.Item key={item.value} label={item.label} value={item.value} />
-                  ))}
-                </Picker>
+          ) : isDatePicker ? (
+            <>
+              <Button
+                onPress={() => setPickerVisible(true)}
+                title={
+                  value
+                    ? `Seleccionado: ${new Date(value).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}`
+                    : placeholder
+                }
+              />
+              {isPickerVisible && (
+                Platform.OS === 'ios' ? (
+                  <Modal
+                    transparent={true}
+                    animationType="slide"
+                    visible={isPickerVisible}
+                    onRequestClose={handlePickerClose}
+                  >
+                    <View style={styles.modalContainer}>
+                      <View style={styles.pickerWrapper}>
+                        <DateTimePicker
+                          value={value ? new Date(value) : selectedDate}
+                          mode="time"
+                          is24Hour={true}
+                          display="spinner"
+                          onChange={(event, date) =>
+                            handleDateChange(event, date, onChangeField)
+                          }
+                        />
+                        <Button
+                          title='Confirmar'
+                          onPress={() => handleConfirm(onChangeField)}
+                          testID="confirm-button"
+                          style={styles.confirmButton}
+                        />
+                      </View>
+                    </View>
+                  </Modal>
+                ) : (
+                  <View testID="date-picker">
+                    <DateTimePicker
+                      value={value ? new Date(value) : selectedDate}
+                      mode="time"
+                      is24Hour={true}
+                      display="default"
+                      onChange={(event, date) =>
+                        handleDateChange(event, date, onChangeField)
+                      }
+                    />
+                    {/* Android does not need a confirm button */}
+                  </View>
+                )
               )}
-              name={name}
-            />
-          </View>
-        )
+            </>
+          ) : (
+            <>
+              {Platform.OS === 'ios' ? (
+                <>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => setDropdownVisible(true)}
+                  >
+                    <Text style={[styles.placeholder, { color: value ? Title : '#888' }]}>
+                      {value
+                        ? list.find((item) => item.value === value)?.label || placeholder
+                        : placeholder}
+                    </Text>
+                  </TouchableOpacity>
+                  {isDropdownVisible && (
+                    <Modal
+                      transparent={true}
+                      animationType="slide"
+                      visible={isDropdownVisible}
+                      onRequestClose={handleDropdownClose}
+                    >
+                      <View style={styles.modalContainer}>
+                        <View style={styles.pickerWrapper}>
+                          <Picker
+                            selectedValue={value}
+                            onValueChange={(itemValue) => {
+                              onChangeField(itemValue);
+                              if (onChange) {
+                                onChange(itemValue);
+                              }
+                            }}
+                            style={styles.picker}
+                            itemStyle={{
+                              color: Title,
+                            }}
+                            dropdownIconColor={Title}
+                          >
+                            <Picker.Item label={placeholder} value="" />
+                            {list.map((item) => (
+                              <Picker.Item key={item.value} label={item.label} value={item.value} />
+                            ))}
+                          </Picker>
+                          <Button
+                            title='Cerrar'
+                            onPress={handleDropdownClose}
+                            style={styles.confirmButton}
+                          />
+                        </View>
+                      </View>
+                    </Modal>
+                  )}
+                </>
+              ) : (
+                <FlexContainer newStyle={styles.pickerContainer}>
+                  <Picker
+                    mode='dropdown'
+                    selectedValue={value}
+                    onValueChange={(itemValue) => {
+                      onChangeField(itemValue);
+                      if (onChange) {
+                        onChange(itemValue);
+                      }
+                    }}
+                    itemStyle={{
+                      color: Title,
+                    }}
+                    style={{
+                      backgroundColor: backgroundMaingrey,
+                      width: '94%',
+                      borderRadius: SIZES.radius,
+                      color: Title,
+                    }}
+                    dropdownIconColor={Title}
+                  >
+                    <Picker.Item label={placeholder} value="" />
+                    {list.map((item) => (
+                      <Picker.Item key={item.value} label={item.label} value={item.value} />
+                    ))}
+                  </Picker>
+                  {error && (
+                    <Text style={styles.errorText}>
+                      {error.message || 'Este campo es requerido'}
+                    </Text>
+                  )}
+                </FlexContainer>
+              )}
+              {/* Mostrar error solo para Picker estándar */}
+              {!isMultiSelect && !isDatePicker && error && (
+                <Typography variant='H4title' newStyle={styles.errorText}>
+                  {error.message || 'Este campo es requerido'}
+                </Typography>
+              )}
+            </>
+          )}
+        </View>
       )}
-    </View>
+    />
   );
 };
 
@@ -153,36 +285,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     width: '100%',
   },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    justifyContent: 'space-between',
-  },
-  inputText: {
-    flex: 1,
-    ...FONTS.text14,
-  },
-  placeholderText: {
-    color: '#999',
-  },
-  selectedText: {
-    color: '#000',
-  },
-  iconContainer: {
-    marginLeft: 10,
+  picker: {
+    width: '100%',
   },
   pickerContainer: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-    overflow: 'hidden',
-    marginTop: 10,
-    padding: 10,
-    elevation: 2, // Añade sombra para mejor visualización
-  },
-  picker: {
-    width: "100%",
+    width: '100%',
+    alignItems: 'center',
   },
   confirmButton: {
     backgroundColor: '#007BFF',
@@ -190,6 +298,31 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     marginTop: 10,
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'left',
+    paddingHorizontal: SIZES.padding,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0,0,0,0.5)', // Fondo semi-transparente
+  },
+  pickerWrapper: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  button: {
+    padding: 12,
+    backgroundColor: '#f0f0f0',
+    borderRadius: SIZES.radius,
+    justifyContent: 'center',
+  },
+  placeholder: {
+    fontSize: 16,
   },
 });
 

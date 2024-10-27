@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Controller, RegisterOptions } from 'react-hook-form';
 import { KeyboardTypeOptions, TextStyle, StyleSheet, Text } from 'react-native';
-import { FlexContainer, InputLabel, Search } from '../../../../components/custom';
+import { FlexContainer, InputLabel, Search, Typography } from '../../../../components/custom';
+import { SIZES } from '../../../../constants/theme';
 
 type InputProps = {
   control: any;
@@ -68,7 +69,7 @@ const Input: React.FC<InputProps> = ({
                 inputStyle={inputStyle}
               />
             )}
-            {error && <Text style={styles.errorText}>{error.message}</Text>}
+            {error && <Typography variant='H4title' newStyle={styles.errorText}>{error.message}</Typography>}
           </>
         )}
         name={name}
@@ -83,9 +84,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: 4,
-    marginLeft: 8,
-    fontSize: 12,
+    paddingHorizontal: SIZES.gapLarge,
+
   },
 });
 

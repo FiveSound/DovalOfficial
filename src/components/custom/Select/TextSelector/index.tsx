@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { ScrollView } from '../../../native';
+import React from 'react';
+import { StyleSheet, Alert } from 'react-native';
+import { ScrollView , View, TouchableOpacity} from '../../../native';
 import FlexContainer from '../../FlexContainer';
 import Typography from '../../Typography';
 import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
@@ -8,20 +8,27 @@ import { useTheme } from '../../../../hooks';
 
 type Props = {
   data?: any[];
-  value: any[];
+  value?: any[];
   onChange: (selected: any[]) => void;
+  maxSelections?: number; 
 };
 
-const TextSelector = ({ data, value, onChange }: Props) => {
+const TextSelector = ({ data, value = [], onChange, maxSelections = 3}: Props) => {
   const { backgroundMaingrey, Title } = useTheme();
 
   const toggleInterest = (interest: any) => {
-    const isSelected = value.some(item => item.id === interest.id);
+    if (!Array.isArray(value)) {
+      console.error("`value` prop should be an array.");
+      onChange([]);
+      return;
+    }
+
+   const isSelected = value?.some(item => item.id === interest.id);
     if (isSelected) {
       onChange(value.filter(item => item.id !== interest.id));
     } else {
-      if (value.length >= 2) {
-        Alert.alert('Selection Limit', 'You can select up to 2 business types.');
+      if (value.length >= maxSelections) { // Uso de maxSelections
+        Alert.alert('Límite de Selección', `Puedes seleccionar hasta ${maxSelections} tipos de negocio.`);
         return;
       }
       onChange([...value, interest]);
@@ -39,7 +46,7 @@ const TextSelector = ({ data, value, onChange }: Props) => {
             <View style={styles.interestsContainer}>
               {category.list.map((interest: any, idx: number) => {
                 const isSelected = value.some(item => item.id === interest.id);
-                const isDisabled = !isSelected && value.length >= 2;
+                const isDisabled = !isSelected && value.length >= maxSelections;
                 return (
                   <TouchableOpacity
                     key={interest.id}

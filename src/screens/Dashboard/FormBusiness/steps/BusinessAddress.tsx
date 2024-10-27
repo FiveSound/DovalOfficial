@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { searchLocationsService } from '../../../../services/orders';
 import { View, Button, StyleSheet } from 'react-native';
 import { responsiveFontSize } from '../../../../constants/theme';
+import i18next from '../../../../Translate';
 
 const BusinessAddress = ({control}: any) => {
   const [showMap, setShowMap] = useState<boolean>(false);
@@ -17,9 +18,9 @@ const BusinessAddress = ({control}: any) => {
 
   return (
     <FlexContainer>
-      <Hero label='Business Address' sublabel='Por favor, completa la siguiente información para finalizar el proceso.' />
+      <Hero label={i18next.t('Business Address')} sublabel={i18next.t('Please fill in the following information to complete the process.')} />
       <View style={styles.buttonContainer}>
-        <Button title="Seleccionar en el Mapa" onPress={() => setShowMap(true)} />
+        <Button title={i18next.t('Select on the Map')} onPress={() => setShowMap(true)} />
    
       </View>
 
@@ -32,43 +33,43 @@ const BusinessAddress = ({control}: any) => {
       <Input
         control={control}
         name='address'
-        placeholder={location?.street || 'Address'}
+        placeholder={location?.street || i18next.t('Address')}
         required
         validationRules={{
           pattern: {
             value: /^.{5,}$/,
-            message: 'La dirección debe tener al menos 5 caracteres',
+            message: i18next.t('The address must have at least 5 characters'),
           },
         }}
       />
       <Input
         control={control}
         name='street'
-        placeholder={location?.street || 'Street'}
+        placeholder={location?.street || i18next.t('Street')}
         required
       />
       <Input
         control={control}
         name='city'
-        placeholder={location?.city || 'City'}
+        placeholder={location?.city || i18next.t('City')}
         required
       />
       <Input
         control={control}
         name='state'
-        placeholder={location?.state || 'State'}
+        placeholder={location?.state || i18next.t('State')}
         required
       />
       <Input
         control={control}
         name='zip'
-        placeholder={location?.zip || 'Zip'}
+        placeholder={location?.zip || i18next.t('Zip')}
         required
         keyboardType='numeric'
         validationRules={{
           pattern: {
             value: /^\d{5}(-\d{4})?$/,
-            message: 'Ingrese un código postal válido',
+            message: i18next.t('Enter a valid zip code'),
           },
         }}
       />

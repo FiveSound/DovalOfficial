@@ -459,3 +459,32 @@ export const editProfileService = async (body: object) => {
 
   return response.data;
 };
+
+export const uploadDocumentService = async (file: any) => {
+  const userToken = await AsyncStorage.getItem("userToken");
+
+  const formData = new FormData();
+
+  formData.append("media", file);
+
+  const response = await axios.post(`${API_URL}/api/upload/document`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${userToken}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const registerBusinessService = async (body: object) => {
+  const userToken = await AsyncStorage.getItem("userToken");
+
+  const response = await axios.post(
+    `${API_URL}/api/business/register`,
+    { ...body },
+    { headers: { Authorization: `Bearer ${userToken}` } }
+  );
+
+  return response.data;
+};

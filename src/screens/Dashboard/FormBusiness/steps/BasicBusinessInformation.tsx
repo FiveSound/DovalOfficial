@@ -6,6 +6,7 @@ import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import { TouchableOpacity } from '../../../../components/native';
 import { Input, Select } from '../components';
+import i18next from '../../../../Translate';
 
 const BasicBusinessInformation = ({ control }: any) => {
   const { Title, backgroundMaingrey } = useTheme();
@@ -46,24 +47,25 @@ const BasicBusinessInformation = ({ control }: any) => {
 
   return (
     <FlexContainer>
-      <Hero label='Basic Business Information' sublabel='Please fill in the following information to complete the process.' />
+      <Hero label={i18next.t('Basic Business Information')} sublabel={i18next.t('Please fill in the following information to complete the process.')} />
       <Select
         control={control}
         name="business_types"
         listTextSelector={businessTypeList}
         defaultValue=""
-        placeholder="Business types*"
+        placeholder={i18next.t('Business types*')}
         required
-        isDatePicker={false}
+        maxSelections={3}
+        isDatePicker={true}
         isMultiSelect={true}
         IconsendComponent={<Store01IconStroke color={Title} width={SIZES.icons} height={SIZES.icons}/>}
       />
-          <Input control={control} name="business_name" placeholder="Business name*" required />
-          <Input control={control} name="business_description" placeholder="Business description*" required inputStyle={styles.input}/>
+          <Input control={control} name="business_name" placeholder={i18next.t('Business name*')} required />
+          <Input control={control} name="business_description" placeholder={i18next.t('Business description*')} required inputStyle={styles.input}/>
           <TouchableOpacity onPress={() => setTaxIdentificationNumber(!taxIdentificationNumber)} style={[styles.showTaxIdentificationNumber, {backgroundColor: backgroundMaingrey}]}>
             <Typography variant='subtitle'>{taxIdentificationNumber ? 'This business is not registered' : 'Business is registered'}</Typography>
           </TouchableOpacity>
-          {taxIdentificationNumber && <Input control={control} name="tax_identification_number" placeholder="Tax identification number" required={false} keyboardType='numeric' />}
+          {taxIdentificationNumber && <Input control={control} name="tax_identification_number" placeholder={i18next.t('Tax identification number')} required={false} keyboardType='numeric' />}
     </FlexContainer>
   );
 };
