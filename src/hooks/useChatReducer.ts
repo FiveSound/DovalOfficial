@@ -1,7 +1,7 @@
-import { useReducer } from "react";
+import { useReducer } from 'react';
 
 const initialState = {
-  userInput: "",
+  userInput: '',
   isLoading: false,
   chatHistory: [],
   generatedImageUrl: null,
@@ -23,16 +23,16 @@ interface ChatAction {
 
 function chatReducer(state: ChatState, action: ChatAction): ChatState {
   switch (action.type) {
-    case "SET_USER_INPUT":
+    case 'SET_USER_INPUT':
       return { ...state, userInput: action.payload };
-    case "SET_LOADING":
+    case 'SET_LOADING':
       return { ...state, isLoading: action.payload };
-    case "ADD_TO_CHAT_HISTORY":
+    case 'ADD_TO_CHAT_HISTORY':
       return { ...state, chatHistory: [...state.chatHistory, action.payload] };
-    case "REPLACE_IN_CHAT_HISTORY":
+    case 'REPLACE_IN_CHAT_HISTORY':
       // Encuentra el índice del mensaje temporal basado en tempId
       const tempMessageIndex = state.chatHistory.findIndex(
-        (message) => message.tempId === action.payload.tempId
+        message => message.tempId === action.payload.tempId,
       );
       if (tempMessageIndex !== -1) {
         // Crea una copia del chatHistory y reemplaza el mensaje temporal con el nuevo mensaje
@@ -41,19 +41,19 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
         return { ...state, chatHistory: newChatHistory };
       }
       return state; // Si no se encuentra el tempId, devuelve el estado actual sin cambios
-    case "SET_GENERATED_IMAGE_URL":
+    case 'SET_GENERATED_IMAGE_URL':
       return { ...state, generatedImageUrl: action.payload };
-    case "CLEAR_CHAT":
+    case 'CLEAR_CHAT':
       return { ...state, chatHistory: [] };
-    case "TOGGLE_DATA_RE_ENABLE":
+    case 'TOGGLE_DATA_RE_ENABLE':
       return { ...state, dataReEnable: !state.dataReEnable };
     default:
       return state;
-    case "UPDATE_CHAT_MESSAGE":
-      const updatedChatHistory = state.chatHistory.map((message) =>
+    case 'UPDATE_CHAT_MESSAGE':
+      const updatedChatHistory = state.chatHistory.map(message =>
         message.tempId === action.payload.tempId
           ? { ...message, message: action.payload.message }
-          : message
+          : message,
       );
       return { ...state, chatHistory: updatedChatHistory };
   }

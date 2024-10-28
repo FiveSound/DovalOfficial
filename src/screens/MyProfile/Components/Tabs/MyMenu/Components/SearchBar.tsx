@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '../../../../../../hooks';
-import { FlexContainer, Icons, Search } from '../../../../../../components/custom';
+import {
+  FlexContainer,
+  Icons,
+  Search,
+} from '../../../../../../components/custom';
 import { SIZES } from '../../../../../../constants/theme';
 import { GridViewIcon } from '../../../../../../constants/IconsPro';
 
@@ -14,7 +18,14 @@ interface SearchBarProps {
   placeholder: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchText, handleSearch, onViewGrid, focus, setFocus, placeholder }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  searchText,
+  handleSearch,
+  onViewGrid,
+  focus,
+  setFocus,
+  placeholder,
+}) => {
   const { Description } = useTheme();
 
   return (
@@ -30,7 +41,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchText, handleSearch, onViewG
         }}
       />
       <Icons
-        appendIcons={<GridViewIcon width={SIZES.icons} height={SIZES.icons} color={Description} />}
+        appendIcons={
+          <GridViewIcon
+            width={SIZES.icons}
+            height={SIZES.icons}
+            color={Description}
+          />
+        }
         onPress={onViewGrid}
       />
     </FlexContainer>
@@ -39,11 +56,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchText, handleSearch, onViewG
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    backgroundColor: "transparent",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
     paddingHorizontal: SIZES.gapLarge,
-    flexDirection: 'row'
-  }
+    flexDirection: 'row',
+  },
 });
 export default React.memo(SearchBar);

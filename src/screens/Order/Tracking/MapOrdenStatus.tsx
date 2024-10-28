@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
-import { Dimensions, Image, StyleSheet } from "react-native";
-import MapView, { Marker, Polyline } from "react-native-maps";
-import { LocationObjectCoords } from "expo-location";
-import { COLORS, responsiveFontSize, SIZES } from "../../../constants/theme";
-import mapStyle from "./mapStyle";
+import { useState, useEffect } from 'react';
+import { Dimensions, Image, StyleSheet } from 'react-native';
+import MapView, { Marker, Polyline } from 'react-native-maps';
+import { LocationObjectCoords } from 'expo-location';
+import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
+import mapStyle from './mapStyle';
 import {
   Home01Icon,
   Location08Icon,
   Location09Icon,
   StoreLocation02Icon,
-} from "../../../constants/IconsPro";
-import { FlexContainer, Icons } from "../../../components/custom";
+} from '../../../constants/IconsPro';
+import { FlexContainer, Icons } from '../../../components/custom';
 
 interface PropsMapOrdenStatus {
   user: {
@@ -26,14 +26,14 @@ interface PropsMapOrdenStatus {
 }
 
 const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
-  const screenHeight = Dimensions.get("window").height;
+  const screenHeight = Dimensions.get('window').height;
   const mapHeight = screenHeight * 0.7;
 
   const calculateMidpoint = (
     lat1: number,
     lon1: number,
     lat2: number,
-    lon2: number
+    lon2: number,
   ) => {
     return {
       latitude: (lat1 + lat2) / 2,
@@ -45,7 +45,7 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
     lat1: number,
     lon1: number,
     lat2: number,
-    lon2: number
+    lon2: number,
   ) => {
     const latitudeDelta = Math.abs(lat1 - lat2) * 1.5 || 0.02;
     const longitudeDelta = Math.abs(lon1 - lon2) * 1.5 || 0.02;
@@ -68,13 +68,13 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
         props.user.latitude,
         props.user.longitude,
         props.business.latitude,
-        props.business.longitude
+        props.business.longitude,
       );
       const delta = calculateDelta(
         props.user.latitude,
         props.user.longitude,
         props.business.latitude,
-        props.business.longitude
+        props.business.longitude,
       );
       setRegion({
         latitude: midpoint.latitude,
@@ -92,7 +92,7 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
         height: mapHeight,
       }}
       region={region}
-      mapType='standard'
+      mapType="standard"
       customMapStyle={mapStyle}
       zoomControlEnabled={true}
       scrollEnabled={true}
@@ -107,8 +107,8 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
         }}
         children={
           <FlexContainer newStyle={styles.containerIcons}>
-            <Location08Icon 
-              color={COLORS.primary} 
+            <Location08Icon
+              color={COLORS.primary}
               width={SIZES.icons}
               height={SIZES.icons}
             />
@@ -132,8 +132,8 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
         }}
         children={
           <FlexContainer newStyle={styles.containerIcons}>
-            <StoreLocation02Icon 
-              color={COLORS.primary} 
+            <StoreLocation02Icon
+              color={COLORS.primary}
               width={SIZES.icons}
               height={SIZES.icons}
             />
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     height: responsiveFontSize(44),
     backgroundColor: COLORS.TranspDark,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 });
 

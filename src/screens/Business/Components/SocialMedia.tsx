@@ -1,25 +1,25 @@
-import React from "react";
-import { TouchableOpacity } from "react-native";
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import {
-    EarthIcon,
+  EarthIcon,
   InstagramIcon,
   InstagramIconStroke,
   TiktokIcon,
   TiktokIconStroke,
   WhatsappIconStroke,
-} from "../../../constants/IconsPro";
-import { SIZES } from "../../../constants/theme";
-import { Typography } from "../../../components/custom";
+} from '../../../constants/IconsPro';
+import { SIZES } from '../../../constants/theme';
+import { Typography } from '../../../components/custom';
 type Props = {
   label: string;
-  SocialType: "instagram" | "tiktotk" | "ws" | "website";
+  SocialType: 'instagram' | 'tiktotk' | 'ws' | 'website';
   color?: string;
 };
 
 const SocialMedia = ({ label, SocialType, color }: Props) => {
   const renderIcon = () => {
     switch (SocialType) {
-      case "instagram":
+      case 'instagram':
         return (
           <InstagramIconStroke
             color={color}
@@ -27,7 +27,7 @@ const SocialMedia = ({ label, SocialType, color }: Props) => {
             height={SIZES.icons / 1.4}
           />
         );
-      case "tiktotk":
+      case 'tiktotk':
         return (
           <TiktokIconStroke
             color={color}
@@ -35,7 +35,7 @@ const SocialMedia = ({ label, SocialType, color }: Props) => {
             height={SIZES.icons / 1.4}
           />
         );
-      case "ws":
+      case 'ws':
         return (
           <WhatsappIconStroke
             color={color}
@@ -44,22 +44,22 @@ const SocialMedia = ({ label, SocialType, color }: Props) => {
           />
         );
 
-        case "website":
-            return (
-              <EarthIcon
-                color={color}
-                width={SIZES.icons / 1.4}
-                height={SIZES.icons / 1.4}
-              />
-            );
+      case 'website':
+        return (
+          <EarthIcon
+            color={color}
+            width={SIZES.icons / 1.4}
+            height={SIZES.icons / 1.4}
+          />
+        );
     }
   };
   return (
     <TouchableOpacity
       style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         gap: SIZES.gapSmall,
       }}
     >

@@ -1,13 +1,13 @@
-import React from "react";
-import FlexContainer from "../FlexContainer";
-import Typography from "../Typography";
-import { StyleSheet, ViewStyle } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../../constants/theme";
+import React from 'react';
+import FlexContainer from '../FlexContainer';
+import Typography from '../Typography';
+import { StyleSheet, ViewStyle } from 'react-native';
+import { COLORS, FONTS, SIZES } from '../../../constants/theme';
 
 type Props = {
   label: string;
   sublabel?: string;
-  style?: ViewStyle
+  style?: ViewStyle;
 };
 
 const Hero = (props: Props) => {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   Container: {
     width: SIZES.width,
     paddingHorizontal: SIZES.gapLarge,
-    marginVertical: SIZES.gapLarge
+    marginVertical: SIZES.gapLarge,
   },
   label: {
     ...FONTS.heading24,

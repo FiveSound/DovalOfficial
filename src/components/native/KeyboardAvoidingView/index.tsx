@@ -1,12 +1,13 @@
-import React from 'react'
-import { KeyboardAvoidingView as RNKeyboardAvoidingView, KeyboardAvoidingViewProps } from 'react-native'
+import React from 'react';
+import {
+  KeyboardAvoidingView as RNKeyboardAvoidingView,
+  KeyboardAvoidingViewProps,
+} from 'react-native';
 
-type Props = KeyboardAvoidingViewProps
+type Props = KeyboardAvoidingViewProps;
 
 const KeyboardAvoidingView = (props: Props) => {
-  return (
-    <RNKeyboardAvoidingView {...props} />
-  )
-}
+  return <RNKeyboardAvoidingView {...props} />;
+};
 
-export default KeyboardAvoidingView
+export default KeyboardAvoidingView;

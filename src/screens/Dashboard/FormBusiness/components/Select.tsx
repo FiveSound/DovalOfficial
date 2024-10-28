@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { Platform, StyleSheet, TextStyle, View, Text, Modal } from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  TextStyle,
+  View,
+  Text,
+  Modal,
+} from 'react-native';
 import { Controller, Control, FieldValues } from 'react-hook-form';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Button, TouchableOpacity } from '../../../../components/native';
-import { FONTS, SIZES } from '../../../../constants/theme';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import TextSelector from '../../../../components/custom/Select/TextSelector';
 import { FlexContainer, Typography } from '../../../../components/custom';
@@ -48,46 +55,36 @@ const Select = ({
   maxSelections = 2, // Valor por defecto si no se proporciona
   onChange,
 }: SelectProps) => {
-  const { backgroundMaingrey, Title } = useTheme();
+  const { backgroundMaingrey, Title, BackgroundMain } = useTheme();
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false); // Nuevo estado para Picker Dropdown
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const handleDateChange = (
-    event: any,
+    event: Event,
     date?: Date,
-    onChangeField?: (date: Date | null) => void
+    onChangeField?: (date: Date | null) => void,
   ) => {
     if (Platform.OS === 'android') {
       if (event.type === 'set' && date) {
-        onChangeField && onChangeField(date);
-        if (onChange) {
-          onChange(date);
-        }
-      } else {
-        onChangeField && onChangeField(null);
+        onChangeField?.(date);
+        onChange?.(date);
       }
       setPickerVisible(false);
     } else {
       if (date) {
         setSelectedDate(date);
-        onChangeField && onChangeField(date);
-        if (onChange) {
-          onChange(date);
-        }
+        onChangeField?.(date);
+        onChange?.(date);
       }
       // En iOS, no cerrar el picker automáticamente
     }
   };
 
-  const handleConfirm = (
-    onChangeField: (value: any) => void
-  ) => {
+  const handleConfirm = (onChangeField: (value: any) => void) => {
     if (selectedDate) {
       onChangeField(selectedDate);
-      if (onChange) {
-        onChange(selectedDate);
-      }
+      onChange?.(selectedDate);
     }
     setPickerVisible(false);
   };
@@ -115,7 +112,7 @@ const Select = ({
             <TextSelector
               data={listTextSelector}
               value={value || []}
-              onChange={(items) => {
+              onChange={items => {
                 onChangeField(items);
                 if (onChange) {
                   onChange(items);
@@ -136,8 +133,8 @@ const Select = ({
                     : placeholder
                 }
               />
-              {isPickerVisible && (
-                Platform.OS === 'ios' ? (
+              {isPickerVisible &&
+                (Platform.OS === 'ios' ? (
                   <Modal
                     transparent={true}
                     animationType="slide"
@@ -151,12 +148,13 @@ const Select = ({
                           mode="time"
                           is24Hour={true}
                           display="spinner"
+                          textColor={COLORS.primary}
                           onChange={(event, date) =>
                             handleDateChange(event, date, onChangeField)
                           }
                         />
                         <Button
-                          title='Confirmar'
+                          title="Confirmar"
                           onPress={() => handleConfirm(onChangeField)}
                           testID="confirm-button"
                           style={styles.confirmButton}
@@ -165,34 +163,37 @@ const Select = ({
                     </View>
                   </Modal>
                 ) : (
-                  <View testID="date-picker">
-                    <DateTimePicker
-                      value={value ? new Date(value) : selectedDate}
-                      mode="time"
-                      is24Hour={true}
-                      display="default"
-                      onChange={(event, date) =>
-                        handleDateChange(event, date, onChangeField)
-                      }
-                    />
-                    {/* Android does not need a confirm button */}
-                  </View>
-                )
-              )}
+                  // Sección modificada para Android: Mostrar DateTimePicker directamente sin Modal ni botón de confirmación
+                  <DateTimePicker
+                    value={value ? new Date(value) : selectedDate}
+                    mode="time"
+                    is24Hour={true}
+                    display="default"
+                    onChange={(event, date) =>
+                      handleDateChange(event, date, onChangeField)
+                    }
+                  />
+                ))}
             </>
           ) : (
             <>
               {Platform.OS === 'ios' ? (
                 <>
                   <TouchableOpacity
-                    style={styles.button}
+                    style={[
+                      styles.button,
+                      {
+                        backgroundColor: backgroundMaingrey,
+                      },
+                    ]}
                     onPress={() => setDropdownVisible(true)}
                   >
-                    <Text style={[styles.placeholder, { color: value ? Title : '#888' }]}>
+                    <Typography variant="H4title">
                       {value
-                        ? list.find((item) => item.value === value)?.label || placeholder
+                        ? list.find(item => item.value === value)?.label ||
+                          placeholder
                         : placeholder}
-                    </Text>
+                    </Typography>
                   </TouchableOpacity>
                   {isDropdownVisible && (
                     <Modal
@@ -205,27 +206,40 @@ const Select = ({
                         <View style={styles.pickerWrapper}>
                           <Picker
                             selectedValue={value}
-                            onValueChange={(itemValue) => {
+                            onValueChange={itemValue => {
                               onChangeField(itemValue);
                               if (onChange) {
                                 onChange(itemValue);
                               }
                             }}
-                            style={styles.picker}
+                            style={[
+                              styles.picker,
+                              {
+                                color: Title,
+                                ...FONTS.semi14,
+                              },
+                            ]}
                             itemStyle={{
                               color: Title,
                             }}
                             dropdownIconColor={Title}
                           >
                             <Picker.Item label={placeholder} value="" />
-                            {list.map((item) => (
-                              <Picker.Item key={item.value} label={item.label} value={item.value} />
+                            {list.map(item => (
+                              <Picker.Item
+                                key={item.value}
+                                label={item.label}
+                                value={item.value}
+                                color={COLORS.primary}
+                                style={{
+                                  ...FONTS.semi14,
+                                }}
+                              />
                             ))}
                           </Picker>
                           <Button
-                            title='Cerrar'
+                            title="Confirmar"
                             onPress={handleDropdownClose}
-                            style={styles.confirmButton}
                           />
                         </View>
                       </View>
@@ -235,9 +249,9 @@ const Select = ({
               ) : (
                 <FlexContainer newStyle={styles.pickerContainer}>
                   <Picker
-                    mode='dropdown'
+                    mode="dropdown"
                     selectedValue={value}
-                    onValueChange={(itemValue) => {
+                    onValueChange={itemValue => {
                       onChangeField(itemValue);
                       if (onChange) {
                         onChange(itemValue);
@@ -255,8 +269,12 @@ const Select = ({
                     dropdownIconColor={Title}
                   >
                     <Picker.Item label={placeholder} value="" />
-                    {list.map((item) => (
-                      <Picker.Item key={item.value} label={item.label} value={item.value} />
+                    {list.map(item => (
+                      <Picker.Item
+                        key={item.value}
+                        label={item.label}
+                        value={item.value}
+                      />
                     ))}
                   </Picker>
                   {error && (
@@ -268,7 +286,7 @@ const Select = ({
               )}
               {/* Mostrar error solo para Picker estándar */}
               {!isMultiSelect && !isDatePicker && error && (
-                <Typography variant='H4title' newStyle={styles.errorText}>
+                <Typography variant="H4title" newStyle={styles.errorText}>
                   {error.message || 'Este campo es requerido'}
                 </Typography>
               )}
@@ -317,12 +335,8 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 12,
-    backgroundColor: '#f0f0f0',
     borderRadius: SIZES.radius,
     justifyContent: 'center',
-  },
-  placeholder: {
-    fontSize: 16,
   },
 });
 

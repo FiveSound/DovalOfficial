@@ -4,40 +4,56 @@ import { FlexContainer, Typography } from '../../../components';
 import { SIZES } from '../../../constants';
 import { responsiveFontSize } from '../../../constants/theme';
 import useTheme from '../../../hooks/useTheme';
-import { Download02Icon, HeartbreakIcon, Flag02Icon, More02Icon } from '../../../constants/IconsPro';
+import {
+  Download02Icon,
+  HeartbreakIcon,
+  Flag02Icon,
+  More02Icon,
+} from '../../../constants/IconsPro';
 import { scale } from 'react-native-size-matters';
 
 interface additionalOptionsProps {
-  id: string,
-  name: string,
-  icon: ReactNode
+  id: string;
+  name: string;
+  icon: ReactNode;
 }
 
 const AdditionalOptions = () => {
-  const { bgInput, borderInput, color } = useTheme()
+  const { bgInput, borderInput, color } = useTheme();
   const additionalOptions: additionalOptionsProps[] = [
-    { id: '1', name: 'Guardar Video', icon: <Download02Icon width={SIZES.icons} height={SIZES.icons} color={color}/> },
+    {
+      id: '1',
+      name: 'Guardar Video',
+      icon: (
+        <Download02Icon
+          width={SIZES.icons}
+          height={SIZES.icons}
+          color={color}
+        />
+      ),
+    },
     // { id: '2', name: 'Denunciar', icon: <Flag02Icon width={SIZES.icons} height={SIZES.icons} color={color}/> },
     // { id: '3', name: 'No me interesa', icon: <HeartbreakIcon width={SIZES.icons} height={SIZES.icons} color={color}/> },
     // { id: '4', name: 'Más', icon: <More02Icon width={SIZES.icons} height={SIZES.icons} color={color}/> }
   ];
   return (
     <FlexContainer newStyle={{ padding: SIZES.padding }}>
-      <Typography variant='H4title'>Más opciones</Typography>
+      <Typography variant="H4title">Más opciones</Typography>
       <FlatList
         data={additionalOptions}
         horizontal
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <FlexContainer
-            variant='column'
+            variant="column"
             newStyle={{
               alignItems: 'center',
               justifyContent: 'center',
               gap: SIZES.gapSmall,
-              marginTop: SIZES.gapSmall
-            }}>
+              marginTop: SIZES.gapSmall,
+            }}
+          >
             <TouchableOpacity
               style={{
                 marginHorizontal: responsiveFontSize(15),
@@ -49,13 +65,17 @@ const AdditionalOptions = () => {
                 width: 'auto',
                 height: 'auto',
                 alignItems: 'center',
-                justifyContent: 'center'
-              }}>
+                justifyContent: 'center',
+              }}
+            >
               {item.icon}
             </TouchableOpacity>
             <Typography
-             variant='SubDescription'
-             newStyle={{ textAlign: 'center' }}>{item.name}</Typography>
+              variant="SubDescription"
+              newStyle={{ textAlign: 'center' }}
+            >
+              {item.name}
+            </Typography>
           </FlexContainer>
         )}
       />
@@ -63,4 +83,4 @@ const AdditionalOptions = () => {
   );
 };
 
-export default AdditionalOptions
+export default AdditionalOptions;

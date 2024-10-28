@@ -1,5 +1,5 @@
 // File: Profile.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   View,
@@ -10,9 +10,9 @@ import {
   Text,
   Modal,
   Image,
-} from "react-native";
-import { Buttons } from "../../../components/custom"; 
-import BLEPrinter, { BLEDevice } from "../../../../BLEPrinter";
+} from 'react-native';
+import { Buttons } from '../../../components/custom';
+import BLEPrinter, { BLEDevice } from '../../../../BLEPrinter';
 
 const BLEPrinterEmitter = BLEPrinter.getEmitter();
 
@@ -28,32 +28,38 @@ const Profile = () => {
     const initialize = async () => {
       try {
         const message = await BLEPrinter.initPrinter();
-        console.log("initPrinter:", message);
+        console.log('initPrinter:', message);
 
         // Verificar si ya hay una impresora conectada
         const connectedDevice = await BLEPrinter.getConnectedDevice();
-        console.log("connectedDevice:", connectedDevice);
+        console.log('connectedDevice:', connectedDevice);
         if (connectedDevice) {
           setSelectedMAC(connectedDevice.inner_mac_address);
-          Alert.alert("Conectado", `Ya estás conectado a ${connectedDevice.device_name}.`);
+          Alert.alert(
+            'Conectado',
+            `Ya estás conectado a ${connectedDevice.device_name}.`,
+          );
 
           // Mostrar el modal para ingresar datos si es necesario
           setModalVisible(true);
         }
       } catch (error) {
-        console.error("Error al inicializar la impresora:", error);
-        Alert.alert("Error", "Fallo al inicializar la impresora.");
+        console.error('Error al inicializar la impresora:', error);
+        Alert.alert('Error', 'Fallo al inicializar la impresora.');
       }
     };
 
     initialize();
 
     // Escuchar eventos de desconexión
-    const disconnectListener = BLEPrinterEmitter?.addListener('onDisconnected', () => {
-      console.warn('La impresora ha sido desconectada.');
-      Alert.alert('Desconexión', 'La impresora ha sido desconectada.');
-      setSelectedMAC(null);
-    });
+    const disconnectListener = BLEPrinterEmitter?.addListener(
+      'onDisconnected',
+      () => {
+        console.warn('La impresora ha sido desconectada.');
+        Alert.alert('Desconexión', 'La impresora ha sido desconectada.');
+        setSelectedMAC(null);
+      },
+    );
 
     return () => {
       disconnectListener?.remove();
@@ -65,15 +71,15 @@ const Profile = () => {
 
     try {
       const devices = await BLEPrinter.getDeviceList();
-      console.log("Dispositivos encontrados:", devices);
+      console.log('Dispositivos encontrados:', devices);
       setDeviceList(devices);
 
       if (devices.length === 0) {
-        Alert.alert("No Encontrado", "No se encontraron impresoras BLE.");
+        Alert.alert('No Encontrado', 'No se encontraron impresoras BLE.');
       }
     } catch (error) {
-      console.error("Error al escanear impresoras:", error);
-      Alert.alert("Error", "Error al escanear impresoras BLE.");
+      console.error('Error al escanear impresoras:', error);
+      Alert.alert('Error', 'Error al escanear impresoras BLE.');
     } finally {
       setLoading(false);
     }
@@ -81,17 +87,20 @@ const Profile = () => {
 
   const selectPrinter = async (macAddress: string) => {
     setSelectedMAC(macAddress);
-    Alert.alert("Seleccionado", `Impresora seleccionada: ${macAddress}`);
+    Alert.alert('Seleccionado', `Impresora seleccionada: ${macAddress}`);
 
     setConnecting(true);
     try {
       const message = await BLEPrinter.connectPrinter(macAddress);
-      console.log("connectPrinter:", message);
+      console.log('connectPrinter:', message);
 
-      Alert.alert("Conectado", "Conexión exitosa con la impresora.");
+      Alert.alert('Conectado', 'Conexión exitosa con la impresora.');
     } catch (error: any) {
-      console.error("ERROR al conectar impresora:", error);
-      Alert.alert("Error", error.message || "Fallo al conectar con la impresora.");
+      console.error('ERROR al conectar impresora:', error);
+      Alert.alert(
+        'Error',
+        error.message || 'Fallo al conectar con la impresora.',
+      );
       setSelectedMAC(null);
     } finally {
       setConnecting(false);
@@ -101,28 +110,37 @@ const Profile = () => {
   const disconnectPrinter = async () => {
     try {
       await BLEPrinter.disconnectPrinter();
-      Alert.alert("Desconectado", "Impresora desconectada exitosamente.");
+      Alert.alert('Desconectado', 'Impresora desconectada exitosamente.');
       setSelectedMAC(null);
     } catch (error: any) {
-      console.error("ERROR al desconectar:", error);
-      Alert.alert("Error", error.message || "Fallo al desconectar la impresora.");
+      console.error('ERROR al desconectar:', error);
+      Alert.alert(
+        'Error',
+        error.message || 'Fallo al desconectar la impresora.',
+      );
     }
   };
 
   const sendPrintData = async () => {
     if (!selectedMAC) {
-      Alert.alert("Error", "No hay una impresora seleccionada.");
+      Alert.alert('Error', 'No hay una impresora seleccionada.');
       return;
     }
 
-    const printTextContent = "Hola Andres";
+    const printTextContent = 'Hola Andres';
 
     try {
       await BLEPrinter.printText(printTextContent, selectedMAC);
-      Alert.alert("Impresión Exitosa", "El texto ha sido enviado para imprimir.");
+      Alert.alert(
+        'Impresión Exitosa',
+        'El texto ha sido enviado para imprimir.',
+      );
     } catch (error: any) {
-      console.error("ERROR al enviar datos de impresión:", error);
-      Alert.alert("Error", error.message || "Fallo al enviar datos de impresión.");
+      console.error('ERROR al enviar datos de impresión:', error);
+      Alert.alert(
+        'Error',
+        error.message || 'Fallo al enviar datos de impresión.',
+      );
     }
   };
 
@@ -133,7 +151,10 @@ const Profile = () => {
   const selectAndPrintImage = async () => {
     // Implementación opcional: por ejemplo, usar react-native-image-picker para seleccionar una imagen
     // Luego, convertir la imagen a base64 y enviarla a imprimir
-    Alert.alert("Funcionalidad", "Función de imprimir imagen aún no implementada.");
+    Alert.alert(
+      'Funcionalidad',
+      'Función de imprimir imagen aún no implementada.',
+    );
   };
 
   /**
@@ -142,21 +163,29 @@ const Profile = () => {
    */
   const handlePrintImage = async (base64Image: string) => {
     if (!selectedMAC) {
-      Alert.alert("Error", "No hay una impresora seleccionada.");
+      Alert.alert('Error', 'No hay una impresora seleccionada.');
       return;
     }
 
-    const serviceUUID = "YOUR_SERVICE_UUID"; // Reemplaza con tu Service UUID
-    const characteristicUUID = "YOUR_CHARACTERISTIC_UUID"; // Reemplaza con tu Characteristic UUID
+    const serviceUUID = 'YOUR_SERVICE_UUID'; // Reemplaza con tu Service UUID
+    const characteristicUUID = 'YOUR_CHARACTERISTIC_UUID'; // Reemplaza con tu Characteristic UUID
     const imageWidth = 300; // Ajusta según tus necesidades
 
     try {
-      const message = await BLEPrinter.printImage(base64Image, serviceUUID, characteristicUUID, imageWidth);
-      console.log("printImage:", message);
-      Alert.alert("Impresión Exitosa", "La imagen ha sido enviada para imprimir.");
+      const message = await BLEPrinter.printImage(
+        base64Image,
+        serviceUUID,
+        characteristicUUID,
+        imageWidth,
+      );
+      console.log('printImage:', message);
+      Alert.alert(
+        'Impresión Exitosa',
+        'La imagen ha sido enviada para imprimir.',
+      );
     } catch (error: any) {
-      console.error("ERROR al imprimir imagen:", error);
-      Alert.alert("Error", error.message || "Fallo al imprimir la imagen.");
+      console.error('ERROR al imprimir imagen:', error);
+      Alert.alert('Error', error.message || 'Fallo al imprimir la imagen.');
     }
   };
 
@@ -170,12 +199,8 @@ const Profile = () => {
         onPress={() => selectPrinter(item.inner_mac_address)}
         disabled={connecting} // Deshabilitar la selección mientras se conecta
       >
-        <Text style={styles.printerText}>
-          Nombre: {item.device_name}
-        </Text>
-        <Text style={styles.printerText}>
-          MAC: {item.inner_mac_address}
-        </Text>
+        <Text style={styles.printerText}>Nombre: {item.device_name}</Text>
+        <Text style={styles.printerText}>MAC: {item.inner_mac_address}</Text>
       </TouchableOpacity>
     );
   };
@@ -187,30 +212,21 @@ const Profile = () => {
       <FlatList
         data={deviceList}
         renderItem={renderPrinter}
-        keyExtractor={(item) => item.inner_mac_address}
+        keyExtractor={item => item.inner_mac_address}
         contentContainerStyle={styles.list}
         extraData={selectedMAC}
       />
-      <Buttons
-        label="Escanear"
-        onPress={scanForPrinters}
-        loading={loading}
-      />
+      <Buttons label="Escanear" onPress={scanForPrinters} loading={loading} />
       {selectedMAC && (
         <>
           <TouchableOpacity
-            style={[
-              styles.printButton,
-              styles.enabledButton,
-            ]}
+            style={[styles.printButton, styles.enabledButton]}
             onPress={sendPrintData}
           >
             <Text style={styles.printButtonText}>Imprimir "Hola Andres"</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[
-              styles.disconnectButton,
-            ]}
+            style={[styles.disconnectButton]}
             onPress={disconnectPrinter}
             disabled={connecting} // Opcional: deshabilitar si está conectando
           >
@@ -253,7 +269,9 @@ const Profile = () => {
       {/* Vista previa de la imagen seleccionada (opcional) */}
       {imagePreview && (
         <View style={styles.imagePreviewContainer}>
-          <Text style={styles.imagePreviewTitle}>Vista Previa de la Imagen:</Text>
+          <Text style={styles.imagePreviewTitle}>
+            Vista Previa de la Imagen:
+          </Text>
           <Image
             source={{ uri: imagePreview }}
             style={styles.imagePreview}
@@ -314,38 +332,38 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     marginTop: 100,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   closeButton: {
-    backgroundColor: "#FF3B30",
+    backgroundColor: '#FF3B30',
     borderRadius: 10,
     padding: 10,
     elevation: 2,
     marginTop: 10,
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   closeButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   input: {
     height: 40,

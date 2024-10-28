@@ -1,12 +1,12 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Alert } from "react-native";
-import { API_URL } from "../index";
-import { QueryKeyType } from "../../types/ReactQuery.type";
+import { API_URL } from '../index';
+import { QueryKeyType } from '../../types/ReactQuery.type';
 
 export const savedService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     await axios.post(
       `${API_URL}/api/saved`,
@@ -18,13 +18,13 @@ export const savedService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return {};
   } catch (error) {
     console.log({ error });
-    console.log("INICIAR SECCION:", error);
+    console.log('INICIAR SECCION:', error);
     if ((error as any).response && (error as any).response.status === 403) {
       // openBottomSheet();
     }
@@ -34,7 +34,7 @@ export const savedService = async (postID: number) => {
 
 export const unSavedService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     await axios.post(
       `${API_URL}/api/saved/unsaved`,
@@ -45,7 +45,7 @@ export const unSavedService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return {};
@@ -59,10 +59,10 @@ export const unSavedService = async (postID: number) => {
 export const getSavedPostsService = async (
   postID: number,
   setSaved: any,
-  setCounter: any
+  setCounter: any,
 ) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/saved/posts`,
       {
@@ -72,7 +72,7 @@ export const getSavedPostsService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     setSaved(response.data.saved);
@@ -86,7 +86,7 @@ export const getSavedPostsService = async (
 
 export const getMySavedPostsService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/saved/my-posts`,
@@ -95,7 +95,7 @@ export const getMySavedPostsService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -114,7 +114,7 @@ export const getLikePostService = async ({ queryKey }: QueryKeyType) => {
       {
         params,
       },
-      {}
+      {},
     );
 
     return response.data;
@@ -126,7 +126,7 @@ export const getLikePostService = async ({ queryKey }: QueryKeyType) => {
 
 export const handleLikeService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/likes/liked`,
@@ -137,7 +137,7 @@ export const handleLikeService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -161,7 +161,7 @@ export const getViewPostService = async ({ queryKey }: QueryKeyType) => {
 
 export const handleViewService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     await axios.post(
       `${API_URL}/api/views/add`,
@@ -172,7 +172,7 @@ export const handleViewService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     // return response.data;
@@ -197,7 +197,7 @@ export const getSavedPostService = async ({ queryKey }: QueryKeyType) => {
 
 export const handleSavedService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     await axios.post(
       `${API_URL}/api/saved/add`,
@@ -208,7 +208,7 @@ export const handleSavedService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     // return response.data;
@@ -245,10 +245,10 @@ export const getSharePostService = async ({ queryKey }: QueryKeyType) => {
 
 export const sharingService = async (
   postID: number | null,
-  url: string | null
+  url: string | null,
 ) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/share/sharing`,
@@ -260,7 +260,7 @@ export const sharingService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -270,7 +270,7 @@ export const sharingService = async (
 
 export const mySharedgService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/share/my-shared`,
@@ -279,7 +279,7 @@ export const mySharedgService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {

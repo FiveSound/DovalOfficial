@@ -1,4 +1,4 @@
-  export interface UserType {
+export interface UserType {
   available: string | null;
   avatar: string;
   bio: string | null;

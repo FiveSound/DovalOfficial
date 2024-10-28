@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
-import { useTheme } from "../../../../hooks";
-import FlexContainer from "../../FlexContainer";
-import { FONTS, SIZES } from "../../../../constants/theme";
-import { Search01Icon } from "../../../../constants/IconsPro";
-import { ViewStyle , StyleSheet, TextInput} from "react-native";
+import React, { ReactNode } from 'react';
+import { useTheme } from '../../../../hooks';
+import FlexContainer from '../../FlexContainer';
+import { FONTS, SIZES } from '../../../../constants/theme';
+import { Search01Icon } from '../../../../constants/IconsPro';
+import { ViewStyle, StyleSheet, TextInput } from 'react-native';
 
 type Props = {
   containerStyle?: ViewStyle;
@@ -17,13 +17,13 @@ type Props = {
   onChange?: ((text: string) => void) | undefined;
   secureTextEntry?: boolean;
   keyboardType?:
-    | "default"
-    | "number-pad"
-    | "decimal-pad"
-    | "numeric"
-    | "email-address"
-    | "phone-pad";
-  autoCapitalize?: "none" | "sentences" | "words" | "characters";
+    | 'default'
+    | 'number-pad'
+    | 'decimal-pad'
+    | 'numeric'
+    | 'email-address'
+    | 'phone-pad';
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   errorMsg?: string;
   maxLength?: number;
   autoCompleteType?: undefined;
@@ -37,15 +37,15 @@ const Search = ({
   label,
   placeholder,
   inputStyle,
-  value = "",
+  value = '',
   prependComponent,
   appendComponent,
   onChange,
   secureTextEntry,
   keyboardType,
   autoCompleteType,
-  autoCapitalize = "none",
-  errorMsg = "",
+  autoCapitalize = 'none',
+  errorMsg = '',
   maxLength,
   onFocus,
   onBlur,
@@ -54,7 +54,6 @@ const Search = ({
   return (
     <FlexContainer
       newStyle={{
-
         ...styles.flexContainer,
         backgroundColor: backgroundMaingrey,
         ...containerStyle,
@@ -89,20 +88,20 @@ const Search = ({
 };
 
 const styles = StyleSheet.create({
-    flexContainer: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginVertical: SIZES.radius,
-      height: SIZES.InputsHeight,
-      width: SIZES.BtnWidth,
-      borderRadius: SIZES.smallRadius,
-      paddingHorizontal: SIZES.margin / 2,
-    },
-    textInput: {
-      height: SIZES.BtnHeight,
-      paddingHorizontal: SIZES.margin / 2,
-      ...FONTS.text14,
-      width: SIZES.BtnWidth,
-    },
-  });
+  flexContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: SIZES.radius,
+    height: SIZES.InputsHeight,
+    width: SIZES.BtnWidth,
+    borderRadius: SIZES.smallRadius,
+    paddingHorizontal: SIZES.margin / 2,
+  },
+  textInput: {
+    height: SIZES.BtnHeight,
+    paddingHorizontal: SIZES.margin / 2,
+    ...FONTS.text14,
+    width: SIZES.BtnWidth,
+  },
+});
 export default Search;

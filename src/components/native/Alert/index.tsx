@@ -1,14 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { Alert as RNAlert } from 'react-native';
 
-type Props = {
-    
-}
+type Props = {};
 
 const Alert = (props: Props) => {
-  return (
-    <RNAlert />
-  )
-}
+  return <RNAlert />;
+};
 
-export default Alert
+export default Alert;

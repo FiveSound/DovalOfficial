@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { UserType } from '../../types/User.types';
-import { verifyCodeService, signInEmailService, signInPhoneService, signInEmailAndPasswordService } from '../../services/auth';
+import {
+  verifyCodeService,
+  signInEmailService,
+  signInPhoneService,
+  signInEmailAndPasswordService,
+} from '../../services/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface VerifyCodeResponse {
@@ -37,7 +42,7 @@ interface AuthState {
   canResend: boolean;
   resendTimer: number;
   screenLoading: boolean;
-  token: string | null; 
+  token: string | null;
   loginLoading: boolean;
   loginError: boolean;
   loginMessage: string | null;
@@ -65,86 +70,92 @@ const initialState: AuthState = {
 
 // Thunk para verificar el código
 export const verifyCode = createAsyncThunk<
-  VerifyCodeResponse, 
+  VerifyCodeResponse,
   { user: string; code: string },
   { rejectValue: string }
->(
-  'auth/verifyCode',
-  async ({ user, code }, thunkAPI) => {
-    try {
-      const response = await verifyCodeService(user, code);
-      if (response.success && response.token && response.userDetails) {
-        await AsyncStorage.setItem('userToken', response.token);
-        console.log('verifyCode fulfilled:', response);
-        return { success: true, token: response.token, userDetails: response.userDetails };
-      } else {
-        console.log('verifyCode rejected:', response.message);
-        return thunkAPI.rejectWithValue(response.message || 'Error al verificar el código');
-      }
-    } catch (error) {
-      console.log('verifyCode error:', error);
-      return thunkAPI.rejectWithValue('Error al verificar el código');
+>('auth/verifyCode', async ({ user, code }, thunkAPI) => {
+  try {
+    const response = await verifyCodeService(user, code);
+    if (response.success && response.token && response.userDetails) {
+      await AsyncStorage.setItem('userToken', response.token);
+      console.log('verifyCode fulfilled:', response);
+      return {
+        success: true,
+        token: response.token,
+        userDetails: response.userDetails,
+      };
+    } else {
+      console.log('verifyCode rejected:', response.message);
+      return thunkAPI.rejectWithValue(
+        response.message || 'Error al verificar el código',
+      );
     }
+  } catch (error) {
+    console.log('verifyCode error:', error);
+    return thunkAPI.rejectWithValue('Error al verificar el código');
   }
-);
+});
 
 // Thunk para reenviar el código
 export const resendCode = createAsyncThunk<
-  ResendCodeResponse, 
+  ResendCodeResponse,
   { method: number; phone: string; user: string },
   { rejectValue: string }
->(
-  'auth/resendCode',
-  async ({ method, phone, user }, thunkAPI) => {
-    try {
-      const response = method === 0 
-        ? await signInPhoneService(phone) 
+>('auth/resendCode', async ({ method, phone, user }, thunkAPI) => {
+  try {
+    const response =
+      method === 0
+        ? await signInPhoneService(phone)
         : await signInEmailService(user);
-      if (response.success) {
-        console.log('resendCode fulfilled:', response);
-        return { success: true };
-      } else {
-        console.log('resendCode rejected:', response.error);
-        return thunkAPI.rejectWithValue(response.error || 'Error al reenviar el código');
-      }
-    } catch (error) {
-      console.log('resendCode error:', error);
-      return thunkAPI.rejectWithValue('Error al reenviar el código');
+    if (response.success) {
+      console.log('resendCode fulfilled:', response);
+      return { success: true };
+    } else {
+      console.log('resendCode rejected:', response.error);
+      return thunkAPI.rejectWithValue(
+        response.error || 'Error al reenviar el código',
+      );
     }
+  } catch (error) {
+    console.log('resendCode error:', error);
+    return thunkAPI.rejectWithValue('Error al reenviar el código');
   }
-);
+});
 
 // Thunk para el inicio de sesión
 export const login = createAsyncThunk<
   LoginResponse,
   { email: string; password: string },
   { rejectValue: string }
->(
-  'auth/login',
-  async ({ email, password }, thunkAPI) => {
-    try {
-      const response = await signInEmailAndPasswordService(email, password);
-      if (response.success && response.token && response.userDetails) {
-        await AsyncStorage.setItem('userToken', response.token);
-        console.log('login fulfilled:', response);
-        return { success: true, token: response.token, userDetails: response.userDetails };
-      } else {
-        console.log('login rejected:', response.message);
-        return thunkAPI.rejectWithValue(response.message || 'Error al iniciar sesión');
-      }
-    } catch (error) {
-      console.log('login error:', error);
-      return thunkAPI.rejectWithValue('Error al iniciar sesión');
+>('auth/login', async ({ email, password }, thunkAPI) => {
+  try {
+    const response = await signInEmailAndPasswordService(email, password);
+    if (response.success && response.token && response.userDetails) {
+      await AsyncStorage.setItem('userToken', response.token);
+      console.log('login fulfilled:', response);
+      return {
+        success: true,
+        token: response.token,
+        userDetails: response.userDetails,
+      };
+    } else {
+      console.log('login rejected:', response.message);
+      return thunkAPI.rejectWithValue(
+        response.message || 'Error al iniciar sesión',
+      );
     }
+  } catch (error) {
+    console.log('login error:', error);
+    return thunkAPI.rejectWithValue('Error al iniciar sesión');
   }
-);
+});
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     signInStart(state) {
-      state.isLoadingApp = true;
+      state.isLoadingApp = false;
     },
     signInSuccess(state, action: PayloadAction<UserType>) {
       state.user = action.payload;
@@ -159,16 +170,16 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.isLoadingApp = false;
-      state.token = null; 
+      state.token = null;
       state.business = null;
     },
     refreshProfileData(state, action: PayloadAction<boolean>) {
       state.isLoadingApp = action.payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     // Thunk para verificar el código
-    builder.addCase(verifyCode.pending, (state) => {
+    builder.addCase(verifyCode.pending, state => {
       console.log('verifyCode pending');
       state.isVerifying = true;
       state.isLoadingApp = true;
@@ -185,7 +196,7 @@ const authSlice = createSlice({
       state.message = 'Código verificado correctamente';
       state.user = action.payload.userDetails || null;
       state.isAuthenticated = true;
-      state.token = action.payload.token || null; 
+      state.token = action.payload.token || null;
     });
     builder.addCase(verifyCode.rejected, (state, action) => {
       console.log('verifyCode rejected:', action.payload);
@@ -196,13 +207,13 @@ const authSlice = createSlice({
     });
 
     // Thunk para reenviar el código
-    builder.addCase(resendCode.pending, (state) => {
+    builder.addCase(resendCode.pending, state => {
       console.log('resendCode pending');
       state.isResending = true;
       state.isLoadingApp = true;
       state.message = null;
     });
-    builder.addCase(resendCode.fulfilled, (state) => {
+    builder.addCase(resendCode.fulfilled, state => {
       console.log('resendCode fulfilled');
       state.isResending = false;
       state.isLoadingApp = false;
@@ -218,7 +229,7 @@ const authSlice = createSlice({
     });
 
     // Thunk para el inicio de sesión
-    builder.addCase(login.pending, (state) => {
+    builder.addCase(login.pending, state => {
       console.log('login pending');
       state.loginLoading = true;
       state.loginError = false;
@@ -241,5 +252,11 @@ const authSlice = createSlice({
   },
 });
 
-export const { signInStart, signInSuccess, signInFailure, signOut, refreshProfileData } = authSlice.actions;
+export const {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+  signOut,
+  refreshProfileData,
+} = authSlice.actions;
 export default authSlice.reducer;

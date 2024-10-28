@@ -1,9 +1,18 @@
-import { useCallback, useState } from "react";
-import { StyleSheet, FlatList, View, ActivityIndicator, Alert } from "react-native";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Recipe from "../components/Recipe";
-import { deleteMenuOrderIDService, getMenuManagementService } from "../../../services/business";
-import { Pagination, PaginationHeader } from "../../../components/custom";
+import { useCallback, useState } from 'react';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Recipe from '../components/Recipe';
+import {
+  deleteMenuOrderIDService,
+  getMenuManagementService,
+} from '../../../services/business';
+import { Pagination, PaginationHeader } from '../../../components/custom';
 type DataQueryType = {
   list: any[];
   search: string;
@@ -13,9 +22,9 @@ type DataQueryType = {
   pagination: number[] | null;
 };
 
-const QUERY_KEY = "menu-management-screen";
+const QUERY_KEY = 'menu-management-screen';
 const DEFAULT_PAGE = 1;
-const DEFAULT_SEARCH = "";
+const DEFAULT_SEARCH = '';
 
 const initialData = {
   list: [],
@@ -28,11 +37,14 @@ const initialData = {
 
 const MenuManagement = () => {
   // States
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const menu = useQuery({
     queryKey: [QUERY_KEY],
-    queryFn: async () => await getMenuManagementService({ queryKey: [QUERY_KEY, DEFAULT_PAGE, DEFAULT_SEARCH] }),
+    queryFn: async () =>
+      await getMenuManagementService({
+        queryKey: [QUERY_KEY, DEFAULT_PAGE, DEFAULT_SEARCH],
+      }),
     initialData,
   });
 
@@ -42,9 +54,11 @@ const MenuManagement = () => {
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
     mutationFn: async (params: { page: number; search: string }) => {
-      return await getMenuManagementService({ queryKey: [QUERY_KEY, params.page, params.search] });
+      return await getMenuManagementService({
+        queryKey: [QUERY_KEY, params.page, params.search],
+      });
     },
-    onSuccess: (response) => queryClient.setQueryData([QUERY_KEY], response),
+    onSuccess: response => queryClient.setQueryData([QUERY_KEY], response),
   });
 
   // Methods
@@ -59,18 +73,18 @@ const MenuManagement = () => {
   }, []);
 
   const onDeleted = useCallback((id: number, name: string) => {
-    Alert.alert("Desea eliminar esta receta?", name, [
+    Alert.alert('Desea eliminar esta receta?', name, [
       {
-        text: "Cancelar",
+        text: 'Cancelar',
       },
       {
-        text: "Confirmar",
+        text: 'Confirmar',
         onPress: async () => {
           const response = await deleteMenuOrderIDService(id);
 
           if (response.success) {
             queryClient.setQueryData([QUERY_KEY], (oldData: DataQueryType) => {
-              const updatedList = oldData.list.filter((row) => row.id !== id);
+              const updatedList = oldData.list.filter(row => row.id !== id);
 
               if (updatedList.length > 0) {
                 return { ...oldData, list: updatedList };
@@ -93,18 +107,24 @@ const MenuManagement = () => {
 
   return (
     <View style={styles.container}>
-      <PaginationHeader text={search} onChangeText={(txt) => onSearch(txt)} refetch={onRefetch} />
+      <PaginationHeader
+        text={search}
+        onChangeText={txt => onSearch(txt)}
+        refetch={onRefetch}
+      />
 
       <FlatList
         data={menu.data.list}
         renderItem={({ item }) => <Recipe onDelete={onDeleted} {...item} />}
         initialNumToRender={3}
-        keyExtractor={(row) => row.id.toString()}
+        keyExtractor={row => row.id.toString()}
       />
 
       <Pagination
         currentPage={menu.data.page}
-        onChange={(newPage) => mutation.mutate({ page: newPage, search: DEFAULT_SEARCH })}
+        onChange={newPage =>
+          mutation.mutate({ page: newPage, search: DEFAULT_SEARCH })
+        }
         pagination={menu.data.pagination}
       />
     </View>
@@ -117,6 +137,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    backgroundColor: "#000",
+    backgroundColor: '#000',
   },
 });

@@ -1,11 +1,11 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert } from "react-native";
-import { API_URL } from "../index";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
+import { API_URL } from '../index';
 
 export const savePaymentDetailsService = async (paymentIntent: object) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/payments-methods/add`,
@@ -16,7 +16,7 @@ export const savePaymentDetailsService = async (paymentIntent: object) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     // Toast.show({
@@ -26,14 +26,14 @@ export const savePaymentDetailsService = async (paymentIntent: object) => {
 
     return response.data;
   } catch (error) {
-    Alert.alert("Ha ocurrido un error!");
+    Alert.alert('Ha ocurrido un error!');
     return error;
   }
 };
 
 export const getPaymentDetailsService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/payments-methods/get`,
@@ -42,7 +42,7 @@ export const getPaymentDetailsService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -53,7 +53,7 @@ export const getPaymentDetailsService = async () => {
 
 export const deletePaymentDetailsService = async (id: string) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/payments-methods/delete`,
@@ -64,7 +64,7 @@ export const deletePaymentDetailsService = async (id: string) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -74,10 +74,10 @@ export const deletePaymentDetailsService = async (id: string) => {
 
 export const setPreferredPaymentService = async (
   id: string,
-  cash: string | null
+  cash: string | null,
 ) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/payments-methods/preferred`,
@@ -89,7 +89,7 @@ export const setPreferredPaymentService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return {};
@@ -100,7 +100,7 @@ export const setPreferredPaymentService = async (
 
 export const getPreferredPaymentService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/payments-methods/method-payment`,
@@ -109,7 +109,7 @@ export const getPreferredPaymentService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;

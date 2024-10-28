@@ -1,7 +1,7 @@
-import { memo } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { CLOUDFRONT } from "../../../services";
-import { Chip } from "../../../components/custom";
+import { memo } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { CLOUDFRONT } from '../../../services';
+import { Chip } from '../../../components/custom';
 type Props = {
   id: number;
   onDelete: (id: number, name: string) => void;
@@ -20,26 +20,34 @@ const Recipe = (props: Props) => (
         style={{
           width: 60,
           height: 60,
-          backgroundColor: "white",
-          objectFit: "cover",
+          backgroundColor: 'white',
+          objectFit: 'cover',
         }}
         source={{
           uri: `${CLOUDFRONT}${props.thumbnail}`,
         }}
       />
       <View>
-        <Text style={[styles.text, { fontSize: 15, fontWeight: "bold" }]}>{props.name}</Text>
+        <Text style={[styles.text, { fontSize: 15, fontWeight: 'bold' }]}>
+          {props.name}
+        </Text>
 
-        <Text style={[styles.text, { fontSize: 13, color: "#DDD" }]}>{props.description}</Text>
+        <Text style={[styles.text, { fontSize: 13, color: '#DDD' }]}>
+          {props.description}
+        </Text>
         <View
           style={{
             marginTop: 3,
-            flexDirection: "row",
+            flexDirection: 'row',
             gap: 10,
           }}
         >
-          <Text style={[styles.text, { fontSize: 13, fontWeight: "bold" }]}>{props.price}</Text>
-          <Text style={[styles.text, { fontSize: 13, fontWeight: "bold" }]}>Discount: {props.discount}%</Text>
+          <Text style={[styles.text, { fontSize: 13, fontWeight: 'bold' }]}>
+            {props.price}
+          </Text>
+          <Text style={[styles.text, { fontSize: 13, fontWeight: 'bold' }]}>
+            Discount: {props.discount}%
+          </Text>
         </View>
       </View>
 
@@ -48,12 +56,14 @@ const Recipe = (props: Props) => (
         {!props.complete && <Chip title="Draft" color="red" size="small" />}
       </View>
     </View>
-    <View style={{ marginTop: 5, flexDirection: "row", gap: 20 }}>
+    <View style={{ marginTop: 5, flexDirection: 'row', gap: 20 }}>
       <TouchableOpacity onPress={() => props.onDelete(props.id, props.name)}>
-        <Text style={[styles.text, { fontWeight: "bold", color: "red" }]}>Eliminar</Text>
+        <Text style={[styles.text, { fontWeight: 'bold', color: 'red' }]}>
+          Eliminar
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity style={{ opacity: 0.5 }} disabled>
-        <Text style={[styles.text, { fontWeight: "bold" }]}>Editar</Text>
+        <Text style={[styles.text, { fontWeight: 'bold' }]}>Editar</Text>
       </TouchableOpacity>
     </View>
   </View>
@@ -65,13 +75,13 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 10,
     padding: 10,
-    backgroundColor: "#222222",
+    backgroundColor: '#222222',
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   text: {
-    color: "#FFF",
+    color: '#FFF',
   },
 });

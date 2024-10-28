@@ -1,9 +1,9 @@
-import React from "react";
-import { Image, TouchableOpacity, useNavigation } from "../../../native";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import { useTheme } from "../../../../hooks";
-import { iconsNative } from "../../../../constants";
-import { StyleSheet } from "react-native";
+import React from 'react';
+import { Image, TouchableOpacity, useNavigation } from '../../../native';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import { useTheme } from '../../../../hooks';
+import { iconsNative } from '../../../../constants';
+import { StyleSheet } from 'react-native';
 
 type Props = {};
 

@@ -1,20 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   ActivityIndicator,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import { getRecipeDrafts } from "../../../../services/recipes";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Recipe } from "../../../../types/comments/types";
+} from 'react-native';
+import { getRecipeDrafts } from '../../../../services/recipes';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { Recipe } from '../../../../types/comments/types';
 
 const Drafts = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ["recipes-draft-list"],
+    queryKey: ['recipes-draft-list'],
     queryFn: getRecipeDrafts,
   });
 
@@ -34,8 +34,8 @@ const Drafts = () => {
               navigation.reset({
                 index: 0,
                 routes: [
-                  { name: "TabsNavigator" },
-                  { name: "UploadRecipe", params: { id: row.id } },
+                  { name: 'TabsNavigator' },
+                  { name: 'UploadRecipe', params: { id: row.id } },
                 ],
               });
             }}
@@ -59,22 +59,22 @@ const styles = StyleSheet.create({
   container: {
     margin: 20,
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   item: {
     marginBottom: 10,
     padding: 10,
-    width: "100%",
+    width: '100%',
     borderWidth: 1,
     borderRadius: 4,
   },
   itemTitle: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   itemSubtitle: {},
   title: {
     marginBottom: 10,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

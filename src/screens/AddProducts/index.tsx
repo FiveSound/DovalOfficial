@@ -1,35 +1,46 @@
-import React from "react";
-import { Container, InputLabel, LineDivider, LoadingScreen, OptionList, ProductCard, Typography } from "../../components/custom";
-import { StyleSheet } from "react-native";
-import { RefreshControl, KeyboardAwareScrollView } from "../../components/native";
-import { SIZES } from "../../constants/theme";
-import i18next from "../../Translate";
-import Signup from "../auth/Signup";
-import { useAddProducts } from "./useAddProducts";
-import { TypeSubVariant, TypeVariant } from "./types";
+import React from 'react';
+import {
+  Container,
+  InputLabel,
+  LineDivider,
+  LoadingScreen,
+  OptionList,
+  ProductCard,
+  Typography,
+} from '../../components/custom';
+import { StyleSheet } from 'react-native';
+import {
+  RefreshControl,
+  KeyboardAwareScrollView,
+} from '../../components/native';
+import { SIZES } from '../../constants/theme';
+import i18next from '../../Translate';
+import Signup from '../auth/Signup';
+import { useAddProducts } from './useAddProducts';
+import { TypeSubVariant, TypeVariant } from './types';
 
 type Props = {};
 
 const AddProducts: React.FC<Props> = (props: Props) => {
-const {
-  isAuthenticated,
-  isLoadingApp,
-  data,
-  isLoading,
-  isFetching,
-  load,
-  isFormValid,
-  total,
-  qty,
-  handleQuantityChange,
-  handleSubmit,
-  handleOptionPress,
-  isRefreshing,
-  onRefresh,
-  limites,
-  subVariants
+  const {
+    isAuthenticated,
+    isLoadingApp,
+    data,
+    isLoading,
+    isFetching,
+    load,
+    isFormValid,
+    total,
+    qty,
+    handleQuantityChange,
+    handleSubmit,
+    handleOptionPress,
+    isRefreshing,
+    onRefresh,
+    limites,
+    subVariants,
   } = useAddProducts();
-  
+
   if (!isAuthenticated) {
     return <Signup />;
   }
@@ -38,7 +49,7 @@ const {
     return <LoadingScreen />;
   }
 
-  if(data) {
+  if (data) {
     return (
       <Container
         useSafeArea={true}
@@ -50,10 +61,10 @@ const {
         showFooter={false}
         showFooterCart={true}
         FooterPress={handleSubmit}
-        labelAdd={i18next.t("Add to cart")}
+        labelAdd={i18next.t('Add to cart')}
         loading={load}
         disabled={load}
-        TotalPrice={total.data?.amount || "0"}
+        TotalPrice={total.data?.amount || '0'}
         add={() => handleQuantityChange(qty + 1)}
         remove={() => {
           if (qty > 1) {
@@ -63,19 +74,22 @@ const {
         qty={qty}
         disabledCart={load || !isFormValid}
       >
-        <KeyboardAwareScrollView 
-        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
-        contentContainerStyle={styles.containerScroll}
-        extraScrollHeight={SIZES.gapLarge * 2}
-  
+        <KeyboardAwareScrollView
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
+          contentContainerStyle={styles.containerScroll}
+          extraScrollHeight={SIZES.gapLarge * 2}
         >
           <ProductCard product={data} />
-          <LineDivider lineStyle={styles.lineDivider}/>
+          <LineDivider lineStyle={styles.lineDivider} />
           {data?.variants.map((variant: TypeVariant) => {
-            const subvariants = data.subvariants.filter((sub: TypeSubVariant) => sub.variantID === variant.id);
+            const subvariants = data.subvariants.filter(
+              (sub: TypeSubVariant) => sub.variantID === variant.id,
+            );
             return (
               <OptionList
-               key={`${variant.recipeID}-${variant.id}`}
+                key={`${variant.recipeID}-${variant.id}`}
                 option={subvariants}
                 title={variant.title}
                 required={variant.required ? 1 : 0}
@@ -87,16 +101,16 @@ const {
               />
             );
           })}
-          <Typography variant='subtitle'>{i18next.t("Notes")}</Typography>
+          <Typography variant="subtitle">{i18next.t('Notes')}</Typography>
           <InputLabel
-            label={i18next.t("Notes")}
-            placeholder={i18next.t("Notes for riderMan")}
+            label={i18next.t('Notes')}
+            placeholder={i18next.t('Notes for riderMan')}
             onSize={true}
           />
         </KeyboardAwareScrollView>
       </Container>
     );
-  } 
+  }
 };
 
 const styles = StyleSheet.create({
@@ -107,14 +121,14 @@ const styles = StyleSheet.create({
   },
   containerScroll: {
     paddingHorizontal: SIZES.gapLarge,
-    paddingBottom: SIZES.height / 4
+    paddingBottom: SIZES.height / 4,
   },
   lineDivider: {
     height: SIZES.gapMedium,
     width: SIZES.width,
     alignItems: 'center',
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 });
 
 export default AddProducts;

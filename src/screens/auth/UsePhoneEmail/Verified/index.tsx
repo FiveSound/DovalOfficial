@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Container,
   FlexContainer,
@@ -9,14 +9,14 @@ import {
   Typography,
   Buttons,
   LoadingScreen,
-} from "../../../../components/custom";
-import { RouteProp, useRoute } from "@react-navigation/native";
-import { useNavigation } from "../../../../components/native";
-import styles from "./styles";
-import { useAppDispatch, useAppSelector } from "../../../../redux";
-import { verifyCode, resendCode } from "../../../../redux/slides/authSlice";
-import { RootState } from "../../../../redux/store";
-import i18next from "../../../../Translate";
+} from '../../../../components/custom';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useNavigation } from '../../../../components/native';
+import styles from './styles';
+import { useAppDispatch, useAppSelector } from '../../../../redux';
+import { verifyCode, resendCode } from '../../../../redux/slides/authSlice';
+import { RootState } from '../../../../redux/store';
+import i18next from '../../../../Translate';
 
 type Props = {};
 type RouteParams = {
@@ -30,7 +30,7 @@ type RouteParams = {
 };
 
 const Verified = (props: Props) => {
-  const route = useRoute<RouteProp<RouteParams, "params">>();
+  const route = useRoute<RouteProp<RouteParams, 'params'>>();
   const { user, phone, Form, method, provided } = route.params;
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
@@ -45,7 +45,7 @@ const Verified = (props: Props) => {
     canResend,
     resendTimer,
     isResending,
-    screenLoading,  
+    screenLoading,
     token,
   } = useAppSelector((state: RootState) => state.auth);
 
@@ -54,7 +54,7 @@ const Verified = (props: Props) => {
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (localTimer > 0) {
-      timer = setTimeout(() => setLocalTimer((prev) => prev - 1), 1000);
+      timer = setTimeout(() => setLocalTimer(prev => prev - 1), 1000);
     } else {
     }
     return () => clearTimeout(timer);
@@ -71,7 +71,7 @@ const Verified = (props: Props) => {
 
       dispatch(verifyCode({ user, code }));
     },
-    [isVerifying, isVerified, user, dispatch]
+    [isVerifying, isVerified, user, dispatch],
   );
 
   const handleResendCode = useCallback(async () => {
@@ -79,14 +79,13 @@ const Verified = (props: Props) => {
     setLocalTimer(10);
   }, [dispatch, method, phone, user]);
 
-
   useEffect(() => {
     if (isVerified && !isLoadingApp) {
       setTimeout(() => {
         if (method === 0 ? Form : !Form) {
-          navigation.navigate("SignupForm", { method, provided }); 
+          navigation.navigate('SignupForm', { method, provided });
         } else {
-          navigation.navigate("TabsNavigation");
+          navigation.navigate('TabsNavigation');
         }
       }, 500);
     }
@@ -104,17 +103,28 @@ const Verified = (props: Props) => {
         hasError={codeError}
         onCodeFilled={handleCodeFilled}
         label={i18next.t('Enter 6-digit code')}
-        sublabel={method === 0 ? `Your code was sent to ${phone}` : `Your code was sent to ${user}`}
+        sublabel={
+          method === 0
+            ? `Your code was sent to ${phone}`
+            : `Your code was sent to ${user}`
+        }
       />
       {(isVerifying || isResending) && (
         <IsLoading
-          label={isVerifying ? i18next.t('Verifying code') : i18next.t('Resending code')}
+          label={
+            isVerifying
+              ? i18next.t('Verifying code')
+              : i18next.t('Resending code')
+          }
           style={styles.IsLoading}
           showLabel={false}
         />
       )}
       {codeError && (
-        <Perks label={message || i18next.t('Incorrect code, please try again')} status="error" />
+        <Perks
+          label={message || i18next.t('Incorrect code, please try again')}
+          status="error"
+        />
       )}
       {codeSuccess && (
         <Perks label={i18next.t('Code verified correctly')} status="success" />
@@ -123,7 +133,12 @@ const Verified = (props: Props) => {
       <FlexContainer style={styles.buttons}>
         {canResend || localTimer === 0 ? (
           <>
-            {message && <Perks label={i18next.t('Didn\'t receive a code?')} status="error" />}
+            {message && (
+              <Perks
+                label={i18next.t("Didn't receive a code?")}
+                status="error"
+              />
+            )}
             {!isResending && (
               <Buttons
                 label={i18next.t('Resend code')}
@@ -138,7 +153,7 @@ const Verified = (props: Props) => {
               {i18next.t('Resend code in')}
               <Typography variant="SubDescription" newStyle={styles.text}>
                 {localTimer}
-              </Typography>{" "}
+              </Typography>{' '}
               {i18next.t('seconds')}
             </Typography>
           )

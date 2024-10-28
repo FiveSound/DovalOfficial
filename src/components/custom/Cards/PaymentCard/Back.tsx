@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import { iconsNative } from "../../../../constants";
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { iconsNative } from '../../../../constants';
 
 type Props = {
   validCVC: string;
@@ -20,7 +20,7 @@ const Back = (props: Props) => {
       <View style={styles.footer}>
         <View style={styles.cvc}>
           <Image source={iconsNative.dot} />
-          <Text style={styles.text}>{props.validCVC == "Valid" && "****"}</Text>
+          <Text style={styles.text}>{props.validCVC == 'Valid' && '****'}</Text>
         </View>
       </View>
     </View>
@@ -29,28 +29,28 @@ const Back = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
   },
   box: {
     marginTop: 30,
     padding: 10,
     marginHorizontal: -10,
     marginBottom: 60,
-    alignItems: "flex-end",
-    backgroundColor: "#2C2C2E",
+    alignItems: 'flex-end',
+    backgroundColor: '#2C2C2E',
   },
   footer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   cvc: {
     marginBottom: 10,
     width: 120,
     padding: 10,
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 10,
-    alignItems: "center",
-    backgroundColor: "#FFF",
+    alignItems: 'center',
+    backgroundColor: '#FFF',
     borderRadius: 2,
   },
   text: {

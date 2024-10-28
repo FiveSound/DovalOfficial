@@ -1,6 +1,6 @@
-import { useCallback } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
+import { useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
 
 interface QueryKeyFN {
   queryKey: Array<string>;
@@ -29,7 +29,7 @@ const useAPI = (props: Props) => {
       ) {
         queryResult.refetch();
       }
-    }, [queryResult])
+    }, [queryResult]),
   );
 
   const { isLoading, isError, error, data, refetch, isFetching, isRefetching } =

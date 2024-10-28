@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, memo, ReactNode, useState } from "react";
+import React, { BaseSyntheticEvent, memo, ReactNode, useState } from 'react';
 import {
   ViewStyle,
   TextStyle,
@@ -7,13 +7,13 @@ import {
   NativeSyntheticEvent,
   TextInputContentSizeChangeEventData,
   StyleSheet,
-} from "react-native";
-import FlexContainer from "../../FlexContainer";
-import Typography from "../../Typography";
-import { TextInput } from "../../../native";
-import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
-import LineDivider from "../../LineDivider";
-import { useTheme } from "../../../../hooks";
+} from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import Typography from '../../Typography';
+import { TextInput } from '../../../native';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
+import LineDivider from '../../LineDivider';
+import { useTheme } from '../../../../hooks';
 
 type Props = {
   containerStyle?: ViewStyle;
@@ -27,8 +27,8 @@ type Props = {
   appenComponent?: ReactNode;
   onChange?: (text: string) => void;
   secureTextEntry?: boolean;
-  keyboardType?: TextInputProps["keyboardType"];
-  autoCapitalize?: TextInputProps["autoCapitalize"];
+  keyboardType?: TextInputProps['keyboardType'];
+  autoCapitalize?: TextInputProps['autoCapitalize'];
   errorMsg?: string;
   errorStyle?: object;
   onChangeText?: (text: string) => void;
@@ -44,7 +44,7 @@ type Props = {
   pickerOptions?: { label: string; value: any }[];
   onValueChange?: (itemValue: any, itemIndex: number) => void;
   onContentSizeChange?: (
-    event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>
+    event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>,
   ) => void;
   showDivider?: boolean;
 };
@@ -132,20 +132,20 @@ const Input = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     padding: SIZES.margin / 2,
-    backgroundColor: "transparent",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "auto",
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 'auto',
   },
   row: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "transparent",
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
   },
   innerRow: {
-    alignItems: "center",
+    alignItems: 'center',
     gap: SIZES.gapMedium,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
   textInput: {
     marginVertical: SIZES.gapSmall,

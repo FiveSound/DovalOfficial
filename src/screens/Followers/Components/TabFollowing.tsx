@@ -1,11 +1,15 @@
-import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../../../context/AuthContext";
-import { useTheme } from "../../../hooks";
-import { getFollowingAccountsService, handleProfileFollowingService, handleSearchFollowingService } from "../../../services/follows";
-import { LoadingScreen } from "../../../components/custom";
-import mutate from "./mutate";
-import Layout from "./Layout";
+import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '../../../context/AuthContext';
+import { useTheme } from '../../../hooks';
+import {
+  getFollowingAccountsService,
+  handleProfileFollowingService,
+  handleSearchFollowingService,
+} from '../../../services/follows';
+import { LoadingScreen } from '../../../components/custom';
+import mutate from './mutate';
+import Layout from './Layout';
 
 type Props = {
   username: string;
@@ -18,7 +22,7 @@ const TabFollowing = ({ username }: Props) => {
 
   const [page] = useState(1);
 
-  let queryKey = "component-following";
+  let queryKey = 'component-following';
 
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: [queryKey, user?.userID, username],
@@ -28,25 +32,25 @@ const TabFollowing = ({ username }: Props) => {
 
   const mutation = useMutation({
     mutationFn: handleProfileFollowingService,
-    onSuccess: (result) => {
+    onSuccess: result => {
       queryClient.setQueryData(
-        ["component-followers", user?.userID, username],
-        (oldData: any[]) => mutate(oldData, result)
+        ['component-followers', user?.userID, username],
+        (oldData: any[]) => mutate(oldData, result),
       );
 
       queryClient.setQueryData(
         [queryKey, user?.userID, username],
-        (oldData: any[]) => mutate(oldData, result)
+        (oldData: any[]) => mutate(oldData, result),
       );
     },
   });
 
   const mutationSearch = useMutation({
     mutationFn: handleSearchFollowingService,
-    onSuccess: (result) =>
+    onSuccess: result =>
       queryClient.setQueryData(
         [queryKey, user?.userID, username],
-        () => result
+        () => result,
       ),
   });
 
@@ -54,16 +58,15 @@ const TabFollowing = ({ username }: Props) => {
     mutationSearch.mutate({ text, userID: user?.userID, username });
   };
 
-  if (isLoading || isFetching)
-    return <LoadingScreen />;
+  if (isLoading || isFetching) return <LoadingScreen />;
 
   if (data) {
     return (
       <Layout
         userID={user?.userID}
         data={data}
-        onFollow={(userID) => mutation.mutate(userID)}
-        onShearch={(text) => handleSearch(text)}
+        onFollow={userID => mutation.mutate(userID)}
+        onShearch={text => handleSearch(text)}
         searching={mutationSearch.isPending}
         isFetching={refetch}
       />

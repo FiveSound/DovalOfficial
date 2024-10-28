@@ -1,12 +1,10 @@
-import React from 'react'
-import ScreenBuild from '../../../../components/custom/ScreenBuild'
+import React from 'react';
+import ScreenBuild from '../../../../components/custom/ScreenBuild';
 
-type Props = {}
+type Props = {};
 
 const Report = (props: Props) => {
-  return (
-    <ScreenBuild />
-  )
-}
+  return <ScreenBuild />;
+};
 
-export default Report
+export default Report;

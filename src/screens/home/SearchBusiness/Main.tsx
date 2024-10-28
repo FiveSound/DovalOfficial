@@ -1,9 +1,5 @@
-import {
-  lazy,
-  Suspense,
-  useCallback,
-} from "react";
-import { FlatList } from "react-native";
+import { lazy, Suspense, useCallback } from 'react';
+import { FlatList } from 'react-native';
 import {
   IsLoading,
   LoadingScreen,
@@ -11,13 +7,15 @@ import {
   SearchLayout,
   ToggleFilter,
   Typography,
-} from "../../../components/custom";
-import { useRefreshData, useTheme } from "../../../hooks";
-import { responsiveFontSize, SIZES } from "../../../constants/theme";
-import i18next from "../../../Translate";
-import { Ilustrations } from "../../../constants";
-import { RefreshControl, ScrollView, View } from "../../../components/native";
-const LazyCard = lazy(() => import("../../../components/custom/business/CardBusiness"));
+} from '../../../components/custom';
+import { useRefreshData, useTheme } from '../../../hooks';
+import { responsiveFontSize, SIZES } from '../../../constants/theme';
+import i18next from '../../../Translate';
+import { Ilustrations } from '../../../constants';
+import { RefreshControl, ScrollView, View } from '../../../components/native';
+const LazyCard = lazy(
+  () => import('../../../components/custom/business/CardBusiness'),
+);
 
 type Props = {
   filteredData: any[];
@@ -56,13 +54,13 @@ const Main = ({
   };
 
   const toggleFilterStores = useCallback(() => {
-    console.log("toggleFilterStores clicked");
-    setFilterStores((prev) => !prev);
+    console.log('toggleFilterStores clicked');
+    setFilterStores(prev => !prev);
   }, [setFilterStores]);
 
   const toggleFreeShipping = useCallback(() => {
-    console.log("toggleFreeShipping clicked");
-    setFreeShipping((prev) => !prev);
+    console.log('toggleFreeShipping clicked');
+    setFreeShipping(prev => !prev);
   }, [setFreeShipping]);
 
   const renderItem = useCallback(({ item }: { item: any }) => {
@@ -74,12 +72,12 @@ const Main = ({
   }, []);
 
   if (isLoading) {
-    return <LoadingScreen label={i18next.t("Loading business")}/>;
+    return <LoadingScreen label={i18next.t('Loading business')} />;
   }
 
   return (
     <SearchLayout
-      placeholder={i18next.t("Search for nearby restaurants, and businesses")}
+      placeholder={i18next.t('Search for nearby restaurants, and businesses')}
       container={{ backgroundColor: backgroundMaingrey }}
       onChange={handleSearch}
       isRefreshing={isRefreshing}
@@ -94,31 +92,31 @@ const Main = ({
       }
     >
       {filteredData.length === 0 && !IsLoading ? (
-              <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      >
-        <View
-          style={{
-            marginTop: SIZES.gapLarge,
-          }}
-        />
-        <ScreenEmpty
-          labelPart1={i18next.t("There are no restaurants nearby yet!")}
-          subLabel={i18next.t(
-            "We couldn't find any restaurants in your current location. Explore other areas or widen your search!"
-          )}
-          source={Ilustrations.CharcoPet}
-          ImgWidth={SIZES.width}
-          ImgHeigth={SIZES.height / 2.4}
-          ShowButton={false}
-        />
-      </ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
+        >
+          <View
+            style={{
+              marginTop: SIZES.gapLarge,
+            }}
+          />
+          <ScreenEmpty
+            labelPart1={i18next.t('There are no restaurants nearby yet!')}
+            subLabel={i18next.t(
+              "We couldn't find any restaurants in your current location. Explore other areas or widen your search!",
+            )}
+            source={Ilustrations.CharcoPet}
+            ImgWidth={SIZES.width}
+            ImgHeigth={SIZES.height / 2.4}
+            ShowButton={false}
+          />
+        </ScrollView>
       ) : (
         <FlatList
           data={filteredData}
-          keyExtractor={(item) => item.businessID.toString()}
+          keyExtractor={item => item.businessID.toString()}
           renderItem={renderItem}
           onRefresh={refetchPostData}
           refreshing={isLoading}
@@ -127,7 +125,6 @@ const Main = ({
           maxToRenderPerBatch={3}
         />
       )}
-
     </SearchLayout>
   );
 };

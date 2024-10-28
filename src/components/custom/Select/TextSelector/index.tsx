@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Alert } from 'react-native';
-import { ScrollView , View, TouchableOpacity} from '../../../native';
+import { ScrollView, View, TouchableOpacity } from '../../../native';
 import FlexContainer from '../../FlexContainer';
 import Typography from '../../Typography';
 import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
@@ -10,25 +10,34 @@ type Props = {
   data?: any[];
   value?: any[];
   onChange: (selected: any[]) => void;
-  maxSelections?: number; 
+  maxSelections?: number;
 };
 
-const TextSelector = ({ data, value = [], onChange, maxSelections = 3}: Props) => {
+const TextSelector = ({
+  data,
+  value = [],
+  onChange,
+  maxSelections = 3,
+}: Props) => {
   const { backgroundMaingrey, Title } = useTheme();
 
   const toggleInterest = (interest: any) => {
     if (!Array.isArray(value)) {
-      console.error("`value` prop should be an array.");
+      console.error('`value` prop should be an array.');
       onChange([]);
       return;
     }
 
-   const isSelected = value?.some(item => item.id === interest.id);
+    const isSelected = value?.some(item => item.id === interest.id);
     if (isSelected) {
       onChange(value.filter(item => item.id !== interest.id));
     } else {
-      if (value.length >= maxSelections) { // Uso de maxSelections
-        Alert.alert('Límite de Selección', `Puedes seleccionar hasta ${maxSelections} tipos de negocio.`);
+      if (value.length >= maxSelections) {
+        // Uso de maxSelections
+        Alert.alert(
+          'Límite de Selección',
+          `Puedes seleccionar hasta ${maxSelections} tipos de negocio.`,
+        );
         return;
       }
       onChange([...value, interest]);
@@ -54,7 +63,9 @@ const TextSelector = ({ data, value = [], onChange, maxSelections = 3}: Props) =
                       styles.interestButton,
                       isSelected && styles.selectedInterestButton,
                       {
-                        backgroundColor: isSelected ? COLORS.primary : backgroundMaingrey,
+                        backgroundColor: isSelected
+                          ? COLORS.primary
+                          : backgroundMaingrey,
                         opacity: isDisabled ? 0.5 : 1,
                       },
                     ]}
@@ -93,8 +104,8 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.gapLarge,
   },
   interestsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   interestButton: {
     padding: SIZES.gapLarge,
@@ -102,14 +113,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   selectedInterestButton: {
-    backgroundColor: "orange",
+    backgroundColor: 'orange',
   },
   interestText: {
     ...FONTS.semi12,
   },
   nextButton: {
     padding: SIZES.gapMedium,
-    alignItems: "center",
+    alignItems: 'center',
     margin: SIZES.gapLarge,
   },
   errorText: {

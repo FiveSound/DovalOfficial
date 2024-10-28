@@ -1,7 +1,7 @@
-import React from "react";
-import { useAPI } from "../../../hooks";
-import { getSavedProfileUserService } from "../../../services/accounts";
-import Main from "../../MyProfile/Components/Tabs/Main";
+import React from 'react';
+import { useAPI } from '../../../hooks';
+import { getSavedProfileUserService } from '../../../services/accounts';
+import Main from '../../MyProfile/Components/Tabs/Main';
 
 type Props = {
   username: string;
@@ -9,7 +9,7 @@ type Props = {
 
 const MySaves = (props: Props) => {
   const { data, isLoading, isError, error, refetch } = useAPI({
-    queryKey: ["profile-user-saved", props.username],
+    queryKey: ['profile-user-saved', props.username],
     queryFn: getSavedProfileUserService,
   });
 

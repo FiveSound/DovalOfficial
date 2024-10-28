@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
-import { LocationObjectCoords } from "expo-location";
+import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
+import { LocationObjectCoords } from 'expo-location';
 
 interface ModalState {
   open: boolean;
@@ -37,7 +37,12 @@ interface Tracking {
   riderID: string;
   rider_waiting: boolean;
   status: string;
-  steps: { id: number; message: string; timeEstimated: string; title: string }[];
+  steps: {
+    id: number;
+    message: string;
+    timeEstimated: string;
+    title: string;
+  }[];
   tag: string;
   total: number;
   verification_code: string | null;
@@ -45,7 +50,7 @@ interface Tracking {
 }
 
 const modalSlice = createSlice({
-  name: "modal",
+  name: 'modal',
   initialState,
   reducers: {
     openCommentModal(state, action: PayloadAction<{ postID: number }>) {
@@ -79,7 +84,7 @@ const modalSlice = createSlice({
     openModalAboutAccount(state) {
       state.open = true;
       state.modalType = 7;
-    },    
+    },
     closeModalAboutAccount(state) {
       state.open = false;
       state.modalType = 7;
@@ -113,7 +118,8 @@ const modalSlice = createSlice({
     },
     openUploadModal(state) {
       state.open = true;
-      state.modalType = 5;    },
+      state.modalType = 5;
+    },
     closeUploadModal(state) {
       state.open = false;
       state.modalType = 5;
@@ -123,14 +129,19 @@ const modalSlice = createSlice({
       state.modalType = 6;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(setTargetInputId, (state, action: PayloadAction<string | null>) => {
-      state.targetInputId = action.payload;
-    });
+  extraReducers: builder => {
+    builder.addCase(
+      setTargetInputId,
+      (state, action: PayloadAction<string | null>) => {
+        state.targetInputId = action.payload;
+      },
+    );
   },
 });
 
-export const setTargetInputId = createAction<string | null>("modal/setTargetInputId");
+export const setTargetInputId = createAction<string | null>(
+  'modal/setTargetInputId',
+);
 
 export const {
   openCommentModal,
@@ -149,7 +160,7 @@ export const {
   closeModalMoreOptionsProfile,
   openModalAboutAccount,
   closeModalAboutAccount,
-  closeAddressModal
+  closeAddressModal,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

@@ -6,7 +6,7 @@ export const fetchPersonalizedStatus = createAsyncThunk(
   async () => {
     const response = await getStatusTutorialService();
     return response.data;
-  }
+  },
 );
 
 const personalizedSlice = createSlice({
@@ -17,9 +17,9 @@ const personalizedSlice = createSlice({
     error: null,
   },
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchPersonalizedStatus.pending, (state) => {
+      .addCase(fetchPersonalizedStatus.pending, state => {
         state.isLoading = true;
       })
       .addCase(fetchPersonalizedStatus.fulfilled, (state, action) => {

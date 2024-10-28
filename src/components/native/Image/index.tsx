@@ -1,22 +1,29 @@
-import React, { useState, useRef, useCallback } from 'react'
-import { View, StyleSheet, Animated, Dimensions, TouchableOpacity, useColorScheme } from 'react-native'
-import { Image as RNImage, ImageProps } from 'expo-image'
-import Typography from '../../custom/Typography'
-import { Skeleton } from 'moti/skeleton'
+import React, { useState, useRef, useCallback } from 'react';
+import {
+  View,
+  StyleSheet,
+  Animated,
+  Dimensions,
+  TouchableOpacity,
+  useColorScheme,
+  Text
+} from 'react-native';
+import { Image as RNImage, ImageProps } from 'expo-image';
+import { Skeleton } from 'moti/skeleton';
 
 type Props = ImageProps & {
-  placeholderSource?: string
-  showPlaceholder?: boolean
-  server?: boolean
-  tintColor?: string
-  priority?: 'high' | 'low'
-  cachePolicy?: 'memory-disk' | 'disk' | 'memory'
-  retryLimit?: number
-  retryDelay?: number
-  source?: string
-}
+  placeholderSource?: string;
+  showPlaceholder?: boolean;
+  server?: boolean;
+  tintColor?: string;
+  priority?: 'high' | 'low';
+  cachePolicy?: 'memory-disk' | 'disk' | 'memory';
+  retryLimit?: number;
+  retryDelay?: number;
+  source?: string;
+};
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window')
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const ImageComponent: React.FC<Props> = ({
   source,
@@ -28,41 +35,41 @@ const ImageComponent: React.FC<Props> = ({
   retryDelay = 1000,
   ...props
 }) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
-  const fadeAnim = useRef(new Animated.Value(0)).current
-  
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
   const handleLoad = useCallback(() => {
-    setIsLoading(false)
+    setIsLoading(false);
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 500,
       useNativeDriver: true,
-    }).start()
-  }, [fadeAnim])
+    }).start();
+  }, [fadeAnim]);
 
   const handleError = useCallback(
     (error: any) => {
-      console.error('Error loading image:', error)
+      console.error('Error loading image:', error);
       if (retryCount < retryLimit) {
-        setRetryCount(prev => prev + 1)
+        setRetryCount(prev => prev + 1);
         setTimeout(() => {
-          setRetryCount(prev => prev)
-        }, retryDelay)
+          setRetryCount(prev => prev);
+        }, retryDelay);
       } else {
-        setHasError(true)
-        setIsLoading(false)
+        setHasError(true);
+        setIsLoading(false);
       }
     },
-    [retryCount, retryLimit, retryDelay]
-  )
+    [retryCount, retryLimit, retryDelay],
+  );
 
   const retryLoad = useCallback(() => {
-    setHasError(false)
-    setIsLoading(true)
-    setRetryCount(0)
-  }, [])
+    setHasError(false);
+    setIsLoading(true);
+    setRetryCount(0);
+  }, []);
 
   return (
     <View
@@ -102,7 +109,13 @@ const ImageComponent: React.FC<Props> = ({
           />
         </Animated.View>
       )}
-      {isLoading && !placeholderSource && <Loading isLoading={isLoading} height={SCREEN_WIDTH * 0.75} width={SCREEN_WIDTH} />}
+      {isLoading && !placeholderSource && (
+        <Loading
+          isLoading={isLoading}
+          height={SCREEN_WIDTH * 0.75}
+          width={SCREEN_WIDTH}
+        />
+      )}
       {hasError && placeholderSource && (
         <View style={styles.errorContainer}>
           <RNImage
@@ -111,13 +124,13 @@ const ImageComponent: React.FC<Props> = ({
             style={[StyleSheet.absoluteFill, styles.placeholder]}
           />
           <TouchableOpacity onPress={retryLoad} style={styles.retryButton}>
-           <Typography variant='SubDescription'>Try again</Typography>
+            <Text>Try again</Text>
           </TouchableOpacity>
         </View>
       )}
     </View>
-  )
-}
+  );
+};
 
 interface LoadingProps {
   isLoading: boolean;
@@ -125,17 +138,17 @@ interface LoadingProps {
   width: number;
 }
 export const Loading = ({ isLoading, height, width }: LoadingProps) => {
-  const theme = useColorScheme()
+  const theme = useColorScheme();
   return (
-    <Skeleton 
+    <Skeleton
       show={isLoading}
       height={height}
       width={width}
       transition={{ type: 'spring', duration: 1000 }}
       colorMode={theme === 'light' ? 'light' : 'dark'}
     />
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -176,6 +189,6 @@ const styles = StyleSheet.create({
     height: 24,
     tintColor: '#fff',
   },
-})
+});
 
-export default React.memo(ImageComponent)
+export default React.memo(ImageComponent);

@@ -1,17 +1,17 @@
-import { Text, StyleSheet, Button, View } from "react-native";
-import { memo } from "react";
-import { useNavigation } from "../../../../components/native";
+import { Text, StyleSheet, Button, View } from 'react-native';
+import { memo } from 'react';
+import { useNavigation } from '../../../../components/native';
 import {
   Box,
   FlexContainer,
   Icons,
   LineDivider,
   Typography,
-} from "../../../../components/custom";
-import { SIZES } from "../../../../constants/theme";
-import { useTheme } from "../../../../hooks";
-import { Home01Icon, SafeDelivery01Icon } from "../../../../constants/IconsPro";
-import i18next from "../../../../Translate";
+} from '../../../../components/custom';
+import { SIZES } from '../../../../constants/theme';
+import { useTheme } from '../../../../hooks';
+import { Home01Icon, SafeDelivery01Icon } from '../../../../constants/IconsPro';
+import i18next from '../../../../Translate';
 
 type Props = {
   location: {
@@ -21,7 +21,7 @@ type Props = {
   details: {
     delivery: string;
     duration: string;
-  }
+  };
 };
 
 const AddressList = (props: Props) => {
@@ -29,11 +29,11 @@ const AddressList = (props: Props) => {
   const { border, Title } = useTheme();
   const navigation = useNavigation();
   const handleChange = () => {
-    navigation.navigate("MyLocations");
+    navigation.navigate('MyLocations');
   };
 
   return (
-    <Box title={i18next.t("Deliver to")}>
+    <Box title={i18next.t('Deliver to')}>
       <FlexContainer newStyle={styles.header}>
         {location.details ? (
           <FlexContainer newStyle={styles.container}>
@@ -45,16 +45,16 @@ const AddressList = (props: Props) => {
             >
               {location.details}
             </Typography>
-            <LineDivider/>
-              <Icons
-            styles={styles.icons}
+            <LineDivider />
+            <Icons
+              styles={styles.icons}
               appendIcons={
-                <FlexContainer variant="row"
-                newStyle={styles.containerIcons}>
-                  <SafeDelivery01Icon 
-                  color={Title}
-                  width={SIZES.icons}
-                  height={SIZES.icons}/>
+                <FlexContainer variant="row" newStyle={styles.containerIcons}>
+                  <SafeDelivery01Icon
+                    color={Title}
+                    width={SIZES.icons}
+                    height={SIZES.icons}
+                  />
                   <Typography variant="H4title">{details.duration}</Typography>
                 </FlexContainer>
               }
@@ -62,15 +62,19 @@ const AddressList = (props: Props) => {
           </FlexContainer>
         ) : (
           <FlexContainer>
-            <Typography variant="H4title">{i18next.t("Select address to")}</Typography>
+            <Typography variant="H4title">
+              {i18next.t('Select address to')}
+            </Typography>
           </FlexContainer>
         )}
-               <Icons
+        <Icons
           onPress={handleChange}
           styles={{
             borderRadius: SIZES.radius,
           }}
-          appendIcons={<Typography variant="H4title">{i18next.t("Change")}</Typography>}
+          appendIcons={
+            <Typography variant="H4title">{i18next.t('Change')}</Typography>
+          }
         />
       </FlexContainer>
     </Box>
@@ -79,9 +83,9 @@ const AddressList = (props: Props) => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   text: {
     width: SIZES.width / 1.4,
@@ -90,12 +94,12 @@ const styles = StyleSheet.create({
     gap: SIZES.gapSmall,
   },
   icons: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   containerIcons: {
     alignItems: 'center',
     gap: SIZES.gapLarge,
-  }
+  },
 });
 
 export default memo(AddressList);

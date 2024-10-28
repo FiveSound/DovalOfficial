@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useColorScheme, StyleSheet } from "react-native";
-import { scale } from "react-native-size-matters";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../constants/theme";
-import { Skeleton } from "moti/skeleton";
-import { useTheme } from "../../../hooks";
-import FlexContainer from "../FlexContainer";
-import { PlusSignIcon } from "../../../constants/IconsPro";
-import Typography from "../Typography";
-import { TouchableOpacity, Image } from "../../native";
-import IsLoading from "../Loaders/IsLoading";
+import React, { useEffect, useState } from 'react';
+import { useColorScheme, StyleSheet } from 'react-native';
+import { scale } from 'react-native-size-matters';
+import {
+  COLORS,
+  FONTS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../constants/theme';
+import { Skeleton } from 'moti/skeleton';
+import { useTheme } from '../../../hooks';
+import FlexContainer from '../FlexContainer';
+import { PlusSignIcon } from '../../../constants/IconsPro';
+import Typography from '../Typography';
+import { TouchableOpacity, Image } from '../../native';
+import IsLoading from '../Loaders/IsLoading';
 
 type AvatarSize =
-  | "extraSmall"
-  | "small"
-  | "medium"
-  | "large"
-  | "extraLarge"
-  | "xLarge"
-  | "ModeIcon"
-  | "xxLarge"
-  | "xxLargeProFile"
-  | "xxxLarge";
+  | 'extraSmall'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'extraLarge'
+  | 'xLarge'
+  | 'ModeIcon'
+  | 'xxLarge'
+  | 'xxLargeProFile'
+  | 'xxxLarge';
 
 interface Props {
   source: string;
@@ -55,7 +60,7 @@ const ImgSkeleton = ({ size }: { size: AvatarSize }) => {
       width={sizeScaled}
       height={sizeScaled}
       radius={sizeScaled}
-      colorMode={theme === "light" ? "light" : "dark"}
+      colorMode={theme === 'light' ? 'light' : 'dark'}
     />
   );
 };
@@ -111,9 +116,7 @@ const Avatars = React.memo((props: Props) => {
             contentFit="cover"
             priority="high"
             cachePolicy="memory-disk"
-            onError={(error) =>
-              console.log("Error al cargar la imagen:", error)
-            }
+            onError={error => console.log('Error al cargar la imagen:', error)}
             style={[
               styles.image,
               {
@@ -124,10 +127,15 @@ const Avatars = React.memo((props: Props) => {
             ]}
           />
         </TouchableOpacity>
-        {showLabel && <Typography 
-        variant="H4title" 
-        numberOfLines={2}
-        newStyle={styles.label}>{label}</Typography>}
+        {showLabel && (
+          <Typography
+            variant="H4title"
+            numberOfLines={2}
+            newStyle={styles.label}
+          >
+            {label}
+          </Typography>
+        )}
       </FlexContainer>
       {Upload && (
         <TouchableOpacity
@@ -161,7 +169,7 @@ const styles = StyleSheet.create({
     // Common image styles
   },
   uploadButton: {
-    position: "absolute",
+    position: 'absolute',
     padding: SIZES.radius2 / 2,
     borderRadius: SIZES.radiusExtra,
     right: responsiveFontSize(174),
@@ -176,12 +184,12 @@ const styles = StyleSheet.create({
   containerLabel: {
     alignItems: 'center',
     gap: SIZES.gapMedium,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   label: {
-   width: SIZES.width / 5,
-   ...FONTS.text14
-  }
+    width: SIZES.width / 5,
+    ...FONTS.text14,
+  },
 });
 
 export default Avatars;

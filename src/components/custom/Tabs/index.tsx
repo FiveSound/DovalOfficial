@@ -1,9 +1,18 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { StyleSheet, ScrollView, Dimensions, Animated, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  Animated,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
 import { TouchableOpacity } from '../../native';
 import FlexContainer from '../FlexContainer';
 import Typography from '../Typography';
 import styles from './styles';
+import { COLORS, SIZES } from '../../../constants/theme';
+import { useTheme } from '../../../hooks';
 
 type Tab = {
   key: string;
@@ -13,9 +22,11 @@ type Tab = {
 
 type Props = {
   tabs: Tab[];
+  isBorder?: boolean;
 };
 
-const Tabs: React.FC<Props> = ({ tabs }) => {
+const Tabs: React.FC<Props> = ({ tabs, isBorder = false  }) => {
+  const { borderInput } = useTheme();
   const [activeTab, setActiveTab] = useState(tabs[0].key);
   const screenWidth = Dimensions.get('window').width;
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -26,16 +37,21 @@ const Tabs: React.FC<Props> = ({ tabs }) => {
     outputRange: [0, tabWidth * (tabs.length - 1)],
   });
 
-  const handleMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  const handleMomentumScrollEnd = (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+  ) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
     setActiveTab(tabs[index].key);
   };
 
-  const handleTabPress = useCallback((key: string, index: number) => {
-    if (activeTab !== key) {
-      setActiveTab(key);
-    }
-  }, [activeTab]);
+  const handleTabPress = useCallback(
+    (key: string, index: number) => {
+      if (activeTab !== key) {
+        setActiveTab(key);
+      }
+    },
+    [activeTab],
+  );
 
   useEffect(() => {
     const index = tabs.findIndex(tab => tab.key === activeTab);
@@ -44,18 +60,21 @@ const Tabs: React.FC<Props> = ({ tabs }) => {
 
   return (
     <FlexContainer newStyle={styles.container}>
-      <FlexContainer newStyle={styles.tabHeaders}>
+      <FlexContainer newStyle={[styles.tabHeaders, {
+        borderBottomWidth: isBorder ? SIZES.borderWidth : 0,
+        borderColor: isBorder ? borderInput : 'transparent',
+      }]}>
         {tabs.map((tab, index) => (
           <TouchableOpacity
             key={tab.key}
             style={styles.tabHeader}
             onPress={() => handleTabPress(tab.key, index)}
           >
-            <Typography 
-              variant='H4title'
+            <Typography
+              variant="H4title"
               newStyle={StyleSheet.flatten([
                 styles.tabTitle,
-                activeTab === tab.key && styles.activeTabTitle 
+                activeTab === tab.key && styles.activeTabTitle,
               ])}
             >
               {tab.title}
@@ -75,14 +94,14 @@ const Tabs: React.FC<Props> = ({ tabs }) => {
         pagingEnabled
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true }
+          { useNativeDriver: true },
         )}
         onMomentumScrollEnd={handleMomentumScrollEnd}
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
         style={styles.tabContent}
       >
-        {tabs.map((tab) => (
+        {tabs.map(tab => (
           <FlexContainer key={tab.key} newStyle={{ width: screenWidth }}>
             {tab.content}
           </FlexContainer>

@@ -1,10 +1,14 @@
-import React, { useCallback, useRef, useState } from "react";
-import { StyleSheet, ViewToken, FlatList, Animated } from "react-native";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import { FlexContainer, Dots, Buttons, ButtonAcces, Typography, Icons } from "../..";
-import { TouchableOpacity, useNavigation, View } from "../../../native";
-import { useTheme } from "../../../../hooks";
-import i18next from "../../../../Translate";
+import React, { useCallback, useRef, useState } from 'react';
+import { StyleSheet, ViewToken, FlatList, Animated } from 'react-native';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import { useTheme } from '../../../../hooks';
+import i18next from '../../../../Translate';
+import useNavigation from '../../../native/useNavigation';
+import View from '../../../native/View';
+import FlexContainer from '../../FlexContainer';
+import Dots from '../../Dots';
+import Icons from '../../Icons';
+import Typography from '../../Typography';
 
 type Order = {
   currentStep: number;
@@ -41,7 +45,7 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
           setActiveOrder(visibleItem.item);
         }
       }
-    }
+    },
   ).current;
 
   const viewabilityConfig = {
@@ -52,35 +56,35 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
     ({ item, index }: { item: Order; index: number }) => {
       return RenderItem(item, index);
     },
-    [RenderItem]
+    [RenderItem],
   );
 
   if (row && row.length > 0) {
     return (
       <View style={styles.main}>
         <FlexContainer newStyle={styles.container} variant="row">
-         <Dots
+          <Dots
             totalSteps={row.length}
             currentStep={currentVisibleIndex}
             activeColor={COLORS.primary}
             inactiveColor={border}
           />
-          <Icons 
-          appendIcons={
-              <Typography variant='H4title' newStyle={styles.text}>
+          <Icons
+            appendIcons={
+              <Typography variant="H4title" newStyle={styles.text}>
                 {i18next.t('View order')}
               </Typography>
-          }
-          onPress={() => {
-            if (activeOrder) {
-              navigation.navigate("OrderStack", {
-                screen: "Tracking",
-                params: {
-                  orderID: activeOrder.orderID
-                },
-              });
             }
-          }}
+            onPress={() => {
+              if (activeOrder) {
+                navigation.navigate('OrderStack', {
+                  screen: 'Tracking',
+                  params: {
+                    orderID: activeOrder.orderID,
+                  },
+                });
+              }
+            }}
           />
         </FlexContainer>
         <Animated.FlatList
@@ -90,7 +94,7 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
           snapToAlignment="center"
           decelerationRate="fast"
           renderItem={renderItem}
-          keyExtractor={(item) => item.orderID.toString()}
+          keyExtractor={item => item.orderID.toString()}
           horizontal
           initialNumToRender={1}
           maxToRenderPerBatch={1}
@@ -99,10 +103,9 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
           viewabilityConfig={viewabilityConfig}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: true }
+            { useNativeDriver: true },
           )}
         />
-        
       </View>
     );
   }
@@ -112,20 +115,20 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
 
 const styles = StyleSheet.create({
   main: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
-    alignItems: "center",
-    width: "100%",
+    alignItems: 'center',
+    width: '100%',
     paddingHorizontal: SIZES.padding,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   text: {
-    justifyContent: "flex-end",
-    width: "100%",
-    textAlign: "right",
-  }
+    justifyContent: 'flex-end',
+    width: '100%',
+    textAlign: 'right',
+  },
 });
 
 export default React.memo(Carrousel);

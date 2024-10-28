@@ -1,32 +1,33 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   Container,
   FlexContainer,
   Search,
   TwoIconsLabel,
-} from "../../../../components/custom";
-import {
-  FlatList,
-  Modal,
-} from "../../../../components/native";
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import { useAPI, useTheme } from "../../../../hooks";
-import { Country } from "../../../../constants";
-import RenderItem from "./RenderItem";
-import i18next from "../../../../Translate";
+} from '../../../../components/custom';
+import { FlatList, Modal } from '../../../../components/native';
+import { StyleSheet } from 'react-native';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import { useAPI, useTheme } from '../../../../hooks';
+import { Country } from '../../../../constants';
+import RenderItem from './RenderItem';
+import i18next from '../../../../Translate';
 
 type Props = {
   visible: boolean;
   onRequestClose: () => void;
-  onSelectItem: (item: { countryName: string; CodePostal: number , codigoISO: string}) => void; 
+  onSelectItem: (item: {
+    countryName: string;
+    CodePostal: number;
+    codigoISO: string;
+  }) => void;
 };
 
 const ListNumber = (props: Props) => {
   const { visible, onRequestClose, onSelectItem } = props;
   const [focus, setFocus] = useState(false);
   const { backgroundMaingrey, borderInput } = useTheme();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState(Country.slice(0, 18));
   const [page, setPage] = useState(1);
 
@@ -34,9 +35,10 @@ const ListNumber = (props: Props) => {
     setSearchQuery(query);
   };
 
-  const filteredCountries = Country.filter(country =>
-    country.countryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    country.CodePostal.toString().includes(searchQuery)
+  const filteredCountries = Country.filter(
+    country =>
+      country.countryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      country.CodePostal.toString().includes(searchQuery),
   );
 
   const loadMoreData = () => {
@@ -46,15 +48,19 @@ const ListNumber = (props: Props) => {
     setPage(newPage);
   };
 
-  const renderItem = useCallback(({ item }) => {
-    return <RenderItem item={item} onSelectItem={onSelectItem} />;
-  }, [onSelectItem]);
+  const renderItem = useCallback(
+    ({ item }) => {
+      return <RenderItem item={item} onSelectItem={onSelectItem} />;
+    },
+    [onSelectItem],
+  );
 
   return (
     <Modal
       animationType="slide"
       visible={visible}
-      onRequestClose={onRequestClose}>
+      onRequestClose={onRequestClose}
+    >
       <Container useSafeArea={true} style={styles.container}>
         <TwoIconsLabel
           label={i18next.t('Select your country')}
@@ -88,7 +94,7 @@ const ListNumber = (props: Props) => {
             horizontal={false}
             removeClippedSubviews={true}
             contentContainerStyle={{
-              paddingBottom: SIZES.height / 3
+              paddingBottom: SIZES.height / 3,
             }}
           />
         </FlexContainer>
@@ -100,11 +106,11 @@ const ListNumber = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   containerList: {
     width: SIZES.width,
-    paddingHorizontal: SIZES.gapLarge
-  }
+    paddingHorizontal: SIZES.gapLarge,
+  },
 });
 export default ListNumber;

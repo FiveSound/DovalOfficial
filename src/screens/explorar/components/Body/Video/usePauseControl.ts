@@ -4,7 +4,7 @@ const usePauseControl = (initialState = false) => {
   const [isPaused, setIsPaused] = useState(initialState);
 
   const togglePause = useCallback(() => {
-    setIsPaused((prev) => {
+    setIsPaused(prev => {
       const newState = !prev;
       return newState;
     });

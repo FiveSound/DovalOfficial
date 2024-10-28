@@ -1,4 +1,9 @@
-export type OrderStatusType = "PENDING" | "IN_PROGRESS" | "DELIVERED" | "COMPLETED" | "CANCELED";
+export type OrderStatusType =
+  | 'PENDING'
+  | 'IN_PROGRESS'
+  | 'DELIVERED'
+  | 'COMPLETED'
+  | 'CANCELED';
 
 export type RestauranteOrderType = {
   orderID: number;

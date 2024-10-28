@@ -1,11 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import DarkMode from "../../../hooks/DarkMode";
-import useTheme from "../../../hooks/useTheme";
-import { Animated, StyleSheet, TouchableOpacity } from "react-native";
-import { FavouriteIcon, FavouriteIconStroke, Location09Icon, Share08Icon, ShoppingBag01IconStroke, StarIcon, Store01Icon } from "../../../constants/IconsPro";
-import { FlexContainer, Icons, Typography } from "../../../components/custom";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../constants/theme";
-import i18next from "../../../Translate";
+import React, { useEffect, useRef, useState } from 'react';
+import DarkMode from '../../../hooks/DarkMode';
+import useTheme from '../../../hooks/useTheme';
+import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  FavouriteIcon,
+  FavouriteIconStroke,
+  Location09Icon,
+  Share08Icon,
+  ShoppingBag01IconStroke,
+  StarIcon,
+  Store01Icon,
+} from '../../../constants/IconsPro';
+import { FlexContainer, Icons, Typography } from '../../../components/custom';
+import {
+  COLORS,
+  FONTS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../constants/theme';
+import i18next from '../../../Translate';
 
 type Propsdata = {
   business_name: string;
@@ -15,15 +28,12 @@ type Propsdata = {
 };
 
 type Props = {
-  data: Propsdata
-}
+  data: Propsdata;
+};
 
-
-const ProfileBusiness = ({
-  data
-}: Props) => {
+const ProfileBusiness = ({ data }: Props) => {
   const { backgroundMaingrey, Description } = useTheme();
-  const { business_name, bio , details, open } = data
+  const { business_name, bio, details, open } = data;
 
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
@@ -40,40 +50,63 @@ const ProfileBusiness = ({
           duration: 1000,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     ).start();
   }, [pulseAnim]);
-  
+
   return (
     <FlexContainer newStyle={styles.flexContainer}>
       <FlexContainer newStyle={styles.innerFlexContainer}>
         <FlexContainer>
-          <Typography newStyle={styles.businessName} variant="H4title" numberOfLines={2}>
+          <Typography
+            newStyle={styles.businessName}
+            variant="H4title"
+            numberOfLines={2}
+          >
             {business_name}
           </Typography>
-          <Typography newStyle={styles.address} variant='SubDescription' numberOfLines={2}>
+          <Typography
+            newStyle={styles.address}
+            variant="SubDescription"
+            numberOfLines={2}
+          >
             {bio}
           </Typography>
-          <FlexContainer newStyle={styles.locationContainer} variant='row'>
-            <Location09Icon width={SIZES.icons} height={SIZES.icons} color={Description} />
-            <Typography newStyle={styles.address} variant='SubDescription' numberOfLines={1}>
+          <FlexContainer newStyle={styles.locationContainer} variant="row">
+            <Location09Icon
+              width={SIZES.icons}
+              height={SIZES.icons}
+              color={Description}
+            />
+            <Typography
+              newStyle={styles.address}
+              variant="SubDescription"
+              numberOfLines={1}
+            >
               {details}
             </Typography>
           </FlexContainer>
-
         </FlexContainer>
-        <FlexContainer newStyle={[styles.containerButtons, {
-          backgroundColor: backgroundMaingrey
-        }]} variant='row'>
-        <Animated.View
-          style={[
-            styles.pulsingCircle,
-            open ? styles.pulsingCircleGreen : styles.pulsingCircleRed,
-            { transform: [{ scale: pulseAnim }] },
+        <FlexContainer
+          newStyle={[
+            styles.containerButtons,
+            {
+              backgroundColor: backgroundMaingrey,
+            },
           ]}
-        />
-        <Typography variant='H4title'>{open ? i18next.t('Open') : i18next.t('Closed')}</Typography>
-      </FlexContainer>
+          variant="row"
+        >
+          <Animated.View
+            style={[
+              styles.pulsingCircle,
+              open ? styles.pulsingCircleGreen : styles.pulsingCircleRed,
+              { transform: [{ scale: pulseAnim }] },
+            ]}
+          />
+          <Typography variant="H4title">
+            {open ? i18next.t('Open') : i18next.t('Closed')}
+          </Typography>
+        </FlexContainer>
       </FlexContainer>
     </FlexContainer>
   );
@@ -113,7 +146,7 @@ const styles = StyleSheet.create({
   address: {
     maxWidth: SIZES.width / 1.8,
     alignItems: 'flex-start',
-    ...FONTS.semi14
+    ...FONTS.semi14,
   },
   ratingContainer: {
     alignItems: 'center',

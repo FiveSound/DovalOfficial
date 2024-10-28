@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { StyleSheet, Animated, Easing, useColorScheme } from "react-native";
-import FlexContainer from "../../FlexContainer";
-import Typography from "../../Typography";
-import { useTheme } from "../../../../hooks";
-import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
-import i18next from "../../../../Translate";
-import { CheckmarkCircle02Icon } from "../../../../constants/IconsPro";
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, Animated, Easing, useColorScheme } from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import Typography from '../../Typography';
+import { useTheme } from '../../../../hooks';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
+import i18next from '../../../../Translate';
+import { CheckmarkCircle02Icon } from '../../../../constants/IconsPro';
 
 interface Step {
   id: number;
@@ -23,7 +23,14 @@ interface OrderProgressProps {
   status?: string;
 }
 
-const OrderProgress: React.FC<OrderProgressProps> = ({ steps, currentStep, showHero = true, messageOptional, rider_waiting, status }) => {
+const OrderProgress: React.FC<OrderProgressProps> = ({
+  steps,
+  currentStep,
+  showHero = true,
+  messageOptional,
+  rider_waiting,
+  status,
+}) => {
   const progressAnim = useRef(new Animated.Value(0)).current;
   const { backgroundMaingrey, backSuccess, Description } = useTheme();
   const theme = useColorScheme();
@@ -36,24 +43,24 @@ const OrderProgress: React.FC<OrderProgressProps> = ({ steps, currentStep, showH
         Animated.sequence([
           Animated.timing(progressAnim, {
             toValue: 1,
-            duration: 2000, 
-            easing: Easing.inOut(Easing.quad), 
+            duration: 2000,
+            easing: Easing.inOut(Easing.quad),
             useNativeDriver: false,
           }),
           Animated.timing(progressAnim, {
             toValue: 0,
-            duration: 1500, 
+            duration: 1500,
             easing: Easing.inOut(Easing.quad),
             useNativeDriver: false,
           }),
-        ])
+        ]),
       ).start();
     }
   }, [currentStep, progressAnim, steps.length]);
 
   const progressWidth = progressAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0%", "100%"],
+    outputRange: ['0%', '100%'],
   });
 
   if (!activeStep) {
@@ -63,42 +70,60 @@ const OrderProgress: React.FC<OrderProgressProps> = ({ steps, currentStep, showH
   return (
     <FlexContainer newStyle={styles.container}>
       {/* Mostrar solo el paso activo */}
-       {
-        status === 'COMPLETED' ? <FlexContainer key={activeStep.id} newStyle={[styles.activeStepContainer, {
-          backgroundColor: backSuccess,
-          borderColor: theme === 'dark' ? COLORS.success : COLORS.success
-        }]}>
-          <CheckmarkCircle02Icon 
-          color={COLORS.success}
-          width={SIZES.icons * 3}
-          height={SIZES.icons * 3}
+      {status === 'COMPLETED' ? (
+        <FlexContainer
+          key={activeStep.id}
+          newStyle={[
+            styles.activeStepContainer,
+            {
+              backgroundColor: backSuccess,
+              borderColor: theme === 'dark' ? COLORS.success : COLORS.success,
+            },
+          ]}
+        >
+          <CheckmarkCircle02Icon
+            color={COLORS.success}
+            width={SIZES.icons * 3}
+            height={SIZES.icons * 3}
           />
-        </FlexContainer> :
-      
-          showHero && <FlexContainer key={activeStep.id} newStyle={[styles.activeStepContainer, {
-            backgroundColor: backSuccess,
-            borderColor: theme === 'dark' ? COLORS.success : COLORS.success
-          }]}>
-            <Typography variant='subtitle' newStyle={styles.title}>
-             {
-              rider_waiting ? messageOptional :  activeStep.title
-             } 
+        </FlexContainer>
+      ) : (
+        showHero && (
+          <FlexContainer
+            key={activeStep.id}
+            newStyle={[
+              styles.activeStepContainer,
+              {
+                backgroundColor: backSuccess,
+                borderColor: theme === 'dark' ? COLORS.success : COLORS.success,
+              },
+            ]}
+          >
+            <Typography variant="subtitle" newStyle={styles.title}>
+              {rider_waiting ? messageOptional : activeStep.title}
             </Typography>
-            <Typography variant='title' newStyle={styles.description}>
+            <Typography variant="title" newStyle={styles.description}>
               {activeStep.timeEstimated}
             </Typography>
           </FlexContainer>
-         }
-         {
-          !showHero && <FlexContainer key={activeStep.id} newStyle={[styles.activeStepContainer, {
-            backgroundColor: backSuccess,
-            borderColor: theme === 'dark' ? COLORS.success : COLORS.success
-          }]}>
-            <Typography variant='title' newStyle={styles.descriptionNoHero}>
+        )
+      )}
+      {!showHero && (
+        <FlexContainer
+          key={activeStep.id}
+          newStyle={[
+            styles.activeStepContainer,
+            {
+              backgroundColor: backSuccess,
+              borderColor: theme === 'dark' ? COLORS.success : COLORS.success,
+            },
+          ]}
+        >
+          <Typography variant="title" newStyle={styles.descriptionNoHero}>
             {activeStep.title} || {activeStep.timeEstimated}
-            </Typography>
-          </FlexContainer>
-         }
+          </Typography>
+        </FlexContainer>
+      )}
 
       {/* Barra de progreso animada */}
       <FlexContainer newStyle={styles.progressBarContainer}>
@@ -112,20 +137,23 @@ const OrderProgress: React.FC<OrderProgressProps> = ({ steps, currentStep, showH
               },
             ]}
           >
-                 <Animated.View
+            <Animated.View
               style={[
                 styles.progressBar,
                 {
                   width:
                     index === 0
-                      ? "100%"
+                      ? '100%'
                       : currentStep > index
-                      ? "100%"
-                      : currentStep === index
-                      ? "100%"
-                      : currentStep + 1 === index && currentStep < steps.length - 1
-                      ? status === 'COMPLETED' ? '100%' : progressWidth
-                      : "0%",
+                        ? '100%'
+                        : currentStep === index
+                          ? '100%'
+                          : currentStep + 1 === index &&
+                              currentStep < steps.length - 1
+                            ? status === 'COMPLETED'
+                              ? '100%'
+                              : progressWidth
+                            : '0%',
                 },
               ]}
             />
@@ -134,10 +162,18 @@ const OrderProgress: React.FC<OrderProgressProps> = ({ steps, currentStep, showH
       </FlexContainer>
 
       {/* Mensaje de llegada más reciente */}
-      <Typography variant='SubDescription' newStyle={[styles.latestArrival, {
-        color: status === 'COMPLETED' ? COLORS.success : Description
-      }]}>
-        { status === 'COMPLETED' ? i18next.t("Gracias por su order, ha sido completada") : activeStep.message}
+      <Typography
+        variant="SubDescription"
+        newStyle={[
+          styles.latestArrival,
+          {
+            color: status === 'COMPLETED' ? COLORS.success : Description,
+          },
+        ]}
+      >
+        {status === 'COMPLETED'
+          ? i18next.t('Gracias por su order, ha sido completada')
+          : activeStep.message}
       </Typography>
     </FlexContainer>
   );
@@ -149,53 +185,53 @@ const styles = StyleSheet.create({
     width: SIZES.width,
     gap: SIZES.gapMedium,
     backgroundColor: 'transparent',
-    alignItems: "center",
+    alignItems: 'center',
   },
   activeStepContainer: {
     borderWidth: SIZES.borderWidth,
     padding: SIZES.gapLarge,
-    width: "90%",
-    alignItems: "center",
+    width: '90%',
+    alignItems: 'center',
     borderRadius: SIZES.radius,
   },
   activeStepContainerNoHero: {
     padding: SIZES.gapSmall,
-    width: "90%",
-    alignItems: "center",
+    width: '90%',
+    alignItems: 'center',
   },
   title: {
     ...FONTS.text16,
     marginBottom: SIZES.gapSmall,
-    textAlign: "center",
+    textAlign: 'center',
   },
   description: {
     ...FONTS.heading24,
-    textAlign: "center",
+    textAlign: 'center',
   },
   descriptionNoHero: {
     ...FONTS.semi18,
-    textAlign: "center",
+    textAlign: 'center',
   },
   progressBarContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     height: SIZES.radius * 1.4,
     marginVertical: SIZES.radius,
-    width: "90%",
+    width: '90%',
   },
   progressSegment: {
     flex: 1,
     marginHorizontal: SIZES.radius / 2,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   progressBar: {
-    height: "100%",
+    height: '100%',
     backgroundColor: COLORS.success,
   },
   latestArrival: {
     ...FONTS.text14,
-    textAlign: "center",
-    width: "90%",
+    textAlign: 'center',
+    width: '90%',
   },
 });
 

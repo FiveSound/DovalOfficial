@@ -3,7 +3,6 @@ import { Video as TypeVideo } from 'expo-av';
 import { useSelector } from 'react-redux';
 
 const useVideoControl = (uri: string, isItemFocused: boolean) => {
-  
   const videoRef = useRef<TypeVideo>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 

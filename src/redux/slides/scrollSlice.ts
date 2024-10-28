@@ -12,10 +12,10 @@ const scrollSlice = createSlice({
   name: 'scroll',
   initialState,
   reducers: {
-    enableScroll: (state) => {
+    enableScroll: state => {
       state.isScrollEnabled = true;
     },
-    disableScroll: (state) => {
+    disableScroll: state => {
       state.isScrollEnabled = false;
     },
   },

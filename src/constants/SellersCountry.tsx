@@ -12,7 +12,11 @@ const getCountryBounds = (countryKey: string): CountryBounds | undefined => {
   return country ? country.bounds : undefined;
 };
 
-const isLocationInCountry = (latitude: number, longitude: number, countryKey: string): boolean => {
+const isLocationInCountry = (
+  latitude: number,
+  longitude: number,
+  countryKey: string,
+): boolean => {
   const bounds = getCountryBounds(countryKey);
   if (!bounds) return false;
 
@@ -24,6 +28,4 @@ const isLocationInCountry = (latitude: number, longitude: number, countryKey: st
   );
 };
 
-export {
-  isLocationInCountry
-};
+export { isLocationInCountry };

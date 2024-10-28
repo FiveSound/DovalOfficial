@@ -1,26 +1,26 @@
-import React from "react";
-import { FlexContainer, Icons, Typography } from "../../../components/custom";
-import styles from "./styles";
+import React from 'react';
+import { FlexContainer, Icons, Typography } from '../../../components/custom';
+import styles from './styles';
 import {
   CommentAdd02Icon,
   HelpSquareIcon,
   SecurityBlockIcon,
   VideoOffIcon,
-} from "../../../constants/IconsPro";
-import { COLORS, FONTS, SIZES } from "../../../constants/theme";
-import { useTheme } from "../../../hooks";
+} from '../../../constants/IconsPro';
+import { COLORS, FONTS, SIZES } from '../../../constants/theme';
+import { useTheme } from '../../../hooks';
 import {
   ScrollView,
   TouchableOpacity,
   useNavigation,
-} from "../../../components/native";
-import * as Haptics from "expo-haptics";
-import { useDispatch, useSelector } from "react-redux";
-import { closeMoreOptions } from "../../../redux/slides/modalSlice";
-import { RootState } from "../../../redux/store";
-import { blockPostService } from "../../../services/shares";
-import { Alert } from "react-native";
-import { useAuth } from "../../../context/AuthContext";
+} from '../../../components/native';
+import * as Haptics from 'expo-haptics';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeMoreOptions } from '../../../redux/slides/modalSlice';
+import { RootState } from '../../../redux/store';
+import { blockPostService } from '../../../services/shares';
+import { Alert } from 'react-native';
+import { useAuth } from '../../../context/AuthContext';
 
 type Props = {};
 
@@ -31,50 +31,50 @@ const Options = (props: Props) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const postID = useSelector((state: RootState) => state.modal.data?.postID);
-  console.log("Ahora si crack se llama post ID", postID);
+  console.log('Ahora si crack se llama post ID', postID);
 
   const handleReport = async () => {
-    console.log("handleReport called");
+    console.log('handleReport called');
     dispatch(closeMoreOptions());
     setTimeout(() => {
-       if(postID) {
-        navigation.navigate("Report", { postID: postID });
-       }
-      console.log("Navigated to Report");
+      if (postID) {
+        navigation.navigate('Report', { postID: postID });
+      }
+      console.log('Navigated to Report');
     }, 500);
   };
 
   const handleBlock = () => {
-    console.log("handleBlock called");
+    console.log('handleBlock called');
     const BlockUser = async () => {
       try {
         await blockPostService(postID);
-        Alert.alert("Success", "User has been blocked successfully.");
-        console.log("User blocked successfully");
+        Alert.alert('Success', 'User has been blocked successfully.');
+        console.log('User blocked successfully');
         dispatch(closeMoreOptions());
       } catch (error) {
-        console.error("Error blocking user:", error);
+        console.error('Error blocking user:', error);
         Alert.alert(
-          "Error",
-          "There was an error blocking the user. Please try again."
+          'Error',
+          'There was an error blocking the user. Please try again.',
         );
       }
     };
 
     Alert.alert(
-      "Are you sure you want to block this user?",
-      "Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content.",
+      'Are you sure you want to block this user?',
+      'Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content.',
       [
         {
-          text: "Cancel",
+          text: 'Cancel',
           onPress: () => {
-            console.log("Cancel Pressed", postID);
+            console.log('Cancel Pressed', postID);
           },
-          style: "cancel",
+          style: 'cancel',
         },
-        { text: "Block", onPress: BlockUser },
+        { text: 'Block', onPress: BlockUser },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   };
 
@@ -85,22 +85,23 @@ const Options = (props: Props) => {
         contentContainerStyle={styles.containerOptionsIcons}
         horizontal={true}
       >
-        {isAuthenticated &&
-        <IconsOptions
-        onPress={handleReport}
-        label="Report"
-        icon={
-          <VideoOffIcon
-            color={COLORS.error}
-            width={SIZES.icons * 1.2}
-            height={SIZES.icons * 1.2}
+        {isAuthenticated && (
+          <IconsOptions
+            onPress={handleReport}
+            label="Report"
+            icon={
+              <VideoOffIcon
+                color={COLORS.error}
+                width={SIZES.icons * 1.2}
+                height={SIZES.icons * 1.2}
+              />
+            }
+            error={true}
+            style={{
+              backgroundColor: 'red',
+            }}
           />
-        }
-        error={true}
-        style={{
-          backgroundColor: "red",
-        }}
-      />}
+        )}
         {isAuthenticated && (
           <IconsOptions
             onPress={handleBlock}

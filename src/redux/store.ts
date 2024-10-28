@@ -5,8 +5,8 @@ import reactionsReducer from './slides/reactionsSlice';
 import commentsReducer from './slides/commentsSlice';
 import selectionReducer from './slides/selectionSlice';
 import searchReducer from './slides/searchSlice';
-import signupFormReducer from "./slides/SignForm";
-import personalizedReducer from "./slides/personalizedSlice";
+import signupFormReducer from './slides/SignForm';
+import personalizedReducer from './slides/personalizedSlice';
 import locationReducer from './slides/locationSlice';
 import navigationReducer from './slides/navigations';
 import scrollReducer from './slides/scrollSlice';
@@ -28,10 +28,10 @@ const store = configureStore({
     upload: uploadReducer,
     app: appReducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: false, 
-    })
+      serializableCheck: false,
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

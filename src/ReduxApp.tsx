@@ -9,4 +9,4 @@ const ReduxApp: React.FC = () => (
   </ReduxProvider>
 );
 
-export default ReduxApp
+export default ReduxApp;

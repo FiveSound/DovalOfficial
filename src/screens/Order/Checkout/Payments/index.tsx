@@ -1,12 +1,29 @@
-import { StyleSheet } from "react-native";
-import { useNavigation, Text, ScrollView, View, Image } from "../../../../components/native";
-import { useAPI, useTheme } from "../../../../hooks";
-import { deletePaymentDetailsService, getPaymentDetailsService, setPreferredPaymentService } from "../../../../services/payments";
-import { Buttons, Container, FlexContainer, LoadingScreen, MiniCard, Typography } from "../../../../components/custom";
-import { iconsNative, Ilustrations } from "../../../../constants";
-import { FONTS, SIZES } from "../../../../constants/theme";
-import i18next from "../../../../Translate";
-import SlideCard from "../../../../components/custom/Cards/PaymentCard";
+import { StyleSheet } from 'react-native';
+import {
+  useNavigation,
+  Text,
+  ScrollView,
+  View,
+  Image,
+} from '../../../../components/native';
+import { useAPI, useTheme } from '../../../../hooks';
+import {
+  deletePaymentDetailsService,
+  getPaymentDetailsService,
+  setPreferredPaymentService,
+} from '../../../../services/payments';
+import {
+  Buttons,
+  Container,
+  FlexContainer,
+  LoadingScreen,
+  MiniCard,
+  Typography,
+} from '../../../../components/custom';
+import { iconsNative, Ilustrations } from '../../../../constants';
+import { FONTS, SIZES } from '../../../../constants/theme';
+import i18next from '../../../../Translate';
+import SlideCard from '../../../../components/custom/Cards/PaymentCard';
 
 type Props = {
   route: any;
@@ -17,13 +34,13 @@ const Payments = ({ route }: Props) => {
   const navigation = useNavigation();
 
   const { data, isError, isLoading, isFetching, isRefetching } = useAPI({
-    queryKey: ["screen-details-payments", paymentIntent],
+    queryKey: ['screen-details-payments', paymentIntent],
     queryFn: getPaymentDetailsService,
   });
 
   const onDelete = async (id: string) => {
     await deletePaymentDetailsService(id);
-    navigation.navigate("Checkout", {
+    navigation.navigate('Checkout', {
       locationID: null,
       paymentIntent: null,
     });
@@ -32,21 +49,20 @@ const Payments = ({ route }: Props) => {
   const onSelected = async (id: string) => {
     console.log('id', id);
     await setPreferredPaymentService(id, null);
-    navigation.navigate("Checkout", {
+    navigation.navigate('Checkout', {
       locationID: null,
       paymentIntent: id,
     });
   };
 
   const handleAdd = () => {
-    navigation.navigate('AddCard')
-  }
+    navigation.navigate('AddCard');
+  };
 
   if (isLoading || isFetching || isRefetching) return <LoadingScreen />;
 
   if (data) {
     const { list, selected, resume } = data;
-
 
     return (
       <Container
@@ -58,29 +74,29 @@ const Payments = ({ route }: Props) => {
         labels={i18next.t('Add card')}
       >
         <FlexContainer newStyle={styles.container}>
-          {list?.length === 0 && <>
-            <Image source={Ilustrations.CharcoPet}
-              style={styles.image} />
-            <FlexContainer newStyle={styles.header}>
-              <Typography
-                variant='title'
-                newStyle={styles.title}>{i18next.t('My payment methods')}</Typography>
-
-              {list?.length === 0 && (
-                <Typography
-                  variant='SubDescription'
-                  newStyle={styles.subtitle}>
-                  {i18next.t('Add a payment method and order without worries')}
+          {list?.length === 0 && (
+            <>
+              <Image source={Ilustrations.CharcoPet} style={styles.image} />
+              <FlexContainer newStyle={styles.header}>
+                <Typography variant="title" newStyle={styles.title}>
+                  {i18next.t('My payment methods')}
                 </Typography>
-              )}
-            </FlexContainer>
-          </>}
 
-          <SlideCard
-            row={resume}
-            onSelected={onSelected}
-          />
+                {list?.length === 0 && (
+                  <Typography
+                    variant="SubDescription"
+                    newStyle={styles.subtitle}
+                  >
+                    {i18next.t(
+                      'Add a payment method and order without worries',
+                    )}
+                  </Typography>
+                )}
+              </FlexContainer>
+            </>
+          )}
 
+          <SlideCard row={resume} onSelected={onSelected} />
         </FlexContainer>
       </Container>
     );
@@ -89,12 +105,12 @@ const Payments = ({ route }: Props) => {
 
 const styles = StyleSheet.create({
   header: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   container: {
     flex: 1,
     padding: SIZES.gapLarge,
-    alignItems: "center",
+    alignItems: 'center',
   },
   subcontainer: {
     marginVertical: SIZES.gapMedium,
@@ -102,16 +118,16 @@ const styles = StyleSheet.create({
   image: {
     marginBottom: SIZES.gapMedium,
     width: SIZES.width / 1.4,
-    height: SIZES.height / 3
+    height: SIZES.height / 3,
   },
   title: {
     marginBottom: SIZES.gapMedium,
-    ...FONTS.heading32
+    ...FONTS.heading32,
   },
   subtitle: {
     marginBottom: SIZES.gapMedium,
     ...FONTS.text16,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 });
 

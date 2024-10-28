@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Container,
   Buttons,
@@ -8,25 +8,32 @@ import {
   Checkbox,
   Hero,
   FlexContainer,
-  LoadingScreen
-} from "../../../../components/custom";
-import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
-import i18next from "../../../../Translate";
-import { signInEmailAndPasswordService, signInEmailService } from "../../../../services/auth";
-import { TouchableOpacity, useNavigation, View } from "../../../../components/native";
-import { validateEmail } from "../../../../utils/Utils";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { signInSuccess } from "../../../../redux/slides/authSlice";
-import { useAppDispatch } from "../../../../redux";
+  LoadingScreen,
+} from '../../../../components/custom';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
+import i18next from '../../../../Translate';
+import {
+  signInEmailAndPasswordService,
+  signInEmailService,
+} from '../../../../services/auth';
+import {
+  TouchableOpacity,
+  useNavigation,
+  View,
+} from '../../../../components/native';
+import { validateEmail } from '../../../../utils/Utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInSuccess } from '../../../../redux/slides/authSlice';
+import { useAppDispatch } from '../../../../redux';
 
 const SignUpEmail = () => {
   const [state, setState] = useState({
     loading: false,
     error: false,
     success: false,
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     disable: true,
     provided: 0,
     exist: false,
@@ -54,7 +61,7 @@ const SignUpEmail = () => {
     setState(prevState => ({ ...prevState, loading: true }));
     try {
       const response = await signInEmailService(state.email);
-      console.log("signInEmailService response:", response);
+      console.log('signInEmailService response:', response);
       setState(prevState => ({
         ...prevState,
         loading: false,
@@ -73,7 +80,7 @@ const SignUpEmail = () => {
         }, 1000);
       }
     } catch (error) {
-      console.error("signInEmailService error:", error);
+      console.error('signInEmailService error:', error);
       setState(prevState => ({ ...prevState, loading: false, error: true }));
       setTimeout(() => {
         setState(prevState => ({ ...prevState, success: false }));
@@ -84,8 +91,11 @@ const SignUpEmail = () => {
   const handleLogin = async () => {
     setState(prevState => ({ ...prevState, loading: true }));
     try {
-      const response = await signInEmailAndPasswordService(state.email, state.password);
-      console.log("signInEmailAndPasswordService response:", response);
+      const response = await signInEmailAndPasswordService(
+        state.email,
+        state.password,
+      );
+      console.log('signInEmailAndPasswordService response:', response);
       await AsyncStorage.setItem('userToken', response.token);
       dispatch(signInSuccess(response.userDetails));
       setState(prevState => ({ ...prevState, screenLoading: true }));
@@ -103,7 +113,7 @@ const SignUpEmail = () => {
         }, 2000);
       }
     } catch (error) {
-      console.error("signInEmailAndPasswordService error:", error);
+      console.error('signInEmailAndPasswordService error:', error);
       setState(prevState => ({ ...prevState, loading: false, error: true }));
       setTimeout(() => {
         setState(prevState => ({ ...prevState, success: false }));
@@ -120,37 +130,59 @@ const SignUpEmail = () => {
       <View style={styles.gap} />
       {state.exist && (
         <Hero
-          label={i18next.t("Welcome to Doval")}
-          sublabel={i18next.t("Discover a world of culinary creativity, where you can explore, share, and enjoy recipes from around the globe. Let's get cooking!")}
+          label={i18next.t('Welcome to Doval')}
+          sublabel={i18next.t(
+            "Discover a world of culinary creativity, where you can explore, share, and enjoy recipes from around the globe. Let's get cooking!",
+          )}
         />
       )}
       <InputLabel
-        placeholder={i18next.t("Add your email")}
-        label={i18next.t("Add your email")}
+        placeholder={i18next.t('Add your email')}
+        label={i18next.t('Add your email')}
         value={state.email}
         onChangeText={handleEmailChange}
       />
       {state.exist && (
         <InputLabel
-          placeholder={i18next.t("Add your password")}
-          label={i18next.t("Add your password")}
+          placeholder={i18next.t('Add your password')}
+          label={i18next.t('Add your password')}
           secureTextEntry={!state.showPassword}
           value={state.password}
-          onChangeText={(value) => setState(prevState => ({ ...prevState, password: value }))}
+          onChangeText={value =>
+            setState(prevState => ({ ...prevState, password: value }))
+          }
           endComponent={
-            <TouchableOpacity onPress={() => setState(prevState => ({ ...prevState, showPassword: !prevState.showPassword }))}>
-              <Typography variant='H4title'>{state.showPassword ? i18next.t("Hide") : i18next.t("Show")}</Typography>
+            <TouchableOpacity
+              onPress={() =>
+                setState(prevState => ({
+                  ...prevState,
+                  showPassword: !prevState.showPassword,
+                }))
+              }
+            >
+              <Typography variant="H4title">
+                {state.showPassword ? i18next.t('Hide') : i18next.t('Show')}
+              </Typography>
             </TouchableOpacity>
           }
         />
       )}
       <FlexContainer newStyle={styles.flexContainer}>
-        {state.error && <Perks label={i18next.t("Enter a valid email address")} status='error' />}
-        {state.success && <Perks label={i18next.t("Code sent correctly")} status='success' />}
+        {state.error && (
+          <Perks
+            label={i18next.t('Enter a valid email address')}
+            status="error"
+          />
+        )}
+        {state.success && (
+          <Perks label={i18next.t('Code sent correctly')} status="success" />
+        )}
       </FlexContainer>
       {!state.exist && (
         <Checkbox
-          label={i18next.t("By providing your email, you authorize Doval to utilize this information to optimize your user experience through tailored recommendations and relevant updates.")}
+          label={i18next.t(
+            'By providing your email, you authorize Doval to utilize this information to optimize your user experience through tailored recommendations and relevant updates.',
+          )}
           showLabel={true}
           checked={state.provided === 1}
           onChange={handleCheckboxChange}
@@ -158,7 +190,7 @@ const SignUpEmail = () => {
       )}
       {!state.exist && (
         <Buttons
-          label={state.loading ? i18next.t("") : i18next.t("Next")}
+          label={state.loading ? i18next.t('') : i18next.t('Next')}
           loading={state.loading}
           disabled={state.disable}
           onPress={handleSendCode}
@@ -166,7 +198,7 @@ const SignUpEmail = () => {
       )}
       {state.exist && (
         <Buttons
-          label={state.loading ? i18next.t("") : i18next.t("Sign in")}
+          label={state.loading ? i18next.t('') : i18next.t('Sign in')}
           loading={state.loading}
           disabled={state.disable}
           onPress={handleLogin}
@@ -182,7 +214,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    textAlign: "center",
+    textAlign: 'center',
     ...FONTS.text12,
   },
   gap: {

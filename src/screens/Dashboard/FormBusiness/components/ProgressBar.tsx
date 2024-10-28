@@ -4,13 +4,13 @@ import { COLORS, responsiveFontSize } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 
 interface ProgressBarProps {
-  progress: number; 
+  progress: number;
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   const totalSections = 6;
   const filledSections = Math.floor(progress / (100 / totalSections));
-  const { backgroundMaingrey, backSuccess } = useTheme()
+  const { backgroundMaingrey, backSuccess } = useTheme();
   return (
     <View testID="progress-bar" style={styles.container}>
       {Array.from({ length: totalSections }).map((_, index) => (
@@ -19,7 +19,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
           style={[
             [styles.section, { backgroundColor: backgroundMaingrey }],
             filledSections > index && styles.filledSection,
-           
           ]}
         />
       ))}
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     margin: responsiveFontSize(2),
   },
   filledSection: {
-    backgroundColor: COLORS.success, 
+    backgroundColor: COLORS.success,
   },
 });
 

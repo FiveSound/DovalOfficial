@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL } from "../index";
+import axios from 'axios';
+import { API_URL } from '../index';
 
 interface feedBackFieldsInterface {
   name: string;

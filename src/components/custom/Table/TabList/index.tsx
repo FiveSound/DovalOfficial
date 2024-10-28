@@ -1,10 +1,17 @@
-import { memo, useCallback, useRef } from "react";
-import { FlatList, Pressable, Text, StyleSheet, View, ActivityIndicator } from "react-native";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import Typography from "../../Typography";
-import FlexContainer from "../../FlexContainer";
-import { IsLoading, LoadingScreen } from "../../Loaders";
-import { Platform } from "../../../native";
+import { memo, useCallback, useRef } from 'react';
+import {
+  FlatList,
+  Pressable,
+  Text,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+} from 'react-native';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import Typography from '../../Typography';
+import FlexContainer from '../../FlexContainer';
+import { IsLoading, LoadingScreen } from '../../Loaders';
+import { Platform } from '../../../native';
 
 type Item = {
   title: string;
@@ -37,11 +44,11 @@ const TabList = ({ isLoading, list, status, onChange }: Props) => {
           }}
           disabled={isSelected}
         >
-          <Typography variant='H4title'>{item.title}</Typography>
+          <Typography variant="H4title">{item.title}</Typography>
         </Pressable>
       );
     },
-    [status, onChange]
+    [status, onChange],
   );
 
   if (isLoading) return <IsLoading />;
@@ -52,7 +59,7 @@ const TabList = ({ isLoading, list, status, onChange }: Props) => {
         ref={flatListRef}
         data={list}
         renderItem={renderItem}
-        keyExtractor={(item) => item.title}
+        keyExtractor={item => item.title}
         horizontal
         showsHorizontalScrollIndicator={true}
       />
@@ -64,7 +71,8 @@ export default memo(TabList);
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: Platform.OS === 'android' ? SIZES.gapLarge : SIZES.gapLarge,
+    paddingHorizontal:
+      Platform.OS === 'android' ? SIZES.gapLarge : SIZES.gapLarge,
   },
   tabItem: {
     paddingVertical: SIZES.gapMedium,

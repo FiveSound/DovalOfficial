@@ -1,36 +1,51 @@
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import i18next from "../../../../Translate";
-import { StyleSheet } from "react-native";
-import FlexContainer from "../../FlexContainer";
-import Typography from "../../Typography";
-import { IsLoading } from "../../Loaders";
-import { AddRemove } from "../../business/CartItems/ToggleAdd";
-import React from "react";
-import Buttons from "../../Buttons/Buttons";
+import {
+  COLORS,
+  FONTS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../../constants/theme';
+import i18next from '../../../../Translate';
+import { StyleSheet } from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import Typography from '../../Typography';
+import { IsLoading } from '../../Loaders';
+import { AddRemove } from '../../business/CartItems/ToggleAdd';
+import React from 'react';
+import Buttons from '../../Buttons/Buttons';
 
 export const FooterCart = (props: any) => {
-const { TotalPrice, FooterPress, labelAdd, loading = false, qty, add, remove, disabledCart, showAdd = true } = props;
+  const {
+    TotalPrice,
+    FooterPress,
+    labelAdd,
+    loading = false,
+    qty,
+    add,
+    remove,
+    disabledCart,
+    showAdd = true,
+  } = props;
 
   return (
     <FlexContainer newStyle={styles.containerMain}>
-     <FlexContainer variant="row" newStyle={styles.container}>
-      <Typography variant='title'>{i18next.t("Your Product")}</Typography>
-      {
-        qty == 0 ? <IsLoading /> : <Typography variant='title'>{TotalPrice}</Typography>
-      }
-     </FlexContainer>
+      <FlexContainer variant="row" newStyle={styles.container}>
+        <Typography variant="title">{i18next.t('Your Product')}</Typography>
+        {qty == 0 ? (
+          <IsLoading />
+        ) : (
+          <Typography variant="title">{TotalPrice}</Typography>
+        )}
+      </FlexContainer>
 
-     {/* Buttons */}
+      {/* Buttons */}
       <FlexContainer newStyle={styles.container}>
         <FlexContainer newStyle={styles.innerContainer}>
           <FlexContainer variant="row" newStyle={styles.rowContainer}>
-            {showAdd && <FlexContainer>
-              <AddRemove 
-              add={add}
-              remove={remove}
-              qty={qty}
-              />
-            </FlexContainer>}
+            {showAdd && (
+              <FlexContainer>
+                <AddRemove add={add} remove={remove} qty={qty} />
+              </FlexContainer>
+            )}
             <Buttons
               label={labelAdd}
               onPress={FooterPress}
@@ -38,7 +53,7 @@ const { TotalPrice, FooterPress, labelAdd, loading = false, qty, add, remove, di
               containerButtons={styles.button}
               disabled={disabledCart}
             />
-         </FlexContainer>
+          </FlexContainer>
         </FlexContainer>
       </FlexContainer>
     </FlexContainer>
@@ -57,9 +72,9 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     borderRadius: SIZES.radius,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: SIZES.gapLarge,
     paddingVertical: SIZES.gapLarge / 2,
     width: '100%',
@@ -68,21 +83,21 @@ const styles = StyleSheet.create({
     color: COLORS.dark,
   },
   rowContainer: {
-    alignItems: "center",
-    backgroundColor: "transparent",
+    alignItems: 'center',
+    backgroundColor: 'transparent',
     gap: SIZES.gapMedium,
-    justifyContent: "space-between",
-    width: "100%"
+    justifyContent: 'space-between',
+    width: '100%',
   },
   totalText: {
     color: COLORS.dark,
-    ...FONTS.semi16
+    ...FONTS.semi16,
   },
   button: {
-   flex: 1,
-   borderRadius: 0
+    flex: 1,
+    borderRadius: 0,
   },
   buttonText: {
-    color: COLORS.TitleColor
+    color: COLORS.TitleColor,
   },
 });

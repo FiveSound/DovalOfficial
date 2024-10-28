@@ -1,16 +1,19 @@
-import React, { useState, useCallback, memo } from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-import { ArrowDown01Icon, CancelCircleIcon } from "../../../../constants/IconsPro";
-import FlexContainer from "../../FlexContainer";
+import React, { useState, useCallback, memo } from 'react';
+import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  ArrowDown01Icon,
+  CancelCircleIcon,
+} from '../../../../constants/IconsPro';
+import FlexContainer from '../../FlexContainer';
 import {
   COLORS,
   FONTS,
   responsiveFontSize,
   SIZES,
-} from "../../../../constants/theme";
-import LineDivider from "../../LineDivider";
-import { useTheme } from "../../../../hooks";
-import Typography from "../../Typography";
+} from '../../../../constants/theme';
+import LineDivider from '../../LineDivider';
+import { useTheme } from '../../../../hooks';
+import Typography from '../../Typography';
 
 type Props = {
   countryCode: string;
@@ -27,7 +30,7 @@ const InputPhone = ({
   phoneNumber,
   onPhoneNumberChange,
   codigoISO,
-  onPress
+  onPress,
 }: Props) => {
   const { Title, Description } = useTheme();
 
@@ -38,15 +41,18 @@ const InputPhone = ({
   return (
     <>
       <FlexContainer newStyle={styles.container}>
-        <TouchableOpacity 
-          onPress={handlePress}
-          style={styles.countryCodeInput}>
+        <TouchableOpacity onPress={handlePress} style={styles.countryCodeInput}>
           <Typography
             variant="subtitle"
-            newStyle={StyleSheet.flatten([styles.label, { color: Title }])}>
+            newStyle={StyleSheet.flatten([styles.label, { color: Title }])}
+          >
             {codigoISO} {countryCode}
           </Typography>
-          <ArrowDown01Icon width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} color={Title} />
+          <ArrowDown01Icon
+            width={SIZES.icons / 1.2}
+            height={SIZES.icons / 1.2}
+            color={Title}
+          />
         </TouchableOpacity>
         <TextInput
           style={[
@@ -62,7 +68,7 @@ const InputPhone = ({
           placeholderTextColor={Description}
         />
         {phoneNumber.length > 0 && (
-          <TouchableOpacity onPress={() => onPhoneNumberChange("")}>
+          <TouchableOpacity onPress={() => onPhoneNumberChange('')}>
             <CancelCircleIcon
               width={SIZES.icons}
               height={SIZES.icons}
@@ -78,20 +84,20 @@ const InputPhone = ({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: SIZES.gapMedium,
     height: SIZES.BtnHeight,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   countryCodeInput: {
     width: responsiveFontSize(90),
     paddingHorizontal: SIZES.gapSmall,
     borderRightWidth: SIZES.borderWidth,
     borderRightColor: COLORS.Description,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: 'row'
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   phoneNumberInput: {
     flex: 1,

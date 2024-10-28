@@ -1,17 +1,17 @@
-import React, { memo, useState, useCallback, useRef, useEffect } from "react";
-import { Animated, Easing, View } from "react-native";
-import { useTheme } from "../../../../hooks";
-import FlexContainer from "../../FlexContainer";
-import Avatars from "../../Avatars";
-import Typography from "../../Typography";
-import {  ArrowUp } from "../../../../constants/IconsPro";
-import {  SIZES } from "../../../../constants/theme";
-import LineDivider from "../../LineDivider";
-import CartItem from "../CartItems";
-import styles from "./styles";
-import { CLOUDFRONT } from "../../../../services";
-import i18next from "../../../../Translate";
-import { Pressable } from "../../../native";
+import React, { memo, useState, useCallback, useRef, useEffect } from 'react';
+import { Animated, Easing, View } from 'react-native';
+import { useTheme } from '../../../../hooks';
+import FlexContainer from '../../FlexContainer';
+import Avatars from '../../Avatars';
+import Typography from '../../Typography';
+import { ArrowUp } from '../../../../constants/IconsPro';
+import { SIZES } from '../../../../constants/theme';
+import LineDivider from '../../LineDivider';
+import CartItem from '../CartItems';
+import styles from './styles';
+import { CLOUDFRONT } from '../../../../services';
+import i18next from '../../../../Translate';
+import { Pressable } from '../../../native';
 
 type CartItemType = {
   cartItemID: number;
@@ -24,7 +24,7 @@ type CartItemType = {
   businessID: number;
   business_name: string;
   cover: string;
-  variants: number[]
+  variants: number[];
 };
 
 type Props = {
@@ -36,7 +36,6 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const { Title } = useTheme();
   const business = row[0];
-
 
   // Animaciones
   const animation = useRef(new Animated.Value(isOpen ? 1 : 0)).current;
@@ -53,7 +52,7 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
   }, [isOpen, animation]);
 
   const toggleAccordion = useCallback(() => {
-    setIsOpen((prev) => !prev);
+    setIsOpen(prev => !prev);
   }, []);
 
   const animatedHeight = animation.interpolate({
@@ -63,7 +62,7 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
 
   const animatedRotate = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0deg", "180deg"],
+    outputRange: ['0deg', '180deg'],
   });
 
   return (
@@ -71,23 +70,20 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
       <Pressable
         onPress={toggleAccordion}
         style={styles.header}
-        accessibilityLabel={isOpen ? "Cerrar detalles del negocio" : "Abrir detalles del negocio"}
+        accessibilityLabel={
+          isOpen ? 'Cerrar detalles del negocio' : 'Abrir detalles del negocio'
+        }
         accessibilityRole="button"
       >
         <View style={styles.subheader}>
-          <Avatars
-            source={`${CLOUDFRONT}${business.cover}`}
-            size="medium"
-          />
+          <Avatars source={`${CLOUDFRONT}${business.cover}`} size="medium" />
           <FlexContainer>
-            <Typography
-              variant="subtitle"
-              newStyle={styles.business}
-            >
+            <Typography variant="subtitle" newStyle={styles.business}>
               {business.business_name}
             </Typography>
             <Typography variant="SubDescription">
-              {row.length} {row.length > 1 ? i18next.t("Products") : i18next.t("Product")}
+              {row.length}{' '}
+              {row.length > 1 ? i18next.t('Products') : i18next.t('Product')}
             </Typography>
           </FlexContainer>
         </View>
@@ -103,7 +99,7 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
       <LineDivider
         lineStyle={{
           marginBottom: SIZES.gapSmall,
-          height: SIZES.gapSmall
+          height: SIZES.gapSmall,
         }}
       />
 
@@ -111,15 +107,15 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
       {!isMeasured && (
         <View
           style={styles.hiddenContainer}
-          onLayout={(event) => {
+          onLayout={event => {
             const height = event.nativeEvent.layout.height;
             setContentHeight(height);
             setIsMeasured(true);
           }}
         >
           <View style={styles.dropdown}>
-          {row.map((item) => (
-              <CartItem key={item.cartItemID} row={item} refetch={refetch}/>
+            {row.map(item => (
+              <CartItem key={item.cartItemID} row={item} refetch={refetch} />
             ))}
           </View>
         </View>
@@ -127,10 +123,15 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
 
       {/* Contenido Animado */}
       {isMeasured && (
-        <Animated.View style={[styles.dropdown, { height: animatedHeight, overflow: 'hidden' }]}>
+        <Animated.View
+          style={[
+            styles.dropdown,
+            { height: animatedHeight, overflow: 'hidden' },
+          ]}
+        >
           <Animated.View style={{ opacity: animation }}>
-            {row.map((item) => (
-              <CartItem key={item.cartItemID} row={item} refetch={refetch}/>
+            {row.map(item => (
+              <CartItem key={item.cartItemID} row={item} refetch={refetch} />
             ))}
           </Animated.View>
         </Animated.View>

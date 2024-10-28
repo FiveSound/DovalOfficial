@@ -1,18 +1,18 @@
-import React, { memo, useState } from "react";
-import { ScrollView, TouchableOpacity, View, StyleSheet } from "react-native";
+import React, { memo, useState } from 'react';
+import { ScrollView, TouchableOpacity, View, StyleSheet } from 'react-native';
 import {
   FlexContainer,
   LineDivider,
   Typography,
-} from "../../../../components/custom";
+} from '../../../../components/custom';
 import {
   COLORS,
   FONTS,
   responsiveFontSize,
   SIZES,
-} from "../../../../constants/theme";
-import { LinearGradient } from "expo-linear-gradient";
-import styles from "./styles";
+} from '../../../../constants/theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import styles from './styles';
 
 type Props = {
   item: {
@@ -29,39 +29,44 @@ const InfoDescriptions = memo(({ item }: Props) => {
       newStyle={{
         ...styles.flexContainer,
         width: descriptionOpen ? SIZES.width : SIZES.width / 1.4,
-        height: descriptionOpen ? SIZES.height / 3 : "auto",
-      }}>
+        height: descriptionOpen ? SIZES.height / 3 : 'auto',
+      }}
+    >
       {descriptionOpen && (
         <LinearGradient
-          colors={["transparent", "rgba(0,0,0,1.9)"]}
+          colors={['transparent', 'rgba(0,0,0,1.9)']}
           style={styles.linearGradient}
         />
       )}
       <View style={styles.view}>
         <TouchableOpacity
           onPress={() => setDescriptionOpen(!descriptionOpen)}
-          style={styles.touchableOpacity}>
-          {item.name !== "" && (
+          style={styles.touchableOpacity}
+        >
+          {item.name !== '' && (
             <Typography
               variant="H4title"
               numberOfLines={descriptionOpen ? undefined : 1}
-              newStyle={styles.titlePost}>
-              {item.name || ""}
+              newStyle={styles.titlePost}
+            >
+              {item.name || ''}
             </Typography>
           )}
           {descriptionOpen && <LineDivider />}
         </TouchableOpacity>
-        {item.description !== "" && (
+        {item.description !== '' && (
           <ScrollView
             style={{
-              maxHeight: descriptionOpen ? SIZES.height / 2 : "auto",
+              maxHeight: descriptionOpen ? SIZES.height / 2 : 'auto',
             }}
             showsVerticalScrollIndicator={true}
             contentContainerStyle={{
               paddingBottom: descriptionOpen ? SIZES.height / 4 : 0,
-            }}>
+            }}
+          >
             <TouchableOpacity
-              onPress={() => setDescriptionOpen(!descriptionOpen)}>
+              onPress={() => setDescriptionOpen(!descriptionOpen)}
+            >
               <Typography
                 variant="SubDescription"
                 numberOfLines={descriptionOpen ? undefined : 2}
@@ -69,7 +74,8 @@ const InfoDescriptions = memo(({ item }: Props) => {
                   ...styles.descriptionPost,
                   color: descriptionOpen ? COLORS.light : COLORS.TranspLight,
                 }}
-                ellipsizeMode="tail">
+                ellipsizeMode="tail"
+              >
                 {item.description || ''}
               </Typography>
             </TouchableOpacity>

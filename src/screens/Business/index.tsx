@@ -11,49 +11,55 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
 type RouteParams = {
-    id: string;
-}
+  id: string;
+};
 
 const Business: React.FC = () => {
-    const route = useRoute();
-    const params = route.params as RouteParams;
-    const businessID = params.id
-    const { location } = useSelector((state: RootState) => state.location)
-    const { data, isLoading, refetch } = useAPI({
-        queryKey: ["business-details-businessID", businessID],
-        queryFn: () => getDetailsBusinessIDService(location, businessID),
-    });
-    const { isRefreshing, onRefresh } = useRefreshData([refetch])
+  const route = useRoute();
+  const params = route.params as RouteParams;
+  const businessID = params.id;
+  const { location } = useSelector((state: RootState) => state.location);
+  const { data, isLoading, refetch } = useAPI({
+    queryKey: ['business-details-businessID', businessID],
+    queryFn: () => getDetailsBusinessIDService(location, businessID),
+  });
+  const { isRefreshing, onRefresh } = useRefreshData([refetch]);
 
-    const tabs = [
-        { key: 'Menu1', title: i18next.t('Menu'), content: <GetMenuBusiness businessID={businessID} /> },
-        { key: 'Overview3', title: i18next.t('Overview'), content: <Overview data={data} /> },
-    ];
+  const tabs = [
+    {
+      key: 'Menu1',
+      title: i18next.t('Menu'),
+      content: <GetMenuBusiness businessID={businessID} />,
+    },
+    {
+      key: 'Overview3',
+      title: i18next.t('Overview'),
+      content: <Overview data={data} />,
+    },
+  ];
 
-    if (isLoading) {
-        return <LoadingScreen label={i18next.t('Loading')} />
-    }
+  if (isLoading) {
+    return <LoadingScreen label={i18next.t('Loading')} />;
+  }
 
-
-    if (data) {
-        const { banner, avatar, business_name } = data
-        return (
-            <Container
-                label={business_name}
-                useSafeArea={true}
-                showBack={true}
-                showHeader={true}
-                style={{paddingHorizontal: 0}}
-            >  
-                <ScrollView>
-                <BannerBusiness banner={banner} avatar={avatar} />
-                 <ProfileBusiness data={data} />
-                <Tabs tabs={tabs} />
-                </ScrollView>
-            </Container>
-        )
-    }
-
-}
+  if (data) {
+    const { banner, avatar, business_name } = data;
+    return (
+      <Container
+        label={business_name}
+        useSafeArea={true}
+        showBack={true}
+        showHeader={true}
+        style={{ paddingHorizontal: 0 }}
+      >
+        <ScrollView>
+          <BannerBusiness banner={banner} avatar={avatar} />
+          <ProfileBusiness data={data} />
+          <Tabs tabs={tabs} />
+        </ScrollView>
+      </Container>
+    );
+  }
+};
 
 export default Business;

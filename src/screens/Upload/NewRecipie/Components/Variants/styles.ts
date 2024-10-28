@@ -1,6 +1,5 @@
-import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../../../../constants/theme";
-
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS, SIZES } from '../../../../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,7 +8,7 @@ export const styles = StyleSheet.create({
   },
   variant: {
     marginVertical: SIZES.gapLarge,
-    width: "100%",
+    width: '100%',
     paddingHorizontal: SIZES.gapLarge,
     paddingVertical: SIZES.gapLarge,
     borderRadius: SIZES.radius,
@@ -17,61 +16,61 @@ export const styles = StyleSheet.create({
   },
   variantHeader: {
     marginBottom: SIZES.gapSmall,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: 'transparent',
     alignItems: 'center',
     width: SIZES.BtnWidth,
-    gap: SIZES.gapMedium
+    gap: SIZES.gapMedium,
   },
   variantSubVariant: {
     marginBottom: SIZES.gapSmall,
     padding: SIZES.gapSmall,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: 'transparent',
   },
   variantButton: {
     paddingHorizontal: 4,
     paddingVertical: 10,
-    alignItems: "center",
-    backgroundColor: "#C8C8C8",
+    alignItems: 'center',
+    backgroundColor: '#C8C8C8',
   },
   variantButtonText: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   switch: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: SIZES.gapSmall,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   texteDelete: {
-    color: COLORS.error
+    color: COLORS.error,
   },
   inputVariant: {
-...FONTS.heading18,
-  width: SIZES.BtnWidth / 1.7,
-  color: COLORS.dark
+    ...FONTS.heading18,
+    width: SIZES.BtnWidth / 1.7,
+    color: COLORS.dark,
   },
   variantSubVariantPrice: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: SIZES.gapSmall,
-    alignItems: "center",
+    alignItems: 'center',
     backgroundColor: 'transparent',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   variantSubVariantName: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: SIZES.gapMedium,
-    alignItems: "center",
-    backgroundColor: 'transparent'
+    alignItems: 'center',
+    backgroundColor: 'transparent',
   },
   inputVariantInput: {
-    ...FONTS.text14
+    ...FONTS.text14,
   },
   lineDivider: {
     width: SIZES.width,
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 });

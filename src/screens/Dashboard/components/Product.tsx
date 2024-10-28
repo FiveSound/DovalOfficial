@@ -1,6 +1,6 @@
-import { memo } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { CLOUDFRONT } from "../../../services";
+import { memo } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { CLOUDFRONT } from '../../../services';
 
 type Props = {
   title: string;
@@ -13,12 +13,17 @@ const Product = memo((props: Props) => {
   return (
     <View>
       <View style={styles.body}>
-        <Image style={styles.cover} source={{ uri: `${CLOUDFRONT}${props.cover}` }} />
+        <Image
+          style={styles.cover}
+          source={{ uri: `${CLOUDFRONT}${props.cover}` }}
+        />
         <View style={styles.variants}>
           <Text style={styles.title}>{props.title}</Text>
           <Text>{props.variants}</Text>
         </View>
-        <Text style={[styles.title, { color: "#FF5500" }]}>Cant. {props.quantity}</Text>
+        <Text style={[styles.title, { color: '#FF5500' }]}>
+          Cant. {props.quantity}
+        </Text>
       </View>
       <View style={styles.separator}></View>
     </View>
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   body: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 20,
   },
   variants: {
@@ -41,14 +46,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   separator: {
     marginTop: 10,
     marginBottom: 10,
-    width: "100%",
+    width: '100%',
     height: 1,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: '#E0E0E0',
   },
 });
 

@@ -1,25 +1,25 @@
-import React, { memo, useEffect, useRef } from "react";
-import { Alert, StyleSheet, Animated, Easing } from "react-native";
-import { useTheme } from "../../../../hooks";
-import { FONTS, SIZES } from "../../../../constants/theme";
+import React, { memo, useEffect, useRef } from 'react';
+import { Alert, StyleSheet, Animated, Easing } from 'react-native';
+import { useTheme } from '../../../../hooks';
+import { FONTS, SIZES } from '../../../../constants/theme';
 import {
   GridViewIcon,
   Location09Icon,
   SafeDelivery01Icon,
   Store01IconStroke,
-} from "../../../../constants/IconsPro";
+} from '../../../../constants/IconsPro';
 import {
   Avatars,
   FlexContainer,
   InfoCard,
-} from "../../../../components/custom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
-import { ScrollView } from "../../../../components/native";
-import i18next from "../../../../Translate";
-import { useQuery } from "@tanstack/react-query";
-import { getRiderDetailsService } from "../../../../services/orders";
-import { CLOUDFRONT } from "../../../../services";
+} from '../../../../components/custom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
+import { ScrollView } from '../../../../components/native';
+import i18next from '../../../../Translate';
+import { useQuery } from '@tanstack/react-query';
+import { getRiderDetailsService } from '../../../../services/orders';
+import { CLOUDFRONT } from '../../../../services';
 
 type Props = {};
 const TrackingInf = (props: Props) => {
@@ -27,7 +27,7 @@ const TrackingInf = (props: Props) => {
   const { data } = useSelector((state: RootState) => state.modal);
   const riderID = data?.riderID;
   const { data: row, isLoading } = useQuery({
-    queryKey: ["get-rider-details-production", riderID],
+    queryKey: ['get-rider-details-production', riderID],
     queryFn: getRiderDetailsService,
     enabled: riderID ? true : false,
   });
@@ -51,14 +51,14 @@ const TrackingInf = (props: Props) => {
       business_name,
       products_length,
       total,
-      verification_code
+      verification_code,
     } = data;
 
     if (verification_code !== null) {
       Alert.alert(
-        i18next.t("Confirm order PIN"),
+        i18next.t('Confirm order PIN'),
         i18next.t(`Confirm order PIN: ${verification_code}`),
-        [{ text: "OK" }]
+        [{ text: 'OK' }],
       );
     }
 
@@ -69,9 +69,17 @@ const TrackingInf = (props: Props) => {
         <ScrollView>
           <>
             {verification_code !== null && (
-              <Animated.View style={{ transform: [{ translateY: translateYAnim }] }}>
+              <Animated.View
+                style={{ transform: [{ translateY: translateYAnim }] }}
+              >
                 <InfoCard
-                  icon={<GridViewIcon color={Title} width={SIZES.icons * 1.2} height={SIZES.icons * 1.2}/>}
+                  icon={
+                    <GridViewIcon
+                      color={Title}
+                      width={SIZES.icons * 1.2}
+                      height={SIZES.icons * 1.2}
+                    />
+                  }
                   title={i18next.t('Confirm order PIN')}
                   description={i18next.t('Confirm your order to avoid fraud')}
                   showArrow={true}
@@ -81,18 +89,30 @@ const TrackingInf = (props: Props) => {
             )}
 
             {riderID !== null && !isLoading && (
-              <Animated.View style={{ transform: [{ translateY: translateYAnim }] }}>
+              <Animated.View
+                style={{ transform: [{ translateY: translateYAnim }] }}
+              >
                 <InfoCard
-                  icon={<Avatars size="medium" source={`${CLOUDFRONT}${row.avatar}`}/>}
+                  icon={
+                    <Avatars
+                      size="medium"
+                      source={`${CLOUDFRONT}${row.avatar}`}
+                    />
+                  }
                   title={row.fullname || ''}
-                  description={`${i18next.t("149 Orders")} || Vehicle: ${row.vehicle}` || ""}
+                  description={
+                    `${i18next.t('149 Orders')} || Vehicle: ${row.vehicle}` ||
+                    ''
+                  }
                   showArrow={true}
                   showLineDivider={true}
                 />
               </Animated.View>
             )}
 
-            <Animated.View style={{ transform: [{ translateY: translateYAnim }] }}>
+            <Animated.View
+              style={{ transform: [{ translateY: translateYAnim }] }}
+            >
               <InfoCard
                 icon={
                   <Location09Icon
@@ -102,13 +122,15 @@ const TrackingInf = (props: Props) => {
                   />
                 }
                 title={i18next.t('You receive it in')}
-                description={locationDetails || ""}
+                description={locationDetails || ''}
                 showArrow={true}
                 showLineDivider={true}
               />
             </Animated.View>
 
-            <Animated.View style={{ transform: [{ translateY: translateYAnim }] }}>
+            <Animated.View
+              style={{ transform: [{ translateY: translateYAnim }] }}
+            >
               <InfoCard
                 icon={
                   <Store01IconStroke
@@ -118,13 +140,18 @@ const TrackingInf = (props: Props) => {
                   />
                 }
                 title={business_name || ''}
-                description={`${products_length || 0} ${i18next.t("Products")} | $${total}` || '0 Products'}
+                description={
+                  `${products_length || 0} ${i18next.t('Products')} | $${total}` ||
+                  '0 Products'
+                }
                 showArrow={true}
                 showLineDivider={true}
               />
             </Animated.View>
 
-            <Animated.View style={{ transform: [{ translateY: translateYAnim }] }}>
+            <Animated.View
+              style={{ transform: [{ translateY: translateYAnim }] }}
+            >
               <InfoCard
                 icon={
                   rider_waiting ? (
@@ -142,7 +169,9 @@ const TrackingInf = (props: Props) => {
                   )
                 }
                 title={i18next.t('Delivery by')}
-                description={rider_waiting && row ? row.fullname || '' : 'Doval Rider'}
+                description={
+                  rider_waiting && row ? row.fullname || '' : 'Doval Rider'
+                }
                 orientation="LEGHT"
                 showArrow={true}
                 showLineDivider={true}

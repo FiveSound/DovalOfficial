@@ -1,28 +1,35 @@
-import React, { useEffect, useState, useCallback, memo } from "react";
-import { useAuth } from "../../../../context/AuthContext";
-import useAPI from "../../../../hooks/useAPI";
-import { getLikePostService, handleLikeService } from "../../../../services/reactions";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import { FavouriteIcon } from "../../../../constants/IconsPro";
-import { LoginAlert, Typography } from "../../../../components/custom";
-import { formatMilesAndMillions } from "../../../../utils/format";
-import * as Haptics from "expo-haptics";
-import styles from "./styles";
-import { TouchableOpacity } from "../../../../components/native";
+import React, { useEffect, useState, useCallback, memo } from 'react';
+import { useAuth } from '../../../../context/AuthContext';
+import useAPI from '../../../../hooks/useAPI';
+import {
+  getLikePostService,
+  handleLikeService,
+} from '../../../../services/reactions';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import { FavouriteIcon } from '../../../../constants/IconsPro';
+import { LoginAlert, Typography } from '../../../../components/custom';
+import { formatMilesAndMillions } from '../../../../utils/format';
+import * as Haptics from 'expo-haptics';
+import styles from './styles';
+import { TouchableOpacity } from '../../../../components/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { setLikes, setLiked } from '../../../../redux/slides/reactionsSlice';
 
 type Props = {
   postID: number;
-  onLikeChange: (liked: boolean) => void; 
+  onLikeChange: (liked: boolean) => void;
 };
 
 const LikeButton: React.FC<Props> = memo(({ postID, onLikeChange }) => {
   const { user } = useAuth();
   const dispatch = useDispatch();
-  const likes = useSelector((state: RootState) => state.reactions.likes[postID] || 0);
-  const liked = useSelector((state: RootState) => state.reactions.liked[postID] || false);
+  const likes = useSelector(
+    (state: RootState) => state.reactions.likes[postID] || 0,
+  );
+  const liked = useSelector(
+    (state: RootState) => state.reactions.liked[postID] || false,
+  );
   const [disabled, setDisabled] = useState<boolean>(true);
   const [visible, setVisible] = useState(false);
 
@@ -40,12 +47,12 @@ const LikeButton: React.FC<Props> = memo(({ postID, onLikeChange }) => {
       return;
     }
     try {
-      const newLiked = !liked; 
+      const newLiked = !liked;
       dispatch(setLiked({ postID, liked: newLiked }));
       dispatch(setLikes({ postID, likes: newLiked ? likes + 1 : likes - 1 }));
       await handleLikeService(postID);
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-      onLikeChange(newLiked); 
+      onLikeChange(newLiked);
     } catch (error) {
       console.error({ error });
     }
@@ -64,22 +71,22 @@ const LikeButton: React.FC<Props> = memo(({ postID, onLikeChange }) => {
   }, []);
 
   return (
-  <>
-    <TouchableOpacity
-      onPress={handleLike}
-      style={styles.container}
-      disabled={disabled}
-    >
-      <FavouriteIcon
-        width={SIZES.icons * 1.2}
-        height={SIZES.icons * 1.2}
-        color={liked ? COLORS.error : COLORS.TranspLight}
-      />
-      <Typography variant="H4title" newStyle={styles.label}>
-        {formatMilesAndMillions(likes)}
-      </Typography>
-      <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        onPress={handleLike}
+        style={styles.container}
+        disabled={disabled}
+      >
+        <FavouriteIcon
+          width={SIZES.icons * 1.2}
+          height={SIZES.icons * 1.2}
+          color={liked ? COLORS.error : COLORS.TranspLight}
+        />
+        <Typography variant="H4title" newStyle={styles.label}>
+          {formatMilesAndMillions(likes)}
+        </Typography>
+        <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
+      </TouchableOpacity>
     </>
   );
 });

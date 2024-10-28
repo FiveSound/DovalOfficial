@@ -1,10 +1,10 @@
-import { ReactNode, useState } from "react";
-import { useWindowDimensions } from "react-native";
-import { useTheme } from "../../../hooks";
-import { TabBar, TabBarProps, TabView } from "react-native-tab-view";
-import { COLORS, FONTS, responsiveFontSize } from "../../../constants/theme";
-import { SafeAreaView } from "../../../components/native";
-import { NavCustom } from "../../../components/custom";
+import { ReactNode, useState } from 'react';
+import { useWindowDimensions } from 'react-native';
+import { useTheme } from '../../../hooks';
+import { TabBar, TabBarProps, TabView } from 'react-native-tab-view';
+import { COLORS, FONTS, responsiveFontSize } from '../../../constants/theme';
+import { SafeAreaView } from '../../../components/native';
+import { NavCustom } from '../../../components/custom';
 
 type Props = {
   username: string;
@@ -16,8 +16,8 @@ type Props = {
 const Tabs = ({ Followers, Following, username, initialIndex }: Props) => {
   const [index, setIndex] = useState(initialIndex);
   const [routes] = useState([
-    { key: "followers", title: "Followers" },
-    { key: "following", title: "Following" },
+    { key: 'followers', title: 'Followers' },
+    { key: 'following', title: 'Following' },
   ]);
 
   const { BackgroundMain, Description, borderInput } = useTheme();
@@ -25,9 +25,9 @@ const Tabs = ({ Followers, Following, username, initialIndex }: Props) => {
 
   const renderScene = ({ route }: { route: { key: string } }) => {
     switch (route.key) {
-      case "followers":
+      case 'followers':
         return Followers;
-      case "following":
+      case 'following':
         return Following;
       default:
         return null;
@@ -45,7 +45,7 @@ const Tabs = ({ Followers, Following, username, initialIndex }: Props) => {
       }}
       labelStyle={{
         color: COLORS.primary,
-        textTransform: "capitalize",
+        textTransform: 'capitalize',
         ...FONTS.h4,
       }}
       inactiveColor={Description}
@@ -54,11 +54,7 @@ const Tabs = ({ Followers, Following, username, initialIndex }: Props) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <NavCustom
-        ShowUser={true}
-        ScreenTitle={username}
-        verify={false}
-      />
+      <NavCustom ShowUser={true} ScreenTitle={username} verify={false} />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

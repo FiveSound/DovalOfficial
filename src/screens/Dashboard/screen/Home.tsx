@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useState, useCallback } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import {
   ActivityIndicator,
   FlatList,
@@ -10,11 +10,14 @@ import {
   Alert,
   ToastAndroid,
   TouchableOpacity,
-} from "react-native";
-import { useDashboard } from "../../../context/DashboardContext";
-import { getDashboardOrderService, getTabsDashboardService } from "../../../services/business";
-import ORDER_STATUS from "../../../constants/ORDER_STATUS";
-import Order from "../components/Order";
+} from 'react-native';
+import { useDashboard } from '../../../context/DashboardContext';
+import {
+  getDashboardOrderService,
+  getTabsDashboardService,
+} from '../../../services/business';
+import ORDER_STATUS from '../../../constants/ORDER_STATUS';
+import Order from '../components/Order';
 // import Popup from "../../../components/Popup";
 // import OTPInput from "../../../components/OTPInput";
 // import Select from "../../../components/Select";
@@ -26,11 +29,19 @@ import {
   SOCKET_ORDER_BUSINESS_VERIFY,
   SOCKET_ORDER_BUSINESS_COMPLETE,
   SOCKET_ORDER_BUSINESS_DELAY,
-} from "../../../constants/sockets";
-import { Container, IsLoading, LoadingScreen, Pagination, PaginationHeader , ScreenEmpty, TabList} from "../../../components/custom";
-import { Platform } from "../../../components/native";
-import { SIZES } from "../../../constants/theme";
-import { Ilustrations } from "../../../constants";
+} from '../../../constants/sockets';
+import {
+  Container,
+  IsLoading,
+  LoadingScreen,
+  Pagination,
+  PaginationHeader,
+  ScreenEmpty,
+  TabList,
+} from '../../../components/custom';
+import { Platform } from '../../../components/native';
+import { SIZES } from '../../../constants/theme';
+import { Ilustrations } from '../../../constants';
 
 type DataQueryType = {
   status: string;
@@ -41,8 +52,8 @@ type DataQueryType = {
   pagination: number[] | null;
 };
 
-const QUERY_KEY = "dashboard-orders-screen";
-const QUERY_KEY_TABS = "dashboard-tabs-orders-component";
+const QUERY_KEY = 'dashboard-orders-screen';
+const QUERY_KEY_TABS = 'dashboard-tabs-orders-component';
 const DEFAULT_STATUS = ORDER_STATUS.PENDING;
 const DEFAULT_PAGE = 1;
 
@@ -55,7 +66,8 @@ const initialData = {
   pagination: [],
 };
 
-const onToast = (msg: string) => ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
+const onToast = (msg: string) =>
+  ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
 
 const Home = () => {
   const { socket } = useDashboard();
@@ -72,11 +84,18 @@ const Home = () => {
   // Fetch Data
   const orders = useQuery({
     queryKey: [QUERY_KEY],
-    queryFn: async () => await getDashboardOrderService({ queryKey: [QUERY_KEY, DEFAULT_STATUS, DEFAULT_PAGE] }),
+    queryFn: async () =>
+      await getDashboardOrderService({
+        queryKey: [QUERY_KEY, DEFAULT_STATUS, DEFAULT_PAGE],
+      }),
     initialData,
   });
 
-  const tabs = useQuery({ queryKey: [QUERY_KEY_TABS], queryFn: getTabsDashboardService, initialData: { list: [] } });
+  const tabs = useQuery({
+    queryKey: [QUERY_KEY_TABS],
+    queryFn: getTabsDashboardService,
+    initialData: { list: [] },
+  });
 
   // Mutations
   const queryClient = useQueryClient();
@@ -84,20 +103,22 @@ const Home = () => {
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
     mutationFn: async (params: { status: string; page: number }) => {
-      return await getDashboardOrderService({ queryKey: [QUERY_KEY, params.status, params.page] });
+      return await getDashboardOrderService({
+        queryKey: [QUERY_KEY, params.status, params.page],
+      });
     },
-    onSuccess: (response) => queryClient.setQueryData([QUERY_KEY], response),
+    onSuccess: response => queryClient.setQueryData([QUERY_KEY], response),
   });
 
   const mutationTabs = useMutation({
     mutationKey: [QUERY_KEY_TABS],
     mutationFn: getTabsDashboardService,
-    onSuccess: (response) => queryClient.setQueryData([QUERY_KEY_TABS], response),
+    onSuccess: response => queryClient.setQueryData([QUERY_KEY_TABS], response),
   });
 
   const onDeleteOrderFromPage = (orderID: number) => {
     queryClient.setQueryData([QUERY_KEY], (oldData: DataQueryType) => {
-      const updatedList = oldData.list.filter((row) => row.orderID !== orderID);
+      const updatedList = oldData.list.filter(row => row.orderID !== orderID);
 
       if (updatedList.length > 0) {
         return { ...oldData, list: updatedList };
@@ -112,11 +133,17 @@ const Home = () => {
     });
   };
 
-  const handleUpdate = async (socketName: string, orderID: number, successMessage: string) => {
+  const handleUpdate = async (
+    socketName: string,
+    orderID: number,
+    successMessage: string,
+  ) => {
     // Indicate loading...
-    onToast("Procesando orden...");
+    onToast('Procesando orden...');
 
-    const response = await socket?.timeout(1000).emitWithAck(socketName, { orderID });
+    const response = await socket
+      ?.timeout(1000)
+      .emitWithAck(socketName, { orderID });
 
     if (!response.success) {
       onToast(`Ha ocurrido un error!`);
@@ -140,37 +167,54 @@ const Home = () => {
   };
 
   const onAccept = useCallback((orderID: number) => {
-    Alert.alert("Aceptar esta orden", "Order ID: " + orderID, [
-      { text: "Cancelar" },
+    Alert.alert('Aceptar esta orden', 'Order ID: ' + orderID, [
+      { text: 'Cancelar' },
       {
-        text: "Confirmar",
-        onPress: () => handleUpdate(SOCKET_ORDER_BUSINESS_ACCEPT, orderID, `Orden ${orderID} acceptada con exito!`),
+        text: 'Confirmar',
+        onPress: () =>
+          handleUpdate(
+            SOCKET_ORDER_BUSINESS_ACCEPT,
+            orderID,
+            `Orden ${orderID} acceptada con exito!`,
+          ),
       },
     ]);
   }, []);
 
   const onReject = useCallback((orderID: number) => {
-    Alert.alert("Rechazar esta orden", "Order ID: " + orderID, [
-      { text: "Cancelar" },
+    Alert.alert('Rechazar esta orden', 'Order ID: ' + orderID, [
+      { text: 'Cancelar' },
       {
-        text: "Confirmar",
-        onPress: () => handleUpdate(SOCKET_ORDER_BUSINESS_REJECT, orderID, `Orden #${orderID} rechazada con exito!`),
+        text: 'Confirmar',
+        onPress: () =>
+          handleUpdate(
+            SOCKET_ORDER_BUSINESS_REJECT,
+            orderID,
+            `Orden #${orderID} rechazada con exito!`,
+          ),
       },
     ]);
   }, []);
 
   const onSend = useCallback((orderID: number) => {
-    Alert.alert("Enviar esta orden", "Order ID: " + orderID, [
-      { text: "Cancelar" },
+    Alert.alert('Enviar esta orden', 'Order ID: ' + orderID, [
+      { text: 'Cancelar' },
       {
-        text: "Confirmar",
-        onPress: () => handleUpdate(SOCKET_ORDER_BUSINESS_DELIVERED, orderID, `Orden #${orderID} enviada con exito!`),
+        text: 'Confirmar',
+        onPress: () =>
+          handleUpdate(
+            SOCKET_ORDER_BUSINESS_DELIVERED,
+            orderID,
+            `Orden #${orderID} enviada con exito!`,
+          ),
       },
     ]);
   }, []);
 
   const onComplete = useCallback(async (orderID: number) => {
-    const response = await socket?.timeout(1000).emitWithAck(SOCKET_ORDER_BUSINESS_COMPLETE, { orderID });
+    const response = await socket
+      ?.timeout(1000)
+      .emitWithAck(SOCKET_ORDER_BUSINESS_COMPLETE, { orderID });
     if (response.success) {
       setCurrentOrderID(orderID);
       setOpenVerify(true);
@@ -187,7 +231,9 @@ const Home = () => {
   const onVerify = useCallback(
     async (code: string) => {
       const params = { orderID: currentOrderID, code };
-      const response = await socket?.timeout(1000).emitWithAck(SOCKET_ORDER_BUSINESS_VERIFY, params);
+      const response = await socket
+        ?.timeout(1000)
+        .emitWithAck(SOCKET_ORDER_BUSINESS_VERIFY, params);
 
       if (response.success && currentOrderID) {
         onToast(`Order ${currentOrderID} completada con exito!`);
@@ -198,15 +244,17 @@ const Home = () => {
         setOpenVerify(false);
         setCurrentOrderID(null);
       } else {
-        onToast("Código incorrecto!");
+        onToast('Código incorrecto!');
       }
     },
-    [currentOrderID]
+    [currentOrderID],
   );
 
   const onDelay = useCallback(async () => {
     const params = { orderID: currentOrderID, time: delayTime };
-    const response = await socket?.timeout(1000).emitWithAck(SOCKET_ORDER_BUSINESS_DELAY, params);
+    const response = await socket
+      ?.timeout(1000)
+      .emitWithAck(SOCKET_ORDER_BUSINESS_DELAY, params);
 
     if (response.success) {
       onToast(`Tiempo agregado a la orden #${currentOrderID}!`);
@@ -216,25 +264,24 @@ const Home = () => {
     }
   }, [currentOrderID, delayTime]);
 
-  if (orders.isLoading || orders.isFetching) return <LoadingScreen/>;
-  if (orders.isError) return 
-  <ScreenEmpty 
-  labelPart1="An ocurred error!" 
-  labelPart2="Please try again later." 
-  source={Ilustrations.CharcoPet}
-  ImgWidth={SIZES.width}
-  ImgHeigth={SIZES.height / 3}
-  onPress={onRefetch}/>;
+  if (orders.isLoading || orders.isFetching) return <LoadingScreen />;
+  if (orders.isError) return;
+  <ScreenEmpty
+    labelPart1="An ocurred error!"
+    labelPart2="Please try again later."
+    source={Ilustrations.CharcoPet}
+    ImgWidth={SIZES.width}
+    ImgHeigth={SIZES.height / 3}
+    onPress={onRefetch}
+  />;
 
   return (
-    <Container 
-    useSafeArea={true}
-    style={styles.container}>
+    <Container useSafeArea={true} style={styles.container}>
       {/* Tabs */}
       <TabList
         isLoading={tabs.isLoading || tabs.isFetching}
         list={tabs.data.list}
-        onChange={(status) => {
+        onChange={status => {
           // When change status reset laststatus to default
           setLastStatus(status);
           setLastPage(DEFAULT_PAGE);
@@ -247,7 +294,9 @@ const Home = () => {
       <PaginationHeader refetch={onRefetch} />
 
       {/* Body */}
-      {mutation.isPending && <IsLoading  size={Platform.OS === 'android' ? 'small' : 'medium'}/>}
+      {mutation.isPending && (
+        <IsLoading size={Platform.OS === 'android' ? 'small' : 'medium'} />
+      )}
 
       <FlatList
         data={orders.data.list}
@@ -258,12 +307,14 @@ const Home = () => {
             onSend={onSend}
             onAddTime={onAddTime}
             onComplete={onComplete}
-            onNavigateTo={(orderID) => navigation.navigate("Dashboard/Business/OrderID", { orderID })}
+            onNavigateTo={orderID =>
+              navigation.navigate('Dashboard/Business/OrderID', { orderID })
+            }
             // waiting={mutation.isPending}
             {...item}
           />
         )}
-        keyExtractor={(item) => item.orderID.toString()}
+        keyExtractor={item => item.orderID.toString()}
         initialNumToRender={4}
         maxToRenderPerBatch={4}
         onRefresh={onRefetch}
@@ -273,7 +324,7 @@ const Home = () => {
       {/* Footer */}
       <Pagination
         currentPage={orders.data.page}
-        onChange={(page) => {
+        onChange={page => {
           setLastPage(page);
           mutation.mutate({ status: lastStatus, page });
         }}
@@ -325,7 +376,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   textError: {
-    color: "red",
+    color: 'red',
   },
   btn: {
     paddingVertical: 4,
@@ -333,9 +384,9 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   btnSuccess: {
-    backgroundColor: "rgba(74, 222, 128, 0.38)",
+    backgroundColor: 'rgba(74, 222, 128, 0.38)',
   },
   btnError: {
-    backgroundColor: "rgba(244, 31, 82, 0.38)",
+    backgroundColor: 'rgba(244, 31, 82, 0.38)',
   },
 });

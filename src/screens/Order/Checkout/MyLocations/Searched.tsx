@@ -1,10 +1,14 @@
-import { useState } from "react";
-import DetailsLocation from "./DetailsLocation";
-import { useAPI, useTheme } from "../../../../hooks";
-import { TouchableOpacity, View } from "../../../../components/native";
-import { LineDivider, LoadingScreen, Typography } from "../../../../components/custom";
-import { responsiveFontSize } from "../../../../constants/theme";
-import { searchLocationsService } from "../../../../services/orders";
+import { useState } from 'react';
+import DetailsLocation from './DetailsLocation';
+import { useAPI, useTheme } from '../../../../hooks';
+import { TouchableOpacity, View } from '../../../../components/native';
+import {
+  LineDivider,
+  LoadingScreen,
+  Typography,
+} from '../../../../components/custom';
+import { responsiveFontSize } from '../../../../constants/theme';
+import { searchLocationsService } from '../../../../services/orders';
 
 interface Props {
   search: string;
@@ -30,21 +34,25 @@ interface PropsResultLocation {
 
 const ResultLocation = (props: PropsResultLocation) => {
   const { structured_formatting, onPress } = props;
-  const { backgroundMaingrey } = useTheme()
+  const { backgroundMaingrey } = useTheme();
   return (
     <>
-      <TouchableOpacity onPress={onPress}
-      style={{
-        backgroundColor: backgroundMaingrey
-      }}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          backgroundColor: backgroundMaingrey,
+        }}
+      >
         <View
           style={{
             padding: responsiveFontSize(10),
-            backgroundColor: backgroundMaingrey
+            backgroundColor: backgroundMaingrey,
           }}
         >
-          <Typography variant='subtitle'>{structured_formatting.main_text}</Typography>
-          <Typography variant='SubDescription'>
+          <Typography variant="subtitle">
+            {structured_formatting.main_text}
+          </Typography>
+          <Typography variant="SubDescription">
             {structured_formatting.secondary_text}
           </Typography>
         </View>
@@ -59,14 +67,12 @@ const Searched = (props: Props) => {
   const [placeID, setPlaceID] = useState(null);
 
   const { data, isLoading }: PropsData = useAPI({
-    queryKey: ["get-location-coordenates", search],
+    queryKey: ['get-location-coordenates', search],
     queryFn: searchLocationsService,
   });
 
   if (isLoading) {
-    return (
-      <LoadingScreen/>
-    );
+    return <LoadingScreen />;
   }
 
   if (data) {

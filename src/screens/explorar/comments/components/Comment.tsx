@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from "react-hook-form";
-import { useAuth } from "../../../../context/AuthContext";
-import { CLOUDFRONT } from "../../../../services";
-import useCustomNavigation from "../../../../context/useCustomNavigation";
-import { Avatars, CardComments, FlexContainer, IsLoading } from "../../../../components/custom";
-import InputReply from "./InputReply";
-import { PropsComment } from "../types";
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../../../../context/AuthContext';
+import { CLOUDFRONT } from '../../../../services';
+import useCustomNavigation from '../../../../context/useCustomNavigation';
+import {
+  Avatars,
+  CardComments,
+  FlexContainer,
+  IsLoading,
+} from '../../../../components/custom';
+import InputReply from './InputReply';
+import { PropsComment } from '../types';
 import { RootState } from '../../../../redux/store';
-import { useTheme } from "../../../../hooks";
-import { addReply, fetchReplies, toggleLike } from "../../../../redux/slides/commentsSlice";
+import { useTheme } from '../../../../hooks';
+import {
+  addReply,
+  fetchReplies,
+  toggleLike,
+} from '../../../../redux/slides/commentsSlice';
 
 type Props = {
   id: number;
@@ -26,13 +35,15 @@ const Main = (props: Props) => {
   const { user } = useAuth();
   const { setValue, watch, reset } = useForm({
     defaultValues: {
-      comment: "",
+      comment: '',
     },
   });
 
   const { comment } = watch();
   const dispatch = useDispatch();
-  const { comments, loading } = useSelector((state: RootState) => state.comments);
+  const { comments, loading } = useSelector(
+    (state: RootState) => state.comments,
+  );
 
   const [open, setOpen] = useState(false);
   const { navigation } = useCustomNavigation();
@@ -47,12 +58,17 @@ const Main = (props: Props) => {
   };
 
   const like = async () => {
-    dispatch(toggleLike({ commentId: props.id, liked: comments.some(c => c.id === props.id && c.liked) }));
+    dispatch(
+      toggleLike({
+        commentId: props.id,
+        liked: comments.some(c => c.id === props.id && c.liked),
+      }),
+    );
   };
 
   return (
     <>
-      <CardComments 
+      <CardComments
         avatar={`${CLOUDFRONT}${props.avatar}`}
         comment={props.content}
         username={props.name}
@@ -63,7 +79,7 @@ const Main = (props: Props) => {
       {open && (
         <InputReply
           value={comment}
-          onChange={(text) => setValue("comment", text)}
+          onChange={text => setValue('comment', text)}
           onSubmit={addNewReply}
         />
       )}

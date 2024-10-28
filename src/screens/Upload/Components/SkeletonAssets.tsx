@@ -6,10 +6,10 @@ import { responsiveFontSize, SIZES } from '../../../constants/theme';
 const SkeletonAssets = () => {
   return (
     <View style={styles.container}>
-      <Skeleton 
+      <Skeleton
         width={SIZES.width / 3 - 3}
         height={SIZES.width / 2 - 2}
-        colorMode='dark'
+        colorMode="dark"
       />
     </View>
   );
@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: responsiveFontSize(1),
-
-  }
+  },
 });

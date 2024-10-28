@@ -1,28 +1,40 @@
-import React, { useEffect } from "react";
-import { View, StyleSheet, ViewStyle } from "react-native";
+import React, { useEffect } from 'react';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withRepeat,
   withTiming,
   Easing,
-} from "react-native-reanimated";
-import { useTheme } from "../../../../hooks";
-import { ActivityIndicator, Platform } from "../../../native";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import Typography from "../../Typography";
+} from 'react-native-reanimated';
+import { useTheme } from '../../../../hooks';
+import { ActivityIndicator, Platform } from '../../../native';
+import {
+  COLORS,
+  FONTS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../../constants/theme';
+import Typography from '../../Typography';
 
 type props = {
   label?: string;
   showLabel?: boolean;
   style?: ViewStyle;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   color?: 'primary' | 'dark';
   sizesActivityIndicator?: 'small' | 'large';
 };
 
 const IsLoading = (props: props) => {
-  const { label, showLabel = false, style, size = "medium", color = "primary", sizesActivityIndicator = 'large'} = props;
+  const {
+    label,
+    showLabel = false,
+    style,
+    size = 'medium',
+    color = 'primary',
+    sizesActivityIndicator = 'large',
+  } = props;
   const { Bg } = useTheme();
   const rotation = useSharedValue(0);
 
@@ -33,7 +45,7 @@ const IsLoading = (props: props) => {
         easing: Easing.linear,
       }),
       -1,
-      false
+      false,
     );
   }, []);
 
@@ -43,9 +55,9 @@ const IsLoading = (props: props) => {
 
   const getSizeStyle = () => {
     switch (size) {
-      case "small":
+      case 'small':
         return styles.small;
-      case "large":
+      case 'large':
         return styles.large;
       default:
         return styles.medium;
@@ -63,15 +75,18 @@ const IsLoading = (props: props) => {
     }
   };
 
-
-
   return (
     <View style={[styles.container]}>
-      {Platform.OS === "android" ? (
-        <ActivityIndicator size={sizesActivityIndicator} color={getColor()}/>
+      {Platform.OS === 'android' ? (
+        <ActivityIndicator size={sizesActivityIndicator} color={getColor()} />
       ) : (
         <Animated.View
-          style={[styles.circle, getSizeStyle(), animatedStyle, { ...style, borderColor: getColor() }]}
+          style={[
+            styles.circle,
+            getSizeStyle(),
+            animatedStyle,
+            { ...style, borderColor: getColor() },
+          ]}
         />
       )}
       {showLabel && (
@@ -86,13 +101,13 @@ const IsLoading = (props: props) => {
 const styles = StyleSheet.create({
   container: {
     // height: SIZES.BtnHeight,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   circle: {
     borderWidth: responsiveFontSize(3),
     borderRadius: responsiveFontSize(15),
-    borderTopColor: "transparent",
+    borderTopColor: 'transparent',
   },
   small: {
     width: responsiveFontSize(10),

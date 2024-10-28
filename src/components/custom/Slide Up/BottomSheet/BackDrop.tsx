@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import React from 'react';
 import Animated, {
   SharedValue,
@@ -37,12 +37,13 @@ const BackDrop = ({
     <TouchableWithoutFeedback
       onPress={() => {
         close();
-      }}>
+      }}
+    >
       <Animated.View
         style={[
           styles.backDrop,
           backDropAnimation,
-          {backgroundColor: backDropColor},
+          { backgroundColor: backDropColor },
         ]}
       />
     </TouchableWithoutFeedback>

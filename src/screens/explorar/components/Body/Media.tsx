@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native';
 import Photo from './Photo/Photo';
 import { responsiveFontSize, SIZES } from '../../../../constants/theme';
 
-const screenHeight = Dimensions.get("window").height;
+const screenHeight = Dimensions.get('window').height;
 
 type Props = {
   item: any;
@@ -14,10 +14,12 @@ type Props = {
 };
 
 const Media = ({ item, onVisibleItemChange, isItemFocused }: Props) => {
-  const handleVisibleItemChange = useCallback((index: number) => {
-    onVisibleItemChange(index);
-  }, [onVisibleItemChange]);
-
+  const handleVisibleItemChange = useCallback(
+    (index: number) => {
+      onVisibleItemChange(index);
+    },
+    [onVisibleItemChange],
+  );
 
   return item.mediaType === 0 ? (
     <Video
@@ -28,11 +30,11 @@ const Media = ({ item, onVisibleItemChange, isItemFocused }: Props) => {
     />
   ) : (
     <Photo
-     isItemFocused={isItemFocused}
+      isItemFocused={isItemFocused}
       postID={item.id}
-      DataExplorar={item.photos.map((photo) => ({
+      DataExplorar={item.photos.map(photo => ({
         uri: photo.uri,
-        type: "photo",
+        type: 'photo',
         mediaType: item.mediaType,
         parentId: item.id.toString(),
         key: photo.key,

@@ -1,19 +1,24 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { ButtonAcces, FlexContainer, LoadingScreen, OrderProgress } from "../../../../../../components/custom";
-import { useDashboard } from "../../../../../../context/DashboardContext";
-import { FlatList, useNavigation } from "../../../../../../components/native";
-import { LocationObjectCoords } from "expo-location";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getOrdersService } from "../../../../../../services/orders";
-import { statusToStep, steps } from "../../../../../Order/ConfirmOrder/data";
+import React, { useEffect, useState, useCallback } from 'react';
+import {
+  ButtonAcces,
+  FlexContainer,
+  LoadingScreen,
+  OrderProgress,
+} from '../../../../../../components/custom';
+import { useDashboard } from '../../../../../../context/DashboardContext';
+import { FlatList, useNavigation } from '../../../../../../components/native';
+import { LocationObjectCoords } from 'expo-location';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getOrdersService } from '../../../../../../services/orders';
+import { statusToStep, steps } from '../../../../../Order/ConfirmOrder/data';
 
 type OrderStatus =
-  | "PENDING"
-  | "IN_PROGRESS"
-  | "OUT_FOR_DELIVERY"
-  | "DELIVERED"
-  | "COMPLETED"
-  | "CANCELED";
+  | 'PENDING'
+  | 'IN_PROGRESS'
+  | 'OUT_FOR_DELIVERY'
+  | 'DELIVERED'
+  | 'COMPLETED'
+  | 'CANCELED';
 
 type TypeLiveOrder = {
   latitude: number;
@@ -45,7 +50,7 @@ const OrderList = () => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
-    queryKey: ["getOrdersService"],
+    queryKey: ['getOrdersService'],
     queryFn: getOrdersService,
   });
 
@@ -66,12 +71,14 @@ const OrderList = () => {
     if (socket) {
       const handleOrderUpdate = (newState: Partial<TypeLiveOrder>) => {
         console.log(`Received event-realtime-order-}:`, newState);
-        queryClient.setQueryData(["getOrdersService"], (oldData: any) => {
+        queryClient.setQueryData(['getOrdersService'], (oldData: any) => {
           if (!oldData) return oldData;
           return {
             ...oldData,
             list: oldData.list.map((order: Order) =>
-              order.orderID === newState.riderID ? { ...order, ...newState } : order
+              order.orderID === newState.riderID
+                ? { ...order, ...newState }
+                : order,
             ),
           };
         });
@@ -94,38 +101,38 @@ const OrderList = () => {
   }, [socket, queryClient]);
 
   useEffect(() => {
-    socket?.on("connect", () => {
+    socket?.on('connect', () => {
       refetch();
     });
 
     return () => {
-      socket?.off("connect");
+      socket?.off('connect');
     };
   }, [socket, refetch]);
 
   console.log('data:', data);
 
-  const renderOrderItem = useCallback(({ item }: { item: Order }) => (
-    <OrderProgress
-    steps={steps}
-    currentStep={currentStep}
-    // latestArrivalMessage={latestArrivalMessage}
-    showHero={false}
-  />
-  ), []);
+  const renderOrderItem = useCallback(
+    ({ item }: { item: Order }) => (
+      <OrderProgress
+        steps={steps}
+        currentStep={currentStep}
+        // latestArrivalMessage={latestArrivalMessage}
+        showHero={false}
+      />
+    ),
+    [],
+  );
 
   if (isLoading) {
-    return (
-      <LoadingScreen />
-    );
+    return <LoadingScreen />;
   }
-
 
   return (
     <FlexContainer>
       <FlatList
         data={data?.list}
-        keyExtractor={(item) => item.orderID.toString()}
+        keyExtractor={item => item.orderID.toString()}
         renderItem={renderOrderItem}
         refreshing={isFetching}
         onRefresh={refetch}

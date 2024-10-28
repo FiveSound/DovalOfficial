@@ -1,8 +1,8 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Skeleton } from "moti/skeleton";
-import { FlexContainer } from "../../../components/custom";
-import { COLORS, responsiveFontSize, SIZES } from "../../../constants/theme";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Skeleton } from 'moti/skeleton';
+import { FlexContainer } from '../../../components/custom';
+import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
 
 type Props = {
   ShowHeader?: boolean;
@@ -14,17 +14,17 @@ const LoaderMain = (props: Props) => {
     <FlexContainer
       newStyle={{
         flex: 1,
-        justifyContent: "flex-end",
+        justifyContent: 'flex-end',
         backgroundColor: COLORS.dark,
       }}
     >
       {ShowHeader && (
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            position: "absolute",
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            position: 'absolute',
             top: SIZES.height / 14,
             width: SIZES.width,
             paddingHorizontal: SIZES.gapMedium,
@@ -51,8 +51,8 @@ const LoaderMain = (props: Props) => {
         <View style={styles.leftSection}>
           <FlexContainer
             newStyle={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: SIZES.gapSmall,
             }}
           >
@@ -88,7 +88,7 @@ const LoaderMain = (props: Props) => {
           </View>
         </View>
         <View style={styles.rightSection}>
-          <View style={{ gap: SIZES.gapSmall, alignItems: "center" }}>
+          <View style={{ gap: SIZES.gapSmall, alignItems: 'center' }}>
             <Skeleton
               width={responsiveFontSize(30)}
               height={responsiveFontSize(30)}
@@ -100,7 +100,7 @@ const LoaderMain = (props: Props) => {
               radius={responsiveFontSize(4)}
             />
           </View>
-          <View style={{ gap: SIZES.gapSmall, alignItems: "center" }}>
+          <View style={{ gap: SIZES.gapSmall, alignItems: 'center' }}>
             <Skeleton
               width={responsiveFontSize(30)}
               height={responsiveFontSize(30)}
@@ -112,7 +112,7 @@ const LoaderMain = (props: Props) => {
               radius={responsiveFontSize(4)}
             />
           </View>
-          <View style={{ gap: SIZES.gapSmall, alignItems: "center" }}>
+          <View style={{ gap: SIZES.gapSmall, alignItems: 'center' }}>
             <Skeleton
               width={responsiveFontSize(30)}
               height={responsiveFontSize(30)}
@@ -124,7 +124,7 @@ const LoaderMain = (props: Props) => {
               radius={responsiveFontSize(4)}
             />
           </View>
-          <View style={{ gap: SIZES.gapSmall, alignItems: "center" }}>
+          <View style={{ gap: SIZES.gapSmall, alignItems: 'center' }}>
             <Skeleton
               width={responsiveFontSize(30)}
               height={responsiveFontSize(30)}
@@ -136,7 +136,7 @@ const LoaderMain = (props: Props) => {
               radius={responsiveFontSize(4)}
             />
           </View>
-          <View style={{ gap: SIZES.gapSmall, alignItems: "center" }}>
+          <View style={{ gap: SIZES.gapSmall, alignItems: 'center' }}>
             <Skeleton
               width={responsiveFontSize(30)}
               height={responsiveFontSize(30)}
@@ -148,7 +148,7 @@ const LoaderMain = (props: Props) => {
               radius={responsiveFontSize(4)}
             />
           </View>
-          <View style={{ gap: SIZES.gapSmall, alignItems: "center" }}>
+          <View style={{ gap: SIZES.gapSmall, alignItems: 'center' }}>
             <Skeleton
               width={responsiveFontSize(30)}
               height={responsiveFontSize(30)}
@@ -160,7 +160,7 @@ const LoaderMain = (props: Props) => {
               radius={responsiveFontSize(4)}
             />
           </View>
-          <View style={{ gap: SIZES.gapSmall, alignItems: "center" }}>
+          <View style={{ gap: SIZES.gapSmall, alignItems: 'center' }}>
             <Skeleton
               width={responsiveFontSize(30)}
               height={responsiveFontSize(30)}
@@ -179,13 +179,13 @@ const LoaderMain = (props: Props) => {
 };
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 16,
-    alignItems: "flex-end",
-    justifyContent: "space-between",
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     backgroundColor: COLORS.dark,
   },
-  leftSection: { flexDirection: "column", gap: SIZES.gapMedium },
-  rightSection: { alignItems: "center", gap: SIZES.gapMedium },
+  leftSection: { flexDirection: 'column', gap: SIZES.gapMedium },
+  rightSection: { alignItems: 'center', gap: SIZES.gapMedium },
 });
 export default LoaderMain;

@@ -5,7 +5,7 @@ function isValidEmail(value: string): boolean {
 }
 
 export function validateEmail(value: string): boolean {
-  if (value === "") {
+  if (value === '') {
     return false;
   } else {
     return isValidEmail(value);
@@ -14,29 +14,29 @@ export function validateEmail(value: string): boolean {
 
 function validatePassword(
   value: string,
-  setPasswordError: (error: string) => void
+  setPasswordError: (error: string) => void,
 ): void {
   if (value.length < 9) {
-    setPasswordError("Password must be 9 characters");
+    setPasswordError('Password must be 9 characters');
   } else {
-    setPasswordError("");
+    setPasswordError('');
   }
 }
 
 function validateInput(
   value: string,
   minLength: number,
-  setError: (error: string) => void
+  setError: (error: string) => void,
 ): void {
   if (value.length < minLength) {
-    setError("Invalid Input");
+    setError('Invalid Input');
   } else {
-    setError("");
+    setError('');
   }
 }
 
 function calculateAngle(
-  coordinates: { latitude: number; longitude: number }[]
+  coordinates: { latitude: number; longitude: number }[],
 ): number {
   let startLat: number = coordinates[0].latitude;
   let startLng: number = coordinates[0].longitude;
@@ -52,11 +52,16 @@ function formatDateUX(date: string) {
   return date;
 }
 
-export function debounce(func: (...args: any[]) => void, wait: number, immediate: boolean = false): () => void {
+export function debounce(
+  func: (...args: any[]) => void,
+  wait: number,
+  immediate: boolean = false,
+): () => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
-  return function() {
-    const context = this, args = arguments;
-    const later = function() {
+  return function () {
+    const context = this,
+      args = arguments;
+    const later = function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };
@@ -67,17 +72,16 @@ export function debounce(func: (...args: any[]) => void, wait: number, immediate
   };
 }
 
-   /**
-    * Generates a unique ID by combining the current timestamp with a random string.
-    * @returns {string} A unique identifier.
-    */
-   export const generateUniqueId = (): string => {
-    const timestamp = Date.now().toString();
-    const randomStr = Math.random().toString(36).substr(2, 5); // Generates a random string
-    return `${timestamp}-${randomStr}`;
-  };
+/**
+ * Generates a unique ID by combining the current timestamp with a random string.
+ * @returns {string} A unique identifier.
+ */
+export const generateUniqueId = (): string => {
+  const timestamp = Date.now().toString();
+  const randomStr = Math.random().toString(36).substr(2, 5); // Generates a random string
+  return `${timestamp}-${randomStr}`;
+};
 
-  
 const utils = {
   isValidEmail,
   validateEmail,
@@ -85,7 +89,7 @@ const utils = {
   validateInput,
   calculateAngle,
   formatDateUX,
-  debounce
+  debounce,
 };
 
 export default utils;

@@ -1,19 +1,20 @@
-import React from 'react'
-import { TouchableOpacity as RNTouchableOpacity, TouchableOpacityProps } from 'react-native'
-import * as Haptics from "expo-haptics";
+import React from 'react';
+import {
+  TouchableOpacity as RNTouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
+import * as Haptics from 'expo-haptics';
 
-type Props = TouchableOpacityProps
+type Props = TouchableOpacityProps;
 
 const TouchableOpacity = (props: Props) => {
-const handlePress = () => {
+  const handlePress = () => {
     if (props.onPress) {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-        props.onPress?.();
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      props.onPress?.();
     }
-}
-  return (
-    <RNTouchableOpacity  {...props} onPress={handlePress} />
-  )
-}
+  };
+  return <RNTouchableOpacity {...props} onPress={handlePress} />;
+};
 
-export default TouchableOpacity
+export default TouchableOpacity;

@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, memo, ReactNode, useState } from "react";
+import React, { BaseSyntheticEvent, memo, ReactNode, useState } from 'react';
 import {
   ViewStyle,
   TextStyle,
@@ -6,14 +6,14 @@ import {
   TextInputFocusEventData,
   NativeSyntheticEvent,
   TextInputContentSizeChangeEventData,
-  StyleSheet
-} from "react-native";
-import FlexContainer from "../../FlexContainer";
-import Typography from "../../Typography";
-import { TextInput } from "../../../native";
-import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
-import LineDivider from "../../LineDivider";
-import { useTheme } from "../../../../hooks";
+  StyleSheet,
+} from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import Typography from '../../Typography';
+import { TextInput } from '../../../native';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
+import LineDivider from '../../LineDivider';
+import { useTheme } from '../../../../hooks';
 
 type Props = {
   containerStyle?: ViewStyle;
@@ -27,8 +27,8 @@ type Props = {
   appenComponent?: ReactNode;
   onChange?: (text: string) => void;
   secureTextEntry?: boolean;
-  keyboardType?: TextInputProps["keyboardType"];
-  autoCapitalize?: TextInputProps["autoCapitalize"];
+  keyboardType?: TextInputProps['keyboardType'];
+  autoCapitalize?: TextInputProps['autoCapitalize'];
   errorMsg?: string;
   errorStyle?: object;
   onChangeText?: (text: string) => void;
@@ -43,7 +43,9 @@ type Props = {
   lineStyle?: ViewStyle;
   pickerOptions?: { label: string; value: any }[];
   onValueChange?: (itemValue: any, itemIndex: number) => void;
-  onContentSizeChange?: (event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>) => void;
+  onContentSizeChange?: (
+    event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>,
+  ) => void;
   onSize?: boolean;
   orientation?: 'Up' | 'Down';
   returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
@@ -73,12 +75,14 @@ const InputLabel = (props: Props) => {
     onContentSizeChange,
     onSize = false,
     orientation = 'Up',
-    returnKeyType
+    returnKeyType,
   } = props;
-  const { Description, Title , borderInput} = useTheme();
+  const { Description, Title, borderInput } = useTheme();
   const [height, setHeight] = useState(SIZES.InputsHeight);
 
-  const handleContentSizeChange = (event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>) => {
+  const handleContentSizeChange = (
+    event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>,
+  ) => {
     if (onContentSizeChange) {
       onContentSizeChange(event);
     }
@@ -102,68 +106,74 @@ const InputLabel = (props: Props) => {
 
   return (
     <FlexContainer newStyle={styles.container}>
-      {
-        orientation === 'Up' &&     <FlexContainer variant="row" newStyle={styles.row}>
-        <FlexContainer variant='row' newStyle={styles.innerRow}>
-          {appenComponent}
+      {orientation === 'Up' && (
+        <FlexContainer variant="row" newStyle={styles.row}>
+          <FlexContainer variant="row" newStyle={styles.innerRow}>
+            {appenComponent}
+          </FlexContainer>
+          {endComponent}
         </FlexContainer>
-        {endComponent}
-      </FlexContainer>
-      }
+      )}
       <TextInput
-          style={[styles.textInput, inputStyle, {color: Title}]}
-          placeholderTextColor={Description}
-          placeholder={placeholder}
-          secureTextEntry={secureTextEntry}
-          keyboardType={keyboardType}
-          autoCapitalize={autoCapitalize}
-          onChangeText={onChangeText}
-          value={value}
-          editable={!disabled}
-          onBlur={handleBlur}
-          maxLength={maxLength}
-          multiline={multiline}
-          onFocus={handleFocus}
-          onContentSizeChange={handleContentSizeChange}
-          returnKeyType={returnKeyType}
-        />
-      <LineDivider lineStyle={{...lineStyle, backgroundColor: isFocused ? COLORS.success : borderInput, marginTop: SIZES.gapSmall }}/>
-      {
-        orientation === 'Down' &&     <FlexContainer variant="row" newStyle={styles.row}>
-        <FlexContainer variant='row' newStyle={styles.innerRow}>
-          {appenComponent}
+        style={[styles.textInput, inputStyle, { color: Title }]}
+        placeholderTextColor={Description}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize}
+        onChangeText={onChangeText}
+        value={value}
+        editable={!disabled}
+        onBlur={handleBlur}
+        maxLength={maxLength}
+        multiline={multiline}
+        onFocus={handleFocus}
+        onContentSizeChange={handleContentSizeChange}
+        returnKeyType={returnKeyType}
+      />
+      <LineDivider
+        lineStyle={{
+          ...lineStyle,
+          backgroundColor: isFocused ? COLORS.success : borderInput,
+          marginTop: SIZES.gapSmall,
+        }}
+      />
+      {orientation === 'Down' && (
+        <FlexContainer variant="row" newStyle={styles.row}>
+          <FlexContainer variant="row" newStyle={styles.innerRow}>
+            {appenComponent}
+          </FlexContainer>
+          {endComponent}
         </FlexContainer>
-        {endComponent}
-      </FlexContainer>
-      }
+      )}
     </FlexContainer>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      backgroundColor: 'transparent',
-      width: '100%',
-      paddingHorizontal: SIZES.gapLarge,
-      marginVertical: SIZES.gapSmall,
-    },
-    row: {
-      alignItems: "center",
-      justifyContent: "space-between",
-      backgroundColor: 'transparent'
-    },
-    innerRow: {
-      alignItems: 'center',
-      gap: SIZES.gapMedium,
-      backgroundColor: 'transparent',
-      justifyContent: 'flex-end',
-      width: '90%'
-    },
-    textInput: {
-      maxWidth: SIZES.width,
-      ...FONTS.semi14,
-      height: SIZES.InputsHeight
-    }
-  });
+  container: {
+    backgroundColor: 'transparent',
+    width: '100%',
+    paddingHorizontal: SIZES.gapLarge,
+    marginVertical: SIZES.gapSmall,
+  },
+  row: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+  },
+  innerRow: {
+    alignItems: 'center',
+    gap: SIZES.gapMedium,
+    backgroundColor: 'transparent',
+    justifyContent: 'flex-end',
+    width: '90%',
+  },
+  textInput: {
+    maxWidth: SIZES.width,
+    ...FONTS.semi14,
+    height: SIZES.InputsHeight,
+  },
+});
 
 export default InputLabel;

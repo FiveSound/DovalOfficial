@@ -17,4 +17,4 @@ export interface OrderList {
   rating: number;
   BgStatus: string;
   textColorStatus: string;
-};
+}

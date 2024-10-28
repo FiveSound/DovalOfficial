@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Chip } from "../../../components/custom";
+import { StyleSheet, Text, View } from 'react-native';
+import { Chip } from '../../../components/custom';
 
 type Props = {
   id: number;
@@ -19,8 +19,12 @@ const Transaction = (props: Props) => (
 
       <Text style={[styles.title]}>{props.week_start_date}</Text>
       <Text style={[styles.title]}>{props.orders}</Text>
-      {props.status == "Pending" && <Chip title="Pending" color="red" size="small" />}
-      {props.status == "Payment" && <Chip title="Payment" color="green" size="small" />}
+      {props.status == 'Pending' && (
+        <Chip title="Pending" color="red" size="small" />
+      )}
+      {props.status == 'Payment' && (
+        <Chip title="Payment" color="green" size="small" />
+      )}
     </View>
   </View>
 );
@@ -32,16 +36,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingVertical: 15,
     paddingHorizontal: 10,
-    backgroundColor: "#222222",
+    backgroundColor: '#222222',
   },
   header: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 5,
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 14,
-    color: "#FFF",
+    color: '#FFF',
   },
 });

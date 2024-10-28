@@ -1,19 +1,18 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { Text, Image, useNavigation } from "../../../native";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import useNavigation from '../../../native/useNavigation';
 import {
   COLORS,
   FONTS,
   responsiveFontSize,
   SIZES,
-} from "../../../../constants/theme";
-import FlexContainer from "../../FlexContainer";
-import Typography from "../../Typography";
-import { CLOUDFRONT } from "../../../../services";
-import InfoCard from "../InfoCard";
-import Avatars from "../../Avatars";
-import { Carrousel } from "../../Slide Up";
-import CoverProducts from "./CoverProducts";
+} from '../../../../constants/theme';
+import FlexContainer from '../../FlexContainer';
+import Typography from '../../Typography';
+import { CLOUDFRONT } from '../../../../services';
+import InfoCard from '../InfoCard';
+import Avatars from '../../Avatars';
+import CoverProducts from './CoverProducts';
 
 interface Cover {
   key: string;
@@ -40,27 +39,27 @@ const ProductCard: React.FC<Props> = React.memo(({ product }) => {
     <FlexContainer newStyle={styles.container}>
       <CoverProducts row={product.cover} />
       <InfoCard
-        title={product?.business_name || "business name"}
+        title={product?.business_name || 'business name'}
         description="Business verification"
         showArrow={true}
         showLineDivider={true}
         containerStyle={styles.containerInfoCard}
         orientation="LEGHT"
         icon={<Avatars source={coverBusiness} size="medium" />}
-        onPress={() => navigation.navigate("Business", { id: product.userID })}
+        onPress={() => navigation.navigate('Business', { id: product.userID })}
         lineStyle={styles.lineDivider}
       />
       <FlexContainer newStyle={styles.containerheaders}>
         <FlexContainer newStyle={styles.containerheader}>
           <Typography variant="subtitle" newStyle={styles.name}>
-            {product?.name || ""}
+            {product?.name || ''}
           </Typography>
           <Typography
             numberOfLines={3}
             variant="SubDescription"
             newStyle={styles.description}
           >
-            {product?.description || ""}
+            {product?.description || ''}
           </Typography>
         </FlexContainer>
       </FlexContainer>
@@ -71,7 +70,7 @@ const ProductCard: React.FC<Props> = React.memo(({ product }) => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: SIZES.gapMedium,
-    alignSelf: "center",
+    alignSelf: 'center',
     paddingHorizontal: SIZES.gapLarge,
   },
   containerheader: {

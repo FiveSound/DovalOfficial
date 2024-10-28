@@ -1,12 +1,10 @@
-import React from 'react'
-import { Modal as RNModal, ModalProps } from 'react-native'
+import React from 'react';
+import { Modal as RNModal, ModalProps } from 'react-native';
 
-type Props = ModalProps
+type Props = ModalProps;
 
 const Modal = (props: Props) => {
-  return (
-    <RNModal {...props} />
-  )
-}
+  return <RNModal {...props} />;
+};
 
-export default Modal
+export default Modal;

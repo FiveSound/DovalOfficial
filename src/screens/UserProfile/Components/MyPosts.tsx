@@ -1,8 +1,7 @@
-import React from "react";
-import { useAPI } from "../../../hooks";
-import { getPostsProfileUserService } from "../../../services/accounts";
-import Main from "../../MyProfile/Components/Tabs/Main";
-
+import React from 'react';
+import { useAPI } from '../../../hooks';
+import { getPostsProfileUserService } from '../../../services/accounts';
+import Main from '../../MyProfile/Components/Tabs/Main';
 
 type Props = {
   username: string;
@@ -12,14 +11,14 @@ type Props = {
 const MyPosts = (props: Props) => {
   const { data, isLoading, isError, error, refetch } = useAPI({
     queryKey: [
-      "profile-user-posts-username",
+      'profile-user-posts-username',
       props.username,
       JSON.stringify(props.currentLocation),
     ],
     queryFn: getPostsProfileUserService,
     enabled: props.username ? true : false,
   });
-    
+
   return (
     <Main
       data={data}

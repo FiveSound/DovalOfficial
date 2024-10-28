@@ -9,7 +9,10 @@ type UseAsyncStorageReturn<T> = {
   error: string | null;
 };
 
-function useAsyncStorage<T>(key: string, initialValue: T): UseAsyncStorageReturn<T> {
+function useAsyncStorage<T>(
+  key: string,
+  initialValue: T,
+): UseAsyncStorageReturn<T> {
   const [storedValue, setStoredValue] = useState<string | null>(null); // Cambiado a string
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,19 +32,22 @@ function useAsyncStorage<T>(key: string, initialValue: T): UseAsyncStorageReturn
     loadStoredValue();
   }, [key, initialValue]);
 
-  const setValue = useCallback(async (value: T) => {
-    try {
-      setLoading(true);
-      const valueToStore = JSON.stringify(value); // Guardar como string
-      setStoredValue(valueToStore);
-      await AsyncStorage.setItem(key, valueToStore);
-      console.log(`New value set for key "${key}":`, valueToStore);
-    } catch (error) {
-      setError(`Error setting value: ${error}`);
-    } finally {
-      setLoading(false);
-    }
-  }, [key]);
+  const setValue = useCallback(
+    async (value: T) => {
+      try {
+        setLoading(true);
+        const valueToStore = JSON.stringify(value); // Guardar como string
+        setStoredValue(valueToStore);
+        await AsyncStorage.setItem(key, valueToStore);
+        console.log(`New value set for key "${key}":`, valueToStore);
+      } catch (error) {
+        setError(`Error setting value: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [key],
+  );
 
   const removeValue = useCallback(async () => {
     try {

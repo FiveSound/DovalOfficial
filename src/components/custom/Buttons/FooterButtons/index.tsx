@@ -1,18 +1,18 @@
-import React, { ReactNode } from "react";
-import { TouchableOpacity } from "../../../native";
-import { ColorValue, StyleSheet, TextStyle, ViewStyle } from "react-native";
-import Typography from "../../Typography";
+import React, { ReactNode } from 'react';
+import { TouchableOpacity } from '../../../native';
+import { ColorValue, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import Typography from '../../Typography';
 import {
   COLORS,
   FONTS,
   responsiveFontSize,
   SIZES,
-} from "../../../../constants/theme";
-import { useTheme } from "../../../../hooks";
-import IsLoading from "../../Loaders/IsLoading";
-import * as Haptics from "expo-haptics";
-import FlexContainer from "../../FlexContainer";
-import LineDivider from "../../LineDivider";
+} from '../../../../constants/theme';
+import { useTheme } from '../../../../hooks';
+import IsLoading from '../../Loaders/IsLoading';
+import * as Haptics from 'expo-haptics';
+import FlexContainer from '../../FlexContainer';
+import LineDivider from '../../LineDivider';
 
 type Props = {
   label: string;
@@ -22,11 +22,12 @@ type Props = {
   containerButtons?: ViewStyle | ViewStyle[];
   labelStyle?: TextStyle;
   Icons?: ReactNode;
-  orientationsIcons?: "Left" | "Right";
-  variant?: "primary" | "secondary" | "disabled";
+  orientationsIcons?: 'Left' | 'Right';
+  variant?: 'primary' | 'secondary' | 'disabled';
 };
 
-const FooterButtons: React.FC<Props> = (props) => { // Ensure FooterButtons is a React functional component
+const FooterButtons: React.FC<Props> = props => {
+  // Ensure FooterButtons is a React functional component
   const {
     onPress,
     disabled,
@@ -46,11 +47,11 @@ const FooterButtons: React.FC<Props> = (props) => { // Ensure FooterButtons is a
 
   const getBackgroundColor = () => {
     switch (variant) {
-      case "primary":
+      case 'primary':
         return COLORS.primary;
-      case "secondary":
+      case 'secondary':
         return COLORS.primary;
-      case "disabled":
+      case 'disabled':
         return backgroundMaingrey;
       default:
         return COLORS.primary;
@@ -59,11 +60,11 @@ const FooterButtons: React.FC<Props> = (props) => { // Ensure FooterButtons is a
 
   const getLabelColor = () => {
     switch (variant) {
-      case "primary":
+      case 'primary':
         return COLORS.dark;
-      case "secondary":
+      case 'secondary':
         return COLORS.dark;
-      case "disabled":
+      case 'disabled':
         return COLORS.Description;
       default:
         return COLORS.dark;
@@ -72,11 +73,11 @@ const FooterButtons: React.FC<Props> = (props) => { // Ensure FooterButtons is a
 
   const getBorderColor = () => {
     switch (variant) {
-      case "primary":
+      case 'primary':
         return COLORS.dark;
-      case "secondary":
+      case 'secondary':
         return COLORS.primary;
-      case "disabled":
+      case 'disabled':
         return COLORS.primary;
     }
   };
@@ -94,8 +95,12 @@ const FooterButtons: React.FC<Props> = (props) => { // Ensure FooterButtons is a
           ])}
           disabled={disabled}
         >
-          {loading && <IsLoading style={{ borderColor: getBorderColor() as ColorValue }} />}
-          {orientationsIcons === "Left" && Icons}
+          {loading && (
+            <IsLoading
+              style={{ borderColor: getBorderColor() as ColorValue }}
+            />
+          )}
+          {orientationsIcons === 'Left' && Icons}
           <Typography
             variant="SubDescription"
             newStyle={[
@@ -108,7 +113,7 @@ const FooterButtons: React.FC<Props> = (props) => { // Ensure FooterButtons is a
           >
             {label}
           </Typography>
-          {orientationsIcons === "Right" && Icons}
+          {orientationsIcons === 'Right' && Icons}
         </TouchableOpacity>
       </FlexContainer>
     </>
@@ -120,18 +125,18 @@ const styles = StyleSheet.create({
     width: SIZES.BtnWidth,
     height: SIZES.BtnHeight / 1.2,
     borderRadius: SIZES.smallRadius,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row-reverse",
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row-reverse',
   },
   label: {
     ...FONTS.semi14,
     marginHorizontal: SIZES.gapLarge,
   },
   containerButtons: {
-    alignItems: "center",
+    alignItems: 'center',
     height: responsiveFontSize(74),
-    justifyContent: "center",
+    justifyContent: 'center',
   },
 });
 

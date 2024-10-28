@@ -1,41 +1,44 @@
-import React, {memo, useState } from "react";
-import { StyleSheet } from "react-native";
-import { CLOUDFRONT } from "../../../../services";
+import React, { memo, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { CLOUDFRONT } from '../../../../services';
+import { FONTS, SIZES } from '../../../../constants/theme';
+import FlexContainer from '../../FlexContainer';
+import { useTheme } from '../../../../hooks';
+import Typography from '../../Typography';
+import { AddRemove } from './ToggleAdd';
+import Cover from '../../Avatars/Cover';
 import {
-  FONTS,
-  SIZES,
-} from "../../../../constants/theme";
-import FlexContainer from "../../FlexContainer";
-import { useTheme } from "../../../../hooks";
-import Typography from "../../Typography";
-import { AddRemove } from "./ToggleAdd";
-import Cover from "../../Avatars/Cover";
-import { addToCartService, removerCartService } from "../../../../services/cart";
+  addToCartService,
+  removerCartService,
+} from '../../../../services/cart';
 
 interface row {
-  recipeID: number,
-  name: string,
-  description: string,
-  formatprice: string,
-  qty: number,
-  thumbnail: string,
-  variants: number[]
+  recipeID: number;
+  name: string;
+  description: string;
+  formatprice: string;
+  qty: number;
+  thumbnail: string;
+  variants: number[];
 }
 
 type Props = {
-  row: row,
-  refetch: () => void
+  row: row;
+  refetch: () => void;
 };
 
-const CartItem: React.FC<Props> = ({
-  row, refetch
-}) => {
+const CartItem: React.FC<Props> = ({ row, refetch }) => {
   const { backgroundMaingrey } = useTheme();
-  const { recipeID, name, description, formatprice, qty, thumbnail, variants} = row;
+  const { recipeID, name, description, formatprice, qty, thumbnail, variants } =
+    row;
   const [localQty, setLocalQty] = useState(qty); // Local state for quantity
 
-  const addToCart = async (recipeID: number, subVariants: number[], qty: number) => {
-    setLocalQty((prevQty) => prevQty + 1); // Update local state immediately
+  const addToCart = async (
+    recipeID: number,
+    subVariants: number[],
+    qty: number,
+  ) => {
+    setLocalQty(prevQty => prevQty + 1); // Update local state immediately
     const response = await addToCartService(recipeID, subVariants, qty);
     if (response.success) {
       refetch();
@@ -43,7 +46,7 @@ const CartItem: React.FC<Props> = ({
   };
 
   const removeCart = async (recipeID: number, subVariants: number[]) => {
-    setLocalQty((prevQty) => Math.max(prevQty - 1, 0)); // Update local state immediately
+    setLocalQty(prevQty => Math.max(prevQty - 1, 0)); // Update local state immediately
     const response = await removerCartService(recipeID, subVariants);
     if (response.success) {
       refetch();
@@ -68,7 +71,7 @@ const CartItem: React.FC<Props> = ({
           },
         ]}
       >
-        <Cover source={`${CLOUDFRONT}${thumbnail}`} size='medium' />
+        <Cover source={`${CLOUDFRONT}${thumbnail}`} size="medium" />
         <FlexContainer newStyle={styles.containerText}>
           <Typography
             newStyle={styles.maxText}
@@ -105,7 +108,7 @@ export default memo(CartItem);
 const styles = StyleSheet.create({
   container: {
     marginBottom: SIZES.gapMedium,
-    width: "100%",
+    width: '100%',
     padding: SIZES.gapLarge,
     borderRadius: SIZES.radius,
   },
@@ -125,5 +128,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     paddingRight: SIZES.gapLarge,
-  }
+  },
 });

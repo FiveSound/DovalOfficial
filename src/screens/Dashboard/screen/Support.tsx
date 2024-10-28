@@ -1,25 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
-import FormBanner from "../components/FormBanner";
-import { supportService } from "../../../services/business";
-import { useAuth } from "../../../context/AuthContext";
+import { StyleSheet, Text, View } from 'react-native';
+import FormBanner from '../components/FormBanner';
+import { supportService } from '../../../services/business';
+import { useAuth } from '../../../context/AuthContext';
 
 const fields = [
   {
-    type: "readonly",
-    name: "name",
-    placeholder: "Nombre *",
+    type: 'readonly',
+    name: 'name',
+    placeholder: 'Nombre *',
     required: true,
   },
   {
-    type: "readonly",
-    name: "email",
-    placeholder: "Email *",
+    type: 'readonly',
+    name: 'email',
+    placeholder: 'Email *',
     required: true,
   },
   {
-    type: "text",
-    name: "message",
-    placeholder: "Mensaje",
+    type: 'text',
+    name: 'message',
+    placeholder: 'Mensaje',
     required: true,
   },
 ];
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-    backgroundColor: "#000",
-    alignItems: "center",
+    backgroundColor: '#000',
+    alignItems: 'center',
   },
   footer: {
     marginTop: 20,
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 10,
-    textAlign: "center",
-    fontWeight: "bold",
-    color: "#FFF",
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#FFF',
   },
 });

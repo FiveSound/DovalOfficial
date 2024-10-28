@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   FlatList,
   StyleSheet,
-} from "react-native";
-import { Image } from "../../../constants/ThemeDark";
-import { SIZES } from "../../../constants";
-import { responsiveFontSize } from "../../../constants/theme";
-import { Typography, LineDivider } from "../../../components";
-import { scale } from "react-native-size-matters";
+} from 'react-native';
+import { Image } from '../../../constants/ThemeDark';
+import { SIZES } from '../../../constants';
+import { responsiveFontSize } from '../../../constants/theme';
+import { Typography, LineDivider } from '../../../components';
+import { scale } from 'react-native-size-matters';
 
 const socialMediaPlatforms = [
   // {
@@ -19,29 +19,29 @@ const socialMediaPlatforms = [
   //   Img: require("../../../assets/icons/Share.png"),
   // },
   {
-    id: "2",
-    name: "Whatsapp",
-    Img: require("../../../assets/icons/WhatsApp.png"),
+    id: '2',
+    name: 'Whatsapp',
+    Img: require('../../../assets/icons/WhatsApp.png'),
   },
   {
-    id: "3",
-    name: "Copiar enlace",
-    Img: require("../../../assets/icons/Share.png"),
+    id: '3',
+    name: 'Copiar enlace',
+    Img: require('../../../assets/icons/Share.png'),
   },
   {
-    id: "4",
-    name: "Facebook",
-    Img: require("../../../assets/icons/Facebook.png"),
+    id: '4',
+    name: 'Facebook',
+    Img: require('../../../assets/icons/Facebook.png'),
   },
   {
-    id: "5",
-    name: "Instagram",
-    Img: require("../../../assets/icons/Instagram.png"),
+    id: '5',
+    name: 'Instagram',
+    Img: require('../../../assets/icons/Instagram.png'),
   },
   {
-    id: "6",
-    name: "Messenger",
-    Img: require("../../../assets/icons/Messeger.png"),
+    id: '6',
+    name: 'Messenger',
+    Img: require('../../../assets/icons/Messeger.png'),
   },
 ];
 
@@ -49,21 +49,18 @@ const ShareToSocialMedia = () => {
   return (
     <>
       <View style={styles.container}>
-        <Typography
-          variant="H4title"
-          newStyle={styles.title}
-        >
+        <Typography variant="H4title" newStyle={styles.title}>
           Compartir en redes sociales
         </Typography>
         <FlatList
           data={socialMediaPlatforms}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity
               key={item.id}
-              onPress={() => console.log("Test")}
+              onPress={() => console.log('Test')}
               style={styles.button}
             >
               <Image
@@ -96,10 +93,10 @@ const styles = StyleSheet.create({
   },
   button: {
     marginRight: responsiveFontSize(15),
-    alignItems: "center",
+    alignItems: 'center',
   },
   buttonText: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   Img: {
     width: responsiveFontSize(38),

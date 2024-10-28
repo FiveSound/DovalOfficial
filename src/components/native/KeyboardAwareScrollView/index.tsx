@@ -1,12 +1,9 @@
+import { KeyboardAwareScrollView as RNKeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { KeyboardAwareScrollView  as RNKeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-
-type Props = any
+type Props = any;
 
 const KeyboardAwareScrollView = (props: Props) => {
-  return (
-    <RNKeyboardAwareScrollView {...props} />
-  )
-}
+  return <RNKeyboardAwareScrollView {...props} />;
+};
 
-export default KeyboardAwareScrollView
+export default KeyboardAwareScrollView;

@@ -4,5 +4,5 @@ export type Sender = {
   userID: string;
   username: string;
   verify: boolean;
-  name: string
-  };
+  name: string;
+};

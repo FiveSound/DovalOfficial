@@ -10,8 +10,8 @@ export type OrderDashboardType = {
 };
 
 export type StatusType =
-  | "PENDING"
-  | "IN_PROGRESS"
-  | "DELIVERED"
-  | "COMPLETED"
-  | "CANCELED";
+  | 'PENDING'
+  | 'IN_PROGRESS'
+  | 'DELIVERED'
+  | 'COMPLETED'
+  | 'CANCELED';

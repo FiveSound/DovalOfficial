@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface NavigationState {
   currentSlide: number;
@@ -13,7 +13,7 @@ const initialState: NavigationState = {
 };
 
 const navigationSlice = createSlice({
-  name: "navigation",
+  name: 'navigation',
   initialState,
   reducers: {
     setCurrentSlide(state, action: PayloadAction<number>) {
@@ -33,6 +33,7 @@ const navigationSlice = createSlice({
   },
 });
 
-export const { setCurrentSlide, setRecipeID, setBusinessID, resetNavigation } = navigationSlice.actions;
+export const { setCurrentSlide, setRecipeID, setBusinessID, resetNavigation } =
+  navigationSlice.actions;
 
 export default navigationSlice.reducer;

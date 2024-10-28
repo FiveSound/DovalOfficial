@@ -4,15 +4,15 @@ import {
   Button,
   TextInputContentSizeChangeEventData,
   TouchableOpacity,
-} from "react-native";
-import { scale } from "react-native-size-matters";
-import useTheme from "../../../../hooks/useTheme";
-import DarkMode from "../../../../hooks/DarkMode";
-import { BaseSyntheticEvent, useState } from "react";
-import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import { MessageUpload01Icon } from "../../../../constants/IconsPro";
-import i18next from "../../../../Translate";
-import { FlexContainer } from "../../../../components/custom";
+} from 'react-native';
+import { scale } from 'react-native-size-matters';
+import useTheme from '../../../../hooks/useTheme';
+import DarkMode from '../../../../hooks/DarkMode';
+import { BaseSyntheticEvent, useState } from 'react';
+import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
+import { MessageUpload01Icon } from '../../../../constants/IconsPro';
+import i18next from '../../../../Translate';
+import { FlexContainer } from '../../../../components/custom';
 
 type Props = {
   value: string;
@@ -26,7 +26,7 @@ const InputReply = (props: Props) => {
   const [inputHeight, setInputHeight] = useState(responsiveFontSize(scale(18)));
 
   const handleContentSizeChange = (
-    event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>
+    event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>,
   ) => {
     const newHeight = event.nativeEvent.contentSize.height;
     setInputHeight(newHeight);
@@ -36,14 +36,14 @@ const InputReply = (props: Props) => {
       newStyle={{
         backgroundColor: bgInput,
         width: SIZES.width,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
         borderWidth: SIZES.borderWidth / 2,
         borderColor: borderInput,
         borderRadius: SIZES.margin / 2,
         marginBottom: SIZES.gapSmall,
-        height: "auto",
+        height: 'auto',
       }}
     >
       <TextInput
@@ -54,11 +54,11 @@ const InputReply = (props: Props) => {
           height: inputHeight,
           color: SecundaryText,
           paddingHorizontal: SIZES.radius,
-          justifyContent: "center",
-          alignItems: "center",
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
         value={props.value}
-        onChangeText={(text) => props.onChange(text)}
+        onChangeText={text => props.onChange(text)}
         placeholder={i18next.t('Write a message...')}
         placeholderTextColor={SecundaryText}
         multiline
@@ -67,8 +67,8 @@ const InputReply = (props: Props) => {
       <TouchableOpacity
         onPress={props.onSubmit}
         style={{
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: 'center',
+          justifyContent: 'center',
           backgroundColor: COLORS.primary,
           borderRadius: responsiveFontSize(scale(28)),
           height: responsiveFontSize(scale(18)),

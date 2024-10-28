@@ -1,13 +1,27 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { TouchableOpacity, useNavigation, View, Text } from "../../../../components/native";
-import { getMyLocations, setDefaultLocationService } from "../../../../services/orders";
-import { COLORS, SIZES, responsiveFontSize } from "../../../../constants/theme";
-import { Location09Icon } from "../../../../constants/IconsPro";
-import { useAPI, useTheme } from "../../../../hooks";
-import { FlexContainer, IsLoading, LineDivider, ScreenEmpty, Typography } from "../../../../components/custom";
-import i18next from "../../../../Translate";
-import { Ilustrations } from "../../../../constants";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import {
+  TouchableOpacity,
+  useNavigation,
+  View,
+  Text,
+} from '../../../../components/native';
+import {
+  getMyLocations,
+  setDefaultLocationService,
+} from '../../../../services/orders';
+import { COLORS, SIZES, responsiveFontSize } from '../../../../constants/theme';
+import { Location09Icon } from '../../../../constants/IconsPro';
+import { useAPI, useTheme } from '../../../../hooks';
+import {
+  FlexContainer,
+  IsLoading,
+  LineDivider,
+  ScreenEmpty,
+  Typography,
+} from '../../../../components/custom';
+import i18next from '../../../../Translate';
+import { Ilustrations } from '../../../../constants';
 
 interface PropsData {
   data: any;
@@ -19,7 +33,7 @@ interface PropsData {
 
 const Location = (props: any) => {
   const { tag, details, selected, locationID } = props;
-  const { Description , Title} = useTheme();
+  const { Description, Title } = useTheme();
   const navigation = useNavigation();
   const [loading, setLoading] = React.useState(false); // Add loading state
 
@@ -27,7 +41,7 @@ const Location = (props: any) => {
     setLoading(true); // Set loading to true when pressed
     await setDefaultLocationService(locationID);
     setLoading(false); // Set loading to false when success
-    navigation.navigate("Checkout", {
+    navigation.navigate('Checkout', {
       locationID,
     });
   };
@@ -37,10 +51,14 @@ const Location = (props: any) => {
       <TouchableOpacity onPress={handleSelected}>
         <View style={styles.locationContainer}>
           <View style={styles.locationDetails}>
-            <Location09Icon color={Description} width={SIZES.icons} height={SIZES.icons} />
+            <Location09Icon
+              color={Description}
+              width={SIZES.icons}
+              height={SIZES.icons}
+            />
             <View>
               <Typography
-                variant='subtitle'
+                variant="subtitle"
                 newStyle={{
                   color: selected ? COLORS.primary : Title,
                 }}
@@ -48,7 +66,7 @@ const Location = (props: any) => {
                 {tag}
               </Typography>
               <Typography
-                variant='SubDescription'
+                variant="SubDescription"
                 numberOfLines={1}
                 newStyle={{
                   color: selected ? COLORS.primary : Description,
@@ -70,7 +88,7 @@ const Location = (props: any) => {
 
 const MySavedLocations = () => {
   const { data, isLoading, isFetching, isRefetching }: PropsData = useAPI({
-    queryKey: ["locations"],
+    queryKey: ['locations'],
     queryFn: getMyLocations,
   });
 
@@ -84,9 +102,9 @@ const MySavedLocations = () => {
         {data.length === 0 && (
           <FlexContainer newStyle={styles.emptyContainer}>
             <ScreenEmpty
-              labelPart1={i18next.t("You dont have saved addresses yet.")}
+              labelPart1={i18next.t('You dont have saved addresses yet.')}
               labelStylePart1={styles.emptyLabel}
-              subLabel={i18next.t("Add your addresses...")}
+              subLabel={i18next.t('Add your addresses...')}
               source={Ilustrations.Map}
               ImgWidth={SIZES.width}
               ImgHeigth={SIZES.height / 3}
@@ -105,17 +123,17 @@ const MySavedLocations = () => {
 const styles = StyleSheet.create({
   locationContainer: {
     padding: responsiveFontSize(10),
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: 'transparent',
   },
   locationDetails: {
-    display: "flex",
+    display: 'flex',
     gap: responsiveFontSize(10),
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: 'transparent',
   },
   lineDivider: {

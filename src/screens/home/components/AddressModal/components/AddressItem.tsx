@@ -1,15 +1,15 @@
-import React, { memo, useState } from "react";
-import { StyleSheet } from "react-native";
-import { CheckmarkCircle01Icon } from "../../../../../constants/IconsPro";
-import { COLORS, FONTS, SIZES } from "../../../../../constants/theme";
+import React, { memo, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { CheckmarkCircle01Icon } from '../../../../../constants/IconsPro';
+import { COLORS, FONTS, SIZES } from '../../../../../constants/theme';
 import {
   FlexContainer,
   IsLoading,
   LineDivider,
   Typography,
-} from "../../../../../components/custom";
-import { TouchableOpacity } from "../../../../../components/native";
-import { setDefaultLocationService } from "../../../../../services/orders";
+} from '../../../../../components/custom';
+import { TouchableOpacity } from '../../../../../components/native';
+import { setDefaultLocationService } from '../../../../../services/orders';
 
 type AddressItemProps = {
   address: {
@@ -18,22 +18,22 @@ type AddressItemProps = {
     city: string;
     details: string;
     selected: boolean;
-    locationID: string; 
+    locationID: string;
   };
   onSelect: () => void;
 };
 
 const AddressItem = ({ address, onSelect }: AddressItemProps) => {
-    const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const handlePress = async () => {
-        setIsLoading(true);
-        const success = await setDefaultLocationService(address.locationID);
-        setIsLoading(false);
-        if (success) {
-          onSelect();
-        }
-      };
+  const handlePress = async () => {
+    setIsLoading(true);
+    const success = await setDefaultLocationService(address.locationID);
+    setIsLoading(false);
+    if (success) {
+      onSelect();
+    }
+  };
 
   return (
     <>
@@ -64,9 +64,9 @@ const AddressItem = ({ address, onSelect }: AddressItemProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: SIZES.gapLarge,
   },
   textContainer: {

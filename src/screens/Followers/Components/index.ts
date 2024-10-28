@@ -1,9 +1,5 @@
-import TabFollowers from "./TabFollowers";
-import TabFollowing from "./TabFollowing";
-import Tabs from "./Tabs";
+import TabFollowers from './TabFollowers';
+import TabFollowing from './TabFollowing';
+import Tabs from './Tabs';
 
-export {
-    Tabs,
-    TabFollowers,
-    TabFollowing
-}
+export { Tabs, TabFollowers, TabFollowing };

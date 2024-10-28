@@ -1,5 +1,3 @@
 import AddressList from './AddressList';
 
-export {
-    AddressList
-}
+export { AddressList };

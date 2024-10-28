@@ -1,6 +1,6 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "..";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '..';
 
 export type Interests = {
   id: number;
@@ -22,7 +22,7 @@ export const getInterestsService = async () => {
 // Este service 'saveInterestsService' recibe una lista de los intereses que el usuario ha seleccionado (Interests[])
 export const saveInterestsService = async (interests: Interests[]) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/onboarding/save/interests`,
@@ -33,7 +33,7 @@ export const saveInterestsService = async (interests: Interests[]) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -49,7 +49,7 @@ export const saveInterestsService = async (interests: Interests[]) => {
 // usar el service (endOnboardingService) Para actualizar el campo 'onboarding=true'
 export const getMyInterestsService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/onboarding/interests`,
       {},
@@ -57,7 +57,7 @@ export const getMyInterestsService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -68,10 +68,10 @@ export const getMyInterestsService = async () => {
 };
 
 // Este service finaliza el proceso de onboarding
-// Recordar que el procesos termina cuando muestras el efecto 'Scrolling' 
+// Recordar que el procesos termina cuando muestras el efecto 'Scrolling'
 export const endOnboardingService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/onboarding/end`,
       {},
@@ -79,7 +79,7 @@ export const endOnboardingService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -94,9 +94,9 @@ export const endOnboardingService = async () => {
 //Trae el status "tutorial=true | false" si un usuario ya vio el tutorial de scroll
 export const getStatusTutorialService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     if (!userToken) {
-      throw new Error("User not authenticated");
+      throw new Error('User not authenticated');
     }
 
     const response = await axios.post(
@@ -106,7 +106,7 @@ export const getStatusTutorialService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return {
@@ -124,7 +124,7 @@ export const getStatusTutorialService = async () => {
 // Actualiza el campo tutorial a true
 export const endTutorialService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/onboarding/update/tutorial`,
       {},
@@ -132,7 +132,7 @@ export const endTutorialService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {

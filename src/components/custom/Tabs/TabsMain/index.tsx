@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import {
   NavigationState,
   SceneMap,
   SceneRendererProps,
   TabBar,
   TabView,
-} from "react-native-tab-view";
-import useTheme from "../../../../hooks/useTheme";
-import DarkMode from "../../../../hooks/DarkMode";
+} from 'react-native-tab-view';
+import useTheme from '../../../../hooks/useTheme';
+import DarkMode from '../../../../hooks/DarkMode';
 import {
   COLORS,
   FONTS,
   responsiveFontSize,
   SIZES,
-} from "../../../../constants/theme";
+} from '../../../../constants/theme';
 
-const FlexContainer = React.lazy(() => import("../../FlexContainer"));
+const FlexContainer = React.lazy(() => import('../../FlexContainer'));
 
 type Props = {
   routes: { key: string; title: string }[];
@@ -33,7 +33,7 @@ const TabsMain = ({ routes, scenes }: Props) => {
   const renderTabBar = (
     props: SceneRendererProps & {
       navigationState: NavigationState<{ key: string; title: string }>;
-    }
+    },
   ) => (
     <React.Suspense fallback={<View />}>
       <FlexContainer
@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
   },
   indicatorContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   label: {
     color: COLORS.dark,
     ...FONTS.semi14,
-    textTransform: "none",
+    textTransform: 'none',
   },
   indicator: {
     backgroundColor: COLORS.primary,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     height: responsiveFontSize(40),
     borderRadius: SIZES.radius,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   tabView: {
     height: SIZES.height / 1,

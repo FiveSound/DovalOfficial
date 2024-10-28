@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 import {
   ImageProps,
   ImageStyle,
@@ -6,19 +6,19 @@ import {
   ViewStyle,
   TextStyle,
   StyleSheet,
-} from "react-native";
-import FlexContainer from "../FlexContainer";
-import Typography from "../Typography";
-import { COLORS, FONTS, SIZES } from "../../../constants/theme";
-import { Image } from "../../native";
-import Buttons from "../Buttons/Buttons";
+} from 'react-native';
+import FlexContainer from '../FlexContainer';
+import Typography from '../Typography';
+import { COLORS, FONTS, SIZES } from '../../../constants/theme';
+import { Image } from '../../native';
+import Buttons from '../Buttons/Buttons';
 
 type Props = {
   labelPart1?: string;
   labelPart2?: string;
   labelStylePart1?: TextStyle;
   labelStylePart2?: TextStyle;
-  sublabelStyles?:TextStyle;
+  sublabelStyles?: TextStyle;
   subLabel?: string;
   source?: string;
   ImageStyle?: StyleProp<ImageStyle>;
@@ -33,7 +33,7 @@ type Props = {
   onPress?: () => void;
   Container?: ViewStyle;
   ShowButton?: Boolean;
-  colorVariant?: "primary" | "secundary" | "default";
+  colorVariant?: 'primary' | 'secundary' | 'default';
   top?: boolean;
 };
 
@@ -56,9 +56,9 @@ const ScreenEmpty = ({
   Container,
   onPress,
   ShowButton = true,
-  colorVariant = "default",
+  colorVariant = 'default',
   top = true,
-  sublabelStyles
+  sublabelStyles,
 }: Props) => {
   return (
     <FlexContainer
@@ -96,15 +96,18 @@ const ScreenEmpty = ({
           {labelPart2}
         </Typography>
       </Typography>
-      <Typography variant="SubDescription" newStyle={[styles.subDescription, sublabelStyles]}>
+      <Typography
+        variant="SubDescription"
+        newStyle={[styles.subDescription, sublabelStyles]}
+      >
         {subLabel}
       </Typography>
       {top && (
         <Image
-        source={source}
-        placeholderSource={source}
-        server={false}
-        showPlaceholder={true}
+          source={source}
+          placeholderSource={source}
+          server={false}
+          showPlaceholder={true}
           style={{
             ...styles.image,
             ...(ImageStyle as object),
@@ -114,12 +117,7 @@ const ScreenEmpty = ({
         />
       )}
       {top && children}
-      {ShowButton && (
-        <Buttons
-          label={labelButton}
-          onPress={onPress}
-        />
-      )}
+      {ShowButton && <Buttons label={labelButton} onPress={onPress} />}
     </FlexContainer>
   );
 };
@@ -127,25 +125,25 @@ const ScreenEmpty = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "transparent",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
   },
   subtitle: {
     width: SIZES.BtnWidth,
   },
   labelOne: {
     ...FONTS.heading24,
-    textAlign: "center",
-    color: COLORS.primary
+    textAlign: 'center',
+    color: COLORS.primary,
   },
   subDescription: {
     width: SIZES.BtnWidth,
-    textAlign: "center",
+    textAlign: 'center',
     ...FONTS.semi21,
   },
   image: {
-    contentFit: "contain",
+    contentFit: 'contain',
   },
   buttonLabel: {
     ...FONTS.h4,

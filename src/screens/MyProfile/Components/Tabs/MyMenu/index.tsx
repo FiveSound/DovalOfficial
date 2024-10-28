@@ -1,10 +1,10 @@
-import useAPI from "../../../../../hooks/useAPI";
-import { getMyRecipesService } from "../../../../../services/recipes";
-import Main from "./Main";
+import useAPI from '../../../../../hooks/useAPI';
+import { getMyRecipesService } from '../../../../../services/recipes';
+import Main from './Main';
 
 const MyMenu = () => {
   const { data, isLoading, isError, refetch } = useAPI({
-    queryKey: ["my-recipes_menus"],
+    queryKey: ['my-recipes_menus'],
     queryFn: getMyRecipesService,
   });
 

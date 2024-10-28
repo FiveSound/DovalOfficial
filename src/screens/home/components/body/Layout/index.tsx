@@ -1,10 +1,10 @@
-import { ReactNode, useState } from "react";
-import { StyleSheet } from "react-native";
-import { useTheme } from "../../../../../hooks";
-import { Container, LineDivider } from "../../../../../components/custom";
-import { ScrollView } from "../../../../../components/native";
-import { SIZES } from "../../../../../constants/theme";
-import Header from "../../header";
+import { ReactNode, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { useTheme } from '../../../../../hooks';
+import { Container, LineDivider } from '../../../../../components/custom';
+import { ScrollView } from '../../../../../components/native';
+import { SIZES } from '../../../../../constants/theme';
+import Header from '../../header';
 
 type Props = {
   children: ReactNode;
@@ -41,15 +41,15 @@ const Layout = ({ children, Append }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
+    flex: 1,
   },
   scrollView: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
   contentContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     width: SIZES.width,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
 });
 

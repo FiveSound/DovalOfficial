@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { StyleSheet, Platform } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/store";
+import React, { useState } from 'react';
+import { StyleSheet, Platform } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../redux/store';
 import {
   Buttons,
   FlexContainer,
   InputLabel,
   LineDivider,
   Search,
-} from "../../../components/custom";
-import Options from "./Options";
-import SharesOptions from "./SharesOptions";
-import { SIZES } from "../../../constants/theme";
-import { KeyboardAvoidingView } from "react-native";
-import { setSearchQuery } from "../../../redux/slides";
-import { useAuth } from "../../../context/AuthContext";
-import { setExpandOnKeyboard } from "../../../redux/slides/modalSlice";
+} from '../../../components/custom';
+import Options from './Options';
+import SharesOptions from './SharesOptions';
+import { SIZES } from '../../../constants/theme';
+import { KeyboardAvoidingView } from 'react-native';
+import { setSearchQuery } from '../../../redux/slides';
+import { useAuth } from '../../../context/AuthContext';
+import { setExpandOnKeyboard } from '../../../redux/slides/modalSlice';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -24,18 +24,18 @@ type LayoutProps = {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useAuth();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const selectedItem = useSelector(
-    (state: RootState) => state.selection.selectedItem
+    (state: RootState) => state.selection.selectedItem,
   );
   const expandOnKeyboard = useSelector(
-    (state: RootState) => state.modal.expandOnKeyboard
+    (state: RootState) => state.modal.expandOnKeyboard,
   );
   const scroll = selectedItem !== null && expandOnKeyboard;
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{ flex: 1 }}
     >
       <FlexContainer style={styles.container}>
@@ -45,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             placeholder="Search"
             value={value}
             containerStyle={{ borderWidth: 0 }}
-            onChange={(value) => {
+            onChange={value => {
               setValue(value);
               dispatch(setSearchQuery(value));
             }}
@@ -53,14 +53,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             onBlur={() => dispatch(setExpandOnKeyboard(false))}
           />
         )}
-        
-        {children} 
+
+        {children}
         <>
-       {isAuthenticated &&  <LineDivider /> }   
+          {isAuthenticated && <LineDivider />}
           {!selectedItem && (
             <FlexContainer
               newStyle={{
-                alignItems: "center",
+                alignItems: 'center',
               }}
             >
               <SharesOptions />
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   animatedContainer: {
     padding: SIZES.gapLarge,
-    alignItems: "center",
+    alignItems: 'center',
   },
   title: {},
   line: {},

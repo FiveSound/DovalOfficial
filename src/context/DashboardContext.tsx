@@ -7,26 +7,26 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { Alert } from "react-native";
-import { io, Socket } from "socket.io-client";
-import { useAuth } from "./AuthContext";
-import useFocusApp from "../hooks/useFocusApp";
-import useCustomNavigation from "./useCustomNavigation";
-import { SOCKET_URL } from "../services";
-import { OrderDashboardType, StatusType } from "../types/Dashboard";
+} from 'react';
+import { Alert } from 'react-native';
+import { io, Socket } from 'socket.io-client';
+import { useAuth } from './AuthContext';
+import useFocusApp from '../hooks/useFocusApp';
+import useCustomNavigation from './useCustomNavigation';
+import { SOCKET_URL } from '../services';
+import { OrderDashboardType, StatusType } from '../types/Dashboard';
 import {
   getOrdersBusinessService,
   acceptOrderService,
   rejectOrderService,
   deliverOrderService,
-} from "../services/business";
+} from '../services/business';
 
 type DashboardProviderProps = {
   children: ReactNode;
 };
 
-type TypeStatus = "accept" | "delivered" | "complete" | "reject";
+type TypeStatus = 'accept' | 'delivered' | 'complete' | 'reject';
 
 type TypeAlert = {
   accept: boolean;
@@ -70,7 +70,7 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState<StatusType>("PENDING");
+  const [status, setStatus] = useState<StatusType>('PENDING');
   const [orders, setOrders] = useState<OrderDashboardType[][]>([]);
   const [isError, setIsError] = useState(false);
   const [currentOrderID, setCurrentOrderID] = useState<number | null>(null);
@@ -106,7 +106,7 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
   };
 
   const acceptStatusOrder = async () => {
-    if (!currentOrderID) throw Error("No existe una orden!");
+    if (!currentOrderID) throw Error('No existe una orden!');
 
     setProcessing(true);
 
@@ -114,7 +114,7 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
     console.log({ response });
 
     if (response.success) {
-      socket?.emit("event-accept-order", {
+      socket?.emit('event-accept-order', {
         orderID: currentOrderID,
       });
 
@@ -123,11 +123,11 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
       setCurrentOrderID(null);
 
       setTimeout(() => {
-        setConfirm("accept", false);
+        setConfirm('accept', false);
         setAlertSucces(false);
       }, 1500);
 
-      setStatus("IN_PROGRESS");
+      setStatus('IN_PROGRESS');
 
       if (!open) {
         setOpen(true);
@@ -136,8 +136,8 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
 
     if (response.riders === 0) {
       Alert.alert(
-        "No hay repartidores disponibles!",
-        "No hemos encontrado repartidores cerca a tu restaurante"
+        'No hay repartidores disponibles!',
+        'No hemos encontrado repartidores cerca a tu restaurante',
       );
     }
 
@@ -146,19 +146,19 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
 
   const deliveredStatusOrder = async () => {
     try {
-      if (!currentOrderID) throw Error("OrderID es requerido!");
+      if (!currentOrderID) throw Error('OrderID es requerido!');
       setProcessing(true);
       const response = await deliverOrderService(currentOrderID);
 
       if (response.success) {
-        socket?.emit("event-deliver-order", {
+        socket?.emit('event-deliver-order', {
           orderID: currentOrderID,
         });
       }
 
       setProcessing(false);
-      setConfirm("delivered", false);
-      setStatus("DELIVERED");
+      setConfirm('delivered', false);
+      setStatus('DELIVERED');
     } catch (error) {
       console.log({ error });
     }
@@ -169,12 +169,12 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
       const response = await rejectOrderService(orderID);
 
       if (response) {
-        socket?.emit("event-reject-order", {
+        socket?.emit('event-reject-order', {
           orderID,
         });
       }
 
-      setStatus("CANCELED");
+      setStatus('CANCELED');
     } catch (error) {
       console.log({ error });
     }
@@ -197,21 +197,21 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
         });
         setSocket(socket);
 
-        socket.on("connect", () => {
-          console.log("Connected!", user.userID);
-          socket.on("event-received-order", () => {
+        socket.on('connect', () => {
+          console.log('Connected!', user.userID);
+          socket.on('event-received-order', () => {
             try {
-              getOrdersByStatus("PENDING");
+              getOrdersByStatus('PENDING');
 
               Alert.alert(
                 `Has recibido una nueva orden!`,
-                "Tienes una orden pendiente por aceptar",
+                'Tienes una orden pendiente por aceptar',
                 [
                   {
-                    text: "Ir a Dashboard",
-                    onPress: () => navigation.navigate("Drawer"),
+                    text: 'Ir a Dashboard',
+                    onPress: () => navigation.navigate('Drawer'),
                   },
-                ]
+                ],
               );
             } catch (error) {
               setIsError(true);
@@ -220,12 +220,12 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
         });
 
         return () => {
-          socket.off("event-received-order");
+          socket.off('event-received-order');
           socket.disconnect();
-          console.log("Disconnected!");
+          console.log('Disconnected!');
         };
       } catch (error) {
-        console.error("Socket connection error:", error);
+        console.error('Socket connection error:', error);
       }
     }
   }, [focused, user]);

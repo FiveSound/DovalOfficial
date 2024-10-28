@@ -1,20 +1,20 @@
-import React, { useCallback, useState } from "react";
-import { Text, TouchableOpacity } from "../../../native";
-import FlexContainer from "../../FlexContainer";
-import Icons from "../../Icons";
+import React, { useCallback, useState } from 'react';
+import { Text, TouchableOpacity } from '../../../native';
+import FlexContainer from '../../FlexContainer';
+import Icons from '../../Icons';
 import {
   Delete03IconSharp,
   Delete03IconStroke,
   PencilEdit02IconSharp,
   PlusSignIcon,
   Remove01Icon,
-} from "../../../../constants/IconsPro";
-import { StyleSheet } from "react-native";
-import Typography from "../../Typography";
-import { useTheme } from "../../../../hooks";
-import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import { useCart } from "../../../../context/CartContext";
-import i18next from "../../../../Translate";
+} from '../../../../constants/IconsPro';
+import { StyleSheet } from 'react-native';
+import Typography from '../../Typography';
+import { useTheme } from '../../../../hooks';
+import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
+import { useCart } from '../../../../context/CartContext';
+import i18next from '../../../../Translate';
 
 type Props = {
   recipeID: number;
@@ -35,14 +35,10 @@ const ToggleAdd = (props: Props) => {
     removeProduct(recipeID, setLoad);
     console.log('Removing product with recipeID:', recipeID);
   }, [removeProduct, recipeID]);
-  
+
   return (
     <FlexContainer variant="row" newStyle={styles.container}>
-      <AddRemove 
-        qty={qty} 
-        add={handleAdd}
-        remove={handleRemove} 
-      />
+      <AddRemove qty={qty} add={handleAdd} remove={handleRemove} />
       <EditRecipie />
     </FlexContainer>
   );
@@ -52,9 +48,12 @@ const EditRecipie = () => {
   const { border, Description } = useTheme();
   return (
     <TouchableOpacity
-      style={[styles.containerIcons, {
-        borderColor: Description
-      }]}
+      style={[
+        styles.containerIcons,
+        {
+          borderColor: Description,
+        },
+      ]}
     >
       <Icons
         appendIcons={
@@ -66,7 +65,7 @@ const EditRecipie = () => {
         }
         styles={styles.containerIconsEdit}
       />
-      <Typography variant="H4title">{i18next.t("Edit")}</Typography>
+      <Typography variant="H4title">{i18next.t('Edit')}</Typography>
     </TouchableOpacity>
   );
 };
@@ -113,20 +112,20 @@ export const AddRemove = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   containerIcons: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: SIZES.gapLarge,
-    flexDirection: "row",
+    flexDirection: 'row',
     height: SIZES.InputsHeight,
     borderWidth: SIZES.borderWidth,
-     backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   containerIconsEdit: {
-   backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
 });
 export default ToggleAdd;

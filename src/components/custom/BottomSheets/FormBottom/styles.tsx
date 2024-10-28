@@ -1,5 +1,10 @@
-import { StyleSheet } from "react-native";
-import { SIZES, FONTS, COLORS, responsiveFontSize } from "../../../../constants/theme";
+import { StyleSheet } from 'react-native';
+import {
+  SIZES,
+  FONTS,
+  COLORS,
+  responsiveFontSize,
+} from '../../../../constants/theme';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -10,10 +15,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 0,
     maxWidth: SIZES.width,
     paddingHorizontal: SIZES.gapLarge,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   view: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: SIZES.padding,
     width: SIZES.width,
     maxWidth: SIZES.width,
@@ -22,11 +27,12 @@ const styles = StyleSheet.create({
     ...FONTS.heading44,
     textAlign: 'center',
     color: COLORS.TitleColor,
-    width: SIZES.BtnWidth / 1.1
+    width: SIZES.BtnWidth / 1.1,
   },
   typography: {
     marginHorizontal: SIZES.padding / 2,
-    textAlign: "center",  },
+    textAlign: 'center',
+  },
 });
 
 export default styles;

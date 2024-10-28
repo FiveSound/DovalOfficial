@@ -1,7 +1,18 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import { Audio } from 'expo-av';
-import Animated, { Easing, useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import Animated, {
+  Easing,
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from '../../../../../hooks';
 import { COLORS, SIZES } from '../../../../../constants/theme';
@@ -15,21 +26,28 @@ type Props = {
   isPlaying: boolean;
   handlePlayPause: () => void;
   totalTimeInSeconds: number;
-  IDSong: (id: string, sourceSong: string) => void
+  IDSong: (id: string, sourceSong: string) => void;
 };
 
-const BarMusic: React.FC<Props> = ({ audioUri, isPlaying, handlePlayPause, totalTimeInSeconds, IDSong }) => {
+const BarMusic: React.FC<Props> = ({
+  audioUri,
+  isPlaying,
+  handlePlayPause,
+  totalTimeInSeconds,
+  IDSong,
+}) => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [openSong, setOpenSong] = useState(false)
+  const [openSong, setOpenSong] = useState(false);
   const progress = useSharedValue(0);
-  const { bgInput, borderInput } = useTheme()
-
+  const { bgInput, borderInput } = useTheme();
 
   useEffect(() => {
     const loadAudio = async () => {
       if (audioUri && !sound) {
         console.log('Loading new sound');
-        const { sound: newSound } = await Audio.Sound.createAsync({ uri: audioUri });
+        const { sound: newSound } = await Audio.Sound.createAsync({
+          uri: audioUri,
+        });
         setSound(newSound);
       }
     };
@@ -72,10 +90,8 @@ const BarMusic: React.FC<Props> = ({ audioUri, isPlaying, handlePlayPause, total
           sound.pauseAsync();
         }
       };
-    }, [sound])
+    }, [sound]),
   );
-
-
 
   return (
     <View style={styles.container}>
@@ -89,12 +105,11 @@ const BarMusic: React.FC<Props> = ({ audioUri, isPlaying, handlePlayPause, total
             backgroundColor: COLORS.primaryDark950,
             borderWidth: SIZES.borderWidth / 2,
             borderColor: COLORS.primaryDark900,
-            borderRadius: SIZES.radiusExtra / 1.4
-          }}>
-          <MusicNote01Icon
-            width={SIZES.icons / 2}
-            height={SIZES.icons / 2} />
-          <Typography variant='SubDescription'> audio seleccionado</Typography>
+            borderRadius: SIZES.radiusExtra / 1.4,
+          }}
+        >
+          <MusicNote01Icon width={SIZES.icons / 2} height={SIZES.icons / 2} />
+          <Typography variant="SubDescription"> audio seleccionado</Typography>
         </View>
       ) : (
         <TouchableOpacity
@@ -107,12 +122,14 @@ const BarMusic: React.FC<Props> = ({ audioUri, isPlaying, handlePlayPause, total
             backgroundColor: COLORS.primaryDark950,
             borderWidth: SIZES.borderWidth / 2,
             borderColor: COLORS.primaryDark900,
-            borderRadius: SIZES.radiusExtra / 1.4
-          }}>
-          <MusicNote01Icon
-            width={SIZES.icons / 2}
-            height={SIZES.icons / 2} />
-          <Typography variant='SubDescription'> Toca para agregar un audio...</Typography>
+            borderRadius: SIZES.radiusExtra / 1.4,
+          }}
+        >
+          <MusicNote01Icon width={SIZES.icons / 2} height={SIZES.icons / 2} />
+          <Typography variant="SubDescription">
+            {' '}
+            Toca para agregar un audio...
+          </Typography>
           {/* <AddSong
             IDSong={IDSong}
             visible={openSong}

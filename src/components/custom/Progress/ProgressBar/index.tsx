@@ -1,11 +1,11 @@
 import React from 'react';
-import {  StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { COLORS, SIZES } from '../../../../constants/theme';
 import FlexContainer from '../../FlexContainer';
 import { IsLoading } from '../../Loaders';
 
 interface ProgressBarProps {
-  progress: number; 
+  progress: number;
   height?: number;
   backgroundColor?: string;
   progressColor?: string;
@@ -17,12 +17,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   backgroundColor = COLORS.backSuccess,
   progressColor = COLORS.success,
 }) => {
-
   const percentage = Math.min(progress * 100, 100).toFixed(0);
 
   return (
     <FlexContainer newStyle={styles.wrapper}>
-      <IsLoading label={`${percentage}%`} showLabel={true}/>
+      <IsLoading label={`${percentage}%`} showLabel={true} />
       <FlexContainer newStyle={[styles.container, { height, backgroundColor }]}>
         <FlexContainer
           newStyle={[
@@ -30,7 +29,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
             {
               width: `${percentage}%` as string,
               backgroundColor: progressColor,
-            }
+            },
           ]}
         />
       </FlexContainer>

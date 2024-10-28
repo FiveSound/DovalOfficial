@@ -1,9 +1,9 @@
-import React, { memo, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { useTheme } from "../../../hooks";
-import { FlexContainer, Typography } from "../../../components/custom";
-import { FONTS, SIZES } from "../../../constants/theme";
-import i18next from "../../../Translate";
+import React, { memo, useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { useTheme } from '../../../hooks';
+import { FlexContainer, Typography } from '../../../components/custom';
+import { FONTS, SIZES } from '../../../constants/theme';
+import i18next from '../../../Translate';
 
 type Props = {
   data: {
@@ -17,37 +17,42 @@ const Inf = (props: Props) => {
   const { data } = props;
   const { Description, backgroundMaingrey } = useTheme();
   const [extend, setExtend] = useState(false);
-  const bionull = data.bio === null
-  const bioEmpty = data.bio !== "";
-  
+  const bionull = data.bio === null;
+  const bioEmpty = data.bio !== '';
+
   return (
     <FlexContainer style={styles.container}>
       <FlexContainer style={styles.nameContainer}>
         <Typography
           newStyle={styles.nameText}
           variant="H4title"
-          numberOfLines={1}>
-          {data.name || ""}
+          numberOfLines={1}
+        >
+          {data.name || ''}
         </Typography>
       </FlexContainer>
-      {bionull && bioEmpty? (
+      {bionull && bioEmpty ? (
         <TouchableOpacity
           onPress={() => setExtend(!extend)}
-          style={{...styles.containerBio, backgroundColor: backgroundMaingrey}}>
-          <Typography
-            variant="SubDescription"
-            newStyle={styles.biotext}>
-            {i18next.t("Add bio")}
+          style={{
+            ...styles.containerBio,
+            backgroundColor: backgroundMaingrey,
+          }}
+        >
+          <Typography variant="SubDescription" newStyle={styles.biotext}>
+            {i18next.t('Add bio')}
           </Typography>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
           onPress={() => setExtend(!extend)}
-          style={styles.descriptionContainer}>
+          style={styles.descriptionContainer}
+        >
           <Typography
             variant="SubDescription"
             numberOfLines={!extend ? 2 : undefined}
-            newStyle={{ ...styles.descriptionText, color: Description }}>
+            newStyle={{ ...styles.descriptionText, color: Description }}
+          >
             {data.bio}
           </Typography>
         </TouchableOpacity>
@@ -58,39 +63,39 @@ const Inf = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     width: SIZES.width,
-    backgroundColor: "transparent",
-    justifyContent: "center",
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
   },
   nameContainer: {
-    alignItems: "center",
-    backgroundColor: "transparent",
+    alignItems: 'center',
+    backgroundColor: 'transparent',
     paddingHorizontal: SIZES.radius,
   },
   nameText: {
     ...FONTS.semi16,
     maxWidth: SIZES.width / 1.4,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
   descriptionContainer: {
     paddingHorizontal: SIZES.gapMedium,
-    alignItems: "center",
+    alignItems: 'center',
     width: SIZES.width,
   },
   descriptionText: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     textAlign: 'center',
-    ...FONTS.text14
+    ...FONTS.text14,
   },
   biotext: {
-    ...FONTS.semi14
+    ...FONTS.semi14,
   },
   containerBio: {
     paddingVertical: SIZES.gapSmall,
     paddingHorizontal: SIZES.gapMedium,
-    borderRadius: SIZES.smallRadius
-  }
+    borderRadius: SIZES.smallRadius,
+  },
 });
 
 export default memo(Inf);
