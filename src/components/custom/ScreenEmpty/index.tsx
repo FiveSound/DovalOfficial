@@ -10,7 +10,7 @@ import {
 import FlexContainer from '../FlexContainer';
 import Typography from '../Typography';
 import { COLORS, FONTS, SIZES } from '../../../constants/theme';
-import { Image } from '../../native';
+import { Image, View } from '../../native';
 import Buttons from '../Buttons/Buttons';
 
 type Props = {
@@ -82,7 +82,9 @@ const ScreenEmpty = ({
           }}
         />
       )}
-      <Typography variant="subtitle" newStyle={styles.subtitle}>
+      
+      {/* Separación de los labels */}
+      <View style={styles.labelsContainer}>
         <Typography
           variant="subtitle"
           newStyle={[styles.labelOne, labelStylePart1]}
@@ -95,7 +97,8 @@ const ScreenEmpty = ({
         >
           {labelPart2}
         </Typography>
-      </Typography>
+      </View>
+      
       <Typography
         variant="SubDescription"
         newStyle={[styles.subDescription, sublabelStyles]}
@@ -109,7 +112,6 @@ const ScreenEmpty = ({
           server={false}
           showPlaceholder={true}
           style={{
-            ...styles.image,
             ...(ImageStyle as object),
             width: ImgWidth,
             height: ImgHeigth,
@@ -128,6 +130,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
+    gap: SIZES.gapMedium,
+  },
+  labelsContainer: {
+    alignItems: 'center', // Alinea los labels al centro
+    marginBottom: SIZES.gapSmall, // Espacio inferior entre los labels y el siguiente elemento
   },
   subtitle: {
     width: SIZES.BtnWidth,
@@ -141,9 +148,6 @@ const styles = StyleSheet.create({
     width: SIZES.BtnWidth,
     textAlign: 'center',
     ...FONTS.semi21,
-  },
-  image: {
-    contentFit: 'contain',
   },
   buttonLabel: {
     ...FONTS.h4,

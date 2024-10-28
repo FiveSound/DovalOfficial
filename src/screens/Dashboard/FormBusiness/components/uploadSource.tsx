@@ -1,11 +1,8 @@
-import React from 'react';
-import { Controller } from 'react-hook-form';
+import React, { useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import { Button, View, Text, TouchableOpacity } from '../../../../components/native';
+import { Button } from '../../../../components/native';
 import { useUploadMedia } from '../../../../hooks';
-import { FlexContainer, IsLoading } from '../../../../components/custom';
-import { Upload05Icon } from '../../../../constants/IconsPro';
-import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
+import { FlexContainer, IsLoading, Typography } from '../../../../components/custom';
 
 type Props = {
   control: any;
@@ -42,22 +39,29 @@ const UploadSource = ({ setValue }: Props) => {
           },
         ];
         uploadMedia(pickedImage);
-        setValue('imgIdentification', thumbnailURLs, { shouldDirty: true });
+        console.log('thumbnailURLs', thumbnailURLs);
       }
     } catch (err) {
       console.error('Error al seleccionar la imagen:', err);
+    } finally {
+    
     }
   };
 
+  useEffect(() => {
+    if (thumbnailURLs) {
+      setValue('imgIdentification', thumbnailURLs, { shouldDirty: true });
+    }
+  }, [thumbnailURLs, setValue]);
+
   return (
         <FlexContainer>
-      <Text>{thumbnailURLs}</Text>
-      <TouchableOpacity onPress={handlePickImage}>
-        <Upload05Icon width={responsiveFontSize(60)} height={responsiveFontSize(60)} color={COLORS.primary}/>
-        <Text>Seleccionar Imagen</Text>
-      </TouchableOpacity>
+       <Button 
+       onPress={handlePickImage} 
+       title={thumbnailURLs ? 'Cambiar Imagen' : 'Seleccionar Imagen'}
+       />
       {isLoading && <IsLoading />}
-      {error && <Text style={{ color: 'red' }}>{error}</Text>}
+      <Typography variant='H4title'>{error}</Typography>
     </FlexContainer>
   );
 };

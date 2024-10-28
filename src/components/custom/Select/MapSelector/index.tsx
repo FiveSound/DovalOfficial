@@ -2,9 +2,7 @@ import { memo, useEffect, useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
-  TextInput,
   TouchableOpacity,
-  Text,
   Modal,
 } from 'react-native';
 import MapView, {
@@ -21,7 +19,6 @@ import { IsLoading } from '../../Loaders';
 import mapStyle from '../../../../constants/mapStyle';
 import { SIZES } from '../../../../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
-import { searchLocationByPlaceID } from '../../../../services/orders'; // Importar el servicio existente
 
 type Props = {
   setValue: (field: string, value: any, options?: any) => void;
@@ -72,7 +69,8 @@ const MapSelector = memo(({ setValue }: Props) => {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         };
-
+        setValue('latitude', latitude, { shouldDirty: true });
+        setValue('longitude', longitude, { shouldDirty: true });
         setRegion(initialRegion);
         previousRegionRef.current = initialRegion;
 

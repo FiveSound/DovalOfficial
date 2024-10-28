@@ -1,261 +1,176 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
-import {
-  FlexContainer,
-  Hero,
-  LineDivider,
-  Typography,
-} from '../../../../components/custom';
-import { SIZES, COLORS } from '../../../../constants/theme';
-import { useTheme } from '../../../../hooks';
-import { Button } from '../../../../components/native';
-import { Select } from '../components';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Switch, StyleSheet } from 'react-native';
+import { FlexContainer, Hero, Typography } from '../../../../components/custom';
+import CustomPicker from '../../../../components/custom/CustomPicker';
+import { COLORS, SIZES } from '../../../../constants/theme';
 import i18next from '../../../../Translate';
+import { Home01Icon, Moon02Icon } from '../../../../constants/IconsPro';
+import { useTheme } from '../../../../hooks';
 
-interface Schedule {
-  id: number;
-  days: string[];
-  openingTime: Date | null;
-  closingTime: Date | null;
-}
+type DaySchedule = {
+  enabled: boolean;
+  startTime: Date;
+  endTime: Date;
+};
 
-const OperationsInfoStep = ({ control }: any) => {
-  const { Title, backgroundMaingrey } = useTheme();
-  const [schedules, setSchedules] = useState<Schedule[]>([
-    {
-      id: 1,
-      days: [],
-      openingTime: null,
-      closingTime: null,
-    },
-  ]);
-  const [nextId, setNextId] = useState(2);
+type Schedule = {
+  timezone: string;
+  monday: DaySchedule;
+  tuesday: DaySchedule;
+  wednesday: DaySchedule;
+  thursday: DaySchedule;
+  friday: DaySchedule;
+  saturday: DaySchedule;
+  sunday: DaySchedule;
+};
 
-  const daysOfWeekList = [
-    {
-      category: 'Days of the Week',
-      list: [
-        { id: 1, label: 'Monday', value: 'Monday', interest: 'Monday' },
-        { id: 2, label: 'Tuesday', value: 'Tuesday', interest: 'Tuesday' },
-        {
-          id: 3,
-          label: 'Wednesday',
-          value: 'Wednesday',
-          interest: 'Wednesday',
-        },
-        { id: 4, label: 'Thursday', value: 'Thursday', interest: 'Thursday' },
-        { id: 5, label: 'Friday', value: 'Friday', interest: 'Friday' },
-        { id: 6, label: 'Saturday', value: 'Saturday', interest: 'Saturday' },
-        { id: 7, label: 'Sunday', value: 'Sunday', interest: 'Sunday' },
-      ],
-    },
+const OperationsInfoStep = ({setValue}: any) => {
+  const { backgroundMaingrey } = useTheme();
+  const [schedule, setSchedule] = useState<Schedule>({
+    timezone: 'UTC-08:00',
+    monday: { enabled: true, startTime: new Date(), endTime: new Date() },
+    tuesday: { enabled: true, startTime: new Date(), endTime: new Date() },
+    wednesday: { enabled: true, startTime: new Date(), endTime: new Date() },
+    thursday: { enabled: true, startTime: new Date(), endTime: new Date() },
+    friday: { enabled: true, startTime: new Date(), endTime: new Date() },
+    saturday: { enabled: false, startTime: new Date(), endTime: new Date() },
+    sunday: { enabled: false, startTime: new Date(), endTime: new Date() },
+  });
+
+  const timezoneItems = [
+    { label: 'Pacific Time (UTC-08:00)', value: 'UTC-08:00' },
+    { label: 'Eastern Time (UTC-05:00)', value: 'UTC-05:00' },
   ];
 
-  const Riders = [
-    {
-      category: i18next.t('Do you have Riders?'),
-      list: [
-        { id: 1, label: i18next.t('Yes'), value: 'Yes', interest: 'Yes' },
-        { id: 2, label: i18next.t('No'), value: 'No', interest: 'No' },
-      ],
-    },
-  ];
-
-  // Funciones para manejar variantes de horarios
-  const addScheduleVariant = () => {
-    setSchedules(prev => [
+  const handleToggleDay = (day: keyof Schedule) => {
+    setSchedule(prev => ({
       ...prev,
-      {
-        id: nextId,
-        days: [],
-        openingTime: null,
-        closingTime: null,
-      },
-    ]);
-    setNextId(prev => prev + 1);
-  };
-
-  const removeScheduleVariant = (id: number) => {
-    setSchedules(prev => prev.filter(schedule => schedule.id !== id));
-  };
-
-  const updateScheduleDays = (id: number, selectedDays: string[]) => {
-    setSchedules(prev =>
-      prev.map(schedule =>
-        schedule.id === id ? { ...schedule, days: selectedDays } : schedule,
-      ),
-    );
-  };
-
-  const updateOpeningTime = (id: number, time: Date) => {
-    setSchedules(prev =>
-      prev.map(schedule =>
-        schedule.id === id ? { ...schedule, openingTime: time } : schedule,
-      ),
-    );
-  };
-
-  const updateClosingTime = (id: number, time: Date) => {
-    setSchedules(prev =>
-      prev.map(schedule =>
-        schedule.id === id ? { ...schedule, closingTime: time } : schedule,
-      ),
-    );
-  };
-
-  const handleOpeningTimeChange = (id: number, selectedTime: Date | null) => {
-    if (selectedTime) {
-      const currentSchedule = schedules.find(s => s.id === id);
-      if (
-        currentSchedule &&
-        currentSchedule.closingTime &&
-        selectedTime >= currentSchedule.closingTime
-      ) {
-        Alert.alert(
-          'Error',
-          'La hora de apertura debe ser anterior a la hora de cierre.',
-        );
-        updateOpeningTime(id, null);
-      } else {
-        updateOpeningTime(id, selectedTime);
-      }
-    }
-  };
-
-  const handleClosingTimeChange = (id: number, selectedTime: Date | null) => {
-    if (selectedTime) {
-      const currentSchedule = schedules.find(s => s.id === id);
-      if (
-        currentSchedule &&
-        currentSchedule.openingTime &&
-        selectedTime <= currentSchedule.openingTime
-      ) {
-        Alert.alert(
-          'Error',
-          'La hora de cierre debe ser posterior a la hora de apertura.',
-        );
-        updateClosingTime(id, null);
-      } else {
-        updateClosingTime(id, selectedTime);
-      }
-    }
-  };
-
-  const getAvailableDays = (currentId: number) => {
-    const selectedDays = schedules
-      .filter(schedule => schedule.id !== currentId)
-      .flatMap(schedule => schedule.days);
-    return daysOfWeekList.map(group => ({
-      ...group,
-      list: group.list.filter(day => !selectedDays.includes(day.value)),
+      [day]: { ...prev[day], enabled: !prev[day].enabled }
     }));
   };
 
+  const handleTimeChange = (day: keyof Schedule, type: 'start' | 'end', value: string | Date) => {
+    if (value instanceof Date) {
+      setSchedule(prev => ({
+        ...prev,
+        [day]: { ...prev[day], [type === 'start' ? 'startTime' : 'endTime']: value }
+      }));
+    }
+  };
+
+  useEffect(() => {
+    console.log('Horario actualizado:', schedule);
+    setValue('schedule', schedule, { shouldDirty: true });
+  }, [schedule]);
+
+
   return (
-    <FlexContainer style={styles.container}>
+    <FlexContainer> 
       <Hero
-        label={i18next.t('Business Hours')}
-        sublabel={i18next.t(
-          'Please provide the business hours of your business.',
-        )}
-      />
-      <Select
-        control={control}
-        name="OurRiders"
-        listTextSelector={Riders}
-        defaultValue={i18next.t('Do you have Riders?')}
-        placeholder={i18next.t('Do you have Riders?')}
-        required
-        isDatePicker={false}
-        isMultiSelect={true}
-        maxSelections={1}
-      />
+    label={i18next.t('Business Hours')}
+    sublabel={i18next.t(
+      'Please provide the business hours of your business.',
+    )}
+  />
+     <FlexContainer newStyle={styles.container}>
 
-      {schedules.map((schedule, index) => (
-        <View key={schedule.id} style={styles.scheduleVariant}>
-          <Typography variant="subtitle" style={styles.variantTitle}>
-            {i18next.t('Personalized Schedule')} {index + 1}
-          </Typography>
-          <LineDivider variant="secondary" lineStyle={styles.divider} />
-          {/* Selección de Días */}
-          <Select
-            control={control}
-            name={`schedule_${schedule.id}_days`}
-            listTextSelector={getAvailableDays(schedule.id)}
-            defaultValue={schedule.days}
-            placeholder={i18next.t('Select the operation days*')}
-            required
-            isDatePicker={false}
-            isMultiSelect={true}
-            maxSelections={7}
-            onChange={(selected: string[]) =>
-              updateScheduleDays(schedule.id, selected)
-            }
+
+      {Object.keys(schedule).filter(day => day !== 'timezone').map((day) => (
+        <View key={day} style={styles.dayRow}>
+          <FlexContainer variant='row' newStyle={styles.dayRow}>
+          <Switch
+            value={schedule[day as keyof Schedule].enabled}
+            onValueChange={() => handleToggleDay(day as keyof Schedule)}
+            style={styles.switch}
+             
           />
-
-          {/* Selección de Hora de Apertura */}
-          <Select
-            control={control}
-            name={`schedule_${schedule.id}_openingTime`}
-            list={[]} // No se necesita lista para picker de tiempo
-            defaultValue={schedule.openingTime}
-            placeholder={i18next.t('Select the opening time*')}
-            required
-            isDatePicker={true}
-            isMultiSelect={false}
-            onChange={(selected: Date | null) =>
-              handleOpeningTimeChange(schedule.id, selected)
-            }
-          />
-
-          {/* Selección de Hora de Cierre */}
-          <Select
-            control={control}
-            name={`schedule_${schedule.id}_closingTime`}
-            list={[]} // No se necesita lista para picker de tiempo
-            defaultValue={schedule.closingTime}
-            placeholder={i18next.t('Select the closing time*')}
-            required
-            isDatePicker={true}
-            isMultiSelect={false}
-            onChange={(selected: Date | null) =>
-              handleClosingTimeChange(schedule.id, selected)
-            }
-          />
-          <LineDivider variant="secondary" lineStyle={styles.divider} />
-
-          {schedules.length > 1 && (
-            <Button
-              onPress={() => removeScheduleVariant(schedule.id)}
-              title={i18next.t('Delete Variant')}
-              color={COLORS.error}
-            />
-          )}
+          <Typography variant='H4title'>{day.charAt(0).toUpperCase() + day.slice(1)}</Typography>
+          </FlexContainer>
+          {schedule[day as keyof Schedule].enabled ? (
+            <View style={styles.timeRow}>
+              <FlexContainer newStyle={{
+                backgroundColor: backgroundMaingrey,
+                padding: SIZES.gapSmall,
+                borderRadius: SIZES.radius,
+                width: '50%',
+              }}>
+              <CustomPicker
+                selectedValue={schedule[day as keyof Schedule].startTime}
+                onValueChange={(value) => handleTimeChange(day as keyof Schedule, 'start', value)}
+                placeholder="Select Start Time"
+                isDatePicker
+                mode='time'
+                style={styles.timePicker}
+              />
+              </FlexContainer>
+              <FlexContainer newStyle={{
+                backgroundColor: backgroundMaingrey,
+                padding: SIZES.gapSmall,
+                borderRadius: SIZES.radius,
+                width: '50%',
+              }}>
+              <CustomPicker
+                selectedValue={schedule[day as keyof Schedule].endTime}
+                onValueChange={(value) => handleTimeChange(day as keyof Schedule, 'end', value)}
+                placeholder="Select End Time"
+                isDatePicker
+                mode="time"
+                style={styles.timePicker}
+              />
+              </FlexContainer>
+            </View>
+          ) : <FlexContainer variant='row' newStyle={[styles.closed, {
+            backgroundColor: backgroundMaingrey
+          }]}>
+            <Moon02Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.primary} />
+            <Typography variant='H4title'>Closed</Typography>
+            </FlexContainer>}
         </View>
       ))}
 
-      <Button onPress={addScheduleVariant} title={i18next.t('Add Variant')} />
+     </FlexContainer>
     </FlexContainer>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: SIZES.gapLarge,
+    paddingHorizontal: SIZES.gapLarge,
   },
-  scheduleVariant: {
-    marginBottom: SIZES.gapLarge,
-    padding: SIZES.gapMedium,
+  customPicker: {
+    marginVertical: 20,
   },
-  variantTitle: {
-    marginBottom: SIZES.gapSmall,
-    fontWeight: 'bold',
-    fontSize: 16,
+  dayRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SIZES.gapLarge,
+    justifyContent: 'space-between',
+  },
+  dayLabel: {
     color: COLORS.primary,
   },
-  divider: {
-    width: SIZES.width,
-    alignSelf: 'center',
+  timeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '50%',
+    marginTop: SIZES.gapSmall,
+    gap: SIZES.gapSmall,
+  },
+  timePicker: {
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  closed: {
+    marginTop: SIZES.gapSmall,
+    width: '50%',
+    padding: SIZES.gapLarge,
+    borderRadius: SIZES.radius,
+    alignItems: 'center',
+    gap: SIZES.gapLarge,
+  },
+  switch: {
+    marginLeft: SIZES.gapSmall,
+    
   },
 });
 

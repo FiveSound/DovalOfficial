@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, Suspense, lazy } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import {
@@ -17,7 +17,7 @@ import {
   getTabsDashboardService,
 } from '../../../services/business';
 import ORDER_STATUS from '../../../constants/ORDER_STATUS';
-import Order from '../components/Order';
+const LazyOrder = lazy(() => import('../components/Order'));
 // import Popup from "../../../components/Popup";
 // import OTPInput from "../../../components/OTPInput";
 // import Select from "../../../components/Select";
@@ -40,7 +40,7 @@ import {
   TabList,
 } from '../../../components/custom';
 import { Platform } from '../../../components/native';
-import { SIZES } from '../../../constants/theme';
+import { COLORS, SIZES } from '../../../constants/theme';
 import { Ilustrations } from '../../../constants';
 
 type DataQueryType = {
@@ -264,6 +264,8 @@ const Home = () => {
     }
   }, [currentOrderID, delayTime]);
 
+  console.log(orders.data.list, 'orders.data.list')
+  const isEmpty = orders.data.list.length === 0;
   if (orders.isLoading || orders.isFetching) return <LoadingScreen />;
   if (orders.isError) return;
   <ScreenEmpty
@@ -273,16 +275,16 @@ const Home = () => {
     ImgWidth={SIZES.width}
     ImgHeigth={SIZES.height / 3}
     onPress={onRefetch}
+    labelButton='Try again'
+    labelStylePart1={styles.textError}
   />;
 
   return (
     <Container useSafeArea={true} style={styles.container}>
-      {/* Tabs */}
       <TabList
         isLoading={tabs.isLoading || tabs.isFetching}
         list={tabs.data.list}
         onChange={status => {
-          // When change status reset laststatus to default
           setLastStatus(status);
           setLastPage(DEFAULT_PAGE);
           mutation.mutate({ status, page: DEFAULT_PAGE });
@@ -298,28 +300,41 @@ const Home = () => {
         <IsLoading size={Platform.OS === 'android' ? 'small' : 'medium'} />
       )}
 
-      <FlatList
-        data={orders.data.list}
-        renderItem={({ item }) => (
-          <Order
-            onAccept={onAccept}
-            onReject={onReject}
-            onSend={onSend}
-            onAddTime={onAddTime}
-            onComplete={onComplete}
-            onNavigateTo={orderID =>
-              navigation.navigate('Dashboard/Business/OrderID', { orderID })
-            }
-            // waiting={mutation.isPending}
-            {...item}
-          />
-        )}
-        keyExtractor={item => item.orderID.toString()}
-        initialNumToRender={4}
-        maxToRenderPerBatch={4}
-        onRefresh={onRefetch}
-        refreshing={orders.isFetching}
-      />
+{isEmpty ? (
+        <ScreenEmpty
+          labelPart1="Sin órdenes disponibles"
+          labelPart2="No hemos encontrado órdenes en este estado."
+          source={Ilustrations.CharcoPet}
+          ImgWidth={SIZES.width}
+          ImgHeigth={SIZES.height / 3}
+          onPress={onRefetch}
+          labelButton='Intentar de nuevo'
+        />
+      ) : (
+        <FlatList
+          data={orders.data.list}
+          renderItem={({ item }) => (
+            <Suspense fallback={<IsLoading />}>
+              <LazyOrder
+                onAccept={onAccept}
+                onReject={onReject}
+                onSend={onSend}
+                onAddTime={onAddTime}
+                onComplete={onComplete}
+                onNavigateTo={orderID =>
+                  navigation.navigate('Dashboard/Business/OrderID', { orderID })
+                }
+                {...item}
+              />
+            </Suspense>
+          )}
+          keyExtractor={item => item.orderID.toString()}
+          initialNumToRender={4}
+          maxToRenderPerBatch={4}
+          onRefresh={onRefetch}
+          refreshing={orders.isFetching}
+        />
+      )}
 
       {/* Footer */}
       <Pagination
@@ -376,7 +391,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   textError: {
-    color: 'red',
+    color: COLORS.error,
   },
   btn: {
     paddingVertical: 4,

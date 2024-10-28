@@ -190,18 +190,20 @@ const SignUpEmail = () => {
       )}
       {!state.exist && (
         <Buttons
-          label={state.loading ? i18next.t('') : i18next.t('Next')}
+          label={state.loading ? i18next.t('Sending...') : i18next.t('Next')}
           loading={state.loading}
           disabled={state.disable}
           onPress={handleSendCode}
+          color='dark'
         />
       )}
       {state.exist && (
         <Buttons
-          label={state.loading ? i18next.t('') : i18next.t('Sign in')}
+          label={state.loading ? i18next.t('Signing in...') : i18next.t('Sign in')}
           loading={state.loading}
           disabled={state.disable}
           onPress={handleLogin}
+          color='dark'
         />
       )}
     </Container>

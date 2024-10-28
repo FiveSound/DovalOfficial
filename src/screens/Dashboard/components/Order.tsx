@@ -5,7 +5,7 @@ import OrderStatus from './OrderStatus';
 import { Home01Icon } from '../../../constants/IconsPro';
 import { responsiveFontSize, SIZES } from '../../../constants/theme';
 import { useTheme } from '../../../hooks';
-import { LineDivider, Typography } from '../../../components/custom';
+import { LineDivider, LoadingScreen, Typography } from '../../../components/custom';
 import { Platform } from '../../../components/native';
 
 type Props = RestauranteOrderType & {
@@ -15,10 +15,10 @@ type Props = RestauranteOrderType & {
   onAddTime: (orderID: number) => void;
   onComplete: (orderID: number) => void;
   onNavigateTo: (orderID: number) => void;
-  // waiting: boolean;
 };
 
 const Order = memo((props: Props) => {
+
   const { backgroundMaingrey, border } = useTheme();
   return (
     <TouchableOpacity onPress={() => props.onNavigateTo(props.orderID)}>

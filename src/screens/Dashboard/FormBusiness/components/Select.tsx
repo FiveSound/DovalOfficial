@@ -52,7 +52,7 @@ const Select = ({
   IconsendComponent,
   listTextSelector,
   inputStyle,
-  maxSelections = 2, // Valor por defecto si no se proporciona
+  maxSelections = 2, 
   onChange,
 }: SelectProps) => {
   const { backgroundMaingrey, Title, BackgroundMain } = useTheme();

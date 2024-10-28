@@ -202,7 +202,7 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
           socket.on('event-received-order', () => {
             try {
               getOrdersByStatus('PENDING');
-
+              
               Alert.alert(
                 `Has recibido una nueva orden!`,
                 'Tienes una orden pendiente por aceptar',
