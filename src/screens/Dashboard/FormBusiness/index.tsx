@@ -198,7 +198,7 @@ const FormVerified: React.FC = () => {
         {currentStep === 3 && (
           <BusinessAddress control={control} setValue={setValue} />
         )}
-        {currentStep === 4 && <OperationsInfoStep control={control} />}
+        {currentStep === 4 && <OperationsInfoStep setValue={setValue} />}
         {currentStep === 5 && <FinancialInfoStep control={control} />}
         {currentStep === 6 && (
           <AgreementsStep

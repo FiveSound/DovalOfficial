@@ -1,6 +1,9 @@
 import { memo } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { CLOUDFRONT } from '../../../services';
+import { Image, Text } from '../../../components/native';
+import { COLORS, responsiveFontSize } from '../../../constants/theme';
+import { Typography } from '../../../components/custom';
 
 type Props = {
   title: string;
@@ -15,46 +18,38 @@ const Product = memo((props: Props) => {
       <View style={styles.body}>
         <Image
           style={styles.cover}
-          source={{ uri: `${CLOUDFRONT}${props.cover}` }}
+          placeholderSource={`${CLOUDFRONT}${props.cover}`}
         />
         <View style={styles.variants}>
-          <Text style={styles.title}>{props.title}</Text>
-          <Text>{props.variants}</Text>
+          <Typography variant='title'>{props.title}</Typography>
+          <Typography variant='H4title'>{props.variants}</Typography>
         </View>
-        <Text style={[styles.title, { color: '#FF5500' }]}>
+        <Typography variant='subtitle' newStyle={{
+          color: COLORS.primary
+        }}>
           Cant. {props.quantity}
-        </Text>
+        </Typography>
       </View>
-      <View style={styles.separator}></View>
     </View>
   );
 });
 
 const styles = StyleSheet.create({
   cover: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
+    width: responsiveFontSize(80),
+    height: responsiveFontSize(80),
+    borderRadius: responsiveFontSize(10),
   },
   body: {
     flexDirection: 'row',
-    gap: 20,
+    gap: responsiveFontSize(10),
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   variants: {
-    minWidth: 180,
-    maxWidth: 180,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginTop: 10,
-    marginBottom: 10,
-    width: '100%',
-    height: 1,
-    backgroundColor: '#E0E0E0',
-  },
+    minWidth: responsiveFontSize(160),
+    maxWidth: responsiveFontSize(160),
+  }
 });
 
 export default Product;

@@ -48,6 +48,7 @@ const MenuManagement = () => {
     initialData,
   });
 
+  console.log(menu.data.list, 'menu.data.list');
   // Mutate
   const queryClient = useQueryClient();
 

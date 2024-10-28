@@ -361,7 +361,7 @@ export const FONTS = {
   heading24: {
     fontFamily: 'PlusJakartaSans-Bold',
     fontSize: SIZES.heading24,
-    lineHeight: SIZES.heading24 * 1.6,
+    lineHeight: SIZES.heading24,
   },
   heading21: {
     fontFamily: 'PlusJakartaSans-Bold',

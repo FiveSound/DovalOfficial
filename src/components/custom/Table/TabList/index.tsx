@@ -1,17 +1,13 @@
 import { memo, useCallback, useRef } from 'react';
 import {
   FlatList,
-  Pressable,
-  Text,
   StyleSheet,
-  View,
-  ActivityIndicator,
 } from 'react-native';
 import { COLORS, SIZES } from '../../../../constants/theme';
 import Typography from '../../Typography';
 import FlexContainer from '../../FlexContainer';
-import { IsLoading, LoadingScreen } from '../../Loaders';
-import { Platform } from '../../../native';
+import { IsLoading } from '../../Loaders';
+import { Platform, Pressable } from '../../../native';
 
 type Item = {
   title: string;
@@ -35,6 +31,7 @@ const TabList = ({ isLoading, list, status, onChange }: Props) => {
   const renderItem = useCallback(
     ({ item, index }: { item: Item; index: number }) => {
       const isSelected = status === item.status;
+      console.log('isSelected', item);
       return (
         <Pressable
           style={[styles.tabItem, isSelected && styles.selected]}
