@@ -1,6 +1,6 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "../index";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '../index';
 
 type queryKeyProps = {
   queryKey: any;
@@ -26,7 +26,7 @@ export const getProfileUserByUsernameService = async ({
       `${API_URL}/api/account/profile-username`,
       {
         username: queryKey[1],
-      }
+      },
     );
 
     return response.data;
@@ -76,7 +76,7 @@ export const getSavedProfileUserService = async ({
 
 export const disabledAccountService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/account/disabled-account`,
@@ -85,7 +85,7 @@ export const disabledAccountService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     await AsyncStorage.clear();

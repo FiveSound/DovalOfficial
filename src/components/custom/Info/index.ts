@@ -1,5 +1,3 @@
-import PersonalInf from "./PersonalInf/PersonalInf";
+import PersonalInf from './PersonalInf/PersonalInf';
 
-export {
-    PersonalInf
-}
+export { PersonalInf };

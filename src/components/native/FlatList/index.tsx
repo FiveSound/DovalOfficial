@@ -1,12 +1,10 @@
-import React from 'react'
-import { FlatList as RNFlatList, FlatListProps } from 'react-native'
+import React from 'react';
+import { FlatList as RNFlatList, FlatListProps } from 'react-native';
 
-type Props<ItemT> = FlatListProps<ItemT>
+type Props<ItemT> = FlatListProps<ItemT>;
 
 const FlatList = <ItemT,>(props: Props<ItemT>) => {
-  return (
-    <RNFlatList {...props} />
-  )
-}
+  return <RNFlatList {...props} />;
+};
 
-export default FlatList
+export default FlatList;

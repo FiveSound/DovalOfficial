@@ -1,12 +1,10 @@
-import React from 'react'
-import { Pressable as RNPressable, PressableProps } from 'react-native'
+import React from 'react';
+import { Pressable as RNPressable, PressableProps } from 'react-native';
 
-type Props = PressableProps
+type Props = PressableProps;
 
 const Pressable = (props: Props) => {
-  return (
-    <RNPressable {...props} />
-  )
-}
+  return <RNPressable {...props} />;
+};
 
-export default Pressable
+export default Pressable;

@@ -1,5 +1,3 @@
-import SearchHeader from "./SearchHeader";
+import SearchHeader from './SearchHeader';
 
-export {
-    SearchHeader
-}
+export { SearchHeader };

@@ -1,22 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   FlexContainer,
   Icons,
   Typography,
-} from "../../../../components/custom";
-import styles from "./styles";
+} from '../../../../components/custom';
+import styles from './styles';
 import {
   ArrowRight01Icon,
   SentIconReaction,
-} from "../../../../constants/IconsPro";
-import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import useAPI from "../../../../hooks/useAPI";
+} from '../../../../constants/IconsPro';
+import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
+import useAPI from '../../../../hooks/useAPI';
 import {
   getSharePostService,
   sharingService,
-} from "../../../../services/reactions";
-import { useAuth } from "../../../../context/AuthContext";
-import * as Haptics from "expo-haptics";
+} from '../../../../services/reactions';
+import { useAuth } from '../../../../context/AuthContext';
+import * as Haptics from 'expo-haptics';
 
 type Props = {
   liked: boolean;
@@ -48,7 +48,7 @@ const ShareButtons = (props: Props) => {
     setLength(prevLikes => (newShared ? prevLikes + 1 : prevLikes - 1));
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     try {
-      await sharingService(postID, "/");
+      await sharingService(postID, '/');
       if (newShared && user) {
         setNotification(true);
         const timer = setTimeout(() => {
@@ -95,14 +95,15 @@ const ShareButtons = (props: Props) => {
         appendIcons={
           <FlexContainer
             variant="row"
-            newStyle={styles.containerButtonsActions}>
+            newStyle={styles.containerButtonsActions}
+          >
             <SentIconReaction
               width={SIZES.icons}
               height={SIZES.icons}
               color={COLORS.TranspLight}
             />
             <Typography variant="H4title">
-              {shared ? "Share For You!" : "Share"}
+              {shared ? 'Share For You!' : 'Share'}
             </Typography>
             <ArrowRight01Icon />
           </FlexContainer>

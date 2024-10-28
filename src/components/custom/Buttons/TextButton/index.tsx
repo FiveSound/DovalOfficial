@@ -1,14 +1,14 @@
-import React from "react";
-import * as Haptics from "expo-haptics";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import { useTheme } from "../../../../hooks";
-import { TouchableOpacity } from "../../../native";
-import Typography from "../../Typography";
-import IsLoading from "../../Loaders/IsLoading";
+import React from 'react';
+import * as Haptics from 'expo-haptics';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import { useTheme } from '../../../../hooks';
+import { TouchableOpacity } from '../../../native';
+import Typography from '../../Typography';
+import IsLoading from '../../Loaders/IsLoading';
 
-type ColorVariant = "primary" | "secondary" | "default";
-type SizeVariant = "small" | "medium" | "full";
+type ColorVariant = 'primary' | 'secondary' | 'default';
+type SizeVariant = 'small' | 'medium' | 'full';
 
 interface TextButtonProps {
   buttonContainerStyle?: StyleProp<ViewStyle>;
@@ -27,8 +27,8 @@ const TextButton: React.FC<TextButtonProps> = ({
   label,
   disabled,
   onPress,
-  colorVariant = "default",
-  sizeVariant = "medium",
+  colorVariant = 'default',
+  sizeVariant = 'medium',
   labelStyle,
   isSubmitting = false,
   LoaderColor,
@@ -62,8 +62,8 @@ const TextButton: React.FC<TextButtonProps> = ({
     <TouchableOpacity
       style={[
         {
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: 'center',
+          justifyContent: 'center',
           borderRadius: SIZES.gapMedium,
         },
         colorStyles[colorVariant],
@@ -71,14 +71,16 @@ const TextButton: React.FC<TextButtonProps> = ({
         buttonContainerStyle,
       ]}
       onPress={handlePress}
-      disabled={disabled}>
+      disabled={disabled}
+    >
       {!isSubmitting && (
         <Typography
           newStyle={{
             ...labelStyle,
             color: colorStyles[colorVariant].textColor,
           }}
-          variant="H4title">
+          variant="H4title"
+        >
           {label}
         </Typography>
       )}

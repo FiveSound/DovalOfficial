@@ -1,11 +1,11 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Alert } from "react-native";
-import { API_URL } from "../index";
+import { API_URL } from '../index';
 
 export const savedService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     await axios.post(
       `${API_URL}/api/saved`,
@@ -17,13 +17,13 @@ export const savedService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return {};
   } catch (error) {
     console.log({ error });
-    console.log("INICIAR SECCION:", error);
+    console.log('INICIAR SECCION:', error);
     if ((error as any).response && (error as any).response.status === 403) {
       // openBottomSheet();
     }
@@ -33,7 +33,7 @@ export const savedService = async (postID: number) => {
 
 export const unSavedService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     await axios.post(
       `${API_URL}/api/saved/unsaved`,
@@ -44,7 +44,7 @@ export const unSavedService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return {};
@@ -58,10 +58,10 @@ export const unSavedService = async (postID: number) => {
 export const getSavedPostsService = async (
   postID: number,
   setSaved: any,
-  setCounter: any
+  setCounter: any,
 ) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/saved/posts`,
@@ -72,7 +72,7 @@ export const getSavedPostsService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     setSaved(response.data.saved);

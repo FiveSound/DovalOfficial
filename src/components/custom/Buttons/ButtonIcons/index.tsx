@@ -1,23 +1,30 @@
-import React, { ReactNode } from "react";
-import { TouchableOpacity } from "../../../native";
-import { Home01Icon } from "../../../../constants/IconsPro";
-import Typography from "../../Typography";
-import styles from "./styles";
-import useTheme from "../../../../hooks/useTheme";
-import { COLORS } from "../../../../constants/theme";
-import { ViewStyle , StyleSheet, TextProps, TextStyle} from "react-native";
+import React, { ReactNode } from 'react';
+import { TouchableOpacity } from '../../../native';
+import { Home01Icon } from '../../../../constants/IconsPro';
+import Typography from '../../Typography';
+import styles from './styles';
+import useTheme from '../../../../hooks/useTheme';
+import { COLORS } from '../../../../constants/theme';
+import { ViewStyle, StyleSheet, TextProps, TextStyle } from 'react-native';
 
 type Props = {
   label: string;
-  orientationsIcons?: "Left" | "Right";
+  orientationsIcons?: 'Left' | 'Right';
   onPress?: () => void;
   Icons?: ReactNode;
   containerButtons?: ViewStyle | ViewStyle[];
-  labelStyle?: TextStyle
+  labelStyle?: TextStyle;
 };
 
 const ButtonIcons = (props: Props) => {
-  const { label, orientationsIcons = "Left", onPress, Icons, containerButtons, labelStyle } = props;
+  const {
+    label,
+    orientationsIcons = 'Left',
+    onPress,
+    Icons,
+    containerButtons,
+    labelStyle,
+  } = props;
   const { borderInput } = useTheme();
   return (
     <TouchableOpacity
@@ -28,14 +35,17 @@ const ButtonIcons = (props: Props) => {
         {
           borderColor: borderInput,
         },
-      ])}>
-      {orientationsIcons === "Left" && Icons}
-      <Typography variant="SubDescription"
-      numberOfLines={2}
-       newStyle={StyleSheet.flatten([styles.text, labelStyle])}>
+      ])}
+    >
+      {orientationsIcons === 'Left' && Icons}
+      <Typography
+        variant="SubDescription"
+        numberOfLines={2}
+        newStyle={StyleSheet.flatten([styles.text, labelStyle])}
+      >
         {label}
       </Typography>
-      {orientationsIcons === "Right" && Icons}
+      {orientationsIcons === 'Right' && Icons}
     </TouchableOpacity>
   );
 };

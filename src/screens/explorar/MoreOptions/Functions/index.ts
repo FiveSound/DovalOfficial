@@ -1,7 +1,4 @@
-import handleBlock from "./handleBlock";
-import handleReport from "./handleReport";
+import handleBlock from './handleBlock';
+import handleReport from './handleReport';
 
-export {
-    handleBlock,
-    handleReport
-}
+export { handleBlock, handleReport };

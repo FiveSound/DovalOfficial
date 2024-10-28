@@ -1,9 +1,9 @@
-import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
-import { FlexContainer, LineDivider, Typography } from "../../../components";
-import { SIZES } from "../../../constants";
-import { COLORS, responsiveFontSize } from "../../../constants/theme";
-import Avatars from "../../../components/Avatars";
-import { CheckmarkCircle01Icon } from "../../../constants/IconsPro";
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlexContainer, LineDivider, Typography } from '../../../components';
+import { SIZES } from '../../../constants';
+import { COLORS, responsiveFontSize } from '../../../constants/theme';
+import Avatars from '../../../components/Avatars';
+import { CheckmarkCircle01Icon } from '../../../constants/IconsPro';
 
 interface Contact {
   id: string;
@@ -27,17 +27,14 @@ const ShareToContacts = (props: Props) => {
           data={props.contacts}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               key={`item-${item.id}-${index}`}
               onPress={() => props.onShare(item.id)}
               style={styles.contactItem}
             >
-              <Avatars
-                source={item.avatarUrl}
-                size="medium"
-              />
+              <Avatars source={item.avatarUrl} size="medium" />
               <Typography
                 variant="SubDescription"
                 numberOfLines={2}
@@ -68,15 +65,15 @@ const styles = StyleSheet.create({
   },
   contactItem: {
     // marginRight: responsiveFontSize(15),
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: SIZES.gapSmall / 2,
   },
   TextName: {
     width: SIZES.width / 5,
-    textAlign: "center",
+    textAlign: 'center',
   },
   checkmarkContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: responsiveFontSize(5),
     right: responsiveFontSize(5),
   },

@@ -10,26 +10,32 @@ interface RecipeListProps {
   onRefresh: () => void;
 }
 
-const RecipeList: React.FC<RecipeListProps> = ({ data, renderItem, isRefreshing, onRefresh }) => {
-
+const RecipeList: React.FC<RecipeListProps> = ({
+  data,
+  renderItem,
+  isRefreshing,
+  onRefresh,
+}) => {
   return (
     <FlexContainer>
       <FlatList
-      data={data}
-      decelerationRate='normal'
-      renderItem={renderItem}
-      numColumns={1}
-      keyExtractor={(item) => item.id.toString()}
-      refreshing={isRefreshing}
-      onRefresh={onRefresh}
-      contentContainerStyle={{ paddingBottom: SIZES.height / 4}}
-      showsVerticalScrollIndicator={false}
-      ListFooterComponent={<View style={{ height: responsiveFontSize(100) }} />}
-      initialNumToRender={3}
-      maxToRenderPerBatch={3}
-      nestedScrollEnabled={true}
-      scrollEnabled={true}
-    />
+        data={data}
+        decelerationRate="normal"
+        renderItem={renderItem}
+        numColumns={1}
+        keyExtractor={item => item.id.toString()}
+        refreshing={isRefreshing}
+        onRefresh={onRefresh}
+        contentContainerStyle={{ paddingBottom: SIZES.height / 4 }}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={
+          <View style={{ height: responsiveFontSize(100) }} />
+        }
+        initialNumToRender={3}
+        maxToRenderPerBatch={3}
+        nestedScrollEnabled={true}
+        scrollEnabled={true}
+      />
     </FlexContainer>
   );
 };

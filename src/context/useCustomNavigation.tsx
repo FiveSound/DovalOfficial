@@ -1,4 +1,4 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const handleNavigate = (navigation: NavigationProp<any>) => {
   return navigation;

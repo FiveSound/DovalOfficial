@@ -1,14 +1,14 @@
-import { StyleSheet, Pressable, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, Pressable, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
-import Front from "./Front";
-import Back from "./Back";
+} from 'react-native-reanimated';
+import Front from './Front';
+import Back from './Back';
 
 type Props = {
   brand: string;
@@ -26,7 +26,7 @@ const Card = (props: Props) => {
       flipValue.value,
       [0, 1],
       [0, 180],
-      Extrapolation.CLAMP
+      Extrapolation.CLAMP,
     );
 
     return {
@@ -35,7 +35,7 @@ const Card = (props: Props) => {
         flipValue.value,
         [0, 0.5, 1],
         [1, 0, 0],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
     };
   });
@@ -45,7 +45,7 @@ const Card = (props: Props) => {
       flipValue.value,
       [0, 1],
       [180, 360],
-      Extrapolation.CLAMP
+      Extrapolation.CLAMP,
     );
 
     return {
@@ -54,7 +54,7 @@ const Card = (props: Props) => {
         flipValue.value,
         [0, 0.5, 1],
         [0, 0, 1],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
     };
   });
@@ -72,7 +72,7 @@ const Card = (props: Props) => {
           <LinearGradient
             style={styles.background}
             start={{ x: 0.1, y: -0.3 }}
-            colors={["#000", "#000", "#1C1C1E"]}
+            colors={['#000', '#000', '#1C1C1E']}
           >
             <Front
               brand={props.brand}
@@ -86,7 +86,7 @@ const Card = (props: Props) => {
           <LinearGradient
             style={styles.background}
             start={{ x: 0.1, y: -0.3 }}
-            colors={["#000", "#000", "#1C1C1E"]}
+            colors={['#000', '#000', '#1C1C1E']}
           >
             <Back validCVC={props.validCVC} />
           </LinearGradient>
@@ -99,18 +99,18 @@ const Card = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 30,
-    width: "100%",
+    width: '100%',
   },
   card: {
-    position: "absolute",
-    backfaceVisibility: "hidden",
+    position: 'absolute',
+    backfaceVisibility: 'hidden',
   },
   background: {
     padding: 10,
     borderRadius: 15,
   },
   text: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
   },
 });

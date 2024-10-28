@@ -1,6 +1,6 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "../index";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '../index';
 
 interface UploadProgressCallback {
   (progress: number): void;
@@ -9,22 +9,22 @@ interface UploadProgressCallback {
 export const uploadImageService = async (
   file: any,
   response_id: string,
-  setUploadProgress?: UploadProgressCallback
+  setUploadProgress?: UploadProgressCallback,
 ) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const formData = new FormData();
 
-    formData.append("media", file);
-    formData.append("response_id", response_id);
+    formData.append('media', file);
+    formData.append('response_id', response_id);
 
     const response = await axios.post(`${API_URL}/api/upload/image`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${userToken}`,
       },
-      onUploadProgress: (progressEvent) => {
+      onUploadProgress: progressEvent => {
         if (setUploadProgress) {
           const progress = progressEvent.loaded / (progressEvent.total || 1);
           setUploadProgress(progress);
@@ -42,21 +42,21 @@ export const uploadImageService = async (
 export const uploadVideoService = async (
   file: any,
   response_id: string,
-  setUploadProgress?: UploadProgressCallback
+  setUploadProgress?: UploadProgressCallback,
 ) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const formData = new FormData();
 
-    formData.append("media", file);
-    formData.append("response_id", response_id);
+    formData.append('media', file);
+    formData.append('response_id', response_id);
 
     const response = await axios.post(`${API_URL}/api/upload/video`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${userToken}`,
       },
-      onUploadProgress: (progressEvent) => {
+      onUploadProgress: progressEvent => {
         if (setUploadProgress) {
           const progress = progressEvent.loaded / (progressEvent.total || 1);
           setUploadProgress(progress);

@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { getFollowersService } from "../../services/follows";
-import { getProfileService } from "../../services/auth";
-import useAPI from "../../hooks/useAPI";
-import { useRefreshData } from "../../hooks/useRefreshData";
-import { LoadingScreen, Typography } from "../../components/custom";
+import { useEffect } from 'react';
+import { getFollowersService } from '../../services/follows';
+import { getProfileService } from '../../services/auth';
+import useAPI from '../../hooks/useAPI';
+import { useRefreshData } from '../../hooks/useRefreshData';
+import { LoadingScreen, Typography } from '../../components/custom';
 import {
   AvatarProfile,
   LayoutProfile,
@@ -14,18 +14,20 @@ import {
   MyShares,
   MySaves,
   MyMenu,
-  CtoProfile
-} from "./Components";
-import { useNavigation } from "../../components/native";
-import Signup from "../auth/Signup";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import i18next from "../../Translate";
+  CtoProfile,
+} from './Components';
+import { useNavigation } from '../../components/native';
+import Signup from '../auth/Signup';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import i18next from '../../Translate';
 
 type Props = {};
 
 const MyProfile = (props: Props) => {
-  const { isAuthenticated, isLoadingApp, business } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, isLoadingApp, business } = useSelector(
+    (state: RootState) => state.auth,
+  );
   const navigation = useNavigation();
 
   const {
@@ -34,7 +36,7 @@ const MyProfile = (props: Props) => {
     refetch: refetchFollowers,
     error: followersError,
   } = useAPI({
-    queryKey: ["get-Followers-Services"],
+    queryKey: ['get-Followers-Services'],
     queryFn: () => getFollowersService(),
   });
 
@@ -44,7 +46,7 @@ const MyProfile = (props: Props) => {
     refetch: refetchProfile,
     error: profileError,
   } = useAPI({
-    queryKey: ["get-Profile-Services"],
+    queryKey: ['get-Profile-Services'],
     queryFn: () => getProfileService(),
   });
 
@@ -53,8 +55,7 @@ const MyProfile = (props: Props) => {
     refetchFollowers,
   ]);
 
-  useEffect(() => {
-  }, [business])
+  useEffect(() => {}, [business]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -70,7 +71,14 @@ const MyProfile = (props: Props) => {
         refetchFollowers();
       }
     }
-  }, [isLoadingApp, isLoadingFollowers, isLoadingProfile, isAuthenticated, refetchProfile, refetchFollowers]);
+  }, [
+    isLoadingApp,
+    isLoadingFollowers,
+    isLoadingProfile,
+    isAuthenticated,
+    refetchProfile,
+    refetchFollowers,
+  ]);
 
   if (isLoadingApp || isLoadingFollowers || isLoadingProfile) {
     return <LoadingScreen />;
@@ -81,19 +89,21 @@ const MyProfile = (props: Props) => {
   }
 
   if (followersError || profileError) {
-    console.error("Error fetching data:", { followersError, profileError });
+    console.error('Error fetching data:', { followersError, profileError });
     return (
       <LayoutProfile
         data={null}
         isRefreshing={isRefreshing}
         onRefresh={onRefresh}
       >
-        <Typography variant="H4title">{i18next.t("Error fetching data")}</Typography>
+        <Typography variant="H4title">
+          {i18next.t('Error fetching data')}
+        </Typography>
       </LayoutProfile>
     );
   }
-   
-  if(userProfileData && followersData){
+
+  if (userProfileData && followersData) {
     return (
       <LayoutProfile
         data={userProfileData}
@@ -102,32 +112,32 @@ const MyProfile = (props: Props) => {
       >
         <AvatarProfile data={userProfileData} refetch={refetchProfile} />
         <Inf data={userProfileData} />
-        <CtoProfile data={userProfileData}/>
+        <CtoProfile data={userProfileData} />
         <Follows
           data={followersData}
           onPressFollowing={() =>
-            navigation.navigate("Followers", {
+            navigation.navigate('Followers', {
               initialIndex: 1,
               username: userProfileData?.username,
             })
           }
           onPressFollowers={() =>
-            navigation.navigate("Followers", {
+            navigation.navigate('Followers', {
               initialIndex: 0,
               username: userProfileData?.username,
             })
           }
         />
         {/* <IncompleteInfo visible={true} /> */}
-        <TabsMyProfile 
-        MyPosts={<MyPosts />} 
-        Myshares={<MyShares />} 
-        MySaves={<MySaves />} 
-        MyMenu={<MyMenu />} 
+        <TabsMyProfile
+          MyPosts={<MyPosts />}
+          Myshares={<MyShares />}
+          MySaves={<MySaves />}
+          MyMenu={<MyMenu />}
         />
       </LayoutProfile>
     );
-   }
+  }
 };
 
 export default MyProfile;

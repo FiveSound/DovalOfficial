@@ -13,8 +13,8 @@ const RecipeNameInput: React.FC<Props> = ({ setValue, onSaveDraft, value }) => {
       label="Recipe Name"
       placeholder="Delicious Recipe Name"
       value={value}
-      onChangeText={(txt) => {
-        setValue("name", txt);
+      onChangeText={txt => {
+        setValue('name', txt);
         onSaveDraft({ name: txt });
       }}
     />

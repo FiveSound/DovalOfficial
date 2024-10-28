@@ -1,36 +1,41 @@
-import { StyleSheet } from "react-native";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
+import { StyleSheet } from 'react-native';
+import {
+  COLORS,
+  FONTS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../../constants/theme';
 
 const styles = StyleSheet.create({
   flexContainer: {
     paddingHorizontal: SIZES.gapMedium,
     marginVertical: SIZES.gapSmall,
-    width: "98%",
-    alignSelf: "center"
+    width: '98%',
+    alignSelf: 'center',
   },
   touchableOpacity: {
-    alignItems: "center",
-    height: "auto",
+    alignItems: 'center',
+    height: 'auto',
     paddingVertical: SIZES.gapSmall,
     flexDirection: 'row',
-    width: "98%",
-    justifyContent: "space-between"
+    width: '98%',
+    justifyContent: 'space-between',
   },
   businessName: {
     width: SIZES.width / 1.6,
-    ...FONTS.semi16
+    ...FONTS.semi16,
   },
   flexContainerInner: {
-    marginLeft: SIZES.gapSmall
+    marginLeft: SIZES.gapSmall,
   },
   timeSend: {
     width: SIZES.width / 1.5,
     marginRight: SIZES.padding,
   },
   view: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   storeStatus: {
     color: COLORS.error,
@@ -39,24 +44,24 @@ const styles = StyleSheet.create({
     color: COLORS.dark,
   },
   flexContainerRow: {
-    width: "auto",
-    alignItems: 'center'
+    width: 'auto',
+    alignItems: 'center',
   },
   ratingContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     gap: SIZES.gapSmall,
-    width: "auto",
+    width: 'auto',
   },
   ratingText: {
     marginLeft: SIZES.padding,
-    ...FONTS.semi16
+    ...FONTS.semi16,
   },
   favouriteIconContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   lineDivider: {
     alignSelf: 'flex-start',
-    width: SIZES.width
+    width: SIZES.width,
   },
   buttonscontainer: {
     backgroundColor: COLORS.primary,
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
     height: responsiveFontSize(34),
     borderWidth: 0,
-    marginVertical: SIZES.gapMedium
+    marginVertical: SIZES.gapMedium,
   },
   buttonscontainerOthers: {
     backgroundColor: COLORS.primary,
@@ -73,12 +78,12 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     marginVertical: SIZES.gapMedium,
     paddingHorizontal: SIZES.gapLarge,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   openClose: {
     marginLeft: SIZES.gapSmall,
-    color: COLORS.dark
-  }
+    color: COLORS.dark,
+  },
 });
 
 export default styles;

@@ -1,40 +1,32 @@
-import React from 'react'
-import { useAuth } from '../../../context/AuthContext'
-import i18next from '../../../Translate'
-import { ArrowRight01Icon, Logout04Icon } from '../../../constants/IconsPro'
-import { TouchableOpacity, StyleSheet } from 'react-native'
-import { COLORS, FONTS, SIZES } from '../../../constants/theme'
-import { LineDivider, Typography } from '../../../components/custom'
-import { useAppDispatch } from '../../../redux'
-import { signOut } from '../../../redux/slides/authSlice'
+import React from 'react';
+import { useAuth } from '../../../context/AuthContext';
+import i18next from '../../../Translate';
+import { ArrowRight01Icon, Logout04Icon } from '../../../constants/IconsPro';
+import { TouchableOpacity, StyleSheet } from 'react-native';
+import { COLORS, FONTS, SIZES } from '../../../constants/theme';
+import { LineDivider, Typography } from '../../../components/custom';
+import { useAppDispatch } from '../../../redux';
+import { signOut } from '../../../redux/slides/authSlice';
 
-type Props = {}
+type Props = {};
 
 const SignOut = (props: Props) => {
   const { signOut: signOutAuth } = useAuth();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const handleSignOut = () => {
-    signOutAuth()
-    dispatch(signOut())
-  }
+    signOutAuth();
+    dispatch(signOut());
+  };
   return (
     <>
-      <TouchableOpacity
-        onPress={handleSignOut}
-        style={styles.signOutButton}
-      >
-        <TouchableOpacity
-          style={styles.innerButton}
-          onPress={handleSignOut}>
+      <TouchableOpacity onPress={handleSignOut} style={styles.signOutButton}>
+        <TouchableOpacity style={styles.innerButton} onPress={handleSignOut}>
           <Logout04Icon
             width={SIZES.icons}
             height={SIZES.icons}
             color={COLORS.error}
           />
-          <Typography
-            variant='H4title'
-            newStyle={styles.typography}
-          >
+          <Typography variant="H4title" newStyle={styles.typography}>
             {i18next.t('Sign Out')}
           </Typography>
         </TouchableOpacity>
@@ -46,30 +38,30 @@ const SignOut = (props: Props) => {
         />
       </TouchableOpacity>
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   signOutButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     gap: SIZES.gapMedium,
     height: SIZES.BtnHeight / 1.4,
     paddingHorizontal: SIZES.gapLarge,
     borderRadius: SIZES.radius2,
     borderWidth: SIZES.borderWidth / 2,
     borderColor: COLORS.error,
-    marginVertical: SIZES.gapSmall
+    marginVertical: SIZES.gapSmall,
   },
   innerButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: SIZES.gapSmall
+    gap: SIZES.gapSmall,
   },
   typography: {
     color: COLORS.error,
-  }
-})
+  },
+});
 
-export default SignOut
+export default SignOut;

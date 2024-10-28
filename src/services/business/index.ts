@@ -1,11 +1,11 @@
-import axios from "axios";
-import { API_URL } from "../index";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { QueryKeyType } from "../../types/ReactQuery.type";
+import axios from 'axios';
+import { API_URL } from '../index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { QueryKeyType } from '../../types/ReactQuery.type';
 
 export const getMyBusinessService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/business/me`,
@@ -14,7 +14,7 @@ export const getMyBusinessService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -26,7 +26,7 @@ export const getMyBusinessService = async () => {
 
 export const updateMyBusinessService = async (body: Object) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(`${API_URL}/api/business/update`, body, {
       headers: {
@@ -43,7 +43,7 @@ export const updateMyBusinessService = async (body: Object) => {
 
 export const getOrdersBusinessService = async (status: string) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/business/orders`,
@@ -54,7 +54,7 @@ export const getOrdersBusinessService = async (status: string) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -65,10 +65,10 @@ export const getOrdersBusinessService = async (status: string) => {
 
 export const acceptOrderService = async (
   orderID: number,
-  delivery: boolean
+  delivery: boolean,
 ) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/business/accept-order`,
@@ -80,7 +80,7 @@ export const acceptOrderService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -92,7 +92,7 @@ export const acceptOrderService = async (
 
 export const rejectOrderService = async (orderID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/business/reject-order`,
@@ -103,7 +103,7 @@ export const rejectOrderService = async (orderID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -113,7 +113,7 @@ export const rejectOrderService = async (orderID: number) => {
 
 export const deliverOrderService = async (orderID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/business/deliver-order`,
@@ -124,7 +124,7 @@ export const deliverOrderService = async (orderID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -143,13 +143,13 @@ export const getNearbyBusinessService = async (location: object) => {
   }
 };
 
-export const getRecipesByBusinessIDService = async (
-{ queryKey }: QueryKeyType
-) => {
+export const getRecipesByBusinessIDService = async ({
+  queryKey,
+}: QueryKeyType) => {
   try {
     const response = await axios.post(`${API_URL}/api/business/recipes`, {
-     businessID: queryKey[1],
-     ...queryKey[2],
+      businessID: queryKey[1],
+      ...queryKey[2],
     });
     return response.data;
   } catch (error) {
@@ -159,7 +159,7 @@ export const getRecipesByBusinessIDService = async (
 
 export const getDetailsBusinessIDService = async (
   location: object,
-  businessID: string
+  businessID: string,
 ) => {
   try {
     const response = await axios.post(`${API_URL}/api/business/details`, {
@@ -178,7 +178,7 @@ export const getNearbyRecipesService = async (location: object) => {
       `${API_URL}/api/business/recipes/nearby`,
       {
         ...location,
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -187,60 +187,59 @@ export const getNearbyRecipesService = async (location: object) => {
 };
 
 export const notificationsService = async () => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/notifications`,
     {},
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
 export const notificationsUpdateService = async (body: object) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/notifications/update`,
     {
       ...body,
     },
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
 export const updateCoverProfileService = async (key: string) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/profile/edit/cover`,
     { key },
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
 export const supportService = async (body: object) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/support`,
     {
       ...body,
     },
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
-
 export const getHeaderDasboardService = async () => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/header/dashboard`,
@@ -249,14 +248,14 @@ export const getHeaderDasboardService = async () => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
 export const getTabsDashboardService = async () => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/tabs/dashboard`,
@@ -265,14 +264,14 @@ export const getTabsDashboardService = async () => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
 export const getDashboardOrderService = async ({ queryKey }: QueryKeyType) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/orders/dashboard`,
@@ -284,14 +283,14 @@ export const getDashboardOrderService = async ({ queryKey }: QueryKeyType) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
 export const getAllOrdersService = async ({ queryKey }: QueryKeyType) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/orders/all`,
@@ -300,14 +299,14 @@ export const getAllOrdersService = async ({ queryKey }: QueryKeyType) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
 export const getOrderIDService = async (orderID: number) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/order/id`,
@@ -316,14 +315,14 @@ export const getOrderIDService = async (orderID: number) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
 export const getPaymentsHistoryService = async ({ queryKey }: QueryKeyType) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/payments/history`,
@@ -334,27 +333,26 @@ export const getPaymentsHistoryService = async ({ queryKey }: QueryKeyType) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
 export const getAnalitycsService = async () => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/analitycs`,
     {},
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
-
 export const deliverOrderMyRiderService = async (orderID: number | null) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
   const response = await axios.post(
     `${API_URL}/api/business/order/rider`,
     { orderID },
@@ -362,13 +360,13 @@ export const deliverOrderMyRiderService = async (orderID: number | null) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
   return response.data;
 };
 
 export const completeOrderService = async (orderID: number | null) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
   const response = await axios.post(
     `${API_URL}/api/business/order/complete`,
     { orderID },
@@ -376,13 +374,16 @@ export const completeOrderService = async (orderID: number | null) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
   return response.data;
 };
 
-export const verifyOrderService = async (code: string | undefined, orderID: number | null) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+export const verifyOrderService = async (
+  code: string | undefined,
+  orderID: number | null,
+) => {
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/order/verify`,
@@ -391,14 +392,17 @@ export const verifyOrderService = async (code: string | undefined, orderID: numb
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
-export const delayOrderService = async (delay: string | number | undefined, orderID: number | null) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+export const delayOrderService = async (
+  delay: string | number | undefined,
+  orderID: number | null,
+) => {
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/order/delay`,
@@ -407,55 +411,91 @@ export const delayOrderService = async (delay: string | number | undefined, orde
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
 
-
 export const getMenuManagementService = async ({ queryKey }: QueryKeyType) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/menu/management`,
     { page: queryKey[1], search: queryKey[2] },
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
 export const deleteMenuOrderIDService = async (id: number) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/menu/delete/id`,
     { id },
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
 export const getProfileEditService = async () => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/business/profile/get`,
     {},
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;
 };
 
 export const editProfileService = async (body: object) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
-  const response = await axios.post(`${API_URL}/api/business/profile/edit`, body, {
-    headers: { Authorization: `Bearer ${userToken}` },
-  });
+  const response = await axios.post(
+    `${API_URL}/api/business/profile/edit`,
+    body,
+    {
+      headers: { Authorization: `Bearer ${userToken}` },
+    },
+  );
+
+  return response.data;
+};
+
+export const uploadDocumentService = async (file: any) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+
+  const formData = new FormData();
+
+  formData.append('media', file);
+
+  const response = await axios.post(
+    `${API_URL}/api/upload/document`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+  );
+
+  return response.data;
+};
+
+export const registerBusinessService = async (body: object) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+
+  const response = await axios.post(
+    `${API_URL}/api/business/register`,
+    { ...body },
+    { headers: { Authorization: `Bearer ${userToken}` } },
+  );
 
   return response.data;
 };

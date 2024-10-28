@@ -1,13 +1,31 @@
-import React, { useCallback, useState } from "react";
-import { useFormContext } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateVariantService, updateSubVariantService, removeSubVariantService } from "../../../../../services/recipes";
-import { TypeData, TypeVariant } from "./types";
-import { styles } from "./styles";
-import { TouchableOpacity, View, Text, TextInput, Switch, Pressable } from "../../../../../components/native";
-import { Buttons, Checkbox, FlexContainer, LineDivider, Perks, Typography } from "../../../../../components/custom";
-import { useTheme } from "../../../../../hooks";
-import { SIZES } from "../../../../../constants/theme";
+import React, { useCallback, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  updateVariantService,
+  updateSubVariantService,
+  removeSubVariantService,
+} from '../../../../../services/recipes';
+import { TypeData, TypeVariant } from './types';
+import { styles } from './styles';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  TextInput,
+  Switch,
+  Pressable,
+} from '../../../../../components/native';
+import {
+  Buttons,
+  Checkbox,
+  FlexContainer,
+  LineDivider,
+  Perks,
+  Typography,
+} from '../../../../../components/custom';
+import { useTheme } from '../../../../../hooks';
+import { SIZES } from '../../../../../constants/theme';
 
 const Variant = React.memo((props: TypeVariant) => {
   const {
@@ -26,8 +44,6 @@ const Variant = React.memo((props: TypeVariant) => {
   const { backgroundMaingrey } = useTheme();
   const [showAddMore, setShowAddMore] = useState(false);
 
-
-
   const { watch } = useFormContext();
   const values = watch();
   const queryClient = useQueryClient();
@@ -41,14 +57,14 @@ const Variant = React.memo((props: TypeVariant) => {
 
   const mutationOnsave = useMutation({
     mutationFn: updateVariantService,
-    onSuccess: (response) => {
+    onSuccess: response => {
       return queryClient.setQueryData(
-        ["recipe-variants-component", values.id],
+        ['recipe-variants-component', values.id],
         ({ variants, resume, ...rest }: TypeData) => ({
           ...rest,
 
           // Actualizar variantes
-          variants: variants.map((row) => {
+          variants: variants.map(row => {
             if (row.id === response.id) {
               return { ...row, required: response.required };
             }
@@ -56,14 +72,14 @@ const Variant = React.memo((props: TypeVariant) => {
           }),
 
           // Resumen es solo para presentar en el componente "Details"
-          resume: variants.map((row) => {
+          resume: variants.map(row => {
             if (row.id === response.id) {
               return { ...row, title: response.title };
             }
 
             return row;
           }),
-        })
+        }),
       );
     },
   });
@@ -77,26 +93,36 @@ const Variant = React.memo((props: TypeVariant) => {
 
   const mutationDelete = useMutation({
     mutationFn: removeSubVariantService,
-    onSuccess: (response) => {
+    onSuccess: response => {
       return queryClient.setQueryData(
-        ["recipe-variants-component", values.id],
+        ['recipe-variants-component', values.id],
         ({ subvariants, ...rest }: TypeData) => ({
           ...rest,
-          subvariants: subvariants.filter((row) => row.id !== response.id),
-        })
+          subvariants: subvariants.filter(row => row.id !== response.id),
+        }),
       );
     },
   });
 
   return (
     <>
-      <FlexContainer newStyle={[styles.variant, { backgroundColor: backgroundMaingrey }]}>
-        {id && <Typography newStyle={styles.texteDelete} variant='H4title' onPress={() => onRemove(id)}>Delete</Typography>}
+      <FlexContainer
+        newStyle={[styles.variant, { backgroundColor: backgroundMaingrey }]}
+      >
+        {id && (
+          <Typography
+            newStyle={styles.texteDelete}
+            variant="H4title"
+            onPress={() => onRemove(id)}
+          >
+            Delete
+          </Typography>
+        )}
         <LineDivider />
         <FlexContainer newStyle={styles.variantHeader}>
           <TextInput
             placeholder="Add Name variant"
-            onChangeText={(txt) => {
+            onChangeText={txt => {
               if (txt.length > 3) {
                 mutationOnsave.mutate({
                   id,
@@ -111,88 +137,90 @@ const Variant = React.memo((props: TypeVariant) => {
             autoFocus
             readOnly={disabled}
           />
-          
-        {editRequired && (
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-            <Text>Limite</Text>
-           <Pressable
-              onPress={() => {
-                // if (limitQty < subvariants.length) return;
-                // No añadir mas elementos
-                let newValue = limitQty + 1;
 
-                mutationOnsave.mutate({
-                  id,
-                  limit_qty: newValue,
-                });
-
-                setLimitQty(newValue);
-              }}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: "red",
-                borderRadius: 15,
-              }}
+          {editRequired && (
+            <View
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}
             >
-              <Text
+              <Text>Limite</Text>
+              <Pressable
+                onPress={() => {
+                  // if (limitQty < subvariants.length) return;
+                  // No añadir mas elementos
+                  let newValue = limitQty + 1;
+
+                  mutationOnsave.mutate({
+                    id,
+                    limit_qty: newValue,
+                  });
+
+                  setLimitQty(newValue);
+                }}
                 style={{
-                  textAlign: "center",
-                  fontSize: 15,
-                  fontWeight: "bold",
+                  width: 20,
+                  height: 20,
+                  backgroundColor: 'red',
+                  borderRadius: 15,
                 }}
               >
-                +
-              </Text>
-            </Pressable>
-          
-            <TextInput
-              readOnly
-              defaultValue={`${limitQty}`}
-              value={`${limitQty}`}
-              maxLength={1}
-              style={{
-                fontSize: 19,
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-              keyboardType="number-pad"
-            />
-            <Pressable
-              onPress={() => {
-                let newValue = limitQty - 1;
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 15,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  +
+                </Text>
+              </Pressable>
 
-                if (newValue < 1) return;
-
-                mutationOnsave.mutate({
-                  id,
-                  limit_qty: newValue,
-                });
-
-                setLimitQty(newValue);
-              }}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: "red",
-                borderRadius: 15,
-              }}
-            >
-              <Text
+              <TextInput
+                readOnly
+                defaultValue={`${limitQty}`}
+                value={`${limitQty}`}
+                maxLength={1}
                 style={{
-                  textAlign: "center",
-                  fontSize: 15,
-                  fontWeight: "bold",
+                  fontSize: 19,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                }}
+                keyboardType="number-pad"
+              />
+              <Pressable
+                onPress={() => {
+                  let newValue = limitQty - 1;
+
+                  if (newValue < 1) return;
+
+                  mutationOnsave.mutate({
+                    id,
+                    limit_qty: newValue,
+                  });
+
+                  setLimitQty(newValue);
+                }}
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: 'red',
+                  borderRadius: 15,
                 }}
               >
-                -
-              </Text>
-            </Pressable>
-          </View>
-        )}
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 15,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  -
+                </Text>
+              </Pressable>
+            </View>
+          )}
 
           <Pressable style={styles.switch}>
-            <Typography variant='H4title'>Select if required</Typography>
+            <Typography variant="H4title">Select if required</Typography>
             <Checkbox
               label={editRequired ? 'Yes' : 'No'}
               checked={editRequired}
@@ -206,26 +234,25 @@ const Variant = React.memo((props: TypeVariant) => {
                 });
               }}
               containerStyle={{
-                width: SIZES.BtnWidth
+                width: SIZES.BtnWidth,
               }}
             />
           </Pressable>
         </FlexContainer>
         <LineDivider />
 
-        {subvariants.map((row) => (
-          <FlexContainer
-            key={row.id}
-            newStyle={styles.variantSubVariant}
-          >
+        {subvariants.map(row => (
+          <FlexContainer key={row.id} newStyle={styles.variantSubVariant}>
             <FlexContainer newStyle={styles.variantSubVariantName}>
               <TouchableOpacity onPress={() => mutationDelete.mutate(row.id)}>
-                <Typography variant='H4title' style={styles.texteDelete}>Eliminar</Typography>
+                <Typography variant="H4title" style={styles.texteDelete}>
+                  Eliminar
+                </Typography>
               </TouchableOpacity>
               <TextInput
                 placeholder="Ejemplo: Yucas, Papas"
                 defaultValue={row.name}
-                onChangeText={(txt) => {
+                onChangeText={txt => {
                   onSaveSubVariant({
                     id: row.id,
                     name: txt,
@@ -234,15 +261,14 @@ const Variant = React.memo((props: TypeVariant) => {
                 autoFocus
                 style={styles.inputVariantInput}
               />
-
             </FlexContainer>
             <FlexContainer newStyle={styles.variantSubVariantPrice}>
-              <Typography variant='H4title'>$</Typography>
+              <Typography variant="H4title">$</Typography>
               <TextInput
                 placeholder="Price"
-                defaultValue={row.price ? row.price : "0"}
+                defaultValue={row.price ? row.price : '0'}
                 keyboardType="numeric"
-                onChangeText={(txt) => {
+                onChangeText={txt => {
                   onSaveSubVariant({
                     id: row.id,
                     price: txt,
@@ -255,9 +281,9 @@ const Variant = React.memo((props: TypeVariant) => {
         ))}
 
         <Buttons label="Add more variants" onPress={onPress} />
-        {success && <Perks label="Guardado con exito!" status='success' />}
+        {success && <Perks label="Guardado con exito!" status="success" />}
       </FlexContainer>
-      <LineDivider variant='secondary' lineStyle={styles.lineDivider} />
+      <LineDivider variant="secondary" lineStyle={styles.lineDivider} />
     </>
   );
 });

@@ -34,14 +34,29 @@ export interface BottomSheetMethods {
 }
 
 const BottomSheet = forwardRef<BottomSheetMethods, Props>(
-  ({ snapPoints = [], children, backgroundColor, backDropColor, onClose , showBackdrop = true, LineColor}: Props, ref) => {
+  (
+    {
+      snapPoints = [],
+      children,
+      backgroundColor,
+      backDropColor,
+      onClose,
+      showBackdrop = true,
+      LineColor,
+    }: Props,
+    ref,
+  ) => {
     const { BackgroundMain, Title } = useTheme();
     const inset = useSafeAreaInsets();
     const { height } = Dimensions.get('screen');
-    const percentages = snapPoints.map(point => parseFloat(point.replace('%', '')) / 100);
+    const percentages = snapPoints.map(
+      point => parseFloat(point.replace('%', '')) / 100,
+    );
     const closeHeight = height;
     const openHeight = height - height;
-    const openHeights = percentages.map(percentage => height - height * percentage);
+    const openHeights = percentages.map(
+      percentage => height - height * percentage,
+    );
     const topAnimation = useSharedValue(closeHeight);
     const context = useSharedValue(0);
 
@@ -52,22 +67,29 @@ const BottomSheet = forwardRef<BottomSheetMethods, Props>(
       });
     }, [openHeights, topAnimation]);
 
-    const expandTo = useCallback((index: number) => {
-      'worklet';
-      topAnimation.value = withTiming(openHeights[index], {
-        duration: 300,
-      });
-    }, [openHeights, topAnimation]);
+    const expandTo = useCallback(
+      (index: number) => {
+        'worklet';
+        topAnimation.value = withTiming(openHeights[index], {
+          duration: 300,
+        });
+      },
+      [openHeights, topAnimation],
+    );
 
     const close = useCallback(() => {
       'worklet';
-      topAnimation.value = withTiming(closeHeight, {
-        duration: 300,
-      }, (isFinished) => {
-        if (isFinished && onClose) {
-          runOnJS(onClose)();
-        }
-      });
+      topAnimation.value = withTiming(
+        closeHeight,
+        {
+          duration: 300,
+        },
+        isFinished => {
+          if (isFinished && onClose) {
+            runOnJS(onClose)();
+          }
+        },
+      );
     }, [closeHeight, topAnimation, onClose]);
 
     useImperativeHandle(
@@ -122,14 +144,15 @@ const BottomSheet = forwardRef<BottomSheetMethods, Props>(
 
     return (
       <>
-       {showBackdrop &&
-        <BackDrop
-        topAnimation={topAnimation}
-        backDropColor={backDropColor}
-        closeHeight={closeHeight}
-        openHeight={openHeight}
-        close={close}
-      />}
+        {showBackdrop && (
+          <BackDrop
+            topAnimation={topAnimation}
+            backDropColor={backDropColor}
+            closeHeight={closeHeight}
+            openHeight={openHeight}
+            close={close}
+          />
+        )}
         <GestureDetector gesture={pan}>
           <Animated.View
             style={[
@@ -142,9 +165,14 @@ const BottomSheet = forwardRef<BottomSheetMethods, Props>(
             ]}
           >
             <View style={styles.lineContainer}>
-              <View style={[styles.line, {
-                backgroundColor: LineColor || COLORS.dark
-              }]} />
+              <View
+                style={[
+                  styles.line,
+                  {
+                    backgroundColor: LineColor || COLORS.dark,
+                  },
+                ]}
+              />
             </View>
             {children}
           </Animated.View>
@@ -159,13 +187,13 @@ export default BottomSheet;
 const styles = StyleSheet.create({
   backDrop: {
     ...StyleSheet.absoluteFillObject,
-    zIndex: 101
+    zIndex: 101,
   },
   container: {
     ...StyleSheet.absoluteFillObject,
     borderTopLeftRadius: responsiveFontSize(20),
     borderTopRightRadius: responsiveFontSize(20),
-    zIndex: 100
+    zIndex: 100,
   },
   lineContainer: {
     marginVertical: responsiveFontSize(10),

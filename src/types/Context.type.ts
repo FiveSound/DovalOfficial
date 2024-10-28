@@ -1,5 +1,5 @@
-import { FollowersType } from "./Followers.types";
-import { UserType } from "./User.types";
+import { FollowersType } from './Followers.types';
+import { UserType } from './User.types';
 
 export type AppType = {
   signed: boolean;

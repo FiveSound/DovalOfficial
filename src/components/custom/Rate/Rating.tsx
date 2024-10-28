@@ -1,12 +1,12 @@
-import { Dispatch, SetStateAction } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Path, Svg } from "react-native-svg";
-import { responsiveFontSize } from "../../../constants/theme";
-import { useTheme } from "../../../hooks";
+import { Dispatch, SetStateAction } from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Path, Svg } from 'react-native-svg';
+import { responsiveFontSize } from '../../../constants/theme';
+import { useTheme } from '../../../hooks';
 
 type PropsStart = {
   filled: boolean;
-  color: string
+  color: string;
 };
 
 const Star = ({ filled, color }: PropsStart) => (
@@ -14,8 +14,8 @@ const Star = ({ filled, color }: PropsStart) => (
     height={40}
     width={40}
     viewBox="0 0 24 24"
-    fill={filled ? "#FF5500" : "none"}
-    stroke={filled ? "#FF5500" : color}
+    fill={filled ? '#FF5500' : 'none'}
+    stroke={filled ? '#FF5500' : color}
     strokeWidth={1}
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -31,18 +31,18 @@ type Props = {
 };
 
 const Rating = ({ rating, setRating, disabled }: Props) => {
-const { Title } = useTheme()
+  const { Title } = useTheme();
   return (
     <View style={styles.appContainer}>
       <View style={styles.container}>
-        {[1, 2, 3, 4, 5].map((star) => (
+        {[1, 2, 3, 4, 5].map(star => (
           <TouchableOpacity
             key={star}
             onPress={() => setRating(star)}
             activeOpacity={disabled ? 1 : 0.7}
             disabled={disabled}
           >
-            <Star filled={star <= rating} color={Title}/>
+            <Star filled={star <= rating} color={Title} />
           </TouchableOpacity>
         ))}
       </View>
@@ -54,9 +54,9 @@ export default Rating;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   appContainer: {
     marginTop: responsiveFontSize(10),

@@ -1,8 +1,8 @@
-import { memo } from "react";
-import { View, FlatList, StyleSheet, Text, Pressable } from "react-native";
-import { COLORS, SIZES } from "../../../constants/theme";
-import { useTheme } from "../../../hooks";
-import Typography from "../Typography";
+import { memo } from 'react';
+import { View, FlatList, StyleSheet, Text, Pressable } from 'react-native';
+import { COLORS, SIZES } from '../../../constants/theme';
+import { useTheme } from '../../../hooks';
+import Typography from '../Typography';
 
 type Props = {
   currentPage: number;
@@ -16,10 +16,19 @@ const Pagination = ({ currentPage, onChange, pagination }: Props) => {
     <Pressable
       role="button"
       onPress={() => onChange(item)}
-      style={[styles.point, currentPage === item ? styles.active : null, { backgroundColor: currentPage === item ? COLORS.primary : backgroundMaingrey }]}
+      style={[
+        styles.point,
+        currentPage === item ? styles.active : null,
+        {
+          backgroundColor:
+            currentPage === item ? COLORS.primary : backgroundMaingrey,
+        },
+      ]}
       disabled={currentPage === item}
     >
-      <Typography variant="H4title" newStyle={styles.title}>{item}</Typography>
+      <Typography variant="H4title" newStyle={styles.title}>
+        {item}
+      </Typography>
     </Pressable>
   );
 
@@ -28,7 +37,7 @@ const Pagination = ({ currentPage, onChange, pagination }: Props) => {
       <FlatList
         data={pagination}
         renderItem={renderItem}
-        keyExtractor={(item) => item.toString()}
+        keyExtractor={item => item.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
       />
@@ -48,8 +57,7 @@ const styles = StyleSheet.create({
     paddingVertical: SIZES.gapMedium,
     borderRadius: SIZES.gapLarge,
   },
-  active: {
-  },
+  active: {},
   title: {
     color: COLORS.dark,
   },

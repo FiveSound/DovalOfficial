@@ -4,13 +4,12 @@ import SenderGrid from './Senders/SenderGrid';
 
 type Props = {
   postID: number;
-}
+};
 
-const MoreOptions: React.FC<Props> = ({postID}: Props) => {
-  
+const MoreOptions: React.FC<Props> = ({ postID }: Props) => {
   return (
     <Layout>
-      <SenderGrid/>
+      <SenderGrid />
     </Layout>
   );
 };

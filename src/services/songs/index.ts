@@ -1,10 +1,10 @@
-import axios from "axios";
-import { API_URL } from "../index";
+import axios from 'axios';
+import { API_URL } from '../index';
 
 export const getAllSongsService = async (page: number) => {
   try {
     const response = await axios.get(
-      `${API_URL}/api/upload/songs/paginate/${page}`
+      `${API_URL}/api/upload/songs/paginate/${page}`,
     );
 
     return response.data;
@@ -28,7 +28,7 @@ export const getRamdomSongsService = async () => {
 export const searchSongsService = async (query: string) => {
   try {
     const response = await axios.get(
-      `${API_URL}/api/upload/songs/search/${query}`
+      `${API_URL}/api/upload/songs/search/${query}`,
     );
 
     return response.data;

@@ -8,7 +8,12 @@ type Props = {
   children: React.ReactNode;
 } & ViewProps;
 
-const FlexContainer = ({ variant = 'column', children, newStyle, ...viewProps }: Props) => {
+const FlexContainer = ({
+  variant = 'column',
+  children,
+  newStyle,
+  ...viewProps
+}: Props) => {
   let style;
   switch (variant) {
     case 'row':
@@ -21,17 +26,21 @@ const FlexContainer = ({ variant = 'column', children, newStyle, ...viewProps }:
       style = {};
   }
 
-  return <View style={[style, viewProps.style]} {...viewProps}>{children}</View>;
-}
+  return (
+    <View style={[style, viewProps.style]} {...viewProps}>
+      {children}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   column: {
     flexDirection: 'column',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
 });
 

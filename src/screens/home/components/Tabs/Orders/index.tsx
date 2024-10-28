@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useAPI } from '../../../../../hooks';
 import { Text } from '../../../../../components/native';
 
@@ -8,8 +8,7 @@ const Orders = () => {
   //   queryFn: getMyRecipesService,
   // });
 
-  return ( <Text>Orders</Text>
-  );
+  return <Text>Orders</Text>;
 };
 
 export default Orders;

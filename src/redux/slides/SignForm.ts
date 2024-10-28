@@ -38,5 +38,11 @@ const signupFormSlice = createSlice({
   },
 });
 
-export const { setName, setUsername, setIsUsernameValid, setValidationMessage, setIsSubmitting } = signupFormSlice.actions;
+export const {
+  setName,
+  setUsername,
+  setIsUsernameValid,
+  setValidationMessage,
+  setIsSubmitting,
+} = signupFormSlice.actions;
 export default signupFormSlice.reducer;

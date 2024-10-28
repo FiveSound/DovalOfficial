@@ -1,12 +1,10 @@
-import React from 'react'
-import { SectionList as RNSectionList, SectionListProps } from 'react-native'
+import React from 'react';
+import { SectionList as RNSectionList, SectionListProps } from 'react-native';
 
-type Props<ItemT> = SectionListProps<ItemT>
+type Props<ItemT> = SectionListProps<ItemT>;
 
 const SectionList = <ItemT,>(props: Props<ItemT>) => {
-  return (
-    <RNSectionList {...props} />
-  )
-}
+  return <RNSectionList {...props} />;
+};
 
-export default SectionList
+export default SectionList;

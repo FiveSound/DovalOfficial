@@ -1,6 +1,6 @@
-import { SafeAreaView } from "react-native";
-import useTheme from "../../hooks/useTheme";
-import { TabFollowers, TabFollowing, Tabs } from "./Components";
+import { SafeAreaView } from 'react-native';
+import useTheme from '../../hooks/useTheme';
+import { TabFollowers, TabFollowing, Tabs } from './Components';
 
 type Props = {
   route: {

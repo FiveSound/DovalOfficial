@@ -1,13 +1,13 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import {
   NavigationState,
   SceneRendererProps,
   TabBar,
   TabView,
-} from "react-native-tab-view";
-import useTheme from "../../../../hooks/useTheme";
-import DarkMode from "../../../../hooks/DarkMode";
-import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
+} from 'react-native-tab-view';
+import useTheme from '../../../../hooks/useTheme';
+import DarkMode from '../../../../hooks/DarkMode';
+import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
 import {
   AllBookmarkIcon,
   AllBookmarkIconStroke,
@@ -16,8 +16,8 @@ import {
   DashboardSquare03IconStroke,
   DashboardSquare03Icon,
   SentIconReaction,
-} from "../../../../constants/IconsPro";
-import { FlexContainer } from "../../../../components/custom";
+} from '../../../../constants/IconsPro';
+import { FlexContainer } from '../../../../components/custom';
 
 type Props = {
   MyPosts: ReactNode;
@@ -25,7 +25,7 @@ type Props = {
   MyMenu: ReactNode;
   Myshares: ReactNode;
   showMyShares?: boolean;
-  showStore?: boolean
+  showStore?: boolean;
 };
 
 interface Route {
@@ -38,31 +38,34 @@ const TabsMyProfile = (props: Props) => {
   const { borderInput } = useTheme();
   const { SecundaryText } = DarkMode();
   const [routes] = useState([
-    { key: "first"},
-    { key: "second"},
-    { key: 'five'},
-    { key: "third"},
+    { key: 'first' },
+    { key: 'second' },
+    { key: 'five' },
+    { key: 'third' },
   ]);
 
-  const renderScene = useCallback(({ route }: { route: Route }) => {
-    switch (route.key) {
-      case "first":
-        return props.MyPosts;
-      case "second":
-        return props.MyMenu;
-      case "third":
-        return props.MySaves;
-      case "five":
-        return props.Myshares;
-      default:
-        return null;
-    }
-  }, [props.MyPosts, props.MyMenu, props.MySaves, props.Myshares]);
+  const renderScene = useCallback(
+    ({ route }: { route: Route }) => {
+      switch (route.key) {
+        case 'first':
+          return props.MyPosts;
+        case 'second':
+          return props.MyMenu;
+        case 'third':
+          return props.MySaves;
+        case 'five':
+          return props.Myshares;
+        default:
+          return null;
+      }
+    },
+    [props.MyPosts, props.MyMenu, props.MySaves, props.Myshares],
+  );
 
   const renderTabBar = (
     props: SceneRendererProps & {
       navigationState: NavigationState<Route>;
-    }
+    },
   ) => (
     <TabBar
       {...props}
@@ -82,12 +85,13 @@ const TabsMyProfile = (props: Props) => {
       renderLabel={({ route, focused }) => {
         let IconComponent;
         switch (route.key) {
-          case "first":
+          case 'first':
             IconComponent = focused ? (
               <FlexContainer
                 newStyle={{
                   width: SIZES.width / 4,
-                }}>
+                }}
+              >
                 <DashboardSquare03Icon
                   width={SIZES.icons}
                   height={SIZES.icons}
@@ -102,7 +106,7 @@ const TabsMyProfile = (props: Props) => {
               />
             );
             break;
-          case "second":
+          case 'second':
             IconComponent = focused ? (
               <StoreAdd02Icon
                 width={SIZES.icons}
@@ -117,7 +121,7 @@ const TabsMyProfile = (props: Props) => {
               />
             );
             break;
-          case "five":
+          case 'five':
             IconComponent = (
               <SentIconReaction
                 width={SIZES.icons}
@@ -126,7 +130,7 @@ const TabsMyProfile = (props: Props) => {
               />
             );
             break;
-          case "third":
+          case 'third':
             IconComponent = focused ? (
               <AllBookmarkIcon
                 width={SIZES.icons}
@@ -159,7 +163,7 @@ const TabsMyProfile = (props: Props) => {
       lazy={true}
       lazyPreloadDistance={0}
       style={{
-        flex: 1
+        flex: 1,
       }}
     />
   );

@@ -1,16 +1,16 @@
-import React, { memo, useCallback } from "react";
-import { TouchableOpacity, View } from "react-native";
-import FlexContainer from "../../FlexContainer";
-import LineDivider from "../../LineDivider";
-import Typography from "../../Typography";
-import Cover from "../../Avatars/Cover";
-import { useTheme } from "../../../../hooks";
-import styles from "./styles";
-import { useNavigation } from "../../../native"
-import { CLOUDFRONT } from "../../../../services";
-import i18next from "../../../../Translate";
-import { ArrowRight01Icon } from "../../../../constants/IconsPro";
-import { SIZES } from "../../../../constants/theme";
+import React, { memo, useCallback } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import LineDivider from '../../LineDivider';
+import Typography from '../../Typography';
+import Cover from '../../Avatars/Cover';
+import { useTheme } from '../../../../hooks';
+import styles from './styles';
+import { useNavigation } from '../../../native';
+import { CLOUDFRONT } from '../../../../services';
+import i18next from '../../../../Translate';
+import { ArrowRight01Icon } from '../../../../constants/IconsPro';
+import { SIZES } from '../../../../constants/theme';
 
 export type businessListitems = {
   id: number;
@@ -22,8 +22,8 @@ export type businessListitems = {
   Like: boolean;
   open: boolean;
   onPress?: () => void;
-  businessID: number
-  bio: string
+  businessID: number;
+  bio: string;
 };
 
 const CardBusiness = ({
@@ -42,24 +42,28 @@ const CardBusiness = ({
     open,
     id,
     businessID,
-    bio
+    bio,
   } = item;
   const { Title } = useTheme();
   const navigation = useNavigation();
   const handleNavigation = useCallback(() => {
-    if (item) { navigation.navigate("Business", { id: businessID }); }
+    if (item) {
+      navigation.navigate('Business', { id: businessID });
+    }
   }, [navigation]);
 
   return (
     <>
       <FlexContainer key={id} newStyle={styles.flexContainer}>
-        {!open && <Typography
-          variant='H4title'
-          numberOfLines={1}
-          newStyle={styles.storeStatus}
-        >
-          {i18next.t('closed for moments')}
-        </Typography>}
+        {!open && (
+          <Typography
+            variant="H4title"
+            numberOfLines={1}
+            newStyle={styles.storeStatus}
+          >
+            {i18next.t('closed for moments')}
+          </Typography>
+        )}
         <TouchableOpacity
           onPress={handleNavigation}
           style={styles.touchableOpacity}
@@ -74,7 +78,11 @@ const CardBusiness = ({
               {business_name}
             </Typography>
             <FlexContainer newStyle={styles.flexContainerInner}>
-              <Typography variant="SubDescription" newStyle={styles.timeSend} numberOfLines={1}>
+              <Typography
+                variant="SubDescription"
+                newStyle={styles.timeSend}
+                numberOfLines={1}
+              >
                 {bio}
               </Typography>
               <Typography variant="SubDescription" newStyle={styles.timeSend}>
@@ -85,12 +93,15 @@ const CardBusiness = ({
               </Typography>
             </FlexContainer>
           </View>
-          <ArrowRight01Icon width={SIZES.icons} height={SIZES.icons} color={Title} />
+          <ArrowRight01Icon
+            width={SIZES.icons}
+            height={SIZES.icons}
+            color={Title}
+          />
         </TouchableOpacity>
       </FlexContainer>
       <LineDivider lineStyle={styles.lineDivider} variant="secondary" />
     </>
-
   );
 };
 

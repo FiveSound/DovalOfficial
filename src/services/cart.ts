@@ -1,11 +1,11 @@
-import axios from "axios";
-import { API_URL } from "./index";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { QueryKeyType } from "../types/ReactQuery.type";
+import axios from 'axios';
+import { API_URL } from './index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { QueryKeyType } from '../types/ReactQuery.type';
 
 export const getCartService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/cart/get`,
       {},
@@ -13,7 +13,7 @@ export const getCartService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -25,12 +25,12 @@ export const getCartService = async () => {
 export const addToCartService = async (
   recipeID: number,
   subvariants: number[],
-  qty: number
+  qty: number,
 ) => {
   console.log('recipeID', recipeID);
   console.log('subvariants', subvariants);
   console.log('qty', qty);
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
   const response = await axios.post(
     `${API_URL}/api/cart`,
     {
@@ -42,16 +42,18 @@ export const addToCartService = async (
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
   console.log('response', response.data);
   return response.data;
-  
 };
 
-export const removerCartService = async (recipeID: number, subVariants: number[]) => {
+export const removerCartService = async (
+  recipeID: number,
+  subVariants: number[],
+) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.delete(`${API_URL}/api/cart`, {
       data: { recipeID, subVariants },
@@ -66,7 +68,7 @@ export const removerCartService = async (recipeID: number, subVariants: number[]
 };
 
 export const getRecipeVariantsService = async ({ queryKey }: QueryKeyType) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/cart/variants`,
@@ -75,7 +77,7 @@ export const getRecipeVariantsService = async ({ queryKey }: QueryKeyType) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
   console.log({ test: 1 });
 
@@ -83,7 +85,7 @@ export const getRecipeVariantsService = async ({ queryKey }: QueryKeyType) => {
 };
 
 export const getTotalVariantsService = async ({ queryKey }: QueryKeyType) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/cart/total`,
@@ -92,7 +94,7 @@ export const getTotalVariantsService = async ({ queryKey }: QueryKeyType) => {
       subvariants: queryKey[2],
       qty: queryKey[3],
     },
-    { headers: { Authorization: `Bearer ${userToken}` } }
+    { headers: { Authorization: `Bearer ${userToken}` } },
   );
 
   return response.data;

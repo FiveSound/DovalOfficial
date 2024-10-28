@@ -1,7 +1,4 @@
-import Skip from "./Skip";
-import TwoIconsLabel from "./TwoIconsLabel/TwoIconsLabel";
+import Skip from './Skip';
+import TwoIconsLabel from './TwoIconsLabel/TwoIconsLabel';
 
-export {
-    TwoIconsLabel,
-    Skip
-}
+export { TwoIconsLabel, Skip };

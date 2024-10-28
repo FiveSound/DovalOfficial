@@ -1,11 +1,15 @@
 import React from 'react';
-import { useState } from "react";
-import { useTheme } from "../../../../hooks";
-import { TouchableOpacity, View } from "../../../../components/native";
-import { responsiveFontSize } from "../../../../constants/theme";
-import { LineDivider, LoadingScreen, Typography } from "../../../../components/custom";
-import { searchLocationsService } from "../../../../services/orders";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from 'react';
+import { useTheme } from '../../../../hooks';
+import { TouchableOpacity, View } from '../../../../components/native';
+import { responsiveFontSize } from '../../../../constants/theme';
+import {
+  LineDivider,
+  LoadingScreen,
+  Typography,
+} from '../../../../components/custom';
+import { searchLocationsService } from '../../../../services/orders';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   search: string;
@@ -32,21 +36,25 @@ interface PropsResultLocation {
 
 const ResultLocation = (props: PropsResultLocation) => {
   const { structured_formatting, onPress } = props;
-  const { backgroundMaingrey } = useTheme()
+  const { backgroundMaingrey } = useTheme();
   return (
     <>
-      <TouchableOpacity onPress={onPress}
+      <TouchableOpacity
+        onPress={onPress}
         style={{
-          backgroundColor: backgroundMaingrey
-        }}>
+          backgroundColor: backgroundMaingrey,
+        }}
+      >
         <View
           style={{
             padding: responsiveFontSize(10),
-            backgroundColor: backgroundMaingrey
+            backgroundColor: backgroundMaingrey,
           }}
         >
-          <Typography variant='subtitle'>{structured_formatting.main_text}</Typography>
-          <Typography variant='SubDescription'>
+          <Typography variant="subtitle">
+            {structured_formatting.main_text}
+          </Typography>
+          <Typography variant="SubDescription">
             {structured_formatting.secondary_text}
           </Typography>
         </View>
@@ -60,15 +68,13 @@ const Searched = (props: Props) => {
   const { search, setHiddenSearch, onSelect } = props;
 
   const { data, isLoading } = useQuery({
-    queryKey: ["get-location-coordinates", search],
+    queryKey: ['get-location-coordinates', search],
     queryFn: () => searchLocationsService(search),
     enabled: search.length > 2, // Solo buscar si el término tiene más de 2 caracteres
   });
 
   if (isLoading) {
-    return (
-      <LoadingScreen />
-    );
+    return <LoadingScreen />;
   }
 
   if (data && data.length > 0) {
@@ -86,7 +92,7 @@ const Searched = (props: Props) => {
   }
 
   return (
-    <Typography variant='SubDescription'>
+    <Typography variant="SubDescription">
       No se encontraron resultados.
     </Typography>
   );

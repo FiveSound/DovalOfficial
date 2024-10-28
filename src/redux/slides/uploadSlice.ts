@@ -50,14 +50,14 @@ export const uploadMedia = createAsyncThunk(
   'upload/uploadMedia',
   async (pickedMedia: Media[], { dispatch, rejectWithValue }) => {
     try {
-      const uploadPromises = pickedMedia.map(async (media) => {
+      const uploadPromises = pickedMedia.map(async media => {
         const response_id = generateUniqueId(); // Use the unique ID generator
         if (media.type === 'video') {
-          return await uploadVideo(media, response_id, (progress) => {
+          return await uploadVideo(media, response_id, progress => {
             dispatch(setProgress(progress));
           });
         } else {
-          return await uploadPhoto(media, response_id, (progress) => {
+          return await uploadPhoto(media, response_id, progress => {
             dispatch(setProgress(progress));
           });
         }
@@ -65,21 +65,26 @@ export const uploadMedia = createAsyncThunk(
 
       const results = await Promise.allSettled(uploadPromises);
       const fulfilled = results
-        .filter(result => result.status === 'fulfilled' && result.value !== null)
-        .map(result => (result as PromiseFulfilledResult<Photo | Video | null>).value) as (Photo | Video)[];
+        .filter(
+          result => result.status === 'fulfilled' && result.value !== null,
+        )
+        .map(
+          result =>
+            (result as PromiseFulfilledResult<Photo | Video | null>).value,
+        ) as (Photo | Video)[];
 
       return fulfilled;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // Helper Functions
 const uploadPhoto = async (
   media: Media,
   response_id: string,
-  setProgress: (progress: number) => void
+  setProgress: (progress: number) => void,
 ): Promise<Photo | null> => {
   try {
     const name = media.uri.split('/').pop() || '';
@@ -92,7 +97,11 @@ const uploadPhoto = async (
       name,
       type: 'image/jpeg',
     };
-    const originalResponse = await uploadImageService(originalFile, response_id, setProgress);
+    const originalResponse = await uploadImageService(
+      originalFile,
+      response_id,
+      setProgress,
+    );
     if (!originalResponse || !originalResponse.uri) {
       throw new Error('Failed to upload original image');
     }
@@ -101,7 +110,7 @@ const uploadPhoto = async (
     const optimizedImage = await manipulateAsync(
       media.uri,
       [{ resize: { width: 800 } }],
-      { compress: 0.7, format: SaveFormat.JPEG }
+      { compress: 0.7, format: SaveFormat.JPEG },
     );
 
     const optimizedName = `optimized_${name}`;
@@ -113,7 +122,11 @@ const uploadPhoto = async (
       type: 'image/jpeg',
     };
 
-    const optimizedResponse = await uploadImageService(optimizedFile, `${response_id}-optimized`, setProgress);
+    const optimizedResponse = await uploadImageService(
+      optimizedFile,
+      `${response_id}-optimized`,
+      setProgress,
+    );
     if (!optimizedResponse || !optimizedResponse.uri) {
       console.warn('Failed to upload optimized image');
     }
@@ -132,7 +145,7 @@ const uploadPhoto = async (
 const uploadVideo = async (
   media: Media,
   response_id: string,
-  setProgress: (progress: number) => void
+  setProgress: (progress: number) => void,
 ): Promise<Video | null> => {
   try {
     const name = media.uri.split('/').pop() || '';
@@ -145,13 +158,19 @@ const uploadVideo = async (
       type: 'video/mp4',
     };
 
-    const videoResponse = await uploadVideoService(newFile, response_id, setProgress);
+    const videoResponse = await uploadVideoService(
+      newFile,
+      response_id,
+      setProgress,
+    );
     if (!videoResponse || !videoResponse.uri) {
       throw new Error('Failed to upload video');
     }
 
     // Generar y subir la miniatura del video
-    const thumbnailResult = await VideoThumbnails.getThumbnailAsync(media.uri, { time: 1000 });
+    const thumbnailResult = await VideoThumbnails.getThumbnailAsync(media.uri, {
+      time: 1000,
+    });
     const thumbnailURI = thumbnailResult.uri;
     const thumbnailName = `thumbnail_${name.replace(/\.\w+$/, '.jpeg')}`;
     const thumbnailKey = `uploads/${thumbnailName}`;
@@ -162,7 +181,11 @@ const uploadVideo = async (
       type: 'image/jpeg',
     };
 
-    const thumbnailResponse = await uploadImageService(thumbnailFile, `${response_id}-thumbnail`, setProgress);
+    const thumbnailResponse = await uploadImageService(
+      thumbnailFile,
+      `${response_id}-thumbnail`,
+      setProgress,
+    );
     if (!thumbnailResponse || !thumbnailResponse.uri) {
       console.warn('Failed to upload thumbnail');
     }
@@ -194,7 +217,7 @@ const uploadSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(uploadMedia.pending, (state) => {
+      .addCase(uploadMedia.pending, state => {
         state.isLoading = true;
         state.progress = 0;
         state.error = null;
@@ -203,17 +226,26 @@ const uploadSlice = createSlice({
         state.photos = [];
         state.videos = [];
       })
-      .addCase(uploadMedia.fulfilled, (state, action: PayloadAction<(Photo | Video)[]>) => {
-        state.isLoading = false;
-        state.progress = 0; // Reset progress to 0
-        state.mediaURLs = action.payload.map(item => ('uri' in item ? item.uri : item.mediaURL));
-        state.thumbnailURLs =
-          action.payload.find(item => item.type === 'video')?.thumbnailURL ||
-          action.payload.find(item => item.type === 'photo')?.key ||
-          '';
-        state.photos = action.payload.filter(item => item.type === 'photo') as Photo[];
-        state.videos = action.payload.filter(item => item.type === 'video') as Video[];
-      })
+      .addCase(
+        uploadMedia.fulfilled,
+        (state, action: PayloadAction<(Photo | Video)[]>) => {
+          state.isLoading = false;
+          state.progress = 0; // Reset progress to 0
+          state.mediaURLs = action.payload.map(item =>
+            'uri' in item ? item.uri : item.mediaURL,
+          );
+          state.thumbnailURLs =
+            action.payload.find(item => item.type === 'video')?.thumbnailURL ||
+            action.payload.find(item => item.type === 'photo')?.key ||
+            '';
+          state.photos = action.payload.filter(
+            item => item.type === 'photo',
+          ) as Photo[];
+          state.videos = action.payload.filter(
+            item => item.type === 'video',
+          ) as Video[];
+        },
+      )
       .addCase(uploadMedia.rejected, (state, action) => {
         state.isLoading = false;
         state.progress = 0; // Reset progress to 0

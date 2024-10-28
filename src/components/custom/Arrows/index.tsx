@@ -1,5 +1,3 @@
-import ArrowBack from "./ArrowBack";
+import ArrowBack from './ArrowBack';
 
-export {
-    ArrowBack
-}
+export { ArrowBack };

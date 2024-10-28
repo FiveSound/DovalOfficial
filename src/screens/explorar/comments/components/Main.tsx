@@ -1,7 +1,7 @@
-import React, { lazy, memo, Suspense } from "react";
-import { PropsComment } from "../types";
-import { IsLoading } from "../../../../components/custom";
-const LazyComments = lazy(() => import("./Comment"));
+import React, { lazy, memo, Suspense } from 'react';
+import { PropsComment } from '../types';
+import { IsLoading } from '../../../../components/custom';
+const LazyComments = lazy(() => import('./Comment'));
 
 type Props = {
   row: PropsComment;

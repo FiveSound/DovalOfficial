@@ -1,26 +1,29 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
 import {
   Container,
   Buttons,
   InputPhone,
   Perks,
   Checkbox,
-} from "../../../../components/custom";
-import { StyleSheet } from "react-native";
-import { FONTS, SIZES } from "../../../../constants/theme";
-import i18next from "../../../../Translate";
-import { signInPhoneService } from "../../../../services/auth";
-import { Platform, useNavigation, View } from "../../../../components/native";
-import ListNumber from "./ListNumber";
-import { useAppDispatch } from "../../../../redux/hooks";
-import { signInStart, signInSuccess, signInFailure } from "../../../../redux/slides/authSlice";
-
+} from '../../../../components/custom';
+import { StyleSheet } from 'react-native';
+import { FONTS, SIZES } from '../../../../constants/theme';
+import i18next from '../../../../Translate';
+import { signInPhoneService } from '../../../../services/auth';
+import { Platform, useNavigation, View } from '../../../../components/native';
+import ListNumber from './ListNumber';
+import { useAppDispatch } from '../../../../redux/hooks';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../../../../redux/slides/authSlice';
 
 const Phone = () => {
   const [phoneData, setPhoneData] = useState({
-    countryCode: "+1",
-    codigoISO: "DO",
-    phoneNumber: "",
+    countryCode: '+1',
+    codigoISO: 'DO',
+    phoneNumber: '',
   });
   const [uiState, setUiState] = useState({
     loading: false,
@@ -28,7 +31,7 @@ const Phone = () => {
     error: false,
     success: false,
   });
-  const [provided, setProvided] = useState(0)
+  const [provided, setProvided] = useState(0);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -36,21 +39,29 @@ const Phone = () => {
     setProvided(checked ? 1 : 0);
   };
 
-  const handleSelectItem = useCallback((item: { CodePostal: string; codigoISO: string }) => {
-    setPhoneData(prev => ({
-      ...prev,
-      countryCode: `+${item.CodePostal}`,
-      codigoISO: item.codigoISO,
-    }));
-    setUiState(prev => ({ ...prev, visible: false }));
-  }, []);
+  const handleSelectItem = useCallback(
+    (item: { CodePostal: string; codigoISO: string }) => {
+      setPhoneData(prev => ({
+        ...prev,
+        countryCode: `+${item.CodePostal}`,
+        codigoISO: item.codigoISO,
+      }));
+      setUiState(prev => ({ ...prev, visible: false }));
+    },
+    [],
+  );
 
   const handleSendCode = useCallback(async () => {
-    console.log("Sending code to:", `${phoneData.countryCode}${phoneData.phoneNumber}`);
+    console.log(
+      'Sending code to:',
+      `${phoneData.countryCode}${phoneData.phoneNumber}`,
+    );
     setUiState(prev => ({ ...prev, loading: true, error: false }));
     dispatch(signInStart());
     try {
-      const response = await signInPhoneService(`${phoneData.countryCode}${phoneData.phoneNumber}`);
+      const response = await signInPhoneService(
+        `${phoneData.countryCode}${phoneData.phoneNumber}`,
+      );
       if (response.success) {
         const phoneValue = `${phoneData.countryCode}${phoneData.phoneNumber}`;
         setUiState(prev => ({ ...prev, success: true }));
@@ -60,16 +71,16 @@ const Phone = () => {
             phone: phoneValue,
             Form: !response.exist,
             method: 0,
-            provided: provided
+            provided: provided,
           });
         }, 1000);
       } else {
-        console.error("signInPhoneService failure:", response.error);
+        console.error('signInPhoneService failure:', response.error);
         dispatch(signInFailure());
         setUiState(prev => ({ ...prev, error: true }));
       }
     } catch (error) {
-      console.error("signInPhoneService error:", error);
+      console.error('signInPhoneService error:', error);
       dispatch(signInFailure());
       setUiState(prev => ({ ...prev, error: true }));
     } finally {
@@ -84,31 +95,42 @@ const Phone = () => {
       <InputPhone
         countryCode={phoneData.countryCode}
         codigoISO={phoneData.codigoISO}
-        onCountryCodeChange={(code) => setPhoneData(prev => ({ ...prev, countryCode: code }))}
+        onCountryCodeChange={code =>
+          setPhoneData(prev => ({ ...prev, countryCode: code }))
+        }
         phoneNumber={phoneData.phoneNumber}
-        onPhoneNumberChange={(number) => setPhoneData(prev => ({ ...prev, phoneNumber: number }))}
+        onPhoneNumberChange={number =>
+          setPhoneData(prev => ({ ...prev, phoneNumber: number }))
+        }
         onPress={() => setUiState(prev => ({ ...prev, visible: true }))}
       />
-      {uiState.error && <Perks label={i18next.t("Enter a valid phone number")} status='error'/>}
-      {uiState.success && <Perks label={i18next.t("Code sent correctly")} status='success'/>}
-      <Checkbox 
-        label={i18next.t("By providing your phone number, you authorize Doval to utilize this information to optimize your user experience through tailored recommendations and relevant updates."
+      {uiState.error && (
+        <Perks label={i18next.t('Enter a valid phone number')} status="error" />
+      )}
+      {uiState.success && (
+        <Perks label={i18next.t('Code sent correctly')} status="success" />
+      )}
+      <Checkbox
+        label={i18next.t(
+          'By providing your phone number, you authorize Doval to utilize this information to optimize your user experience through tailored recommendations and relevant updates.',
         )}
         showLabel={true}
         checked={provided === 1}
         onChange={handleCheckboxChange}
-      />   
+      />
       <Buttons
-        label={uiState.loading ? i18next.t("") : i18next.t("Send code")}
+        label={uiState.loading ? i18next.t('') : i18next.t('Send code')}
         loading={uiState.loading}
-        color={uiState.loading ? "dark" : "primary"}
+        color={uiState.loading ? 'dark' : 'primary'}
         disabled={phoneData.phoneNumber.length <= 6}
         onPress={handleSendCode}
       />
       {uiState.visible && (
         <ListNumber
           visible={uiState.visible}
-          onRequestClose={() => setUiState(prev => ({ ...prev, visible: false }))}
+          onRequestClose={() =>
+            setUiState(prev => ({ ...prev, visible: false }))
+          }
           onSelectItem={handleSelectItem}
         />
       )}
@@ -119,11 +141,11 @@ const Phone = () => {
 const styles = StyleSheet.create({
   container: {
     gap: SIZES.gapLarge,
-    alignItems: "center",
+    alignItems: 'center',
     paddingHorizontal: SIZES.gapLarge * 2,
   },
   label: {
-    textAlign: "center",
+    textAlign: 'center',
     ...FONTS.text12,
   },
   gap: {

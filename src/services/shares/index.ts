@@ -1,13 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import { API_URL } from "..";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { API_URL } from '..';
 
 export const getContacts = async (
   page: number,
   latitude: number | undefined,
-  longitude: number | undefined
+  longitude: number | undefined,
 ) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/share/contacts`,
@@ -20,69 +20,69 @@ export const getContacts = async (
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
 };
-  // Busca los usuarios de la APP
-  export const searchContact = async (query: string, page: number) => {
-    const userToken = await AsyncStorage.getItem("userToken");
-  
-    const response = await axios.post(
-      `${API_URL}/api/share/search`,
-      {
-        query: query,
-        page: page,
+// Busca los usuarios de la APP
+export const searchContact = async (query: string, page: number) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+
+  const response = await axios.post(
+    `${API_URL}/api/share/search`,
+    {
+      query: query,
+      page: page,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
-  
-    return response.data;
-  };
+    },
+  );
 
-  export const blockService = async (
-    userID: string,
-    message?: string | undefined
-  ) => {
-    const userToken = await AsyncStorage.getItem("userToken");
-  
-    const response = await axios.post(
-      `${API_URL}/api/share/block`,
-      { userID, message: message ? message : undefined },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
-    return response.data;
-  };
-  
-  export const blockPostService = async (postID: number) => {
-    const userToken = await AsyncStorage.getItem("userToken");
-    console.log("blockPostService called with postID:", postID);
-    const response = await axios.post(
-      `${API_URL}/api/share/block/post`,
-      { postID },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
+  return response.data;
+};
 
-    console.log("blockPostService response:", response.data);
-    return response.data;
-  };
+export const blockService = async (
+  userID: string,
+  message?: string | undefined,
+) => {
+  const userToken = await AsyncStorage.getItem('userToken');
 
-  // Reportar un post, recibe el postID y la lista de ID de los reportes (reportedListService)
+  const response = await axios.post(
+    `${API_URL}/api/share/block`,
+    { userID, message: message ? message : undefined },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+  );
+  return response.data;
+};
+
+export const blockPostService = async (postID: number) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+  console.log('blockPostService called with postID:', postID);
+  const response = await axios.post(
+    `${API_URL}/api/share/block/post`,
+    { postID },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+  );
+
+  console.log('blockPostService response:', response.data);
+  return response.data;
+};
+
+// Reportar un post, recibe el postID y la lista de ID de los reportes (reportedListService)
 export const reportService = async (postID: number, report_list: number[]) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   //Puedes bloquear un usuario sin estar logueado
   if (!userToken) {
@@ -102,7 +102,7 @@ export const reportService = async (postID: number, report_list: number[]) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;
@@ -115,7 +115,7 @@ export const reportedListService = async () => {
 };
 
 export const reportUserService = async (userID: string) => {
-  const userToken = await AsyncStorage.getItem("userToken");
+  const userToken = await AsyncStorage.getItem('userToken');
 
   const response = await axios.post(
     `${API_URL}/api/share/report/user`,
@@ -126,7 +126,7 @@ export const reportUserService = async (userID: string) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    }
+    },
   );
 
   return response.data;

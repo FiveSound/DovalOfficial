@@ -1,7 +1,13 @@
 import React, { ReactNode } from 'react';
 import { Controller, RegisterOptions } from 'react-hook-form';
 import { KeyboardTypeOptions, TextStyle, StyleSheet, Text } from 'react-native';
-import { FlexContainer, InputLabel, Search } from '../../../../components/custom';
+import {
+  FlexContainer,
+  InputLabel,
+  Search,
+  Typography,
+} from '../../../../components/custom';
+import { SIZES } from '../../../../constants/theme';
 
 type InputProps = {
   control: any;
@@ -36,12 +42,15 @@ const Input: React.FC<InputProps> = ({
         rules={{
           required: required ? `${placeholder} es requerido` : false,
           maxLength: {
-            value: maxLength || 50,
+            value: maxLength || 100,
             message: `${placeholder} no puede exceder ${maxLength || 50} caracteres`,
           },
           ...validationRules,
         }}
-        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => (
           <>
             {isSearch ? (
               <FlexContainer newStyle={styles.searchContainer}>
@@ -50,7 +59,7 @@ const Input: React.FC<InputProps> = ({
                   onBlur={onBlur}
                   onChange={onChange}
                   value={value}
-                  maxLength={maxLength || 50}
+                  maxLength={maxLength || 100}
                   label={placeholder}
                 />
               </FlexContainer>
@@ -61,14 +70,18 @@ const Input: React.FC<InputProps> = ({
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                maxLength={maxLength || 50}
-                orientation='Up'
+                maxLength={maxLength || 100}
+                orientation="Up"
                 appenComponent={appenComponent}
                 keyboardType={keyboardType}
                 inputStyle={inputStyle}
               />
             )}
-            {error && <Text style={styles.errorText}>{error.message}</Text>}
+            {error && (
+              <Typography variant="H4title" newStyle={styles.errorText}>
+                {error.message}
+              </Typography>
+            )}
           </>
         )}
         name={name}
@@ -83,9 +96,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: 4,
-    marginLeft: 8,
-    fontSize: 12,
+    paddingHorizontal: SIZES.gapLarge,
   },
 });
 

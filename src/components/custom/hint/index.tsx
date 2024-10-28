@@ -1,7 +1,12 @@
 import React from 'react';
 import { StyleSheet, Animated, ViewStyle, TextStyle } from 'react-native';
 import { View, Text } from '../../native';
-import { COLORS, FONTS, responsiveFontSize, SIZES } from '../../../constants/theme';
+import {
+  COLORS,
+  FONTS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../constants/theme';
 import { Easing } from 'react-native-reanimated';
 
 type Props = {
@@ -15,7 +20,16 @@ type Props = {
   styleTriangule?: ViewStyle;
 };
 
-const Hint = ({ label, showLabel, position, orientation, ShowAlert = false, container, labelstyle, styleTriangule}: Props) => {
+const Hint = ({
+  label,
+  showLabel,
+  position,
+  orientation,
+  ShowAlert = false,
+  container,
+  labelstyle,
+  styleTriangule,
+}: Props) => {
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
@@ -72,9 +86,21 @@ const Hint = ({ label, showLabel, position, orientation, ShowAlert = false, cont
   };
 
   return (
-    <Animated.View style={[ ,styles.hintContainer, getPositionStyle(), getOrientationStyle(), { opacity: fadeAnim, ...container }]}>
-      <View style={[styles.triangle, getTriangleStyle(), {...styleTriangule}]} />
-      {showLabel && <Text style={[styles.label,{...labelstyle}]}>{label}</Text>}
+    <Animated.View
+      style={[
+        ,
+        styles.hintContainer,
+        getPositionStyle(),
+        getOrientationStyle(),
+        { opacity: fadeAnim, ...container },
+      ]}
+    >
+      <View
+        style={[styles.triangle, getTriangleStyle(), { ...styleTriangule }]}
+      />
+      {showLabel && (
+        <Text style={[styles.label, { ...labelstyle }]}>{label}</Text>
+      )}
     </Animated.View>
   );
 };

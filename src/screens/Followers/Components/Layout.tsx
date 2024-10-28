@@ -1,14 +1,20 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
-import { CardUserSkeleton, FlexContainer, IsLoading, ScreenEmpty, Search } from "../../../components/custom";
-import { useRefreshData, useTheme } from "../../../hooks";
-import { CLOUDFRONT } from "../../../services";
-import i18next from "../../../Translate";
-import { COLORS, FONTS, SIZES } from "../../../constants/theme";
-import { FlatList } from "../../../components/native";
-import { Ilustrations } from "../../../constants";
-import { useAuth } from "../../../context/AuthContext";
-const Follow = lazy(() => import('../../../components/custom/Cards/CardUsers'))
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import {
+  CardUserSkeleton,
+  FlexContainer,
+  IsLoading,
+  ScreenEmpty,
+  Search,
+} from '../../../components/custom';
+import { useRefreshData, useTheme } from '../../../hooks';
+import { CLOUDFRONT } from '../../../services';
+import i18next from '../../../Translate';
+import { COLORS, FONTS, SIZES } from '../../../constants/theme';
+import { FlatList } from '../../../components/native';
+import { Ilustrations } from '../../../constants';
+import { useAuth } from '../../../context/AuthContext';
+const Follow = lazy(() => import('../../../components/custom/Cards/CardUsers'));
 
 type Props = {
   userID: string | undefined;
@@ -26,29 +32,35 @@ interface PropsFollower {
   name: string;
   verify: boolean;
   follower_count: number;
-  following: string
+  following: string;
 }
 
-
-const Layout = ({ userID, data, onFollow, onShearch, searching, isFetching }: Props) => {
+const Layout = ({
+  userID,
+  data,
+  onFollow,
+  onShearch,
+  searching,
+  isFetching,
+}: Props) => {
   const [focus, setFocus] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const { borderInput } = useTheme();
-  const [isLoading, setIsLoading] = useState(true); 
-  const { isRefreshing , onRefresh } = useRefreshData([isFetching])
-  const { user } = useAuth()
-  
+  const [isLoading, setIsLoading] = useState(true);
+  const { isRefreshing, onRefresh } = useRefreshData([isFetching]);
+  const { user } = useAuth();
+
   useEffect(() => {
     if (data.length > 0) {
       setIsLoading(false);
     }
   }, [data]);
 
-
-  const renderItem = useCallback(({item}: {item: PropsFollower} ) => {
-    return (
-      <Suspense fallback={<CardUserSkeleton />}>
-         <Follow
+  const renderItem = useCallback(
+    ({ item }: { item: PropsFollower }) => {
+      return (
+        <Suspense fallback={<CardUserSkeleton />}>
+          <Follow
             key={item.userID}
             userID={item.userID}
             cover={`${CLOUDFRONT}${item.avatar}`}
@@ -64,76 +76,80 @@ const Layout = ({ userID, data, onFollow, onShearch, searching, isFetching }: Pr
             ShowName={true}
             isLoading={false}
           />
-      </Suspense>
-    )
-  },[data])
+        </Suspense>
+      );
+    },
+    [data],
+  );
 
   return (
     <FlexContainer newStyle={styles.containerMain}>
       <FlexContainer newStyle={styles.container}>
-      <Search
-        placeholder={i18next.t("Search users")}
-        containerStyle={{
-          borderColor: focus ? COLORS.primary : borderInput,
-          height: SIZES.InputsHeight / 1.2,
-        }}
-        onBlur={() => setFocus(false)}
-        onFocus={() => setFocus(true)}
-        value={search}
-        onChange={(text) => {
-          onShearch(text);
-          setSearch(text);
-        }}
-      />
-            <FlatList
-        showsVerticalScrollIndicator={false}
-        numColumns={1}
-        data={data}
-        keyExtractor={(item) => item.userID}
-        renderItem={renderItem}
-        onRefresh={onRefresh}
-        refreshing={isRefreshing}
-        initialNumToRender={3}
-        maxToRenderPerBatch={3}
-        contentContainerStyle={{
-          paddingBottom: SIZES.height / 3,
-        }}
-      />
+        <Search
+          placeholder={i18next.t('Search users')}
+          containerStyle={{
+            borderColor: focus ? COLORS.primary : borderInput,
+            height: SIZES.InputsHeight / 1.2,
+          }}
+          onBlur={() => setFocus(false)}
+          onFocus={() => setFocus(true)}
+          value={search}
+          onChange={text => {
+            onShearch(text);
+            setSearch(text);
+          }}
+        />
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          numColumns={1}
+          data={data}
+          keyExtractor={item => item.userID}
+          renderItem={renderItem}
+          onRefresh={onRefresh}
+          refreshing={isRefreshing}
+          initialNumToRender={3}
+          maxToRenderPerBatch={3}
+          contentContainerStyle={{
+            paddingBottom: SIZES.height / 3,
+          }}
+        />
       </FlexContainer>
       {searching && <IsLoading />}
-            {data.length === 0 && 
-     <FlexContainer newStyle={styles.containerEmpty}>
-       <ScreenEmpty 
-      labelPart1={i18next.t("No followers found")} 
-      labelPart2={i18next.t("Try another search")}
-      subLabel={i18next.t("We couldn't find any followers with that name.")}
-      source={Ilustrations.CharcoPet}
-      ImgWidth={SIZES.width}
-      ImgHeigth={SIZES.height / 3}
-      ShowButton={false}
-      sublabelStyles={{
-        ...FONTS.semi16
-      }}
-      />
-      </FlexContainer>
-      }
+      {data.length === 0 && (
+        <FlexContainer newStyle={styles.containerEmpty}>
+          <ScreenEmpty
+            labelPart1={i18next.t('No followers found')}
+            labelPart2={i18next.t('Try another search')}
+            subLabel={i18next.t(
+              "We couldn't find any followers with that name.",
+            )}
+            source={Ilustrations.CharcoPet}
+            ImgWidth={SIZES.width}
+            ImgHeigth={SIZES.height / 3}
+            ShowButton={false}
+            sublabelStyles={{
+              ...FONTS.semi16,
+            }}
+          />
+        </FlexContainer>
+      )}
     </FlexContainer>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   containerMain: {
     paddingHorizontal: SIZES.gapLarge,
-    flex: 1
+    flex: 1,
   },
   containerEmpty: {
-   justifyContent: "center",
-    alignItems: "center",
-    flex: 10
-  }
-})
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 10,
+  },
+});
 
 export default Layout;

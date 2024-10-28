@@ -22,6 +22,7 @@ bower_components/
 # Build directories
 dist/
 build/
+/expo
 
 # Miscellaneous
 .DS_Store

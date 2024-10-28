@@ -1,18 +1,17 @@
-import React from 'react'
-import { View as RNView, ViewProps } from 'react-native'
-import useTheme from '../../../hooks/useTheme'
+import React from 'react';
+import { View as RNView, ViewProps } from 'react-native';
+import useTheme from '../../../hooks/useTheme';
 
-type Props = ViewProps
+type Props = ViewProps;
 
 const View = (props: Props) => {
-const { BackgroundMain } = useTheme()
+  const { BackgroundMain } = useTheme();
   return (
-    <RNView {...props} 
-    style={[
-      { backgroundColor: BackgroundMain },
-      props.style
-    ]}/>
-  )
-}
+    <RNView
+      {...props}
+      style={[{ backgroundColor: BackgroundMain }, props.style]}
+    />
+  );
+};
 
-export default View
+export default View;

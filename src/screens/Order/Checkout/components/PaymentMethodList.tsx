@@ -1,9 +1,16 @@
-import {  StyleSheet, Pressable } from "react-native";
-import { useNavigation } from "../../../../components/native";
-import { Box, ButtonAcces, FlexContainer, Icons, LineDivider, MiniCard, Typography } from "../../../../components/custom";
-import { SIZES } from "../../../../constants/theme";
-import i18next from "../../../../Translate";
-
+import { StyleSheet, Pressable } from 'react-native';
+import { useNavigation } from '../../../../components/native';
+import {
+  Box,
+  ButtonAcces,
+  FlexContainer,
+  Icons,
+  LineDivider,
+  MiniCard,
+  Typography,
+} from '../../../../components/custom';
+import { SIZES } from '../../../../constants/theme';
+import i18next from '../../../../Translate';
 
 interface Props {
   card: {
@@ -14,42 +21,45 @@ interface Props {
 
 const PaymentMethodList = (props: Props) => {
   const navigation = useNavigation();
-  const hat = '#### #### #### ####'
+  const hat = '#### #### #### ####';
   const handleChange = () => {
-    navigation.navigate("Payments", { paymentIntent: null })
+    navigation.navigate('Payments', { paymentIntent: null });
   };
 
   return (
     <Box
-      title={i18next.t("Payment Method")}
+      title={i18next.t('Payment Method')}
       variant={props.card ? true : false}
     >
       {props.card && (
         <Pressable
           onPress={() =>
-            navigation.navigate("Payments", { paymentIntent: null })
+            navigation.navigate('Payments', { paymentIntent: null })
           }
-        >
-        </Pressable>
+        ></Pressable>
       )}
 
       {true && (
         <FlexContainer newStyle={styles.container}>
           <FlexContainer newStyle={styles.header}>
             <Typography variant="H4title">
-              {!props.card ? i18next.t("Select Payment Method") : `${hat} ${props.card.last4}`}
+              {!props.card
+                ? i18next.t('Select Payment Method')
+                : `${hat} ${props.card.last4}`}
             </Typography>
             <Icons
               onPress={handleChange}
               styles={{
                 borderRadius: SIZES.radius,
               }}
-              appendIcons={<Typography variant="H4title">{i18next.t("Change")}</Typography>}
+              appendIcons={
+                <Typography variant="H4title">{i18next.t('Change')}</Typography>
+              }
             />
           </FlexContainer>
           <LineDivider />
           <ButtonAcces
-            label={i18next.t("Add Coupons")}
+            label={i18next.t('Add Coupons')}
             ShowLineDivider={false}
             onPress={() => console.log('Add Coupons')}
           />
@@ -61,12 +71,12 @@ const PaymentMethodList = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    gap: SIZES.gapMedium
+    gap: SIZES.gapMedium,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

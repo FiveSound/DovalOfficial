@@ -1,23 +1,23 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from 'react';
 import {
   Carrousel,
   FlexContainer,
   IsLoading,
-} from "../../../../../components/custom";
-import { getOrdersService } from "../../../../../services/orders";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useDashboard } from "../../../../../context/DashboardContext";
-import { LocationObjectCoords } from "expo-location";
-import OrderProgress from "../../../../../components/custom/Progress/OrderProgress";
-import i18next from "../../../../../Translate";
+} from '../../../../../components/custom';
+import { getOrdersService } from '../../../../../services/orders';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useDashboard } from '../../../../../context/DashboardContext';
+import { LocationObjectCoords } from 'expo-location';
+import OrderProgress from '../../../../../components/custom/Progress/OrderProgress';
+import i18next from '../../../../../Translate';
 
 type OrderStatus =
-  | "PENDING"
-  | "IN_PROGRESS"
-  | "OUT_FOR_DELIVERY"
-  | "DELIVERED"
-  | "COMPLETED"
-  | "CANCELED";
+  | 'PENDING'
+  | 'IN_PROGRESS'
+  | 'OUT_FOR_DELIVERY'
+  | 'DELIVERED'
+  | 'COMPLETED'
+  | 'CANCELED';
 
 type TypeLiveOrder = {
   id: string;
@@ -39,26 +39,26 @@ const LiveOrders = () => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["getOrdersService"],
+    queryKey: ['getOrdersService'],
     queryFn: getOrdersService,
   });
 
   useEffect(() => {
     if (socket) {
-      socket.on(`event-realtime-order`, (newState) => {
+      socket.on(`event-realtime-order`, newState => {
         console.log(`Received event-realtime-order:`, newState);
         queryClient.setQueryData(
-          ["getOrdersService"],
+          ['getOrdersService'],
           (old: TypeLiveOrder[] | undefined) => {
             if (!old) return [];
-            return old.map((order) =>
-              order.id === newState.id ? { ...order, ...newState } : order
+            return old.map(order =>
+              order.id === newState.id ? { ...order, ...newState } : order,
             );
-          }
+          },
         );
       });
 
-      socket.on(`event-realtime-route`, (route) => { 
+      socket.on(`event-realtime-route`, route => {
         console.log(`Received event-realtime-route:`, route);
         setRiderLocation(route);
       });
@@ -72,7 +72,7 @@ const LiveOrders = () => {
   }, [socket, queryClient]);
 
   useEffect(() => {
-    socket?.on("connect", () => {
+    socket?.on('connect', () => {
       refetch();
     });
   }, [socket, refetch]);
@@ -82,7 +82,7 @@ const LiveOrders = () => {
   }
 
   if (data && data.list.length > 0 && data.success) {
-    const { list } = data
+    const { list } = data;
     return (
       <FlexContainer>
         <Carrousel

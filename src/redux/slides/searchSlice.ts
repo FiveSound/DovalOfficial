@@ -36,14 +36,18 @@ export const fetchSearchResults = createAsyncThunk<
 >('search/fetchSearchResults', async (query, thunkAPI) => {
   try {
     const result = await searchResults(query);
-    const usersWithId: User[] = result.accounts.map((account: any, index: number) => ({
-      ...account,
-      id: account.id || index, // Asegura que cada usuario tenga un `id`
-    }));
+    const usersWithId: User[] = result.accounts.map(
+      (account: any, index: number) => ({
+        ...account,
+        id: account.id || index, // Asegura que cada usuario tenga un `id`
+      }),
+    );
     console.log('[fetchSearchResults] Fetched Data with IDs:', usersWithId);
     return usersWithId;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message || 'Failed to fetch search results');
+    return thunkAPI.rejectWithValue(
+      error.message || 'Failed to fetch search results',
+    );
   }
 });
 
@@ -61,18 +65,21 @@ const searchSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchSearchResults.pending, (state) => {
+      .addCase(fetchSearchResults.pending, state => {
         state.isLoading = true;
         state.isError = false;
         state.error = null;
       })
-      .addCase(fetchSearchResults.fulfilled, (state, action: PayloadAction<User[]>) => {
-        state.isLoading = false;
-        state.users = action.payload;
-        console.log('[searchSlice] Users state updated:', state.users);
-      })
+      .addCase(
+        fetchSearchResults.fulfilled,
+        (state, action: PayloadAction<User[]>) => {
+          state.isLoading = false;
+          state.users = action.payload;
+          console.log('[searchSlice] Users state updated:', state.users);
+        },
+      )
       .addCase(fetchSearchResults.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;

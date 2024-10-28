@@ -1,17 +1,17 @@
-import React, { BaseSyntheticEvent, useState } from "react";
-import { useAuth } from "../../../../context/AuthContext";
-import { useTheme } from "../../../../hooks";
+import React, { BaseSyntheticEvent, useState } from 'react';
+import { useAuth } from '../../../../context/AuthContext';
+import { useTheme } from '../../../../hooks';
 import {
   TextInput,
   TouchableOpacity,
   Text,
   ScrollView,
-} from "../../../../components/native";
-import { Avatars, FlexContainer } from "../../../../components/custom";
-import styles from "../styles";
-import i18next from "../../../../Translate";
-import { Upload05Icon } from "../../../../constants/IconsPro";
-import { CLOUDFRONT } from "../../../../services";
+} from '../../../../components/native';
+import { Avatars, FlexContainer } from '../../../../components/custom';
+import styles from '../styles';
+import i18next from '../../../../Translate';
+import { Upload05Icon } from '../../../../constants/IconsPro';
+import { CLOUDFRONT } from '../../../../services';
 
 type Props = {
   value: string;
@@ -23,7 +23,7 @@ type Props = {
 
 const InputMain = (props: Props) => {
   const { value, onChangeText, onPressChat, source, onFocusInput } = props;
-  const emojis = ["😀", "😍", "😂", "😳", "😏", "😅", "🥺"];
+  const emojis = ['😀', '😍', '😂', '😳', '😏', '😅', '🥺'];
   const { user } = useAuth();
   const { backgroundMaingrey, Title, Description } = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -43,9 +43,14 @@ const InputMain = (props: Props) => {
           </TouchableOpacity>
         ))}
       </FlexContainer>
-      <FlexContainer newStyle={[styles.inputContainer, {
-        backgroundColor: backgroundMaingrey
-      }]}>
+      <FlexContainer
+        newStyle={[
+          styles.inputContainer,
+          {
+            backgroundColor: backgroundMaingrey,
+          },
+        ]}
+      >
         <Avatars source={`${CLOUDFRONT}${user?.avatar}`} size="small" />
         <TextInput
           style={[
@@ -54,7 +59,7 @@ const InputMain = (props: Props) => {
           ]}
           value={value}
           onChangeText={onChangeText}
-          placeholder={i18next.t("Write a message...")}
+          placeholder={i18next.t('Write a message...')}
           multiline
           onFocus={() => {
             setIsFocused(true);

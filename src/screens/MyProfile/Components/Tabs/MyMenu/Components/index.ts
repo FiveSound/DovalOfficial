@@ -1,7 +1,4 @@
-import RecipeList from "./RecipeList";
-import SearchBar from "./SearchBar";
+import RecipeList from './RecipeList';
+import SearchBar from './SearchBar';
 
-export {
-    RecipeList,
-    SearchBar
-}
+export { RecipeList, SearchBar };

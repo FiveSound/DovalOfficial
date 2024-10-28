@@ -1,11 +1,11 @@
-import React, { ReactNode } from "react";
-import { KeyboardAwareScrollView, View, Image } from "../../native";
-import styles from "./styles";
+import React, { ReactNode } from 'react';
+import { KeyboardAwareScrollView, View, Image } from '../../native';
+import styles from './styles';
 
 type AutoLayoutProps = {
   children: ReactNode;
   scrollEnabled?: boolean;
-}
+};
 
 const AuthLayout = ({ children, scrollEnabled = true }: AutoLayoutProps) => {
   return (

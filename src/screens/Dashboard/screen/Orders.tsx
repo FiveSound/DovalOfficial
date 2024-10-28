@@ -1,13 +1,18 @@
-import { useState, useCallback } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { StyleSheet, ActivityIndicator, View, FlatList } from "react-native";
-import ResumeOrder from "../components/ResumeOrder";
-import { getAllOrdersService } from "../../../services/business";
-import { PaginationHeader, Pagination, LoadingScreen, Container } from "../../../components/custom";
+import { useState, useCallback } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { StyleSheet, ActivityIndicator, View, FlatList } from 'react-native';
+import ResumeOrder from '../components/ResumeOrder';
+import { getAllOrdersService } from '../../../services/business';
+import {
+  PaginationHeader,
+  Pagination,
+  LoadingScreen,
+  Container,
+} from '../../../components/custom';
 
-const QUERY_KEY = "all-orders-dashboard-screen";
+const QUERY_KEY = 'all-orders-dashboard-screen';
 const DEFAULT_PAGE = 1;
-const DEFAULT_SEARCH = "";
+const DEFAULT_SEARCH = '';
 
 const initialData = {
   page: DEFAULT_PAGE,
@@ -24,7 +29,10 @@ const Orders = () => {
   // Data
   const orders = useQuery({
     queryKey: [QUERY_KEY],
-    queryFn: async () => await getAllOrdersService({ queryKey: [QUERY_KEY, DEFAULT_PAGE, DEFAULT_SEARCH] }),
+    queryFn: async () =>
+      await getAllOrdersService({
+        queryKey: [QUERY_KEY, DEFAULT_PAGE, DEFAULT_SEARCH],
+      }),
     initialData,
   });
 
@@ -34,15 +42,17 @@ const Orders = () => {
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
     mutationFn: async (params: { page: number; search: string }) => {
-      return await getAllOrdersService({ queryKey: [QUERY_KEY, params.page, params.search] });
+      return await getAllOrdersService({
+        queryKey: [QUERY_KEY, params.page, params.search],
+      });
     },
-    onSuccess: (response) => queryClient.setQueryData([QUERY_KEY], response),
+    onSuccess: response => queryClient.setQueryData([QUERY_KEY], response),
   });
 
   // Methods
   const onRefetch = () => {
     orders.refetch();
-    setSearch("");
+    setSearch('');
   };
 
   const onSearch = useCallback((txt: string) => {
@@ -54,20 +64,26 @@ const Orders = () => {
 
   return (
     <Container style={styles.container}>
-      <PaginationHeader text={search} onChangeText={(txt) => onSearch(txt)} refetch={onRefetch} />
+      <PaginationHeader
+        text={search}
+        onChangeText={txt => onSearch(txt)}
+        refetch={onRefetch}
+      />
 
       {mutation.isPending && <ActivityIndicator size={20} />}
 
       <FlatList
         data={orders.data.list}
         renderItem={({ item }) => <ResumeOrder {...item} />}
-        keyExtractor={(item) => item.orderID.toString()}
+        keyExtractor={item => item.orderID.toString()}
         initialNumToRender={3}
       />
 
       <Pagination
         currentPage={orders.data.page}
-        onChange={(newPage) => mutation.mutate({ page: newPage, search: DEFAULT_SEARCH })}
+        onChange={newPage =>
+          mutation.mutate({ page: newPage, search: DEFAULT_SEARCH })
+        }
         pagination={orders.data.pagination}
       />
 
@@ -79,6 +95,5 @@ const Orders = () => {
 export default Orders;
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
 });

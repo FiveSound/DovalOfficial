@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, memo, ReactNode, useState } from "react";
+import React, { BaseSyntheticEvent, memo, ReactNode, useState } from 'react';
 import {
   ViewStyle,
   TextStyle,
@@ -12,13 +12,13 @@ import {
   TextInput,
   Modal,
   TouchableOpacity,
-  FlatList
-} from "react-native";
-import FlexContainer from "../../FlexContainer";
-import { FONTS, SIZES } from "../../../../constants/theme";
-import LineDivider from "../../LineDivider";
-import { useTheme } from "../../../../hooks";
-import Typography from "../../Typography";
+  FlatList,
+} from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import { FONTS, SIZES } from '../../../../constants/theme';
+import LineDivider from '../../LineDivider';
+import { useTheme } from '../../../../hooks';
+import Typography from '../../Typography';
 
 type Props = {
   containerStyle?: ViewStyle;
@@ -32,8 +32,8 @@ type Props = {
   appenComponent?: ReactNode;
   onChange?: (text: string) => void;
   secureTextEntry?: boolean;
-  keyboardType?: TextInputProps["keyboardType"];
-  autoCapitalize?: TextInputProps["autoCapitalize"];
+  keyboardType?: TextInputProps['keyboardType'];
+  autoCapitalize?: TextInputProps['autoCapitalize'];
   errorMsg?: string;
   errorStyle?: object;
   onChangeText?: (text: string) => void;
@@ -48,7 +48,9 @@ type Props = {
   lineStyle?: ViewStyle;
   pickerOptions?: { label: string; value: any }[];
   onValueChange?: (itemValue: any, itemIndex: number) => void;
-  onContentSizeChange?: (event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>) => void;
+  onContentSizeChange?: (
+    event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>,
+  ) => void;
   onEndComponentPress?: () => void;
 };
 
@@ -74,22 +76,37 @@ const InputPicker = (props: Props) => {
     onValueChange,
     labelStyle,
     onContentSizeChange,
-    onEndComponentPress
+    onEndComponentPress,
   } = props;
   const { Description, Title } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleValueChange = (value: any) => {
-    onValueChange && onValueChange(value, pickerOptions.findIndex(option => option.value === value));
+    onValueChange &&
+      onValueChange(
+        value,
+        pickerOptions.findIndex(option => option.value === value),
+      );
     setModalVisible(false);
   };
 
   return (
     <FlexContainer newStyle={styles.container}>
       <FlexContainer variant="row" newStyle={styles.row}>
-        <FlexContainer variant='row' newStyle={styles.innerRow}>
+        <FlexContainer variant="row" newStyle={styles.innerRow}>
           {appenComponent}
-          {label && <Typography variant='subtitle' newStyle={StyleSheet.flatten([styles.label, labelStyle, {color: Title}])}>{label}</Typography>}
+          {label && (
+            <Typography
+              variant="subtitle"
+              newStyle={StyleSheet.flatten([
+                styles.label,
+                labelStyle,
+                { color: Title },
+              ])}
+            >
+              {label}
+            </Typography>
+          )}
         </FlexContainer>
         {endComponent && (
           <TouchableOpacity onPress={onEndComponentPress}>
@@ -140,23 +157,23 @@ const InputPicker = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     padding: SIZES.margin / 2,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   row: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: 'transparent'
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
   },
   innerRow: {
     alignItems: 'center',
     gap: SIZES.gapMedium,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   textInput: {
     marginVertical: SIZES.gapSmall,
     maxWidth: SIZES.BtnWidth,
     ...FONTS.semi14,
-    height: SIZES.InputsHeight
+    height: SIZES.InputsHeight,
   },
   label: {
     ...FONTS.semi14,
@@ -172,7 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-  }
+  },
 });
 
 export default memo(InputPicker);

@@ -1,8 +1,14 @@
-import { Dispatch, SetStateAction } from "react";
-import { StyleSheet, View, TouchableOpacity, Image, TextInput, Text } from "react-native";
-import { Home01Icon } from "../../../constants/IconsPro";
-import { Search } from "../Inputs";
-
+import { Dispatch, SetStateAction } from 'react';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  Text,
+} from 'react-native';
+import { Home01Icon } from '../../../constants/IconsPro';
+import { Search } from '../Inputs';
 
 type Props = {
   text?: string;
@@ -13,13 +19,12 @@ type Props = {
 const PaginationHeader = ({ text, onChangeText, refetch }: Props) => (
   <View style={styles.containerFilters}>
     {onChangeText ? (
-        <Search
-          value={text}
-          onChange={(txt) => onChangeText(txt)}
-          maxLength={30}
-          placeholder="Search"
-        />
-
+      <Search
+        value={text}
+        onChange={txt => onChangeText(txt)}
+        maxLength={30}
+        placeholder="Search"
+      />
     ) : (
       <Text />
     )}
@@ -31,41 +36,41 @@ export default PaginationHeader;
 const styles = StyleSheet.create({
   containerFilters: {
     padding: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
-    color: "#FFF",
+    color: '#FFF',
   },
   search: {
     maxWidth: 300,
     padding: 4,
-    flexDirection: "row-reverse",
-    alignItems: "center",
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: "#444",
+    borderColor: '#444',
     borderRadius: 20,
   },
   searchInput: {
     paddingLeft: 10,
-    width: "85%",
-    color: "#FFF",
+    width: '85%',
+    color: '#FFF',
   },
   searchIcon: {
     width: 18,
     height: 18,
-    tintColor: "#FFF",
+    tintColor: '#FFF',
     marginHorizontal: 10,
   },
   button: {
-    backgroundColor: "#222",
+    backgroundColor: '#222',
     padding: 8,
     borderRadius: 4,
   },
   buttonIcon: {
     width: 20,
     height: 20,
-    tintColor: "#FFF",
+    tintColor: '#FFF',
   },
 });

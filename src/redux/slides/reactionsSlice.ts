@@ -31,17 +31,33 @@ const reactionsSlice = createSlice({
     setSaved(state, action: PayloadAction<{ postID: number; saved: boolean }>) {
       state.saved[action.payload.postID] = action.payload.saved;
     },
-    setSavedCount(state, action: PayloadAction<{ postID: number; count: number }>) {
+    setSavedCount(
+      state,
+      action: PayloadAction<{ postID: number; count: number }>,
+    ) {
       state.savedCount[action.payload.postID] = action.payload.count;
     },
-    setShared(state, action: PayloadAction<{ postID: number; shared: boolean }>) {
+    setShared(
+      state,
+      action: PayloadAction<{ postID: number; shared: boolean }>,
+    ) {
       state.shared[action.payload.postID] = action.payload.shared;
     },
-    setSharedCount(state, action: PayloadAction<{ postID: number; count: number }>) {
+    setSharedCount(
+      state,
+      action: PayloadAction<{ postID: number; count: number }>,
+    ) {
       state.sharedCount[action.payload.postID] = action.payload.count;
     },
   },
 });
 
-export const { setLikes, setLiked, setSaved, setSavedCount, setShared, setSharedCount } = reactionsSlice.actions;
+export const {
+  setLikes,
+  setLiked,
+  setSaved,
+  setSavedCount,
+  setShared,
+  setSharedCount,
+} = reactionsSlice.actions;
 export default reactionsSlice.reducer;

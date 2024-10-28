@@ -1,15 +1,15 @@
-import React, { ReactNode, useState } from "react";
-import { SafeAreaView, View, TouchableOpacity } from "react-native";
-import { useTheme } from "../../../hooks";
-import { scale } from "react-native-size-matters";
-import { COLORS, SIZES } from "../../../constants/theme";
-import { LineDivider, Typography } from "../../../components/custom";
-import i18next from "../../../Translate";
+import React, { ReactNode, useState } from 'react';
+import { SafeAreaView, View, TouchableOpacity } from 'react-native';
+import { useTheme } from '../../../hooks';
+import { scale } from 'react-native-size-matters';
+import { COLORS, SIZES } from '../../../constants/theme';
+import { LineDivider, Typography } from '../../../components/custom';
+import i18next from '../../../Translate';
 
 type Album = {
-  title: string
-  id: string
-}
+  title: string;
+  id: string;
+};
 type Props = {
   selectedValue?: string;
   onValueChange?: (itemValue: any, itemIndex: number) => void;
@@ -24,7 +24,7 @@ const GalleryHeader = ({
   onValueChange,
   albums,
   Proximo,
-  onPress
+  onPress,
 }: Props) => {
   const { color, bgInput, Bg } = useTheme();
   const [open, setOpen] = useState(false);
@@ -36,21 +36,21 @@ const GalleryHeader = ({
 
   return (
     <>
-    <SafeAreaView
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        height: scale(40),
-        paddingHorizontal: SIZES.margin / 2,
-        zIndex: 1
-      }}
-    >
-      <TouchableOpacity onPress={onPress}>
-        <Typography variant="subtitle"> {i18next.t('Cancel')} </Typography>
-      </TouchableOpacity>
-      <View style={{ width: SIZES.width / 2, }}>
-        {/* <DropDownPicker
+      <SafeAreaView
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: scale(40),
+          paddingHorizontal: SIZES.margin / 2,
+          zIndex: 1,
+        }}
+      >
+        <TouchableOpacity onPress={onPress}>
+          <Typography variant="subtitle"> {i18next.t('Cancel')} </Typography>
+        </TouchableOpacity>
+        <View style={{ width: SIZES.width / 2 }}>
+          {/* <DropDownPicker
           placeholder="Recientes"
           placeholderStyle={{
             color: color
@@ -75,20 +75,19 @@ const GalleryHeader = ({
           ArrowDownIconComponent={({style}) => <ArrowDown01Icon style={style} color={color}/>}
           ArrowUpIconComponent={({style}) => <ArrowUp01Icon style={style} color={color}/>}
         /> */}
-      </View>
-      <TouchableOpacity
-      onPress={Proximo}>
-        <Typography
-          newStyle={{
-            color: COLORS.primary,
-          }}
-          variant="subtitle"
-        >
-          {i18next.t('Next')}
-        </Typography>
-      </TouchableOpacity>
-    </SafeAreaView>
-    <LineDivider />
+        </View>
+        <TouchableOpacity onPress={Proximo}>
+          <Typography
+            newStyle={{
+              color: COLORS.primary,
+            }}
+            variant="subtitle"
+          >
+            {i18next.t('Next')}
+          </Typography>
+        </TouchableOpacity>
+      </SafeAreaView>
+      <LineDivider />
     </>
   );
 };

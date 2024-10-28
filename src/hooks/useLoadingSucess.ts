@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 
-const useLoadingSuccess = (isLoading: boolean, delay: number = 1000): boolean => {
+const useLoadingSuccess = (
+  isLoading: boolean,
+  delay: number = 1000,
+): boolean => {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {

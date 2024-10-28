@@ -1,38 +1,43 @@
-import React, { lazy, Suspense, useCallback, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../redux/store";
-import { setSearchQuery, fetchSearchResults, clearSearchResults } from "../../redux/slides/searchSlice";
-import { initialData } from "../../services/search";
-import { useRefreshData, useDebounce } from "../../hooks";
-import i18next from "../../Translate";
-import { IsLoading, LoadingScreen, SearchLayout } from "../../components/custom";
-import { FlatList } from "../../components/native";
-import { useAPI } from "../../hooks";
-const LazyCardUser = lazy(() => import("../../components/custom/Cards/CardUsers"));
+import React, { lazy, Suspense, useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../redux/store';
+import {
+  setSearchQuery,
+  fetchSearchResults,
+  clearSearchResults,
+} from '../../redux/slides/searchSlice';
+import { initialData } from '../../services/search';
+import { useRefreshData, useDebounce } from '../../hooks';
+import i18next from '../../Translate';
+import {
+  IsLoading,
+  LoadingScreen,
+  SearchLayout,
+} from '../../components/custom';
+import { FlatList } from '../../components/native';
+import { useAPI } from '../../hooks';
+const LazyCardUser = lazy(
+  () => import('../../components/custom/Cards/CardUsers'),
+);
 
 const Search = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {
-    query,
-    users,
-    isLoading,
-    isError,
-    error,
-  } = useSelector((state: RootState) => state.search);
+  const { query, users, isLoading, isError, error } = useSelector(
+    (state: RootState) => state.search,
+  );
 
   const debouncedQuery = useDebounce(query, 500);
   const { refetch: refetchPostData } = useAPI({
-    queryKey: ["DataSearch-initial"],
+    queryKey: ['DataSearch-initial'],
     queryFn: () => initialData(1),
   });
 
   const { onRefresh, isRefreshing } = useRefreshData([refetchPostData]);
 
   useEffect(() => {
-    if (debouncedQuery.trim() !== "") {
+    if (debouncedQuery.trim() !== '') {
       dispatch(fetchSearchResults(debouncedQuery));
-    }
-    else {
+    } else {
       dispatch(clearSearchResults());
     }
   }, [debouncedQuery, dispatch]);
@@ -41,7 +46,7 @@ const Search = () => {
     (newQuery: string) => {
       dispatch(setSearchQuery(newQuery));
     },
-    [dispatch]
+    [dispatch],
   );
 
   const renderItemFiltered = useCallback(
@@ -56,7 +61,9 @@ const Search = () => {
             username={item.username || item.name}
             isVerified={item.verify === 1}
             followersCount={item.follower_count || 0}
-            onFollow={() => console.log(`[LazyCardUser] User ${item.id} follow state toggled`)}
+            onFollow={() =>
+              console.log(`[LazyCardUser] User ${item.id} follow state toggled`)
+            }
             Follow={item.follow}
             ShowName={true}
             ShowLine={false}
@@ -67,9 +74,8 @@ const Search = () => {
         </Suspense>
       );
     },
-    []
+    [],
   );
-
 
   return (
     <SearchLayout
@@ -83,7 +89,7 @@ const Search = () => {
         showsVerticalScrollIndicator={false}
         numColumns={1}
         data={users}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={item => `${item.id}`}
         renderItem={renderItemFiltered}
         onRefresh={onRefresh}
         refreshing={isRefreshing}

@@ -1,7 +1,4 @@
-import OrderProgress from "./OrderProgress";
-import ProgressBar from "./ProgressBar";
+import OrderProgress from './OrderProgress';
+import ProgressBar from './ProgressBar';
 
-export {
-    OrderProgress,
-    ProgressBar
-}
+export { OrderProgress, ProgressBar };

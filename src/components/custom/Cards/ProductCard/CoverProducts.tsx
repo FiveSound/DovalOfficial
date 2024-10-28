@@ -1,10 +1,13 @@
-import React, { useCallback, useRef, useState } from "react";
-import { StyleSheet, ViewToken, FlatList, Animated } from "react-native";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import { FlexContainer, Dots } from "../..";
-import { useNavigation, View, Image } from "../../../native";
-import { useTheme } from "../../../../hooks";
-import { CLOUDFRONT } from "../../../../services"; 
+import React, { useCallback, useRef, useState } from 'react';
+import { StyleSheet, ViewToken, FlatList, Animated } from 'react-native';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import useNavigation from '../../../native/useNavigation';
+import View from '../../../native/View';
+import Image from '../../../native/Image';
+import { useTheme } from '../../../../hooks';
+import { CLOUDFRONT } from '../../../../services';
+import FlexContainer from '../../FlexContainer';
+import Dots from '../../Dots';
 
 interface Cover {
   key: string;
@@ -31,7 +34,7 @@ const CoverProducts = ({ row }: Props) => {
           setCurrentVisibleIndex(visibleItem.index);
         }
       }
-    }
+    },
   ).current;
 
   const viewabilityConfig = {
@@ -40,18 +43,18 @@ const CoverProducts = ({ row }: Props) => {
 
   const renderItem = useCallback(
     ({ item, index }: { item: Cover; index: number }) => {
-      const imageUrl = `${CLOUDFRONT}${item.key}`; 
+      const imageUrl = `${CLOUDFRONT}${item.key}`;
       return (
         <Image
           placeholderSource={imageUrl}
           style={styles.image}
           contentFit="cover"
-          priority='high'
-          cachePolicy='memory-disk'
+          priority="high"
+          cachePolicy="memory-disk"
         />
       );
     },
-    [row]
+    [row],
   );
 
   if (row && row.length > 0) {
@@ -64,7 +67,7 @@ const CoverProducts = ({ row }: Props) => {
           snapToAlignment="center"
           decelerationRate="fast"
           renderItem={renderItem}
-          keyExtractor={(item) => item.key}
+          keyExtractor={item => item.key}
           horizontal
           initialNumToRender={1}
           maxToRenderPerBatch={1}
@@ -73,7 +76,7 @@ const CoverProducts = ({ row }: Props) => {
           viewabilityConfig={viewabilityConfig}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: true }
+            { useNativeDriver: true },
           )}
         />
         <FlexContainer newStyle={styles.container} variant="row">
@@ -93,14 +96,14 @@ const CoverProducts = ({ row }: Props) => {
 
 const styles = StyleSheet.create({
   main: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     height: SIZES.height / 2.5,
   },
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     width: SIZES.width,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   image: {
     width: SIZES.width,

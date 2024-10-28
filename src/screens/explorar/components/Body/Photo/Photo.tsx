@@ -1,15 +1,19 @@
-import React, { useCallback, useRef, useState, useEffect } from "react";
-import { StyleSheet, ViewToken, FlatList, Animated } from "react-native";
-import { handleViewService } from "../../../../../services/reactions";
-import { COLORS, responsiveFontSize, SIZES } from "../../../../../constants/theme";
-import { FlexContainer, Dots } from "../../../../../components/custom";
-import { View } from "../../../../../components/native";
-import PhotoItem from "./PhotoItem";
+import React, { useCallback, useRef, useState, useEffect } from 'react';
+import { StyleSheet, ViewToken, FlatList, Animated } from 'react-native';
+import { handleViewService } from '../../../../../services/reactions';
+import {
+  COLORS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../../../constants/theme';
+import { FlexContainer, Dots } from '../../../../../components/custom';
+import { View } from '../../../../../components/native';
+import PhotoItem from './PhotoItem';
 
 interface MediaItem {
   uri: string;
   key: string;
-  type: "photo" | "video";
+  type: 'photo' | 'video';
   parentId: string;
   extension?: string;
   mediaType: number;
@@ -26,7 +30,7 @@ const Photo: React.FC<VideoPreviewProps> = ({
   postID,
   DataExplorar,
   onVisibleItemChange,
-  isItemFocused
+  isItemFocused,
 }) => {
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const flatListRef = useRef<FlatList<MediaItem>>(null);
@@ -39,7 +43,7 @@ const Photo: React.FC<VideoPreviewProps> = ({
         onVisibleItemChange(viewableItems[0].index);
       }
     },
-    [setCurrentVisibleIndex, onVisibleItemChange]
+    [setCurrentVisibleIndex, onVisibleItemChange],
   );
 
   useEffect(() => {
@@ -49,10 +53,10 @@ const Photo: React.FC<VideoPreviewProps> = ({
   }, [isItemFocused]);
 
   const renderItem = useCallback(
-    ({ item, index }: { item: MediaItem, index: number }) => (
+    ({ item, index }: { item: MediaItem; index: number }) => (
       <PhotoItem item={item} index={index} scrollX={scrollX} />
     ),
-    [scrollX]
+    [scrollX],
   );
 
   return (
@@ -62,7 +66,7 @@ const Photo: React.FC<VideoPreviewProps> = ({
         data={DataExplorar}
         snapToInterval={SIZES.width * 0.9}
         renderItem={renderItem}
-        keyExtractor={(item) => item.key.toString()}
+        keyExtractor={item => item.key.toString()}
         horizontal={true}
         initialNumToRender={1}
         maxToRenderPerBatch={1}
@@ -72,15 +76,17 @@ const Photo: React.FC<VideoPreviewProps> = ({
         viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true }
+          { useNativeDriver: true },
         )}
-        contentContainerStyle={{ paddingHorizontal: (SIZES.width - SIZES.width * 0.8) / 2 }}
+        contentContainerStyle={{
+          paddingHorizontal: (SIZES.width - SIZES.width * 0.8) / 2,
+        }}
       />
       <FlexContainer
         newStyle={{
-          position: "relative",
+          position: 'relative',
           bottom: SIZES.height / 6,
-          backgroundColor: "transparent",
+          backgroundColor: 'transparent',
         }}
       >
         <Dots
@@ -96,9 +102,9 @@ const styles = StyleSheet.create({
   main: {
     width: SIZES.width,
     height: SIZES.height - responsiveFontSize(80),
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: COLORS.dark
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.dark,
   },
 });
 

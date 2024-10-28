@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
-import { RouteProp, useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
-import { GalleryControlsReview, VideosPreviews, BarPreview } from './Components';
+import React, { useState } from 'react';
+import {
+  RouteProp,
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import {
+  GalleryControlsReview,
+  VideosPreviews,
+  BarPreview,
+} from './Components';
 import { GalleryLayout } from '../../Components';
 
-type Props = {}
+type Props = {};
 
 interface MediaItem {
   uri: string;
@@ -17,19 +26,21 @@ const UploadReview = (props: Props) => {
   const { params } = useRoute<RouteProp<{ params: RouteParams }>>();
   let Pickedmedia = params.pickedMedia;
   const [isPlaying, setIsPlaying] = useState(false);
-  const [music, setMusic] = useState('')
+  const [music, setMusic] = useState('');
   const [selectedSongId, setSelectedSongId] = useState<string | null>(null);
 
   Pickedmedia = Pickedmedia.map(mediaItem => ({
     ...mediaItem,
-    songID: selectedSongId
+    songID: selectedSongId,
   }));
 
   const baseTimeInSeconds = 40;
   const additionalTimePerItem = 5;
-  const totalTimeInSeconds = baseTimeInSeconds + (Pickedmedia.length * additionalTimePerItem);
+  const totalTimeInSeconds =
+    baseTimeInSeconds + Pickedmedia.length * additionalTimePerItem;
 
-  const durationPerItem = Pickedmedia.length > 0 ? totalTimeInSeconds / Pickedmedia.length : 0;
+  const durationPerItem =
+    Pickedmedia.length > 0 ? totalTimeInSeconds / Pickedmedia.length : 0;
 
   const formatDuration = (seconds: any) => {
     const minutes = Math.floor(seconds / 60);
@@ -46,25 +57,21 @@ const UploadReview = (props: Props) => {
 
   const handleSelectedSongId = (id: string, sourceSong: string) => {
     setSelectedSongId(id);
-    setMusic(sourceSong)
+    setMusic(sourceSong);
     Pickedmedia = Pickedmedia.map(mediaItem => ({
       ...mediaItem,
-      songID: selectedSongId
+      songID: selectedSongId,
     }));
   };
 
-
   return (
     <GalleryLayout>
-      <GalleryControlsReview
-        label='Ir a subir'
-        pickedMedia={Pickedmedia}
-      />
+      <GalleryControlsReview label="Ir a subir" pickedMedia={Pickedmedia} />
       <VideosPreviews
         pickedMedia={Pickedmedia}
         ShowDot={false}
         duration={formattedTotalTime}
-        time='0'
+        time="0"
         onPressPlay={handlePlayPause}
         isPlay={isPlaying}
       />
@@ -77,7 +84,7 @@ const UploadReview = (props: Props) => {
         handlePlayPause={handlePlayPause}
       />
     </GalleryLayout>
-  )
-}
+  );
+};
 
-export default UploadReview
+export default UploadReview;

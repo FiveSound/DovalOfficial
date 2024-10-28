@@ -1,10 +1,10 @@
-import useAPI from "../../../../../hooks/useAPI";
-import { mySharedgService } from "../../../../../services/reactions";
-import Main from "../Main";
+import useAPI from '../../../../../hooks/useAPI';
+import { mySharedgService } from '../../../../../services/reactions';
+import Main from '../Main';
 
 const MyShares = () => {
   const { data, isLoading, isError, refetch } = useAPI({
-    queryKey: ["my-Sharedg-Service"],
+    queryKey: ['my-Sharedg-Service'],
     queryFn: mySharedgService,
   });
 

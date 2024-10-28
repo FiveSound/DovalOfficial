@@ -1,16 +1,16 @@
-import React from "react";
-import { View, Text, ViewStyle } from "react-native";
-import FlexContainer from "../../FlexContainer";
-import Typography from "../../Typography";
-import styles from "./styles";
-import useTheme from "../../../../hooks/useTheme";
+import React from 'react';
+import { View, Text, ViewStyle } from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import Typography from '../../Typography';
+import styles from './styles';
+import useTheme from '../../../../hooks/useTheme';
 
 interface FormInputProps {
   sublabel?: string;
   subtitleStyle?: any;
   label?: string;
   children?: React.ReactNode;
-  RNstyles?: ViewStyle
+  RNstyles?: ViewStyle;
 }
 
 const FormBottom: React.FC<FormInputProps> = ({
@@ -18,19 +18,27 @@ const FormBottom: React.FC<FormInputProps> = ({
   subtitleStyle,
   label,
   children,
-  RNstyles
+  RNstyles,
 }) => {
-  const { Bg, Title } = useTheme()
+  const { Bg, Title } = useTheme();
   return (
-    <FlexContainer newStyle={[styles.flexContainer, RNstyles, { backgroundColor: Bg }]}>
+    <FlexContainer
+      newStyle={[styles.flexContainer, RNstyles, { backgroundColor: Bg }]}
+    >
       <FlexContainer newStyle={styles.view}>
-        <Typography variant='title' newStyle={[styles.text,{
-          color: Title
-        }]}>
+        <Typography
+          variant="title"
+          newStyle={[
+            styles.text,
+            {
+              color: Title,
+            },
+          ]}
+        >
           {label}
         </Typography>
         <Typography
-          variant='SubDescription'
+          variant="SubDescription"
           newStyle={{ ...styles.typography, ...subtitleStyle }}
         >
           {sublabel}

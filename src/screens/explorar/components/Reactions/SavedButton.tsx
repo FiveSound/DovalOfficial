@@ -1,17 +1,23 @@
-import React, { useEffect, useState, useCallback, memo } from "react";
-import { getSavedPostService, handleSavedService } from "../../../../services/reactions";
-import { useAuth } from "../../../../context/AuthContext";
-import useAPI from "../../../../hooks/useAPI";
-import { COLORS, SIZES } from "../../../../constants/theme";
-import { Bookmark02Icon } from "../../../../constants/IconsPro";
-import { formatMilesAndMillions } from "../../../../utils/format";
-import * as Haptics from "expo-haptics";
-import styles from "./styles";
-import { TouchableOpacity, Text } from "../../../../components/native";
+import React, { useEffect, useState, useCallback, memo } from 'react';
+import {
+  getSavedPostService,
+  handleSavedService,
+} from '../../../../services/reactions';
+import { useAuth } from '../../../../context/AuthContext';
+import useAPI from '../../../../hooks/useAPI';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import { Bookmark02Icon } from '../../../../constants/IconsPro';
+import { formatMilesAndMillions } from '../../../../utils/format';
+import * as Haptics from 'expo-haptics';
+import styles from './styles';
+import { TouchableOpacity, Text } from '../../../../components/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-import { setSaved, setSavedCount } from '../../../../redux/slides/reactionsSlice';
-import { LoginAlert } from "../../../../components/custom";
+import {
+  setSaved,
+  setSavedCount,
+} from '../../../../redux/slides/reactionsSlice';
+import { LoginAlert } from '../../../../components/custom';
 
 type Props = {
   postID: number;
@@ -20,8 +26,12 @@ type Props = {
 const SavedButton: React.FC<Props> = memo(({ postID }) => {
   const { user } = useAuth();
   const dispatch = useDispatch();
-  const saved = useSelector((state: RootState) => state.reactions.saved[postID] || false);
-const length = useSelector((state: RootState) => state.reactions.savedCount[postID] || 0);
+  const saved = useSelector(
+    (state: RootState) => state.reactions.saved[postID] || false,
+  );
+  const length = useSelector(
+    (state: RootState) => state.reactions.savedCount[postID] || 0,
+  );
   const [disabled, setDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
   const [notification, setNotification] = useState(false);
@@ -36,12 +46,14 @@ const length = useSelector((state: RootState) => state.reactions.savedCount[post
 
   const handleSaved = useCallback(async () => {
     if (!user) {
-      setVisible(true); 
-      return; 
+      setVisible(true);
+      return;
     }
     const newSaved = !saved;
     dispatch(setSaved({ postID, saved: newSaved }));
-    dispatch(setSavedCount({ postID, count: newSaved ? length + 1 : length - 1 }));
+    dispatch(
+      setSavedCount({ postID, count: newSaved ? length + 1 : length - 1 }),
+    );
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     try {
       await handleSavedService(postID);
@@ -54,7 +66,9 @@ const length = useSelector((state: RootState) => state.reactions.savedCount[post
       }
     } catch (error) {
       dispatch(setSaved({ postID, saved }));
-      dispatch(setSavedCount({ postID, count: newSaved ? length - 1 : length + 1 }));
+      dispatch(
+        setSavedCount({ postID, count: newSaved ? length - 1 : length + 1 }),
+      );
       console.error(error);
     }
   }, [postID, saved, user, dispatch, length]);
@@ -70,10 +84,10 @@ const length = useSelector((state: RootState) => state.reactions.savedCount[post
   const handleAlertDismiss = useCallback(() => {
     setVisible(false);
   }, []);
-  
+
   return (
     <TouchableOpacity
-      onPress={handleSaved} 
+      onPress={handleSaved}
       disabled={disabled}
       style={styles.container}
     >
@@ -82,9 +96,7 @@ const length = useSelector((state: RootState) => state.reactions.savedCount[post
         height={SIZES.icons * 1.2}
         color={saved ? COLORS.primary : COLORS.TranspLight}
       />
-      <Text style={styles.label}>
-        {formatMilesAndMillions(length)}
-      </Text>
+      <Text style={styles.label}>{formatMilesAndMillions(length)}</Text>
       <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
     </TouchableOpacity>
   );

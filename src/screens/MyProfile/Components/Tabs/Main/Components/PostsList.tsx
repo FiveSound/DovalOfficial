@@ -10,7 +10,13 @@ interface RecipeListProps {
   estimatedItemSize: number;
 }
 
-const PostsList: React.FC<RecipeListProps> = ({ data, renderItem, isRefreshing, onRefresh, estimatedItemSize }) => {
+const PostsList: React.FC<RecipeListProps> = ({
+  data,
+  renderItem,
+  isRefreshing,
+  onRefresh,
+  estimatedItemSize,
+}) => {
   return (
     <FlashList
       data={data}

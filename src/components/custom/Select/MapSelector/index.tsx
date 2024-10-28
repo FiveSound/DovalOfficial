@@ -1,284 +1,332 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, Text, Button, Alert } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import { memo, useEffect, useState, useRef } from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Modal,
+} from 'react-native';
+import MapView, {
+  MapPressEvent,
+  Marker,
+  MarkerDragStartEndEvent,
+  PROVIDER_GOOGLE,
+  Region,
+} from 'react-native-maps';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import KeyApi from '../../../../constants/KeyApi';
-import mapStyle from '../../../../constants/mapStyle';
 import { IsLoading } from '../../Loaders';
+import mapStyle from '../../../../constants/mapStyle';
+import { SIZES } from '../../../../constants/theme';
+import { Ionicons } from '@expo/vector-icons';
+import { searchLocationByPlaceID } from '../../../../services/orders'; // Importar el servicio existente
 
-export type AddressComponent = {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-  formattedAddress: string;
+type Props = {
+  setValue: (field: string, value: any, options?: any) => void;
 };
 
-export type SelectedLocation = AddressComponent & {
-  latitude: number;
-  longitude: number;
+// Función para comparar dos regiones
+const areRegionsEqual = (region1: Region, region2: Region): boolean => {
+  return (
+    region1.latitude === region2.latitude &&
+    region1.longitude === region2.longitude &&
+    region1.latitudeDelta === region2.latitudeDelta &&
+    region1.longitudeDelta === region2.longitudeDelta
+  );
 };
 
-type MapSelectorProps = {
-  initialLocation?: {
+const MapSelector = memo(({ setValue }: Props) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [region, setRegion] = useState<Region | null>(null);
+  const [markerPosition, setMarkerPosition] = useState<{
     latitude: number;
     longitude: number;
-  };
-  onLocationSelected: (location: SelectedLocation) => void;
-};
-
-const MapSelector: React.FC<MapSelectorProps> = ({ initialLocation, onLocationSelected }) => {
-  const [region, setRegion] = useState<Region | null>(null);
-  const [marker, setMarker] = useState<{ latitude: number; longitude: number } | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  } | null>(null);
   const [address, setAddress] = useState<string>('');
-  const [addressLoading, setAddressLoading] = useState<boolean>(false);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  console.log('Address state initialized:', address, 'address');
-
-  // Move fetchAddress outside of useEffect
-  const fetchAddress = async (latitude: number, longitude: number) => {
-    setAddressLoading(true);
-    try {
-      console.log('Fetching address from Google Geocode API');
-      const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KeyApi.GoogleMapApi}`
-      );
-      console.log('Geocode API response:', response.data);
-      if (response.data && response.data.results && response.data.results.length > 0) {
-        const addressComponents = parseAddressComponents(response.data.results[0].address_components);
-        console.log('Address components obtained:', addressComponents);
-        setAddress(addressComponents.formattedAddress);
-        onLocationSelected({
-          ...addressComponents,
-          latitude,
-          longitude,
-        });
-      } else {
-        console.log('No address found for the selected location.');
-        Alert.alert("Error", "No se pudo obtener la dirección para la ubicación seleccionada.");
-      }
-    } catch (error) {
-      console.error("Error al obtener la dirección:", error);
-      Alert.alert("Error", "Ocurrió un error al obtener la dirección.");
-    } finally {
-      setAddressLoading(false);
-    }
-  };
-
-  // Debounce fetchAddress to prevent excessive calls
-  const debouncedFetchAddress = debounce(fetchAddress, 1000);
+  // Referencia para evitar actualizaciones redundantes de region
+  const previousRegionRef = useRef<Region | null>(null);
 
   useEffect(() => {
-    console.log('useEffect triggered with initialLocation:', initialLocation);
-
-    const fetchLocation = async () => {
-      if (initialLocation) {
-        console.log('Setting region and marker based on initialLocation:', initialLocation);
-        setRegion({
-          latitude: initialLocation.latitude,
-          longitude: initialLocation.longitude,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
-        });
-        setMarker(initialLocation);
-        setLoading(false);
-        await fetchAddress(initialLocation.latitude, initialLocation.longitude);
-      } else {
-        console.log('Requesting location permissions');
+    const requestLocationPermission = async () => {
+      try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
-          console.error("Permisos de ubicación no otorgados");
-          Alert.alert("Error", "Permisos de ubicación no otorgados.");
+          alert('Permiso de ubicación denegado');
           setLoading(false);
           return;
         }
 
-        try {
-          console.log('Obtaining current location using Expo Location');
-          const location = await Location.getCurrentPositionAsync({
-            accuracy: Location.Accuracy.Highest,
-          });
-          console.log('Expo Location obtained:', location);
-          const { latitude, longitude } = location.coords;
-          setRegion({
-            latitude,
-            longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          });
-          setMarker({ latitude, longitude });
+        const location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
 
-          // Obtener dirección
-          await fetchAddress(latitude, longitude);
-        } catch (error) {
-          console.error("Error obteniendo ubicación actual:", error);
-          Alert.alert("Error", "No se pudo obtener tu ubicación actual.");
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
+        const initialRegion: Region = {
+          latitude,
+          longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        };
 
-    fetchLocation();
+        setRegion(initialRegion);
+        previousRegionRef.current = initialRegion;
 
-    // Cleanup si es necesario
-    return () => {
-      // Limpiar timeout si aplica
-    };
-  }, [initialLocation]);
+        await fetchAddress(latitude, longitude);
 
-  const parseAddressComponents = (addressComponents: any[]): AddressComponent => {
-    const getComponent = (type: string) => {
-      const component = addressComponents.find((c) => c.types.includes(type));
-      return component ? component.long_name : '';
-    };
-
-    return {
-      street: getComponent('route'),
-      city: getComponent('locality'),
-      state: getComponent('administrative_area_level_1'),
-      zip: getComponent('postal_code'),
-      formattedAddress: addressComponents.find(c => c.types.includes('formatted_address'))?.long_name || '',
-    };
-  };
-
-  const handleRegionChangeComplete = (newRegion: Region) => {
-    console.log('Region changed to:', newRegion);
-    setRegion(newRegion);
-    setMarker({
-      latitude: newRegion.latitude,
-      longitude: newRegion.longitude,
-    });
-    // Opcional: actualizar la dirección al cambiar la región
-    // debouncedFetchAddress(newRegion.latitude, newRegion.longitude);
-  };
-
-  const handleConfirmLocation = async () => {
-    console.log('Confirm location button pressed');
-    if (marker) {
-      console.log('Marker coordinates:', marker);
-      try {
-        console.log('Fetching address for marker location from Google Geocode API');
-        const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${marker.latitude},${marker.longitude}&key=${KeyApi.GoogleMapApi}`
-        );
-        console.log('Geocode API response for marker:', response.data);
-
-        if (response.data && response.data.results && response.data.results.length > 0) {
-          const addressComponents = parseAddressComponents(response.data.results[0].address_components);
-          console.log('Address components:', addressComponents);
-          setAddress(addressComponents.formattedAddress);
-          onLocationSelected({
-            ...addressComponents,
-            latitude: marker.latitude,
-            longitude: marker.longitude,
-          });
-        } else {
-          console.log('No address found for the selected location.');
-          Alert.alert("Error", "No se pudo obtener la dirección para la ubicación seleccionada.");
-        }
+        setMarkerPosition({ latitude, longitude });
+        setLoading(false);
       } catch (error) {
-        console.error("Error al obtener la dirección:", error);
-        Alert.alert("Error", "Ocurrió un error al obtener la dirección.");
+        console.error('Error al obtener la ubicación:', error);
+        setLoading(false);
       }
-    } else {
-      console.log('No marker selected.');
-      Alert.alert("Error", "No se ha seleccionado ninguna ubicación.");
+    };
+
+    requestLocationPermission();
+  }, [setValue]);
+
+  const fetchAddress = async (latitude: number, longitude: number) => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KeyApi.GoogleMapApi}`,
+      );
+
+      if (
+        response.data &&
+        response.data.results &&
+        response.data.results.length > 0
+      ) {
+        const fetchedAddress = response.data.results[0].formatted_address;
+        setAddress(fetchedAddress);
+        setValue('address', fetchedAddress, { shouldDirty: true });
+
+        const addressComponents = response.data.results[0].address_components;
+        const city =
+          addressComponents.find(component =>
+            component.types.includes('locality'),
+          )?.long_name || '';
+        const state =
+          addressComponents.find(component =>
+            component.types.includes('administrative_area_level_1'),
+          )?.short_name || '';
+        const country =
+          addressComponents.find(component =>
+            component.types.includes('country'),
+          )?.long_name || '';
+        const postal_code =
+          addressComponents.find(component =>
+            component.types.includes('postal_code'),
+          )?.long_name || '';
+
+        setValue('city', city, { shouldDirty: true });
+        setValue('state', state, { shouldDirty: true });
+        setValue('country', country, { shouldDirty: true });
+        setValue('postal_code', postal_code, { shouldDirty: true });
+      } else {
+        console.warn('No se encontraron resultados para la geocodificación.');
+      }
+    } catch (error) {
+      console.error('Error al obtener la dirección:', error);
     }
   };
 
-  if (loading || !region) {
-    console.log('Loading state:', loading, 'Region:', region);
-    return (
-      <View style={styles.loader}>
-        <IsLoading label='Loading map' />
-      </View>
-    );
+  const handleMarkerDragEnd = async (
+    event: MarkerDragStartEndEvent | MapPressEvent,
+  ) => {
+    const { latitude, longitude } = event.nativeEvent.coordinate;
+    setValue('latitude', latitude, { shouldDirty: true });
+    setValue('longitude', longitude, { shouldDirty: true });
+    setMarkerPosition({ latitude, longitude });
+
+    // Actualizar la región para centrar el mapa en la nueva posición
+    const newRegion = region ? { ...region, latitude, longitude } : null;
+    if (newRegion) {
+      setRegion(newRegion);
+      previousRegionRef.current = newRegion;
+    }
+
+    await fetchAddress(latitude, longitude);
+  };
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
+
+  console.log('searchResults', searchResults);
+
+  if (loading) {
+    return <IsLoading label="Cargando mapa" />;
   }
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
+      {/* Search Bar */}
+      {/* <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Buscar dirección"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onSubmitEditing={handleSearch}
+        />
+        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+          <Ionicons name="search" size={20} color="#fff" />
+        </TouchableOpacity>
+      </View> */}
+
+      {/* Map View */}
       <MapView
         provider={PROVIDER_GOOGLE}
-        style={styles.map}
+        style={isFullscreen ? styles.mapFullscreen : styles.map}
         region={region}
+        onPress={handleMarkerDragEnd}
+        showsUserLocation
         customMapStyle={mapStyle}
-        onRegionChangeComplete={handleRegionChangeComplete}
-        showsUserLocation={true}
-        onPress={(e) => {
-          console.log('Map pressed at coordinate:', e.nativeEvent.coordinate);
-          setMarker(e.nativeEvent.coordinate);
-          // Actualizar la dirección al tocar en el mapa
-          fetchAddress(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude);
-        }}
       >
-        {marker && (
+        {markerPosition && (
           <Marker
-            coordinate={marker}
+            coordinate={markerPosition}
+            title="Mi Ubicación"
             draggable
-            onDragEnd={(e) => {
-              const draggedCoordinate = e.nativeEvent.coordinate;
-              console.log('Marker dragged to:', draggedCoordinate);
-              setMarker(draggedCoordinate);
-              setRegion({
-                ...region!,
-                latitude: draggedCoordinate.latitude,
-                longitude: draggedCoordinate.longitude,
-              });
-              debouncedFetchAddress(draggedCoordinate.latitude, draggedCoordinate.longitude);
-            }}
+            onDragEnd={handleMarkerDragEnd}
           />
         )}
       </MapView>
-      <Button title="Confirmar Ubicación" onPress={handleConfirmLocation} />
-      {addressLoading && <IsLoading label='Obteniendo dirección...' />}
-      {address !== '' && (
-        <View style={styles.addressContainer}>
-          <Text style={styles.addressText}>{address}</Text>
+
+      {/* Search Results */}
+      {/* {searchResults.length > 0 && (
+        <View style={styles.searchResultsContainer}>
+          {searchResults.map((result, index) => (
+            <TouchableOpacity key={index} style={styles.searchResultItem} onPress={() => selectSearchResult(result)}>
+              <Text style={styles.searchResultText}>{result.formatted_address}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-      )}
+      )} */}
+
+      {/* Fullscreen Toggle Button */}
+      <TouchableOpacity
+        style={styles.fullscreenButton}
+        onPress={toggleFullscreen}
+      >
+        <Ionicons
+          name={isFullscreen ? 'contract' : 'expand'}
+          size={24}
+          color="#fff"
+        />
+      </TouchableOpacity>
+
+      {/* Fullscreen Modal */}
+      <Modal visible={isFullscreen} animationType="fade">
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={styles.mapFullscreen}
+          region={region}
+          onPress={handleMarkerDragEnd}
+          showsUserLocation
+          customMapStyle={mapStyle}
+        >
+          {markerPosition && (
+            <Marker
+              coordinate={markerPosition}
+              title="Mi Ubicación"
+              draggable
+              onDragEnd={handleMarkerDragEnd}
+            />
+          )}
+        </MapView>
+        <TouchableOpacity style={styles.closeButton} onPress={toggleFullscreen}>
+          <Ionicons name="close" size={30} color="#fff" />
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
-};
-
-export default MapSelector;
+});
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-  },
   map: {
-    width: Dimensions.get('window').width - 40,
-    height: 300,
-    marginBottom: 10,
+    height: SIZES.height / 3,
+    width: '100%',
   },
-  loader: {
+  mapFullscreen: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  fullscreenButton: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    padding: 10,
+    borderRadius: 30,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    padding: 10,
+    borderRadius: 30,
   },
   addressContainer: {
-    marginTop: 10,
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    backgroundColor: 'rgba(255,255,255,0.8)',
     padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 5,
+    borderRadius: 8,
   },
   addressText: {
-    textAlign: 'center',
+    fontSize: 16,
+    color: '#333',
+  },
+  searchContainer: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    right: 10,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    borderRadius: 8,
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    zIndex: 1,
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+  },
+  searchButton: {
+    backgroundColor: '#007BFF',
+    padding: 8,
+    borderRadius: 8,
+    marginLeft: 5,
+  },
+  searchResultsContainer: {
+    position: 'absolute',
+    top: 60,
+    left: 10,
+    right: 10,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    borderRadius: 8,
+    maxHeight: 200,
+    zIndex: 1,
+  },
+  searchResultItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  searchResultText: {
+    fontSize: 14,
+    color: '#333',
   },
 });
 
-export function debounce(func: Function, delay: number) {
-  let timeoutId: NodeJS.Timeout;
-  return (...args: any[]) => {
-    if (timeoutId) clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func(...args);
-    }, delay);
-  };
-}
+export default MapSelector;

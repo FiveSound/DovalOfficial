@@ -5,5 +5,5 @@ export type PropsComment = {
   name: string;
   content: string;
   replyID: number;
-  avatar: string
+  avatar: string;
 };

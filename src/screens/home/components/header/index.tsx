@@ -1,36 +1,33 @@
-import React, { useCallback, useEffect } from "react";
-import {
-  NavigationProp,
-  useFocusEffect,
-} from "@react-navigation/native";
-import { StyleSheet } from "react-native";
-import { useAPI, useTheme } from "../../../../hooks";
-import { useCart } from "../../../../context/CartContext";
-import { getDefaultLocationService } from "../../../../services/orders";
+import React, { useCallback, useEffect } from 'react';
+import { NavigationProp, useFocusEffect } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import { useAPI, useTheme } from '../../../../hooks';
+import { useCart } from '../../../../context/CartContext';
+import { getDefaultLocationService } from '../../../../services/orders';
 import {
   SafeAreaView,
   TouchableOpacity,
   useNavigation,
-} from "../../../../components/native";
+} from '../../../../components/native';
 import {
   FlexContainer,
   Icons,
   IsLoading,
   Typography,
-} from "../../../../components/custom";
+} from '../../../../components/custom';
 import {
   ArrowDown,
   ArrowUp,
   Location09Icon,
   Notification03IconStroke,
   ShoppingBag01Icon,
-} from "../../../../constants/IconsPro";
-import i18next from "../../../../Translate";
-import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import { useAppDispatch } from "../../../../redux";
-import { openAddressModal } from "../../../../redux/slides/modalSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
+} from '../../../../constants/IconsPro';
+import i18next from '../../../../Translate';
+import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
+import { useAppDispatch } from '../../../../redux';
+import { openAddressModal } from '../../../../redux/slides/modalSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 
 interface RootNavigation {
   MyLocations: undefined;
@@ -46,14 +43,14 @@ const Header = () => {
   const { cart } = useCart();
   const dispatch = useAppDispatch();
   const OpenModal = useSelector((state: RootState) => state.modal.open);
-  
+
   const {
     data: LocationDefault,
     isLoading,
     isError,
     refetch: refetchLocationData,
   } = useAPI({
-    queryKey: ["getDefaultLocationService-Datas"],
+    queryKey: ['getDefaultLocationService-Datas'],
     queryFn: () => getDefaultLocationService(),
   });
 
@@ -61,13 +58,12 @@ const Header = () => {
   useFocusEffect(
     useCallback(() => {
       refetchLocationData();
-    }, [refetchLocationData])
+    }, [refetchLocationData]),
   );
 
   const handleModal = () => {
     dispatch(openAddressModal());
   };
-
 
   if (isError) {
     return (
@@ -84,7 +80,7 @@ const Header = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Icons
-        onPress={() => navigation.navigate("OrderStack")}
+        onPress={() => navigation.navigate('OrderStack')}
         appendIcons={
           <>
             {/* {cart?.list.length > 0 && (
@@ -94,19 +90,19 @@ const Header = () => {
                 </Typography>
               </FlexContainer>
             )} */}
-  
-          <ShoppingBag01Icon
-            width={SIZES.icons}
-            height={SIZES.icons}
-            color={color}
-          />
+
+            <ShoppingBag01Icon
+              width={SIZES.icons}
+              height={SIZES.icons}
+              color={color}
+            />
           </>
         }
         styles={styles.icons}
       />
       <FlexContainer newStyle={styles.flexContainer}>
         <Typography variant="SubDescription" numberOfLines={1}>
-          {i18next.t("Location")}: {LocationDefault?.tag}
+          {i18next.t('Location')}: {LocationDefault?.tag}
         </Typography>
         <TouchableOpacity onPress={handleModal} style={styles.addressContainer}>
           <Location09Icon
@@ -117,7 +113,7 @@ const Header = () => {
 
           <Typography numberOfLines={1} variant="H4title">
             {LocationDefault?.details === null
-              ? i18next.t("Add my location")
+              ? i18next.t('Add my location')
               : LocationDefault?.details}
           </Typography>
           {OpenModal ? (
@@ -144,51 +140,51 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "auto",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    height: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     margin: SIZES.gapMedium,
     paddingHorizontal: SIZES.gapLarge,
   },
   flexContainer: {
     width: SIZES.width / 2,
-    alignItems: "center",
+    alignItems: 'center',
   },
   cartButton: {
-    position: "relative",
+    position: 'relative',
     width: responsiveFontSize(38),
     height: responsiveFontSize(38),
     padding: SIZES.gapMedium,
     borderRadius: SIZES.padding,
     borderWidth: SIZES.borderWidth,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cartBadge: {
-    position: "absolute",
+    position: 'absolute',
     right: responsiveFontSize(-4),
     top: responsiveFontSize(-6),
     backgroundColor: COLORS.error,
     borderRadius: responsiveFontSize(8),
     width: responsiveFontSize(SIZES.icons),
     height: responsiveFontSize(SIZES.icons),
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cartText: {
     color: COLORS.dark,
   },
   addressContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: SIZES.gapSmall,
   },
   icons: {
     width: responsiveFontSize(44),
     height: responsiveFontSize(44),
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: SIZES.radius,
   },
 });

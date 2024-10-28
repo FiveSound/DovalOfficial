@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Buttons, IsLoading } from "../../../../components/custom";
-import styles from "./styles";
-import i18next from "../../../../Translate";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../../../../context/AuthContext";
+import React, { useState } from 'react';
+import { Buttons, IsLoading } from '../../../../components/custom';
+import styles from './styles';
+import i18next from '../../../../Translate';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '../../../../context/AuthContext';
 import {
   getFollowingProfileService,
   handleProfileFollowingService,
-} from "../../../../services/follows";
-import { Text } from "../../../../components/native";
+} from '../../../../services/follows';
+import { Text } from '../../../../components/native';
 
 type Props = {
   showFollows: boolean;
@@ -23,18 +23,17 @@ const FollowButtons = (props: Props) => {
   const [visible, setVisible] = useState(false);
 
   const { data, isError, isLoading, isFetching } = useQuery({
-    queryKey: ["component-cto-public", userID, user?.userID],
+    queryKey: ['component-cto-public', userID, user?.userID],
     queryFn: getFollowingProfileService,
     enabled: userID && !isLoadingApp ? true : false,
   });
 
   const mutation = useMutation({
     mutationFn: handleProfileFollowingService,
-    onMutate: variables => {
-    },
+    onMutate: variables => {},
     onSuccess: ({ follow }) => {
       queryClient.setQueryData(
-        ["component-cto-public", userID, user?.userID],
+        ['component-cto-public', userID, user?.userID],
         (oldData: any) => {
           const newData = {
             ...oldData,
@@ -42,14 +41,13 @@ const FollowButtons = (props: Props) => {
             followed: follow,
           };
           return newData;
-        }
+        },
       );
     },
     onError: error => {
-      console.error("Mutation error:", error);
+      console.error('Mutation error:', error);
     },
-    onSettled: (data, error, variables, context) => {
-    },
+    onSettled: (data, error, variables, context) => {},
   });
 
   if (isError) return <Text>Ha ocurrido un error!</Text>;
@@ -62,16 +60,16 @@ const FollowButtons = (props: Props) => {
       !followed &&
       !MyUser && (
         <Buttons
-          label={followed ? i18next.t("Following") : i18next.t("Follow")}
+          label={followed ? i18next.t('Following') : i18next.t('Follow')}
           disabled={false}
           containerButtons={styles.containerButtons}
           onPress={() => {
             if (user) {
               mutation.mutate(userID);
               if (followed) {
-                console.log("Unfollowing");
+                console.log('Unfollowing');
               } else {
-                console.log("Following");
+                console.log('Following');
               }
             } else {
               setVisible(true);

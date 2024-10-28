@@ -9,7 +9,11 @@ import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
 import SwipeUpIntro from '../SwipeUpIntro';
 import { FlexContainer } from '../../../components/custom';
 import { Heading } from './Bar';
-import { getTutorialStatus, setTutorialStatus, useRefreshData } from '../../../hooks';
+import {
+  getTutorialStatus,
+  setTutorialStatus,
+  useRefreshData,
+} from '../../../hooks';
 import { getExploreData } from '../../../services/recipes';
 import { FlatList } from '../../../components/native';
 
@@ -25,21 +29,23 @@ const Main = memo(({ currentLocation }: MainProps) => {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [lastFocusedIndex, setLastFocusedIndex] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [localCurrentLocation, setLocalCurrentLocation] = useState<object | null>(currentLocation);
+  const [localCurrentLocation, setLocalCurrentLocation] = useState<
+    object | null
+  >(currentLocation);
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 10 });
-  const isFocused = useIsFocused(); 
+  const isFocused = useIsFocused();
 
   const fetchData = useCallback(async () => {
     try {
       const newData: TypeProducts[] = await getExploreData(
         localCurrentLocation,
         page,
-        user?.userID.toString()
+        user?.userID.toString(),
       );
 
       setData((prevData: TypeProducts[]) => [...prevData, ...newData]);
     } catch (error) {
-      console.error("Error fetching explore data:", error);
+      console.error('Error fetching explore data:', error);
     } finally {
       setIsLoading(false);
     }
@@ -52,7 +58,7 @@ const Main = memo(({ currentLocation }: MainProps) => {
   }, [currentLocation]);
 
   const handleEndReached = () => {
-    setPage((prevPage) => prevPage + 1);
+    setPage(prevPage => prevPage + 1);
     fetchData();
   };
 
@@ -107,16 +113,17 @@ const Main = memo(({ currentLocation }: MainProps) => {
     }
   }, [isFocused]);
 
-  
-
-  const renderItem = useCallback(({ item, index }) => (
-    <RenderItem
-      key={item.id}
-      item={item}
-      focusedIndex={focusedIndex}
-      index={index}
-    />
-  ), [focusedIndex]);
+  const renderItem = useCallback(
+    ({ item, index }) => (
+      <RenderItem
+        key={item.id}
+        item={item}
+        focusedIndex={focusedIndex}
+        index={index}
+      />
+    ),
+    [focusedIndex],
+  );
 
   if (isLoading) return <LoaderMain ShowHeader={false} />;
 

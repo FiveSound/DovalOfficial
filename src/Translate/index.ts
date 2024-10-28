@@ -15,16 +15,14 @@ const resources = {
   fr: { translation: french },
 };
 
-i18next
-  .use(initReactI18next)
-  .init({
-    compatibilityJSON: 'v3',
-    fallbackLng: 'en',
-    lng: deviceLanguage || 'en',
-    resources,
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+i18next.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  fallbackLng: 'en',
+  lng: deviceLanguage || 'en',
+  resources,
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export default i18next;

@@ -1,11 +1,15 @@
-import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../../../context/AuthContext";
-import { useTheme } from "../../../hooks";
-import { getFollowersAccountsService, handleProfileFollowingService, handleSearchFollowersService } from "../../../services/follows";
-import { LoadingScreen } from "../../../components/custom";
-import Layout from "./Layout";
-import mutate from "./mutate";
+import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '../../../context/AuthContext';
+import { useTheme } from '../../../hooks';
+import {
+  getFollowersAccountsService,
+  handleProfileFollowingService,
+  handleSearchFollowersService,
+} from '../../../services/follows';
+import { LoadingScreen } from '../../../components/custom';
+import Layout from './Layout';
+import mutate from './mutate';
 
 type Props = {
   username: string;
@@ -18,7 +22,7 @@ const Followers = ({ username }: Props) => {
 
   const [page] = useState(1);
 
-  let queryKey = "component-followers";
+  let queryKey = 'component-followers';
 
   const { data, isLoading, isFetching } = useQuery({
     queryKey: [queryKey, user?.userID, username],
@@ -28,25 +32,25 @@ const Followers = ({ username }: Props) => {
 
   const mutation = useMutation({
     mutationFn: handleProfileFollowingService,
-    onSuccess: (result) => {
+    onSuccess: result => {
       queryClient.setQueryData(
         [queryKey, user?.userID, username],
-        (oldData: any[]) => mutate(oldData, result)
+        (oldData: any[]) => mutate(oldData, result),
       );
 
       queryClient.setQueryData(
-        ["component-following", user?.userID, username],
-        (oldData: any[]) => mutate(oldData, result)
+        ['component-following', user?.userID, username],
+        (oldData: any[]) => mutate(oldData, result),
       );
     },
   });
 
   const mutationSearch = useMutation({
     mutationFn: handleSearchFollowersService,
-    onSuccess: (result) =>
+    onSuccess: result =>
       queryClient.setQueryData(
         [queryKey, user?.userID, username],
-        () => result
+        () => result,
       ),
   });
 
@@ -54,16 +58,15 @@ const Followers = ({ username }: Props) => {
     mutationSearch.mutate({ text, userID: user?.userID, username });
   };
 
-  if (isLoading || isFetching)
-    return <LoadingScreen />;
+  if (isLoading || isFetching) return <LoadingScreen />;
 
   if (data) {
     return (
       <Layout
         userID={user?.userID}
         data={data}
-        onFollow={(userID) => mutation.mutate(userID)}
-        onShearch={(text) => handleSearch(text)}
+        onFollow={userID => mutation.mutate(userID)}
+        onShearch={text => handleSearch(text)}
         searching={mutationSearch.isPending}
       />
     );

@@ -1,12 +1,13 @@
-import React from 'react'
-import { RefreshControl as RNRefreshControl, RefreshControlProps } from 'react-native'
+import React from 'react';
+import {
+  RefreshControl as RNRefreshControl,
+  RefreshControlProps,
+} from 'react-native';
 
-type Props = RefreshControlProps
+type Props = RefreshControlProps;
 
 const RefreshControl = (props: Props) => {
-  return (
-    <RNRefreshControl {...props} />
-  )
-}
+  return <RNRefreshControl {...props} />;
+};
 
-export default RefreshControl
+export default RefreshControl;

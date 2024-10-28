@@ -1,7 +1,7 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "../index";
-import { QueryKeyType } from "../../types/ReactQuery.type";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '../index';
+import { QueryKeyType } from '../../types/ReactQuery.type';
 
 type Params = {
   text: string;
@@ -11,7 +11,7 @@ type Params = {
 
 export const getFollowersService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/follows/followers`,
@@ -20,7 +20,7 @@ export const getFollowersService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -31,7 +31,7 @@ export const getFollowersService = async () => {
 
 export const followService = async (followerID: String) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/follows/follow`,
@@ -42,7 +42,7 @@ export const followService = async (followerID: String) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -53,14 +53,14 @@ export const followService = async (followerID: String) => {
 
 export const getFollowersAccount = async (
   followerID: string,
-  setFollowersAccount: (value: number) => void
+  setFollowersAccount: (value: number) => void,
 ) => {
   try {
     const response = await axios.post(
       `${API_URL}/api/follows/followers-account`,
       {
         followerID,
-      }
+      },
     );
 
     setFollowersAccount(response.data);
@@ -74,7 +74,7 @@ export const getFollowersAccount = async (
 export const getFollowingAccountsService = async (
   userID: string | undefined, //con este ID puedo saber si sigo a alguien de la lista (normalmente es el mio)
   username: string | undefined, //username o userID del usuario que quiero checar
-  page: number
+  page: number,
 ) => {
   try {
     const response = await axios.post(`${API_URL}/api/follows/following`, {
@@ -92,7 +92,7 @@ export const getFollowingAccountsService = async (
 export const getFollowersAccountsService = async (
   userID: string | undefined, //userID para saber si ese usuario sigue a alguien de la lista (normalmente es el mio)
   username: string | undefined, //username o userID del usuario para ver sus seguidores
-  page: number
+  page: number,
 ) => {
   try {
     const response = await axios.post(`${API_URL}/api/follows/followers/me`, {
@@ -115,7 +115,7 @@ export const getFollowingProfileService = async ({
       {
         userID: queryKey[1],
         myUserID: queryKey[2],
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -128,7 +128,7 @@ export const getFollowingProfileService = async ({
 
 export const handleProfileFollowingService = async (userID: string) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/follows/follow/v2`,
@@ -139,7 +139,7 @@ export const handleProfileFollowingService = async (userID: string) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -149,7 +149,7 @@ export const handleProfileFollowingService = async (userID: string) => {
 
 export const handleSearchFollowersService = async (params: Params) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/follows/followers/search`,
@@ -160,7 +160,7 @@ export const handleSearchFollowersService = async (params: Params) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -170,7 +170,7 @@ export const handleSearchFollowersService = async (params: Params) => {
 
 export const handleSearchFollowingService = async (params: Params) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/follows/following/search`,
@@ -181,7 +181,7 @@ export const handleSearchFollowingService = async (params: Params) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {

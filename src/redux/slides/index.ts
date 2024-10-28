@@ -1,4 +1,4 @@
-import { setSearchQuery } from "./searchSlice";
-import { clearSelection } from "./selectionSlice";
+import { setSearchQuery } from './searchSlice';
+import { clearSelection } from './selectionSlice';
 
-export { clearSelection, setSearchQuery, };
+export { clearSelection, setSearchQuery };

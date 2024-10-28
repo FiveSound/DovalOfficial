@@ -1,15 +1,15 @@
-import React, { memo } from "react";
+import React, { memo } from 'react';
 import {
   FlexContainer,
   Icons,
   Typography,
-} from "../../../../components/custom";
-import styles from "./styles";
+} from '../../../../components/custom';
+import styles from './styles';
 import {
   ArrowRight01Icon,
   Store01IconStroke,
-} from "../../../../constants/IconsPro";
-import { COLORS } from "../../../../constants/theme";
+} from '../../../../constants/IconsPro';
+import { COLORS } from '../../../../constants/theme';
 
 type Props = {
   item: {
@@ -27,7 +27,8 @@ const BusinessButton = (props: Props) => {
         appendIcons={
           <FlexContainer
             variant="row"
-            newStyle={styles.containerButtonsActions}>
+            newStyle={styles.containerButtonsActions}
+          >
             <Store01IconStroke color={COLORS.dark} />
             <Typography variant="H4title">Visit business</Typography>
             <ArrowRight01Icon color={COLORS.dark} />

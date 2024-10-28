@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 import {
   Buttons,
   Container,
@@ -9,30 +9,34 @@ import {
   LoadingScreen,
   Perks,
   Typography,
-} from "../../components/custom";
-import useAPI from "../../hooks/useAPI";
-import {getInterestsService, Interests, saveInterestsService } from "../../services/personalized";
-import { COLORS, FONTS, SIZES } from "../../constants/theme";
+} from '../../components/custom';
+import useAPI from '../../hooks/useAPI';
+import {
+  getInterestsService,
+  Interests,
+  saveInterestsService,
+} from '../../services/personalized';
+import { COLORS, FONTS, SIZES } from '../../constants/theme';
 import {
   ScrollView,
   TouchableOpacity,
   View,
   Text,
   useNavigation,
-} from "../../components/native";
-import { useTheme } from "../../hooks";
-import i18next from "../../Translate";
-import { useDispatch } from "react-redux";
-import { closeOnboardingModal } from "../../redux/slides/modalSlice";
-import { refreshProfileData } from "../../redux/slides/authSlice";
+} from '../../components/native';
+import { useTheme } from '../../hooks';
+import i18next from '../../Translate';
+import { useDispatch } from 'react-redux';
+import { closeOnboardingModal } from '../../redux/slides/modalSlice';
+import { refreshProfileData } from '../../redux/slides/authSlice';
 
 type Props = {};
 
 const Onboarding = (props: Props) => {
   const { data, isLoading, refetch } = useAPI({
-    queryKey: ["getInterestsService"],
+    queryKey: ['getInterestsService'],
     queryFn: () => getInterestsService(),
-  });  
+  });
   const { backgroundMaingrey, Title } = useTheme();
   const navigation = useNavigation();
   const [selectedInterests, setSelectedInterests] = useState<Interests[]>([]);
@@ -40,26 +44,26 @@ const Onboarding = (props: Props) => {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const dispatch = useDispatch();
-  
+
   const toggleInterest = (interest: Interests) => {
     setSelectedInterests(prevState =>
       prevState.some(item => item.id === interest.id)
         ? prevState.filter(item => item.id !== interest.id)
-        : [...prevState, interest]
+        : [...prevState, interest],
     );
   };
-  
+
   const saveInterests = async () => {
     setIsSaving(true);
     setSaveError(null);
     try {
       const response = await saveInterestsService(selectedInterests);
       setSaveSuccess(response.success);
-      dispatch(refreshProfileData(true)); 
+      dispatch(refreshProfileData(true));
       if (response.success) {
         setTimeout(() => {
           navigation.navigate('TabsNavigation');
-          dispatch(refreshProfileData(false)); 
+          dispatch(refreshProfileData(false));
         }, 500);
       }
     } catch (error) {
@@ -76,7 +80,7 @@ const Onboarding = (props: Props) => {
   };
 
   if (isLoading) {
-    return <LoadingScreen label={i18next.t("Loading interest")} />;
+    return <LoadingScreen label={i18next.t('Loading interest')} />;
   }
 
   return (
@@ -85,15 +89,24 @@ const Onboarding = (props: Props) => {
       useSafeArea={true}
       showTwoIconsLabel={false}
       showSkip={true}
-      label={i18next.t("Skip")}
+      label={i18next.t('Skip')}
       onPressSkip={closeOnboarding}
-      >
+    >
       <Hero
-        label={i18next.t("Choose Yours intereses")}
-        sublabel={i18next.t("Personalize your experiencie by picking 3 or more topics")}
+        label={i18next.t('Choose Yours intereses')}
+        sublabel={i18next.t(
+          'Personalize your experiencie by picking 3 or more topics',
+        )}
       />
-      {saveError && <Perks label={i18next.t("Interests saved error!")} status='error'/>}
-      {saveSuccess && <Perks label={i18next.t("Interests saved successfully!")} status="success"/>}
+      {saveError && (
+        <Perks label={i18next.t('Interests saved error!')} status="error" />
+      )}
+      {saveSuccess && (
+        <Perks
+          label={i18next.t('Interests saved successfully!')}
+          status="success"
+        />
+      )}
       <ScrollView>
         {data.map((category: any, index: number) => (
           <FlexContainer key={index} newStyle={styles.categoryContainer}>
@@ -109,13 +122,28 @@ const Onboarding = (props: Props) => {
                     selectedInterests.some(item => item.id === interest.id) &&
                       styles.selectedInterestButton,
                     {
-                      backgroundColor: !selectedInterests.some(item => item.id === interest.id) ? backgroundMaingrey : COLORS.primary,
+                      backgroundColor: !selectedInterests.some(
+                        item => item.id === interest.id,
+                      )
+                        ? backgroundMaingrey
+                        : COLORS.primary,
                     },
                   ]}
-                  onPress={() => toggleInterest(interest)}>
-                  <Typography variant="H4title" newStyle={[styles.interestText, {
-                    color: !selectedInterests.some(item => item.id === interest.id) ? Title : COLORS.dark
-                  }]}>
+                  onPress={() => toggleInterest(interest)}
+                >
+                  <Typography
+                    variant="H4title"
+                    newStyle={[
+                      styles.interestText,
+                      {
+                        color: !selectedInterests.some(
+                          item => item.id === interest.id,
+                        )
+                          ? Title
+                          : COLORS.dark,
+                      },
+                    ]}
+                  >
                     {interest.interest}
                   </Typography>
                 </TouchableOpacity>
@@ -125,10 +153,10 @@ const Onboarding = (props: Props) => {
         ))}
       </ScrollView>
       <FlexContainer newStyle={styles.nextButton}>
-        <Buttons 
-          label={i18next.t("next")} 
-          disabled={selectedInterests.length < 3} 
-          onPress={saveInterests} 
+        <Buttons
+          label={i18next.t('next')}
+          disabled={selectedInterests.length < 3}
+          onPress={saveInterests}
           loading={isSaving}
         />
       </FlexContainer>
@@ -146,8 +174,8 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.gapLarge,
   },
   interestsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   interestButton: {
     padding: SIZES.gapLarge,
@@ -155,14 +183,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   selectedInterestButton: {
-    backgroundColor: "orange",
+    backgroundColor: 'orange',
   },
   interestText: {
     ...FONTS.semi12,
   },
   nextButton: {
     padding: SIZES.gapMedium,
-    alignItems: "center",
+    alignItems: 'center',
     margin: SIZES.gapLarge,
   },
   errorText: {

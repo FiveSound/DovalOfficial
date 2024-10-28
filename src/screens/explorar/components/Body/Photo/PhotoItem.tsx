@@ -1,13 +1,13 @@
-import React from "react";
-import { StyleSheet, Animated } from "react-native";
-import { CLOUDFRONT } from "../../../../../services";
+import React from 'react';
+import { StyleSheet, Animated } from 'react-native';
+import { CLOUDFRONT } from '../../../../../services';
 import { SIZES } from '../../../../../constants/theme';
-import { Image } from "../../../../../components/native";
+import { Image } from '../../../../../components/native';
 
 interface MediaItem {
   uri: string;
   key: string;
-  type: "photo" | "video";
+  type: 'photo' | 'video';
   parentId: string;
   extension?: string;
   mediaType: number;
@@ -48,7 +48,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ item, index, scrollX }) => {
       ]}
     >
       <Image
-        contentFit='cover'
+        contentFit="cover"
         style={styles.media}
         source={{ uri: `${CLOUDFRONT}${item.key}` }}
         priority="high"
@@ -61,19 +61,19 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ item, index, scrollX }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: SIZES.width * 0.90,
+    width: SIZES.width * 0.9,
     height: SIZES.height * 0.8,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   media: {
-    width: "100%",
-    height: "74%",
+    width: '100%',
+    height: '74%',
     borderRadius: SIZES.gapLarge,
   },
   centerFirstItem: {
     width: SIZES.width,
-    marginLeft: (SIZES.width * -0.1), 
+    marginLeft: SIZES.width * -0.1,
   },
 });
 

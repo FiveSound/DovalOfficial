@@ -1,7 +1,7 @@
-import React from "react";
-import Svg, { SvgProps, Circle, Path } from "react-native-svg";
-import { COLORS, SIZES, responsiveFontSize } from "./theme";
-import { scale } from "react-native-size-matters";
+import React from 'react';
+import Svg, { SvgProps, Circle, Path } from 'react-native-svg';
+import { COLORS, SIZES, responsiveFontSize } from './theme';
+import { scale } from 'react-native-size-matters';
 
 type props = {};
 
@@ -11,7 +11,7 @@ const VerifyIcons = (props: SvgProps) => (
     viewBox="0 0 24 24"
     width={24}
     height={24}
-    color='#3b82f6'
+    color="#3b82f6"
     fill="none"
     {...props}
   >
@@ -25,17 +25,52 @@ const VerifyIcons = (props: SvgProps) => (
 );
 
 const CheckmarkCircle02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M12 22.75C6.06294 22.75 1.25 17.9371 1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75ZM15.2473 7.93933L10.453 13.1694L8.69156 11.4079L7.27734 12.8222L10.5159 16.0607L16.7216 9.29078L15.2473 7.93933Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 22.75C6.06294 22.75 1.25 17.9371 1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75ZM15.2473 7.93933L10.453 13.1694L8.69156 11.4079L7.27734 12.8222L10.5159 16.0607L16.7216 9.29078L15.2473 7.93933Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const VideoReplayIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M3 2.24963H8.7331L6.55309 6.24963H2.25V2.99963C2.25 2.58542 2.58579 2.24963 3 2.24963Z" fill="currentColor" />
-    <Path d="M13.5531 6.24963H8.26139L10.4414 2.24963H15.7331L13.5531 6.24963Z" fill="currentColor" />
-    <Path d="M17.4414 2.24963L15.2614 6.24963H21.75V2.99963C21.75 2.58542 21.4142 2.24963 21 2.24963H17.4414Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M21.75 7.74963H2.25V20.9996C2.25 21.4138 2.58579 21.7496 3 21.7496H21C21.4142 21.7496 21.75 21.4138 21.75 20.9996V7.74963ZM15.5 14.4996L10 10.9996V17.9996L15.5 14.4996Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M3 2.24963H8.7331L6.55309 6.24963H2.25V2.99963C2.25 2.58542 2.58579 2.24963 3 2.24963Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M13.5531 6.24963H8.26139L10.4414 2.24963H15.7331L13.5531 6.24963Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M17.4414 2.24963L15.2614 6.24963H21.75V2.99963C21.75 2.58542 21.4142 2.24963 21 2.24963H17.4414Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M21.75 7.74963H2.25V20.9996C2.25 21.4138 2.58579 21.7496 3 21.7496H21C21.4142 21.7496 21.75 21.4138 21.75 20.9996V7.74963ZM15.5 14.4996L10 10.9996V17.9996L15.5 14.4996Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
@@ -155,11 +190,36 @@ const EyeIcon = (props: SvgProps) => (
 );
 
 const ShoppingBasketAdd03Icon = (props: SvgProps) => (
-<Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M17.2069 6.73792C17.2069 3.70035 14.7445 1.23792 11.7069 1.23792C8.66932 1.23792 6.20689 3.70035 6.20689 6.73792" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M3.7207 17.5L10.4995 17.5" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M12.5 18H20.5M16.5 22V14" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M10.0071 21.5H4.50154L2.0015 7.11698C1.99088 7.05589 2.03797 7 2.10006 7H20.8999C20.962 7 21.0091 7.05586 20.9985 7.11694L20.0547 12.5535" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M17.2069 6.73792C17.2069 3.70035 14.7445 1.23792 11.7069 1.23792C8.66932 1.23792 6.20689 3.70035 6.20689 6.73792"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M3.7207 17.5L10.4995 17.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M12.5 18H20.5M16.5 22V14"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M10.0071 21.5H4.50154L2.0015 7.11698C1.99088 7.05589 2.03797 7 2.10006 7H20.8999C20.962 7 21.0091 7.05586 20.9985 7.11694L20.0547 12.5535"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
@@ -195,41 +255,154 @@ const ShoppingBagAddIcon = (props: SvgProps) => (
 );
 
 const PlayIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-  <Path d="M5 20V4L19 12L5 20Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-</Svg>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M5 20V4L19 12L5 20Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+  </Svg>
 );
 
 const PlayIconSolid = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M4.62355 3.35132C4.85479 3.21713 5.13998 3.21617 5.3721 3.34882L19.3721 11.3488C19.6058 11.4824 19.75 11.7309 19.75 12C19.75 12.2691 19.6058 12.5177 19.3721 12.6512L5.3721 20.6512C5.13998 20.7838 4.85479 20.7829 4.62355 20.6487C4.39232 20.5145 4.25 20.2674 4.25 20V4C4.25 3.73265 4.39232 3.48551 4.62355 3.35132Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M4.62355 3.35132C4.85479 3.21713 5.13998 3.21617 5.3721 3.34882L19.3721 11.3488C19.6058 11.4824 19.75 11.7309 19.75 12C19.75 12.2691 19.6058 12.5177 19.3721 12.6512L5.3721 20.6512C5.13998 20.7838 4.85479 20.7829 4.62355 20.6487C4.39232 20.5145 4.25 20.2674 4.25 20V4C4.25 3.73265 4.39232 3.48551 4.62355 3.35132Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const SafeDelivery01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M4 14L7 13.9999L9.5 15.3751H11C12.0084 15.3751 13 15.9999 13 17.4999L9.5 18.4999L7 17.4999" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M13 16.5L16.1751 15.3454C17.5251 14.8545 19.0337 15.3895 19.7728 16.6213L20 17L11 22H4" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M19 12H9V2H19V12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M12.5 5H15.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M4 14L7 13.9999L9.5 15.3751H11C12.0084 15.3751 13 15.9999 13 17.4999L9.5 18.4999L7 17.4999"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M13 16.5L16.1751 15.3454C17.5251 14.8545 19.0337 15.3895 19.7728 16.6213L20 17L11 22H4"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M19 12H9V2H19V12Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12.5 5H15.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const ImageUpload01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M12.5 2.5L4.5 2.5C3.39543 2.5 2.5 3.39543 2.5 4.5V19.5C2.5 20.6046 3.39543 21.5 4.5 21.5H19.5C20.6046 21.5 21.5 20.6046 21.5 19.5V12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M5.5 21.5L14.3453 13.5393C15.0247 12.9278 16.0321 12.8547 16.7926 13.3617L21.5 16.5" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M16 5L18.5 2.5L21 5M18.5 10V3.10878" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12.5 2.5L4.5 2.5C3.39543 2.5 2.5 3.39543 2.5 4.5V19.5C2.5 20.6046 3.39543 21.5 4.5 21.5H19.5C20.6046 21.5 21.5 20.6046 21.5 19.5V12.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.5 21.5L14.3453 13.5393C15.0247 12.9278 16.0321 12.8547 16.7926 13.3617L21.5 16.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M16 5L18.5 2.5L21 5M18.5 10V3.10878"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const PackageAddIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M2.50391 6V18L11.5 22M11.5 22V10M11.5 22L14.5 20.6672M20.5039 6.01357V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M11.5 10L20.5 6L11.5 2L2.5 6L11.5 10Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M16 4L7 8" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M5.5 11L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M15.5 17H21.5M18.5 20V14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2.50391 6V18L11.5 22M11.5 22V10M11.5 22L14.5 20.6672M20.5039 6.01357V11"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M11.5 10L20.5 6L11.5 2L2.5 6L11.5 10Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M16 4L7 8"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.5 11L8 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M15.5 17H21.5M18.5 20V14"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
@@ -401,12 +574,29 @@ const AllBookmarkIcon = (props: SvgProps) => (
   </Svg>
 );
 const AlertSquareIconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M2.99908 21L20.9991 21L20.9991 3L2.99909 2.99999L2.99908 21Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M11.9991 14L11.9991 6.99999M11.9991 15.5L11.9991 17" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2.99908 21L20.9991 21L20.9991 3L2.99909 2.99999L2.99908 21Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M11.9991 14L11.9991 6.99999M11.9991 15.5L11.9991 17"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
-
 
 const AllBookmarkIconStroke = (props: SvgProps) => (
   <Svg
@@ -477,40 +667,134 @@ const VideoReplayIconStroke = (props: SvgProps) => (
   </Svg>
 );
 const Menu01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M3 5C3 4.44772 3.44772 4 4 4L20 4C20.5523 4 21 4.44772 21 5C21 5.55229 20.5523 6 20 6L4 6C3.44772 6 3 5.55228 3 5Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M3 12C3 11.4477 3.44772 11 4 11L20 11C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13L4 13C3.44772 13 3 12.5523 3 12Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M3 19C3 18.4477 3.44772 18 4 18L20 18C20.5523 18 21 18.4477 21 19C21 19.5523 20.5523 20 20 20L4 20C3.44772 20 3 19.5523 3 19Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M3 5C3 4.44772 3.44772 4 4 4L20 4C20.5523 4 21 4.44772 21 5C21 5.55229 20.5523 6 20 6L4 6C3.44772 6 3 5.55228 3 5Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M3 12C3 11.4477 3.44772 11 4 11L20 11C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13L4 13C3.44772 13 3 12.5523 3 12Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M3 19C3 18.4477 3.44772 18 4 18L20 18C20.5523 18 21 18.4477 21 19C21 19.5523 20.5523 20 20 20L4 20C3.44772 20 3 19.5523 3 19Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const AddCircleHalfDotIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M12 8V16M16 12L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 8V16M16 12L8 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
- const AddSquareIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M12 7V17M17 12H7" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M3 21L21 21L21 3.00001L3 3L3 21Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+const AddSquareIcon = (props: SvgProps) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 7V17M17 12H7"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M3 21L21 21L21 3.00001L3 3L3 21Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 export const UploadCircle01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M12 16L12 8.76294M9 11.0002L12 8L15 11.0002" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M12 16L12 8.76294M9 11.0002L12 8L15 11.0002"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
-
 const ShoppingBag01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M7.5 8V6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5V8" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M15 11C15 12.5 13.5657 13.5 12 13.5C10.4343 13.5 9 12.5 9 11" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M20.0318 8H4.00672L2.00105 21.8857C1.99233 21.946 2.03916 22 2.10015 22H21.8998C21.9607 22 22.0075 21.9462 21.999 21.8859L20.0318 8Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M7.5 8V6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5V8"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M15 11C15 12.5 13.5657 13.5 12 13.5C10.4343 13.5 9 12.5 9 11"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M20.0318 8H4.00672L2.00105 21.8857C1.99233 21.946 2.03916 22 2.10015 22H21.8998C21.9607 22 22.0075 21.9462 21.999 21.8859L20.0318 8Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
@@ -583,9 +867,26 @@ const MessageUpload01Icon = (props: SvgProps) => (
 );
 
 export const Upload05Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M12 15L12 5.2727M9 8.00021L12 5L15 8.00021" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M5 19H19.0001" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 15L12 5.2727M9 8.00021L12 5L15 8.00021"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M5 19H19.0001"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
@@ -698,7 +999,15 @@ const StoreAdd02IconStroke = (props: SvgProps) => (
 );
 
 export const Clock01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
     <Circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
     <Path d="M12 7V12L14.5 14.5" stroke="currentColor" strokeWidth="1.5" />
   </Svg>
@@ -1114,27 +1423,85 @@ const CircleLock02Icon = (props: SvgProps) => (
 );
 
 const PencilEdit02IconSharp = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M15.5 5.5L18 3L21 6L18.5 8.5M15.5 5.5L9 12L8 16L12 15L18.5 8.5M15.5 5.5L18.5 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M11 5H3V21H19V13" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M15.5 5.5L18 3L21 6L18.5 8.5M15.5 5.5L9 12L8 16L12 15L18.5 8.5M15.5 5.5L18.5 8.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M11 5H3V21H19V13"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 export const Delete03IconSharp = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M9 11.5H15" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M10.5 15.5H13.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M19.5 5.5L18.5 22H5.5L4.5 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M2 5.5H8M22 5.5H16M16 5.5L14.5 2H9.5L8 5.5M16 5.5H8" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M9 11.5H15"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M10.5 15.5H13.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M19.5 5.5L18.5 22H5.5L4.5 5.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M2 5.5H8M22 5.5H16M16 5.5L14.5 2H9.5L8 5.5M16 5.5H8"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const Remove01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M20 12L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M20 12L4 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
-
 
 const Delete03IconStroke = (props: SvgProps) => (
   <Svg
@@ -1365,693 +1732,2491 @@ const TaskRemove02IconStroke = (props: SvgProps) => (
 );
 
 const ArrowDown01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M18.593 8.19486C19.0376 8.52237 19.1326 9.14837 18.8051 9.59306C18.5507 9.93847 18.2963 10.2668 18.0731 10.5528C17.6276 11.1236 17.0143 11.8882 16.3479 12.6556C15.6859 13.4181 14.9518 14.2064 14.2666 14.8119C13.9251 15.1136 13.5721 15.3911 13.2279 15.5986C12.9112 15.7895 12.476 16 11.9999 16C11.5238 16 11.0885 15.7895 10.7718 15.5986C10.4276 15.3911 10.0747 15.1136 9.7332 14.8119C9.04791 14.2064 8.31387 13.4181 7.65183 12.6556C6.98548 11.8882 6.37216 11.1236 5.92664 10.5528C5.70347 10.2668 5.44902 9.93847 5.19463 9.59307C4.86712 9.14837 4.96211 8.52237 5.4068 8.19486C5.58556 8.0632 5.79362 7.99983 5.99982 8L11.9999 8L17.9999 8C18.2061 7.99983 18.4142 8.0632 18.593 8.19486Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M18.593 8.19486C19.0376 8.52237 19.1326 9.14837 18.8051 9.59306C18.5507 9.93847 18.2963 10.2668 18.0731 10.5528C17.6276 11.1236 17.0143 11.8882 16.3479 12.6556C15.6859 13.4181 14.9518 14.2064 14.2666 14.8119C13.9251 15.1136 13.5721 15.3911 13.2279 15.5986C12.9112 15.7895 12.476 16 11.9999 16C11.5238 16 11.0885 15.7895 10.7718 15.5986C10.4276 15.3911 10.0747 15.1136 9.7332 14.8119C9.04791 14.2064 8.31387 13.4181 7.65183 12.6556C6.98548 11.8882 6.37216 11.1236 5.92664 10.5528C5.70347 10.2668 5.44902 9.93847 5.19463 9.59307C4.86712 9.14837 4.96211 8.52237 5.4068 8.19486C5.58556 8.0632 5.79362 7.99983 5.99982 8L11.9999 8L17.9999 8C18.2061 7.99983 18.4142 8.0632 18.593 8.19486Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const ArrowUp01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M18.593 15.8051C19.0376 15.4776 19.1326 14.8516 18.8051 14.4069C18.5507 14.0615 18.2963 13.7332 18.0731 13.4472C17.6276 12.8764 17.0143 12.1118 16.3479 11.3444C15.6859 10.5819 14.9518 9.79361 14.2666 9.18811C13.9251 8.88637 13.5721 8.60888 13.2279 8.4014C12.9112 8.21046 12.476 8 11.9999 8C11.5238 8 11.0885 8.21046 10.7718 8.4014C10.4276 8.60888 10.0747 8.88637 9.7332 9.18811C9.04791 9.79361 8.31387 10.5819 7.65183 11.3444C6.98548 12.1118 6.37216 12.8764 5.92664 13.4472C5.70347 13.7332 5.44902 14.0615 5.19463 14.4069C4.86712 14.8516 4.96211 15.4776 5.4068 15.8051C5.58556 15.9368 5.79362 16.0002 5.99982 16L11.9999 16L17.9999 16C18.2061 16.0002 18.4142 15.9368 18.593 15.8051Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M18.593 15.8051C19.0376 15.4776 19.1326 14.8516 18.8051 14.4069C18.5507 14.0615 18.2963 13.7332 18.0731 13.4472C17.6276 12.8764 17.0143 12.1118 16.3479 11.3444C15.6859 10.5819 14.9518 9.79361 14.2666 9.18811C13.9251 8.88637 13.5721 8.60888 13.2279 8.4014C12.9112 8.21046 12.476 8 11.9999 8C11.5238 8 11.0885 8.21046 10.7718 8.4014C10.4276 8.60888 10.0747 8.88637 9.7332 9.18811C9.04791 9.79361 8.31387 10.5819 7.65183 11.3444C6.98548 12.1118 6.37216 12.8764 5.92664 13.4472C5.70347 13.7332 5.44902 14.0615 5.19463 14.4069C4.86712 14.8516 4.96211 15.4776 5.4068 15.8051C5.58556 15.9368 5.79362 16.0002 5.99982 16L11.9999 16L17.9999 16C18.2061 16.0002 18.4142 15.9368 18.593 15.8051Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const CheckmarkCircle01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M12 22.75C6.06294 22.75 1.25 17.9371 1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75ZM15.2473 7.93933L10.453 13.1694L8.69156 11.4079L7.27734 12.8222L10.5159 16.0607L16.7216 9.29078L15.2473 7.93933Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 22.75C6.06294 22.75 1.25 17.9371 1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75ZM15.2473 7.93933L10.453 13.1694L8.69156 11.4079L7.27734 12.8222L10.5159 16.0607L16.7216 9.29078L15.2473 7.93933Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const CircleIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Circle
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const ArrowRight01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M9.00005 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="16" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M9.00005 6L15 12L9 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeMiterlimit="16"
+    />
   </Svg>
 );
 
 const UserMultiple02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M15 11C17.2091 11 19 9.20914 19 7C19 4.79086 17.2091 3 15 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M11 14H7C4.23858 14 2 16.2386 2 19C2 20.1046 2.89543 21 4 21H14C15.1046 21 16 20.1046 16 19C16 16.2386 13.7614 14 11 14Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M17 14C19.7614 14 22 16.2386 22 19C22 20.1046 21.1046 21 20 21H18.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M15 11C17.2091 11 19 9.20914 19 7C19 4.79086 17.2091 3 15 3"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M11 14H7C4.23858 14 2 16.2386 2 19C2 20.1046 2.89543 21 4 21H14C15.1046 21 16 20.1046 16 19C16 16.2386 13.7614 14 11 14Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M17 14C19.7614 14 22 16.2386 22 19C22 20.1046 21.1046 21 20 21H18.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const SafeDelivery02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M12 2C7.58172 2 4 5.13401 4 9H20C20 5.13401 16.4183 2 12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M8 17.3333C8 15.4029 8.34533 15 10 15H14C15.6547 15 16 15.4029 16 17.3333V19.6667C16 21.5971 15.6547 22 14 22H10C8.34533 22 8 21.5971 8 19.6667V17.3333Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M12.008 17.5H11.999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M4 9L12 15L20 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 2C7.58172 2 4 5.13401 4 9H20C20 5.13401 16.4183 2 12 2Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M8 17.3333C8 15.4029 8.34533 15 10 15H14C15.6547 15 16 15.4029 16 17.3333V19.6667C16 21.5971 15.6547 22 14 22H10C8.34533 22 8 21.5971 8 19.6667V17.3333Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12.008 17.5H11.999"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M4 9L12 15L20 9"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const LocationUser03Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M5.77778 15.9805C4.66596 16.6123 4 17.4169 4 18.2929C4 20.3247 7.58172 21.9719 12 21.9719C16.4183 21.9719 20 20.3247 20 18.2929C20 17.4169 19.334 16.6123 18.2222 15.9805" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M11.988 7.05633C15.0256 7.05633 17.1376 9.53838 16.9872 12.4985V13.862H14.9195L13.6792 18.9752H10.2957L9.07351 13.862H7.00586V12.0619C7.11904 9.16241 9.07351 7.18447 11.988 7.05633ZM11.988 7.05633C13.5068 7.05633 14.4973 5.79174 14.4973 4.39781C14.4973 3.1923 13.4531 1.97461 11.988 1.97461C10.523 1.97461 9.49268 3.14546 9.49268 4.48031C9.49268 5.81516 10.4693 7.05633 11.988 7.05633Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M5.77778 15.9805C4.66596 16.6123 4 17.4169 4 18.2929C4 20.3247 7.58172 21.9719 12 21.9719C16.4183 21.9719 20 20.3247 20 18.2929C20 17.4169 19.334 16.6123 18.2222 15.9805"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M11.988 7.05633C15.0256 7.05633 17.1376 9.53838 16.9872 12.4985V13.862H14.9195L13.6792 18.9752H10.2957L9.07351 13.862H7.00586V12.0619C7.11904 9.16241 9.07351 7.18447 11.988 7.05633ZM11.988 7.05633C13.5068 7.05633 14.4973 5.79174 14.4973 4.39781C14.4973 3.1923 13.4531 1.97461 11.988 1.97461C10.523 1.97461 9.49268 3.14546 9.49268 4.48031C9.49268 5.81516 10.4693 7.05633 11.988 7.05633Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const GridViewIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M10 2V10H2V2H10Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M22 2V10H14V2H22Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M22 14V22H14V14H22Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M10 14V22H2V14H10Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M10 2V10H2V2H10Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M22 2V10H14V2H22Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M22 14V22H14V14H22Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M10 14V22H2V14H10Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const MoneyBag02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M20.9427 16.8354C20.2864 12.8866 18.2432 9.94613 16.467 8.219C15.9501 7.71642 15.6917 7.46513 15.1208 7.23257C14.5499 7 14.0592 7 13.0778 7H10.9222C9.94081 7 9.4501 7 8.87922 7.23257C8.30834 7.46513 8.04991 7.71642 7.53304 8.219C5.75682 9.94613 3.71361 12.8866 3.05727 16.8354C2.56893 19.7734 5.27927 22 8.30832 22H15.6917C18.7207 22 21.4311 19.7734 20.9427 16.8354Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M7.25662 4.44287C7.05031 4.14258 6.75128 3.73499 7.36899 3.64205C8.00392 3.54651 8.66321 3.98114 9.30855 3.97221C9.89237 3.96413 10.1898 3.70519 10.5089 3.33548C10.8449 2.94617 11.3652 2 12 2C12.6348 2 13.1551 2.94617 13.4911 3.33548C13.8102 3.70519 14.1076 3.96413 14.6914 3.97221C15.3368 3.98114 15.9961 3.54651 16.631 3.64205C17.2487 3.73499 16.9497 4.14258 16.7434 4.44287L15.8105 5.80064C15.4115 6.38146 15.212 6.67187 14.7944 6.83594C14.3769 7 13.8373 7 12.7582 7H11.2418C10.1627 7 9.6231 7 9.20556 6.83594C8.78802 6.67187 8.5885 6.38146 8.18945 5.80064L7.25662 4.44287Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M13.6267 12.9186C13.4105 12.1205 12.3101 11.4003 10.9892 11.9391C9.66829 12.4778 9.45847 14.2113 11.4565 14.3955C12.3595 14.4787 12.9483 14.2989 13.4873 14.8076C14.0264 15.3162 14.1265 16.7308 12.7485 17.112C11.3705 17.4932 10.006 16.8976 9.85742 16.0517M11.8417 10.9927V11.7531M11.8417 17.2293V17.9927" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M20.9427 16.8354C20.2864 12.8866 18.2432 9.94613 16.467 8.219C15.9501 7.71642 15.6917 7.46513 15.1208 7.23257C14.5499 7 14.0592 7 13.0778 7H10.9222C9.94081 7 9.4501 7 8.87922 7.23257C8.30834 7.46513 8.04991 7.71642 7.53304 8.219C5.75682 9.94613 3.71361 12.8866 3.05727 16.8354C2.56893 19.7734 5.27927 22 8.30832 22H15.6917C18.7207 22 21.4311 19.7734 20.9427 16.8354Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M7.25662 4.44287C7.05031 4.14258 6.75128 3.73499 7.36899 3.64205C8.00392 3.54651 8.66321 3.98114 9.30855 3.97221C9.89237 3.96413 10.1898 3.70519 10.5089 3.33548C10.8449 2.94617 11.3652 2 12 2C12.6348 2 13.1551 2.94617 13.4911 3.33548C13.8102 3.70519 14.1076 3.96413 14.6914 3.97221C15.3368 3.98114 15.9961 3.54651 16.631 3.64205C17.2487 3.73499 16.9497 4.14258 16.7434 4.44287L15.8105 5.80064C15.4115 6.38146 15.212 6.67187 14.7944 6.83594C14.3769 7 13.8373 7 12.7582 7H11.2418C10.1627 7 9.6231 7 9.20556 6.83594C8.78802 6.67187 8.5885 6.38146 8.18945 5.80064L7.25662 4.44287Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M13.6267 12.9186C13.4105 12.1205 12.3101 11.4003 10.9892 11.9391C9.66829 12.4778 9.45847 14.2113 11.4565 14.3955C12.3595 14.4787 12.9483 14.2989 13.4873 14.8076C14.0264 15.3162 14.1265 16.7308 12.7485 17.112C11.3705 17.4932 10.006 16.8976 9.85742 16.0517M11.8417 10.9927V11.7531M11.8417 17.2293V17.9927"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const Clock03Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M22.1719 8.1882C20.2351 3.07901 14.6806 0.176346 9.27042 1.62017C3.50783 3.15805 0.0760683 9.05039 1.61974 14.7883C3.16307 20.525 9.09052 23.9174 14.8518 22.3799C19.1324 21.2375 22.1241 17.6944 22.75 13.5982L20.8169 13.3031C20.3048 16.6541 17.8557 19.5553 14.3474 20.4915C9.61841 21.7536 4.7688 18.9666 3.5082 14.2808C2.24795 9.59639 5.0472 4.77023 9.77489 3.50853C13.7202 2.45562 17.7512 4.22172 19.7096 7.55718L18.3613 7.55718V9.5117L21.2576 9.5117C21.5788 9.5117 21.8796 9.35395 22.0621 9.08972C22.2447 8.82548 22.2857 8.48848 22.1719 8.1882Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M11 7H13V11.5858L15.2071 13.7929L13.7929 15.2071L11 12.4142V7Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M22.1719 8.1882C20.2351 3.07901 14.6806 0.176346 9.27042 1.62017C3.50783 3.15805 0.0760683 9.05039 1.61974 14.7883C3.16307 20.525 9.09052 23.9174 14.8518 22.3799C19.1324 21.2375 22.1241 17.6944 22.75 13.5982L20.8169 13.3031C20.3048 16.6541 17.8557 19.5553 14.3474 20.4915C9.61841 21.7536 4.7688 18.9666 3.5082 14.2808C2.24795 9.59639 5.0472 4.77023 9.77489 3.50853C13.7202 2.45562 17.7512 4.22172 19.7096 7.55718L18.3613 7.55718V9.5117L21.2576 9.5117C21.5788 9.5117 21.8796 9.35395 22.0621 9.08972C22.2447 8.82548 22.2857 8.48848 22.1719 8.1882Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11 7H13V11.5858L15.2071 13.7929L13.7929 15.2071L11 12.4142V7Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
-
 const TimeQuarterPassIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M8.37574 3C8.16183 3.07993 7.95146 3.16712 7.74492 3.26126M20.7177 16.3011C20.8199 16.0799 20.9141 15.8542 21 15.6245M18.4988 19.3647C18.6705 19.2044 18.8365 19.0381 18.9963 18.866M15.2689 21.3723C15.463 21.2991 15.6541 21.22 15.8421 21.1351M12.156 21.9939C11.9251 22.0019 11.6926 22.0019 11.4616 21.9939M7.78731 21.1404C7.96811 21.2217 8.15183 21.2978 8.33825 21.3683M4.67255 18.9208C4.80924 19.0657 4.95029 19.2064 5.0955 19.3428M2.6327 15.6645C2.70758 15.8622 2.78867 16.0569 2.87572 16.2483M2.00497 12.5053C1.99848 12.2972 1.9985 12.0878 2.00497 11.8794M2.62545 8.73714C2.69901 8.54165 2.77864 8.34913 2.8641 8.1598M4.65602 5.47923C4.80068 5.32514 4.95025 5.17573 5.1045 5.03124" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5M13.5 12C13.5 11.1716 12.8284 10.5 12 10.5M13.5 12H16M12 10.5V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path d="M22 12C22 6.47715 17.5228 2 12 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M8.37574 3C8.16183 3.07993 7.95146 3.16712 7.74492 3.26126M20.7177 16.3011C20.8199 16.0799 20.9141 15.8542 21 15.6245M18.4988 19.3647C18.6705 19.2044 18.8365 19.0381 18.9963 18.866M15.2689 21.3723C15.463 21.2991 15.6541 21.22 15.8421 21.1351M12.156 21.9939C11.9251 22.0019 11.6926 22.0019 11.4616 21.9939M7.78731 21.1404C7.96811 21.2217 8.15183 21.2978 8.33825 21.3683M4.67255 18.9208C4.80924 19.0657 4.95029 19.2064 5.0955 19.3428M2.6327 15.6645C2.70758 15.8622 2.78867 16.0569 2.87572 16.2483M2.00497 12.5053C1.99848 12.2972 1.9985 12.0878 2.00497 11.8794M2.62545 8.73714C2.69901 8.54165 2.77864 8.34913 2.8641 8.1598M4.65602 5.47923C4.80068 5.32514 4.95025 5.17573 5.1045 5.03124"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5M13.5 12C13.5 11.1716 12.8284 10.5 12 10.5M13.5 12H16M12 10.5V6"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M22 12C22 6.47715 17.5228 2 12 2"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const Invoice03Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M20.016 2C18.9026 2 18 4.68629 18 8H20.016C20.9876 8 21.4734 8 21.7741 7.66455C22.0749 7.32909 22.0225 6.88733 21.9178 6.00381C21.6414 3.67143 20.8943 2 20.016 2Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M18 8.05426V18.6458C18 20.1575 18 20.9133 17.538 21.2108C16.7831 21.6971 15.6161 20.6774 15.0291 20.3073C14.5441 20.0014 14.3017 19.8485 14.0325 19.8397C13.7417 19.8301 13.4949 19.9768 12.9709 20.3073L11.06 21.5124C10.5445 21.8374 10.2868 22 10 22C9.71321 22 9.45546 21.8374 8.94 21.5124L7.02913 20.3073C6.54415 20.0014 6.30166 19.8485 6.03253 19.8397C5.74172 19.8301 5.49493 19.9768 4.97087 20.3073C4.38395 20.6774 3.21687 21.6971 2.46195 21.2108C2 20.9133 2 20.1575 2 18.6458V8.05426C2 5.20025 2 3.77325 2.87868 2.88663C3.75736 2 5.17157 2 8 2H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M6 6H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M8 10H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M12.5 10.875C11.6716 10.875 11 11.4626 11 12.1875C11 12.9124 11.6716 13.5 12.5 13.5C13.3284 13.5 14 14.0876 14 14.8125C14 15.5374 13.3284 16.125 12.5 16.125M12.5 10.875C13.1531 10.875 13.7087 11.2402 13.9146 11.75M12.5 10.875V10M12.5 16.125C11.8469 16.125 11.2913 15.7598 11.0854 15.25M12.5 16.125V17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M20.016 2C18.9026 2 18 4.68629 18 8H20.016C20.9876 8 21.4734 8 21.7741 7.66455C22.0749 7.32909 22.0225 6.88733 21.9178 6.00381C21.6414 3.67143 20.8943 2 20.016 2Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M18 8.05426V18.6458C18 20.1575 18 20.9133 17.538 21.2108C16.7831 21.6971 15.6161 20.6774 15.0291 20.3073C14.5441 20.0014 14.3017 19.8485 14.0325 19.8397C13.7417 19.8301 13.4949 19.9768 12.9709 20.3073L11.06 21.5124C10.5445 21.8374 10.2868 22 10 22C9.71321 22 9.45546 21.8374 8.94 21.5124L7.02913 20.3073C6.54415 20.0014 6.30166 19.8485 6.03253 19.8397C5.74172 19.8301 5.49493 19.9768 4.97087 20.3073C4.38395 20.6774 3.21687 21.6971 2.46195 21.2108C2 20.9133 2 20.1575 2 18.6458V8.05426C2 5.20025 2 3.77325 2.87868 2.88663C3.75736 2 5.17157 2 8 2H20"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M6 6H14"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M8 10H6"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12.5 10.875C11.6716 10.875 11 11.4626 11 12.1875C11 12.9124 11.6716 13.5 12.5 13.5C13.3284 13.5 14 14.0876 14 14.8125C14 15.5374 13.3284 16.125 12.5 16.125M12.5 10.875C13.1531 10.875 13.7087 11.2402 13.9146 11.75M12.5 10.875V10M12.5 16.125C11.8469 16.125 11.2913 15.7598 11.0854 15.25M12.5 16.125V17"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const InstallingUpdates02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M15 10.5C15 12.1569 13.6569 13.5 12 13.5C10.3431 13.5 9 12.1569 9 10.5C9 8.84315 10.3431 7.5 12 7.5C13.6569 7.5 15 8.84315 15 10.5Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M20.0135 12.4033C20.5394 12.2452 20.8024 12.1661 20.9012 12.0333C21 11.9005 21 11.6869 21 11.2598V9.74026C21 9.31314 21 9.09958 20.9012 8.96675C20.8024 8.83391 20.5394 8.75489 20.0135 8.59685C18.3506 8.09719 17.3091 6.37249 17.6827 4.70382C17.8059 4.15339 17.8675 3.87817 17.8004 3.72712C17.7332 3.57607 17.5457 3.47025 17.1708 3.2586L15.7951 2.48211C15.4293 2.27562 15.2464 2.17238 15.0838 2.19187C14.9212 2.21135 14.7244 2.39553 14.3308 2.7639C13.0349 3.97689 10.9665 3.97684 9.67058 2.76382C9.27705 2.39545 9.08028 2.21127 8.91765 2.19178C8.75503 2.17229 8.57212 2.27554 8.2063 2.48202L6.83064 3.25851C6.4557 3.47015 6.26823 3.57596 6.20108 3.72699C6.13392 3.87802 6.1955 4.15326 6.31867 4.70375C6.69204 6.37248 5.64975 8.09724 3.98655 8.59687C3.46058 8.75487 3.1976 8.83387 3.0988 8.96671C3 9.09955 3 9.31312 3 9.74026V11.2598C3 11.6869 3 11.9005 3.09879 12.0333C3.19758 12.1662 3.46057 12.2452 3.98655 12.4032C5.64944 12.9029 6.69091 14.6276 6.31731 16.2963C6.19408 16.8467 6.13246 17.1219 6.19961 17.273C6.26677 17.424 6.45425 17.5298 6.82921 17.7415L8.20487 18.518C8.57072 18.7245 8.75364 18.8277 8.91629 18.8082C9.07893 18.7887 9.27566 18.6045 9.66911 18.2361C10.9657 17.0221 13.0357 17.022 14.3323 18.2361C14.7258 18.6044 14.9225 18.7886 15.0851 18.8081C15.2478 18.8276 15.4307 18.7244 15.7965 18.5179L17.1722 17.7414C17.5472 17.5297 17.7347 17.4239 17.8018 17.2728C17.869 17.1218 17.8073 16.8466 17.684 16.2962C17.3102 14.6276 18.3509 12.9029 20.0135 12.4033Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path d="M22 18C22 18.93 22 19.395 21.8978 19.7765C21.6204 20.8117 20.8117 21.6204 19.7765 21.8978C19.395 22 18.93 22 18 22H6C5.07003 22 4.60504 22 4.22354 21.8978C3.18827 21.6204 2.37962 20.8117 2.10222 19.7765C2 19.395 2 18.93 2 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M15 10.5C15 12.1569 13.6569 13.5 12 13.5C10.3431 13.5 9 12.1569 9 10.5C9 8.84315 10.3431 7.5 12 7.5C13.6569 7.5 15 8.84315 15 10.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M20.0135 12.4033C20.5394 12.2452 20.8024 12.1661 20.9012 12.0333C21 11.9005 21 11.6869 21 11.2598V9.74026C21 9.31314 21 9.09958 20.9012 8.96675C20.8024 8.83391 20.5394 8.75489 20.0135 8.59685C18.3506 8.09719 17.3091 6.37249 17.6827 4.70382C17.8059 4.15339 17.8675 3.87817 17.8004 3.72712C17.7332 3.57607 17.5457 3.47025 17.1708 3.2586L15.7951 2.48211C15.4293 2.27562 15.2464 2.17238 15.0838 2.19187C14.9212 2.21135 14.7244 2.39553 14.3308 2.7639C13.0349 3.97689 10.9665 3.97684 9.67058 2.76382C9.27705 2.39545 9.08028 2.21127 8.91765 2.19178C8.75503 2.17229 8.57212 2.27554 8.2063 2.48202L6.83064 3.25851C6.4557 3.47015 6.26823 3.57596 6.20108 3.72699C6.13392 3.87802 6.1955 4.15326 6.31867 4.70375C6.69204 6.37248 5.64975 8.09724 3.98655 8.59687C3.46058 8.75487 3.1976 8.83387 3.0988 8.96671C3 9.09955 3 9.31312 3 9.74026V11.2598C3 11.6869 3 11.9005 3.09879 12.0333C3.19758 12.1662 3.46057 12.2452 3.98655 12.4032C5.64944 12.9029 6.69091 14.6276 6.31731 16.2963C6.19408 16.8467 6.13246 17.1219 6.19961 17.273C6.26677 17.424 6.45425 17.5298 6.82921 17.7415L8.20487 18.518C8.57072 18.7245 8.75364 18.8277 8.91629 18.8082C9.07893 18.7887 9.27566 18.6045 9.66911 18.2361C10.9657 17.0221 13.0357 17.022 14.3323 18.2361C14.7258 18.6044 14.9225 18.7886 15.0851 18.8081C15.2478 18.8276 15.4307 18.7244 15.7965 18.5179L17.1722 17.7414C17.5472 17.5297 17.7347 17.4239 17.8018 17.2728C17.869 17.1218 17.8073 16.8466 17.684 16.2962C17.3102 14.6276 18.3509 12.9029 20.0135 12.4033Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M22 18C22 18.93 22 19.395 21.8978 19.7765C21.6204 20.8117 20.8117 21.6204 19.7765 21.8978C19.395 22 18.93 22 18 22H6C5.07003 22 4.60504 22 4.22354 21.8978C3.18827 21.6204 2.37962 20.8117 2.10222 19.7765C2 19.395 2 18.93 2 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const ArrowDown01IconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M6 9.00005L12 15L18 9" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="16" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M6 9.00005L12 15L18 9"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeMiterlimit="16"
+    />
   </Svg>
 );
 
 const ShoppingBag01IconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M7.5 8V6.36364C7.5 3.95367 9.51472 2 12 2C14.4853 2 16.5 3.95367 16.5 6.36364V8" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M13.8816 7.5H10.1184C6.22973 7.5 4.7255 8.48796 3.6501 12.2373C2.68147 15.6144 2.19716 17.3029 2.70352 18.6124C3.01361 19.4143 3.56418 20.1097 4.28549 20.6104C6.8944 22.4216 16.9865 22.5043 19.7145 20.6104C20.4358 20.1097 20.9864 19.4143 21.2965 18.6124C21.8028 17.3029 21.3185 15.6144 20.3499 12.2373C19.3173 8.63723 17.9313 7.5 13.8816 7.5Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M11 11H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M7.5 8V6.36364C7.5 3.95367 9.51472 2 12 2C14.4853 2 16.5 3.95367 16.5 6.36364V8"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M13.8816 7.5H10.1184C6.22973 7.5 4.7255 8.48796 3.6501 12.2373C2.68147 15.6144 2.19716 17.3029 2.70352 18.6124C3.01361 19.4143 3.56418 20.1097 4.28549 20.6104C6.8944 22.4216 16.9865 22.5043 19.7145 20.6104C20.4358 20.1097 20.9864 19.4143 21.2965 18.6124C21.8028 17.3029 21.3185 15.6144 20.3499 12.2373C19.3173 8.63723 17.9313 7.5 13.8816 7.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M11 11H13"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const StarIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M11.9961 1.25C13.0454 1.25 13.8719 2.04253 14.3995 3.11191L16.1616 6.66516C16.215 6.77513 16.3417 6.92998 16.5321 7.07164C16.7223 7.21315 16.9086 7.29121 17.0311 7.3118L20.2207 7.84613C21.3729 8.03973 22.3386 8.60449 22.6521 9.5879C22.9653 10.5705 22.5064 11.5916 21.6778 12.4216L21.677 12.4225L19.1991 14.9209C19.1009 15.0199 18.9909 15.2064 18.9219 15.4494C18.8534 15.6908 18.8473 15.9107 18.8784 16.0527L18.8788 16.0547L19.5877 19.1454C19.8818 20.4317 19.7843 21.7073 18.8771 22.3742C17.9667 23.0433 16.7227 22.7467 15.5925 22.0736L12.6026 20.289C12.477 20.214 12.2614 20.1532 12.0011 20.1532C11.7427 20.1532 11.5226 20.2132 11.3888 20.291L11.3869 20.2921L8.40288 22.0732C7.27405 22.7487 6.03154 23.04 5.12111 22.3702C4.21449 21.7032 4.11214 20.43 4.40711 19.1447L5.1159 16.0547L5.11633 16.0527C5.14741 15.9107 5.14133 15.6908 5.0728 15.4494C5.0038 15.2064 4.89379 15.0199 4.79558 14.9209L2.31585 12.4206C1.49265 11.5906 1.03521 10.5704 1.34595 9.58925C1.65759 8.60525 2.62143 8.0398 3.77433 7.84606L6.96132 7.31219L6.96233 7.31202C7.07917 7.29175 7.2627 7.21456 7.45248 7.07268C7.64261 6.93054 7.76959 6.77535 7.82312 6.66516L7.82582 6.65967L9.58562 3.11097L9.58632 3.10957C10.119 2.04108 10.948 1.25 11.9961 1.25Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M11.9961 1.25C13.0454 1.25 13.8719 2.04253 14.3995 3.11191L16.1616 6.66516C16.215 6.77513 16.3417 6.92998 16.5321 7.07164C16.7223 7.21315 16.9086 7.29121 17.0311 7.3118L20.2207 7.84613C21.3729 8.03973 22.3386 8.60449 22.6521 9.5879C22.9653 10.5705 22.5064 11.5916 21.6778 12.4216L21.677 12.4225L19.1991 14.9209C19.1009 15.0199 18.9909 15.2064 18.9219 15.4494C18.8534 15.6908 18.8473 15.9107 18.8784 16.0527L18.8788 16.0547L19.5877 19.1454C19.8818 20.4317 19.7843 21.7073 18.8771 22.3742C17.9667 23.0433 16.7227 22.7467 15.5925 22.0736L12.6026 20.289C12.477 20.214 12.2614 20.1532 12.0011 20.1532C11.7427 20.1532 11.5226 20.2132 11.3888 20.291L11.3869 20.2921L8.40288 22.0732C7.27405 22.7487 6.03154 23.04 5.12111 22.3702C4.21449 21.7032 4.11214 20.43 4.40711 19.1447L5.1159 16.0547L5.11633 16.0527C5.14741 15.9107 5.14133 15.6908 5.0728 15.4494C5.0038 15.2064 4.89379 15.0199 4.79558 14.9209L2.31585 12.4206C1.49265 11.5906 1.03521 10.5704 1.34595 9.58925C1.65759 8.60525 2.62143 8.0398 3.77433 7.84606L6.96132 7.31219L6.96233 7.31202C7.07917 7.29175 7.2627 7.21456 7.45248 7.07268C7.64261 6.93054 7.76959 6.77535 7.82312 6.66516L7.82582 6.65967L9.58562 3.11097L9.58632 3.10957C10.119 2.04108 10.948 1.25 11.9961 1.25Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const Award04IconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M9.42613 3.06269C10.6836 2.35423 11.3124 2 12 2C12.6876 2 13.3164 2.35423 14.5739 3.06269L16.3239 4.04861C17.6292 4.78401 18.2819 5.15171 18.6409 5.76664C19 6.38157 19 7.13157 19 8.63158V10.3684C19 11.8684 19 12.6184 18.6409 13.2334C18.2819 13.8483 17.6292 14.216 16.3239 14.9514L14.5739 15.9373C13.3164 16.6458 12.6876 17 12 17C11.3124 17 10.6836 16.6458 9.42613 15.9373L7.67613 14.9514C6.37081 14.216 5.71815 13.8483 5.35908 13.2334C5 12.6184 5 11.8684 5 10.3684V8.63158C5 7.13157 5 6.38157 5.35908 5.76664C5.71815 5.15171 6.37081 4.78401 7.67613 4.04861L9.42613 3.06269Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M9 10.1667C9 10.1667 9.75 10.1667 10.5 11.5C10.5 11.5 12.8824 8.16667 15 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M16.8825 15L17.5527 18.2099C17.9833 20.2723 18.1986 21.3035 17.7563 21.7923C17.3141 22.281 16.546 21.8606 15.0099 21.0198L12.7364 19.7753C12.3734 19.5766 12.1919 19.4773 12 19.4773C11.8081 19.4773 11.6266 19.5766 11.2636 19.7753L8.99008 21.0198C7.45397 21.8606 6.68592 22.281 6.24365 21.7923C5.80139 21.3035 6.01669 20.2723 6.44731 18.2099L7.11752 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M9.42613 3.06269C10.6836 2.35423 11.3124 2 12 2C12.6876 2 13.3164 2.35423 14.5739 3.06269L16.3239 4.04861C17.6292 4.78401 18.2819 5.15171 18.6409 5.76664C19 6.38157 19 7.13157 19 8.63158V10.3684C19 11.8684 19 12.6184 18.6409 13.2334C18.2819 13.8483 17.6292 14.216 16.3239 14.9514L14.5739 15.9373C13.3164 16.6458 12.6876 17 12 17C11.3124 17 10.6836 16.6458 9.42613 15.9373L7.67613 14.9514C6.37081 14.216 5.71815 13.8483 5.35908 13.2334C5 12.6184 5 11.8684 5 10.3684V8.63158C5 7.13157 5 6.38157 5.35908 5.76664C5.71815 5.15171 6.37081 4.78401 7.67613 4.04861L9.42613 3.06269Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M9 10.1667C9 10.1667 9.75 10.1667 10.5 11.5C10.5 11.5 12.8824 8.16667 15 7.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M16.8825 15L17.5527 18.2099C17.9833 20.2723 18.1986 21.3035 17.7563 21.7923C17.3141 22.281 16.546 21.8606 15.0099 21.0198L12.7364 19.7753C12.3734 19.5766 12.1919 19.4773 12 19.4773C11.8081 19.4773 11.6266 19.5766 11.2636 19.7753L8.99008 21.0198C7.45397 21.8606 6.68592 22.281 6.24365 21.7923C5.80139 21.3035 6.01669 20.2723 6.44731 18.2099L7.11752 15"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const Award04Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M6.25 14.6974C6.25 14.1741 6.67906 13.75 7.20833 13.75H16.7917C17.3209 13.75 17.75 14.1741 17.75 14.6974V21.8026C17.75 22.117 17.5923 22.4109 17.3289 22.5871C17.0656 22.7634 16.731 22.799 16.4357 22.6822L12 20.9282L7.56425 22.6822C7.269 22.7989 6.93439 22.7633 6.67106 22.5871C6.40774 22.4108 6.25 22.1169 6.25 21.8026V14.6974ZM8.16667 15.6447V20.4033L11.6441 19.0283C11.8726 18.9379 12.1274 18.9379 12.3559 19.0283L15.8333 20.4033V15.6447H8.16667Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M12.3354 1.32918C12.1243 1.22361 11.8757 1.22361 11.6646 1.32918L4.66459 4.82918C4.4105 4.95622 4.25 5.21592 4.25 5.5V13.5C4.25 13.7841 4.4105 14.0438 4.66459 14.1708L11.6646 17.6708C11.8757 17.7764 12.1243 17.7764 12.3354 17.6708L19.3354 14.1708C19.5895 14.0438 19.75 13.7841 19.75 13.5V5.5C19.75 5.21592 19.5895 4.95622 19.3354 4.82918L12.3354 1.32918ZM10.4638 12.8781L16.169 7.74342L14.8311 6.25684L10.5363 10.1222L9.20718 8.79302L7.79297 10.2072L10.4638 12.8781Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M6.25 14.6974C6.25 14.1741 6.67906 13.75 7.20833 13.75H16.7917C17.3209 13.75 17.75 14.1741 17.75 14.6974V21.8026C17.75 22.117 17.5923 22.4109 17.3289 22.5871C17.0656 22.7634 16.731 22.799 16.4357 22.6822L12 20.9282L7.56425 22.6822C7.269 22.7989 6.93439 22.7633 6.67106 22.5871C6.40774 22.4108 6.25 22.1169 6.25 21.8026V14.6974ZM8.16667 15.6447V20.4033L11.6441 19.0283C11.8726 18.9379 12.1274 18.9379 12.3559 19.0283L15.8333 20.4033V15.6447H8.16667Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12.3354 1.32918C12.1243 1.22361 11.8757 1.22361 11.6646 1.32918L4.66459 4.82918C4.4105 4.95622 4.25 5.21592 4.25 5.5V13.5C4.25 13.7841 4.4105 14.0438 4.66459 14.1708L11.6646 17.6708C11.8757 17.7764 12.1243 17.7764 12.3354 17.6708L19.3354 14.1708C19.5895 14.0438 19.75 13.7841 19.75 13.5V5.5C19.75 5.21592 19.5895 4.95622 19.3354 4.82918L12.3354 1.32918ZM10.4638 12.8781L16.169 7.74342L14.8311 6.25684L10.5363 10.1222L9.20718 8.79302L7.79297 10.2072L10.4638 12.8781Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const Setting07Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M16.3083 4.38394C15.7173 4.38394 15.4217 4.38394 15.1525 4.28405C15.1151 4.27017 15.0783 4.25491 15.042 4.23828C14.781 4.11855 14.5721 3.90959 14.1541 3.49167C13.1922 2.52977 12.7113 2.04882 12.1195 2.00447C12.04 1.99851 11.96 1.99851 11.8805 2.00447C11.2887 2.04882 10.8077 2.52977 9.84585 3.49166C9.42793 3.90959 9.21897 4.11855 8.95797 4.23828C8.92172 4.25491 8.88486 4.27017 8.84747 4.28405C8.57825 4.38394 8.28273 4.38394 7.69171 4.38394H7.58269C6.07478 4.38394 5.32083 4.38394 4.85239 4.85239C4.38394 5.32083 4.38394 6.07478 4.38394 7.58269V7.69171C4.38394 8.28273 4.38394 8.57825 4.28405 8.84747C4.27017 8.88486 4.25491 8.92172 4.23828 8.95797C4.11855 9.21897 3.90959 9.42793 3.49166 9.84585C2.52977 10.8077 2.04882 11.2887 2.00447 11.8805C1.99851 11.96 1.99851 12.04 2.00447 12.1195C2.04882 12.7113 2.52977 13.1922 3.49166 14.1541C3.90959 14.5721 4.11855 14.781 4.23828 15.042C4.25491 15.0783 4.27017 15.1151 4.28405 15.1525C4.38394 15.4217 4.38394 15.7173 4.38394 16.3083V16.4173C4.38394 17.9252 4.38394 18.6792 4.85239 19.1476C5.32083 19.6161 6.07478 19.6161 7.58269 19.6161H7.69171C8.28273 19.6161 8.57825 19.6161 8.84747 19.7159C8.88486 19.7298 8.92172 19.7451 8.95797 19.7617C9.21897 19.8815 9.42793 20.0904 9.84585 20.5083C10.8077 21.4702 11.2887 21.9512 11.8805 21.9955C11.96 22.0015 12.04 22.0015 12.1195 21.9955C12.7113 21.9512 13.1922 21.4702 14.1541 20.5083C14.5721 20.0904 14.781 19.8815 15.042 19.7617C15.0783 19.7451 15.1151 19.7298 15.1525 19.7159C15.4217 19.6161 15.7173 19.6161 16.3083 19.6161H16.4173C17.9252 19.6161 18.6792 19.6161 19.1476 19.1476C19.6161 18.6792 19.6161 17.9252 19.6161 16.4173V16.3083C19.6161 15.7173 19.6161 15.4217 19.7159 15.1525C19.7298 15.1151 19.7451 15.0783 19.7617 15.042C19.8815 14.781 20.0904 14.5721 20.5083 14.1541C21.4702 13.1922 21.9512 12.7113 21.9955 12.1195C22.0015 12.04 22.0015 11.96 21.9955 11.8805C21.9512 11.2887 21.4702 10.8077 20.5083 9.84585C20.0904 9.42793 19.8815 9.21897 19.7617 8.95797C19.7451 8.92172 19.7298 8.88486 19.7159 8.84747C19.6161 8.57825 19.6161 8.28273 19.6161 7.69171V7.58269C19.6161 6.07478 19.6161 5.32083 19.1476 4.85239C18.6792 4.38394 17.9252 4.38394 16.4173 4.38394H16.3083Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M15.5 12C15.5 13.933 13.933 15.5 12 15.5C10.067 15.5 8.5 13.933 8.5 12C8.5 10.067 10.067 8.5 12 8.5C13.933 8.5 15.5 10.067 15.5 12Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M16.3083 4.38394C15.7173 4.38394 15.4217 4.38394 15.1525 4.28405C15.1151 4.27017 15.0783 4.25491 15.042 4.23828C14.781 4.11855 14.5721 3.90959 14.1541 3.49167C13.1922 2.52977 12.7113 2.04882 12.1195 2.00447C12.04 1.99851 11.96 1.99851 11.8805 2.00447C11.2887 2.04882 10.8077 2.52977 9.84585 3.49166C9.42793 3.90959 9.21897 4.11855 8.95797 4.23828C8.92172 4.25491 8.88486 4.27017 8.84747 4.28405C8.57825 4.38394 8.28273 4.38394 7.69171 4.38394H7.58269C6.07478 4.38394 5.32083 4.38394 4.85239 4.85239C4.38394 5.32083 4.38394 6.07478 4.38394 7.58269V7.69171C4.38394 8.28273 4.38394 8.57825 4.28405 8.84747C4.27017 8.88486 4.25491 8.92172 4.23828 8.95797C4.11855 9.21897 3.90959 9.42793 3.49166 9.84585C2.52977 10.8077 2.04882 11.2887 2.00447 11.8805C1.99851 11.96 1.99851 12.04 2.00447 12.1195C2.04882 12.7113 2.52977 13.1922 3.49166 14.1541C3.90959 14.5721 4.11855 14.781 4.23828 15.042C4.25491 15.0783 4.27017 15.1151 4.28405 15.1525C4.38394 15.4217 4.38394 15.7173 4.38394 16.3083V16.4173C4.38394 17.9252 4.38394 18.6792 4.85239 19.1476C5.32083 19.6161 6.07478 19.6161 7.58269 19.6161H7.69171C8.28273 19.6161 8.57825 19.6161 8.84747 19.7159C8.88486 19.7298 8.92172 19.7451 8.95797 19.7617C9.21897 19.8815 9.42793 20.0904 9.84585 20.5083C10.8077 21.4702 11.2887 21.9512 11.8805 21.9955C11.96 22.0015 12.04 22.0015 12.1195 21.9955C12.7113 21.9512 13.1922 21.4702 14.1541 20.5083C14.5721 20.0904 14.781 19.8815 15.042 19.7617C15.0783 19.7451 15.1151 19.7298 15.1525 19.7159C15.4217 19.6161 15.7173 19.6161 16.3083 19.6161H16.4173C17.9252 19.6161 18.6792 19.6161 19.1476 19.1476C19.6161 18.6792 19.6161 17.9252 19.6161 16.4173V16.3083C19.6161 15.7173 19.6161 15.4217 19.7159 15.1525C19.7298 15.1151 19.7451 15.0783 19.7617 15.042C19.8815 14.781 20.0904 14.5721 20.5083 14.1541C21.4702 13.1922 21.9512 12.7113 21.9955 12.1195C22.0015 12.04 22.0015 11.96 21.9955 11.8805C21.9512 11.2887 21.4702 10.8077 20.5083 9.84585C20.0904 9.42793 19.8815 9.21897 19.7617 8.95797C19.7451 8.92172 19.7298 8.88486 19.7159 8.84747C19.6161 8.57825 19.6161 8.28273 19.6161 7.69171V7.58269C19.6161 6.07478 19.6161 5.32083 19.1476 4.85239C18.6792 4.38394 17.9252 4.38394 16.4173 4.38394H16.3083Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M15.5 12C15.5 13.933 13.933 15.5 12 15.5C10.067 15.5 8.5 13.933 8.5 12C8.5 10.067 10.067 8.5 12 8.5C13.933 8.5 15.5 10.067 15.5 12Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const DashboardSquare03IconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M16 5C16 4.06812 16 3.60218 16.1522 3.23463C16.3552 2.74458 16.7446 2.35523 17.2346 2.15224C17.6022 2 18.0681 2 19 2C19.9319 2 20.3978 2 20.7654 2.15224C21.2554 2.35523 21.6448 2.74458 21.8478 3.23463C22 3.60218 22 4.06812 22 5V9C22 9.93188 22 10.3978 21.8478 10.7654C21.6448 11.2554 21.2554 11.6448 20.7654 11.8478C20.3978 12 19.9319 12 19 12C18.0681 12 17.6022 12 17.2346 11.8478C16.7446 11.6448 16.3552 11.2554 16.1522 10.7654C16 10.3978 16 9.93188 16 9V5Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M16 19C16 18.0681 16 17.6022 16.1522 17.2346C16.3552 16.7446 16.7446 16.3552 17.2346 16.1522C17.6022 16 18.0681 16 19 16C19.9319 16 20.3978 16 20.7654 16.1522C21.2554 16.3552 21.6448 16.7446 21.8478 17.2346C22 17.6022 22 18.0681 22 19C22 19.9319 22 20.3978 21.8478 20.7654C21.6448 21.2554 21.2554 21.6448 20.7654 21.8478C20.3978 22 19.9319 22 19 22C18.0681 22 17.6022 22 17.2346 21.8478C16.7446 21.6448 16.3552 21.2554 16.1522 20.7654C16 20.3978 16 19.9319 16 19Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M2 16C2 14.1144 2 13.1716 2.58579 12.5858C3.17157 12 4.11438 12 6 12H8C9.88562 12 10.8284 12 11.4142 12.5858C12 13.1716 12 14.1144 12 16V18C12 19.8856 12 20.8284 11.4142 21.4142C10.8284 22 9.88562 22 8 22H6C4.11438 22 3.17157 22 2.58579 21.4142C2 20.8284 2 19.8856 2 18V16Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M2 5C2 4.06812 2 3.60218 2.15224 3.23463C2.35523 2.74458 2.74458 2.35523 3.23463 2.15224C3.60218 2 4.06812 2 5 2H9C9.93188 2 10.3978 2 10.7654 2.15224C11.2554 2.35523 11.6448 2.74458 11.8478 3.23463C12 3.60218 12 4.06812 12 5C12 5.93188 12 6.39782 11.8478 6.76537C11.6448 7.25542 11.2554 7.64477 10.7654 7.84776C10.3978 8 9.93188 8 9 8H5C4.06812 8 3.60218 8 3.23463 7.84776C2.74458 7.64477 2.35523 7.25542 2.15224 6.76537C2 6.39782 2 5.93188 2 5Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M16 5C16 4.06812 16 3.60218 16.1522 3.23463C16.3552 2.74458 16.7446 2.35523 17.2346 2.15224C17.6022 2 18.0681 2 19 2C19.9319 2 20.3978 2 20.7654 2.15224C21.2554 2.35523 21.6448 2.74458 21.8478 3.23463C22 3.60218 22 4.06812 22 5V9C22 9.93188 22 10.3978 21.8478 10.7654C21.6448 11.2554 21.2554 11.6448 20.7654 11.8478C20.3978 12 19.9319 12 19 12C18.0681 12 17.6022 12 17.2346 11.8478C16.7446 11.6448 16.3552 11.2554 16.1522 10.7654C16 10.3978 16 9.93188 16 9V5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M16 19C16 18.0681 16 17.6022 16.1522 17.2346C16.3552 16.7446 16.7446 16.3552 17.2346 16.1522C17.6022 16 18.0681 16 19 16C19.9319 16 20.3978 16 20.7654 16.1522C21.2554 16.3552 21.6448 16.7446 21.8478 17.2346C22 17.6022 22 18.0681 22 19C22 19.9319 22 20.3978 21.8478 20.7654C21.6448 21.2554 21.2554 21.6448 20.7654 21.8478C20.3978 22 19.9319 22 19 22C18.0681 22 17.6022 22 17.2346 21.8478C16.7446 21.6448 16.3552 21.2554 16.1522 20.7654C16 20.3978 16 19.9319 16 19Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M2 16C2 14.1144 2 13.1716 2.58579 12.5858C3.17157 12 4.11438 12 6 12H8C9.88562 12 10.8284 12 11.4142 12.5858C12 13.1716 12 14.1144 12 16V18C12 19.8856 12 20.8284 11.4142 21.4142C10.8284 22 9.88562 22 8 22H6C4.11438 22 3.17157 22 2.58579 21.4142C2 20.8284 2 19.8856 2 18V16Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M2 5C2 4.06812 2 3.60218 2.15224 3.23463C2.35523 2.74458 2.74458 2.35523 3.23463 2.15224C3.60218 2 4.06812 2 5 2H9C9.93188 2 10.3978 2 10.7654 2.15224C11.2554 2.35523 11.6448 2.74458 11.8478 3.23463C12 3.60218 12 4.06812 12 5C12 5.93188 12 6.39782 11.8478 6.76537C11.6448 7.25542 11.2554 7.64477 10.7654 7.84776C10.3978 8 9.93188 8 9 8H5C4.06812 8 3.60218 8 3.23463 7.84776C2.74458 7.64477 2.35523 7.25542 2.15224 6.76537C2 6.39782 2 5.93188 2 5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const DashboardSquare03Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M19.0253 1.25C19.4697 1.24999 19.8408 1.24999 20.1454 1.27077C20.4625 1.29241 20.762 1.33905 21.0524 1.45933C21.7262 1.73844 22.2616 2.27379 22.5407 2.94762C22.661 3.23801 22.7076 3.53754 22.7292 3.85464C22.75 4.15925 22.75 4.53028 22.75 4.97474V9.02526C22.75 9.46972 22.75 9.84075 22.7292 10.1454C22.7076 10.4625 22.661 10.762 22.5407 11.0524C22.2616 11.7262 21.7262 12.2616 21.0524 12.5407C20.762 12.661 20.4625 12.7076 20.1454 12.7292C19.8408 12.75 19.4697 12.75 19.0253 12.75H18.9747C18.5303 12.75 18.1592 12.75 17.8546 12.7292C17.5375 12.7076 17.238 12.661 16.9476 12.5407C16.2738 12.2616 15.7384 11.7262 15.4593 11.0524C15.339 10.762 15.2924 10.4625 15.2708 10.1454C15.25 9.84076 15.25 9.46972 15.25 9.02526V9.02525V4.97475V4.97474C15.25 4.53028 15.25 4.15925 15.2708 3.85464C15.2924 3.53754 15.339 3.23801 15.4593 2.94762C15.7384 2.27379 16.2738 1.73844 16.9476 1.45933C17.238 1.33905 17.5375 1.29241 17.8546 1.27077C18.1592 1.24999 18.5303 1.24999 18.9747 1.25H18.9747H19.0253H19.0253Z" fill="currentColor" />
-    <Path d="M19.0253 15.25C19.4697 15.25 19.8408 15.25 20.1454 15.2708C20.4625 15.2924 20.762 15.339 21.0524 15.4593C21.7262 15.7384 22.2616 16.2738 22.5407 16.9476C22.661 17.238 22.7076 17.5375 22.7292 17.8546C22.75 18.1592 22.75 18.5303 22.75 18.9747V19.0253C22.75 19.4697 22.75 19.8408 22.7292 20.1454C22.7076 20.4625 22.661 20.762 22.5407 21.0524C22.2616 21.7262 21.7262 22.2616 21.0524 22.5407C20.762 22.661 20.4625 22.7076 20.1454 22.7292C19.8408 22.75 19.4697 22.75 19.0253 22.75H18.9747C18.5303 22.75 18.1592 22.75 17.8546 22.7292C17.5375 22.7076 17.238 22.661 16.9476 22.5407C16.2738 22.2616 15.7384 21.7262 15.4593 21.0524C15.339 20.762 15.2924 20.4625 15.2708 20.1454C15.25 19.8408 15.25 19.4697 15.25 19.0253V19.0253V18.9747V18.9747C15.25 18.5303 15.25 18.1592 15.2708 17.8546C15.2924 17.5375 15.339 17.238 15.4593 16.9476C15.7384 16.2738 16.2738 15.7384 16.9476 15.4593C17.238 15.339 17.5375 15.2924 17.8546 15.2708C18.1592 15.25 18.5303 15.25 18.9747 15.25H18.9747H19.0253H19.0253Z" fill="currentColor" />
-    <Path d="M8.05203 11.25C8.9505 11.25 9.69971 11.2499 10.2945 11.3299C10.9223 11.4143 11.4891 11.6 11.9445 12.0555C12.4 12.5109 12.5857 13.0777 12.6701 13.7055C12.7501 14.3003 12.75 15.0495 12.75 15.948V15.948V18.052V18.052C12.75 18.9505 12.7501 19.6997 12.6701 20.2945C12.5857 20.9223 12.4 21.4891 11.9445 21.9445C11.4891 22.4 10.9223 22.5857 10.2945 22.6701C9.69971 22.7501 8.9505 22.75 8.05203 22.75H8.052H5.94801H5.94798C5.04951 22.75 4.3003 22.7501 3.70552 22.6701C3.07773 22.5857 2.51093 22.4 2.05546 21.9445C1.59999 21.4891 1.41432 20.9223 1.32991 20.2945C1.24995 19.6997 1.24997 18.9505 1.25 18.052V18.052V15.948V15.948C1.24997 15.0495 1.24995 14.3003 1.32991 13.7055C1.41432 13.0777 1.59999 12.5109 2.05546 12.0555C2.51093 11.6 3.07773 11.4143 3.70552 11.3299C4.3003 11.2499 5.04951 11.25 5.94797 11.25H5.948H8.052H8.05203Z" fill="currentColor" />
-    <Path d="M9.02526 1.25C9.46972 1.24999 9.84076 1.24999 10.1454 1.27077C10.4625 1.29241 10.762 1.33905 11.0524 1.45933C11.7262 1.73844 12.2616 2.27379 12.5407 2.94762C12.661 3.23801 12.7076 3.53754 12.7292 3.85464C12.75 4.15925 12.75 4.53028 12.75 4.97474V5.02526C12.75 5.46972 12.75 5.84075 12.7292 6.14537C12.7076 6.46247 12.661 6.76199 12.5407 7.05238C12.2616 7.72621 11.7262 8.26156 11.0524 8.54067C10.762 8.66095 10.4625 8.7076 10.1454 8.72923C9.84075 8.75001 9.46972 8.75001 9.02526 8.75H4.97474C4.53028 8.75001 4.15925 8.75001 3.85464 8.72923C3.53754 8.7076 3.23801 8.66095 2.94762 8.54067C2.27379 8.26156 1.73844 7.72621 1.45933 7.05238C1.33905 6.76199 1.29241 6.46247 1.27077 6.14537C1.24999 5.84075 1.24999 5.46972 1.25 5.02526V5.02525V4.97475V4.97474C1.24999 4.53028 1.24999 4.15925 1.27077 3.85464C1.29241 3.53754 1.33905 3.23801 1.45933 2.94762C1.73844 2.27379 2.27379 1.73844 2.94762 1.45933C3.23801 1.33905 3.53754 1.29241 3.85464 1.27077C4.15925 1.24999 4.53028 1.24999 4.97474 1.25H4.97475H9.02525H9.02526Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M19.0253 1.25C19.4697 1.24999 19.8408 1.24999 20.1454 1.27077C20.4625 1.29241 20.762 1.33905 21.0524 1.45933C21.7262 1.73844 22.2616 2.27379 22.5407 2.94762C22.661 3.23801 22.7076 3.53754 22.7292 3.85464C22.75 4.15925 22.75 4.53028 22.75 4.97474V9.02526C22.75 9.46972 22.75 9.84075 22.7292 10.1454C22.7076 10.4625 22.661 10.762 22.5407 11.0524C22.2616 11.7262 21.7262 12.2616 21.0524 12.5407C20.762 12.661 20.4625 12.7076 20.1454 12.7292C19.8408 12.75 19.4697 12.75 19.0253 12.75H18.9747C18.5303 12.75 18.1592 12.75 17.8546 12.7292C17.5375 12.7076 17.238 12.661 16.9476 12.5407C16.2738 12.2616 15.7384 11.7262 15.4593 11.0524C15.339 10.762 15.2924 10.4625 15.2708 10.1454C15.25 9.84076 15.25 9.46972 15.25 9.02526V9.02525V4.97475V4.97474C15.25 4.53028 15.25 4.15925 15.2708 3.85464C15.2924 3.53754 15.339 3.23801 15.4593 2.94762C15.7384 2.27379 16.2738 1.73844 16.9476 1.45933C17.238 1.33905 17.5375 1.29241 17.8546 1.27077C18.1592 1.24999 18.5303 1.24999 18.9747 1.25H18.9747H19.0253H19.0253Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M19.0253 15.25C19.4697 15.25 19.8408 15.25 20.1454 15.2708C20.4625 15.2924 20.762 15.339 21.0524 15.4593C21.7262 15.7384 22.2616 16.2738 22.5407 16.9476C22.661 17.238 22.7076 17.5375 22.7292 17.8546C22.75 18.1592 22.75 18.5303 22.75 18.9747V19.0253C22.75 19.4697 22.75 19.8408 22.7292 20.1454C22.7076 20.4625 22.661 20.762 22.5407 21.0524C22.2616 21.7262 21.7262 22.2616 21.0524 22.5407C20.762 22.661 20.4625 22.7076 20.1454 22.7292C19.8408 22.75 19.4697 22.75 19.0253 22.75H18.9747C18.5303 22.75 18.1592 22.75 17.8546 22.7292C17.5375 22.7076 17.238 22.661 16.9476 22.5407C16.2738 22.2616 15.7384 21.7262 15.4593 21.0524C15.339 20.762 15.2924 20.4625 15.2708 20.1454C15.25 19.8408 15.25 19.4697 15.25 19.0253V19.0253V18.9747V18.9747C15.25 18.5303 15.25 18.1592 15.2708 17.8546C15.2924 17.5375 15.339 17.238 15.4593 16.9476C15.7384 16.2738 16.2738 15.7384 16.9476 15.4593C17.238 15.339 17.5375 15.2924 17.8546 15.2708C18.1592 15.25 18.5303 15.25 18.9747 15.25H18.9747H19.0253H19.0253Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M8.05203 11.25C8.9505 11.25 9.69971 11.2499 10.2945 11.3299C10.9223 11.4143 11.4891 11.6 11.9445 12.0555C12.4 12.5109 12.5857 13.0777 12.6701 13.7055C12.7501 14.3003 12.75 15.0495 12.75 15.948V15.948V18.052V18.052C12.75 18.9505 12.7501 19.6997 12.6701 20.2945C12.5857 20.9223 12.4 21.4891 11.9445 21.9445C11.4891 22.4 10.9223 22.5857 10.2945 22.6701C9.69971 22.7501 8.9505 22.75 8.05203 22.75H8.052H5.94801H5.94798C5.04951 22.75 4.3003 22.7501 3.70552 22.6701C3.07773 22.5857 2.51093 22.4 2.05546 21.9445C1.59999 21.4891 1.41432 20.9223 1.32991 20.2945C1.24995 19.6997 1.24997 18.9505 1.25 18.052V18.052V15.948V15.948C1.24997 15.0495 1.24995 14.3003 1.32991 13.7055C1.41432 13.0777 1.59999 12.5109 2.05546 12.0555C2.51093 11.6 3.07773 11.4143 3.70552 11.3299C4.3003 11.2499 5.04951 11.25 5.94797 11.25H5.948H8.052H8.05203Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M9.02526 1.25C9.46972 1.24999 9.84076 1.24999 10.1454 1.27077C10.4625 1.29241 10.762 1.33905 11.0524 1.45933C11.7262 1.73844 12.2616 2.27379 12.5407 2.94762C12.661 3.23801 12.7076 3.53754 12.7292 3.85464C12.75 4.15925 12.75 4.53028 12.75 4.97474V5.02526C12.75 5.46972 12.75 5.84075 12.7292 6.14537C12.7076 6.46247 12.661 6.76199 12.5407 7.05238C12.2616 7.72621 11.7262 8.26156 11.0524 8.54067C10.762 8.66095 10.4625 8.7076 10.1454 8.72923C9.84075 8.75001 9.46972 8.75001 9.02526 8.75H4.97474C4.53028 8.75001 4.15925 8.75001 3.85464 8.72923C3.53754 8.7076 3.23801 8.66095 2.94762 8.54067C2.27379 8.26156 1.73844 7.72621 1.45933 7.05238C1.33905 6.76199 1.29241 6.46247 1.27077 6.14537C1.24999 5.84075 1.24999 5.46972 1.25 5.02526V5.02525V4.97475V4.97474C1.24999 4.53028 1.24999 4.15925 1.27077 3.85464C1.29241 3.53754 1.33905 3.23801 1.45933 2.94762C1.73844 2.27379 2.27379 1.73844 2.94762 1.45933C3.23801 1.33905 3.53754 1.29241 3.85464 1.27077C4.15925 1.24999 4.53028 1.24999 4.97474 1.25H4.97475H9.02525H9.02526Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const MoreHorizontalCircle01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M19.5 12.5C19.2239 12.5 19 12.2761 19 12C19 11.7239 19.2239 11.5 19.5 11.5C19.7761 11.5 20 11.7239 20 12C20 12.2761 19.7761 12.5 19.5 12.5ZM17 12C17 13.3807 18.1193 14.5 19.5 14.5C20.8807 14.5 22 13.3807 22 12C22 10.6193 20.8807 9.5 19.5 9.5C18.1193 9.5 17 10.6193 17 12Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M12 12.5C11.7239 12.5 11.5 12.2761 11.5 12C11.5 11.7239 11.7239 11.5 12 11.5C12.2761 11.5 12.5 11.7239 12.5 12C12.5 12.2761 12.2761 12.5 12 12.5ZM9.5 12C9.5 13.3807 10.6193 14.5 12 14.5C13.3807 14.5 14.5 13.3807 14.5 12C14.5 10.6193 13.3807 9.5 12 9.5C10.6193 9.5 9.5 10.6193 9.5 12Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M4.5 12.5C4.22386 12.5 4 12.2761 4 12C4 11.7239 4.22386 11.5 4.5 11.5C4.77614 11.5 5 11.7239 5 12C5 12.2761 4.77614 12.5 4.5 12.5ZM2 12C2 13.3807 3.11929 14.5 4.5 14.5C5.88071 14.5 7 13.3807 7 12C7 10.6193 5.88071 9.5 4.5 9.5C3.11929 9.5 2 10.6193 2 12Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M19.5 12.5C19.2239 12.5 19 12.2761 19 12C19 11.7239 19.2239 11.5 19.5 11.5C19.7761 11.5 20 11.7239 20 12C20 12.2761 19.7761 12.5 19.5 12.5ZM17 12C17 13.3807 18.1193 14.5 19.5 14.5C20.8807 14.5 22 13.3807 22 12C22 10.6193 20.8807 9.5 19.5 9.5C18.1193 9.5 17 10.6193 17 12Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 12.5C11.7239 12.5 11.5 12.2761 11.5 12C11.5 11.7239 11.7239 11.5 12 11.5C12.2761 11.5 12.5 11.7239 12.5 12C12.5 12.2761 12.2761 12.5 12 12.5ZM9.5 12C9.5 13.3807 10.6193 14.5 12 14.5C13.3807 14.5 14.5 13.3807 14.5 12C14.5 10.6193 13.3807 9.5 12 9.5C10.6193 9.5 9.5 10.6193 9.5 12Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M4.5 12.5C4.22386 12.5 4 12.2761 4 12C4 11.7239 4.22386 11.5 4.5 11.5C4.77614 11.5 5 11.7239 5 12C5 12.2761 4.77614 12.5 4.5 12.5ZM2 12C2 13.3807 3.11929 14.5 4.5 14.5C5.88071 14.5 7 13.3807 7 12C7 10.6193 5.88071 9.5 4.5 9.5C3.11929 9.5 2 10.6193 2 12Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const FavouriteIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M4.1449 3.35515C7.12587 1.52662 9.8001 2.25537 11.4156 3.46861C11.6814 3.6682 11.8638 3.8048 11.9996 3.89704C12.1354 3.8048 12.3178 3.6682 12.5836 3.46861C14.1991 2.25537 16.8734 1.52662 19.8543 3.35515C21.9156 4.61952 23.0754 7.2606 22.6684 10.2951C22.2595 13.3443 20.2859 16.7929 16.1063 19.8865C14.6549 20.9614 13.5897 21.7503 11.9996 21.7503C10.4095 21.7503 9.34433 20.9614 7.89294 19.8865C3.71334 16.7929 1.73976 13.3443 1.33081 10.2951C0.923824 7.2606 2.08365 4.61952 4.1449 3.35515Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M4.1449 3.35515C7.12587 1.52662 9.8001 2.25537 11.4156 3.46861C11.6814 3.6682 11.8638 3.8048 11.9996 3.89704C12.1354 3.8048 12.3178 3.6682 12.5836 3.46861C14.1991 2.25537 16.8734 1.52662 19.8543 3.35515C21.9156 4.61952 23.0754 7.2606 22.6684 10.2951C22.2595 13.3443 20.2859 16.7929 16.1063 19.8865C14.6549 20.9614 13.5897 21.7503 11.9996 21.7503C10.4095 21.7503 9.34433 20.9614 7.89294 19.8865C3.71334 16.7929 1.73976 13.3443 1.33081 10.2951C0.923824 7.2606 2.08365 4.61952 4.1449 3.35515Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const FavouriteIconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const Message02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M9.77965 1.82273C11.2369 1.72586 12.7601 1.72566 14.2204 1.82273C18.787 2.12629 22.4103 5.81258 22.7082 10.4224C22.7639 11.2848 22.7639 12.1768 22.7082 13.0392C22.4103 17.649 18.787 21.3353 14.2204 21.6389C12.7601 21.7359 11.2369 21.7357 9.77965 21.6389C9.21472 21.6013 8.59978 21.4677 8.05839 21.2448C7.8203 21.1467 7.65868 21.0804 7.54041 21.037C7.45909 21.0929 7.35108 21.1723 7.1938 21.2883C6.40136 21.8726 5.40092 22.2825 3.98117 22.248L3.93544 22.2469C3.66155 22.2403 3.36961 22.2334 3.13152 22.1873C2.84475 22.1318 2.48996 21.9931 2.26791 21.6145C2.02623 21.2025 2.12313 20.7858 2.21688 20.5234C2.30536 20.2757 2.45874 19.9852 2.61542 19.6885L2.6369 19.6478C3.10323 18.7641 3.23314 18.0419 2.98381 17.5604C2.15148 16.304 1.40272 14.7556 1.2918 13.0392C1.23607 12.1768 1.23607 11.2848 1.2918 10.4224C1.58972 5.81258 5.213 2.12629 9.77965 1.82273ZM8 11C7.44772 11 7 11.4477 7 12C7 12.5523 7.44772 13 8 13H8.00897C8.56126 13 9.00897 12.5523 9.00897 12C9.00897 11.4477 8.56126 11 8.00897 11H8ZM11.9955 11C11.4432 11 10.9955 11.4477 10.9955 12C10.9955 12.5523 11.4432 13 11.9955 13H12.0045C12.5568 13 13.0045 12.5523 13.0045 12C13.0045 11.4477 12.5568 11 12.0045 11H11.9955ZM15.991 11C15.4387 11 14.991 11.4477 14.991 12C14.991 12.5523 15.4387 13 15.991 13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H15.991Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.77965 1.82273C11.2369 1.72586 12.7601 1.72566 14.2204 1.82273C18.787 2.12629 22.4103 5.81258 22.7082 10.4224C22.7639 11.2848 22.7639 12.1768 22.7082 13.0392C22.4103 17.649 18.787 21.3353 14.2204 21.6389C12.7601 21.7359 11.2369 21.7357 9.77965 21.6389C9.21472 21.6013 8.59978 21.4677 8.05839 21.2448C7.8203 21.1467 7.65868 21.0804 7.54041 21.037C7.45909 21.0929 7.35108 21.1723 7.1938 21.2883C6.40136 21.8726 5.40092 22.2825 3.98117 22.248L3.93544 22.2469C3.66155 22.2403 3.36961 22.2334 3.13152 22.1873C2.84475 22.1318 2.48996 21.9931 2.26791 21.6145C2.02623 21.2025 2.12313 20.7858 2.21688 20.5234C2.30536 20.2757 2.45874 19.9852 2.61542 19.6885L2.6369 19.6478C3.10323 18.7641 3.23314 18.0419 2.98381 17.5604C2.15148 16.304 1.40272 14.7556 1.2918 13.0392C1.23607 12.1768 1.23607 11.2848 1.2918 10.4224C1.58972 5.81258 5.213 2.12629 9.77965 1.82273ZM8 11C7.44772 11 7 11.4477 7 12C7 12.5523 7.44772 13 8 13H8.00897C8.56126 13 9.00897 12.5523 9.00897 12C9.00897 11.4477 8.56126 11 8.00897 11H8ZM11.9955 11C11.4432 11 10.9955 11.4477 10.9955 12C10.9955 12.5523 11.4432 13 11.9955 13H12.0045C12.5568 13 13.0045 12.5523 13.0045 12C13.0045 11.4477 12.5568 11 12.0045 11H11.9955ZM15.991 11C15.4387 11 14.991 11.4477 14.991 12C14.991 12.5523 15.4387 13 15.991 13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H15.991Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const Bookmark02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M12.0546 1.25C13.8939 1.24999 15.348 1.24997 16.4854 1.39731C17.6529 1.54853 18.5995 1.86672 19.3488 2.58863C20.102 3.31431 20.4376 4.23743 20.5964 5.37525C20.75 6.4765 20.75 7.88207 20.75 9.64945V18.0458C20.75 19.1434 20.7501 20.0553 20.6447 20.7405C20.5356 21.4495 20.2814 22.1395 19.5804 22.5139C18.9553 22.8477 18.2676 22.7798 17.6846 22.6028C17.0949 22.4238 16.4955 22.0989 15.9467 21.7521C15.3926 21.402 14.7938 20.9618 14.3215 20.6127C13.8587 20.2706 13.4869 19.9958 13.2031 19.8249C12.8035 19.5843 12.5513 19.4335 12.3467 19.3371C12.158 19.2482 12.0663 19.234 12 19.234C11.9337 19.234 11.842 19.2482 11.6533 19.3371C11.4488 19.4335 11.1965 19.5843 10.7969 19.8249C10.5131 19.9958 10.1414 20.2706 9.67854 20.6127C9.2062 20.9618 8.60739 21.402 8.05335 21.7521C7.50454 22.0989 6.90514 22.4238 6.31544 22.6028C5.7324 22.7798 5.04476 22.8477 4.41958 22.5139C3.71857 22.1395 3.46438 21.4495 3.35533 20.7405C3.24993 20.0553 3.24996 19.1434 3.25 18.0459L3.25 9.64943C3.24999 7.88206 3.24997 6.4765 3.40365 5.37525C3.56243 4.23743 3.898 3.31431 4.65121 2.58863C5.40051 1.86672 6.34712 1.54853 7.51457 1.39731C8.652 1.24997 10.1061 1.24999 11.9454 1.25H12.0546Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12.0546 1.25C13.8939 1.24999 15.348 1.24997 16.4854 1.39731C17.6529 1.54853 18.5995 1.86672 19.3488 2.58863C20.102 3.31431 20.4376 4.23743 20.5964 5.37525C20.75 6.4765 20.75 7.88207 20.75 9.64945V18.0458C20.75 19.1434 20.7501 20.0553 20.6447 20.7405C20.5356 21.4495 20.2814 22.1395 19.5804 22.5139C18.9553 22.8477 18.2676 22.7798 17.6846 22.6028C17.0949 22.4238 16.4955 22.0989 15.9467 21.7521C15.3926 21.402 14.7938 20.9618 14.3215 20.6127C13.8587 20.2706 13.4869 19.9958 13.2031 19.8249C12.8035 19.5843 12.5513 19.4335 12.3467 19.3371C12.158 19.2482 12.0663 19.234 12 19.234C11.9337 19.234 11.842 19.2482 11.6533 19.3371C11.4488 19.4335 11.1965 19.5843 10.7969 19.8249C10.5131 19.9958 10.1414 20.2706 9.67854 20.6127C9.2062 20.9618 8.60739 21.402 8.05335 21.7521C7.50454 22.0989 6.90514 22.4238 6.31544 22.6028C5.7324 22.7798 5.04476 22.8477 4.41958 22.5139C3.71857 22.1395 3.46438 21.4495 3.35533 20.7405C3.24993 20.0553 3.24996 19.1434 3.25 18.0459L3.25 9.64943C3.24999 7.88206 3.24997 6.4765 3.40365 5.37525C3.56243 4.23743 3.898 3.31431 4.65121 2.58863C5.40051 1.86672 6.34712 1.54853 7.51457 1.39731C8.652 1.24997 10.1061 1.24999 11.9454 1.25H12.0546Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const SentIconReaction = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-  <Path fillRule="evenodd" clipRule="evenodd" d="M2.19488 4.9069C1.86736 5.35159 1.96235 5.97759 2.40705 6.3051C2.58581 6.43676 2.79387 6.50014 3.00007 6.49997L4.50012 6.49997L4.50012 14.5C4.50012 18.7552 7.62252 22 12.0001 22C12.5524 22 13.0001 21.5523 13.0001 21C13.0001 20.4477 12.5524 20 12.0001 20C8.74779 20 6.50012 17.6714 6.50012 14.5L6.50012 6.49997L8.00827 6.49997C8.21177 6.49847 8.41668 6.43504 8.59307 6.30513C9.03777 5.97762 9.13265 5.35146 8.80514 4.90676L8.80259 4.90339C8.74581 4.8282 8.58413 4.61414 8.49044 4.49409C8.301 4.25133 8.03872 3.9243 7.75223 3.59433C7.47005 3.26933 7.1447 2.91856 6.83078 2.64118C6.67496 2.5035 6.49836 2.36272 6.31294 2.25094C6.15497 2.15571 5.86092 1.99993 5.50008 1.99993C5.13924 1.99994 4.8452 2.15571 4.68723 2.25094C4.50181 2.36272 4.32521 2.50349 4.16939 2.64117C3.85546 2.91855 3.53011 3.26931 3.24793 3.59431C2.96144 3.92427 2.69915 4.25131 2.50971 4.49406C2.41617 4.61391 2.25476 4.82762 2.19771 4.90314L2.19766 4.90321L2.19488 4.9069Z" fill="currentColor" />
-  <Path fillRule="evenodd" clipRule="evenodd" d="M19.5 9.5C19.5 5.24485 16.3776 2 12 2C11.4477 2 11 2.44772 11 3C11 3.55228 11.4477 4 12 4C15.2523 4 17.5 6.3286 17.5 9.5L17.5 17.5L16 17.5C15.7938 17.4998 15.5857 17.5632 15.407 17.6948C14.9623 18.0223 14.8674 18.6485 15.1949 19.0932L15.1975 19.0967L15.1975 19.0967C15.2544 19.172 15.416 19.3859 15.5096 19.5059C15.6991 19.7486 15.9614 20.0757 16.2479 20.4056C16.53 20.7306 16.8554 21.0814 17.1693 21.3588C17.3251 21.4964 17.5017 21.6372 17.6872 21.749C17.8451 21.8442 18.1392 22 18.5 22C18.8608 22 19.1549 21.8442 19.3129 21.749C19.4983 21.6372 19.6749 21.4964 19.8307 21.3588C20.1446 21.0814 20.47 20.7306 20.7522 20.4056C21.0386 20.0756 21.3009 19.7486 21.4904 19.5058C21.584 19.3859 21.7456 19.1719 21.8025 19.0966L21.8052 19.093C22.1327 18.6483 22.0377 18.0223 21.593 17.6948C21.413 17.5622 21.2033 17.4989 20.9957 17.5L19.5 17.5L19.5 9.5Z" fill="currentColor" />
-</Svg>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M2.19488 4.9069C1.86736 5.35159 1.96235 5.97759 2.40705 6.3051C2.58581 6.43676 2.79387 6.50014 3.00007 6.49997L4.50012 6.49997L4.50012 14.5C4.50012 18.7552 7.62252 22 12.0001 22C12.5524 22 13.0001 21.5523 13.0001 21C13.0001 20.4477 12.5524 20 12.0001 20C8.74779 20 6.50012 17.6714 6.50012 14.5L6.50012 6.49997L8.00827 6.49997C8.21177 6.49847 8.41668 6.43504 8.59307 6.30513C9.03777 5.97762 9.13265 5.35146 8.80514 4.90676L8.80259 4.90339C8.74581 4.8282 8.58413 4.61414 8.49044 4.49409C8.301 4.25133 8.03872 3.9243 7.75223 3.59433C7.47005 3.26933 7.1447 2.91856 6.83078 2.64118C6.67496 2.5035 6.49836 2.36272 6.31294 2.25094C6.15497 2.15571 5.86092 1.99993 5.50008 1.99993C5.13924 1.99994 4.8452 2.15571 4.68723 2.25094C4.50181 2.36272 4.32521 2.50349 4.16939 2.64117C3.85546 2.91855 3.53011 3.26931 3.24793 3.59431C2.96144 3.92427 2.69915 4.25131 2.50971 4.49406C2.41617 4.61391 2.25476 4.82762 2.19771 4.90314L2.19766 4.90321L2.19488 4.9069Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M19.5 9.5C19.5 5.24485 16.3776 2 12 2C11.4477 2 11 2.44772 11 3C11 3.55228 11.4477 4 12 4C15.2523 4 17.5 6.3286 17.5 9.5L17.5 17.5L16 17.5C15.7938 17.4998 15.5857 17.5632 15.407 17.6948C14.9623 18.0223 14.8674 18.6485 15.1949 19.0932L15.1975 19.0967L15.1975 19.0967C15.2544 19.172 15.416 19.3859 15.5096 19.5059C15.6991 19.7486 15.9614 20.0757 16.2479 20.4056C16.53 20.7306 16.8554 21.0814 17.1693 21.3588C17.3251 21.4964 17.5017 21.6372 17.6872 21.749C17.8451 21.8442 18.1392 22 18.5 22C18.8608 22 19.1549 21.8442 19.3129 21.749C19.4983 21.6372 19.6749 21.4964 19.8307 21.3588C20.1446 21.0814 20.47 20.7306 20.7522 20.4056C21.0386 20.0756 21.3009 19.7486 21.4904 19.5058C21.584 19.3859 21.7456 19.1719 21.8025 19.0966L21.8052 19.093C22.1327 18.6483 22.0377 18.0223 21.593 17.6948C21.413 17.5622 21.2033 17.4989 20.9957 17.5L19.5 17.5L19.5 9.5Z"
+      fill="currentColor"
+    />
+  </Svg>
 );
 
 const SentIconReactionStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M15.2014 21.4996L21.5 2.5L2.50001 8.551L11.5065 12.4935L15.2014 21.4996Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M11.5 12.5L15 9" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M15.2014 21.4996L21.5 2.5L2.50001 8.551L11.5065 12.4935L15.2014 21.4996Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M11.5 12.5L15 9"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const Cancel01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M19.0005 4.99988L5.00045 18.9999M5.00045 4.99988L19.0005 18.9999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M19.0005 4.99988L5.00045 18.9999M5.00045 4.99988L19.0005 18.9999"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const QrCodeIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M3 6C3 4.58579 3 3.87868 3.43934 3.43934C3.87868 3 4.58579 3 6 3C7.41421 3 8.12132 3 8.56066 3.43934C9 3.87868 9 4.58579 9 6C9 7.41421 9 8.12132 8.56066 8.56066C8.12132 9 7.41421 9 6 9C4.58579 9 3.87868 9 3.43934 8.56066C3 8.12132 3 7.41421 3 6Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M3 18C3 16.5858 3 15.8787 3.43934 15.4393C3.87868 15 4.58579 15 6 15C7.41421 15 8.12132 15 8.56066 15.4393C9 15.8787 9 16.5858 9 18C9 19.4142 9 20.1213 8.56066 20.5607C8.12132 21 7.41421 21 6 21C4.58579 21 3.87868 21 3.43934 20.5607C3 20.1213 3 19.4142 3 18Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M3 12L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M12 3V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M15 6C15 4.58579 15 3.87868 15.4393 3.43934C15.8787 3 16.5858 3 18 3C19.4142 3 20.1213 3 20.5607 3.43934C21 3.87868 21 4.58579 21 6C21 7.41421 21 8.12132 20.5607 8.56066C20.1213 9 19.4142 9 18 9C16.5858 9 15.8787 9 15.4393 8.56066C15 8.12132 15 7.41421 15 6Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M21 12H15C13.5858 12 12.8787 12 12.4393 12.4393C12 12.8787 12 13.5858 12 15M12 17.7692V20.5385M15 15V16.5C15 17.9464 15.7837 18 17 18C17.5523 18 18 18.4477 18 19M16 21H15M18 15C19.4142 15 20.1213 15 20.5607 15.44C21 15.8799 21 16.5881 21 18.0043C21 19.4206 21 20.1287 20.5607 20.5687C20.24 20.8898 19.7767 20.9766 19 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M3 6C3 4.58579 3 3.87868 3.43934 3.43934C3.87868 3 4.58579 3 6 3C7.41421 3 8.12132 3 8.56066 3.43934C9 3.87868 9 4.58579 9 6C9 7.41421 9 8.12132 8.56066 8.56066C8.12132 9 7.41421 9 6 9C4.58579 9 3.87868 9 3.43934 8.56066C3 8.12132 3 7.41421 3 6Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M3 18C3 16.5858 3 15.8787 3.43934 15.4393C3.87868 15 4.58579 15 6 15C7.41421 15 8.12132 15 8.56066 15.4393C9 15.8787 9 16.5858 9 18C9 19.4142 9 20.1213 8.56066 20.5607C8.12132 21 7.41421 21 6 21C4.58579 21 3.87868 21 3.43934 20.5607C3 20.1213 3 19.4142 3 18Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M3 12L9 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12 3V8"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M15 6C15 4.58579 15 3.87868 15.4393 3.43934C15.8787 3 16.5858 3 18 3C19.4142 3 20.1213 3 20.5607 3.43934C21 3.87868 21 4.58579 21 6C21 7.41421 21 8.12132 20.5607 8.56066C20.1213 9 19.4142 9 18 9C16.5858 9 15.8787 9 15.4393 8.56066C15 8.12132 15 7.41421 15 6Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M21 12H15C13.5858 12 12.8787 12 12.4393 12.4393C12 12.8787 12 13.5858 12 15M12 17.7692V20.5385M15 15V16.5C15 17.9464 15.7837 18 17 18C17.5523 18 18 18.4477 18 19M16 21H15M18 15C19.4142 15 20.1213 15 20.5607 15.44C21 15.8799 21 16.5881 21 18.0043C21 19.4206 21 20.1287 20.5607 20.5687C20.24 20.8898 19.7767 20.9766 19 21"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const Download02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M21.3331 13.0573C21.8539 13.2411 22.1271 13.8123 21.9433 14.3331L21.6901 15.0504C21.2515 16.2933 20.8945 17.3048 20.5124 18.0923C20.1137 18.9141 19.6471 19.582 18.9404 20.082C18.2338 20.5819 17.4487 20.7997 16.541 20.9021C15.6713 21.0003 14.5986 21.0003 13.2806 21.0003H10.72C9.40197 21.0003 8.32928 21.0003 7.45957 20.9021C6.55186 20.7997 5.76676 20.5819 5.06012 20.082C4.35347 19.582 3.88686 18.9141 3.48813 18.0923C3.10609 17.3048 2.74909 16.2933 2.31045 15.0504C2.30402 15.0322 2.29758 15.014 2.29113 14.9957L2.05728 14.3331C1.87347 13.8123 2.14665 13.2411 2.66745 13.0573C3.18825 12.8735 3.75945 13.1467 3.94326 13.6675L4.17711 14.33C4.63975 15.6408 4.96051 16.5452 5.28754 17.2193C5.60347 17.8705 5.88357 18.2146 6.21526 18.4493C6.54696 18.684 6.96471 18.8336 7.68392 18.9148C8.42839 18.9988 9.38798 19.0003 10.778 19.0003H13.2225C14.6126 19.0003 15.5722 18.9988 16.3166 18.9148C17.0358 18.8336 17.4536 18.684 17.7853 18.4493C18.117 18.2146 18.3971 17.8705 18.713 17.2193C19.04 16.5452 19.3608 15.6408 19.8234 14.33L20.0573 13.6675C20.2411 13.1467 20.8123 12.8735 21.3331 13.0573Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M13.0059 4C13.0059 3.44772 12.5581 3 12.0059 3C11.4536 3 11.0059 3.44772 11.0059 4L11.0059 10.5L10.4116 10.5C10.236 10.4999 10.0203 10.4997 9.84387 10.5218L9.84053 10.5222C9.71408 10.538 9.13804 10.6098 8.86368 11.1754C8.58872 11.7423 8.89065 12.2424 8.95597 12.3506L8.95841 12.3546C9.05062 12.5076 9.18477 12.6785 9.29511 12.8191L9.31885 12.8493C9.61348 13.2252 9.99545 13.7094 10.3759 14.1004C10.5657 14.2955 10.783 14.4967 11.0139 14.6556C11.2191 14.7968 11.5693 15 12 15C12.4307 15 12.7809 14.7968 12.9861 14.6556C13.217 14.4967 13.4343 14.2955 13.6241 14.1004C14.0046 13.7094 14.3865 13.2252 14.6812 12.8493L14.7049 12.8191C14.8152 12.6785 14.9494 12.5077 15.0416 12.3546L15.044 12.3506C15.1093 12.2424 15.4113 11.7422 15.1363 11.1754C14.862 10.6098 14.2859 10.538 14.1595 10.5222L14.1561 10.5218C13.9797 10.4997 13.764 10.4999 13.5884 10.5L13.0059 10.5L13.0059 4Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M21.3331 13.0573C21.8539 13.2411 22.1271 13.8123 21.9433 14.3331L21.6901 15.0504C21.2515 16.2933 20.8945 17.3048 20.5124 18.0923C20.1137 18.9141 19.6471 19.582 18.9404 20.082C18.2338 20.5819 17.4487 20.7997 16.541 20.9021C15.6713 21.0003 14.5986 21.0003 13.2806 21.0003H10.72C9.40197 21.0003 8.32928 21.0003 7.45957 20.9021C6.55186 20.7997 5.76676 20.5819 5.06012 20.082C4.35347 19.582 3.88686 18.9141 3.48813 18.0923C3.10609 17.3048 2.74909 16.2933 2.31045 15.0504C2.30402 15.0322 2.29758 15.014 2.29113 14.9957L2.05728 14.3331C1.87347 13.8123 2.14665 13.2411 2.66745 13.0573C3.18825 12.8735 3.75945 13.1467 3.94326 13.6675L4.17711 14.33C4.63975 15.6408 4.96051 16.5452 5.28754 17.2193C5.60347 17.8705 5.88357 18.2146 6.21526 18.4493C6.54696 18.684 6.96471 18.8336 7.68392 18.9148C8.42839 18.9988 9.38798 19.0003 10.778 19.0003H13.2225C14.6126 19.0003 15.5722 18.9988 16.3166 18.9148C17.0358 18.8336 17.4536 18.684 17.7853 18.4493C18.117 18.2146 18.3971 17.8705 18.713 17.2193C19.04 16.5452 19.3608 15.6408 19.8234 14.33L20.0573 13.6675C20.2411 13.1467 20.8123 12.8735 21.3331 13.0573Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M13.0059 4C13.0059 3.44772 12.5581 3 12.0059 3C11.4536 3 11.0059 3.44772 11.0059 4L11.0059 10.5L10.4116 10.5C10.236 10.4999 10.0203 10.4997 9.84387 10.5218L9.84053 10.5222C9.71408 10.538 9.13804 10.6098 8.86368 11.1754C8.58872 11.7423 8.89065 12.2424 8.95597 12.3506L8.95841 12.3546C9.05062 12.5076 9.18477 12.6785 9.29511 12.8191L9.31885 12.8493C9.61348 13.2252 9.99545 13.7094 10.3759 14.1004C10.5657 14.2955 10.783 14.4967 11.0139 14.6556C11.2191 14.7968 11.5693 15 12 15C12.4307 15 12.7809 14.7968 12.9861 14.6556C13.217 14.4967 13.4343 14.2955 13.6241 14.1004C14.0046 13.7094 14.3865 13.2252 14.6812 12.8493L14.7049 12.8191C14.8152 12.6785 14.9494 12.5077 15.0416 12.3546L15.044 12.3506C15.1093 12.2424 15.4113 11.7422 15.1363 11.1754C14.862 10.6098 14.2859 10.538 14.1595 10.5222L14.1561 10.5218C13.9797 10.4997 13.764 10.4999 13.5884 10.5L13.0059 10.5L13.0059 4Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const HeartbreakIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M10.5296 2.915C8.90621 2.08411 6.63257 1.82951 4.14538 3.35515C2.08414 4.61952 0.924312 7.2606 1.3313 10.2951C1.74024 13.3443 3.71383 16.7929 7.89343 19.8865C9.34482 20.9614 10.41 21.7503 12.0001 21.7503C13.5902 21.7503 14.6554 20.9614 16.1068 19.8865C20.2864 16.7929 22.26 13.3443 22.6689 10.2951C23.0759 7.2606 21.9161 4.61952 19.8548 3.35515C16.8738 1.52662 14.1996 2.25537 12.5841 3.46861C12.5635 3.48406 12.5434 3.49913 12.5238 3.51384L15.1671 8.65714C15.3277 8.96945 15.25 9.35133 14.9802 9.57613L12.6111 11.5504L14.0304 12.9696C14.2738 13.213 14.3203 13.5907 14.1432 13.8858L12.6432 16.3858C12.4301 16.741 11.9694 16.8562 11.6142 16.6431C11.259 16.43 11.1439 15.9693 11.357 15.6141L12.5557 13.6162L10.9698 12.0303C10.8208 11.8813 10.7413 11.6765 10.7509 11.466C10.7604 11.2555 10.8581 11.0587 11.0199 10.9238L13.5584 8.80842L10.5296 2.915Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M10.5296 2.915C8.90621 2.08411 6.63257 1.82951 4.14538 3.35515C2.08414 4.61952 0.924312 7.2606 1.3313 10.2951C1.74024 13.3443 3.71383 16.7929 7.89343 19.8865C9.34482 20.9614 10.41 21.7503 12.0001 21.7503C13.5902 21.7503 14.6554 20.9614 16.1068 19.8865C20.2864 16.7929 22.26 13.3443 22.6689 10.2951C23.0759 7.2606 21.9161 4.61952 19.8548 3.35515C16.8738 1.52662 14.1996 2.25537 12.5841 3.46861C12.5635 3.48406 12.5434 3.49913 12.5238 3.51384L15.1671 8.65714C15.3277 8.96945 15.25 9.35133 14.9802 9.57613L12.6111 11.5504L14.0304 12.9696C14.2738 13.213 14.3203 13.5907 14.1432 13.8858L12.6432 16.3858C12.4301 16.741 11.9694 16.8562 11.6142 16.6431C11.259 16.43 11.1439 15.9693 11.357 15.6141L12.5557 13.6162L10.9698 12.0303C10.8208 11.8813 10.7413 11.6765 10.7509 11.466C10.7604 11.2555 10.8581 11.0587 11.0199 10.9238L13.5584 8.80842L10.5296 2.915Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const Flag02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M12.0992 3.24076C8.49724 1.40591 5.58647 2.46876 4.09534 3.62736C3.87875 3.79513 3.60842 4.00454 3.42937 4.3704C3.24916 4.73864 3.25019 5.09828 3.25111 5.42129L3.25098 20.7505C3.25098 21.3028 3.69869 21.7505 4.25098 21.7505C4.80326 21.7505 5.25098 21.3028 5.25098 20.7505L5.25098 14.9583C5.25098 14.7996 5.25098 14.7202 5.29075 14.6509C5.33053 14.5815 5.39362 14.5446 5.51979 14.4708C6.73875 13.758 8.81137 13.2493 11.4184 14.5773C15.1333 16.4697 18.3465 15.704 19.9307 14.838C20.0879 14.7538 20.3972 14.5879 20.5764 14.2858C20.7569 13.9815 20.7532 13.5956 20.7512 13.4013L20.7512 5.83419C20.7513 5.45456 20.7513 5.10916 20.7221 4.84205C20.696 4.60284 20.6277 4.1657 20.2579 3.88447C20.0497 3.72616 19.8213 3.68039 19.6479 3.67004C19.4773 3.65985 19.306 3.68077 19.1542 3.70766C18.863 3.75922 18.4511 3.87345 18.021 3.99272C16.604 4.38564 14.5012 4.46434 12.0992 3.24076Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12.0992 3.24076C8.49724 1.40591 5.58647 2.46876 4.09534 3.62736C3.87875 3.79513 3.60842 4.00454 3.42937 4.3704C3.24916 4.73864 3.25019 5.09828 3.25111 5.42129L3.25098 20.7505C3.25098 21.3028 3.69869 21.7505 4.25098 21.7505C4.80326 21.7505 5.25098 21.3028 5.25098 20.7505L5.25098 14.9583C5.25098 14.7996 5.25098 14.7202 5.29075 14.6509C5.33053 14.5815 5.39362 14.5446 5.51979 14.4708C6.73875 13.758 8.81137 13.2493 11.4184 14.5773C15.1333 16.4697 18.3465 15.704 19.9307 14.838C20.0879 14.7538 20.3972 14.5879 20.5764 14.2858C20.7569 13.9815 20.7532 13.5956 20.7512 13.4013L20.7512 5.83419C20.7513 5.45456 20.7513 5.10916 20.7221 4.84205C20.696 4.60284 20.6277 4.1657 20.2579 3.88447C20.0497 3.72616 19.8213 3.68039 19.6479 3.67004C19.4773 3.65985 19.306 3.68077 19.1542 3.70766C18.863 3.75922 18.4511 3.87345 18.021 3.99272C16.604 4.38564 14.5012 4.46434 12.0992 3.24076Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const More02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M2 19.5C2 20.8807 3.11929 22 4.5 22C5.88071 22 7 20.8807 7 19.5C7 18.1193 5.88071 17 4.5 17C3.11929 17 2 18.1193 2 19.5Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M9.5 19.5C9.5 20.8807 10.6193 22 12 22C13.3807 22 14.5 20.8807 14.5 19.5C14.5 18.1193 13.3807 17 12 17C10.6193 17 9.5 18.1193 9.5 19.5Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M17 19.5C17 20.8807 18.1193 22 19.5 22C20.8807 22 22 20.8807 22 19.5C22 18.1193 20.8807 17 19.5 17C18.1193 17 17 18.1193 17 19.5Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M2 4.5C2 5.88071 3.11929 7 4.5 7C5.88071 7 7 5.88071 7 4.5C7 3.11929 5.88071 2 4.5 2C3.11929 2 2 3.11929 2 4.5Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M9.5 4.5C9.5 5.88071 10.6193 7 12 7C13.3807 7 14.5 5.88071 14.5 4.5C14.5 3.11929 13.3807 2 12 2C10.6193 2 9.5 3.11929 9.5 4.5Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M17 4.5C17 5.88071 18.1193 7 19.5 7C20.8807 7 22 5.88071 22 4.5C22 3.11929 20.8807 2 19.5 2C18.1193 2 17 3.11929 17 4.5Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M2 12C2 13.3807 3.11929 14.5 4.5 14.5C5.88071 14.5 7 13.3807 7 12C7 10.6193 5.88071 9.5 4.5 9.5C3.11929 9.5 2 10.6193 2 12Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M9.5 12C9.5 13.3807 10.6193 14.5 12 14.5C13.3807 14.5 14.5 13.3807 14.5 12C14.5 10.6193 13.3807 9.5 12 9.5C10.6193 9.5 9.5 10.6193 9.5 12Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M17 12C17 13.3807 18.1193 14.5 19.5 14.5C20.8807 14.5 22 13.3807 22 12C22 10.6193 20.8807 9.5 19.5 9.5C18.1193 9.5 17 10.6193 17 12Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M2 19.5C2 20.8807 3.11929 22 4.5 22C5.88071 22 7 20.8807 7 19.5C7 18.1193 5.88071 17 4.5 17C3.11929 17 2 18.1193 2 19.5Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.5 19.5C9.5 20.8807 10.6193 22 12 22C13.3807 22 14.5 20.8807 14.5 19.5C14.5 18.1193 13.3807 17 12 17C10.6193 17 9.5 18.1193 9.5 19.5Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17 19.5C17 20.8807 18.1193 22 19.5 22C20.8807 22 22 20.8807 22 19.5C22 18.1193 20.8807 17 19.5 17C18.1193 17 17 18.1193 17 19.5Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M2 4.5C2 5.88071 3.11929 7 4.5 7C5.88071 7 7 5.88071 7 4.5C7 3.11929 5.88071 2 4.5 2C3.11929 2 2 3.11929 2 4.5Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.5 4.5C9.5 5.88071 10.6193 7 12 7C13.3807 7 14.5 5.88071 14.5 4.5C14.5 3.11929 13.3807 2 12 2C10.6193 2 9.5 3.11929 9.5 4.5Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17 4.5C17 5.88071 18.1193 7 19.5 7C20.8807 7 22 5.88071 22 4.5C22 3.11929 20.8807 2 19.5 2C18.1193 2 17 3.11929 17 4.5Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M2 12C2 13.3807 3.11929 14.5 4.5 14.5C5.88071 14.5 7 13.3807 7 12C7 10.6193 5.88071 9.5 4.5 9.5C3.11929 9.5 2 10.6193 2 12Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.5 12C9.5 13.3807 10.6193 14.5 12 14.5C13.3807 14.5 14.5 13.3807 14.5 12C14.5 10.6193 13.3807 9.5 12 9.5C10.6193 9.5 9.5 10.6193 9.5 12Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17 12C17 13.3807 18.1193 14.5 19.5 14.5C20.8807 14.5 22 13.3807 22 12C22 10.6193 20.8807 9.5 19.5 9.5C18.1193 9.5 17 10.6193 17 12Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const HelpCircleIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
     <Circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9C14 9.39815 13.8837 9.76913 13.6831 10.0808C13.0854 11.0097 12 11.8954 12 13V13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path d="M11.992 17H12.001" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path
+      d="M10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9C14 9.39815 13.8837 9.76913 13.6831 10.0808C13.0854 11.0097 12 11.8954 12 13V13.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M11.992 17H12.001"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const Copy01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M9 15C9 12.1716 9 10.7574 9.87868 9.87868C10.7574 9 12.1716 9 15 9L16 9C18.8284 9 20.2426 9 21.1213 9.87868C22 10.7574 22 12.1716 22 15V16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H15C12.1716 22 10.7574 22 9.87868 21.1213C9 20.2426 9 18.8284 9 16L9 15Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M16.9999 9C16.9975 6.04291 16.9528 4.51121 16.092 3.46243C15.9258 3.25989 15.7401 3.07418 15.5376 2.90796C14.4312 2 12.7875 2 9.5 2C6.21252 2 4.56878 2 3.46243 2.90796C3.25989 3.07417 3.07418 3.25989 2.90796 3.46243C2 4.56878 2 6.21252 2 9.5C2 12.7875 2 14.4312 2.90796 15.5376C3.07417 15.7401 3.25989 15.9258 3.46243 16.092C4.51121 16.9528 6.04291 16.9975 9 16.9999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M9 15C9 12.1716 9 10.7574 9.87868 9.87868C10.7574 9 12.1716 9 15 9L16 9C18.8284 9 20.2426 9 21.1213 9.87868C22 10.7574 22 12.1716 22 15V16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H15C12.1716 22 10.7574 22 9.87868 21.1213C9 20.2426 9 18.8284 9 16L9 15Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M16.9999 9C16.9975 6.04291 16.9528 4.51121 16.092 3.46243C15.9258 3.25989 15.7401 3.07418 15.5376 2.90796C14.4312 2 12.7875 2 9.5 2C6.21252 2 4.56878 2 3.46243 2.90796C3.25989 3.07417 3.07418 3.25989 2.90796 3.46243C2 4.56878 2 6.21252 2 9.5C2 12.7875 2 14.4312 2.90796 15.5376C3.07417 15.7401 3.25989 15.9258 3.46243 16.092C4.51121 16.9528 6.04291 16.9975 9 16.9999"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const ArrowRight02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M20 12L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M15 17C15 17 20 13.3176 20 12C20 10.6824 15 7 15 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M20 12L4 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M15 17C15 17 20 13.3176 20 12C20 10.6824 15 7 15 7"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const PlusSignIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M12 2.75C12.6904 2.75 13.25 3.30964 13.25 4V10.75H20C20.6904 10.75 21.25 11.3096 21.25 12C21.25 12.6904 20.6904 13.25 20 13.25H13.25V20C13.25 20.6904 12.6904 21.25 12 21.25C11.3096 21.25 10.75 20.6904 10.75 20V13.25H4C3.30964 13.25 2.75 12.6904 2.75 12C2.75 11.3096 3.30964 10.75 4 10.75H10.75V4C10.75 3.30964 11.3096 2.75 12 2.75Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 2.75C12.6904 2.75 13.25 3.30964 13.25 4V10.75H20C20.6904 10.75 21.25 11.3096 21.25 12C21.25 12.6904 20.6904 13.25 20 13.25H13.25V20C13.25 20.6904 12.6904 21.25 12 21.25C11.3096 21.25 10.75 20.6904 10.75 20V13.25H4C3.30964 13.25 2.75 12.6904 2.75 12C2.75 11.3096 3.30964 10.75 4 10.75H10.75V4C10.75 3.30964 11.3096 2.75 12 2.75Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const Vynil02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M21.5 12.5C21.5 18.0228 17.0228 22.5 11.5 22.5C5.97715 22.5 1.5 18.0228 1.5 12.5C1.5 6.97715 5.97715 2.5 11.5 2.5C12.6688 2.5 13.7907 2.70051 14.8333 3.06902" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path d="M19.5 9C19.5 10.3807 18.3807 11.5 17 11.5C15.6193 11.5 14.5 10.3807 14.5 9C14.5 7.61929 15.6193 6.5 17 6.5C18.3807 6.5 19.5 7.61929 19.5 9ZM19.5 9V1.5C19.8333 2 20.1 4.1 22.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M13 12.5C13 11.6716 12.3284 11 11.5 11C10.6716 11 10 11.6716 10 12.5C10 13.3284 10.6716 14 11.5 14C12.3284 14 13 13.3284 13 12.5Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M21.5 12.5C21.5 18.0228 17.0228 22.5 11.5 22.5C5.97715 22.5 1.5 18.0228 1.5 12.5C1.5 6.97715 5.97715 2.5 11.5 2.5C12.6688 2.5 13.7907 2.70051 14.8333 3.06902"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M19.5 9C19.5 10.3807 18.3807 11.5 17 11.5C15.6193 11.5 14.5 10.3807 14.5 9C14.5 7.61929 15.6193 6.5 17 6.5C18.3807 6.5 19.5 7.61929 19.5 9ZM19.5 9V1.5C19.8333 2 20.1 4.1 22.5 4.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M13 12.5C13 11.6716 12.3284 11 11.5 11C10.6716 11 10 11.6716 10 12.5C10 13.3284 10.6716 14 11.5 14C12.3284 14 13 13.3284 13 12.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
-
 const Album02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M20.8053 7.19432H17.8886V5.24988H21.7775C22.3145 5.24988 22.7498 5.68516 22.7498 6.2221V21.7777C22.7498 22.3146 22.3145 22.7499 21.7775 22.7499H6.22198C5.68503 22.7499 5.24976 22.3146 5.24976 21.7777V17.8888H7.1942V20.8054H20.8053V7.19432Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M2.22198 1.25012C1.68503 1.25012 1.24976 1.6854 1.24976 2.22234V17.7779C1.24976 18.3148 1.68503 18.7501 2.22198 18.7501H17.7775C18.3145 18.7501 18.7498 18.3148 18.7498 17.7779V2.22234C18.7498 1.6854 18.3145 1.25012 17.7775 1.25012H2.22198ZM3.19507 10.2653V3.19446H16.8062V16.8056H15.3601C14.6133 15.0754 13.3025 13.5575 11.5822 12.417C9.38757 10.9619 6.65196 10.2019 3.86226 10.252C3.63968 10.2516 3.4172 10.256 3.19507 10.2653Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M11.9978 5.99963H13.9978V7.99963H11.9978V5.99963Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M20.8053 7.19432H17.8886V5.24988H21.7775C22.3145 5.24988 22.7498 5.68516 22.7498 6.2221V21.7777C22.7498 22.3146 22.3145 22.7499 21.7775 22.7499H6.22198C5.68503 22.7499 5.24976 22.3146 5.24976 21.7777V17.8888H7.1942V20.8054H20.8053V7.19432Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M2.22198 1.25012C1.68503 1.25012 1.24976 1.6854 1.24976 2.22234V17.7779C1.24976 18.3148 1.68503 18.7501 2.22198 18.7501H17.7775C18.3145 18.7501 18.7498 18.3148 18.7498 17.7779V2.22234C18.7498 1.6854 18.3145 1.25012 17.7775 1.25012H2.22198ZM3.19507 10.2653V3.19446H16.8062V16.8056H15.3601C14.6133 15.0754 13.3025 13.5575 11.5822 12.417C9.38757 10.9619 6.65196 10.2019 3.86226 10.252C3.63968 10.2516 3.4172 10.256 3.19507 10.2653Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11.9978 5.99963H13.9978V7.99963H11.9978V5.99963Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 const MusicNote01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M6.71022 1.04299C7.13197 0.915287 7.58761 1.07872 7.83205 1.44538C7.93278 1.59647 8.00471 1.76386 8.0502 1.87381C8.07823 1.94156 8.1132 2.03071 8.14594 2.11419L8.14595 2.1142C8.16553 2.16413 8.18432 2.21204 8.20035 2.25212C8.30223 2.50681 8.41415 2.75946 8.56707 2.99821C8.85068 3.44099 9.29042 3.86802 10.1644 4.01368C10.7092 4.10448 11.0772 4.61971 10.9864 5.16448C10.8956 5.70925 10.3804 6.07727 9.8356 5.98647C9.0795 5.86046 8.47866 5.59485 8 5.25768V9.50008C8 11.4331 6.433 13.0001 4.5 13.0001C2.567 13.0001 1 11.4331 1 9.50008C1 7.56708 2.567 6.00008 4.5 6.00008C5.0368 6.00008 5.54537 6.12092 6 6.33689V2.00008C6 1.55941 6.28846 1.17068 6.71022 1.04299Z" fill="currentColor" />
-    <Path d="M23 6.76182V9.98347C23.0001 9.99321 23.0001 10.0029 23 10.0127V17.9249C23 17.934 22.9999 17.943 22.9996 17.952C22.9999 17.9676 23 17.9833 23 17.999C23 19.6558 21.6569 20.999 20 20.999C18.3431 20.999 17 19.6558 17 17.999C17 16.3421 18.3431 14.999 20 14.999C20.3506 14.999 20.6872 15.0591 21 15.1697V11.8205C19.4846 12.6912 17.0912 13.7695 14 13.9671V19.499C14 21.432 12.433 22.999 10.5 22.999C8.567 22.999 7 21.432 7 19.499C7 17.566 8.567 15.999 10.5 15.999C11.0368 15.999 11.5454 16.1198 12 16.3358V10.999L12 10.9497C11.9999 10.5374 11.9999 10.1453 12.0376 9.82344C12.0788 9.47243 12.1785 9.05447 12.4932 8.69389C12.8204 8.31909 13.2518 8.16775 13.5979 8.08222C13.9317 7.99974 14.3525 7.94236 14.8115 7.87979L14.8597 7.8732C17.6671 7.49016 19.7158 6.31939 20.8201 5.59292L20.8477 5.57469C20.96 5.50056 21.122 5.39366 21.2735 5.32268C21.4327 5.24804 21.8826 5.0659 22.3695 5.32837C22.8529 5.58902 22.9503 6.05981 22.9763 6.23764C23.0005 6.40299 23.0002 6.59642 23 6.72899L23 6.76182Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M6.71022 1.04299C7.13197 0.915287 7.58761 1.07872 7.83205 1.44538C7.93278 1.59647 8.00471 1.76386 8.0502 1.87381C8.07823 1.94156 8.1132 2.03071 8.14594 2.11419L8.14595 2.1142C8.16553 2.16413 8.18432 2.21204 8.20035 2.25212C8.30223 2.50681 8.41415 2.75946 8.56707 2.99821C8.85068 3.44099 9.29042 3.86802 10.1644 4.01368C10.7092 4.10448 11.0772 4.61971 10.9864 5.16448C10.8956 5.70925 10.3804 6.07727 9.8356 5.98647C9.0795 5.86046 8.47866 5.59485 8 5.25768V9.50008C8 11.4331 6.433 13.0001 4.5 13.0001C2.567 13.0001 1 11.4331 1 9.50008C1 7.56708 2.567 6.00008 4.5 6.00008C5.0368 6.00008 5.54537 6.12092 6 6.33689V2.00008C6 1.55941 6.28846 1.17068 6.71022 1.04299Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M23 6.76182V9.98347C23.0001 9.99321 23.0001 10.0029 23 10.0127V17.9249C23 17.934 22.9999 17.943 22.9996 17.952C22.9999 17.9676 23 17.9833 23 17.999C23 19.6558 21.6569 20.999 20 20.999C18.3431 20.999 17 19.6558 17 17.999C17 16.3421 18.3431 14.999 20 14.999C20.3506 14.999 20.6872 15.0591 21 15.1697V11.8205C19.4846 12.6912 17.0912 13.7695 14 13.9671V19.499C14 21.432 12.433 22.999 10.5 22.999C8.567 22.999 7 21.432 7 19.499C7 17.566 8.567 15.999 10.5 15.999C11.0368 15.999 11.5454 16.1198 12 16.3358V10.999L12 10.9497C11.9999 10.5374 11.9999 10.1453 12.0376 9.82344C12.0788 9.47243 12.1785 9.05447 12.4932 8.69389C12.8204 8.31909 13.2518 8.16775 13.5979 8.08222C13.9317 7.99974 14.3525 7.94236 14.8115 7.87979L14.8597 7.8732C17.6671 7.49016 19.7158 6.31939 20.8201 5.59292L20.8477 5.57469C20.96 5.50056 21.122 5.39366 21.2735 5.32268C21.4327 5.24804 21.8826 5.0659 22.3695 5.32837C22.8529 5.58902 22.9503 6.05981 22.9763 6.23764C23.0005 6.40299 23.0002 6.59642 23 6.72899L23 6.76182Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const PauseIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M16.9506 3.25L17 3.25L17.0494 3.25H17.0494C17.7143 3.24996 18.2871 3.24993 18.7458 3.31161C19.2375 3.37771 19.7087 3.52677 20.091 3.90901C20.4732 4.29126 20.6223 4.76252 20.6884 5.25416C20.7501 5.71291 20.75 6.28577 20.75 6.95064V17.0494C20.75 17.7142 20.7501 18.2871 20.6884 18.7458C20.6223 19.2375 20.4732 19.7087 20.091 20.091C19.7087 20.4732 19.2375 20.6223 18.7458 20.6884C18.2871 20.7501 17.7142 20.75 17.0494 20.75H16.9506C16.2858 20.75 15.7129 20.7501 15.2542 20.6884C14.7625 20.6223 14.2913 20.4732 13.909 20.091C13.5268 19.7087 13.3777 19.2375 13.3116 18.7458C13.2499 18.2871 13.25 17.7143 13.25 17.0494V17.0494V6.95063V6.95058C13.25 6.28574 13.2499 5.71289 13.3116 5.25416C13.3777 4.76252 13.5268 4.29126 13.909 3.90901C14.2913 3.52677 14.7625 3.37771 15.2542 3.31161C15.7129 3.24993 16.2857 3.24996 16.9506 3.25H16.9506Z" fill="currentColor" />
-    <Path d="M6.95063 3.25L7 3.25L7.04938 3.25H7.04943C7.71427 3.24996 8.28711 3.24993 8.74585 3.31161C9.23748 3.37771 9.70875 3.52677 10.091 3.90901C10.4732 4.29126 10.6223 4.76252 10.6884 5.25416C10.7501 5.71291 10.75 6.28577 10.75 6.95064V17.0494C10.75 17.7142 10.7501 18.2871 10.6884 18.7458C10.6223 19.2375 10.4732 19.7087 10.091 20.091C9.70875 20.4732 9.23748 20.6223 8.74585 20.6884C8.2871 20.7501 7.71424 20.75 7.04937 20.75H6.95063C6.28577 20.75 5.71291 20.7501 5.25416 20.6884C4.76252 20.6223 4.29126 20.4732 3.90901 20.091C3.52677 19.7087 3.37771 19.2375 3.31161 18.7458C3.24993 18.2871 3.24996 17.7143 3.25 17.0494V17.0494V6.95063V6.95058C3.24996 6.28574 3.24993 5.71289 3.31161 5.25416C3.37771 4.76252 3.52677 4.29126 3.90901 3.90901C4.29126 3.52677 4.76252 3.37771 5.25416 3.31161C5.71289 3.24993 6.28573 3.24996 6.95058 3.25H6.95063Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M16.9506 3.25L17 3.25L17.0494 3.25H17.0494C17.7143 3.24996 18.2871 3.24993 18.7458 3.31161C19.2375 3.37771 19.7087 3.52677 20.091 3.90901C20.4732 4.29126 20.6223 4.76252 20.6884 5.25416C20.7501 5.71291 20.75 6.28577 20.75 6.95064V17.0494C20.75 17.7142 20.7501 18.2871 20.6884 18.7458C20.6223 19.2375 20.4732 19.7087 20.091 20.091C19.7087 20.4732 19.2375 20.6223 18.7458 20.6884C18.2871 20.7501 17.7142 20.75 17.0494 20.75H16.9506C16.2858 20.75 15.7129 20.7501 15.2542 20.6884C14.7625 20.6223 14.2913 20.4732 13.909 20.091C13.5268 19.7087 13.3777 19.2375 13.3116 18.7458C13.2499 18.2871 13.25 17.7143 13.25 17.0494V17.0494V6.95063V6.95058C13.25 6.28574 13.2499 5.71289 13.3116 5.25416C13.3777 4.76252 13.5268 4.29126 13.909 3.90901C14.2913 3.52677 14.7625 3.37771 15.2542 3.31161C15.7129 3.24993 16.2857 3.24996 16.9506 3.25H16.9506Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M6.95063 3.25L7 3.25L7.04938 3.25H7.04943C7.71427 3.24996 8.28711 3.24993 8.74585 3.31161C9.23748 3.37771 9.70875 3.52677 10.091 3.90901C10.4732 4.29126 10.6223 4.76252 10.6884 5.25416C10.7501 5.71291 10.75 6.28577 10.75 6.95064V17.0494C10.75 17.7142 10.7501 18.2871 10.6884 18.7458C10.6223 19.2375 10.4732 19.7087 10.091 20.091C9.70875 20.4732 9.23748 20.6223 8.74585 20.6884C8.2871 20.7501 7.71424 20.75 7.04937 20.75H6.95063C6.28577 20.75 5.71291 20.7501 5.25416 20.6884C4.76252 20.6223 4.29126 20.4732 3.90901 20.091C3.52677 19.7087 3.37771 19.2375 3.31161 18.7458C3.24993 18.2871 3.24996 17.7143 3.25 17.0494V17.0494V6.95063V6.95058C3.24996 6.28574 3.24993 5.71289 3.31161 5.25416C3.37771 4.76252 3.52677 4.29126 3.90901 3.90901C4.29126 3.52677 4.76252 3.37771 5.25416 3.31161C5.71289 3.24993 6.28573 3.24996 6.95058 3.25H6.95063Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const SquareLock02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
     <Path d="M12 17V14" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M16.5096 9.00683V6.53084C16.5096 3.96508 14.5644 1.99902 12.1305 1.99902C9.69662 1.99902 7.55999 3.96508 7.55999 6.53084L7.44034 9.00683M4.00195 9.00683H19.9971V22.0007H4.00315L4.00195 9.00683Z" stroke="currentColor" strokeWidth="1.5" />
+    <Path
+      d="M16.5096 9.00683V6.53084C16.5096 3.96508 14.5644 1.99902 12.1305 1.99902C9.69662 1.99902 7.55999 3.96508 7.55999 6.53084L7.44034 9.00683M4.00195 9.00683H19.9971V22.0007H4.00315L4.00195 9.00683Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const Location09Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M18 18C19.2447 18.4244 20 18.9819 20 19.5925C20 20.9221 16.4183 22 12 22C7.58172 22 4 20.9221 4 19.5925C4 18.9819 4.75527 18.4244 6 18" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M12 2C8.13401 2 5 5.07516 5 8.86856C5 11.0376 5.875 12.7242 7.625 14.2306C8.8585 15.2925 11.1028 17.5702 12 18.9999C12.9426 17.5987 15.1415 15.2925 16.375 14.2306C18.125 12.7242 19 11.0376 19 8.86856C19 5.07516 15.866 2 12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M18 18C19.2447 18.4244 20 18.9819 20 19.5925C20 20.9221 16.4183 22 12 22C7.58172 22 4 20.9221 4 19.5925C4 18.9819 4.75527 18.4244 6 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M12 2C8.13401 2 5 5.07516 5 8.86856C5 11.0376 5.875 12.7242 7.625 14.2306C8.8585 15.2925 11.1028 17.5702 12 18.9999C12.9426 17.5987 15.1415 15.2925 16.375 14.2306C18.125 12.7242 19 11.0376 19 8.86856C19 5.07516 15.866 2 12 2Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 export const Location08Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M10.2203 21.8482C10.6562 22.0976 11.0206 22.2873 11.2779 22.4155L12 22.7499L12.7221 22.4155C12.9794 22.2873 13.3438 22.0976 13.7797 21.8482C14.6496 21.3504 15.813 20.61 16.9801 19.6405C19.2892 17.7226 21.75 14.7911 21.75 10.9679C21.75 5.60079 17.3848 1.24988 12 1.24988C6.61522 1.24988 2.25 5.60079 2.25 10.9679C2.25 14.7911 4.71077 17.7226 7.01986 19.6405C8.18703 20.61 9.35038 21.3504 10.2203 21.8482ZM12 6.99988C9.79086 6.99988 8 8.79074 8 10.9999C8 13.209 9.79086 14.9999 12 14.9999C14.2091 14.9999 16 13.209 16 10.9999C16 8.79074 14.2091 6.99988 12 6.99988Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M10.2203 21.8482C10.6562 22.0976 11.0206 22.2873 11.2779 22.4155L12 22.7499L12.7221 22.4155C12.9794 22.2873 13.3438 22.0976 13.7797 21.8482C14.6496 21.3504 15.813 20.61 16.9801 19.6405C19.2892 17.7226 21.75 14.7911 21.75 10.9679C21.75 5.60079 17.3848 1.24988 12 1.24988C6.61522 1.24988 2.25 5.60079 2.25 10.9679C2.25 14.7911 4.71077 17.7226 7.01986 19.6405C8.18703 20.61 9.35038 21.3504 10.2203 21.8482ZM12 6.99988C9.79086 6.99988 8 8.79074 8 10.9999C8 13.209 9.79086 14.9999 12 14.9999C14.2091 14.9999 16 13.209 16 10.9999C16 8.79074 14.2091 6.99988 12 6.99988Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const StoreLocation02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M2.25 20.7751V9.5376H4.2V19.8001H12V21.7501H3.225C2.68652 21.7501 2.25 21.3136 2.25 20.7751Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M17.5 12.4395C15.1663 12.4395 13.25 14.2995 13.25 16.6237C13.25 17.9292 13.8759 18.9888 14.6138 19.865C15.0981 20.44 15.6978 21.0063 16.2471 21.5252C16.5047 21.7685 16.7513 22.0013 16.9697 22.2197L17.5 22.75L18.0303 22.2197C18.2547 21.9953 18.5113 21.7548 18.7798 21.503C19.3211 20.9953 19.911 20.4421 20.3845 19.8837C21.1261 19.0092 21.75 17.9497 21.75 16.6237C21.75 14.2995 19.8337 12.4395 17.5 12.4395ZM17.4933 18.1895C16.6686 18.1895 16 17.5179 16 16.6895C16 15.861 16.6686 15.1895 17.4933 15.1895H17.5067C18.3314 15.1895 19 15.861 19 16.6895C19 17.5179 18.3314 18.1895 17.5067 18.1895H17.4933Z" fill="currentColor" />
-    <Path d="M22.75 7.80083V8C22.75 10.0711 21.0711 11.75 19 11.75C17.7352 11.75 16.6167 11.1238 15.9374 10.1646C15.6962 10.4412 15.4139 10.6792 15.1085 10.8783C14.1989 11.4713 13.0504 11.75 12 11.75C10.9496 11.75 9.80112 11.4713 8.89149 10.8783C8.58614 10.6792 8.30385 10.4412 8.06256 10.1646C7.38334 11.1238 6.26479 11.75 5 11.75C2.92893 11.75 1.25 10.0711 1.25 8V7.80083L3.25 4.30083V1.25H20.75V4.30083L22.75 7.80083Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M11 18H6V16H11V18Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2.25 20.7751V9.5376H4.2V19.8001H12V21.7501H3.225C2.68652 21.7501 2.25 21.3136 2.25 20.7751Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.5 12.4395C15.1663 12.4395 13.25 14.2995 13.25 16.6237C13.25 17.9292 13.8759 18.9888 14.6138 19.865C15.0981 20.44 15.6978 21.0063 16.2471 21.5252C16.5047 21.7685 16.7513 22.0013 16.9697 22.2197L17.5 22.75L18.0303 22.2197C18.2547 21.9953 18.5113 21.7548 18.7798 21.503C19.3211 20.9953 19.911 20.4421 20.3845 19.8837C21.1261 19.0092 21.75 17.9497 21.75 16.6237C21.75 14.2995 19.8337 12.4395 17.5 12.4395ZM17.4933 18.1895C16.6686 18.1895 16 17.5179 16 16.6895C16 15.861 16.6686 15.1895 17.4933 15.1895H17.5067C18.3314 15.1895 19 15.861 19 16.6895C19 17.5179 18.3314 18.1895 17.5067 18.1895H17.4933Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M22.75 7.80083V8C22.75 10.0711 21.0711 11.75 19 11.75C17.7352 11.75 16.6167 11.1238 15.9374 10.1646C15.6962 10.4412 15.4139 10.6792 15.1085 10.8783C14.1989 11.4713 13.0504 11.75 12 11.75C10.9496 11.75 9.80112 11.4713 8.89149 10.8783C8.58614 10.6792 8.30385 10.4412 8.06256 10.1646C7.38334 11.1238 6.26479 11.75 5 11.75C2.92893 11.75 1.25 10.0711 1.25 8V7.80083L3.25 4.30083V1.25H20.75V4.30083L22.75 7.80083Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11 18H6V16H11V18Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
-
 const MapsGlobal02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M10.0808 2C5.47023 2.9359 2 7.01218 2 11.899C2 17.4776 6.52238 22 12.101 22C16.9878 22 21.0641 18.5298 22 13.9192" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M18.9375 18C19.3216 17.9166 19.6771 17.784 20 17.603M14.6875 17.3406C15.2831 17.6015 15.8576 17.7948 16.4051 17.9218M10.8546 14.9477C11.2681 15.238 11.71 15.5861 12.1403 15.8865M3 13.825C3.32234 13.6675 3.67031 13.4868 4.0625 13.3321M6.45105 13C7.01293 13.0624 7.64301 13.2226 8.35743 13.5232" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="round" />
-    <Path d="M18.5 7C18.5 6.17157 17.8284 5.5 17 5.5C16.1716 5.5 15.5 6.17157 15.5 7C15.5 7.82843 16.1716 8.5 17 8.5C17.8284 8.5 18.5 7.82843 18.5 7Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M17 1.99994C14.2386 1.99994 12 4.17066 12 6.84837C12 8.37949 12.625 9.57 13.875 10.6334C14.7561 11.3829 16.3591 12.9908 17 13.9999C17.6733 13.0108 19.2439 11.3829 20.125 10.6334C21.375 9.57 22 8.37949 22 6.84837C22 4.17066 19.7614 1.99994 17 1.99994Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M10.0808 2C5.47023 2.9359 2 7.01218 2 11.899C2 17.4776 6.52238 22 12.101 22C16.9878 22 21.0641 18.5298 22 13.9192"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M18.9375 18C19.3216 17.9166 19.6771 17.784 20 17.603M14.6875 17.3406C15.2831 17.6015 15.8576 17.7948 16.4051 17.9218M10.8546 14.9477C11.2681 15.238 11.71 15.5861 12.1403 15.8865M3 13.825C3.32234 13.6675 3.67031 13.4868 4.0625 13.3321M6.45105 13C7.01293 13.0624 7.64301 13.2226 8.35743 13.5232"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M18.5 7C18.5 6.17157 17.8284 5.5 17 5.5C16.1716 5.5 15.5 6.17157 15.5 7C15.5 7.82843 16.1716 8.5 17 8.5C17.8284 8.5 18.5 7.82843 18.5 7Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M17 1.99994C14.2386 1.99994 12 4.17066 12 6.84837C12 8.37949 12.625 9.57 13.875 10.6334C14.7561 11.3829 16.3591 12.9908 17 13.9999C17.6733 13.0108 19.2439 11.3829 20.125 10.6334C21.375 9.57 22 8.37949 22 6.84837C22 4.17066 19.7614 1.99994 17 1.99994Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const CreditCardPosIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path opacity="0.4" d="M3.99829 21.8867H19.9983" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path d="M3.33646 16.2055L15.8481 3.75351M13.529 20.7187L20.8236 13.4646C22.4287 11.4886 22.359 9.64003 20.8236 7.82437L16.1394 3.16618C14.5732 1.60867 12.0338 1.60867 10.4676 3.16618L3.17296 10.4202C1.60673 11.9777 1.60673 14.503 3.17296 16.0605L7.64939 20.512C7.78775 20.6496 7.93576 20.778 8.09522 20.8908C10.3396 22.4781 11.598 22.3165 13.529 20.7187Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path opacity="0.4" d="M18.6188 10.999L16.4193 13.1863M14.5483 15.0469L13.5696 16.0201" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      opacity="0.4"
+      d="M3.99829 21.8867H19.9983"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M3.33646 16.2055L15.8481 3.75351M13.529 20.7187L20.8236 13.4646C22.4287 11.4886 22.359 9.64003 20.8236 7.82437L16.1394 3.16618C14.5732 1.60867 12.0338 1.60867 10.4676 3.16618L3.17296 10.4202C1.60673 11.9777 1.60673 14.503 3.17296 16.0605L7.64939 20.512C7.78775 20.6496 7.93576 20.778 8.09522 20.8908C10.3396 22.4781 11.598 22.3165 13.529 20.7187Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      opacity="0.4"
+      d="M18.6188 10.999L16.4193 13.1863M14.5483 15.0469L13.5696 16.0201"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const LanguageSquareIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path opacity="0.4" d="M7 8.37931H11.5M17 8.37931H14.5M11.5 8.37931H14.5M11.5 8.37931V7M14.5 8.37931C13.9725 10.2656 12.8679 12.0487 11.6071 13.6158M8.39286 17C9.41205 16.0628 10.5631 14.9134 11.6071 13.6158M11.6071 13.6158C10.9643 12.8621 10.0643 11.6426 9.80714 11.0909M11.6071 13.6158L13.5357 15.6207" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      opacity="0.4"
+      d="M7 8.37931H11.5M17 8.37931H14.5M11.5 8.37931H14.5M11.5 8.37931V7M14.5 8.37931C13.9725 10.2656 12.8679 12.0487 11.6071 13.6158M8.39286 17C9.41205 16.0628 10.5631 14.9134 11.6071 13.6158M11.6071 13.6158C10.9643 12.8621 10.0643 11.6426 9.80714 11.0909M11.6071 13.6158L13.5357 15.6207"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const Legal01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-  <Path d="M8 10L2 16L4 18L10 12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-  <Path d="M12.5 22L14 19H18L19.5 22M11 22H21" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-  <Path d="M20 11.6364L22 10M20 14.9091L22 16" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-  <Path d="M9.83612 2.00391L8.79642 3.05603M8.79642 3.05603C10.1684 4.12383 13.0905 6.7103 13.3086 6.96994C13.5677 7.18868 15.8556 9.82343 16.92 11.198M8.79642 3.05603L5.05375 6.78964M5.05375 6.78964L3.99707 7.84377M5.05375 6.78964C5.63096 7.49521 6.50128 8.55786 7.27354 9.46519C8.25958 10.6237 9.34588 11.7125 10.5021 12.7013C11.4093 13.4771 12.4723 14.352 13.177 14.9314M17.9747 10.161L16.92 11.198M16.92 11.198L13.177 14.9314M13.177 14.9314L12.1203 15.9854" stroke="currentColor" strokeWidth="1.5" />
-</Svg>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M8 10L2 16L4 18L10 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12.5 22L14 19H18L19.5 22M11 22H21"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M20 11.6364L22 10M20 14.9091L22 16"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M9.83612 2.00391L8.79642 3.05603M8.79642 3.05603C10.1684 4.12383 13.0905 6.7103 13.3086 6.96994C13.5677 7.18868 15.8556 9.82343 16.92 11.198M8.79642 3.05603L5.05375 6.78964M5.05375 6.78964L3.99707 7.84377M5.05375 6.78964C5.63096 7.49521 6.50128 8.55786 7.27354 9.46519C8.25958 10.6237 9.34588 11.7125 10.5021 12.7013C11.4093 13.4771 12.4723 14.352 13.177 14.9314M17.9747 10.161L16.92 11.198M16.92 11.198L13.177 14.9314M13.177 14.9314L12.1203 15.9854"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+  </Svg>
 );
 
 const HelpSquareIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M3 21L21 21L21 3L3 3L3 21Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="round" />
-    <Path d="M9.5 10C9.5 8.61929 10.6193 7.5 12 7.5C13.3807 7.5 14.5 8.61929 14.5 10C14.5 11.3807 13.3807 12.5 12 12.5V14.5M12 16V17.5" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M3 21L21 21L21 3L3 3L3 21Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M9.5 10C9.5 8.61929 10.6193 7.5 12 7.5C13.3807 7.5 14.5 8.61929 14.5 10C14.5 11.3807 13.3807 12.5 12 12.5V14.5M12 16V17.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 export const CommentAdd02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M13.9989 6.00049H21.9989M17.9989 2.00049V10.0005" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M11.989 2.00049H2.00085V17.9587H6.00291V21.9895C6.00291 21.9979 6.01267 22.0026 6.01921 21.9973L11.0143 17.9587H21.9991V11.9677" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M13.9989 6.00049H21.9989M17.9989 2.00049V10.0005"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M11.989 2.00049H2.00085V17.9587H6.00291V21.9895C6.00291 21.9979 6.01267 22.0026 6.01921 21.9973L11.0143 17.9587H21.9991V11.9677"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const Scooter01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M5 8H9" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M10 16C10 17.6569 8.65685 19 7 19C5.34315 19 4 17.6569 4 16" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Circle cx="20" cy="17" r="2" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M7 11C4.23858 11 2 13.2386 2 16H12C12 13.2386 9.76142 11 7 11Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M12 16H14.5L18 11.5L16 8H20C20 8 20 5 15 5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M5 8H9"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M10 16C10 17.6569 8.65685 19 7 19C5.34315 19 4 17.6569 4 16"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Circle
+      cx="20"
+      cy="17"
+      r="2"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M7 11C4.23858 11 2 13.2386 2 16H12C12 13.2386 9.76142 11 7 11Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M12 16H14.5L18 11.5L16 8H20C20 8 20 5 15 5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 const SecurityCheckIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M11.9982 2C8.99043 2 7.04018 4.01899 4.73371 4.7549C3.79589 5.05413 3.32697 5.20374 3.1372 5.41465C2.94743 5.62556 2.89186 5.93375 2.78072 6.55013C1.59143 13.146 4.1909 19.244 10.3903 21.6175C11.0564 21.8725 11.3894 22 12.0015 22C12.6135 22 12.9466 21.8725 13.6126 21.6175C19.8116 19.2439 22.4086 13.146 21.219 6.55013C21.1078 5.93364 21.0522 5.6254 20.8624 5.41449C20.6726 5.20358 20.2037 5.05405 19.2659 4.75499C16.9585 4.01915 15.0061 2 11.9982 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path opacity="0.4" d="M9 13C9 13 10 13 11 15C11 15 14.1765 10 17 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M11.9982 2C8.99043 2 7.04018 4.01899 4.73371 4.7549C3.79589 5.05413 3.32697 5.20374 3.1372 5.41465C2.94743 5.62556 2.89186 5.93375 2.78072 6.55013C1.59143 13.146 4.1909 19.244 10.3903 21.6175C11.0564 21.8725 11.3894 22 12.0015 22C12.6135 22 12.9466 21.8725 13.6126 21.6175C19.8116 19.2439 22.4086 13.146 21.219 6.55013C21.1078 5.93364 21.0522 5.6254 20.8624 5.41449C20.6726 5.20358 20.2037 5.05405 19.2659 4.75499C16.9585 4.01915 15.0061 2 11.9982 2Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      opacity="0.4"
+      d="M9 13C9 13 10 13 11 15C11 15 14.1765 10 17 9"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const UserIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M3 22H21C21 17.5817 16.9706 14 12 14C7.02944 14 3 17.5817 3 22Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M16.5 6.5C16.5 8.98528 14.4853 11 12 11C9.51472 11 7.5 8.98528 7.5 6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M3 22H21C21 17.5817 16.9706 14 12 14C7.02944 14 3 17.5817 3 22Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M16.5 6.5C16.5 8.98528 14.4853 11 12 11C9.51472 11 7.5 8.98528 7.5 6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const EditUser02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M2 20.9997H17C17 16.9063 13.6421 13.5879 9.5 13.5879C5.35786 13.5879 2 16.9063 2 20.9997Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M13.25 6.70588C13.25 8.75258 11.5711 10.4118 9.5 10.4118C7.42893 10.4118 5.75 8.75258 5.75 6.70588C5.75 4.65918 7.42893 3 9.5 3C11.5711 3 13.25 4.65918 13.25 6.70588Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M17.8773 12H16V10.1432L20.116 6.00221C20.1189 5.99927 20.1236 5.99926 20.1265 6.0022L21.9978 7.87926C22.0007 7.8822 22.0007 7.88697 21.9978 7.8899L17.8773 12Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2 20.9997H17C17 16.9063 13.6421 13.5879 9.5 13.5879C5.35786 13.5879 2 16.9063 2 20.9997Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M13.25 6.70588C13.25 8.75258 11.5711 10.4118 9.5 10.4118C7.42893 10.4118 5.75 8.75258 5.75 6.70588C5.75 4.65918 7.42893 3 9.5 3C11.5711 3 13.25 4.65918 13.25 6.70588Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M17.8773 12H16V10.1432L20.116 6.00221C20.1189 5.99927 20.1236 5.99926 20.1265 6.0022L21.9978 7.87926C22.0007 7.8822 22.0007 7.88697 21.9978 7.8899L17.8773 12Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const Logout04Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M7.02331 5.5C4.59826 7.11238 3 9.86954 3 13C3 17.9706 7.02944 22 12 22C16.9706 22 21 17.9706 21 13C21 9.86954 19.4017 7.11238 16.9767 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M7.02331 5.5C4.59826 7.11238 3 9.86954 3 13C3 17.9706 7.02944 22 12 22C16.9706 22 21 17.9706 21 13C21 9.86954 19.4017 7.11238 16.9767 5.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12 2V10"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const MailAtSign01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M2 5L8.91302 8.92462C11.4387 10.3585 12.5613 10.3585 15.087 8.92462L22 5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M10.5 19.5C10.0337 19.4939 9.56682 19.485 9.09883 19.4732C5.95033 19.3941 4.37608 19.3545 3.24496 18.2184C2.11383 17.0823 2.08114 15.5487 2.01577 12.4814C1.99475 11.4951 1.99474 10.5147 2.01576 9.52843C2.08114 6.46113 2.11382 4.92748 3.24495 3.79139C4.37608 2.6553 5.95033 2.61573 9.09882 2.53658C11.0393 2.4878 12.9607 2.48781 14.9012 2.53659C18.0497 2.61574 19.6239 2.65532 20.755 3.79141C21.8862 4.92749 21.9189 6.46114 21.9842 9.52844C21.9939 9.98251 21.9991 10.1965 21.9999 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M19 17C19 17.8284 18.3284 18.5 17.5 18.5C16.6716 18.5 16 17.8284 16 17C16 16.1716 16.6716 15.5 17.5 15.5C18.3284 15.5 19 16.1716 19 17ZM19 17V17.5C19 18.3284 19.6716 19 20.5 19C21.3284 19 22 18.3284 22 17.5V17C22 14.5147 19.9853 12.5 17.5 12.5C15.0147 12.5 13 14.5147 13 17C13 19.4853 15.0147 21.5 17.5 21.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2 5L8.91302 8.92462C11.4387 10.3585 12.5613 10.3585 15.087 8.92462L22 5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M10.5 19.5C10.0337 19.4939 9.56682 19.485 9.09883 19.4732C5.95033 19.3941 4.37608 19.3545 3.24496 18.2184C2.11383 17.0823 2.08114 15.5487 2.01577 12.4814C1.99475 11.4951 1.99474 10.5147 2.01576 9.52843C2.08114 6.46113 2.11382 4.92748 3.24495 3.79139C4.37608 2.6553 5.95033 2.61573 9.09882 2.53658C11.0393 2.4878 12.9607 2.48781 14.9012 2.53659C18.0497 2.61574 19.6239 2.65532 20.755 3.79141C21.8862 4.92749 21.9189 6.46114 21.9842 9.52844C21.9939 9.98251 21.9991 10.1965 21.9999 10.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M19 17C19 17.8284 18.3284 18.5 17.5 18.5C16.6716 18.5 16 17.8284 16 17C16 16.1716 16.6716 15.5 17.5 15.5C18.3284 15.5 19 16.1716 19 17ZM19 17V17.5C19 18.3284 19.6716 19 20.5 19C21.3284 19 22 18.3284 22 17.5V17C22 14.5147 19.9853 12.5 17.5 12.5C15.0147 12.5 13 14.5147 13 17C13 19.4853 15.0147 21.5 17.5 21.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const ArrowUp = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M18 15L12 9L6 15" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="16" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M18 15L12 9L6 15"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeMiterlimit="16"
+    />
   </Svg>
 );
 
 const ArrowDown = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M6 9.00005L12 15L18 9" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="16" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M6 9.00005L12 15L18 9"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeMiterlimit="16"
+    />
   </Svg>
 );
 
 export const GridViewIcons = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-  <Path d="M18.0366 1.25C18.7757 1.24999 19.3832 1.24998 19.8747 1.29671C20.3854 1.34527 20.8478 1.44953 21.2683 1.70725C21.6859 1.9631 22.0369 2.31414 22.2928 2.73166C22.5505 3.15221 22.6547 3.61456 22.7033 4.12529C22.75 4.61678 22.75 5.22429 22.75 5.96343V5.96344V6.03656V6.03658C22.75 6.77571 22.75 7.38322 22.7033 7.87471C22.6547 8.38544 22.5505 8.84779 22.2928 9.26834C22.0369 9.68586 21.6859 10.0369 21.2683 10.2928C20.8478 10.5505 20.3854 10.6547 19.8747 10.7033C19.3832 10.75 18.7757 10.75 18.0366 10.75H18.0366H17.9634H17.9634C17.2243 10.75 16.6168 10.75 16.1253 10.7033C15.6146 10.6547 15.1522 10.5505 14.7317 10.2928C14.3141 10.0369 13.9631 9.68586 13.7072 9.26834C13.4495 8.84779 13.3453 8.38544 13.2967 7.87471C13.25 7.38322 13.25 6.7757 13.25 6.03656V6.03655V5.96345V5.96344C13.25 5.2243 13.25 4.61679 13.2967 4.12529C13.3453 3.61456 13.4495 3.15221 13.7072 2.73166C13.9631 2.31414 14.3141 1.9631 14.7317 1.70725C15.1522 1.44953 15.6146 1.34527 16.1253 1.29671C16.6168 1.24998 17.2243 1.24999 17.9634 1.25H17.9635H18.0365H18.0366Z" fill="currentColor" />
-  <Path d="M6.03656 1.25C6.7757 1.24999 7.38322 1.24998 7.87471 1.29671C8.38544 1.34527 8.84779 1.44953 9.26834 1.70725C9.68586 1.9631 10.0369 2.31414 10.2928 2.73166C10.5505 3.15221 10.6547 3.61456 10.7033 4.12529C10.75 4.61678 10.75 5.22429 10.75 5.96343V5.96344V6.03656V6.03658C10.75 6.77571 10.75 7.38322 10.7033 7.87471C10.6547 8.38544 10.5505 8.84779 10.2928 9.26834C10.0369 9.68586 9.68586 10.0369 9.26834 10.2928C8.84779 10.5505 8.38544 10.6547 7.87471 10.7033C7.38322 10.75 6.77571 10.75 6.03658 10.75H6.03656H5.96344H5.96343C5.22429 10.75 4.61678 10.75 4.12529 10.7033C3.61456 10.6547 3.15221 10.5505 2.73166 10.2928C2.31414 10.0369 1.9631 9.68586 1.70725 9.26834C1.44953 8.84779 1.34527 8.38544 1.29671 7.87471C1.24998 7.38322 1.24999 6.7757 1.25 6.03656V6.03655V5.96345V5.96344C1.24999 5.2243 1.24998 4.61679 1.29671 4.12529C1.34527 3.61456 1.44953 3.15221 1.70725 2.73166C1.9631 2.31414 2.31414 1.9631 2.73166 1.70725C3.15221 1.44953 3.61456 1.34527 4.12529 1.29671C4.61678 1.24998 5.2243 1.24999 5.96344 1.25H5.96345H6.03655H6.03656Z" fill="currentColor" />
-  <Path d="M18.0366 13.25C18.7757 13.25 19.3832 13.25 19.8747 13.2967C20.3854 13.3453 20.8478 13.4495 21.2683 13.7072C21.6859 13.9631 22.0369 14.3141 22.2928 14.7317C22.5505 15.1522 22.6547 15.6146 22.7033 16.1253C22.75 16.6168 22.75 17.2243 22.75 17.9634V17.9634V18.0366V18.0366C22.75 18.7757 22.75 19.3832 22.7033 19.8747C22.6547 20.3854 22.5505 20.8478 22.2928 21.2683C22.0369 21.6859 21.6859 22.0369 21.2683 22.2928C20.8478 22.5505 20.3854 22.6547 19.8747 22.7033C19.3832 22.75 18.7757 22.75 18.0366 22.75H18.0366H17.9634H17.9634C17.2243 22.75 16.6168 22.75 16.1253 22.7033C15.6146 22.6547 15.1522 22.5505 14.7317 22.2928C14.3141 22.0369 13.9631 21.6859 13.7072 21.2683C13.4495 20.8478 13.3453 20.3854 13.2967 19.8747C13.25 19.3832 13.25 18.7757 13.25 18.0366V18.0365V17.9635V17.9634C13.25 17.2243 13.25 16.6168 13.2967 16.1253C13.3453 15.6146 13.4495 15.1522 13.7072 14.7317C13.9631 14.3141 14.3141 13.9631 14.7317 13.7072C15.1522 13.4495 15.6146 13.3453 16.1253 13.2967C16.6168 13.25 17.2243 13.25 17.9634 13.25H17.9635H18.0365H18.0366Z" fill="currentColor" />
-  <Path d="M6.03656 13.25C6.7757 13.25 7.38322 13.25 7.87471 13.2967C8.38544 13.3453 8.84779 13.4495 9.26834 13.7072C9.68586 13.9631 10.0369 14.3141 10.2928 14.7317C10.5505 15.1522 10.6547 15.6146 10.7033 16.1253C10.75 16.6168 10.75 17.2243 10.75 17.9634V17.9634V18.0366V18.0366C10.75 18.7757 10.75 19.3832 10.7033 19.8747C10.6547 20.3854 10.5505 20.8478 10.2928 21.2683C10.0369 21.6859 9.68586 22.0369 9.26834 22.2928C8.84779 22.5505 8.38544 22.6547 7.87471 22.7033C7.38322 22.75 6.77571 22.75 6.03658 22.75H6.03656H5.96344H5.96343C5.22429 22.75 4.61678 22.75 4.12529 22.7033C3.61456 22.6547 3.15221 22.5505 2.73166 22.2928C2.31414 22.0369 1.9631 21.6859 1.70725 21.2683C1.44953 20.8478 1.34527 20.3854 1.29671 19.8747C1.24998 19.3832 1.24999 18.7757 1.25 18.0366V18.0365V17.9635V17.9634C1.24999 17.2243 1.24998 16.6168 1.29671 16.1253C1.34527 15.6146 1.44953 15.1522 1.70725 14.7317C1.9631 14.3141 2.31414 13.9631 2.73166 13.7072C3.15221 13.4495 3.61456 13.3453 4.12529 13.2967C4.61678 13.25 5.2243 13.25 5.96344 13.25H5.96345H6.03655H6.03656Z" fill="currentColor" />
-</Svg>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M18.0366 1.25C18.7757 1.24999 19.3832 1.24998 19.8747 1.29671C20.3854 1.34527 20.8478 1.44953 21.2683 1.70725C21.6859 1.9631 22.0369 2.31414 22.2928 2.73166C22.5505 3.15221 22.6547 3.61456 22.7033 4.12529C22.75 4.61678 22.75 5.22429 22.75 5.96343V5.96344V6.03656V6.03658C22.75 6.77571 22.75 7.38322 22.7033 7.87471C22.6547 8.38544 22.5505 8.84779 22.2928 9.26834C22.0369 9.68586 21.6859 10.0369 21.2683 10.2928C20.8478 10.5505 20.3854 10.6547 19.8747 10.7033C19.3832 10.75 18.7757 10.75 18.0366 10.75H18.0366H17.9634H17.9634C17.2243 10.75 16.6168 10.75 16.1253 10.7033C15.6146 10.6547 15.1522 10.5505 14.7317 10.2928C14.3141 10.0369 13.9631 9.68586 13.7072 9.26834C13.4495 8.84779 13.3453 8.38544 13.2967 7.87471C13.25 7.38322 13.25 6.7757 13.25 6.03656V6.03655V5.96345V5.96344C13.25 5.2243 13.25 4.61679 13.2967 4.12529C13.3453 3.61456 13.4495 3.15221 13.7072 2.73166C13.9631 2.31414 14.3141 1.9631 14.7317 1.70725C15.1522 1.44953 15.6146 1.34527 16.1253 1.29671C16.6168 1.24998 17.2243 1.24999 17.9634 1.25H17.9635H18.0365H18.0366Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M6.03656 1.25C6.7757 1.24999 7.38322 1.24998 7.87471 1.29671C8.38544 1.34527 8.84779 1.44953 9.26834 1.70725C9.68586 1.9631 10.0369 2.31414 10.2928 2.73166C10.5505 3.15221 10.6547 3.61456 10.7033 4.12529C10.75 4.61678 10.75 5.22429 10.75 5.96343V5.96344V6.03656V6.03658C10.75 6.77571 10.75 7.38322 10.7033 7.87471C10.6547 8.38544 10.5505 8.84779 10.2928 9.26834C10.0369 9.68586 9.68586 10.0369 9.26834 10.2928C8.84779 10.5505 8.38544 10.6547 7.87471 10.7033C7.38322 10.75 6.77571 10.75 6.03658 10.75H6.03656H5.96344H5.96343C5.22429 10.75 4.61678 10.75 4.12529 10.7033C3.61456 10.6547 3.15221 10.5505 2.73166 10.2928C2.31414 10.0369 1.9631 9.68586 1.70725 9.26834C1.44953 8.84779 1.34527 8.38544 1.29671 7.87471C1.24998 7.38322 1.24999 6.7757 1.25 6.03656V6.03655V5.96345V5.96344C1.24999 5.2243 1.24998 4.61679 1.29671 4.12529C1.34527 3.61456 1.44953 3.15221 1.70725 2.73166C1.9631 2.31414 2.31414 1.9631 2.73166 1.70725C3.15221 1.44953 3.61456 1.34527 4.12529 1.29671C4.61678 1.24998 5.2243 1.24999 5.96344 1.25H5.96345H6.03655H6.03656Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M18.0366 13.25C18.7757 13.25 19.3832 13.25 19.8747 13.2967C20.3854 13.3453 20.8478 13.4495 21.2683 13.7072C21.6859 13.9631 22.0369 14.3141 22.2928 14.7317C22.5505 15.1522 22.6547 15.6146 22.7033 16.1253C22.75 16.6168 22.75 17.2243 22.75 17.9634V17.9634V18.0366V18.0366C22.75 18.7757 22.75 19.3832 22.7033 19.8747C22.6547 20.3854 22.5505 20.8478 22.2928 21.2683C22.0369 21.6859 21.6859 22.0369 21.2683 22.2928C20.8478 22.5505 20.3854 22.6547 19.8747 22.7033C19.3832 22.75 18.7757 22.75 18.0366 22.75H18.0366H17.9634H17.9634C17.2243 22.75 16.6168 22.75 16.1253 22.7033C15.6146 22.6547 15.1522 22.5505 14.7317 22.2928C14.3141 22.0369 13.9631 21.6859 13.7072 21.2683C13.4495 20.8478 13.3453 20.3854 13.2967 19.8747C13.25 19.3832 13.25 18.7757 13.25 18.0366V18.0365V17.9635V17.9634C13.25 17.2243 13.25 16.6168 13.2967 16.1253C13.3453 15.6146 13.4495 15.1522 13.7072 14.7317C13.9631 14.3141 14.3141 13.9631 14.7317 13.7072C15.1522 13.4495 15.6146 13.3453 16.1253 13.2967C16.6168 13.25 17.2243 13.25 17.9634 13.25H17.9635H18.0365H18.0366Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M6.03656 13.25C6.7757 13.25 7.38322 13.25 7.87471 13.2967C8.38544 13.3453 8.84779 13.4495 9.26834 13.7072C9.68586 13.9631 10.0369 14.3141 10.2928 14.7317C10.5505 15.1522 10.6547 15.6146 10.7033 16.1253C10.75 16.6168 10.75 17.2243 10.75 17.9634V17.9634V18.0366V18.0366C10.75 18.7757 10.75 19.3832 10.7033 19.8747C10.6547 20.3854 10.5505 20.8478 10.2928 21.2683C10.0369 21.6859 9.68586 22.0369 9.26834 22.2928C8.84779 22.5505 8.38544 22.6547 7.87471 22.7033C7.38322 22.75 6.77571 22.75 6.03658 22.75H6.03656H5.96344H5.96343C5.22429 22.75 4.61678 22.75 4.12529 22.7033C3.61456 22.6547 3.15221 22.5505 2.73166 22.2928C2.31414 22.0369 1.9631 21.6859 1.70725 21.2683C1.44953 20.8478 1.34527 20.3854 1.29671 19.8747C1.24998 19.3832 1.24999 18.7757 1.25 18.0366V18.0365V17.9635V17.9634C1.24999 17.2243 1.24998 16.6168 1.29671 16.1253C1.34527 15.6146 1.44953 15.1522 1.70725 14.7317C1.9631 14.3141 2.31414 13.9631 2.73166 13.7072C3.15221 13.4495 3.61456 13.3453 4.12529 13.2967C4.61678 13.25 5.2243 13.25 5.96344 13.25H5.96345H6.03655H6.03656Z"
+      fill="currentColor"
+    />
+  </Svg>
 );
 
 const ThumbsUpIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M2.00171 10.4982V20.4982H7.00171V10.4982H2.00171Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M7.00171 10.5023V20.4882C7.00171 20.4937 7.00619 20.4982 7.01171 20.4982H19.0017L21.9978 10.5111C21.9998 10.5046 21.995 10.4982 21.9883 10.4982H14.5017L16 5.5039C16.001 5.50037 16.0001 5.49655 15.9975 5.49395L14.0088 3.50525C14.0049 3.50134 13.9985 3.50134 13.9946 3.50525L7.00464 10.4952C7.00276 10.4971 7.00171 10.4997 7.00171 10.5023Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2.00171 10.4982V20.4982H7.00171V10.4982H2.00171Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M7.00171 10.5023V20.4882C7.00171 20.4937 7.00619 20.4982 7.01171 20.4982H19.0017L21.9978 10.5111C21.9998 10.5046 21.995 10.4982 21.9883 10.4982H14.5017L16 5.5039C16.001 5.50037 16.0001 5.49655 15.9975 5.49395L14.0088 3.50525C14.0049 3.50134 13.9985 3.50134 13.9946 3.50525L7.00464 10.4952C7.00276 10.4971 7.00171 10.4997 7.00171 10.5023Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 export const Coupon01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M10.8738 21.5123L8.84345 20.3072C8.32816 20.0014 8.07051 19.8484 7.78457 19.8396C7.47557 19.83 7.21336 19.9767 6.65655 20.3072C6.03294 20.6774 4.79293 21.697 3.99083 21.2108C3.5 20.9132 3.5 20.1574 3.5 18.6457V8C3.5 5.17157 3.5 3.75736 4.37868 2.87868C5.25736 2 6.67157 2 9.5 2H14.5C17.3284 2 18.7426 2 19.6213 2.87868C20.5 3.75736 20.5 5.17157 20.5 8V18.6457C20.5 20.1574 20.5 20.9132 20.0092 21.2108C19.2071 21.697 17.9671 20.6774 17.3434 20.3072C16.8282 20.0014 16.5705 19.8484 16.2846 19.8396C15.9756 19.83 15.7134 19.9767 15.1566 20.3072L13.1262 21.5123C12.5786 21.8374 12.3047 21.9999 12 21.9999C11.6953 21.9999 11.4214 21.8374 10.8738 21.5123Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M15 8L9 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M15 14H14.991M9.00897 8H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M10.8738 21.5123L8.84345 20.3072C8.32816 20.0014 8.07051 19.8484 7.78457 19.8396C7.47557 19.83 7.21336 19.9767 6.65655 20.3072C6.03294 20.6774 4.79293 21.697 3.99083 21.2108C3.5 20.9132 3.5 20.1574 3.5 18.6457V8C3.5 5.17157 3.5 3.75736 4.37868 2.87868C5.25736 2 6.67157 2 9.5 2H14.5C17.3284 2 18.7426 2 19.6213 2.87868C20.5 3.75736 20.5 5.17157 20.5 8V18.6457C20.5 20.1574 20.5 20.9132 20.0092 21.2108C19.2071 21.697 17.9671 20.6774 17.3434 20.3072C16.8282 20.0014 16.5705 19.8484 16.2846 19.8396C15.9756 19.83 15.7134 19.9767 15.1566 20.3072L13.1262 21.5123C12.5786 21.8374 12.3047 21.9999 12 21.9999C11.6953 21.9999 11.4214 21.8374 10.8738 21.5123Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M15 8L9 14"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M15 14H14.991M9.00897 8H9"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const Share08Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-  <Path d="M12 3H3V21H21V15" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-  <Path d="M14.9957 5.01726V7.96194H12.8224C10.6458 7.96194 8.84654 8.63306 7.7436 10.4687C6.93852 11.7233 6.98817 13.0603 6.98828 15.5579C6.98828 15.5625 6.99208 15.5663 6.99671 15.5664C7.02022 15.5668 7.02717 15.5701 7.03235 15.5664C8.41104 14.5813 10.0073 13.0393 13.1697 13.0393C13.8498 13.0393 13.0786 13.0393 14.9957 13.0393V15.9739C14.9957 15.9813 15.0046 15.9852 15.0101 15.9801L20.9973 10.5039C21.0009 10.5006 21.0009 10.4949 20.9973 10.4915L15.0101 5.01107C15.0046 5.00604 14.9957 5.00988 14.9957 5.01726Z" stroke="currentColor" strokeWidth="1.5" />
-</Svg>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 3H3V21H21V15"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M14.9957 5.01726V7.96194H12.8224C10.6458 7.96194 8.84654 8.63306 7.7436 10.4687C6.93852 11.7233 6.98817 13.0603 6.98828 15.5579C6.98828 15.5625 6.99208 15.5663 6.99671 15.5664C7.02022 15.5668 7.02717 15.5701 7.03235 15.5664C8.41104 14.5813 10.0073 13.0393 13.1697 13.0393C13.8498 13.0393 13.0786 13.0393 14.9957 13.0393V15.9739C14.9957 15.9813 15.0046 15.9852 15.0101 15.9801L20.9973 10.5039C21.0009 10.5006 21.0009 10.4949 20.9973 10.4915L15.0101 5.01107C15.0046 5.00604 14.9957 5.00988 14.9957 5.01726Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+  </Svg>
 );
 
 const TimeQuarterPassIconstroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M8.37574 3C8.16183 3.07993 7.95146 3.16712 7.74492 3.26126M20.7177 16.3011C20.8199 16.0799 20.9141 15.8542 21 15.6245M18.4988 19.3647C18.6705 19.2044 18.8365 19.0381 18.9963 18.866M15.2689 21.3723C15.463 21.2991 15.6541 21.22 15.8421 21.1351M12.156 21.9939C11.9251 22.0019 11.6926 22.0019 11.4616 21.9939M7.78731 21.1404C7.96811 21.2217 8.15183 21.2978 8.33825 21.3683M4.67255 18.9208C4.80924 19.0657 4.95029 19.2064 5.0955 19.3428M2.6327 15.6645C2.70758 15.8622 2.78867 16.0569 2.87572 16.2483M2.00497 12.5053C1.99848 12.2972 1.9985 12.0878 2.00497 11.8794M2.62545 8.73714C2.69901 8.54165 2.77864 8.34913 2.8641 8.1598M4.65602 5.47923C4.80068 5.32514 4.95025 5.17573 5.1045 5.03124" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5M13.5 12C13.5 11.1716 12.8284 10.5 12 10.5M13.5 12H16M12 10.5V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path d="M22 12C22 6.47715 17.5228 2 12 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M8.37574 3C8.16183 3.07993 7.95146 3.16712 7.74492 3.26126M20.7177 16.3011C20.8199 16.0799 20.9141 15.8542 21 15.6245M18.4988 19.3647C18.6705 19.2044 18.8365 19.0381 18.9963 18.866M15.2689 21.3723C15.463 21.2991 15.6541 21.22 15.8421 21.1351M12.156 21.9939C11.9251 22.0019 11.6926 22.0019 11.4616 21.9939M7.78731 21.1404C7.96811 21.2217 8.15183 21.2978 8.33825 21.3683M4.67255 18.9208C4.80924 19.0657 4.95029 19.2064 5.0955 19.3428M2.6327 15.6645C2.70758 15.8622 2.78867 16.0569 2.87572 16.2483M2.00497 12.5053C1.99848 12.2972 1.9985 12.0878 2.00497 11.8794M2.62545 8.73714C2.69901 8.54165 2.77864 8.34913 2.8641 8.1598M4.65602 5.47923C4.80068 5.32514 4.95025 5.17573 5.1045 5.03124"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5M13.5 12C13.5 11.1716 12.8284 10.5 12 10.5M13.5 12H16M12 10.5V6"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M22 12C22 6.47715 17.5228 2 12 2"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const EarthIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M12 22C6.47715 22 2 17.5228 2 12C2 9.20746 3.14465 6.68227 4.99037 4.86802M12 22C11.037 21.2864 11.1907 20.4555 11.6738 19.6247C12.4166 18.3474 12.4166 18.3474 12.4166 16.6444C12.4166 14.9414 13.4286 14.1429 17 14.8571C18.6047 15.1781 19.7741 12.9609 21.8573 13.693M12 22C16.9458 22 21.053 18.4096 21.8573 13.693M21.8573 13.693C21.9511 13.1427 22 12.5771 22 12C22 7.11857 18.5024 3.05405 13.8766 2.17579M13.8766 2.17579C14.3872 3.11599 14.1816 4.23551 13.1027 4.66298C11.3429 5.3603 12.6029 6.64343 11.1035 7.4356C10.1038 7.96372 8.6044 7.83152 7.10496 6.24716C6.31517 5.41264 5.83966 4.95765 4.99037 4.86802M13.8766 2.17579C13.2687 2.06039 12.6414 2 12 2C9.26969 2 6.79495 3.09421 4.99037 4.86802" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 22C6.47715 22 2 17.5228 2 12C2 9.20746 3.14465 6.68227 4.99037 4.86802M12 22C11.037 21.2864 11.1907 20.4555 11.6738 19.6247C12.4166 18.3474 12.4166 18.3474 12.4166 16.6444C12.4166 14.9414 13.4286 14.1429 17 14.8571C18.6047 15.1781 19.7741 12.9609 21.8573 13.693M12 22C16.9458 22 21.053 18.4096 21.8573 13.693M21.8573 13.693C21.9511 13.1427 22 12.5771 22 12C22 7.11857 18.5024 3.05405 13.8766 2.17579M13.8766 2.17579C14.3872 3.11599 14.1816 4.23551 13.1027 4.66298C11.3429 5.3603 12.6029 6.64343 11.1035 7.4356C10.1038 7.96372 8.6044 7.83152 7.10496 6.24716C6.31517 5.41264 5.83966 4.95765 4.99037 4.86802M13.8766 2.17579C13.2687 2.06039 12.6414 2 12 2C9.26969 2 6.79495 3.09421 4.99037 4.86802"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const SmartPhone01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M19 2H5V22H19V2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M10.5 19H13.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M19 2H5V22H19V2Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M10.5 19H13.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
     <Path d="M9 2L10 5H14L15 2" stroke="currentColor" strokeWidth="1.5" />
   </Svg>
 );
 
 const AppleIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M10.7985 21.5004C10.3415 21.7475 9.87437 22 9.09969 22C6.53925 22 4 15.746 4 12.8065C4 9.86687 6.07564 7 8.63608 7C9.94232 7 10.5125 7.3073 11.0102 7.57556C11.3958 7.78336 11.7379 7.96774 12.3449 7.96774C12.952 7.96774 13.2941 7.78336 13.6797 7.57556C14.1774 7.3073 14.7476 7 16.0538 7C17.5667 7 18.9103 8.00087 19.7565 9.42623C18.5561 10.0885 17.7446 11.3541 17.7446 12.8065C17.7446 14.355 18.6671 15.6912 20 16.3102C19.0721 19.0922 17.3361 22 15.5902 22C14.8155 22 14.3484 21.7475 13.8914 21.5004C13.4537 21.2638 13.0253 21.0323 12.3449 21.0323C11.6646 21.0323 11.2362 21.2638 10.7985 21.5004Z" fill="currentColor" />
-    <Path d="M16.5 2V3C16.5 5.20914 14.7091 7 12.5 7V6C12.5 3.79086 14.2909 2 16.5 2Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M10.7985 21.5004C10.3415 21.7475 9.87437 22 9.09969 22C6.53925 22 4 15.746 4 12.8065C4 9.86687 6.07564 7 8.63608 7C9.94232 7 10.5125 7.3073 11.0102 7.57556C11.3958 7.78336 11.7379 7.96774 12.3449 7.96774C12.952 7.96774 13.2941 7.78336 13.6797 7.57556C14.1774 7.3073 14.7476 7 16.0538 7C17.5667 7 18.9103 8.00087 19.7565 9.42623C18.5561 10.0885 17.7446 11.3541 17.7446 12.8065C17.7446 14.355 18.6671 15.6912 20 16.3102C19.0721 19.0922 17.3361 22 15.5902 22C14.8155 22 14.3484 21.7475 13.8914 21.5004C13.4537 21.2638 13.0253 21.0323 12.3449 21.0323C11.6646 21.0323 11.2362 21.2638 10.7985 21.5004Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M16.5 2V3C16.5 5.20914 14.7091 7 12.5 7V6C12.5 3.79086 14.2909 2 16.5 2Z"
+      fill="currentColor"
+    />
   </Svg>
-)
+);
 
 const CancelCircleIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path opacity="0.4" d="M1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12Z" fill="currentColor" />
-    <Path fillRule="evenodd" clipRule="evenodd" d="M15.7071 8.29292C16.0976 8.68345 16.0976 9.31662 15.7071 9.70713L13.4141 12L15.7071 14.2929C16.0976 14.6834 16.0976 15.3165 15.7071 15.7071C15.3166 16.0976 14.6835 16.0976 14.2929 15.7071L11.9998 13.4142L9.70708 15.7067C9.31655 16.0972 8.68338 16.0972 8.29287 15.7067C7.90236 15.3162 7.90238 14.683 8.29292 14.2925L10.5855 12L8.29292 9.70752C7.90238 9.31701 7.90236 8.68385 8.29287 8.29331C8.68338 7.90277 9.31655 7.90275 9.70708 8.29326L11.9998 10.5858L14.2929 8.29287C14.6835 7.90236 15.3166 7.90238 15.7071 8.29292Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      opacity="0.4"
+      d="M1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12Z"
+      fill="currentColor"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M15.7071 8.29292C16.0976 8.68345 16.0976 9.31662 15.7071 9.70713L13.4141 12L15.7071 14.2929C16.0976 14.6834 16.0976 15.3165 15.7071 15.7071C15.3166 16.0976 14.6835 16.0976 14.2929 15.7071L11.9998 13.4142L9.70708 15.7067C9.31655 16.0972 8.68338 16.0972 8.29287 15.7067C7.90236 15.3162 7.90238 14.683 8.29292 14.2925L10.5855 12L8.29292 9.70752C7.90238 9.31701 7.90236 8.68385 8.29287 8.29331C8.68338 7.90277 9.31655 7.90275 9.70708 8.29326L11.9998 10.5858L14.2929 8.29287C14.6835 7.90236 15.3166 7.90238 15.7071 8.29292Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const CalendarAdd01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M17.5 2V6M6.5 2V6" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M21 13V4H3V22H12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M3 9H21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M13 18H21M17 14L17 22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M17.5 2V6M6.5 2V6"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M21 13V4H3V22H12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M3 9H21"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M13 18H21M17 14L17 22"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const UserIconsStrike = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M3 22H21C21 17.5817 16.9706 14 12 14C7.02944 14 3 17.5817 3 22Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M16.5 6.5C16.5 8.98528 14.4853 11 12 11C9.51472 11 7.5 8.98528 7.5 6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5Z" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M3 22H21C21 17.5817 16.9706 14 12 14C7.02944 14 3 17.5817 3 22Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M16.5 6.5C16.5 8.98528 14.4853 11 12 11C9.51472 11 7.5 8.98528 7.5 6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const UserIcons = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M2.25 22C2.25 17.0869 6.70071 13.25 12 13.25C17.2993 13.25 21.75 17.0869 21.75 22V22.75H2.25V22Z" fill="currentColor" />
-    <Path d="M6.75 6.5C6.75 3.6005 9.1005 1.25 12 1.25C14.8995 1.25 17.25 3.6005 17.25 6.5C17.25 9.39949 14.8995 11.75 12 11.75C9.1005 11.75 6.75 9.39949 6.75 6.5Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2.25 22C2.25 17.0869 6.70071 13.25 12 13.25C17.2993 13.25 21.75 17.0869 21.75 22V22.75H2.25V22Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M6.75 6.5C6.75 3.6005 9.1005 1.25 12 1.25C14.8995 1.25 17.25 3.6005 17.25 6.5C17.25 9.39949 14.8995 11.75 12 11.75C9.1005 11.75 6.75 9.39949 6.75 6.5Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 export const StoreLocation01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M18.5 13.5C20.433 13.5 22 15.0376 22 16.9343C22 19.0798 20 20.5 18.5 21.9999C17 20.5 15 19.0351 15 16.9343C15 15.0376 16.567 13.5 18.5 13.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M18.5 17L18.509 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M13 21.75C13.4142 21.75 13.75 21.4142 13.75 21C13.75 20.5858 13.4142 20.25 13 20.25V21.75ZM2.75 10V19H4.25V10H2.75ZM5.5 21.75H13V20.25H5.5V21.75ZM2.75 19C2.75 20.5188 3.98122 21.75 5.5 21.75V20.25C4.80964 20.25 4.25 19.6904 4.25 19H2.75Z" fill="currentColor" />
-    <Path d="M9.10312 9.75932C7.90964 11.0658 6.23423 11.065 5.26481 10.8905C3.76542 10.6205 2.62896 9.4078 2 8.5L3.7828 2.70591C3.9119 2.28632 4.29957 2 4.73857 2H19.2614C19.7004 2 20.0881 2.28632 20.2172 2.70591L22 8.5C20.2678 10.5951 17.1113 12.2253 14.8632 9.77219M9.10312 9.75932C9.61924 9.19435 10.0452 8.38492 10.285 7.23936M9.10312 9.75932C9.69112 10.4253 11.3255 11.5178 13.3509 10.7197C15.286 9.95721 15.7171 8.51536 16 7.23936" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M6.5 17.5H10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M18.5 13.5C20.433 13.5 22 15.0376 22 16.9343C22 19.0798 20 20.5 18.5 21.9999C17 20.5 15 19.0351 15 16.9343C15 15.0376 16.567 13.5 18.5 13.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M18.5 17L18.509 17"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M13 21.75C13.4142 21.75 13.75 21.4142 13.75 21C13.75 20.5858 13.4142 20.25 13 20.25V21.75ZM2.75 10V19H4.25V10H2.75ZM5.5 21.75H13V20.25H5.5V21.75ZM2.75 19C2.75 20.5188 3.98122 21.75 5.5 21.75V20.25C4.80964 20.25 4.25 19.6904 4.25 19H2.75Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M9.10312 9.75932C7.90964 11.0658 6.23423 11.065 5.26481 10.8905C3.76542 10.6205 2.62896 9.4078 2 8.5L3.7828 2.70591C3.9119 2.28632 4.29957 2 4.73857 2H19.2614C19.7004 2 20.0881 2.28632 20.2172 2.70591L22 8.5C20.2678 10.5951 17.1113 12.2253 14.8632 9.77219M9.10312 9.75932C9.61924 9.19435 10.0452 8.38492 10.285 7.23936M9.10312 9.75932C9.69112 10.4253 11.3255 11.5178 13.3509 10.7197C15.286 9.95721 15.7171 8.51536 16 7.23936"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M6.5 17.5H10.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 export const YoutubeIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M12 3.25C8.20223 3.25 4.68347 3.62627 1.83507 4.26836L1.25 4.40025L1.25 19.5998L1.83507 19.7316C4.68347 20.3737 8.20223 20.75 12 20.75C15.7978 20.75 19.3165 20.3737 22.1649 19.7316L22.75 19.5998L22.75 4.40025L22.1649 4.26836C19.3165 3.62627 15.7978 3.25 12 3.25ZM9 7.5L17 12L9 16.5L9 7.5Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 3.25C8.20223 3.25 4.68347 3.62627 1.83507 4.26836L1.25 4.40025L1.25 19.5998L1.83507 19.7316C4.68347 20.3737 8.20223 20.75 12 20.75C15.7978 20.75 19.3165 20.3737 22.1649 19.7316L22.75 19.5998L22.75 4.40025L22.1649 4.26836C19.3165 3.62627 15.7978 3.25 12 3.25ZM9 7.5L17 12L9 16.5L9 7.5Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 export const WhatsappBusinessIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#ffffff" fill="none" {...props}>
-    <Path d="M11.998 22.002C17.522 22.002 22 17.5239 22 12C22 6.47607 17.522 1.99805 11.998 1.99805C6.47411 1.99805 1.99609 6.47607 1.99609 12C1.99609 13.8889 2.43006 15.4979 3.34008 17.005L1.99787 22L6.96849 20.666C8.48148 21.5862 10.0978 22.002 11.998 22.002Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M9 12H12.7678M9 12V7.5H12.7678C14.0006 7.5 15 8.60383 15 9.7084C15 10.813 14.0006 12 12.7678 12M9 12V16.5H12.7678C14.0006 16.5 15 15.4376 15 14.333C15 13.2284 14.0006 12 12.7678 12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#ffffff"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M11.998 22.002C17.522 22.002 22 17.5239 22 12C22 6.47607 17.522 1.99805 11.998 1.99805C6.47411 1.99805 1.99609 6.47607 1.99609 12C1.99609 13.8889 2.43006 15.4979 3.34008 17.005L1.99787 22L6.96849 20.666C8.48148 21.5862 10.0978 22.002 11.998 22.002Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M9 12H12.7678M9 12V7.5H12.7678C14.0006 7.5 15 8.60383 15 9.7084C15 10.813 14.0006 12 12.7678 12M9 12V16.5H12.7678C14.0006 16.5 15 15.4376 15 14.333C15 13.2284 14.0006 12 12.7678 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const AlertSquareIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-  <Path fillRule="evenodd" clipRule="evenodd" d="M2.99909 2.24999C2.80017 2.24999 2.60941 2.32901 2.46876 2.46966C2.3281 2.61031 2.24909 2.80108 2.24909 2.99999L2.24908 21C2.24908 21.1989 2.3281 21.3897 2.46875 21.5303C2.60941 21.671 2.80017 21.75 2.99908 21.75L20.9991 21.75C21.4133 21.75 21.7491 21.4142 21.7491 21L21.7491 3C21.7491 2.58578 21.4133 2.25 20.9991 2.25L2.99909 2.24999ZM12.9991 17V15H10.9991V17H12.9991ZM12.9991 13V6.99999H10.9991V13H12.9991Z" fill="currentColor" />
-</Svg>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M2.99909 2.24999C2.80017 2.24999 2.60941 2.32901 2.46876 2.46966C2.3281 2.61031 2.24909 2.80108 2.24909 2.99999L2.24908 21C2.24908 21.1989 2.3281 21.3897 2.46875 21.5303C2.60941 21.671 2.80017 21.75 2.99908 21.75L20.9991 21.75C21.4133 21.75 21.7491 21.4142 21.7491 21L21.7491 3C21.7491 2.58578 21.4133 2.25 20.9991 2.25L2.99909 2.24999ZM12.9991 17V15H10.9991V17H12.9991ZM12.9991 13V6.99999H10.9991V13H12.9991Z"
+      fill="currentColor"
+    />
+  </Svg>
 );
 
 const VideoOffIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M16.993 9.50018L21.9907 6.5V17" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M16.993 9.50018L21.9907 6.5V17"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
     <Path d="M2 2L21.9907 22" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M4.04489 3.99988H1.99414V20.0205H16.9926V3.99988H6.67193" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    <Path
+      d="M4.04489 3.99988H1.99414V20.0205H16.9926V3.99988H6.67193"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const UserBlock01Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M13.75 18.25C13.75 15.7647 15.7647 13.75 18.25 13.75C20.7353 13.75 22.75 15.7647 22.75 18.25C22.75 20.7353 20.7353 22.75 18.25 22.75C15.7647 22.75 13.75 20.7353 13.75 18.25ZM15.9222 17.3364C15.811 17.6194 15.75 17.9276 15.75 18.25C15.75 19.6307 16.8693 20.75 18.25 20.75C18.5724 20.75 18.8806 20.689 19.1636 20.5778L15.9222 17.3364ZM17.3364 15.9222L20.5778 19.1636C20.689 18.8806 20.75 18.5724 20.75 18.25C20.75 16.8693 19.6307 15.75 18.25 15.75C17.9276 15.75 17.6194 15.811 17.3364 15.9222Z" fill="currentColor" />
-    <Path d="M10 1.25C7.37665 1.25 5.25 3.37665 5.25 6C5.25 8.62335 7.37665 10.75 10 10.75C12.6234 10.75 14.75 8.62335 14.75 6C14.75 3.37665 12.6234 1.25 10 1.25Z" fill="currentColor" />
-    <Path d="M10 12.25C5.26471 12.25 1.25 15.6289 1.25 20V20.75H12.794C12.4447 19.9889 12.25 19.1422 12.25 18.25C12.25 16.2822 13.1973 14.5356 14.6608 13.4415C13.3007 12.6837 11.6966 12.25 10 12.25Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M13.75 18.25C13.75 15.7647 15.7647 13.75 18.25 13.75C20.7353 13.75 22.75 15.7647 22.75 18.25C22.75 20.7353 20.7353 22.75 18.25 22.75C15.7647 22.75 13.75 20.7353 13.75 18.25ZM15.9222 17.3364C15.811 17.6194 15.75 17.9276 15.75 18.25C15.75 19.6307 16.8693 20.75 18.25 20.75C18.5724 20.75 18.8806 20.689 19.1636 20.5778L15.9222 17.3364ZM17.3364 15.9222L20.5778 19.1636C20.689 18.8806 20.75 18.5724 20.75 18.25C20.75 16.8693 19.6307 15.75 18.25 15.75C17.9276 15.75 17.6194 15.811 17.3364 15.9222Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M10 1.25C7.37665 1.25 5.25 3.37665 5.25 6C5.25 8.62335 7.37665 10.75 10 10.75C12.6234 10.75 14.75 8.62335 14.75 6C14.75 3.37665 12.6234 1.25 10 1.25Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M10 12.25C5.26471 12.25 1.25 15.6289 1.25 20V20.75H12.794C12.4447 19.9889 12.25 19.1422 12.25 18.25C12.25 16.2822 13.1973 14.5356 14.6608 13.4415C13.3007 12.6837 11.6966 12.25 10 12.25Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 const UserBlock01IconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M12 20H2C2 16.134 5.58172 13 10 13C11.4571 13 12.8233 13.3409 14 13.9365M14 6C14 8.20914 12.2091 10 10 10C7.79086 10 6 8.20914 6 6C6 3.79086 7.79086 2 10 2C12.2091 2 14 3.79086 14 6Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M16.05 16.05L20.95 20.95M22 18.5C22 16.567 20.433 15 18.5 15C16.567 15 15 16.567 15 18.5C15 20.433 16.567 22 18.5 22C20.433 22 22 20.433 22 18.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 20H2C2 16.134 5.58172 13 10 13C11.4571 13 12.8233 13.3409 14 13.9365M14 6C14 8.20914 12.2091 10 10 10C7.79086 10 6 8.20914 6 6C6 3.79086 7.79086 2 10 2C12.2091 2 14 3.79086 14 6Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M16.05 16.05L20.95 20.95M22 18.5C22 16.567 20.433 15 18.5 15C16.567 15 15 16.567 15 18.5C15 20.433 16.567 22 18.5 22C20.433 22 22 20.433 22 18.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const ComplaintIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M10.2396 12.2652C10.2396 10.7488 9.00962 9.51953 7.49234 9.51953C5.97506 9.51953 4.74506 10.7488 4.74506 12.2652C4.74506 13.7817 5.97506 15.011 7.49234 15.011C9.00962 15.011 10.2396 13.7817 10.2396 12.2652Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M12.9871 22.0001H1.99799C1.99799 19.7944 4.45798 17.5071 7.49255 17.5071C10.5272 17.5071 12.9871 19.7944 12.9871 22.0001Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M16.9775 12.0156C19.7524 12.0156 22.002 9.77353 22.002 7.0078C22.002 4.24207 19.7524 2 16.9775 2C14.2026 2 11.9531 4.24207 11.9531 7.0078C11.9531 8.71928 12.9892 10.2522 13.9436 10.9802C13.8738 11.7177 13.5161 12.4991 12.9976 13.0092C12.9059 13.0994 14.2372 12.7108 15.8081 11.8639C16.2906 11.9762 16.3261 12.0156 16.9775 12.0156Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M17.0029 4.04199V7.01172M17.0253 8.27539V9.76367" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M10.2396 12.2652C10.2396 10.7488 9.00962 9.51953 7.49234 9.51953C5.97506 9.51953 4.74506 10.7488 4.74506 12.2652C4.74506 13.7817 5.97506 15.011 7.49234 15.011C9.00962 15.011 10.2396 13.7817 10.2396 12.2652Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M12.9871 22.0001H1.99799C1.99799 19.7944 4.45798 17.5071 7.49255 17.5071C10.5272 17.5071 12.9871 19.7944 12.9871 22.0001Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M16.9775 12.0156C19.7524 12.0156 22.002 9.77353 22.002 7.0078C22.002 4.24207 19.7524 2 16.9775 2C14.2026 2 11.9531 4.24207 11.9531 7.0078C11.9531 8.71928 12.9892 10.2522 13.9436 10.9802C13.8738 11.7177 13.5161 12.4991 12.9976 13.0092C12.9059 13.0994 14.2372 12.7108 15.8081 11.8639C16.2906 11.9762 16.3261 12.0156 16.9775 12.0156Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M17.0029 4.04199V7.01172M17.0253 8.27539V9.76367"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
-
 const SecurityBlockIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M2 2L22 22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M19.7018 15.7018C20.4852 14.3588 21 12.7938 21 11V5.00002C16 4.50002 12 2.00002 12 2.00002C12 2.00002 10.3685 3.01972 7.8869 3.8869M4.74305 4.74305C4.1797 4.85211 3.59698 4.94032 3 5.00002V11C3 18.5 12 22 12 22C12 22 15.3566 20.6947 17.9701 17.9701" stroke="currentColor" strokeWidth="1.5" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2 2L22 22"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M19.7018 15.7018C20.4852 14.3588 21 12.7938 21 11V5.00002C16 4.50002 12 2.00002 12 2.00002C12 2.00002 10.3685 3.01972 7.8869 3.8869M4.74305 4.74305C4.1797 4.85211 3.59698 4.94032 3 5.00002V11C3 18.5 12 22 12 22C12 22 15.3566 20.6947 17.9701 17.9701"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
   </Svg>
 );
 
 const ViewOffSlashIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path fillRule="evenodd" clipRule="evenodd" d="M3.41421 2L22 20.5858L20.5858 22L2 3.41421L3.41421 2Z" fill="currentColor" />
-    <Path d="M21.6798 13.5517C21.1723 14.2185 20.4399 15.1062 19.533 15.9996L8.57638 5.04298C9.63744 4.55851 10.7876 4.25 11.998 4.25C15.0225 4.25 17.671 6.17619 19.4927 7.96086C20.4182 8.86758 21.1648 9.77169 21.6798 10.4483C21.8777 10.7083 22.3199 11.365 22.5771 11.747C22.6551 11.8628 22.716 11.9534 22.748 12C22.716 12.0466 22.6551 12.1372 22.5771 12.253C22.3199 12.635 21.8777 13.2917 21.6798 13.5517Z" fill="currentColor" />
-    <Path d="M4.50341 7.96086C5.0524 7.42304 5.67647 6.87236 6.36328 6.36542L9.51272 9.51486C8.88536 10.1497 8.49805 11.0223 8.49805 11.9853C8.49805 13.9264 10.0716 15.5 12.0128 15.5C12.9758 15.5 13.8484 15.1127 14.4832 14.4853L17.6326 17.6347C16.0404 18.8099 14.111 19.75 11.998 19.75C8.97355 19.75 6.32513 17.8238 4.50341 16.0391C3.57786 15.1324 2.8313 14.2283 2.31631 13.5517C2.11838 13.2917 1.67628 12.6351 1.41908 12.2531C1.34106 12.1372 1.28006 12.0466 1.24805 12C1.28006 11.9534 1.34109 11.8628 1.41911 11.7469C1.67632 11.3649 2.1184 10.7083 2.31631 10.4483C2.8313 9.77169 3.57786 8.86758 4.50341 7.96086Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M3.41421 2L22 20.5858L20.5858 22L2 3.41421L3.41421 2Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M21.6798 13.5517C21.1723 14.2185 20.4399 15.1062 19.533 15.9996L8.57638 5.04298C9.63744 4.55851 10.7876 4.25 11.998 4.25C15.0225 4.25 17.671 6.17619 19.4927 7.96086C20.4182 8.86758 21.1648 9.77169 21.6798 10.4483C21.8777 10.7083 22.3199 11.365 22.5771 11.747C22.6551 11.8628 22.716 11.9534 22.748 12C22.716 12.0466 22.6551 12.1372 22.5771 12.253C22.3199 12.635 21.8777 13.2917 21.6798 13.5517Z"
+      fill="currentColor"
+    />
+    <Path
+      d="M4.50341 7.96086C5.0524 7.42304 5.67647 6.87236 6.36328 6.36542L9.51272 9.51486C8.88536 10.1497 8.49805 11.0223 8.49805 11.9853C8.49805 13.9264 10.0716 15.5 12.0128 15.5C12.9758 15.5 13.8484 15.1127 14.4832 14.4853L17.6326 17.6347C16.0404 18.8099 14.111 19.75 11.998 19.75C8.97355 19.75 6.32513 17.8238 4.50341 16.0391C3.57786 15.1324 2.8313 14.2283 2.31631 13.5517C2.11838 13.2917 1.67628 12.6351 1.41908 12.2531C1.34106 12.1372 1.28006 12.0466 1.24805 12C1.28006 11.9534 1.34109 11.8628 1.41911 11.7469C1.67632 11.3649 2.1184 10.7083 2.31631 10.4483C2.8313 9.77169 3.57786 8.86758 4.50341 7.96086Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 export const SentIconSolid = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M22.2119 2.73615C22.3006 2.46843 22.2317 2.17356 22.0334 1.97295C21.8352 1.77234 21.5412 1.69992 21.2724 1.78551L2.27241 7.83651C1.97497 7.93124 1.7673 8.20031 1.75103 8.51205C1.73475 8.82379 1.91328 9.11302 2.19925 9.2382L10.1996 12.7403L14.4705 8.46977L15.5311 9.53046L11.2403 13.821L14.5075 21.7845C14.6266 22.0747 14.9138 22.2602 15.2273 22.2493C15.5409 22.2385 15.8146 22.0336 15.9133 21.7358L22.2119 2.73615Z" fill="currentColor" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M22.2119 2.73615C22.3006 2.46843 22.2317 2.17356 22.0334 1.97295C21.8352 1.77234 21.5412 1.69992 21.2724 1.78551L2.27241 7.83651C1.97497 7.93124 1.7673 8.20031 1.75103 8.51205C1.73475 8.82379 1.91328 9.11302 2.19925 9.2382L10.1996 12.7403L14.4705 8.46977L15.5311 9.53046L11.2403 13.821L14.5075 21.7845C14.6266 22.0747 14.9138 22.2602 15.2273 22.2493C15.5409 22.2385 15.8146 22.0336 15.9133 21.7358L22.2119 2.73615Z"
+      fill="currentColor"
+    />
   </Svg>
 );
 
 export const Download05Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M12 5L12 14.6372M9 11.9998L12 15L15 11.9998" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M5 19H19.0001" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M12 5L12 14.6372M9 11.9998L12 15L15 11.9998"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M5 19H19.0001"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 export const Link02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M9.5 14.5L14.5 9.49995" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M16.8463 14.6095L19.4558 12C21.5147 9.94108 21.5147 6.60298 19.4558 4.54411C17.397 2.48524 14.0589 2.48524 12 4.54411L9.39045 7.15366M14.6095 16.8463L12 19.4558C9.94113 21.5147 6.60303 21.5147 4.54416 19.4558C2.48528 17.3969 2.48528 14.0588 4.54416 12L7.1537 9.39041" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M9.5 14.5L14.5 9.49995"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M16.8463 14.6095L19.4558 12C21.5147 9.94108 21.5147 6.60298 19.4558 4.54411C17.397 2.48524 14.0589 2.48524 12 4.54411L9.39045 7.15366M14.6095 16.8463L12 19.4558C9.94113 21.5147 6.60303 21.5147 4.54416 19.4558C2.48528 17.3969 2.48528 14.0588 4.54416 12L7.1537 9.39041"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const SecurityCheckIconSharp = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
     <Path d="M9 13L11 15L17 9" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M20.9976 11V5C15.9976 4.5 11.9976 2 11.9976 2C11.9976 2 7.99756 4.5 2.99756 5V11C2.99756 18.5 11.9976 22 11.9976 22C11.9976 22 20.9976 18.5 20.9976 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <Path
+      d="M20.9976 11V5C15.9976 4.5 11.9976 2 11.9976 2C11.9976 2 7.99756 4.5 2.99756 5V11C2.99756 18.5 11.9976 22 11.9976 22C11.9976 22 20.9976 18.5 20.9976 11Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 
 const LoginMethodIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M17.5 7H6.5V15.5H17.5V7Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <Path d="M9 7V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
-    <Path d="M13.5 19L10.5 22M10.5 19L13.5 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
-    <Path d="M21 19L18 22M18 19L21 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
-    <Path d="M6 19L3 22M3 19L6 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M17.5 7H6.5V15.5H17.5V7Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M9 7V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V7"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+    />
+    <Path
+      d="M13.5 19L10.5 22M10.5 19L13.5 22"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+    />
+    <Path
+      d="M21 19L18 22M18 19L21 22"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+    />
+    <Path
+      d="M6 19L3 22M3 19L6 22"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+    />
   </Svg>
 );
 
 const StarIconStroke = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M13.7276 3.44418L15.4874 6.99288C15.7274 7.48687 16.3673 7.9607 16.9073 8.05143L20.0969 8.58575C22.1367 8.92853 22.6167 10.4206 21.1468 11.8925L18.6671 14.3927C18.2471 14.8161 18.0172 15.6327 18.1471 16.2175L18.8571 19.3125C19.417 21.7623 18.1271 22.71 15.9774 21.4296L12.9877 19.6452C12.4478 19.3226 11.5579 19.3226 11.0079 19.6452L8.01827 21.4296C5.8785 22.71 4.57865 21.7522 5.13859 19.3125L5.84851 16.2175C5.97849 15.6327 5.74852 14.8161 5.32856 14.3927L2.84884 11.8925C1.389 10.4206 1.85895 8.92853 3.89872 8.58575L7.08837 8.05143C7.61831 7.9607 8.25824 7.48687 8.49821 6.99288L10.258 3.44418C11.2179 1.51861 12.7777 1.51861 13.7276 3.44418Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M13.7276 3.44418L15.4874 6.99288C15.7274 7.48687 16.3673 7.9607 16.9073 8.05143L20.0969 8.58575C22.1367 8.92853 22.6167 10.4206 21.1468 11.8925L18.6671 14.3927C18.2471 14.8161 18.0172 15.6327 18.1471 16.2175L18.8571 19.3125C19.417 21.7623 18.1271 22.71 15.9774 21.4296L12.9877 19.6452C12.4478 19.3226 11.5579 19.3226 11.0079 19.6452L8.01827 21.4296C5.8785 22.71 4.57865 21.7522 5.13859 19.3125L5.84851 16.2175C5.97849 15.6327 5.74852 14.8161 5.32856 14.3927L2.84884 11.8925C1.389 10.4206 1.85895 8.92853 3.89872 8.58575L7.08837 8.05143C7.61831 7.9607 8.25824 7.48687 8.49821 6.99288L10.258 3.44418C11.2179 1.51861 12.7777 1.51861 13.7276 3.44418Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const Wallet02Icon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M16 14C16 14.8284 16.6716 15.5 17.5 15.5C18.3284 15.5 19 14.8284 19 14C19 13.1716 18.3284 12.5 17.5 12.5C16.6716 12.5 16 13.1716 16 14Z" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M18.9 8C18.9656 7.67689 19 7.34247 19 7C19 4.23858 16.7614 2 14 2C11.2386 2 9 4.23858 9 7C9 7.34247 9.03443 7.67689 9.10002 8" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M7 8.00005H22V22H2.00005L2 4H10" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M16 14C16 14.8284 16.6716 15.5 17.5 15.5C18.3284 15.5 19 14.8284 19 14C19 13.1716 18.3284 12.5 17.5 12.5C16.6716 12.5 16 13.1716 16 14Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M18.9 8C18.9656 7.67689 19 7.34247 19 7C19 4.23858 16.7614 2 14 2C11.2386 2 9 4.23858 9 7C9 7.34247 9.03443 7.67689 9.10002 8"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M7 8.00005H22V22H2.00005L2 4H10"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const UserStatusIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M13 21.9506C12.6711 21.9833 12.3375 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 12.3375 21.9833 12.6711 21.9506 13" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M7.5 17C8.90247 15.5311 11.0212 14.9041 13 15.1941M14.4951 9.5C14.4951 10.8807 13.3742 12 11.9915 12C10.6089 12 9.48797 10.8807 9.48797 9.5C9.48797 8.11929 10.6089 7 11.9915 7C13.3742 7 14.4951 8.11929 14.4951 9.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Circle cx="18.5" cy="18.5" r="3.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M13 21.9506C12.6711 21.9833 12.3375 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 12.3375 21.9833 12.6711 21.9506 13"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M7.5 17C8.90247 15.5311 11.0212 14.9041 13 15.1941M14.4951 9.5C14.4951 10.8807 13.3742 12 11.9915 12C10.6089 12 9.48797 10.8807 9.48797 9.5C9.48797 8.11929 10.6089 7 11.9915 7C13.3742 7 14.4951 8.11929 14.4951 9.5Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Circle
+      cx="18.5"
+      cy="18.5"
+      r="3.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 const LanguageSkillIcon = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
-    <Path d="M2 12C2 13.0519 2.18046 14.0617 2.51212 15M11 15H2.51212M2.51212 15C3.74763 18.4956 7.08134 21 11 21C9.45582 21 8 17 8 12" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M21.4879 8H15.8188M21.4879 8C20.2524 4.50442 16.9187 2 13 2C14.2187 2 15.3824 4.49163 15.8188 8M21.4879 8C21.8195 8.93834 22 9.94809 22 11M15.8188 8H13M15.8188 8C15.9353 8.93686 16 9.94622 16 11" stroke="currentColor" strokeWidth="1.5" />
-    <Path d="M22 14H14V22L16.5 20.5H22V14Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    <Path d="M2 2H10V10L7.5 8.5H2V2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color="#000000"
+    fill="none"
+    {...props}
+  >
+    <Path
+      d="M2 12C2 13.0519 2.18046 14.0617 2.51212 15M11 15H2.51212M2.51212 15C3.74763 18.4956 7.08134 21 11 21C9.45582 21 8 17 8 12"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M21.4879 8H15.8188M21.4879 8C20.2524 4.50442 16.9187 2 13 2C14.2187 2 15.3824 4.49163 15.8188 8M21.4879 8C21.8195 8.93834 22 9.94809 22 11M15.8188 8H13M15.8188 8C15.9353 8.93686 16 9.94622 16 11"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <Path
+      d="M22 14H14V22L16.5 20.5H22V14Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M2 2H10V10L7.5 8.5H2V2Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
@@ -2109,7 +4274,7 @@ export {
   Location09Icon,
   SquareLock02Icon,
   PauseIcon,
-  MusicNote01Icon, 
+  MusicNote01Icon,
   Album02Icon,
   Vynil02Icon,
   PlusSignIcon,
@@ -2198,5 +4363,5 @@ export {
   MoreHorizontalCircle01Icon,
   FavouriteIcon,
   Bookmark02Icon,
-  SentIconReactionStroke
+  SentIconReactionStroke,
 };

@@ -1,14 +1,30 @@
-import React, { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import { RefreshControl, StyleSheet } from "react-native";
-import { useRefreshData } from "../../../../../hooks/useRefreshData";
-import i18next from "../../../../../Translate";
-import { useAuth } from "../../../../../context/AuthContext";
-import { Buttons, FlexContainer, IsLoading, LoadingScreen, ScreenEmpty, Typography } from "../../../../../components/custom";
-import { COLORS, FONTS, SIZES } from "../../../../../constants/theme";
-import { Ilustrations } from "../../../../../constants";
-import { ScrollView } from "../../../../../components/native";
-import { RecipeList, SearchBar } from "./Components";
-const LazyCard = lazy(() => import("../../../../../components/custom/business/CardRecipies"));
+import React, {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { RefreshControl, StyleSheet } from 'react-native';
+import { useRefreshData } from '../../../../../hooks/useRefreshData';
+import i18next from '../../../../../Translate';
+import { useAuth } from '../../../../../context/AuthContext';
+import {
+  Buttons,
+  FlexContainer,
+  IsLoading,
+  LoadingScreen,
+  ScreenEmpty,
+  Typography,
+} from '../../../../../components/custom';
+import { COLORS, FONTS, SIZES } from '../../../../../constants/theme';
+import { Ilustrations } from '../../../../../constants';
+import { ScrollView } from '../../../../../components/native';
+import { RecipeList, SearchBar } from './Components';
+const LazyCard = lazy(
+  () => import('../../../../../components/custom/business/CardRecipies'),
+);
 
 interface Recipe {
   name: string;
@@ -28,7 +44,6 @@ interface MainProps {
   refetch: () => void;
 }
 
-
 const Main: React.FC<MainProps> = (props: MainProps) => {
   const { data, isLoading, isError, refetch } = props;
   const { user } = useAuth();
@@ -36,15 +51,17 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   const [focus, setFocus] = useState(false);
   const { onRefresh, isRefreshing } = useRefreshData([refetch]);
   const [searchText, setSearchText] = useState('');
-  const PLACEHOLDER_TEXT = i18next.t("Find recipes from your favorite");
+  const PLACEHOLDER_TEXT = i18next.t('Find recipes from your favorite');
   const EMPTY_STATE_LABEL = i18next.t("You don't have posts yet");
-  const EMPTY_STATE_SUBLABEL = i18next.t("Upload your content today");
-  const EMPTY_STATE_BUTTON_LABEL = i18next.t("Upload posts");
+  const EMPTY_STATE_SUBLABEL = i18next.t('Upload your content today');
+  const EMPTY_STATE_BUTTON_LABEL = i18next.t('Upload posts');
 
   const filteredData = useMemo(() => {
-    return Array.isArray(data) ? data.filter((item: Recipe) =>
-      item.name.toLowerCase().includes(searchText.toLowerCase())
-    ) : [];
+    return Array.isArray(data)
+      ? data.filter((item: Recipe) =>
+          item.name.toLowerCase().includes(searchText.toLowerCase()),
+        )
+      : [];
   }, [data, searchText]);
 
   const handleSearch = useCallback((text: string) => {
@@ -57,7 +74,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         <LazyCard row={item} />
       </Suspense>
     ),
-    []
+    [],
   );
 
   const onViewGrid = useCallback(() => {
@@ -69,16 +86,17 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   if (isError) {
     return (
       <FlexContainer newStyle={styles.errorContainer}>
-        <Typography variant='H4title' newStyle={styles.errorText}>Ocurrió un error al cargar los datos.</Typography>
+        <Typography variant="H4title" newStyle={styles.errorText}>
+          Ocurrió un error al cargar los datos.
+        </Typography>
         <Buttons label="Reintentar" onPress={refetch} />
       </FlexContainer>
     );
   }
 
-
   if (data && Array.isArray(data)) {
     return (
-       <FlexContainer>
+      <FlexContainer>
         {data.length === 0 ? (
           <ScrollView
             refreshControl={
@@ -88,8 +106,8 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
             <FlexContainer
               newStyle={{
                 width: SIZES.width,
-                alignItems: "center",
-                backgroundColor: "transparent",
+                alignItems: 'center',
+                backgroundColor: 'transparent',
               }}
             >
               <ScreenEmpty
@@ -99,7 +117,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
                 onPress={() => console.log('')}
                 labelStylePart1={{
                   ...FONTS.LargeTitle,
-                  textAlign: "center",
+                  textAlign: 'center',
                 }}
                 source={Ilustrations.FoodStores}
                 ImgWidth={SIZES.width}
@@ -110,7 +128,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
             </FlexContainer>
           </ScrollView>
         ) : (
-         <>
+          <>
             <SearchBar
               searchText={searchText}
               placeholder={PLACEHOLDER_TEXT}
@@ -137,8 +155,8 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 const styles = StyleSheet.create({
   errorContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: SIZES.gapLarge,
   },
   errorText: {

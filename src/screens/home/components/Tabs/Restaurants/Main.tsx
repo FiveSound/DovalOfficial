@@ -1,6 +1,6 @@
-import React, { lazy, Suspense, useCallback } from "react";
-import { RefreshControl } from "react-native";
-import { useRefreshData } from "../../../../../hooks";
+import React, { lazy, Suspense, useCallback } from 'react';
+import { RefreshControl } from 'react-native';
+import { useRefreshData } from '../../../../../hooks';
 import {
   ButtonAcces,
   FlexContainer,
@@ -8,18 +8,18 @@ import {
   LoadingScreen,
   ScreenEmpty,
   ToggleFilter,
-} from "../../../../../components/custom";
-import i18next from "../../../../../Translate";
-import { Ilustrations } from "../../../../../constants";
-import { FONTS, SIZES } from "../../../../../constants/theme";
+} from '../../../../../components/custom';
+import i18next from '../../../../../Translate';
+import { Ilustrations } from '../../../../../constants';
+import { FONTS, SIZES } from '../../../../../constants/theme';
 import {
   FlatList,
   ScrollView,
   useNavigation,
   View,
-} from "../../../../../components/native";
+} from '../../../../../components/native';
 const LazyCard = lazy(
-  () => import("../../../../../components/custom/business/CardBusiness")
+  () => import('../../../../../components/custom/business/CardBusiness'),
 );
 
 type Props = {
@@ -63,28 +63,28 @@ const Main = ({
   }, [setFreeShipping]);
 
   const emptyComponent = () => (
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      >
-        <View
-          style={{
-            marginTop: SIZES.gapLarge,
-          }}
-        />
-        <ScreenEmpty
-          labelPart1={i18next.t("There are no restaurants nearby yet!")}
-          subLabel={i18next.t(
-            "We couldn't find any restaurants in your current location. Explore other areas or widen your search!"
-          )}
-          source={Ilustrations.CharcoPet}
-          ImgWidth={SIZES.width}
-          ImgHeigth={SIZES.height / 2.4}
-          ShowButton={false}
-        />
-      </ScrollView>
-    )
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View
+        style={{
+          marginTop: SIZES.gapLarge,
+        }}
+      />
+      <ScreenEmpty
+        labelPart1={i18next.t('There are no restaurants nearby yet!')}
+        subLabel={i18next.t(
+          "We couldn't find any restaurants in your current location. Explore other areas or widen your search!",
+        )}
+        source={Ilustrations.CharcoPet}
+        ImgWidth={SIZES.width}
+        ImgHeigth={SIZES.height / 2.4}
+        ShowButton={false}
+      />
+    </ScrollView>
+  );
 
   const renderItem = useCallback(({ item }: { item: any }) => {
     return (
@@ -94,7 +94,6 @@ const Main = ({
     );
   }, []);
 
-
   if (isLoading) {
     return <LoadingScreen label={i18next.t('Loading business')} />;
   }
@@ -103,8 +102,11 @@ const Main = ({
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ScreenEmpty
-          labelPart1={i18next.t("Error loading data")}
-          subLabel={error?.message || i18next.t("An unexpected error occurred. Please try again.")}
+          labelPart1={i18next.t('Error loading data')}
+          subLabel={
+            error?.message ||
+            i18next.t('An unexpected error occurred. Please try again.')
+          }
           source={Ilustrations.Error}
           ImgWidth={SIZES.width / 2}
           ImgHeigth={SIZES.height / 4}
@@ -122,13 +124,13 @@ const Main = ({
       newStyle={{ marginTop: SIZES.gapMedium, gap: SIZES.gapMedium }}
     >
       <ButtonAcces
-        label={i18next.t("Nearby Restaurant")}
+        label={i18next.t('Nearby Restaurant')}
         onPress={() => {
-          console.log("Navigating to SearchBusiness");
-          navigation.navigate("SearchBusiness");
+          console.log('Navigating to SearchBusiness');
+          navigation.navigate('SearchBusiness');
         }}
         ShowLineDivider={false}
-        labelPreview={i18next.t("More")}
+        labelPreview={i18next.t('More')}
         labelStyle={{
           ...FONTS.heading18,
         }}
@@ -141,7 +143,7 @@ const Main = ({
       />
       <FlatList
         data={filteredData}
-        keyExtractor={(item) => item.businessID.toString()}
+        keyExtractor={item => item.businessID.toString()}
         renderItem={renderItem}
         initialNumToRender={3}
         maxToRenderPerBatch={3}
@@ -149,7 +151,7 @@ const Main = ({
         scrollEnabled={false}
         refreshing={isRefreshing}
         contentContainerStyle={{
-            paddingBottom: SIZES.height / 4,
+          paddingBottom: SIZES.height / 4,
         }}
       />
     </FlexContainer>

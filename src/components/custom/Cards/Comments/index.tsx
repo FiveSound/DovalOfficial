@@ -1,9 +1,14 @@
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import FlexContainer from "../../FlexContainer";
-import Avatars from "../../Avatars";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import Typography from "../../Typography";
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import FlexContainer from '../../FlexContainer';
+import Avatars from '../../Avatars';
+import {
+  COLORS,
+  FONTS,
+  responsiveFontSize,
+  SIZES,
+} from '../../../../constants/theme';
+import Typography from '../../Typography';
 
 type Reply = {
   id: number;
@@ -40,8 +45,12 @@ const CardComments = ({
     <FlexContainer newStyle={styles.card} variant="row">
       <Avatars source={avatar} size="small" />
       <FlexContainer newStyle={styles.containerNames}>
-        <Typography variant='SubDescription' newStyle={styles.username}>@{username}</Typography>
-        <Typography variant='H4title' newStyle={styles.comment}>{comment}</Typography>
+        <Typography variant="SubDescription" newStyle={styles.username}>
+          @{username}
+        </Typography>
+        <Typography variant="H4title" newStyle={styles.comment}>
+          {comment}
+        </Typography>
         <Text style={styles.date}>{date}</Text>
         <View style={styles.actions}>
           <TouchableOpacity style={styles.actionButton}>
@@ -52,7 +61,8 @@ const CardComments = ({
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.actionButton}
-            onPress={() => setShowReplies(!showReplies)}>
+            onPress={() => setShowReplies(!showReplies)}
+          >
             <Text style={styles.actionText}>View {replies.length} replies</Text>
           </TouchableOpacity>
         </View>
@@ -74,37 +84,37 @@ const styles = StyleSheet.create({
     width: SIZES.width,
     paddingHorizontal: SIZES.gapLarge,
     gap: SIZES.gapMedium,
-    marginBottom: SIZES.gapLarge * 1.4
+    marginBottom: SIZES.gapLarge * 1.4,
   },
   containerNames: {
-   gap: SIZES.gapSmall / 2
+    gap: SIZES.gapSmall / 2,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   userInfo: {
     marginLeft: 10,
   },
   username: {
-   ...FONTS.semi14
+    ...FONTS.semi14,
   },
   date: {
-    color: COLORS.dark
+    color: COLORS.dark,
   },
   comment: {
-   ...FONTS.text16,
-   width: SIZES.width / 1.2,
+    ...FONTS.text16,
+    width: SIZES.width / 1.2,
   },
   actions: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   actionButton: {
     marginRight: 10,
   },
   actionText: {
-    color: "#888",
+    color: '#888',
   },
   replies: {
     marginTop: 10,

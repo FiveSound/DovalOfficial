@@ -1,11 +1,11 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "../index";
-import { UserType } from "../../types/User.types";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '../index';
+import { UserType } from '../../types/User.types';
 
 export const initialStateService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/auth/me`,
       {},
@@ -13,7 +13,7 @@ export const initialStateService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     // await AsyncStorage.removeItem('userToken')
     return { ...response.data, token: userToken };
@@ -32,36 +32,36 @@ export const signUpService = async (
   navigation?: any,
   setLoginSuccess?: (value: boolean) => void,
   setRegisterError?: (value: boolean) => void,
-  signIn?: (userDetails: any) => void
+  signIn?: (userDetails: any) => void,
 ): Promise<SignUpResponse> => {
   try {
     const response = await axios.post(`${API_URL}/api/auth/sign-up`, user);
 
     if (response.status === 201) {
-      await AsyncStorage.setItem("userToken", response.data.token);
+      await AsyncStorage.setItem('userToken', response.data.token);
       if (setLoginSuccess) setLoginSuccess(true);
       if (setRegisterError) setRegisterError(false);
       if (signIn) signIn(response.data.userDetails);
-      if (navigation) navigation.navigate("TabsNavigator");
+      if (navigation) navigation.navigate('TabsNavigator');
       return { success: true };
     } else {
-      return { success: false, message: "Registro fallido. Intente de nuevo." };
+      return { success: false, message: 'Registro fallido. Intente de nuevo.' };
     }
   } catch (error) {
     console.log({ error });
     if (setLoginSuccess) setLoginSuccess(false);
     if (setRegisterError) setRegisterError(true);
-    let message = "Error de registro. Por favor, intente de nuevo.";
+    let message = 'Error de registro. Por favor, intente de nuevo.';
     if (error) {
       switch (error) {
         case 400:
-          message = "Datos inválidos. Por favor, revise el formulario.";
+          message = 'Datos inválidos. Por favor, revise el formulario.';
           break;
         case 409:
-          message = "El usuario ya existe.";
+          message = 'El usuario ya existe.';
           break;
         case 500:
-          message = "Error interno del servidor. Intente de nuevo más tarde.";
+          message = 'Error interno del servidor. Intente de nuevo más tarde.';
           break;
       }
     }
@@ -78,9 +78,9 @@ interface SignInResponse {
 export const signInService = async (user: Object): Promise<SignInResponse> => {
   try {
     const response = await axios.post(`${API_URL}/api/auth/sign-in`, user);
-    if (response.status !== 200) throw Error("Ha ocurrido un error!");
+    if (response.status !== 200) throw Error('Ha ocurrido un error!');
 
-    await AsyncStorage.setItem("userToken", response.data.token);
+    await AsyncStorage.setItem('userToken', response.data.token);
 
     return {
       success: true,
@@ -98,14 +98,11 @@ export const signInService = async (user: Object): Promise<SignInResponse> => {
   }
 };
 
-export const signInWithPhoneService = async (
-  phone: string,
-) => {
+export const signInWithPhoneService = async (phone: string) => {
   try {
     await axios.post(`${API_URL}/api/auth/sign-in-with-phone`, {
       phone,
     });
-
   } catch (error) {
     console.log({ error });
   }
@@ -117,7 +114,7 @@ export const confirmCodeService = async (
   code: string,
   handleClose: () => void,
   reset: () => void,
-  handleError: (msg: string) => void
+  handleError: (msg: string) => void,
 ) => {
   try {
     const response = await axios.post(`${API_URL}/api/auth/verification-code`, {
@@ -126,15 +123,15 @@ export const confirmCodeService = async (
     });
 
     if (response.status === 205) {
-      console.log("Error 404");
+      console.log('Error 404');
 
-      handleError("Tu codigo es incorrecto");
+      handleError('Tu codigo es incorrecto');
     }
 
     if (response.status === 200 || response.status === 201) {
-      await AsyncStorage.setItem("userToken", response.data.token);
+      await AsyncStorage.setItem('userToken', response.data.token);
       signIn(response.data.userDetails);
-      handleError("");
+      handleError('');
       handleClose();
       reset();
     }
@@ -145,7 +142,7 @@ export const confirmCodeService = async (
 
 export const getBannerProfileService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/auth/banner_profile`,
@@ -154,7 +151,7 @@ export const getBannerProfileService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -165,7 +162,7 @@ export const getBannerProfileService = async () => {
 
 export const getBioService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/auth/bio`,
       {},
@@ -173,7 +170,7 @@ export const getBioService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     return response.data;
@@ -187,7 +184,7 @@ export const getBioService = async () => {
 export const updateBioService = async (data: Object, setIsloading: any) => {
   try {
     setIsloading(true);
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/auth/update-details`,
@@ -198,7 +195,7 @@ export const updateBioService = async (data: Object, setIsloading: any) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
 
     setTimeout(() => {
@@ -212,7 +209,7 @@ export const updateBioService = async (data: Object, setIsloading: any) => {
 
 export const updateAvatarBusinessAndUser = async (key: String) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     const response = await axios.post(
       `${API_URL}/api/auth/update-avatar`,
@@ -223,7 +220,7 @@ export const updateAvatarBusinessAndUser = async (key: String) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
   } catch (error) {
     console.log({ error });
@@ -232,7 +229,7 @@ export const updateAvatarBusinessAndUser = async (key: String) => {
 
 export const sentEmailVerificationService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/account/reset-password`,
       {},
@@ -240,7 +237,7 @@ export const sentEmailVerificationService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -250,7 +247,7 @@ export const sentEmailVerificationService = async () => {
 
 export const updatePasswordService = async (data: object) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/account/update-password`,
       {
@@ -260,7 +257,7 @@ export const updatePasswordService = async (data: object) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -272,7 +269,7 @@ export const validateUserNameService = async (
   username: string,
   setLoadUserName: (load: boolean) => void,
   setValidUserName: (load: boolean) => void,
-  onError: (error: any) => void
+  onError: (error: any) => void,
 ) => {
   try {
     setLoadUserName(true);
@@ -294,7 +291,7 @@ export const validateUserNameService = async (
 
 export const getProfileService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await axios.post(
       `${API_URL}/api/auth/get-profile-service`,
       {},
@@ -302,7 +299,7 @@ export const getProfileService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -323,7 +320,7 @@ type ProfileProps = {
 
 export const updateProfileService = async (details: ProfileProps) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
+    const userToken = await AsyncStorage.getItem('userToken');
 
     await axios.post(
       `${API_URL}/api/auth/update-profile`,
@@ -334,7 +331,7 @@ export const updateProfileService = async (details: ProfileProps) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
     return {
       success: true,
@@ -361,7 +358,7 @@ export const resetPasswordService = async (email: string) => {
 // Verify code email
 export const verifyResetPasswordService = async (
   email: string,
-  code: string
+  code: string,
 ) => {
   try {
     const response = await axios.post(`${API_URL}/api/auth/verification`, {
@@ -377,7 +374,7 @@ export const verifyResetPasswordService = async (
 // Change new password
 export const changePasswordService = async (
   password: string,
-  token: string
+  token: string,
 ) => {
   try {
     await axios.post(
@@ -389,21 +386,20 @@ export const changePasswordService = async (
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
   } catch (error) {
     console.log({ error });
   }
 };
 
-
 export const signInPhoneService = async (phone: string) => {
-  console.log("Calling signInPhoneService with phone:", phone); // Log event
+  console.log('Calling signInPhoneService with phone:', phone); // Log event
   try {
     const response = await axios.post(`${API_URL}/api/auth/v2/phone`, {
       user: phone,
     });
-    console.log("signInPhoneService response:", response.data); // Log event
+    console.log('signInPhoneService response:', response.data); // Log event
 
     // Si exist = true, el usuario existe y llevar a la pantalla de verificar codigo
     // si exist = false, el usuario no existe y llevar a verificar codigo para despues completar el registro
@@ -411,7 +407,7 @@ export const signInPhoneService = async (phone: string) => {
 
     return response.data;
   } catch (error) {
-    console.error("signInPhoneService error:", error); // Log event
+    console.error('signInPhoneService error:', error); // Log event
     return {
       success: false,
       exist: false,
@@ -440,7 +436,7 @@ export const signInEmailService = async (email: string) => {
 
 export const signInEmailAndPasswordService = async (
   email: string,
-  password: string
+  password: string,
 ) => {
   try {
     const response = await axios.post(`${API_URL}/api/auth/v2/email/signin`, {
@@ -464,7 +460,7 @@ export const verifyCodeService = async (user: string, code: string) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Verification error:", error); // Log event
+    console.error('Verification error:', error); // Log event
     return {
       success: false,
       message: error.response?.data?.message || error.message,
@@ -480,9 +476,14 @@ export type PhoneDetails = {
 
 export const completeWithPhoneService = async (
   body: PhoneDetails,
-  token: string
+  token: string,
 ) => {
-  console.log("Calling completeWithPhoneService with body:", body, "and token:", token); // Log event
+  console.log(
+    'Calling completeWithPhoneService with body:',
+    body,
+    'and token:',
+    token,
+  ); // Log event
   try {
     const response = await axios.post(
       `${API_URL}/api/auth/v2/phone/complete`,
@@ -493,14 +494,14 @@ export const completeWithPhoneService = async (
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
 
-    console.log("Complete with phone response:", response.data); //
+    console.log('Complete with phone response:', response.data); //
 
     return response.data;
   } catch (error) {
-    console.error("Complete with phone error:", error); // Log event
+    console.error('Complete with phone error:', error); // Log event
     return {
       success: false,
       message: error.message,
@@ -517,13 +518,15 @@ type EmailDetails = {
   email: string;
 };
 
-export const completeWithEmailService = async (
-  body: EmailDetails,
-) => {
-
+export const completeWithEmailService = async (body: EmailDetails) => {
   try {
-    const userToken = await AsyncStorage.getItem("userToken");
-    console.log("Calling completeWithEmailService with body:", body, "and token:", userToken); 
+    const userToken = await AsyncStorage.getItem('userToken');
+    console.log(
+      'Calling completeWithEmailService with body:',
+      body,
+      'and token:',
+      userToken,
+    );
     const response = await axios.post(
       `${API_URL}/api/auth/v2/email/complete`,
       {
@@ -533,9 +536,9 @@ export const completeWithEmailService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      }
+      },
     );
-    
+
     return response.data;
   } catch (error) {
     return {
@@ -551,7 +554,7 @@ export const signInWithGoogleService = async (accessToken: string) => {
       accessToken,
     });
 
-    await AsyncStorage.setItem("userToken", response.data.token);
+    await AsyncStorage.setItem('userToken', response.data.token);
 
     return { ...response.data.userDetails, token: response.data.token };
   } catch (error) {
@@ -565,7 +568,7 @@ export const signInWithFacebookService = async (accessToken: string) => {
       accessToken,
     });
 
-    await AsyncStorage.setItem("userToken", response.data.token);
+    await AsyncStorage.setItem('userToken', response.data.token);
 
     return { ...response.data.userDetails, token: response.data.token };
   } catch (error) {

@@ -1,9 +1,9 @@
-import React from "react";
-import { Buttons, FlexContainer } from "../../../../components/custom";
-import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
-import { useTheme } from "../../../../hooks";
-import { EyeIcon, ViewOffSlashIcon } from "../../../../constants/IconsPro";
+import React from 'react';
+import { Buttons, FlexContainer } from '../../../../components/custom';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
+import { useTheme } from '../../../../hooks';
+import { EyeIcon, ViewOffSlashIcon } from '../../../../constants/IconsPro';
 
 type Props = {
   Insterests?: boolean;
@@ -11,7 +11,7 @@ type Props = {
 
 const InterestsButton = (props: Props) => {
   const { Insterests = false } = props;
-  const { backgroundMaingrey , Description} = useTheme();
+  const { backgroundMaingrey, Description } = useTheme();
 
   return (
     Insterests && (
@@ -19,10 +19,13 @@ const InterestsButton = (props: Props) => {
         <Buttons
           label="Im interested"
           orientationsIcons="Right"
-          Icons={<EyeIcon color={Description} 
-          width={SIZES.icons}
-          height={SIZES.icons}/>
-        }
+          Icons={
+            <EyeIcon
+              color={Description}
+              width={SIZES.icons}
+              height={SIZES.icons}
+            />
+          }
           containerButtons={[
             styles.buttons,
             {
@@ -34,10 +37,13 @@ const InterestsButton = (props: Props) => {
         <Buttons
           label="Im not interested"
           orientationsIcons="Right"
-          Icons={<ViewOffSlashIcon color={Description} 
-          width={SIZES.icons}
-          height={SIZES.icons}/>
-        }
+          Icons={
+            <ViewOffSlashIcon
+              color={Description}
+              width={SIZES.icons}
+              height={SIZES.icons}
+            />
+          }
           containerButtons={StyleSheet.flatten([
             styles.buttons,
             {
@@ -55,11 +61,11 @@ const styles = StyleSheet.create({
   container: {
     gap: SIZES.gapSmall,
     marginVertical: SIZES.gapSmall,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttons: {
-    width: "100%",
+    width: '100%',
     height: SIZES.BtnHeight / 1.2,
     borderRadius: SIZES.radius,
   },

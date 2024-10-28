@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useColorScheme } from "react-native";
-import { Skeleton } from "moti/skeleton";
-import { responsiveFontSize, SIZES } from "../../../../constants/theme";
-import { Image } from "../../../native";
-import IsLoading from "../../Loaders/IsLoading";
-import { Loading } from "../../../native/Image";
+import React, { useEffect, useState } from 'react';
+import { useColorScheme } from 'react-native';
+import { Skeleton } from 'moti/skeleton';
+import { responsiveFontSize, SIZES } from '../../../../constants/theme';
+import { Image } from '../../../native';
+import IsLoading from '../../Loaders/IsLoading';
+import { Loading } from '../../../native/Image';
 
 type Props = {
   source: string;
@@ -13,7 +13,7 @@ type Props = {
 
 const Cover = ({ source, size = 'medium' }: Props) => {
   const theme = useColorScheme();
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     if (source) {
@@ -44,7 +44,8 @@ const Cover = ({ source, size = 'medium' }: Props) => {
 
   return loader ? (
     <Loading isLoading={loader} height={imageSize} width={imageSize} />
-  ) : ( <Image
+  ) : (
+    <Image
       source={{ uri: source }}
       placeholderSource={source}
       showPlaceholder={true}

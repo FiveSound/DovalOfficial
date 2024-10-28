@@ -1,12 +1,10 @@
-import React from 'react'
-import { TextInput as RNTextInput, TextInputProps } from 'react-native'
+import React from 'react';
+import { TextInput as RNTextInput, TextInputProps } from 'react-native';
 
-type Props = TextInputProps
+type Props = TextInputProps;
 
 const TextInput = (props: Props) => {
-  return (
-    <RNTextInput {...props} />
-  )
-}
+  return <RNTextInput {...props} />;
+};
 
-export default TextInput
+export default TextInput;

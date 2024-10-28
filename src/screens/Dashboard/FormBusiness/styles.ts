@@ -1,11 +1,10 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "../../../constants/theme";
-
+import { StyleSheet } from 'react-native';
+import { COLORS, SIZES } from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderStartColor: COLORS.BackgroundMainLight
+    borderStartColor: COLORS.BackgroundMainLight,
   },
   header: {
     flexDirection: 'row',
@@ -22,6 +21,5 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SIZES.gapLarge,
     paddingVertical: SIZES.gapMedium,
     borderRadius: SIZES.radius,
-  }
+  },
 });
-

@@ -1,5 +1,3 @@
-import Covers from "./Covers";
+import Covers from './Covers';
 
-export {
-    Covers
-} 
+export { Covers };

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Pressable, TouchableOpacity } from "react-native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import * as Haptics from "expo-haptics";
-import useAPI from "../../../../hooks/useAPI";
-import { getSongByIDService } from "../../../../services/songs";
-import { Audio } from "expo-av";
-import { CLOUDFRONT } from "../../../../services";
-import { Avatars } from "../../../../components/custom";
-import styles from "./styles";
+import React, { useEffect, useState } from 'react';
+import { Pressable, TouchableOpacity } from 'react-native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
+import useAPI from '../../../../hooks/useAPI';
+import { getSongByIDService } from '../../../../services/songs';
+import { Audio } from 'expo-av';
+import { CLOUDFRONT } from '../../../../services';
+import { Avatars } from '../../../../components/custom';
+import styles from './styles';
 
 type Props = {
   postID: number;
@@ -33,15 +33,15 @@ const ButtonMusic: React.FC<Props> = React.memo(
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
     const UriSongs =
-      data && data.length > 0 ? `${CLOUDFRONT}${data[0]?.keyURL}` : "";
+      data && data.length > 0 ? `${CLOUDFRONT}${data[0]?.keyURL}` : '';
     const UriCover =
-      data && data.length > 0 ? `${CLOUDFRONT}${data[0]?.cover}` : "";
+      data && data.length > 0 ? `${CLOUDFRONT}${data[0]?.cover}` : '';
 
     useEffect(() => {
       const loadSound = async () => {
         const { sound: newSound } = await Audio.Sound.createAsync(
           { uri: UriSongs },
-          { shouldPlay: isFocused }
+          { shouldPlay: isFocused },
         );
         setSound(newSound);
       };
@@ -68,19 +68,20 @@ const ButtonMusic: React.FC<Props> = React.memo(
         <TouchableOpacity
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-            navigation.navigate("Music", { songID });
+            navigation.navigate('Music', { songID });
           }}
-          style={styles.container}>
+          style={styles.container}
+        >
           <Avatars
-            onPressAvatar={() => navigation.navigate("Music", { songID })}
+            onPressAvatar={() => navigation.navigate('Music', { songID })}
             source={AvatarArtist}
-            size='small'
+            size="small"
             ShowStatus={false}
           />
         </TouchableOpacity>
       );
     }
-  }
+  },
 );
 
 export default ButtonMusic;

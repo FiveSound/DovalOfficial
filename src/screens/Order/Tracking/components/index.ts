@@ -1,7 +1,4 @@
-import Footer from "./Footer";
-import TrackingInf from "./TrackingInf";
+import Footer from './Footer';
+import TrackingInf from './TrackingInf';
 
-export {
-    Footer,
-    TrackingInf
-}
+export { Footer, TrackingInf };

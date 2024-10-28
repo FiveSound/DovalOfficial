@@ -21,16 +21,13 @@ const SwipeUpIntro = ({ onSwipeUp, isVisible }: Props) => {
     isVisible && (
       <TouchableOpacity style={styles.container} onPress={handleSwipeUp}>
         <LottieView
-          source={require('../../../assets/animations/SwipeUp.json')} 
+          source={require('../../../assets/animations/SwipeUp.json')}
           autoPlay
           loop
           style={styles.animation}
           speed={0.8}
         />
-        <Typography 
-          variant='H4title'
-          newStyle={styles.text}
-        >
+        <Typography variant="H4title" newStyle={styles.text}>
           {i18next.t('Swipe up for more')}
         </Typography>
       </TouchableOpacity>
@@ -47,7 +44,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 1
+    zIndex: 1,
   },
   animation: {
     width: SIZES.width * 1.2,
@@ -57,7 +54,7 @@ const styles = StyleSheet.create({
     ...FONTS.heading32,
     position: 'absolute',
     bottom: SIZES.height / 3.2,
-    color: COLORS.TitleColor
+    color: COLORS.TitleColor,
   },
 });
 

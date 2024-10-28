@@ -3,9 +3,12 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { responsiveFontSize, SIZES } from '../constants/theme';
 import useUploadMedia from './useUploadMedia';
 
-export const usePostForm = (Pickedmedia) => {
-  const { uploadMedia, isLoading, photos, videos, thumbnailURLs, mediaType } = useUploadMedia();
-  const [inputHeight, setInputHeight] = useState(responsiveFontSize(SIZES.InputsHeight));
+export const usePostForm = Pickedmedia => {
+  const { uploadMedia, isLoading, photos, videos, thumbnailURLs, mediaType } =
+    useUploadMedia();
+  const [inputHeight, setInputHeight] = useState(
+    responsiveFontSize(SIZES.InputsHeight),
+  );
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [FormStatus, setFormStatus] = useState({ hiddenTitle: true });
 
@@ -13,30 +16,29 @@ export const usePostForm = (Pickedmedia) => {
     defaultValues: {
       songID: '',
       uploading: false,
-      title: "",
-      description: "",
+      title: '',
+      description: '',
       videos: videos,
       recipeID: null,
       showCategories: false,
       categories: [],
-      thumbnail: "",
-      recipeName: "",
+      thumbnail: '',
+      recipeName: '',
       photos: photos,
       mediaType: mediaType,
       topics: selectedTopics,
       tags: '',
-      hashtag: ''
+      hashtag: '',
     },
   });
 
   useEffect(() => {
     if (Pickedmedia && Pickedmedia.length > 0) {
       uploadMedia(Pickedmedia).catch(error => {
-        console.error("Error uploading media:", error);
+        console.error('Error uploading media:', error);
       });
     }
   }, [Pickedmedia, uploadMedia]);
-
 
   return {
     handleSubmit,
@@ -51,6 +53,6 @@ export const usePostForm = (Pickedmedia) => {
     selectedTopics,
     setSelectedTopics,
     FormStatus,
-    setFormStatus
+    setFormStatus,
   };
 };

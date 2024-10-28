@@ -1,7 +1,4 @@
-import { Heading } from "./Bar";
-import Main from "./Main";
+import { Heading } from './Bar';
+import Main from './Main';
 
-export {
-    Main,
-    Heading,
-}
+export { Main, Heading };

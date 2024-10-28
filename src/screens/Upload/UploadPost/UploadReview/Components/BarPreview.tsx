@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Animated,
+} from 'react-native';
 
 interface MediaItem {
   id: string;
@@ -11,11 +18,18 @@ interface Props {
   totalTime: string;
   isPlaying: boolean;
   handlePlayPause: () => void;
-  IDSong: (id: string, sourceSong: string) => void
-  sourceSong: string
+  IDSong: (id: string, sourceSong: string) => void;
+  sourceSong: string;
 }
 
-const BarPreview: React.FC<Props> = ({ pickedMedia, totalTime, isPlaying, handlePlayPause, IDSong, sourceSong}) => {
+const BarPreview: React.FC<Props> = ({
+  pickedMedia,
+  totalTime,
+  isPlaying,
+  handlePlayPause,
+  IDSong,
+  sourceSong,
+}) => {
   const progress = useRef(new Animated.Value(0)).current;
 
   const convertTimeToSeconds = (time: string) => {
@@ -45,27 +59,32 @@ const BarPreview: React.FC<Props> = ({ pickedMedia, totalTime, isPlaying, handle
 
   const verticalBarPosition = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0%', `${100 + (30 / pickedMedia.length)}%`],
+    outputRange: ['0%', `${100 + 30 / pickedMedia.length}%`],
   });
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <ScrollView horizontal={true}>
-        {pickedMedia.map((item) => (
-          <View key={item.id} style={styles.mediaItem}>
-            <Image source={{ uri: item.uri }} style={styles.image} />
-          </View>
-        ))}
+          {pickedMedia.map(item => (
+            <View key={item.id} style={styles.mediaItem}>
+              <Image source={{ uri: item.uri }} style={styles.image} />
+            </View>
+          ))}
         </ScrollView>
-         <BarMusic 
-         IDSong={IDSong}
-         totalTimeInSeconds={totalTimeInSeconds}
-         audioUri={sourceSong} 
-         isPlaying={isPlaying} 
-         handlePlayPause={handlePlayPause} />
-        <Animated.View style={[styles.progressBar, { width: progressBarWidth }]} />
-        <Animated.View style={[styles.verticalBar, { left: verticalBarPosition }]} />
+        <BarMusic
+          IDSong={IDSong}
+          totalTimeInSeconds={totalTimeInSeconds}
+          audioUri={sourceSong}
+          isPlaying={isPlaying}
+          handlePlayPause={handlePlayPause}
+        />
+        <Animated.View
+          style={[styles.progressBar, { width: progressBarWidth }]}
+        />
+        <Animated.View
+          style={[styles.verticalBar, { left: verticalBarPosition }]}
+        />
       </ScrollView>
     </View>
   );
@@ -86,7 +105,7 @@ const styles = StyleSheet.create({
     height: 'auto',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   image: {
     width: responsiveFontSize(60),

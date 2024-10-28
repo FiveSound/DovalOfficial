@@ -9,7 +9,7 @@ export const getTutorialStatus = async (key: string) => {
     const status = await AsyncStorage.getItem(`tutorial_${key}`);
     return status;
   } catch (error) {
-    console.error("Error getting tutorial status:", error);
+    console.error('Error getting tutorial status:', error);
     return null;
   }
 };
@@ -18,6 +18,6 @@ export const setTutorialStatus = async (key: string, status: string) => {
   try {
     await AsyncStorage.setItem(`tutorial_${key}`, status);
   } catch (error) {
-    console.error("Error setting tutorial status:", error);
+    console.error('Error setting tutorial status:', error);
   }
 };

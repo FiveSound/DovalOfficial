@@ -9,13 +9,17 @@ interface Props {
   value: string;
 }
 
-const RecipeDescriptionInput: React.FC<Props> = ({ setValue, onSaveDraft, value }) => {
+const RecipeDescriptionInput: React.FC<Props> = ({
+  setValue,
+  onSaveDraft,
+  value,
+}) => {
   return (
     <InputLabel
       placeholder="Describe your recipe and help your customers understand your recipe"
       value={value}
-      onChangeText={(txt) => {
-        setValue("description", txt);
+      onChangeText={txt => {
+        setValue('description', txt);
         onSaveDraft({ description: txt });
       }}
       labelStyle={styles.labelDescription}
@@ -28,6 +32,6 @@ export default RecipeDescriptionInput;
 
 const styles = StyleSheet.create({
   labelDescription: {
-    height: SIZES.height / 14 ,
+    height: SIZES.height / 14,
   },
 });

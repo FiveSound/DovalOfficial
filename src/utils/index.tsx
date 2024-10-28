@@ -1,6 +1,3 @@
-import utils from "./Utils";
+import utils from './Utils';
 
-export {
-    utils
-};
-
+export { utils };

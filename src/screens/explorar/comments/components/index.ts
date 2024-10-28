@@ -1,5 +1,3 @@
-import InputMain from "./InputMain";
+import InputMain from './InputMain';
 
-export {
-    InputMain
-}
+export { InputMain };

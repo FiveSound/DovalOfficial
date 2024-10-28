@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, TextStyle, ViewStyle } from "react-native";
-import { TouchableOpacity, View } from "../../native";
-import Typography from "../Typography";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { TouchableOpacity, View } from '../../native';
+import Typography from '../Typography';
 import {
   COLORS,
   FONTS,
   responsiveFontSize,
   SIZES,
-} from "../../../constants/theme";
-import { useTheme } from "../../../hooks";
-import { CheckmarkCircle01Icon } from "../../../constants/IconsPro";
-import FlexContainer from "../FlexContainer";
+} from '../../../constants/theme';
+import { useTheme } from '../../../hooks';
+import { CheckmarkCircle01Icon } from '../../../constants/IconsPro';
+import FlexContainer from '../FlexContainer';
 
 type Props = {
   label?: string;
@@ -18,7 +18,7 @@ type Props = {
   onChange?: (checked: boolean) => void;
   showLabel?: boolean;
   containerStyle?: ViewStyle;
-  LabelStyle?: TextStyle
+  LabelStyle?: TextStyle;
 };
 
 const BaseCheckbox = ({
@@ -28,7 +28,7 @@ const BaseCheckbox = ({
   showLabel,
   isTouchable = true,
   containerStyle,
-  LabelStyle
+  LabelStyle,
 }: Props & { isTouchable?: boolean }) => {
   const [isChecked, setIsChecked] = useState(checked);
   const { borderInput } = useTheme();
@@ -63,7 +63,10 @@ const BaseCheckbox = ({
         />
       )}
       {showLabel ? (
-        <Typography newStyle={[styles.label, LabelStyle]} variant='SubDescription'>
+        <Typography
+          newStyle={[styles.label, LabelStyle]}
+          variant="SubDescription"
+        >
           {label}
         </Typography>
       ) : null}
@@ -88,8 +91,8 @@ const StaticCheckbox = (props: Props) => (
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: SIZES.gapMedium,
     width: SIZES.width,
     paddingHorizontal: SIZES.gapLarge,
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
   },
   checked: {},
   label: {
-    textAlign: "center",
+    textAlign: 'center',
     width: SIZES.width / 1.3,
   },
 });

@@ -1,7 +1,4 @@
-import Accordion from "./Accordion";
-import ToggleFilter from "./ToggleFilter";
+import Accordion from './Accordion';
+import ToggleFilter from './ToggleFilter';
 
-export {
-    ToggleFilter,
-    Accordion
-}
+export { ToggleFilter, Accordion };

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import * as ImagePicker from "expo-image-picker";
+import { useEffect, useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 
 // interface PermissionStatus {
 //   status: "granted" | "denied" | "undetermined";
@@ -11,8 +11,8 @@ import * as ImagePicker from "expo-image-picker";
 
 export const useImagePickerPermissions = () => {
   const [hasPermissions, setHasPermissions] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("undetermined");
-  const [error, setError] = useState<string>("");
+  const [status, setStatus] = useState<string>('undetermined');
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     (async () => {
@@ -20,7 +20,7 @@ export const useImagePickerPermissions = () => {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
         setStatus(status);
-        setHasPermissions(status === "granted");
+        setHasPermissions(status === 'granted');
       } catch (error: any) {
         setError(error.message);
       }

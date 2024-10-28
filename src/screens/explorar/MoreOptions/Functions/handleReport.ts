@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
-import { closeMoreOptions } from "../../../../redux/slides/modalSlice";
+import { useDispatch } from 'react-redux';
+import { closeMoreOptions } from '../../../../redux/slides/modalSlice';
 
 const dispatch = useDispatch();
 const handleReport = async () => {
-    dispatch(closeMoreOptions());
-  };
+  dispatch(closeMoreOptions());
+};
 
-export default handleReport
+export default handleReport;

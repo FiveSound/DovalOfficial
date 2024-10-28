@@ -14,7 +14,7 @@ interface OfflineDataHook<T> {
 const useOfflineData = <T,>(
   key: string,
   initialState: T,
-  fetchFunction: () => Promise<T>
+  fetchFunction: () => Promise<T>,
 ): OfflineDataHook<T> => {
   const { user } = useAuth();
   const storageKey = `${user?.userID}_${key}`;
@@ -31,15 +31,18 @@ const useOfflineData = <T,>(
     }
   }, [storageKey]);
 
-  const saveData = useCallback(async (value: T): Promise<void> => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem(storageKey, jsonValue);
-      setData(value);
-    } catch (e) {
-      console.error('Error saving data', e);
-    }
-  }, [storageKey]);
+  const saveData = useCallback(
+    async (value: T): Promise<void> => {
+      try {
+        const jsonValue = JSON.stringify(value);
+        await AsyncStorage.setItem(storageKey, jsonValue);
+        setData(value);
+      } catch (e) {
+        console.error('Error saving data', e);
+      }
+    },
+    [storageKey],
+  );
 
   const loadDataFromAPI = useCallback(async (): Promise<void> => {
     try {
@@ -64,12 +67,14 @@ const useOfflineData = <T,>(
           const offlineData = JSON.parse(jsonValue) as T;
           setData(offlineData);
         } else {
-          console.log("No hay datos offline válidos");
-          const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
-            if (state.isConnected) {
-              loadDataFromAPI().finally(() => unsubscribe());
-            }
-          });
+          console.log('No hay datos offline válidos');
+          const unsubscribe = NetInfo.addEventListener(
+            (state: NetInfoState) => {
+              if (state.isConnected) {
+                loadDataFromAPI().finally(() => unsubscribe());
+              }
+            },
+          );
         }
       }
     } catch (e) {
@@ -78,7 +83,6 @@ const useOfflineData = <T,>(
       setIsLoading(false);
     }
   }, [storageKey, loadDataFromAPI]);
-
 
   useEffect(() => {
     if (user?.userID !== lastUserID.current) {

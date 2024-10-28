@@ -1,17 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+  Linking,
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useTheme } from '../../../../../hooks';
-import { Box, Buttons, FlexContainer, IsLoading, LabelContainer, Typography } from '../../../../../components/custom';
+import {
+  Box,
+  Buttons,
+  FlexContainer,
+  IsLoading,
+  LabelContainer,
+  Typography,
+} from '../../../../../components/custom';
 import { responsiveFontSize, SIZES } from '../../../../../constants/theme';
 import { Location09Icon } from '../../../../../constants/IconsPro';
-
 
 type Props = {
   address: string;
   latitude: number;
   longitude: number;
-}
+};
 
 const Location = ({ address, latitude, longitude }: Props) => {
   const { Description } = useTheme();
@@ -20,12 +33,15 @@ const Location = ({ address, latitude, longitude }: Props) => {
 
   useEffect(() => {
     if (mapRef.current) {
-      mapRef.current.animateToRegion({
-        latitude: latitude,
-        longitude: longitude,
-        latitudeDelta: 0.003,
-        longitudeDelta: 0.003,
-      }, 1000); 
+      mapRef.current.animateToRegion(
+        {
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.003,
+          longitudeDelta: 0.003,
+        },
+        1000,
+      );
     }
   }, [latitude, longitude]);
 
@@ -38,14 +54,13 @@ const Location = ({ address, latitude, longitude }: Props) => {
 
     const timer = setTimeout(checkMapLoaded, 2000);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, [mapLoaded]);
 
-
   return (
-    <Box title='Location'>
+    <Box title="Location">
       <FlexContainer newStyle={{ alignItems: 'center' }}>
-        {!mapLoaded && <IsLoading  />}
+        {!mapLoaded && <IsLoading />}
         <MapView
           ref={mapRef}
           style={styles.map}
@@ -62,8 +77,8 @@ const Location = ({ address, latitude, longitude }: Props) => {
           <Marker coordinate={{ latitude, longitude }} />
         </MapView>
         {mapLoaded && (
-          <Buttons 
-            label='See on the Map'
+          <Buttons
+            label="See on the Map"
             onPress={() => {
               const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
               Linking.canOpenURL(url).then(supported => {
@@ -86,8 +101,8 @@ const styles = StyleSheet.create({
     height: responsiveFontSize(140),
     marginBottom: responsiveFontSize(20),
     borderRadius: SIZES.margin,
-    width: SIZES.BtnWidth
-  }
+    width: SIZES.BtnWidth,
+  },
 });
 
 export default Location;

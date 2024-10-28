@@ -1,11 +1,20 @@
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useAPI, useTheme } from "../../../../hooks";
-import { addNewLocationService, searchLocationByPlaceID } from "../../../../services/orders";
-import { Buttons, FlexContainer, InputLabel, IsLoading, LoadingScreen, Perks } from "../../../../components/custom";
-import i18next from "../../../../Translate";
-import { useNavigation } from "../../../../components/native";
-
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useAPI, useTheme } from '../../../../hooks';
+import {
+  addNewLocationService,
+  searchLocationByPlaceID,
+} from '../../../../services/orders';
+import {
+  Buttons,
+  FlexContainer,
+  InputLabel,
+  IsLoading,
+  LoadingScreen,
+  Perks,
+} from '../../../../components/custom';
+import i18next from '../../../../Translate';
+import { useNavigation } from '../../../../components/native';
 
 interface Props {
   placeID: string;
@@ -30,7 +39,7 @@ interface PropsData {
 const Form = (props: any) => {
   const { formatted_address, geometry } = props;
   const { backgroundMaingrey } = useTheme();
-  const navigation  = useNavigation();
+  const navigation = useNavigation();
 
   const {
     setValue,
@@ -40,9 +49,9 @@ const Form = (props: any) => {
   } = useForm<PropsUseForm>({
     defaultValues: {
       location_details: formatted_address,
-      apartment: "",
-      tag: "",
-      details: "",
+      apartment: '',
+      tag: '',
+      details: '',
       location: geometry.location,
     },
   });
@@ -53,7 +62,7 @@ const Form = (props: any) => {
     const { locationID } = await addNewLocationService(watch());
 
     if (locationID) {
-      navigation.navigate("Checkout", {
+      navigation.navigate('Checkout', {
         locationID,
       });
     }
@@ -68,20 +77,20 @@ const Form = (props: any) => {
       <InputLabel
         placeholder={i18next.t('Address')}
         label={i18next.t('Address')}
-        onChangeText={(value) => onChange("location_details", value)}
+        onChangeText={value => onChange('location_details', value)}
         value={location_details}
       />
 
       <InputLabel
         label={i18next.t('Building/Apartment')}
         placeholder={i18next.t('Building/Apartment')}
-        onChangeText={(value) => onChange("apartment", value)}
+        onChangeText={value => onChange('apartment', value)}
         value={apartment}
       />
 
       <InputLabel
         label={i18next.t('Tag / Girlfriend, Home, Work')}
-        onChangeText={(value) => onChange("tag", value)}
+        onChangeText={value => onChange('tag', value)}
         placeholder={i18next.t('Tag / Girlfriend, Home, Work')}
         value={tag}
       />
@@ -89,7 +98,7 @@ const Form = (props: any) => {
       <InputLabel
         label={i18next.t('Delivery details')}
         placeholder={i18next.t('Delivery details')}
-        onChangeText={(value) => onChange("details", value)}
+        onChangeText={value => onChange('details', value)}
         value={details}
       />
 
@@ -103,22 +112,24 @@ const Form = (props: any) => {
       />
 
       {isSubmitSuccessful && (
-        <Perks label={i18next.t('You have successfully added a location!')} status='success'/>
+        <Perks
+          label={i18next.t('You have successfully added a location!')}
+          status="success"
+        />
       )}
-
     </>
   );
 };
 
 const DetailsLocation = (props: Props) => {
   const { placeID, setHiddenSearch } = props;
-  const { backgroundMaingrey } = useTheme()
+  const { backgroundMaingrey } = useTheme();
   useEffect(() => {
     setHiddenSearch(true);
   }, []);
 
   const { data, isLoading, isFetching, isRefetching }: PropsData = useAPI({
-    queryKey: ["search-place-id", placeID],
+    queryKey: ['search-place-id', placeID],
     queryFn: searchLocationByPlaceID,
   });
 
@@ -131,13 +142,12 @@ const DetailsLocation = (props: Props) => {
     const { formatted_address, geometry } = results[0];
 
     return (
-      <FlexContainer newStyle={{
-        backgroundColor: backgroundMaingrey,
-      }}>
-        <Form
-          formatted_address={formatted_address}
-          geometry={geometry}
-        />
+      <FlexContainer
+        newStyle={{
+          backgroundColor: backgroundMaingrey,
+        }}
+      >
+        <Form formatted_address={formatted_address} geometry={geometry} />
       </FlexContainer>
     );
   }

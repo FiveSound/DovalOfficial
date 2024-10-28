@@ -1,12 +1,10 @@
-import React from 'react'
-import { Animated as RNSAnimated } from 'react-native'
+import React from 'react';
+import { Animated as RNSAnimated } from 'react-native';
 
-type Props = {}
+type Props = {};
 
 const Animated = (props: Props) => {
-  return (
-    <RNSAnimated.View {...props} />
-  )
-}
+  return <RNSAnimated.View {...props} />;
+};
 
-export default Animated
+export default Animated;

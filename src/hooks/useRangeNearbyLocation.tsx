@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import * as Location from "expo-location";
+import { useEffect, useState } from 'react';
+import * as Location from 'expo-location';
 
 export interface LocationState {
   latitude: number;
@@ -12,17 +12,19 @@ export interface LocationState {
 }
 
 const useRangeNearbyLocation = (navigateToPermissionScreen: () => void) => {
-  const [currentLocation, setCurrentLocation] = useState<LocationState | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<LocationState | null>(
+    null,
+  );
   const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
-  const [permissionChecked, setPermissionChecked] = useState<boolean>(false); 
+  const [permissionChecked, setPermissionChecked] = useState<boolean>(false);
   const [hasNavigated, setHasNavigated] = useState<boolean>(false);
 
   useEffect(() => {
     const checkPermission = async () => {
       try {
         const { status } = await Location.getForegroundPermissionsAsync();
-        if (status !== "granted") {
-          if (!hasNavigated) { 
+        if (status !== 'granted') {
+          if (!hasNavigated) {
             navigateToPermissionScreen();
             setHasNavigated(true);
           }
@@ -39,7 +41,7 @@ const useRangeNearbyLocation = (navigateToPermissionScreen: () => void) => {
               ...location.coords,
             });
           } else {
-            console.warn("No se pudo obtener la ubicación.");
+            console.warn('No se pudo obtener la ubicación.');
             if (!hasNavigated) {
               navigateToPermissionScreen();
               setHasNavigated(true);
