@@ -23,6 +23,7 @@ type Props = {
 const HeaderDashboard = memo(
   (props: Props) => {
     const { Title } = useTheme();
+    console.log(props.title, 'props.title');
     return (
       <>
         <SafeAreaView style={styles.container}>

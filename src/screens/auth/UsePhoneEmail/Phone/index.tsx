@@ -119,7 +119,7 @@ const Phone = () => {
         onChange={handleCheckboxChange}
       />
       <Buttons
-        label={uiState.loading ? i18next.t('') : i18next.t('Send code')}
+        label={uiState.loading ? i18next.t('sending code') : i18next.t('Send code')}
         loading={uiState.loading}
         color={uiState.loading ? 'dark' : 'primary'}
         disabled={phoneData.phoneNumber.length <= 6}

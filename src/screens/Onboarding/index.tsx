@@ -29,6 +29,7 @@ import i18next from '../../Translate';
 import { useDispatch } from 'react-redux';
 import { closeOnboardingModal } from '../../redux/slides/modalSlice';
 import { refreshProfileData } from '../../redux/slides/authSlice';
+import { reloadApp } from '../../redux/slides/appSlice';
 
 type Props = {};
 
@@ -62,8 +63,9 @@ const Onboarding = (props: Props) => {
       dispatch(refreshProfileData(true));
       if (response.success) {
         setTimeout(() => {
-          navigation.navigate('TabsNavigation');
+          dispatch(reloadApp())
           dispatch(refreshProfileData(false));
+          // navigation.navigate('TabsNavigation');
         }, 500);
       }
     } catch (error) {
@@ -85,7 +87,7 @@ const Onboarding = (props: Props) => {
 
   return (
     <Container
-      showHeader={true}
+      showHeader={false}
       useSafeArea={true}
       showTwoIconsLabel={false}
       showSkip={true}
@@ -154,10 +156,12 @@ const Onboarding = (props: Props) => {
       </ScrollView>
       <FlexContainer newStyle={styles.nextButton}>
         <Buttons
-          label={i18next.t('next')}
+          label={i18next.t('Save interests')}
           disabled={selectedInterests.length < 3}
           onPress={saveInterests}
           loading={isSaving}
+          variant={selectedInterests.length < 3 ? 'disabled' : 'primary'}
+          color='dark'
         />
       </FlexContainer>
     </Container>

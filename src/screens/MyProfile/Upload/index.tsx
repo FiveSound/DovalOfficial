@@ -15,10 +15,9 @@ type props = {};
 const Upload = (props: props) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const { business } = useSelector((state: RootState) => state.auth);
-  console.log(business);
+  const { businessVerified } = useSelector((state: RootState) => state.auth);
 
-  useEffect(() => {}, [business]);
+  console.log(businessVerified, 'businessVerified');
 
   const data = [
     {
@@ -53,7 +52,7 @@ const Upload = (props: props) => {
       ),
       showLineDivider: true,
       navigation: 'NewRecipie',
-      show: business ? true : false,
+      show: businessVerified ? true : false,
     },
     // {
     //     id: 3,

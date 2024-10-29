@@ -17,15 +17,17 @@ import { reloadApp } from '../../../redux/slides/appSlice';
 
 const OnboardingVerified = () => {
   const navigation = useNavigation();
-  const { user, isLoadingApp } = useAppSelector(
+  const { user, isLoadingApp, business } = useAppSelector(
     (state: RootState) => state.auth,
   );
   const dispatch = useAppDispatch();
 
+  console.log(business);
+
   const handleReload = () => {
     dispatch(reloadApp());
   };
-
+  console.log(user);
   if (isLoadingApp) return <LoadingScreen />;
 
   if (user?.pending)

@@ -1,4 +1,4 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContent } from '@react-navigation/drawer';
 import { useQuery } from '@tanstack/react-query';
 import { getHeaderDasboardService } from '../../services/business';
 import HeaderDashboard from './components/Header';
@@ -10,11 +10,13 @@ import Analitycs from './screen/Analitycs';
 import Profile from './screen/Profile';
 import Notifications from './screen/Notifications';
 import Support from './screen/Support';
-import OrderID from './screen/OrderID';
+import { useTheme } from '../../hooks';
+import { COLORS } from '../../constants/theme';
 
 const Drawer = createDrawerNavigator();
 
 const DashboardScreen = () => {
+  const { backgroundMaingrey, borderInput, Title, Description } = useTheme();
   const header = useQuery({
     queryKey: ['header-dashboard-component'],
     queryFn: getHeaderDasboardService,
@@ -23,6 +25,8 @@ const DashboardScreen = () => {
       cover: null,
     },
   });
+
+  console.log(header.data);
 
   return (
     <Drawer.Navigator
@@ -34,6 +38,14 @@ const DashboardScreen = () => {
             openDrawer={() => navigation.openDrawer()}
           />
         ),
+        drawerActiveTintColor: COLORS.dark,
+        drawerInactiveTintColor: Description,
+        drawerActiveBackgroundColor: COLORS.primary,
+        drawerInactiveBackgroundColor: borderInput,
+        drawerContentContainerStyle: {
+          backgroundColor: backgroundMaingrey,
+          flex: 1,
+        },
       }}
       initialRouteName="Business/DashboardHome"
     >

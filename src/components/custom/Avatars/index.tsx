@@ -110,7 +110,6 @@ const Avatars = React.memo((props: Props) => {
           ]}
         >
           <Image
-            source={{ uri: source }}
             placeholderSource={source}
             showPlaceholder={true}
             contentFit="cover"

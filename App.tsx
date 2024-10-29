@@ -8,9 +8,6 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import RootNavigation from "./src/navigation";
-import {
-  LoadingScreen,
-} from "./src/components/custom";
 import { LogBox, ScrollView, StatusBar} from "react-native";
 import { usePrepareApp, useTheme } from "./src/hooks";
 import styles from "./AppStyles";
@@ -20,9 +17,10 @@ import { AuthProvider } from "./src/context/AuthContext";
 import Modal from "./src/screens/Modal";
 import { CartProvider } from "./src/context/CartContext";
 import { DashboardProvider } from "./src/context/DashboardContext";
+import { LoadingScreen } from "./src/components/custom";
+
 const queryClient = new QueryClient();
 LogBox.ignoreAllLogs();
-
 
 const App = () => {
   const { BackgroundMain } = useTheme();
@@ -49,11 +47,7 @@ const App = () => {
       console.log("SplashScreen ocultado. La aplicación está lista.");
     }
   }, [appIsReady]);
-
- 
-
-
-
+  
   if (!appIsReady) {
     return <LoadingScreen />;
   }
@@ -69,7 +63,6 @@ const App = () => {
                   <StatusBar barStyle='dark-content' backgroundColor={BackgroundMain} />
                   <RootNavigation />
                   <Modal />
-
                 </GestureHandlerRootView>
               </CartProvider>
             </DashboardProvider>
@@ -79,6 +72,5 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-
 
 export default App;

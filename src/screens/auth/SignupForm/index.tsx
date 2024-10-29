@@ -190,10 +190,12 @@ const SignupForm = (props: Props) => {
       showFooter={true}
       labels={i18next.t('Update my profile')}
       disabled={
-        !isUsernameValid ||
-        name.length < 3 ||
-        !Object.values(isPasswordStrong).every(Boolean) ||
-        password !== repeatPassword
+        method === 0
+          ? !isUsernameValid || name.length < 3
+          : !isUsernameValid ||
+            name.length < 3 ||
+            !Object.values(isPasswordStrong).every(Boolean) ||
+            password !== repeatPassword
       }
       loading={isSubmitting}
       onPressButtons={onSubmit}

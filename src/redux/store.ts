@@ -12,6 +12,7 @@ import navigationReducer from './slides/navigations';
 import scrollReducer from './slides/scrollSlice';
 import uploadReducer from './slides/uploadSlice';
 import appReducer from './slides/appSlice';
+
 const store = configureStore({
   reducer: {
     auth: authReducer,

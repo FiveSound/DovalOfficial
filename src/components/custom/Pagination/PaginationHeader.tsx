@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { Home01Icon } from '../../../constants/IconsPro';
 import { Search } from '../Inputs';
+import FlexContainer from '../FlexContainer';
+import { SIZES } from '../../../constants/theme';
 
 type Props = {
   text?: string;
@@ -17,7 +19,7 @@ type Props = {
 };
 
 const PaginationHeader = ({ text, onChangeText, refetch }: Props) => (
-  <View style={styles.containerFilters}>
+  <FlexContainer style={styles.containerFilters}>
     {onChangeText ? (
       <Search
         value={text}
@@ -28,14 +30,14 @@ const PaginationHeader = ({ text, onChangeText, refetch }: Props) => (
     ) : (
       <Text />
     )}
-  </View>
+  </FlexContainer>
 );
 
 export default PaginationHeader;
 
 const styles = StyleSheet.create({
   containerFilters: {
-    padding: 5,
+    width: SIZES.width,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

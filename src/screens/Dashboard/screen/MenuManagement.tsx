@@ -2,8 +2,6 @@ import { useCallback, useState } from 'react';
 import {
   StyleSheet,
   FlatList,
-  View,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +10,7 @@ import {
   deleteMenuOrderIDService,
   getMenuManagementService,
 } from '../../../services/business';
-import { Pagination, PaginationHeader } from '../../../components/custom';
+import { Container, LoadingScreen, Pagination, PaginationHeader } from '../../../components/custom';
 type DataQueryType = {
   list: any[];
   search: string;
@@ -48,7 +46,7 @@ const MenuManagement = () => {
     initialData,
   });
 
-  console.log(menu.data.list, 'menu.data.list');
+  console.log(menu.data, 'menu.data');
   // Mutate
   const queryClient = useQueryClient();
 
@@ -104,10 +102,10 @@ const MenuManagement = () => {
     ]);
   }, []);
 
-  if (menu.isLoading || menu.isFetching) return <ActivityIndicator />;
+  if (menu.isLoading || menu.isFetching) return <LoadingScreen />;
 
   return (
-    <View style={styles.container}>
+    <Container style={styles.container}>
       <PaginationHeader
         text={search}
         onChangeText={txt => onSearch(txt)}
@@ -119,6 +117,8 @@ const MenuManagement = () => {
         renderItem={({ item }) => <Recipe onDelete={onDeleted} {...item} />}
         initialNumToRender={3}
         keyExtractor={row => row.id.toString()}
+        refreshing={menu.isFetching}
+        onRefresh={onRefetch}
       />
 
       <Pagination
@@ -128,7 +128,7 @@ const MenuManagement = () => {
         }
         pagination={menu.data.pagination}
       />
-    </View>
+    </Container>
   );
 };
 
@@ -137,7 +137,6 @@ export default MenuManagement;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    backgroundColor: '#000',
+    paddingHorizontal: 0,
   },
 });

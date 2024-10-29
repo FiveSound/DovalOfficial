@@ -9,7 +9,7 @@ import { setLocationData } from '../../redux/slides/locationSlice';
 
 const Home = () => {
   const navigation = useNavigation<NavigationProp<any>>();
-  const { isLoadingApp } = useSelector((state: RootState) => state.auth);
+  const { isLoadingApp, user } = useSelector((state: RootState) => state.auth);
   const [isLocationLoaded, setIsLocationLoaded] = useState(false);
   const [locationReady, setLocationReady] = useState(false);
 
@@ -44,6 +44,7 @@ const Home = () => {
 
     setupLocation();
   }, [currentLocation, permissionGranted, permissionChecked, isLoadingApp]);
+
 
   if (isLoadingApp) {
     return <LoaderMain />;

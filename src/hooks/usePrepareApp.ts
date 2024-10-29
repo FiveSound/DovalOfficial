@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
+import { useAppSelector } from '../redux';
 
 const usePrepareApp = (setAppIsReady: (isReady: boolean) => void) => {
+  const { isLoadingApp } = useAppSelector(state => state.auth);
   useEffect(() => {
     async function prepare() {
       try {
@@ -18,12 +20,14 @@ const usePrepareApp = (setAppIsReady: (isReady: boolean) => void) => {
       } catch (error) {
         console.warn('Error preparing app', error);
       } finally {
-        setAppIsReady(true);
+        if (!isLoadingApp) {
+          setAppIsReady(true);
+        }
       }
     }
 
     prepare();
-  }, [setAppIsReady]);
+  }, [setAppIsReady, isLoadingApp]);
 };
 
 export default usePrepareApp;

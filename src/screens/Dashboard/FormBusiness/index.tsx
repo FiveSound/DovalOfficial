@@ -121,6 +121,34 @@ const FormVerified: React.FC = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
   };
 
+  // const navigateToStep = (index: number) => {
+  //   const stepMapping = {
+  //       0: 1, 
+  //       1: 1,
+  //       2: 1,
+  //       3: 1,
+  //       5: 2,
+  //       6: 2,
+  //       7: 2,
+  //       8: 2,
+  //       9: 2,
+  //       10: 2,
+  //       12: 3, 
+  //       13: 3,
+  //       14: 3,
+  //       15: 3,
+  //       16: 3,
+  //       17: 3,
+  //     };
+  //   const step = stepMapping[index];
+  //   if (step) {
+  //     console.log(`Navigating to step: ${step}`); // Debugging line
+  //     setCurrentStep(step);
+  //   } else {
+  //     console.log(`No step found for index: ${index}`); // Debugging line
+  //   }
+  // };
+
   const handleBack = () => {
     navigation.goBack();
   };
@@ -133,8 +161,14 @@ const FormVerified: React.FC = () => {
         Alert.alert(
           '¡Éxito!',
           'Tu registro de negocio ha sido enviado exitosamente.',
+          [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate('TabsNavigation'),
+            },
+          ],
+          { cancelable: false }
         );
-        navigation.navigate('TabNavigation');
       } else {
         Alert.alert('Error', 'Ocurrió un error al enviar tu registro.');
       }
@@ -150,7 +184,6 @@ const FormVerified: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('Form Values:', values);
   }, [values]);
 
   return (
@@ -198,13 +231,13 @@ const FormVerified: React.FC = () => {
         {currentStep === 3 && (
           <BusinessAddress control={control} setValue={setValue} />
         )}
-        {currentStep === 4 && <OperationsInfoStep setValue={setValue} />}
+        {currentStep === 4 && <OperationsInfoStep control={control} setValue={setValue} />}
         {currentStep === 5 && <FinancialInfoStep control={control} />}
         {currentStep === 6 && (
           <AgreementsStep
             data={values}
             onAgreementChange={setIsAgreementChecked}
-            onNavigate={nextStep}
+            // onNavigate={navigateToStep}
           />
         )}
       </KeyboardAwareScrollView>

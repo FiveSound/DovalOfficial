@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
-import { FlexContainer, Hero, Typography } from '../../../../components/custom';
+import { FlexContainer, Hero, Typography, LineDivider } from '../../../../components/custom';
 import CustomPicker from '../../../../components/custom/CustomPicker';
 import { COLORS, SIZES } from '../../../../constants/theme';
 import i18next from '../../../../Translate';
 import { Home01Icon, Moon02Icon } from '../../../../constants/IconsPro';
 import { useTheme } from '../../../../hooks';
+import { Select } from '../components';
 
 type DaySchedule = {
   enabled: boolean;
@@ -24,8 +25,18 @@ type Schedule = {
   sunday: DaySchedule;
 };
 
-const OperationsInfoStep = ({setValue}: any) => {
+const OperationsInfoStep = ({setValue, control}: any) => {
   const { backgroundMaingrey } = useTheme();
+  const Riders = [
+    {
+      category: i18next.t('Do you have Riders?'),
+      list: [
+        { id: 1, label: i18next.t('Yes'), value: 'Yes', interest: 'Yes' },
+        { id: 2, label: i18next.t('No'), value: 'No', interest: 'No' },
+      ],
+    },
+  ];
+
   const [schedule, setSchedule] = useState<Schedule>({
     timezone: 'UTC-08:00',
     monday: { enabled: true, startTime: new Date(), endTime: new Date() },
@@ -74,7 +85,7 @@ const OperationsInfoStep = ({setValue}: any) => {
   />
      <FlexContainer newStyle={styles.container}>
 
-
+      
       {Object.keys(schedule).filter(day => day !== 'timezone').map((day) => (
         <View key={day} style={styles.dayRow}>
           <FlexContainer variant='row' newStyle={styles.dayRow}>
@@ -127,8 +138,19 @@ const OperationsInfoStep = ({setValue}: any) => {
             </FlexContainer>}
         </View>
       ))}
-
      </FlexContainer>
+     <LineDivider variant='secondary' lineStyle={styles.divider}/>
+      <Select
+        control={control}
+        name="OurRiders"
+        listTextSelector={Riders}
+        defaultValue={i18next.t('Do you have Riders?')}
+        placeholder={i18next.t('Do you have Riders?')}
+        required
+        isDatePicker={false}
+        isMultiSelect={true}
+        maxSelections={1}
+      />
     </FlexContainer>
   );
 };
@@ -170,7 +192,9 @@ const styles = StyleSheet.create({
   },
   switch: {
     marginLeft: SIZES.gapSmall,
-    
+  },
+  divider: {
+    marginTop: SIZES.gapLarge,
   },
 });
 

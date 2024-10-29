@@ -22,18 +22,13 @@ const Tab = createBottomTabNavigator();
 
 const TabsNavigation = () => {
   const { Bg: bg, Description, borderInput } = useTheme();
-  const { business, isLoadingApp } = useSelector(
+  const { businessVerified, isLoadingApp } = useSelector(
     (state: RootState) => state.auth,
   );
 
-  if (isLoadingApp) {
-    return <LoadingScreen />;
-  }
-
   return (
     <Tab.Navigator
-      //  key={isBusiness ? 'Home' : 'explorar'}
-      //  initialRouteName={isBusiness ? 'Home' : 'Explorar'}
+       key='explorar'
       initialRouteName="Explorar"
       screenOptions={{
         headerShown: false,
@@ -81,12 +76,12 @@ const TabsNavigation = () => {
       />
       <Tab.Screen
         name="Dashboard"
-        component={DashboardScreen}
+        component={businessVerified ? DashboardScreen : Home}
         options={{
           tabBarIcon: ({ focused }) => (
             <MenuItems
               focused={focused}
-              label={business ? 'Tablero' : 'Home'}
+              label={businessVerified ? 'Portal' : 'Home'}
               focusedIcon={
                 <Home01Icon
                   color={COLORS.primary}
