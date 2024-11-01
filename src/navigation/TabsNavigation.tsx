@@ -49,7 +49,7 @@ const TabsNavigation = () => {
       }}
     >
       <Tab.Screen
-        name="Explorar"
+        name="Feed"
         component={Feed}
         options={{
           tabBarIcon: ({ focused }) => (

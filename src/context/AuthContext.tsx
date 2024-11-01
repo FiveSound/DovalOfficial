@@ -20,6 +20,7 @@ import { subscribeNotificationsService } from '../services/notifications';
 import NetInfo from '@react-native-community/netinfo';
 import { UserType } from '../types/User.types';
 import { AppType } from '../types/Context.type';
+import { openOnboardingModal } from '../redux/slides/modalSlice';
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -76,6 +77,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       subscribeNotificationsService(expoPushToken.data);
     }
   }, [user, expoPushToken]);
+
+  // useEffect(() => {
+  //   if (!isLoadingApp && isAuthenticated && !user?.onboarding) {
+  //    dispatch(openOnboardingModal())
+  //   }
+  // }, [user]);
 
   return (
     <AuthContext.Provider

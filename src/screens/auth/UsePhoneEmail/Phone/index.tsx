@@ -58,10 +58,11 @@ const Phone = () => {
       const response = await signInPhoneService(
         `${phoneData.countryCode}${phoneData.phoneNumber}`,
       );
+      console.log('response', response);
       if (response.success) {
         const phoneValue = `${phoneData.countryCode}${phoneData.phoneNumber}`;
         setUiState(prev => ({ ...prev, success: true }));
-
+      
         navigation.navigate('Verified', {
           user: response.user,
           phone: phoneValue,

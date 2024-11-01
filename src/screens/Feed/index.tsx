@@ -11,7 +11,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import { getExploreData } from '../../services/recipes';
-import { useNavigation } from '../../components/native';
+import { SafeAreaView, useNavigation } from '../../components/native';
 import { CLOUDFRONT } from '../../services';
 
 const QUERY_KEY = 'explore-screen';
@@ -55,7 +55,7 @@ const Explorar = memo(() => {
 
   if (explore.data) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text
           onPress={() => {
             setPage(2);
@@ -119,7 +119,7 @@ const Explorar = memo(() => {
             />
           }
         />
-      </View>
+      </SafeAreaView>
     );
   }
 });

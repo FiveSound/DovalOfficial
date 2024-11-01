@@ -19,11 +19,10 @@ export const useLocation = () => {
 
     const startWatchingLocation = async () => {
       try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
+        const { status } = await Location.getForegroundPermissionsAsync();
+
         if (status !== 'granted') {
-          setTimeout(() => {
-            dispatch(openLocationModal());
-          }, 2000);
+          dispatch(openLocationModal());
           return;
         }
 
@@ -65,8 +64,6 @@ export const useLocation = () => {
                 speed: location.coords.speed,
               })
             );
-
-      
           }
         );
       } catch (error) {
@@ -82,6 +79,21 @@ export const useLocation = () => {
       }
     };
   }, [dispatch, isLoadingApp]);
+
+  const handleRequestPermissions = useCallback(async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.warn('⚠️ Permisos de ubicación no concedidos');
+        return;
+      }
+
+      // Iniciar la vigilancia de la ubicación después de conceder permisos
+      // Puedes llamar nuevamente a startWatchingLocation o mover la lógica aquí
+    } catch (error) {
+      console.error('❌ Error al solicitar permisos de ubicación:', error);
+    }
+  }, []);
 
   const getCountryName = useCallback(
     async (latitude: number, longitude: number): Promise<string> => {
@@ -124,5 +136,5 @@ export const useLocation = () => {
     return country ? country.codigoISO : null;
   }, []);
 
-  return;
+  return { handleRequestPermissions };
 };
