@@ -9,7 +9,7 @@ import {
   UserIconsStrike,
 } from '../constants/IconsPro';
 import { COLORS, responsiveFontSize, SIZES } from '../constants/theme';
-import Explorar from '../screens/explorar';
+import Feed from '../screens/Feed';
 import { LoadingScreen, MenuItems } from '../components/custom';
 import { styles } from '../components/custom/Menu';
 import Home from '../screens/home';
@@ -50,7 +50,7 @@ const TabsNavigation = () => {
     >
       <Tab.Screen
         name="Explorar"
-        component={Explorar}
+        component={Feed}
         options={{
           tabBarIcon: ({ focused }) => (
             <MenuItems
