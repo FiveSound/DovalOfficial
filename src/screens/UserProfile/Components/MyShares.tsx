@@ -1,4 +1,5 @@
-import useAPI from '../../../hooks/useAPI';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { sharedByUserService } from '../../../services/reactions';
 import Main from '../../MyProfile/Components/Tabs/Main';
 
@@ -7,8 +8,8 @@ type Props = {
 };
 
 const MyShares = (props: Props) => {
-  const { data, isLoading, isError, error, refetch } = useAPI({
-    queryKey: ['shared-By-Username-Service', props.username],
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['shared-By-Username-Service-useQuery', props.username],
     queryFn: ({ queryKey }) => {
       const [, username] = queryKey;
       return sharedByUserService(username);

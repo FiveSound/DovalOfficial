@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, useColorScheme } from 'react-native';
 import { useTheme } from '../../../../../hooks';
 import { Container, LineDivider } from '../../../../../components/custom';
 import { ScrollView } from '../../../../../components/native';
@@ -12,7 +12,8 @@ type Props = {
 };
 
 const Layout = ({ children, Append }: Props) => {
-  const { BackgroundMain, backgroundMaingrey } = useTheme();
+  const { BackgroundMain, backgroundMaingrey, Title } = useTheme();
+  const theme = useColorScheme();
 
   return (
     <Container
@@ -20,7 +21,7 @@ const Layout = ({ children, Append }: Props) => {
       style={[
         styles.container,
         {
-          backgroundColor: BackgroundMain,
+          backgroundColor: theme === 'dark' ? '#000' : '#fff',
         },
       ]}
     >

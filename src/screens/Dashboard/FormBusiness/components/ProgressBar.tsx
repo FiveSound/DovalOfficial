@@ -16,8 +16,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
       {Array.from({ length: totalSections }).map((_, index) => (
         <View
           key={index}
+          testID="progress-section"
           style={[
-            [styles.section, { backgroundColor: backgroundMaingrey }],
+            styles.section,
+            { backgroundColor: backgroundMaingrey },
             filledSections > index && styles.filledSection,
           ]}
         />

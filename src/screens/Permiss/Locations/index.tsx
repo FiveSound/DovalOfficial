@@ -12,17 +12,26 @@ import {
 import { Ilustrations } from '../../../constants';
 import features from './features';
 import { Image, ScrollView, useNavigation } from '../../../components/native';
+import { useAppDispatch } from '../../../redux';
+import { closeLocationModal } from '../../../redux/slides/modalSlice';
+import { reloadApp } from '../../../redux/slides/appSlice';
 
 const Locations = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
-  const navigation = useNavigation();
+  const [permissionError, setPermissionError] = useState(true);
+  const dispatch = useAppDispatch();
   const requestPermission = async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status === 'granted') {
-      setPermissionGranted(true);
-      navigation.goBack();
-    } else {
-      console.log('Permiso de ubicación no concedido');
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        setPermissionGranted(true);
+        dispatch(closeLocationModal());
+        dispatch(reloadApp());
+      } else {
+        setPermissionError(false);
+      }
+    } catch (error) {
+      console.error('Error al solicitar permisos de ubicación:', error);
     }
   };
 
@@ -72,7 +81,7 @@ const Locations = () => {
           ))}
           <Typography variant="subtitle">
             {i18next.t(
-              'You can change this anytime in Settings and privacy > Privacy > Location >  Doval.',
+              'You can change this anytime in Settings and privacy > Privacy > Location > Doval.',
             )}
           </Typography>
         </FlexContainer>

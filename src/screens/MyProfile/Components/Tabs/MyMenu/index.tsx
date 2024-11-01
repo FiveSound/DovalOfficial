@@ -1,10 +1,11 @@
-import useAPI from '../../../../../hooks/useAPI';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getMyRecipesService } from '../../../../../services/recipes';
 import Main from './Main';
 
 const MyMenu = () => {
-  const { data, isLoading, isError, refetch } = useAPI({
-    queryKey: ['my-recipes_menus'],
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['my-recipes_menus-useQuery'],
     queryFn: getMyRecipesService,
   });
 

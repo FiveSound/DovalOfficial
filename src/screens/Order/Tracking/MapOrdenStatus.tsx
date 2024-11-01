@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Dimensions, Image, StyleSheet } from 'react-native';
-import MapView, { Marker, Polyline } from 'react-native-maps';
+import { Dimensions, StyleSheet } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { LocationObjectCoords } from 'expo-location';
 import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
 import mapStyle from './mapStyle';
 import {
   Home01Icon,
   Location08Icon,
-  Location09Icon,
   StoreLocation02Icon,
 } from '../../../constants/IconsPro';
 import { FlexContainer, Icons } from '../../../components/custom';
@@ -91,6 +90,7 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
         width: SIZES.width,
         height: mapHeight,
       }}
+      provider={PROVIDER_GOOGLE}
       region={region}
       mapType="standard"
       customMapStyle={mapStyle}

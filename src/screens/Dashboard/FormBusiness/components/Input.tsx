@@ -20,6 +20,7 @@ type InputProps = {
   inputStyle?: TextStyle;
   isSearch?: boolean;
   validationRules?: RegisterOptions;
+  testID?: string;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -33,6 +34,7 @@ const Input: React.FC<InputProps> = ({
   inputStyle,
   isSearch = false,
   validationRules,
+  testID
 }) => {
   return (
     <>
@@ -65,6 +67,7 @@ const Input: React.FC<InputProps> = ({
               </FlexContainer>
             ) : (
               <InputLabel
+                testID={testID}
                 label={placeholder}
                 placeholder={placeholder}
                 onBlur={onBlur}

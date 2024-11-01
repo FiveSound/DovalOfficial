@@ -7,8 +7,10 @@ import {
   LoadingScreen,
   Typography,
 } from '../../../../components/custom';
-import { responsiveFontSize } from '../../../../constants/theme';
+import { StyleSheet } from 'react-native';
+import { responsiveFontSize, SIZES } from '../../../../constants/theme';
 import { searchLocationsService } from '../../../../services/orders';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   search: string;
@@ -35,18 +37,16 @@ interface PropsResultLocation {
 const ResultLocation = (props: PropsResultLocation) => {
   const { structured_formatting, onPress } = props;
   const { backgroundMaingrey } = useTheme();
+
   return (
     <>
       <TouchableOpacity
         onPress={onPress}
-        style={{
-          backgroundColor: backgroundMaingrey,
-        }}
+        style={styles.container}
       >
         <View
           style={{
             padding: responsiveFontSize(10),
-            backgroundColor: backgroundMaingrey,
           }}
         >
           <Typography variant="subtitle">
@@ -66,10 +66,11 @@ const Searched = (props: Props) => {
   const { search, setHiddenSearch } = props;
   const [placeID, setPlaceID] = useState(null);
 
-  const { data, isLoading }: PropsData = useAPI({
-    queryKey: ['get-location-coordenates', search],
+  const { data, isLoading }: PropsData = useQuery({
+    queryKey: ['get-location-searched', search],
     queryFn: searchLocationsService,
   });
+
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -100,5 +101,11 @@ const Searched = (props: Props) => {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: SIZES.width,
+  },
+});
 
 export default Searched;

@@ -80,16 +80,16 @@ const DashboardScreen = () => {
         name="Profile"
         component={Profile}
       /> */}
-      <Drawer.Screen
+      {/* <Drawer.Screen
         navigationKey="Business/Notifications"
         name="Notifications"
         component={Notifications}
-      />
-      <Drawer.Screen
+      /> */}
+      {/* <Drawer.Screen
         navigationKey="Business/Support"
         name="Support"
         component={Support}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DetailsLocation from './DetailsLocation';
-import { useAPI, useTheme } from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 import { TouchableOpacity, View } from '../../../../components/native';
 import {
   LineDivider,
@@ -9,6 +9,7 @@ import {
 } from '../../../../components/custom';
 import { responsiveFontSize } from '../../../../constants/theme';
 import { searchLocationsService } from '../../../../services/orders';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   search: string;
@@ -66,8 +67,8 @@ const Searched = (props: Props) => {
   const { search, setHiddenSearch } = props;
   const [placeID, setPlaceID] = useState(null);
 
-  const { data, isLoading }: PropsData = useAPI({
-    queryKey: ['get-location-coordenates', search],
+  const { data, isLoading }: PropsData = useQuery({
+    queryKey: ['get-location-coordenates-useQuery', search],
     queryFn: searchLocationsService,
   });
 

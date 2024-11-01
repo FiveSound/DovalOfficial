@@ -1,4 +1,9 @@
-export const formatMilesAndMillions = (num: number) => {
+export const formatMilesAndMillions = (num?: number) => {
+  if (typeof num !== 'number') {
+    console.warn(`Expected a number, but received ${typeof num}.`);
+    return 'N/A';
+  }
+
   if (num >= 1000000) {
     return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
   } else if (num >= 1000) {

@@ -12,6 +12,7 @@ export const getSnapPoints = (
   const snapPointsUpload = ['44%', '80%'];
   const snapPointsMoreOptionsProfile = ['40%', '60%'];
   const snapPointsAboutAccount = ['40%', '60%'];
+  const snapPointsLocation = ['100%'];
 
   switch (modalType) {
     case 0:
@@ -30,6 +31,8 @@ export const getSnapPoints = (
       return snapPointsMoreOptionsProfile;
     case 7:
       return snapPointsAboutAccount;
+    case 8:
+      return snapPointsLocation;
     default:
       return snapPoints;
   }

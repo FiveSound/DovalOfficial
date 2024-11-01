@@ -21,6 +21,7 @@ import Signup from '../auth/Signup';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import i18next from '../../Translate';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
@@ -35,8 +36,8 @@ const MyProfile = (props: Props) => {
     isLoading: isLoadingFollowers,
     refetch: refetchFollowers,
     error: followersError,
-  } = useAPI({
-    queryKey: ['get-Followers-Services'],
+  } = useQuery({
+    queryKey: ['get-Followers-Services-useQuery'],
     queryFn: () => getFollowersService(),
   });
 
@@ -45,8 +46,8 @@ const MyProfile = (props: Props) => {
     isLoading: isLoadingProfile,
     refetch: refetchProfile,
     error: profileError,
-  } = useAPI({
-    queryKey: ['get-Profile-Services'],
+  } = useQuery({
+    queryKey: ['get-Profile-Services-useQuery'],
     queryFn: () => getProfileService(),
   });
 

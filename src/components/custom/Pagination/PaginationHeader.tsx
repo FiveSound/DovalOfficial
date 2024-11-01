@@ -16,16 +16,17 @@ type Props = {
   text?: string;
   onChangeText?: (text: string) => void;
   refetch?: () => void;
+  placeholder: string;
 };
 
-const PaginationHeader = ({ text, onChangeText, refetch }: Props) => (
+const PaginationHeader = ({ text, onChangeText, refetch, placeholder }: Props) => (
   <FlexContainer style={styles.containerFilters}>
     {onChangeText ? (
       <Search
         value={text}
         onChange={txt => onChangeText(txt)}
         maxLength={30}
-        placeholder="Search"
+        placeholder={placeholder}
       />
     ) : (
       <Text />
@@ -38,8 +39,6 @@ export default PaginationHeader;
 const styles = StyleSheet.create({
   containerFilters: {
     width: SIZES.width,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   title: {

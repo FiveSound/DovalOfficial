@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native';
 import Typography from '../../Typography';
 import ButtonAcces from '../../Buttons/ButtonAcces';
 import FlexContainer from '../../FlexContainer';
-import { SIZES } from '../../../../constants/theme';
+import { FONTS, SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import { ScrollView, useNavigation } from '../../../native';
+import Box from '../../box';
 
 interface row {
   label: string;
@@ -17,6 +18,7 @@ interface row {
     icon: any;
     subLabel: string;
     showAppend: boolean;
+    isNavigation: boolean;
   }[];
 }
 type props = {
@@ -35,7 +37,7 @@ const PersonalInf = (props: props) => {
         {row.map((item, index) => (
           <>
             <Typography
-              variant="H4title"
+              variant='title'
               newStyle={[
                 styles.title,
                 {
@@ -54,16 +56,21 @@ const PersonalInf = (props: props) => {
               ]}
             >
               {item.content.map((content, index) => (
-                <ButtonAcces
+                  <ButtonAcces
+                  key={index}
                   label={content.label}
                   labelPreview={content.subLabel}
                   ShowLineDivider={false}
                   append={content.icon}
+                  ShowAppendPreview={true}
                   showAppend={content.showAppend}
                   onPress={() => {
-                    navigation.navigate(content.navigation);
+                    if (content.isNavigation) {
+                      navigation.navigate(content.navigation);
+                    }
                   }}
                   container={styles.buttonContainer}
+                  labelStyle={styles.labelStyle}
                 />
               ))}
             </FlexContainer>
@@ -86,13 +93,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: SIZES.gapLarge,
     marginVertical: SIZES.gapMedium,
+    gap: SIZES.gapSmall,
+    padding: SIZES.gapSmall,
   },
   title: {
-    marginBottom: SIZES.gapLarge,
+    marginBottom: SIZES.gapSmall,
+    ...FONTS.semi16
   },
   buttonContainer: {
     width: SIZES.BtnWidth / 1.02,
     paddingHorizontal: SIZES.gapSmall,
+  },
+  labelStyle: {
+    ...FONTS.semi16
   },
 });
 

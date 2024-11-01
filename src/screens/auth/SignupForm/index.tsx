@@ -29,6 +29,8 @@ import {
   refreshProfileData,
   signInSuccess,
 } from '../../../redux/slides/authSlice';
+import { useAppSelector } from '../../../redux';
+import { openOnboardingModal } from '../../../redux/slides/modalSlice';
 
 type Props = {};
 type RouteParams = {
@@ -39,7 +41,7 @@ type RouteParams = {
 
 const SignupForm = (props: Props) => {
   useLocation();
-  const { countryKey } = useSelector((state: RootState) => state.location);
+  const { countryKey } = useAppSelector((state: RootState) => state.location);
   const route = useRoute<RouteProp<RouteParams, 'params'>>();
   const dispatch = useDispatch();
   const { method } = route.params;
@@ -60,9 +62,10 @@ const SignupForm = (props: Props) => {
     number: false,
     specialChar: false,
   });
-  const { isAuthenticated, user, token } = useSelector(
+  const { isAuthenticated, user, token } = useAppSelector(
     (state: RootState) => state.auth,
   );
+  
 
   const validatePasswordStrength = (password: string) => {
     const length = password.length >= 8;
@@ -145,7 +148,7 @@ const SignupForm = (props: Props) => {
       const phoneDetails = {
         name: name,
         username: username,
-        country: countryKey || '',
+        country: countryKey,
         contact_policy: contact_policy,
       };
 
@@ -155,7 +158,7 @@ const SignupForm = (props: Props) => {
         country: countryKey,
         contact_policy: true,
         password: password,
-        email: user?.email || '',
+        email: user?.email,
       };
 
       const response = await (method === 1
@@ -165,9 +168,7 @@ const SignupForm = (props: Props) => {
       console.log('response', response);
 
       if (response.success) {
-        setTimeout(() => {
-          navigation.navigate('Onboarding');
-        }, 500);
+          dispatch(openOnboardingModal());
       } else {
         console.error('Verification response:', response);
       }
@@ -185,7 +186,7 @@ const SignupForm = (props: Props) => {
   return (
     <Container
       useSafeArea={true}
-      showHeader={true}
+      showHeader={false}
       label={i18next.t('Sign Up Form')}
       showFooter={true}
       labels={i18next.t('Update my profile')}

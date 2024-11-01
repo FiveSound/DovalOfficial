@@ -7,16 +7,16 @@ import { selectItem } from '../../../../redux/slides/selectionSlice';
 import { Sender } from './types';
 import { SIZES } from '../../../../constants/theme';
 import { IsLoading } from '../../../../components/custom';
-import useAPI from '../../../../hooks/useAPI';
 import { getContacts } from '../../../../services/shares';
 import SenderItem from './SenderItem';
 import { useAuth } from '../../../../context/AuthContext';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
 const SenderGrid: React.FC<Props> = (props: Props) => {
   const { user } = useAuth();
-  const { latitude, longitude } = useSelector(
+  const { location } = useSelector(
     (state: RootState) => state.location,
   );
   const [Loader, setLoader] = useState(true);
@@ -26,9 +26,9 @@ const SenderGrid: React.FC<Props> = (props: Props) => {
     data,
     isLoading: LoadingData,
     refetch,
-  } = useAPI({
-    queryKey: ['get-Contacts-latitude-longitudes'],
-    queryFn: () => getContacts(page, latitude, longitude),
+  } = useQuery({
+    queryKey: ['get-Contacts-latitude-longitudes-useQuery'],
+    queryFn: () => getContacts(page, location?.latitude, location?.longitude),
   });
   const [selectedItem, setSelectedItem] = useState<Sender | null>(null);
   const dispatch = useDispatch();

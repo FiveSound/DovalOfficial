@@ -7,6 +7,7 @@ import Onboarding from '../Onboarding';
 import Upload from '../MyProfile/Upload';
 import MoreOptionsProfile from '../UserProfile/MoreOptions';
 import AboutAccount from '../UserProfile/AboutAccount';
+import Locations from '../Permiss/Locations';
 interface ModalContentProps {
   modalType: number;
   data: any;
@@ -35,6 +36,8 @@ const ModalContent: React.FC<ModalContentProps> = ({
       return <MoreOptionsProfile />;
     case 7:
       return <AboutAccount />;
+    case 8:
+      return <Locations />;
     default:
       return <></>;
   }

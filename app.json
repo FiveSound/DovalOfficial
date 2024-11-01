@@ -3,7 +3,7 @@
     "name": "doval",
     "slug": "doval",
     "scheme": "doval",
-    "version": "1.6.4",
+    "version": "1.6.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",

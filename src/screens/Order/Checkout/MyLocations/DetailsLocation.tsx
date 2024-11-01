@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAPI, useTheme } from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 import {
   addNewLocationService,
   searchLocationByPlaceID,
@@ -15,6 +15,7 @@ import {
 } from '../../../../components/custom';
 import i18next from '../../../../Translate';
 import { useNavigation } from '../../../../components/native';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   placeID: string;
@@ -128,8 +129,8 @@ const DetailsLocation = (props: Props) => {
     setHiddenSearch(true);
   }, []);
 
-  const { data, isLoading, isFetching, isRefetching }: PropsData = useAPI({
-    queryKey: ['search-place-id', placeID],
+  const { data, isLoading, isFetching, isRefetching }: PropsData = useQuery({
+    queryKey: ['search-place-id-useQuery', placeID],
     queryFn: searchLocationByPlaceID,
   });
 

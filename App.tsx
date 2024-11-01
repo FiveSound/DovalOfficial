@@ -9,7 +9,7 @@ import {
 } from "react-native-gesture-handler";
 import RootNavigation from "./src/navigation";
 import { LogBox, ScrollView, StatusBar} from "react-native";
-import { usePrepareApp, useTheme } from "./src/hooks";
+import { useLocation, usePrepareApp, useTheme } from "./src/hooks";
 import styles from "./AppStyles";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -40,7 +40,8 @@ const App = () => {
   );
 
   usePrepareApp(setAppIsReady);
-
+  useLocation(); 
+  
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();

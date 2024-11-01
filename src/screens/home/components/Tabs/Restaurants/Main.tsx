@@ -43,13 +43,10 @@ const Main = ({
   isError,
   error,
   refetchPostData,
-  Search,
-  setSearch,
   filterStores,
   setFilterStores,
   freeShipping,
   setFreeShipping,
-  navigateToPermissionScreen,
 }: Props) => {
   const navigation = useNavigation();
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);

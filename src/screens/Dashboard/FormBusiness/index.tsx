@@ -34,21 +34,14 @@ const defaultValues = {
   state: '',
   postal_code: '',
   location_map: '',
-  latitude: undefined,
-  longitude: undefined,
+  latitude: null,
+  longitude: null,
   country: '',
-  schedules: [
-    {
-      id: 1,
-      days: [],
-      opening_time: '',
-      closing_time: '',
-    },
-  ],
+  schedules: [],
   OurRiders: false,
   bank_details: '',
-  account_currency: 'DOP',
-  account_type: 'Checking',
+  account_currency: '',
+  account_type: '',
   account_number: '',
   account_holder_name: '',
   fiscal_identification: '',
@@ -69,9 +62,9 @@ const stepFields = [
     'tax_identification_number',
   ],
 
-  ['full_name', 'identification_number', 'role', 'email', 'phone_number', 'imgIdentification'],
+  ['full_name', 'identification_number', 'role', 'email', 'phone_number'],
 
-  ['address', 'city', 'state',],
+  ['address', 'city', 'state', 'postal_code'],
 
   ['OurRiders', 'schedules'],
 
@@ -102,7 +95,6 @@ const FormVerified: React.FC = () => {
   const navigation = useNavigation();
 
   const values = watch();
-  console.log('currentStep', currentStep);
 
   const nextStep = async () => {
     const currentStepFieldsList = stepFields[currentStep - 1];

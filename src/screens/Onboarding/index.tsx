@@ -10,7 +10,6 @@ import {
   Perks,
   Typography,
 } from '../../components/custom';
-import useAPI from '../../hooks/useAPI';
 import {
   getInterestsService,
   Interests,
@@ -28,14 +27,14 @@ import { useTheme } from '../../hooks';
 import i18next from '../../Translate';
 import { useDispatch } from 'react-redux';
 import { closeOnboardingModal } from '../../redux/slides/modalSlice';
-import { refreshProfileData } from '../../redux/slides/authSlice';
 import { reloadApp } from '../../redux/slides/appSlice';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
 const Onboarding = (props: Props) => {
-  const { data, isLoading, refetch } = useAPI({
-    queryKey: ['getInterestsService'],
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['getInterestsService-useQuery'],
     queryFn: () => getInterestsService(),
   });
   const { backgroundMaingrey, Title } = useTheme();
@@ -60,13 +59,9 @@ const Onboarding = (props: Props) => {
     try {
       const response = await saveInterestsService(selectedInterests);
       setSaveSuccess(response.success);
-      dispatch(refreshProfileData(true));
       if (response.success) {
-        setTimeout(() => {
           dispatch(reloadApp())
-          dispatch(refreshProfileData(false));
-          // navigation.navigate('TabsNavigation');
-        }, 500);
+          dispatch(closeOnboardingModal());
       }
     } catch (error) {
       setSaveError(error.message);
@@ -77,9 +72,6 @@ const Onboarding = (props: Props) => {
     }
   };
 
-  const closeOnboarding = () => {
-    dispatch(closeOnboardingModal());
-  };
 
   if (isLoading) {
     return <LoadingScreen label={i18next.t('Loading interest')} />;
@@ -91,8 +83,6 @@ const Onboarding = (props: Props) => {
       useSafeArea={true}
       showTwoIconsLabel={false}
       showSkip={true}
-      label={i18next.t('Skip')}
-      onPressSkip={closeOnboarding}
     >
       <Hero
         label={i18next.t('Choose Yours intereses')}
@@ -112,9 +102,9 @@ const Onboarding = (props: Props) => {
       <ScrollView>
         {data.map((category: any, index: number) => (
           <FlexContainer key={index} newStyle={styles.categoryContainer}>
-            <Typography variant="subtitle" newStyle={styles.categoryTitle}>
+            {/* <Typography variant="subtitle" newStyle={styles.categoryTitle}>
               {i18next.t(category.category)}
-            </Typography>
+            </Typography> */}
             <View style={styles.interestsContainer}>
               {category.list.map((interest: Interests, idx: number) => (
                 <TouchableOpacity

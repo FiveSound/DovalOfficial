@@ -9,6 +9,7 @@ import i18next from '../../Translate';
 import BannerBusiness from './Components/BannerBusiness';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useQuery } from '@tanstack/react-query';
 
 type RouteParams = {
   id: string;
@@ -18,9 +19,10 @@ const Business: React.FC = () => {
   const route = useRoute();
   const params = route.params as RouteParams;
   const businessID = params.id;
+  console.log(businessID, 'businessID');
   const { location } = useSelector((state: RootState) => state.location);
-  const { data, isLoading, refetch } = useAPI({
-    queryKey: ['business-details-businessID', businessID],
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['business-businessID', businessID],
     queryFn: () => getDetailsBusinessIDService(location, businessID),
   });
   const { isRefreshing, onRefresh } = useRefreshData([refetch]);
@@ -41,7 +43,7 @@ const Business: React.FC = () => {
   if (isLoading) {
     return <LoadingScreen label={i18next.t('Loading')} />;
   }
-
+  console.log(data, 'data');
   if (data) {
     const { banner, avatar, business_name } = data;
     return (

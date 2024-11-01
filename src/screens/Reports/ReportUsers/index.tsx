@@ -10,7 +10,7 @@ import {
 import { ScrollView, TouchableOpacity } from '../../../components/native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Alert } from 'react-native';
-import useAPI from '../../../hooks/useAPI';
+import { useQuery } from '@tanstack/react-query';
 import {
   reportedListService,
   reportService,
@@ -33,8 +33,8 @@ type RootStackParamList = {
 const ReportUsers = () => {
   const router = useRoute<RouteProp<RootStackParamList>>();
   const { userID } = router.params;
-  const { data, isLoading, isError, error, refetch } = useAPI({
-    queryKey: ['reported-List-Service'],
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['reported-List-Service-useQuery'],
     queryFn: reportedListService,
   });
 

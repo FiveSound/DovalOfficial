@@ -31,7 +31,6 @@ type Props = {};
 const UserProfile = (props: Props) => {
   const route = useRoute<RouteProp<{ params: RouteParams }, 'params'>>();
   const { username, businessID } = route.params;
-  const { user, currentLocation } = useAuth();
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -90,7 +89,7 @@ const UserProfile = (props: Props) => {
 
       <TabsMyProfile
         MyPosts={
-          <MyPosts username={username} currentLocation={currentLocation} />
+          <MyPosts username={username}/>
         }
         Myshares={<MyShares username={username} />}
         MySaves={<MySaves username={username} />}

@@ -99,6 +99,7 @@ const CardMenu = (props: props) => {
               </FlexContainer>
             </View>
           </FlexContainer>
+          <LineDivider variant='primary' lineStyle={styles.lineDivider} />
         </FlexContainer>
         {
           isBusiness && (
@@ -129,7 +130,6 @@ const CardMenu = (props: props) => {
             </>
           )}
         <LineDivider variant="secondary" lineStyle={styles.lineDivider} />
-
       </>
     );
   }

@@ -10,13 +10,14 @@ interface Props {
   value: string;
 }
 
-const PriceInput: React.FC<Props> = ({ setValue, onSaveDraft, value }) => {
+const PriceInput: React.FC<Props> = ({ setValue, value }) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const businessCurrency = getCurrencyByCountryCode(user?.country);
+  // const businessCurrency = getCurrencyByCountryCode(user?.country);
+
   return (
     <InputLabel
-      placeholder={`Price ${businessCurrency}$0`}
-      keyboardType="numeric"
+      placeholder={`Price $0`}
+      keyboardType='default'
       value={value}
       onChangeText={txt => {
         setValue('price', txt);

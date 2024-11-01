@@ -24,6 +24,7 @@ import {
 import { validateEmail } from '../../../../utils/Utils';
 import { useAppDispatch, useAppSelector } from '../../../../redux';
 import { login } from '../../../../redux/slides/authSlice';
+import { RootState } from '../../../../redux/store';
 
 const SignUpEmail = () => {
   const [state, setState] = useState({
@@ -46,15 +47,7 @@ const SignUpEmail = () => {
   const loginLoading = useAppSelector(state => state.auth.loginLoading);
   const loginError = useAppSelector(state => state.auth.loginError);
   const loginMessage = useAppSelector(state => state.auth.loginMessage);
-  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigation.navigate('TabsNavigation', {
-        user: undefined, // El usuario ya está en el store de Redux
-      });
-    }
-  }, [isAuthenticated, navigation]);
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
 
   const handleCheckboxChange = (checked: boolean) => {
     setState(prevState => ({ ...prevState, provided: checked ? 1 : 0 }));
@@ -111,6 +104,12 @@ const SignUpEmail = () => {
     // Despacha la thunk de login desde authSlice
     dispatch(login({ email: state.email, password: state.password }));
   };
+ 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigation.goBack()
+    }
+  }, [isAuthenticated, navigation]);
 
   if (state.screenLoading || loginLoading) {
     return <LoadingScreen />;
@@ -215,6 +214,7 @@ const styles = StyleSheet.create({
     gap: SIZES.gapLarge,
     alignItems: 'center',
     padding: SIZES.padding,
+    paddingHorizontal: 0
   },
   label: {
     textAlign: 'center',

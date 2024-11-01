@@ -22,6 +22,7 @@ import {
 } from '../../../../components/custom';
 import i18next from '../../../../Translate';
 import { Ilustrations } from '../../../../constants';
+import { useQuery } from '@tanstack/react-query';
 
 interface PropsData {
   data: any;
@@ -34,16 +35,12 @@ interface PropsData {
 const Location = (props: any) => {
   const { tag, details, selected, locationID } = props;
   const { Description, Title } = useTheme();
-  const navigation = useNavigation();
   const [loading, setLoading] = React.useState(false); // Add loading state
 
   const handleSelected = async () => {
     setLoading(true); // Set loading to true when pressed
     await setDefaultLocationService(locationID);
-    setLoading(false); // Set loading to false when success
-    navigation.navigate('Checkout', {
-      locationID,
-    });
+    setLoading(false); // Set loading to false when succes
   };
 
   return (
@@ -87,8 +84,8 @@ const Location = (props: any) => {
 };
 
 const MySavedLocations = () => {
-  const { data, isLoading, isFetching, isRefetching }: PropsData = useAPI({
-    queryKey: ['locations'],
+  const { data, isLoading, isFetching, isRefetching }: PropsData = useQuery({
+    queryKey: ['Get-My-Locations'],
     queryFn: getMyLocations,
   });
 
@@ -145,6 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: SIZES.height / 2,
+    width: SIZES.width / 1.2,
   },
   emptyLabel: {
     textAlign: 'center',

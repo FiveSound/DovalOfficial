@@ -1,10 +1,11 @@
-import useAPI from '../../../../../hooks/useAPI';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { mySharedgService } from '../../../../../services/reactions';
 import Main from '../Main';
 
 const MyShares = () => {
-  const { data, isLoading, isError, refetch } = useAPI({
-    queryKey: ['my-Sharedg-Service'],
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['my-Sharedg-Service-useQuery'],
     queryFn: mySharedgService,
   });
 

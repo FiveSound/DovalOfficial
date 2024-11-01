@@ -1,7 +1,6 @@
 import React from 'react';
 import { useCart } from '../../../context/CartContext';
 import { verificateOrderService } from '../../../services/orders';
-import { useAPI } from '../../../hooks';
 import { Container, LoadingScreen } from '../../../components/custom';
 import { ScrollView, useNavigation } from '../../../components/native';
 import {
@@ -11,6 +10,7 @@ import {
   ResumeOrderList,
 } from './components';
 import i18next from '../../../Translate';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   route: {
@@ -26,8 +26,8 @@ const Checkout = ({ route }: Props) => {
   const { locationID, paymentIntent } = route.params;
   const navigation = useNavigation();
 
-  const { data, isError, isLoading, isFetching, isRefetching } = useAPI({
-    queryKey: ['screen-verificar-orders', paymentIntent, locationID],
+  const { data, isError, isLoading, isFetching, isRefetching } = useQuery({
+    queryKey: ['screen-verificar-orders-useQuery', paymentIntent, locationID],
     queryFn: verificateOrderService,
   });
 

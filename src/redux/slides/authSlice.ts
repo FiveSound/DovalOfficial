@@ -300,7 +300,7 @@ const authSlice = createSlice({
       state.canResend = false;
     });
     builder.addCase(resendCode.rejected, (state, action) => {
-      console.log('resendCode rejected:', action.payload);
+      // console.log('resendCode rejected:', action.payload);
       state.isResending = false;
       state.isLoadingApp = false;
       state.message = action.payload || 'Error al reenviar el código';
@@ -323,7 +323,7 @@ const authSlice = createSlice({
       state.businessVerified = action.payload.user?.businessVerified || false;
     });
     builder.addCase(login.rejected, (state, action) => {
-      console.log('login rejected:', action.payload);
+      // console.log('login rejected:', action.payload);
       state.loginLoading = false;
       state.loginError = true;
       state.loginMessage = action.payload || 'Error al iniciar sesión';
@@ -331,11 +331,11 @@ const authSlice = createSlice({
 
     // Thunk para cargar el usuario al inicio
     builder.addCase(loadUser.pending, state => {
-      console.log('extraReducers: loadUser: Pendiente');
+      // console.log('extraReducers: loadUser: Pendiente');
       state.isLoadingApp = true;
     });
     builder.addCase(loadUser.fulfilled, (state, action) => {
-      console.log('loadUser fulfilled payload:', action.payload);
+      // console.log('loadUser fulfilled payload:', action.payload);
       
       if (action.payload.user && action.payload.user.userID) {
         state.isAuthenticated = true;
@@ -345,7 +345,7 @@ const authSlice = createSlice({
         state.onboarding = action.payload.user.onboarding || false;
         state.businessVerified = action.payload.user.businessVerified || false;
       } else {
-        console.log('loadUser: Datos del usuario incompletos en payload');
+        // console.log('loadUser: Datos del usuario incompletos en payload');
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
@@ -354,7 +354,7 @@ const authSlice = createSlice({
       }
     });
     builder.addCase(loadUser.rejected, (state, action) => {
-      console.log('extraReducers: loadUser: Rejected:', action.payload);
+      // console.log('extraReducers: loadUser: Rejected:', action.payload);
       state.isAuthenticated = false;
       state.user = null;
       state.token = null;

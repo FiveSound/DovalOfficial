@@ -15,6 +15,8 @@ import {
 } from '../../../../components/custom';
 import i18next from '../../../../Translate';
 import { useNavigation } from '../../../../components/native';
+import { useAppSelector } from '../../../../redux';
+import { RootState } from '../../../../redux/store';
 
 interface Props {
   placeID: string;
@@ -132,7 +134,9 @@ const DetailsLocation = (props: Props) => {
     queryKey: ['search-place-id', placeID],
     queryFn: searchLocationByPlaceID,
   });
-
+  const { location } = useAppSelector((state: RootState) => state.location);
+  const { latitude, longitude } = location || {};
+  
   if (isLoading || isFetching || isRefetching) {
     return <LoadingScreen />;
   }

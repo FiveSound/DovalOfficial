@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
+import { useAppDispatch } from '../redux';
+import { openLocationModal } from '../redux/slides/modalSlice';
 
 export interface LocationState {
   latitude: number;
@@ -11,7 +13,8 @@ export interface LocationState {
   speed?: number | null;
 }
 
-const useRangeNearbyLocation = (navigateToPermissionScreen: () => void) => {
+const useRangeNearbyLocation = () => {
+  const dispatch = useAppDispatch();
   const [currentLocation, setCurrentLocation] = useState<LocationState | null>(
     null,
   );
@@ -25,7 +28,7 @@ const useRangeNearbyLocation = (navigateToPermissionScreen: () => void) => {
         const { status } = await Location.getForegroundPermissionsAsync();
         if (status !== 'granted') {
           if (!hasNavigated) {
-            navigateToPermissionScreen();
+            dispatch(openLocationModal());
             setHasNavigated(true);
           }
         } else {
@@ -43,7 +46,7 @@ const useRangeNearbyLocation = (navigateToPermissionScreen: () => void) => {
           } else {
             console.warn('No se pudo obtener la ubicación.');
             if (!hasNavigated) {
-              navigateToPermissionScreen();
+              dispatch(openLocationModal());
               setHasNavigated(true);
             }
           }
@@ -51,7 +54,7 @@ const useRangeNearbyLocation = (navigateToPermissionScreen: () => void) => {
       } catch (error) {
         console.error('Error al verificar permisos de ubicación:', error);
         if (!hasNavigated) {
-          navigateToPermissionScreen();
+          dispatch(openLocationModal());
           setHasNavigated(true);
         }
       } finally {
@@ -60,7 +63,7 @@ const useRangeNearbyLocation = (navigateToPermissionScreen: () => void) => {
     };
 
     checkPermission();
-  }, [navigateToPermissionScreen, hasNavigated]);
+  }, [ hasNavigated]);
 
   return { currentLocation, permissionGranted, permissionChecked };
 };

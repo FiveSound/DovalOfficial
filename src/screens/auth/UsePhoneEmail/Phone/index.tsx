@@ -52,10 +52,6 @@ const Phone = () => {
   );
 
   const handleSendCode = useCallback(async () => {
-    console.log(
-      'Sending code to:',
-      `${phoneData.countryCode}${phoneData.phoneNumber}`,
-    );
     setUiState(prev => ({ ...prev, loading: true, error: false }));
     dispatch(signInStart());
     try {
@@ -65,15 +61,15 @@ const Phone = () => {
       if (response.success) {
         const phoneValue = `${phoneData.countryCode}${phoneData.phoneNumber}`;
         setUiState(prev => ({ ...prev, success: true }));
-        setTimeout(() => {
-          navigation.navigate('Verified', {
-            user: response.user,
-            phone: phoneValue,
-            Form: !response.exist,
-            method: 0,
-            provided: provided,
-          });
-        }, 1000);
+
+        navigation.navigate('Verified', {
+          user: response.user,
+          phone: phoneValue,
+          Form: !response.exist,
+          method: 0,
+          provided: provided,
+        });
+
       } else {
         console.error('signInPhoneService failure:', response.error);
         dispatch(signInFailure());
