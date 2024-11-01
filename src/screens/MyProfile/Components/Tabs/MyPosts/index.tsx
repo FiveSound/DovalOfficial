@@ -1,11 +1,11 @@
 import React from 'react';
-import useAPI from '../../../../../hooks/useAPI';
 import { getMyPostService } from '../../../../../services/posts';
 import Main from '../Main';
+import { useQuery } from '@tanstack/react-query';
 
 const MyPosts = () => {
-  const { data, isLoading, isError, error, refetch } = useAPI({
-    queryKey: ['get-My-Post-ServiceAll-new'],
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['get-My-Post-ServiceAll-new-useQuery'],
     queryFn: getMyPostService,
   });
 

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useCart } from '../../../context/CartContext';
+import React, { memo, useEffect, useState } from 'react';
 import {
   RefreshControl,
   ScrollView,
@@ -17,20 +16,36 @@ import styles from './styles';
 import i18next from 'i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { useQuery } from '@tanstack/react-query';
-import { getCartService } from '../../../services/cart';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addCartQtyService, getCartService, removerCartService } from '../../../services/cart';
+const QUERY_KEY = ["cart-screen"];
 
-const Cart = () => {
+type CartItemType = {
+  cartItemID: number;
+  recipeID: number;
+  recipe: string;
+  price: string;
+  total: string;
+  cover: string;
+  quantity: number;
+  businessID: string;
+  variants: null | string;
+  business_name: string;
+};
+
+
+const Cart = memo(() => {
+  const navigation = useNavigation();
   const { data, isLoading, isFetching, refetch } = useQuery({
-    queryKey: ['cart-screen'],
+    queryKey: QUERY_KEY,
     queryFn: getCartService,
   });
-  const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
   const { isLoadingApp, isAuthenticated } = useSelector(
     (state: RootState) => state.auth,
   );
 
+  
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
@@ -117,7 +132,7 @@ const Cart = () => {
     );
   }
 
-  return null; // Opcional: manejar otros casos
-};
+  return null;
+});
 
 export default Cart;

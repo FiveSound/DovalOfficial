@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useNavigation } from '../../../components/native';
-import { useBusinessLogic } from '../../../hooks/useBusinessLogic';
 import Main from './Main';
+import { useBusinessLogic } from '../../../hooks/useBusinessLogic';
 
 const SearchBusiness = () => {
   const navigation = useNavigation();

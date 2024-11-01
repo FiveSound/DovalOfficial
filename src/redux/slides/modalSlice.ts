@@ -128,6 +128,15 @@ const modalSlice = createSlice({
       state.open = false;
       state.modalType = 6;
     },
+    openLocationModal(state) {
+      state.open = true;
+      state.modalType = 8;
+    },
+    closeLocationModal(state) {
+      state.open = false;
+      state.modalType = 8;
+    },
+    
   },
   extraReducers: builder => {
     builder.addCase(
@@ -161,6 +170,8 @@ export const {
   openModalAboutAccount,
   closeModalAboutAccount,
   closeAddressModal,
+  openLocationModal,
+  closeLocationModal,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

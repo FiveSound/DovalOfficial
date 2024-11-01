@@ -47,15 +47,13 @@ export const getOrderIDService = async ({ queryKey }: QueryKeyType) => {
   }
 };
 
-export const searchLocationsService = async ({
-  queryKey,
-}: QueryKeyType): Promise<BusinessAddressType[]> => {
+export const searchLocationsService = async ({ queryKey }: QueryKeyType) => {
   try {
     const direccion = queryKey[1];
 
-    const isString = typeof direccion === 'string';
+    const isString = typeof direccion === "string";
 
-    const formatLocation = isString ? direccion.replace(/\s/g, '+') : undefined;
+    const formatLocation = isString ? direccion.replace(/\s/g, "+") : undefined;
 
     if (formatLocation) {
       const MAPS_URL = `https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input=${formatLocation}&language=es&types=geocode&key=${KeyApi.GoogleMapApi}`;
@@ -63,23 +61,14 @@ export const searchLocationsService = async ({
 
       const predictions = result.data?.predictions;
 
-      if (predictions && predictions.length > 0) {
-        // Mapea las predicciones a BusinessAddressType
-        return predictions.map((prediction: any) => ({
-          address: prediction.description,
-          latitude: 0, // Se actualizará al seleccionar una ubicación
-          longitude: 0, // Se actualizará al seleccionar una ubicación
-        }));
-      }
+      return predictions ? predictions : [];
     }
 
     return [];
   } catch (error) {
-    console.error('Error en searchLocationsService:', error);
     return [];
   }
 };
-
 export const searchLocationByPlaceID = async ({
   queryKey,
 }: QueryKeyType): Promise<BusinessAddressType> => {

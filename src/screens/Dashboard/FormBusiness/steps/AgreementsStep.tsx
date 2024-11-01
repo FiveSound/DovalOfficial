@@ -34,26 +34,58 @@ const AgreementsStep = ({ data, onAgreementChange, onNavigate }: props) => {
     setCheckboxes(prev => ({ ...prev, [name]: checked }));
   };
 
-  console.log('datadatadata', data);
-
   const formatBusinessTypes = (businessTypes: Array<{ label: string }>) => {
     if (!businessTypes || businessTypes.length === 0) return '';
     return businessTypes.map(bt => bt.label).join(', ');
   };
 
-  const schedules: Array<{
-    days: string[];
-    opening_time: string;
-    closing_time: string;
-  }> = [];
+  // Updated Schedule Processing
+  const processSchedules = () => {
+    const { schedule, schedules } = data;
 
-  if (data.schedule_1_days) {
-    schedules.push({
-      days: data.schedule_1_days.map(d => d.value),
-      opening_time: data.schedule_1_openingTime || 'No especificado',
-      closing_time: data.schedule_1_closingTime || 'No especificado',
-    });
-  }
+    const processedSchedules: Array<{
+      days: string[];
+      opening_time: string;
+      closing_time: string;
+    }> = [];
+
+    // Process individual days from 'schedule' object
+    if (schedule) {
+      const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+      const enabledDays = daysOfWeek.filter(day => schedule[day]?.enabled);
+
+      if (enabledDays.length > 0) {
+        const daysLabels = enabledDays.map(day => day.charAt(0).toUpperCase() + day.slice(1));
+        const openingTimes = enabledDays.map(day => schedule[day]?.startTime ? new Date(schedule[day].startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '');
+        const closingTimes = enabledDays.map(day => schedule[day]?.endTime ? new Date(schedule[day].endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '');
+
+        processedSchedules.push({
+          days: daysLabels,
+          opening_time: openingTimes.join(', '),
+          closing_time: closingTimes.join(', '),
+        });
+      }
+    }
+
+    // Process additional schedules from 'schedules' array if present
+    if (schedules && schedules.length > 0) {
+      schedules.forEach(sch => {
+        const days = sch.days.map((day: string) => day.charAt(0).toUpperCase() + day.slice(1));
+        const opening_time = sch.opening_time ? new Date(sch.opening_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'No especificado';
+        const closing_time = sch.closing_time ? new Date(sch.closing_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'No especificado';
+
+        processedSchedules.push({
+          days,
+          opening_time,
+          closing_time,
+        });
+      });
+    }
+
+    return processedSchedules;
+  };
+
+  const schedules = processSchedules();
 
   const infoCards = [
     // Step 1: Basic Business Information
@@ -350,9 +382,9 @@ const AgreementsStep = ({ data, onAgreementChange, onNavigate }: props) => {
               description={info.value}
               icon={info.icons}
               showArrow={true}
-              onPress={() => {
-                onNavigate(index);
-              }}
+              // onPress={() => {
+              //   onNavigate(index);
+              // }}
             />
           </FlexContainer>
         ),

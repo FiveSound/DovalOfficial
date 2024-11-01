@@ -111,6 +111,7 @@ const Container = ({
             orientationsIcons={orientationsIcons}
             variant={disabled ? 'disabled' : 'primary'}
             onPress={onPressButtons}
+            color='dark'
           />
         </SafeAreaView>
       )}

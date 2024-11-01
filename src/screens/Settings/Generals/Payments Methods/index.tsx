@@ -1,12 +1,9 @@
 import { StyleSheet } from 'react-native';
 import {
   useNavigation,
-  Text,
-  ScrollView,
-  View,
   Image,
 } from '../../../../components/native';
-import { useAPI, useTheme } from '../../../../hooks';
+import {  useTheme } from '../../../../hooks';
 import {
   deletePaymentDetailsService,
   getPaymentDetailsService,
@@ -25,6 +22,7 @@ import { FONTS, SIZES } from '../../../../constants/theme';
 import i18next from '../../../../Translate';
 import SlideCard from '../../../../components/custom/Cards/PaymentCard';
 import { AddPayment } from './components';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
@@ -32,8 +30,8 @@ const PaymentsGeneral = (props: Props) => {
   const navigation = useNavigation();
   const { BackSecundary } = useTheme();
 
-  const { data, isError, isLoading, isFetching, isRefetching } = useAPI({
-    queryKey: ['screen-details-payments-settings'],
+  const { data, isError, isLoading, isFetching, isRefetching } = useQuery({
+    queryKey: ['screen-details-payments-settings-useQuery'],
     queryFn: getPaymentDetailsService,
   });
 
@@ -61,7 +59,6 @@ const PaymentsGeneral = (props: Props) => {
 
   if (data) {
     const { list, selected, resume } = data;
-    console.log('resume', resume);
     resume.push({
       id: 'AddCardGeneral',
       brand: 'AddCardGeneral',
@@ -91,7 +88,7 @@ const PaymentsGeneral = (props: Props) => {
         <FlexContainer newStyle={styles.container}>
           {list?.length === 0 && (
             <>
-              <Image source={Ilustrations.CharcoPet} style={styles.image} />
+              <Image placeholderSource={Ilustrations.CharcoPet} style={styles.image} server={false}/>
               <FlexContainer newStyle={styles.header}>
                 <Typography variant="title" newStyle={styles.title}>
                   {i18next.t('My payment methods')}

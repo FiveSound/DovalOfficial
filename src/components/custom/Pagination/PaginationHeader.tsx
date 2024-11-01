@@ -9,35 +9,36 @@ import {
 } from 'react-native';
 import { Home01Icon } from '../../../constants/IconsPro';
 import { Search } from '../Inputs';
+import FlexContainer from '../FlexContainer';
+import { SIZES } from '../../../constants/theme';
 
 type Props = {
   text?: string;
   onChangeText?: (text: string) => void;
   refetch?: () => void;
+  placeholder: string;
 };
 
-const PaginationHeader = ({ text, onChangeText, refetch }: Props) => (
-  <View style={styles.containerFilters}>
+const PaginationHeader = ({ text, onChangeText, refetch, placeholder }: Props) => (
+  <FlexContainer style={styles.containerFilters}>
     {onChangeText ? (
       <Search
         value={text}
         onChange={txt => onChangeText(txt)}
         maxLength={30}
-        placeholder="Search"
+        placeholder={placeholder}
       />
     ) : (
       <Text />
     )}
-  </View>
+  </FlexContainer>
 );
 
 export default PaginationHeader;
 
 const styles = StyleSheet.create({
   containerFilters: {
-    padding: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    width: SIZES.width,
     alignItems: 'center',
   },
   title: {

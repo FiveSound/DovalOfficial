@@ -16,6 +16,7 @@ import LineDivider from '../../LineDivider';
 import { useTheme } from '../../../../hooks';
 
 type Props = {
+  testID?: string;
   containerStyle?: ViewStyle;
   label?: string;
   labelStyle?: TextStyle;
@@ -76,6 +77,7 @@ const InputLabel = (props: Props) => {
     onSize = false,
     orientation = 'Up',
     returnKeyType,
+    testID,
   } = props;
   const { Description, Title, borderInput } = useTheme();
   const [height, setHeight] = useState(SIZES.InputsHeight);
@@ -115,6 +117,7 @@ const InputLabel = (props: Props) => {
         </FlexContainer>
       )}
       <TextInput
+        testID={testID}
         style={[styles.textInput, inputStyle, { color: Title }]}
         placeholderTextColor={Description}
         placeholder={placeholder}

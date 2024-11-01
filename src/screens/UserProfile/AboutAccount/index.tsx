@@ -14,12 +14,13 @@ import {
   UserIcon,
   UserIconsStrike,
 } from '../../../constants/IconsPro';
-import { useAPI, useTheme } from '../../../hooks';
+import { useTheme } from '../../../hooks';
 import { aboutService } from '../../../services/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { CLOUDFRONT } from '../../../services';
 import i18next from '../../../Translate';
+import { useQuery } from '@tanstack/react-query';
 
 const AboutAccount = () => {
   const { Description } = useTheme();
@@ -30,8 +31,8 @@ const AboutAccount = () => {
     isLoading,
     refetch,
     error,
-  } = useAPI({
-    queryKey: ['get-Followers-Services'],
+  } = useQuery({
+    queryKey: ['get-Followers-Services-useQuery'],
     queryFn: () => aboutService(data.userID),
   });
 

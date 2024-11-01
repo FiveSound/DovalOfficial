@@ -1,10 +1,11 @@
-import useAPI from '../../../../../hooks/useAPI';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getMySavedPostsService } from '../../../../../services/reactions';
 import Main from '../Main';
 
 const MySaves = () => {
-  const { data, isLoading, isError, refetch } = useAPI({
-    queryKey: ['get-MySaved-Posts-Service'],
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['get-MySaved-Posts-Service-useQuery'],
     queryFn: getMySavedPostsService,
   });
 

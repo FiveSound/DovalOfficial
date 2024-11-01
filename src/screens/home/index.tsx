@@ -37,7 +37,6 @@ const Home = () => {
     return <Signup />;
   }
 
-  console.log(user);
 
   return (
     <Layout Append={<LiveOrders />}>

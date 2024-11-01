@@ -2,8 +2,6 @@ import { useCallback, useState } from 'react';
 import {
   StyleSheet,
   FlatList,
-  View,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +10,11 @@ import {
   deleteMenuOrderIDService,
   getMenuManagementService,
 } from '../../../services/business';
-import { Pagination, PaginationHeader } from '../../../components/custom';
+import { Container, LoadingScreen, Pagination, PaginationHeader, ScreenEmpty } from '../../../components/custom';
+import { Ilustrations } from '../../../constants';
+import { useAppDispatch } from '../../../redux';
+import { useNavigation } from '../../../components/native';
+import { SIZES } from '../../../constants/theme';
 type DataQueryType = {
   list: any[];
   search: string;
@@ -36,7 +38,7 @@ const initialData = {
 };
 
 const MenuManagement = () => {
-  // States
+  const navigation = useNavigation()
   const [search, setSearch] = useState('');
 
   const menu = useQuery({
@@ -48,7 +50,6 @@ const MenuManagement = () => {
     initialData,
   });
 
-  console.log(menu.data.list, 'menu.data.list');
   // Mutate
   const queryClient = useQueryClient();
 
@@ -74,7 +75,7 @@ const MenuManagement = () => {
   }, []);
 
   const onDeleted = useCallback((id: number, name: string) => {
-    Alert.alert('Desea eliminar esta receta?', name, [
+    Alert.alert('¿Está seguro de que desea eliminar esta receta exquisita?', name, [
       {
         text: 'Cancelar',
       },
@@ -104,14 +105,29 @@ const MenuManagement = () => {
     ]);
   }, []);
 
-  if (menu.isLoading || menu.isFetching) return <ActivityIndicator />;
+  if (menu.isLoading || menu.isFetching) return <LoadingScreen label='Loading recipes...' />;
+  if (menu.data.list.length === 0) return (
+    <Container style={styles.container}>
+   <ScreenEmpty 
+   labelPart1='No recipes found' 
+   labelPart2='Create your first recipe'
+   source={Ilustrations.CharcoPet}
+   ShowButton={true}
+   labelButton='Create recipe'
+   onPress={() => navigation.navigate('NewRecipie')}
+   ImgHeigth={SIZES.height / 3}
+   ImgWidth={SIZES.width}
+   />
+    </Container>
+   )
 
   return (
-    <View style={styles.container}>
+    <Container style={styles.container}>
       <PaginationHeader
         text={search}
         onChangeText={txt => onSearch(txt)}
         refetch={onRefetch}
+        placeholder='Search recipe list...'
       />
 
       <FlatList
@@ -119,6 +135,8 @@ const MenuManagement = () => {
         renderItem={({ item }) => <Recipe onDelete={onDeleted} {...item} />}
         initialNumToRender={3}
         keyExtractor={row => row.id.toString()}
+        refreshing={menu.isFetching}
+        onRefresh={onRefetch}
       />
 
       <Pagination
@@ -128,7 +146,7 @@ const MenuManagement = () => {
         }
         pagination={menu.data.pagination}
       />
-    </View>
+    </Container>
   );
 };
 
@@ -137,7 +155,6 @@ export default MenuManagement;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    backgroundColor: '#000',
+    paddingHorizontal: 0,
   },
 });

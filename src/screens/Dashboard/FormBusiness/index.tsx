@@ -34,21 +34,14 @@ const defaultValues = {
   state: '',
   postal_code: '',
   location_map: '',
-  latitude: undefined,
-  longitude: undefined,
+  latitude: null,
+  longitude: null,
   country: '',
-  schedules: [
-    {
-      id: 1,
-      days: [],
-      opening_time: '',
-      closing_time: '',
-    },
-  ],
+  schedules: [],
   OurRiders: false,
   bank_details: '',
-  account_currency: 'DOP',
-  account_type: 'Checking',
+  account_currency: '',
+  account_type: '',
   account_number: '',
   account_holder_name: '',
   fiscal_identification: '',
@@ -69,9 +62,9 @@ const stepFields = [
     'tax_identification_number',
   ],
 
-  ['full_name', 'identification_number', 'role', 'email', 'phone_number', 'imgIdentification'],
+  ['full_name', 'identification_number', 'role', 'email', 'phone_number'],
 
-  ['address', 'city', 'state',],
+  ['address', 'city', 'state', 'postal_code'],
 
   ['OurRiders', 'schedules'],
 
@@ -102,7 +95,6 @@ const FormVerified: React.FC = () => {
   const navigation = useNavigation();
 
   const values = watch();
-  console.log('currentStep', currentStep);
 
   const nextStep = async () => {
     const currentStepFieldsList = stepFields[currentStep - 1];
@@ -121,6 +113,34 @@ const FormVerified: React.FC = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
   };
 
+  // const navigateToStep = (index: number) => {
+  //   const stepMapping = {
+  //       0: 1, 
+  //       1: 1,
+  //       2: 1,
+  //       3: 1,
+  //       5: 2,
+  //       6: 2,
+  //       7: 2,
+  //       8: 2,
+  //       9: 2,
+  //       10: 2,
+  //       12: 3, 
+  //       13: 3,
+  //       14: 3,
+  //       15: 3,
+  //       16: 3,
+  //       17: 3,
+  //     };
+  //   const step = stepMapping[index];
+  //   if (step) {
+  //     console.log(`Navigating to step: ${step}`); // Debugging line
+  //     setCurrentStep(step);
+  //   } else {
+  //     console.log(`No step found for index: ${index}`); // Debugging line
+  //   }
+  // };
+
   const handleBack = () => {
     navigation.goBack();
   };
@@ -133,8 +153,14 @@ const FormVerified: React.FC = () => {
         Alert.alert(
           '¡Éxito!',
           'Tu registro de negocio ha sido enviado exitosamente.',
+          [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate('TabsNavigation'),
+            },
+          ],
+          { cancelable: false }
         );
-        navigation.navigate('TabNavigation');
       } else {
         Alert.alert('Error', 'Ocurrió un error al enviar tu registro.');
       }
@@ -150,7 +176,6 @@ const FormVerified: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('Form Values:', values);
   }, [values]);
 
   return (
@@ -198,13 +223,13 @@ const FormVerified: React.FC = () => {
         {currentStep === 3 && (
           <BusinessAddress control={control} setValue={setValue} />
         )}
-        {currentStep === 4 && <OperationsInfoStep setValue={setValue} />}
+        {currentStep === 4 && <OperationsInfoStep control={control} setValue={setValue} />}
         {currentStep === 5 && <FinancialInfoStep control={control} />}
         {currentStep === 6 && (
           <AgreementsStep
             data={values}
             onAgreementChange={setIsAgreementChecked}
-            onNavigate={nextStep}
+            // onNavigate={navigateToStep}
           />
         )}
       </KeyboardAwareScrollView>

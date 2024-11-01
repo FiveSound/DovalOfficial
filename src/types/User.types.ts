@@ -17,4 +17,6 @@ export interface UserType {
   countryCode: string;
   token: string;
   pending: boolean;
+  onboarding: boolean;
+  businessVerified: boolean;
 }

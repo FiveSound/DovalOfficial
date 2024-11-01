@@ -11,9 +11,9 @@ import {
   signInSuccess,
   signInFailure,
   signOut,
+  loadUser,
 } from '../redux/slides/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { initialStateService } from '../services/auth';
 import useCustomNavigation from './useCustomNavigation';
 import { usePushNotifications } from '../hooks/usePushNotifications';
 import { subscribeNotificationsService } from '../services/notifications';
@@ -61,31 +61,9 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     navigation.navigate('TabsNavigation');
   };
 
-  const fetchData = async () => {
-    try {
-      const state = await NetInfo.fetch();
-      if (state.isConnected) {
-        const response = await initialStateService();
-        if (response) {
-          dispatch(signInSuccess(response));
-        } else {
-          throw new Error('Failed to fetch user data');
-        }
-      } else {
-        const storedUser = await AsyncStorage.getItem('userToken');
-        if (!storedUser) throw new Error('No Stored User...');
-        const user = JSON.parse(storedUser);
-        dispatch(signInSuccess(user));
-      }
-    } catch (error) {
-      console.error('Error loading user data:', error);
-      dispatch(signInFailure());
-    }
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    dispatch(loadUser());
+  }, [dispatch]);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {});

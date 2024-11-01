@@ -5,7 +5,7 @@ import SignupFacebook from './SignupFacebook';
 
 const SignupSocials = () => (
   <>
-    <SignupApple />
+    {/* <SignupApple /> */}
     <SignupGoogle />
     <SignupFacebook />
   </>

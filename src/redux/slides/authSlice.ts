@@ -5,6 +5,7 @@ import {
   signInEmailService,
   signInPhoneService,
   signInEmailAndPasswordService,
+  initialStateService,
 } from '../../services/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -23,11 +24,10 @@ interface ResendCodeResponse {
 interface LoginResponse {
   success: boolean;
   token?: string;
-  userDetails?: UserType;
+  user?: UserType;
   message?: string;
 }
 
-// Estado inicial
 interface AuthState {
   user: UserType | null;
   business: boolean | null;
@@ -46,13 +46,15 @@ interface AuthState {
   loginLoading: boolean;
   loginError: boolean;
   loginMessage: string | null;
+  onboarding: boolean;
+  businessVerified: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   business: null,
   isAuthenticated: false,
-  isLoadingApp: false,
+  isLoadingApp: true,
   isVerifying: false,
   isVerified: false,
   codeError: false,
@@ -66,35 +68,100 @@ const initialState: AuthState = {
   loginLoading: false,
   loginError: false,
   loginMessage: null,
+  onboarding: false,
+  businessVerified: false,
 };
+
+// Thunk para cargar el usuario al inicio
+export const loadUser = createAsyncThunk<
+  LoginResponse,
+  void,
+  { rejectValue: string }
+>(
+  'auth/loadUser',
+  async (_, thunkAPI) => {
+    try {
+      const data = await initialStateService();
+      console.log('initialStateService data:', data);
+
+      if (data && data.token) {
+        const { token, ...user } = data;
+        console.log('Destructured user:', user);
+
+        // Validar que `userID` existe
+        if (!user.userID) {
+          console.log('loadUser: userID es undefined en los datos del usuario');
+          return thunkAPI.rejectWithValue('Detalles del usuario incompletos');
+        }
+
+        await AsyncStorage.setItem('user', JSON.stringify(user));
+        await AsyncStorage.setItem('userToken', token);
+        console.log('loadUser from initialStateService successful:', { token, user });
+        return { success: true, token, user: user as UserType };
+      } else {
+        const token = await AsyncStorage.getItem('userToken');
+        const userData = await AsyncStorage.getItem('user');
+
+        if (token && userData) {
+          const user: UserType = JSON.parse(userData);
+          console.log('loadUser successful from AsyncStorage:', { token, user });
+          return { success: true, token, user };
+        } else {
+          return thunkAPI.rejectWithValue('No hay detalles del usuario');
+        }
+      }
+    } catch (error) {
+      console.log('loadUser error:', error);
+      return thunkAPI.rejectWithValue('Error al cargar el usuario');
+    }
+  }
+);
 
 // Thunk para verificar el código
 export const verifyCode = createAsyncThunk<
   VerifyCodeResponse,
   { user: string; code: string },
   { rejectValue: string }
->('auth/verifyCode', async ({ user, code }, thunkAPI) => {
-  try {
-    const response = await verifyCodeService(user, code);
-    if (response.success && response.token && response.userDetails) {
-      await AsyncStorage.setItem('userToken', response.token);
-      console.log('verifyCode fulfilled:', response);
-      return {
-        success: true,
-        token: response.token,
-        userDetails: response.userDetails,
-      };
-    } else {
-      console.log('verifyCode rejected:', response.message);
-      return thunkAPI.rejectWithValue(
-        response.message || 'Error al verificar el código',
-      );
+>(
+  'auth/verifyCode',
+  async ({ user, code }, thunkAPI) => {
+    try {
+      const response = await verifyCodeService(user, code);
+      console.log('response', response);
+      if (response.success && response.token) {
+        // Guardar el token en AsyncStorage
+        await AsyncStorage.setItem('userToken', response.token);
+        console.log('Token guardado exitosamente:', response.token);
+
+        // Llamar a initialStateService para obtener los datos del usuario
+        const userData = await initialStateService();
+        console.log('Datos del usuario obtenidos:', userData);
+
+        if (userData && userData.userID) {
+          await AsyncStorage.setItem('user', JSON.stringify(userData));
+          console.log('Datos del usuario guardados en AsyncStorage');
+
+          return {
+            success: true,
+            token: response.token,
+            user: userData as UserType,
+          };
+        } else {
+          console.log('Datos del usuario incompletos en initialStateService');
+          return thunkAPI.rejectWithValue('Detalles del usuario incompletos');
+        }
+      } else {
+        console.log('verifyCode rechazado:', response.message);
+        return thunkAPI.rejectWithValue(
+          response.message || 'Error al verificar el código',
+        );
+      }
+    } catch (error) {
+      console.log('verifyCode error:', error);
+      return thunkAPI.rejectWithValue('Error al verificar el código');
     }
-  } catch (error) {
-    console.log('verifyCode error:', error);
-    return thunkAPI.rejectWithValue('Error al verificar el código');
   }
-});
+);
 
 // Thunk para reenviar el código
 export const resendCode = createAsyncThunk<
@@ -108,7 +175,7 @@ export const resendCode = createAsyncThunk<
         ? await signInPhoneService(phone)
         : await signInEmailService(user);
     if (response.success) {
-      console.log('resendCode fulfilled:', response);
+      // console.log('resendCode fulfilled:', response);
       return { success: true };
     } else {
       console.log('resendCode rejected:', response.error);
@@ -127,28 +194,44 @@ export const login = createAsyncThunk<
   LoginResponse,
   { email: string; password: string },
   { rejectValue: string }
->('auth/login', async ({ email, password }, thunkAPI) => {
-  try {
-    const response = await signInEmailAndPasswordService(email, password);
-    if (response.success && response.token && response.userDetails) {
-      await AsyncStorage.setItem('userToken', response.token);
-      console.log('login fulfilled:', response);
-      return {
-        success: true,
-        token: response.token,
-        userDetails: response.userDetails,
-      };
-    } else {
-      console.log('login rejected:', response.message);
-      return thunkAPI.rejectWithValue(
-        response.message || 'Error al iniciar sesión',
-      );
+>(
+  'auth/login',
+  async ({ email, password }, thunkAPI) => {
+    try {
+      const response = await signInEmailAndPasswordService(email, password);
+      console.log('login response:', response);
+      
+      if (response.success && response.token) {
+        // Guardar solo el token en AsyncStorage
+        await AsyncStorage.setItem('userToken', response.token);
+        console.log('Token guardado exitosamente:', response.token);
+        
+        // Llamar a initialStateService para obtener los datos del usuario
+        const userData = await initialStateService();
+        console.log('Datos del usuario obtenidos:', userData);
+        
+        if (userData && userData.userID) {
+          await AsyncStorage.setItem('user', JSON.stringify(userData));
+          console.log('Datos del usuario guardados en AsyncStorage');
+          
+          return {
+            success: true,
+            token: response.token,
+            user: userData as UserType,
+          };
+        } else {
+          console.log('loadUser: Datos del usuario incompletos en initialStateService');
+          return thunkAPI.rejectWithValue('Detalles del usuario incompletos');
+        }
+      } else {
+        return thunkAPI.rejectWithValue(response.message || 'Error al iniciar sesión');
+      }
+    } catch (error) {
+      console.log('login error:', error);
+      return thunkAPI.rejectWithValue('Error al iniciar sesión');
     }
-  } catch (error) {
-    console.log('login error:', error);
-    return thunkAPI.rejectWithValue('Error al iniciar sesión');
   }
-});
+);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -161,7 +244,7 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
       state.isLoadingApp = false;
-      state.business = action.payload.businessID !== null ? true : false;
+      state.business = action.payload.businessVerified;
     },
     signInFailure(state) {
       state.isLoadingApp = false;
@@ -180,26 +263,23 @@ const authSlice = createSlice({
   extraReducers: builder => {
     // Thunk para verificar el código
     builder.addCase(verifyCode.pending, state => {
-      console.log('verifyCode pending');
       state.isVerifying = true;
-      state.isLoadingApp = true;
+      state.isLoadingApp = false;
       state.message = null;
       state.codeError = false;
       state.codeSuccess = false;
     });
     builder.addCase(verifyCode.fulfilled, (state, action) => {
-      console.log('verifyCode fulfilled:', action.payload);
       state.isVerifying = false;
       state.isLoadingApp = false;
       state.isVerified = true;
       state.codeSuccess = true;
       state.message = 'Código verificado correctamente';
-      state.user = action.payload.userDetails || null;
+      state.user = action.payload.user || null;
       state.isAuthenticated = true;
       state.token = action.payload.token || null;
     });
     builder.addCase(verifyCode.rejected, (state, action) => {
-      console.log('verifyCode rejected:', action.payload);
       state.isVerifying = false;
       state.isLoadingApp = false;
       state.codeError = true;
@@ -208,13 +288,11 @@ const authSlice = createSlice({
 
     // Thunk para reenviar el código
     builder.addCase(resendCode.pending, state => {
-      console.log('resendCode pending');
       state.isResending = true;
-      state.isLoadingApp = true;
+      state.isLoadingApp = false;
       state.message = null;
     });
     builder.addCase(resendCode.fulfilled, state => {
-      console.log('resendCode fulfilled');
       state.isResending = false;
       state.isLoadingApp = false;
       state.message = 'Código reenviado con éxito';
@@ -222,7 +300,7 @@ const authSlice = createSlice({
       state.canResend = false;
     });
     builder.addCase(resendCode.rejected, (state, action) => {
-      console.log('resendCode rejected:', action.payload);
+      // console.log('resendCode rejected:', action.payload);
       state.isResending = false;
       state.isLoadingApp = false;
       state.message = action.payload || 'Error al reenviar el código';
@@ -230,24 +308,58 @@ const authSlice = createSlice({
 
     // Thunk para el inicio de sesión
     builder.addCase(login.pending, state => {
-      console.log('login pending');
       state.loginLoading = true;
       state.loginError = false;
       state.loginMessage = null;
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      console.log('login fulfilled:', action.payload);
       state.loginLoading = false;
       state.isAuthenticated = true;
-      state.user = action.payload.userDetails || null;
+      state.user = action.payload.user || null;
       state.token = action.payload.token || null;
       state.loginMessage = 'Inicio de sesión exitoso';
+      state.isLoadingApp = false;
+      state.onboarding = action.payload.user?.onboarding || false;
+      state.businessVerified = action.payload.user?.businessVerified || false;
     });
     builder.addCase(login.rejected, (state, action) => {
-      console.log('login rejected:', action.payload);
+      // console.log('login rejected:', action.payload);
       state.loginLoading = false;
       state.loginError = true;
       state.loginMessage = action.payload || 'Error al iniciar sesión';
+    });
+
+    // Thunk para cargar el usuario al inicio
+    builder.addCase(loadUser.pending, state => {
+      // console.log('extraReducers: loadUser: Pendiente');
+      state.isLoadingApp = true;
+    });
+    builder.addCase(loadUser.fulfilled, (state, action) => {
+      // console.log('loadUser fulfilled payload:', action.payload);
+      
+      if (action.payload.user && action.payload.user.userID) {
+        state.isAuthenticated = true;
+        state.user = action.payload.user;
+        state.token = action.payload.token || null;
+        state.isLoadingApp = false;
+        state.onboarding = action.payload.user.onboarding || false;
+        state.businessVerified = action.payload.user.businessVerified || false;
+      } else {
+        // console.log('loadUser: Datos del usuario incompletos en payload');
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+        state.isLoadingApp = false;
+        state.message = 'Datos del usuario incompletos';
+      }
+    });
+    builder.addCase(loadUser.rejected, (state, action) => {
+      // console.log('extraReducers: loadUser: Rejected:', action.payload);
+      state.isAuthenticated = false;
+      state.user = null;
+      state.token = null;
+      state.isLoadingApp = false;
+      state.message = action.payload || 'Error al cargar el usuario';
     });
   },
 });

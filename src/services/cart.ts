@@ -99,3 +99,29 @@ export const getTotalVariantsService = async ({ queryKey }: QueryKeyType) => {
 
   return response.data;
 };
+
+export const addCartQtyService = async (cartItemID: number) => {
+  const userToken = await AsyncStorage.getItem("userToken");
+
+  const response = await axios.post(
+    `${API_URL}/api/cart/add`,
+    { cartItemID },
+    {
+      headers: { Authorization: `Bearer ${userToken}` },
+    }
+  );
+
+  return response.data;
+};
+
+export const getCartResumeService = async ({ queryKey }: QueryKeyType) => {
+  const userToken = await AsyncStorage.getItem("userToken");
+
+  const response = await axios.post(
+    `${API_URL}/api/cart/resume`,
+    { cartID: queryKey[1] },
+    { headers: { Authorization: `Bearer ${userToken}` } }
+  );
+
+  return response.data;
+};

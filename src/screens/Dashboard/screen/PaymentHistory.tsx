@@ -8,7 +8,9 @@ import {
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getPaymentsHistoryService } from '../../../services/business';
 import Transaction from '../components/Transaction';
-import { PaginationHeader, Pagination } from '../../../components/custom';
+import { PaginationHeader, Pagination, LoadingScreen, ScreenEmpty, Container } from '../../../components/custom';
+import { Ilustrations } from '../../../constants';
+import { SIZES } from '../../../constants/theme';
 
 const QUERY_KEY = 'payments-history-screen';
 const DEFAULT_PAGE = 1;
@@ -44,11 +46,28 @@ const PaymentHistory = () => {
   };
 
   if (transactions.isLoading || transactions.isFetching)
-    return <ActivityIndicator />;
+    return <LoadingScreen label='Loading payments...' />;
+  if (transactions.data.list.length === 0) return (
+    <Container style={styles.container}>
+   <ScreenEmpty 
+   labelPart1='No orders found' 
+   labelPart2='Load your first order'
+   source={Ilustrations.CharcoPet}
+   ShowButton={true}
+   labelButton='Load orders'
+   onPress={onRefetch}
+   ImgHeigth={SIZES.height / 3}
+   ImgWidth={SIZES.width}
+   />
+    </Container>
+   )
 
   return (
     <View style={styles.container}>
-      <PaginationHeader refetch={onRefetch} />
+      <PaginationHeader 
+      refetch={onRefetch}
+      placeholder='Search payments...'
+       />
 
       <FlatList
         data={transactions.data.list}
@@ -70,8 +89,6 @@ export default PaymentHistory;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 10,
-    backgroundColor: '#000',
+    paddingHorizontal: 0,
   },
 });

@@ -4,6 +4,7 @@ import useRangeNearbyLocation from './useRangeNearbyLocation';
 import useAPI from './useAPI';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { useQuery } from '@tanstack/react-query';
 
 interface UseBusinessLogicParams {
   Search: string;
@@ -16,11 +17,7 @@ export function useBusinessLogic({
   Search,
   filterStores,
   freeShipping,
-  navigateToPermissionScreen,
 }: UseBusinessLogicParams) {
-  const { currentLocation } = useRangeNearbyLocation(
-    navigateToPermissionScreen,
-  );
   const { location } = useSelector((state: RootState) => state.location);
 
   const {
@@ -29,11 +26,12 @@ export function useBusinessLogic({
     isError,
     error,
     refetch: refetchPostData,
-  } = useAPI({
-    queryKey: ['get-Nearby-Business-Service-nearbys', location],
+  } = useQuery({
+    queryKey: ['get-Nearby-Business-Services', location],
     queryFn: () => getNearbyBusinessService(location),
   });
 
+  console.log('data nearby busi', data);
   // Función de filtrado memoizada para mejorar el rendimiento
   const filterData = useCallback(
     (

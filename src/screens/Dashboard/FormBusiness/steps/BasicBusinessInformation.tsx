@@ -105,24 +105,7 @@ const BasicBusinessInformation = ({ control }: any) => {
           interest: 'Juice / Smoothie Bar',
         },
       ],
-    },
-    {
-      category: 'Services',
-      list: [
-        {
-          id: 19,
-          label: 'Food Truck',
-          value: 'Food Truck',
-          interest: 'Food Truck',
-        },
-        {
-          id: 20,
-          label: 'Catering Service',
-          value: 'Catering Service',
-          interest: 'Catering Service',
-        },
-      ],
-    },
+    }
   ];
 
   return (
@@ -143,6 +126,7 @@ const BasicBusinessInformation = ({ control }: any) => {
         maxSelections={3}
         isDatePicker={true}
         isMultiSelect={true}
+        testID="select-business-types"
         IconsendComponent={
           <Store01IconStroke
             color={Title}
@@ -156,6 +140,7 @@ const BasicBusinessInformation = ({ control }: any) => {
         name="business_name"
         placeholder={i18next.t('Business name*')}
         required
+        testID="input-business-name"
       />
       <Input
         control={control}
@@ -163,6 +148,7 @@ const BasicBusinessInformation = ({ control }: any) => {
         placeholder={i18next.t('Business description*')}
         required
         inputStyle={styles.input}
+        testID="input-business-description"
       />
       <TouchableOpacity
         onPress={() => setTaxIdentificationNumber(!taxIdentificationNumber)}

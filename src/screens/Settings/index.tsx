@@ -70,6 +70,7 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
         // {
         //     id: 'Privacy',
@@ -94,6 +95,7 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
         {
           id: 'MyLocations',
@@ -106,39 +108,50 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
-        // {
-        //     id: 'MyCoupons',
-        //     label: 'My Coupons',
-        //     navigation: 'Coupons',
-        //     icon: <Coupon01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>
-        // }
+        {
+          id: 'MyCoupons',
+          label: 'My Coupons',
+          navigation: 'Coupons',
+          icon: (
+            <Coupon01Icon width={SIZES.icons} height={SIZES.icons} color={Title} />
+          ),
+          isNavigation: true,
+        },
       ],
     },
-    // {
-    //     id: 'Display',
-    //     label: 'Display',
-    //     content: [
-    //         {
-    //             id: 'Notifications',
-    //             label: 'Notifications',
-    //             navigation: 'Notifications',
-    //             icon: <Notification03IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>
-    //         },
-    //         {
-    //             id: 'Languages & Currency',
-    //             label: 'Languages & Currency',
-    //             navigation: 'Languages',
-    //             icon: <LanguageSkillIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
-    //         },
-    // {
-    //     id: 'Dark Mode',
-    //     label: 'Dark Mode',
-    //     navigation: 'Dark Mode',
-    //     icon: <AddCircleHalfDotIcon />
-    // }
-    //     ]
-    // },
+    {
+        id: 'Display',
+        label: 'Display',
+        content: [
+            {
+                id: 'Notifications',
+                label: 'Notifications',
+                navigation: 'Notifications',
+                icon: <Notification03IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>
+            },
+            {
+                id: 'Languages & Currency',
+                label: 'Languages & Currency',
+                navigation: 'Languages',
+                icon: <LanguageSkillIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
+            },
+    {
+        id: 'Dark Mode',
+          label: 'Dark Mode',
+          navigation: 'Dark Mode',
+          icon: (
+            <AddCircleHalfDotIcon
+              width={SIZES.icons}
+              height={SIZES.icons}
+              color={Title}
+            />
+          ),
+          isNavigation: true,
+        },
+      ],
+    },
     {
       id: 'Support and about',
       label: i18next.t('Support and about'),
@@ -154,6 +167,7 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
         {
           id: 'Support',
@@ -166,6 +180,7 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
         {
           id: 'Report a problem',
@@ -178,6 +193,7 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
         {
           id: 'Register business',
@@ -190,6 +206,7 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
         {
           id: 'Register delivery',
@@ -202,6 +219,7 @@ const Settings = () => {
               color={Title}
             />
           ),
+          isNavigation: true,
         },
       ],
     },

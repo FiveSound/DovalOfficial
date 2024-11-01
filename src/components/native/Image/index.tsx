@@ -132,7 +132,7 @@ const ImageComponent: React.FC<Props> = ({
   );
 };
 
-interface LoadingProps {
+interface LoadingProps { 
   isLoading: boolean;
   height: number;
   width: number;

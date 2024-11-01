@@ -6,7 +6,6 @@ import UsePhoneEmail from '../screens/auth/UsePhoneEmail';
 import Signup from '../screens/auth/Signup';
 import SignupForm from '../screens/auth/SignupForm';
 import Verified from '../screens/auth/UsePhoneEmail/Verified';
-import Locations from '../screens/Permiss/Locations';
 import Report from '../screens/explorar/Report';
 import AddProducts from '../screens/AddProducts';
 import SearchBusiness from '../screens/home/SearchBusiness';
@@ -42,7 +41,6 @@ const MainStackt = () => {
       <Stack.Screen name="Verified" component={Verified} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="SignupForm" component={SignupForm} />
-      <Stack.Screen name="Locations" component={Locations} />
       <Stack.Screen name="Report" component={Report} />
       <Stack.Screen name="AddProducts" component={AddProducts} />
       <Stack.Screen name="SearchBusiness" component={SearchBusiness} />

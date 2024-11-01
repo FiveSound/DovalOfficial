@@ -12,7 +12,7 @@ import {
 } from '../../../../services/orders';
 import { COLORS, SIZES, responsiveFontSize } from '../../../../constants/theme';
 import { Location09Icon } from '../../../../constants/IconsPro';
-import { useAPI, useTheme } from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 import {
   FlexContainer,
   IsLoading,
@@ -22,6 +22,7 @@ import {
 } from '../../../../components/custom';
 import i18next from '../../../../Translate';
 import { Ilustrations } from '../../../../constants';
+import { useQuery } from '@tanstack/react-query';
 
 interface PropsData {
   data: any;
@@ -87,8 +88,8 @@ const Location = (props: any) => {
 };
 
 const MySavedLocations = () => {
-  const { data, isLoading, isFetching, isRefetching }: PropsData = useAPI({
-    queryKey: ['locations'],
+  const { data, isLoading, isFetching, isRefetching }: PropsData = useQuery({
+    queryKey: ['locations-useQuery'],
     queryFn: getMyLocations,
   });
 

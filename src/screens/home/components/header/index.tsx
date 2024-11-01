@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { NavigationProp, useFocusEffect } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, useColorScheme } from 'react-native';
 import { useAPI, useTheme } from '../../../../hooks';
 import { useCart } from '../../../../context/CartContext';
 import { getDefaultLocationService } from '../../../../services/orders';
@@ -43,7 +43,7 @@ const Header = () => {
   const { cart } = useCart();
   const dispatch = useAppDispatch();
   const OpenModal = useSelector((state: RootState) => state.modal.open);
-
+  const theme = useColorScheme();
   const {
     data: LocationDefault,
     isLoading,
@@ -78,7 +78,9 @@ const Header = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, {
+      backgroundColor: theme === 'dark' ? '#000' : '#fff',
+    }]}>
       <Icons
         onPress={() => navigation.navigate('OrderStack')}
         appendIcons={

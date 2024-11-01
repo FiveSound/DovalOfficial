@@ -11,8 +11,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getAnalitycsService } from '../../../services/business';
 import FormBanner from '../components/FormBanner';
 import { useAuth } from '../../../context/AuthContext';
-import { PaginationHeader } from '../../../components/custom';
+import { Container, LoadingScreen, PaginationHeader } from '../../../components/custom';
 import { iconsNative } from '../../../constants';
+import { Picker } from '@react-native-picker/picker';
 
 type Props = {
   selected?: boolean;
@@ -25,7 +26,7 @@ type Props = {
 const Box = memo(({ selected, icon, title, amount, color }: Props) => (
   <View style={[styles.item, selected ? styles.selected : styles.default]}>
     <View style={[styles.icon, { backgroundColor: color }]}>
-      <Image source={icon} />
+      <Image source={icon} style={{ width: 30, height: 30 }} resizeMode='contain' />
     </View>
     <Text
       style={[styles.subtitle, { color: selected ? '#C2570C' : '#616161' }]}
@@ -45,7 +46,7 @@ const Analitycs = () => {
     queryFn: getAnalitycsService,
   });
 
-  if (isLoading || isFetching) return <ActivityIndicator size="large" />;
+  if (isLoading || isFetching) return <LoadingScreen label='Loading analitycs...' />;
 
   if (isError)
     return <Text style={styles.errorText}>Error al cargar los datos.</Text>;
@@ -82,45 +83,47 @@ const Analitycs = () => {
   ];
 
   return (
-    <View style={styles.container}>
-      <FormBanner />
-      <PaginationHeader refetch={refetch} />
+    <Container style={styles.container}>
+      {/* <FormBanner /> */}
+      <PaginationHeader 
+      refetch={refetch}
+      placeholder='Search analitycs...'
+       />
 
       <FlatList
         data={dataBoxes}
         renderItem={({ item }) => <Box {...item} />}
         keyExtractor={item => item.title}
         numColumns={2}
-        ListHeaderComponent={
-          <>
-            <Text style={styles.mainTitle}>Visión general</Text>
-            {/* <Text style={styles.mainSubtitle}>07 de Octubre / 12 de Octubre</Text> */}
-            {/* <Picker
-              selectedValue={selectedLanguage}
-              onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
-              style={{
-                marginLeft: 10,
-                marginBottom: 10,
-                width: 200,
-                backgroundColor: "#444",
-                color: "#FFF",
-              }}
-              dropdownIconColor="#FFF"
-            >
-              <Picker.Item label="20 Oct  /  27 Oct" value="java" />
-            </Picker> */}
-          </>
-        }
+        // ListHeaderComponent={
+        //   <>
+        //     <Text style={styles.mainTitle}>Visión general</Text>
+        //     {/* <Text style={styles.mainSubtitle}>07 de Octubre / 12 de Octubre</Text> */}
+        //     <Picker
+        //       selectedValue={selectedLanguage}
+        //       onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+        //       style={{
+        //         marginLeft: 10,
+        //         marginBottom: 10,
+        //         width: 200,
+        //         backgroundColor: "#444",
+        //         color: "#FFF",
+        //       }}
+        //       dropdownIconColor="#FFF"
+        //     >
+        //       <Picker.Item label="20 Oct  /  27 Oct" value="java" />
+        //     </Picker>
+        //   </>
+        // }
       />
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 10,
-    backgroundColor: '#000',
+
+    paddingHorizontal: 0,
   },
   mainTitle: {
     marginBottom: 5,

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
-  FlexContainer,
   IsLoading,
   LoadingScreen,
   OrderProgress,
-  Typography,
 } from '../../../components/custom';
-import { SafeAreaView, useNavigation, View } from '../../../components/native';
+import { useNavigation, View } from '../../../components/native';
 import { useDashboard } from '../../../context/DashboardContext';
-import { useAPI, useTheme } from '../../../hooks';
+import {  useTheme } from '../../../hooks';
 import { LocationObjectCoords } from 'expo-location';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getOrderIDService } from '../../../services/orders';
@@ -20,6 +18,8 @@ import { useDispatch } from 'react-redux';
 import { closeModalPin, openModalPin } from '../../../redux/slides/modalSlice';
 import { useAuth } from '../../../context/AuthContext';
 import i18next from 'i18next';
+import { useAppDispatch, useAppSelector } from '../../../redux';
+import { RootState } from '../../../redux/store';
 
 interface Props {
   route: {
@@ -48,8 +48,8 @@ type TypeLiveOrder = {
 
 const Tracking = ({ route }: Props) => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useAuth();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
   const { orderID } = route.params;
   const { socket } = useDashboard();
   const { BackgroundMain } = useTheme();

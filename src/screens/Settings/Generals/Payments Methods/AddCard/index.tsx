@@ -9,7 +9,7 @@ import { StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '../../../../../context/AuthContext';
 import { useNavigation, View } from '../../../../../components/native';
-import { useAPI, useTheme } from '../../../../../hooks';
+import { useTheme } from '../../../../../hooks';
 import {
   getPaymentDetailsService,
   savePaymentDetailsService,
@@ -25,6 +25,7 @@ import i18next from '../../../../../Translate';
 import PaymentCard from '../../../../../components/custom/Cards/PaymentCard';
 import { FONTS, SIZES } from '../../../../../constants/theme';
 import Front from '../../../../../components/custom/Cards/PaymentCard/Front';
+import { useQuery } from '@tanstack/react-query';
 
 type CardDetails = {
   last4: string;
@@ -48,8 +49,8 @@ const AddCard = () => {
     useTheme();
   const navigation = useNavigation();
 
-  const { data } = useAPI({
-    queryKey: ['screen-details-add-card'],
+  const { data } = useQuery({
+    queryKey: ['screen-details-add-card-useQuery'],
     queryFn: getPaymentDetailsService,
   });
 

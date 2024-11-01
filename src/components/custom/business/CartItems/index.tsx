@@ -8,9 +8,13 @@ import Typography from '../../Typography';
 import { AddRemove } from './ToggleAdd';
 import Cover from '../../Avatars/Cover';
 import {
+  addCartQtyService,
   addToCartService,
+  getCartService,
   removerCartService,
 } from '../../../../services/cart';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+const QUERY_KEY = ["cart-screen"];
 
 interface row {
   recipeID: number;
@@ -29,29 +33,32 @@ type Props = {
 
 const CartItem: React.FC<Props> = ({ row, refetch }) => {
   const { backgroundMaingrey } = useTheme();
-  const { recipeID, name, description, formatprice, qty, thumbnail, variants } =
-    row;
-  const [localQty, setLocalQty] = useState(qty); // Local state for quantity
+  const { recipeID, name, description, formatprice, qty, thumbnail, variants } = row;
+  const queryClient = useQueryClient();
+  const [cartID, setCartID] = useState<null | number>(null);
 
-  const addToCart = async (
-    recipeID: number,
-    subVariants: number[],
-    qty: number,
-  ) => {
-    setLocalQty(prevQty => prevQty + 1); // Update local state immediately
-    const response = await addToCartService(recipeID, subVariants, qty);
-    if (response.success) {
-      refetch();
-    }
-  };
-
-  const removeCart = async (recipeID: number, subVariants: number[]) => {
-    setLocalQty(prevQty => Math.max(prevQty - 1, 0)); // Update local state immediately
-    const response = await removerCartService(recipeID, subVariants);
-    if (response.success) {
-      refetch();
-    }
-  };
+    const mutation = useMutation({
+      mutationKey: QUERY_KEY,
+      mutationFn: getCartService,
+      onSuccess: (data) => {
+        queryClient.setQueryData(QUERY_KEY, data);
+        queryClient.invalidateQueries({ queryKey: ["cart-resume-component", cartID] });
+      },
+    });
+  
+    const removeMutation = useMutation({
+      mutationKey: QUERY_KEY,
+      mutationFn: async (params: { cartItemID: number; recipeID: number }) => {
+        return await removerCartService(params.cartItemID, params.recipeID);
+      },
+      onSuccess: () => mutation.mutate(),
+    });
+  
+    const addMutation = useMutation({
+      mutationKey: QUERY_KEY,
+      mutationFn: addCartQtyService,
+      onSuccess: () => mutation.mutate(),
+    });
 
   return (
     <FlexContainer
@@ -92,9 +99,9 @@ const CartItem: React.FC<Props> = ({ row, refetch }) => {
               {formatprice}
             </Typography>
             <AddRemove
-              add={() => addToCart(recipeID, variants, 1)}
-              remove={() => removeCart(recipeID, variants)}
-              qty={localQty}
+              add={() => addMutation.mutate({ recipeID, variants, qty: 1 })}
+              remove={() => removeMutation.mutate({ cartItemID: recipeID, recipeID })}
+              qty={qty}
             />
           </FlexContainer>
         </FlexContainer>

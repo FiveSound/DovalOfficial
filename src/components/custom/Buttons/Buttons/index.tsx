@@ -39,8 +39,8 @@ const Buttons = (props: Props) => {
     labelStyle,
     Icons,
     orientationsIcons,
-    variant,
-    color,
+    variant = 'primary',
+    color = 'dark',
     showLabel = true,
     variantLabel,
   } = props;

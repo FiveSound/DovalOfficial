@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   AuthLayout,
   ButtonIcons,
@@ -12,13 +12,24 @@ import { useNavigation } from '../../../components/native';
 import i18next from '../../../Translate';
 import { useTheme } from '../../../hooks';
 import SignupSocials from './SignupSocials';
+import { openLocationModal } from '../../../redux/slides/modalSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux';
+import { RootState } from '../../../redux/store';
 
 const Signup = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const { location } = useAppSelector((state: RootState) => state.location);
   const { Title } = useTheme();
   const handleLinkPress = (url: string) => {
     Linking.openURL(url);
   };
+
+  useEffect(() => {
+    if (location === null) {
+      dispatch(openLocationModal());
+    }
+  }, [location]);
 
   return (
     <AuthLayout scrollEnabled={false}>

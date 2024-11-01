@@ -1,19 +1,21 @@
 import React from 'react';
-import { useAPI } from '../../../hooks';
 import { getPostsProfileUserService } from '../../../services/accounts';
 import Main from '../../MyProfile/Components/Tabs/Main';
+import { useQuery } from '@tanstack/react-query';
+import { RootState } from '../../../redux/store';
+import { useAppSelector } from '../../../redux';
 
 type Props = {
   username: string;
-  currentLocation: object | null;
 };
 
 const MyPosts = (props: Props) => {
-  const { data, isLoading, isError, error, refetch } = useAPI({
+  const { location } = useAppSelector((state: RootState) => state.location);
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: [
-      'profile-user-posts-username',
+      'profile-user-posts-username-useQuery',
       props.username,
-      JSON.stringify(props.currentLocation),
+      JSON.stringify(location),
     ],
     queryFn: getPostsProfileUserService,
     enabled: props.username ? true : false,

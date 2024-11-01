@@ -6,6 +6,7 @@ import { useTheme } from '../../../../hooks';
 import FlexContainer from '../../FlexContainer';
 import Dots from '../../Dots';
 import Buttons from '../../Buttons/Buttons';
+import MiniCard from './MiniCard';
 
 type Row = {
   id?: string;

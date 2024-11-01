@@ -8,7 +8,11 @@ import {
   Pagination,
   LoadingScreen,
   Container,
+  IsLoading,
+  ScreenEmpty,
 } from '../../../components/custom';
+import { Ilustrations } from '../../../constants';
+import { SIZES } from '../../../constants/theme';
 
 const QUERY_KEY = 'all-orders-dashboard-screen';
 const DEFAULT_PAGE = 1;
@@ -60,7 +64,22 @@ const Orders = () => {
     mutation.mutate({ page: DEFAULT_PAGE, search: txt });
   }, []);
 
-  if (orders.isLoading || orders.isFetching) return <LoadingScreen />;
+  if (orders.isLoading || orders.isFetching) return <LoadingScreen label='Loading orders...' />;
+  if (orders.data.list.length === 0) return (
+    <Container style={styles.container}>
+   <ScreenEmpty 
+   labelPart1='No orders found' 
+   labelPart2='Load your first order'
+   source={Ilustrations.CharcoPet}
+   ShowButton={true}
+   labelButton='Load orders'
+   onPress={onRefetch}
+   ImgHeigth={SIZES.height / 3}
+   ImgWidth={SIZES.width}
+   />
+    </Container>
+   )
+
 
   return (
     <Container style={styles.container}>
@@ -68,9 +87,10 @@ const Orders = () => {
         text={search}
         onChangeText={txt => onSearch(txt)}
         refetch={onRefetch}
+        placeholder='Search orders...'
       />
 
-      {mutation.isPending && <ActivityIndicator size={20} />}
+      {mutation.isPending && <IsLoading />}
 
       <FlatList
         data={orders.data.list}
@@ -87,7 +107,6 @@ const Orders = () => {
         pagination={orders.data.pagination}
       />
 
-      {/* <Text style={{ color: "#FFF" }}>{JSON.stringify(orders.data, null, 2)}</Text> */}
     </Container>
   );
 };
@@ -95,5 +114,7 @@ const Orders = () => {
 export default Orders;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    paddingHorizontal: 0
+  },
 });

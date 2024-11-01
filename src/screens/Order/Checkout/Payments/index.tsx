@@ -1,12 +1,8 @@
 import { StyleSheet } from 'react-native';
 import {
   useNavigation,
-  Text,
-  ScrollView,
-  View,
   Image,
 } from '../../../../components/native';
-import { useAPI, useTheme } from '../../../../hooks';
 import {
   deletePaymentDetailsService,
   getPaymentDetailsService,
@@ -24,6 +20,7 @@ import { iconsNative, Ilustrations } from '../../../../constants';
 import { FONTS, SIZES } from '../../../../constants/theme';
 import i18next from '../../../../Translate';
 import SlideCard from '../../../../components/custom/Cards/PaymentCard';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   route: any;
@@ -33,8 +30,8 @@ const Payments = ({ route }: Props) => {
   const { paymentIntent } = route.params;
   const navigation = useNavigation();
 
-  const { data, isError, isLoading, isFetching, isRefetching } = useAPI({
-    queryKey: ['screen-details-payments', paymentIntent],
+  const { data, isError, isLoading, isFetching, isRefetching } = useQuery({
+    queryKey: ['screen-details-payments-useQuery', paymentIntent],
     queryFn: getPaymentDetailsService,
   });
 

@@ -10,7 +10,7 @@ import { responsiveFontSize } from '../../../../constants/theme';
 import i18next from '../../../../Translate';
 
 const BusinessAddress = ({ control, setValue }: any) => {
-  const [showMap, setShowMap] = useState<boolean>(false);
+  const [showMap, setShowMap] = useState<boolean>(true);
 
   return (
     <FlexContainer>

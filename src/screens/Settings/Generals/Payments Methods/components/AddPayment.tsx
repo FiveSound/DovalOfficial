@@ -53,18 +53,6 @@ const AddPayment = () => {
       <Typography variant="subtitle" newStyle={{ textAlign: 'center' }}>
         Add credit or debit card
       </Typography>
-      <FlexContainer variant="row" newStyle={{ gap: SIZES.gapSmall }}>
-        <Image
-          contentFit="contain"
-          source={iconsNative.visa}
-          style={{ width: SIZES.icons * 2, height: SIZES.icons * 2 }}
-        />
-        <Image
-          contentFit="contain"
-          source={iconsNative.masterCard}
-          style={{ width: SIZES.icons * 2, height: SIZES.icons * 2 }}
-        />
-      </FlexContainer>
     </TouchableOpacity>
   );
 };

@@ -61,6 +61,33 @@ const styles = StyleSheet.create({
     ...FONTS.semi14,
     color: COLORS.primary,
   },
+  chipContainer: {
+    flexDirection: 'row',
+    gap: SIZES.gapSmall,
+    paddingHorizontal: SIZES.gapSmall,
+  },
+  containerDescount: {
+    gap: SIZES.gapSmall,
+    paddingHorizontal: SIZES.gapLarge,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  buttonsDelete: {
+    backgroundColor: COLORS.error,
+    padding: SIZES.gapLarge,
+    paddingVertical: SIZES.gapSmall,
+    borderRadius: SIZES.radius,
+  },
+  editButton: {
+    backgroundColor: COLORS.support4,
+    padding: SIZES.gapLarge,
+    paddingVertical: SIZES.gapSmall,
+    borderRadius: SIZES.radius,
+  },
+  buttonsContainer: {
+    gap: SIZES.gapLarge,
+    alignItems: 'center',
+  },
 });
 
 export default styles;

@@ -18,6 +18,7 @@ import {
 import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import SignOut from '../../../auth/SignOut';
+import ClosedAccount from '../../../auth/ClosedAccount';
 
 const Account = () => {
   const { Description, border, Title } = useTheme();
@@ -33,20 +34,18 @@ const Account = () => {
     return <Signup />;
   }
 
-  console.log('user', user);
-
   const footerCustom = (
     <FlexContainer>
       <Typography
-        variant="H4title"
+        variant='subtitle'
         newStyle={{
           color: Description,
           marginBottom: SIZES.gapLarge,
         }}
       >
-        Close or delete my account
+        My Account 
       </Typography>
-      <SignOut />
+      <ClosedAccount />
     </FlexContainer>
   );
 
@@ -72,23 +71,25 @@ const Account = () => {
           id: 'Username',
           label: 'Username',
           navigation: 'Username',
-          icon: <AddCircleHalfDotIcon />,
+          // icon: <AddCircleHalfDotIcon />,
           subLabel: user?.username || 'Add username',
           showAppend: false,
+          isNavigation: false,
         },
         {
           id: 'Full name',
           label: 'Full name',
           navigation: 'Full name',
-          icon: <AddCircleHalfDotIcon />,
+          // icon: <AddCircleHalfDotIcon />,
           subLabel: user?.name || 'Add full name',
           showAppend: false,
+          isNavigation: false,
         },
         {
           id: 'Email',
           label: 'Email',
           navigation: 'Email',
-          icon: <AddCircleHalfDotIcon />,
+          // icon: <AddCircleHalfDotIcon />,
           subLabel: user?.email || 'Add email',
           showAppend: false,
         },
@@ -96,41 +97,46 @@ const Account = () => {
           id: 'Gender',
           label: 'Gender',
           navigation: 'Gender',
-          icon: <AddCircleHalfDotIcon />,
+          // icon: <AddCircleHalfDotIcon />,
           subLabel: user?.gender || 'Add gender',
           showAppend: false,
+          isNavigation: false,
         },
         {
           id: 'Reset password',
           label: 'Reset password',
           navigation: 'Resetpassword',
-          icon: <AddCircleHalfDotIcon />,
+          // icon: <AddCircleHalfDotIcon />,
           subLabel: 'Reset password',
           showAppend: false,
+          isNavigation: false,
         },
         {
           id: 'Phone number',
           label: 'Phone number',
           navigation: 'Phone-number',
-          icon: <AddCircleHalfDotIcon />,
+          // icon: <AddCircleHalfDotIcon />,
           subLabel: user?.phone || 'Add phone number',
           showAppend: false,
+          isNavigation: false,
         },
         {
           id: 'Country',
           label: 'Country',
           navigation: 'Country',
-          icon: <AddCircleHalfDotIcon />,
-          subLabel: 'Add country',
+          // icon: <AddCircleHalfDotIcon />,
+          subLabel: user?.country || 'Add country',
           showAppend: false,
+          isNavigation: false,
         },
         {
           id: 'Date',
           label: 'Date',
           navigation: 'Date',
-          icon: <AddCircleHalfDotIcon />,
+          // icon: <AddCircleHalfDotIcon />,
           subLabel: user?.date_birthday || 'Add date',
           showAppend: false,
+          isNavigation: false,
         },
       ],
     },

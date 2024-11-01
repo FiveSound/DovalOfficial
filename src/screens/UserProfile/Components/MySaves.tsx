@@ -1,15 +1,15 @@
 import React from 'react';
-import { useAPI } from '../../../hooks';
 import { getSavedProfileUserService } from '../../../services/accounts';
 import Main from '../../MyProfile/Components/Tabs/Main';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   username: string;
 };
 
 const MySaves = (props: Props) => {
-  const { data, isLoading, isError, error, refetch } = useAPI({
-    queryKey: ['profile-user-saved', props.username],
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['profile-user-saved-useQuery', props.username],
     queryFn: getSavedProfileUserService,
   });
 

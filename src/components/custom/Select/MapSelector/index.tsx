@@ -24,7 +24,6 @@ type Props = {
   setValue: (field: string, value: any, options?: any) => void;
 };
 
-// Función para comparar dos regiones
 const areRegionsEqual = (region1: Region, region2: Region): boolean => {
   return (
     region1.latitude === region2.latitude &&

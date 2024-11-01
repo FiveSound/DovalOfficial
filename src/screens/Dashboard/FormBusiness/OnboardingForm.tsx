@@ -12,20 +12,21 @@ import {
   ScreenEmpty,
 } from '../../../components/custom';
 import { Ilustrations } from '../../../constants';
-import { SIZES } from '../../../constants/theme';
+import { COLORS, FONTS, SIZES } from '../../../constants/theme';
 import { reloadApp } from '../../../redux/slides/appSlice';
 
 const OnboardingVerified = () => {
   const navigation = useNavigation();
-  const { user, isLoadingApp } = useAppSelector(
+  const { user, isLoadingApp, businessVerified } = useAppSelector(
     (state: RootState) => state.auth,
   );
   const dispatch = useAppDispatch();
 
+
   const handleReload = () => {
     dispatch(reloadApp());
   };
-
+  console.log(user);
   if (isLoadingApp) return <LoadingScreen />;
 
   if (user?.pending)
@@ -49,6 +50,27 @@ const OnboardingVerified = () => {
       </Container>
     );
 
+  if (businessVerified)  return (
+    <Container
+      showBack={true}
+      showHeader={true}
+      label="Business Verified"
+      style={styles.container}
+    >
+      <ScreenEmpty
+        labelPart1="Welcome to the portal"
+        labelPart2="You can now access the portal"
+        subLabel="You can now access the portal"
+        labelStylePart1={styles.label}
+        source={Ilustrations.GoodJob}
+        ImgWidth={SIZES.width}
+        ImgHeigth={SIZES.height / 3}
+        ShowButton={true}
+        onPress={handleReload}
+        labelButton="Access portal"
+      />
+    </Container>
+  );
   return (
     <Container>
       <Header
@@ -78,6 +100,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  label: {
+    color: COLORS.success,
+    ...FONTS.heading32
   },
 });
 export default OnboardingVerified;

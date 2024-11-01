@@ -8,7 +8,7 @@ import {
 } from '@stripe/stripe-react-native';
 import { StyleSheet, Text } from 'react-native';
 import { useAuth } from '../../../../context/AuthContext';
-import { useAPI, useTheme } from '../../../../hooks';
+import {  useTheme } from '../../../../hooks';
 import {
   getPaymentDetailsService,
   savePaymentDetailsService,
@@ -27,6 +27,7 @@ import PaymentCard from '../../../../components/custom/Cards/PaymentCard/MiniCar
 import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import i18next from '../../../../Translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useQuery } from '@tanstack/react-query';
 
 type CardDetails = {
   last4?: string;
@@ -41,9 +42,7 @@ type CardDetails = {
 
 const AddCard = () => {
   const [load, setLoad] = useState(false);
-  const [cardDetails, setCardDetails] = useState<CardFieldInput.Details>({
-    complete: false,
-  });
+  const [cardDetails, setCardDetails] = useState<CardFieldInput.Details>({complete: false,});
   const [name, setName] = useState<string>('');
   const [success, setSuccess] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string>('');
@@ -52,8 +51,8 @@ const AddCard = () => {
     useTheme();
   const navigation = useNavigation();
 
-  const { data } = useAPI({
-    queryKey: ['screen-details-add-card'],
+  const { data } = useQuery({
+    queryKey: ['screen-details-add-card-useQuery'],
     queryFn: getPaymentDetailsService,
   });
 
