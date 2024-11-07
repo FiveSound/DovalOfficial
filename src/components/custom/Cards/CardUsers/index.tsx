@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { CardUserSkeleton } from './CardUserSkeleton';
 import {
   ActivityIndicator,
   TouchableOpacity,
@@ -22,6 +21,7 @@ import LineDivider from '../../LineDivider';
 import { useTheme } from '../../../../hooks';
 import { useAuth } from '../../../../context/AuthContext';
 import styles from './styles';
+import { IsLoading } from '../../Loaders';
 
 export type PropsCardUser = {
   userID: string;
@@ -75,7 +75,7 @@ const CardUsers = ({
   };
 
   return isLoading ? (
-    <CardUserSkeleton />
+    <IsLoading />
   ) : (
     <>
       <TouchableOpacity

@@ -26,4 +26,21 @@ const ListBank = [
   },
 ];
 
-export { ListBank };
+const timezoneItems = (countryCode: string) => {
+  switch (countryCode) {
+    case 'DO':
+      return 'America/Santo_Domingo';
+    case 'US':
+      return 'America/New_York';
+    case 'CO':
+      return 'America/Bogota';
+    case 'CA':
+      return 'America/Toronto';
+    default:
+      return '';
+  }
+};
+
+
+
+export { ListBank, timezoneItems };

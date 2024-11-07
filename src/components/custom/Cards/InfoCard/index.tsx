@@ -19,6 +19,7 @@ interface InfoCardProps {
   labelStyle?: TextStyle;
   lineStyle?: ViewStyle;
   containerStyle?: ViewStyle;
+  AppTitle?: React.ReactNode;
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({
@@ -32,6 +33,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
   labelStyle,
   lineStyle,
   containerStyle,
+  AppTitle
 }) => {
   const { Title, Description } = useTheme();
   return (
@@ -39,9 +41,12 @@ const InfoCard: React.FC<InfoCardProps> = ({
       <FlexContainer newStyle={[styles.card, containerStyle]}>
         {orientation === 'LEGHT' && icon}
         <FlexContainer newStyle={styles.textContainer}>
+          <FlexContainer variant='row' newStyle={styles.titleContainer}>
           <Typography variant="subtitle" newStyle={labelStyle}>
             {title}
           </Typography>
+          {AppTitle}
+          </FlexContainer>
           <Typography
             variant="SubDescription"
             newStyle={{
@@ -77,6 +82,10 @@ const styles = StyleSheet.create({
 
   textContainer: {
     flex: 1,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    gap: SIZES.gapSmall,
   },
 });
 

@@ -1,12 +1,12 @@
 import { memo } from 'react';
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { RestauranteOrderType } from '../../../types/Restaurant.type';
 import OrderStatus from './OrderStatus';
 import { Home01Icon } from '../../../constants/IconsPro';
 import { responsiveFontSize, SIZES } from '../../../constants/theme';
 import { useTheme } from '../../../hooks';
-import { LineDivider, LoadingScreen, Typography } from '../../../components/custom';
-import { Platform } from '../../../components/native';
+import { LineDivider, Typography } from '../../../components/custom';
+import { Platform, TouchableOpacity,  } from '../../../components/native';
 
 type Props = RestauranteOrderType & {
   onAccept: (orderID: number) => void;
@@ -18,9 +18,9 @@ type Props = RestauranteOrderType & {
 };
 
 const Order = memo((props: Props) => {
-
   const { backgroundMaingrey, border } = useTheme();
   return (
+   <>
     <TouchableOpacity onPress={() => props.onNavigateTo(props.orderID)}>
       <View
         style={[
@@ -43,8 +43,6 @@ const Order = memo((props: Props) => {
             </View>
             {/* <Text style={[styles.text, { marginBottom: 2 }]}>{props.items}</Text> */}
           </View>
-
-          <OrderStatus status={props.status} />
         </View>
 
         <View style={styles.footer}>
@@ -53,9 +51,7 @@ const Order = memo((props: Props) => {
               onPress={() => props.onReject(props.orderID)}
               style={[styles.btn, styles.btnError]}
             >
-              <Text style={{ color: '#F41F52', fontWeight: 'bold' }}>
-                Rechazar
-              </Text>
+              <Typography variant="H4title">Rechazar</Typography>
             </TouchableOpacity>
           )}
 
@@ -73,9 +69,7 @@ const Order = memo((props: Props) => {
               onPress={() => props.onSend(props.orderID)}
               style={[styles.btn, styles.btnSuccess]}
             >
-              <Text style={{ color: '#4ADE80', fontWeight: 'bold' }}>
-                Enviar con Doval
-              </Text>
+              <Typography variant="H4title">Enviar con Doval</Typography>
             </TouchableOpacity>
           )}
 
@@ -84,9 +78,7 @@ const Order = memo((props: Props) => {
               onPress={() => props.onSend(props.orderID)}
               style={[styles.btn, styles.btnSuccess]}
             >
-              <Text style={{ color: '#4ADE80', fontWeight: 'bold' }}>
-                Enviar con mi repartidor
-              </Text>
+              <Typography variant="H4title">Enviar con mi repartidor</Typography>
             </TouchableOpacity>
           )}
 
@@ -95,9 +87,7 @@ const Order = memo((props: Props) => {
               onPress={() => props.onAddTime(props.orderID)}
               style={[styles.btn]}
             >
-              <Text style={{ color: '#FFF', fontWeight: 'bold' }}>
-                ¿Necesitas mas tiempo?
-              </Text>
+              <Typography variant="H4title">¿Necesitas mas tiempo?</Typography>
             </TouchableOpacity>
           )}
 
@@ -106,15 +96,17 @@ const Order = memo((props: Props) => {
               onPress={() => props.onComplete(props.orderID)}
               style={[styles.btn, styles.btnSuccess]}
             >
-              <Text style={{ color: '#4ADE80', fontWeight: 'bold' }}>
-                Verificar esta orden
-              </Text>
+              <Typography variant="H4title">Verificar esta orden</Typography>
             </TouchableOpacity>
           )}
         </View>
+        <OrderStatus status={props.status} />
       </View>
-      <LineDivider variant="secondary" lineStyle={styles.divider} />
+
     </TouchableOpacity>
+          <LineDivider variant="secondary" lineStyle={styles.divider} />
+    </>
+
   );
 });
 
@@ -123,7 +115,6 @@ const styles = StyleSheet.create({
     padding: SIZES.gapMedium,
     borderRadius: SIZES.gapSmall,
     marginHorizontal: SIZES.gapLarge,
-    borderWidth: SIZES.borderWidth,
   },
   header: {
     flexDirection: 'row',

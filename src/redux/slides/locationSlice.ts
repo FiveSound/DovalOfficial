@@ -1,21 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface LocationDetails {
+  accuracy: number;
+  altitude: number;
+  altitudeAccuracy: number;
+  heading: number;
+  latitude: number;
+  longitude: number;
+  speed: number;
+}
+
 interface LocationState {
-  location: {
-    accuracy: number;
-    altitude: number;
-    altitudeAccuracy: number;
-    heading: number;
-    latitude: number;
-    longitude: number;
-    speed: number;
-  } | null;
+  location: LocationDetails | null;
   country: string;
   isLocationAvailable: boolean;
   isLoading: boolean;
   countryKey: string | null;
   latitude: number | null;
   longitude: number | null;
+}
+
+interface SetLocationDataPayload {
+  location: LocationDetails;
+  country: string;
+  countryKey: string | null;
 }
 
 const initialState: LocationState = {
@@ -34,14 +42,21 @@ const locationSlice = createSlice({
   reducers: {
     setLocationData: (
       state,
-      action: PayloadAction<LocationState['location']>,
+      action: PayloadAction<SetLocationDataPayload | null>,
     ) => {
-      state.location = action.payload;
       if (action.payload) {
-        state.latitude = action.payload.latitude;
-        state.longitude = action.payload.longitude;
+        state.location = action.payload.location;
+        state.latitude = action.payload.location.latitude;
+        state.longitude = action.payload.location.longitude;
+        state.country = action.payload.country;
+        state.countryKey = action.payload.countryKey;
         state.isLocationAvailable = true;
       } else {
+        state.location = null;
+        state.latitude = null;
+        state.longitude = null;
+        state.country = '';
+        state.countryKey = null;
         state.isLocationAvailable = false;
       }
     },

@@ -23,7 +23,7 @@ const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
   const isAtLeastOneSelected = categories.data?.list.some(
     (item: any) => item.selected,
   );
-  const { Description } = useTheme();
+  const { Description, backgroundMaingrey } = useTheme();
 
   return (
     <>
@@ -66,7 +66,12 @@ const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
                             {row.name}
                           </Typography>
                         }
-                        styles={styles.icon}
+                        styles={[
+                          styles.icon,
+                          {
+                            backgroundColor: backgroundMaingrey,
+                          },
+                        ]}
                       />
                     ),
                 )}

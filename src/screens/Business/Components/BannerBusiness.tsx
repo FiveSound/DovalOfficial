@@ -17,7 +17,6 @@ const BannerBusiness = (props: Props) => {
   return (
     <FlexContainer>
       <Image
-        source={{ uri: bannerBusiness }}
         cachePolicy="memory-disk"
         priority="high"
         style={styles.banner}

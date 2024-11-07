@@ -14,16 +14,18 @@ import {
   removerCartService,
 } from '../../../../services/cart';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-const QUERY_KEY = ["cart-screen"];
+const QUERY_KEY = ["cart-screen-useQuerys"];
 
 interface row {
   recipeID: number;
-  name: string;
+  recipe: string;
   description: string;
   formatprice: string;
-  qty: number;
-  thumbnail: string;
+  quantity: number;
+  cover: string;
   variants: number[];
+  cartItemID: number;
+  price: string;
 }
 
 type Props = {
@@ -33,16 +35,15 @@ type Props = {
 
 const CartItem: React.FC<Props> = ({ row, refetch }) => {
   const { backgroundMaingrey } = useTheme();
-  const { recipeID, name, description, formatprice, qty, thumbnail, variants } = row;
+  const { recipeID, recipe, description, formatprice, quantity, cover, variants, cartItemID, price } = row;
   const queryClient = useQueryClient();
-  const [cartID, setCartID] = useState<null | number>(null);
 
     const mutation = useMutation({
       mutationKey: QUERY_KEY,
       mutationFn: getCartService,
       onSuccess: (data) => {
         queryClient.setQueryData(QUERY_KEY, data);
-        queryClient.invalidateQueries({ queryKey: ["cart-resume-component", cartID] });
+        queryClient.invalidateQueries({ queryKey: ["cart-resume-component", cartItemID] });
       },
     });
   
@@ -78,14 +79,14 @@ const CartItem: React.FC<Props> = ({ row, refetch }) => {
           },
         ]}
       >
-        <Cover source={`${CLOUDFRONT}${thumbnail}`} size="medium" />
+        <Cover source={`${CLOUDFRONT}${cover}`} size="medium" />
         <FlexContainer newStyle={styles.containerText}>
           <Typography
             newStyle={styles.maxText}
             variant="subtitle"
             numberOfLines={2}
           >
-            {name}
+            {recipe}
           </Typography>
           <Typography
             variant="SubDescription"
@@ -96,12 +97,12 @@ const CartItem: React.FC<Props> = ({ row, refetch }) => {
           </Typography>
           <FlexContainer variant="row" newStyle={styles.containerprice}>
             <Typography variant="subtitle" newStyle={styles.price}>
-              {formatprice}
+              {price}
             </Typography>
             <AddRemove
-              add={() => addMutation.mutate({ recipeID, variants, qty: 1 })}
-              remove={() => removeMutation.mutate({ cartItemID: recipeID, recipeID })}
-              qty={qty}
+              add={() => addMutation.mutate(cartItemID)}
+              remove={() => removeMutation.mutate({ cartItemID: cartItemID, recipeID })}
+              qty={quantity}
             />
           </FlexContainer>
         </FlexContainer>

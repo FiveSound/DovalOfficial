@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '../../../../hooks';
+import { StyleSheet } from 'react-native';
 import {
   addNewLocationService,
-  searchLocationByPlaceID,
+  searchLocationByPlaceIDOrder,
 } from '../../../../services/orders';
 import {
   Buttons,
@@ -16,6 +17,7 @@ import {
 import i18next from '../../../../Translate';
 import { useNavigation } from '../../../../components/native';
 import { useQuery } from '@tanstack/react-query';
+import { SIZES } from '../../../../constants/theme';
 
 interface Props {
   placeID: string;
@@ -60,12 +62,20 @@ const Form = (props: any) => {
   const { location_details, apartment, tag, details } = watch();
 
   const onSubmit = async () => {
-    const { locationID } = await addNewLocationService(watch());
-
-    if (locationID) {
-      navigation.navigate('Checkout', {
-        locationID,
-      });
+    try {
+      const response = await addNewLocationService(watch());
+      console.log('response', response);
+      if (response && response.locationID) {
+        navigation.navigate('Checkout', {
+          locationID: response.locationID,
+        });
+      } else {
+        console.error('addNewLocationService did not return locationID');
+        // Optionally, display an error message to the user
+      }
+    } catch (error) {
+      console.error('onSubmit error:', error);
+      // Optionally, display an error message to the user
     }
   };
 
@@ -74,7 +84,7 @@ const Form = (props: any) => {
   };
 
   return (
-    <>
+    <FlexContainer newStyle={styles.container}>
       <InputLabel
         placeholder={i18next.t('Address')}
         label={i18next.t('Address')}
@@ -118,7 +128,7 @@ const Form = (props: any) => {
           status="success"
         />
       )}
-    </>
+    </FlexContainer>
   );
 };
 
@@ -130,8 +140,8 @@ const DetailsLocation = (props: Props) => {
   }, []);
 
   const { data, isLoading, isFetching, isRefetching }: PropsData = useQuery({
-    queryKey: ['search-place-id-useQuery', placeID],
-    queryFn: searchLocationByPlaceID,
+    queryKey: ['search-place-id-useQuerySearch', placeID],
+    queryFn: searchLocationByPlaceIDOrder,
   });
 
   if (isLoading || isFetching || isRefetching) {
@@ -153,5 +163,11 @@ const DetailsLocation = (props: Props) => {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    gap: SIZES.gapLarge,
+  },
+});
 
 export default DetailsLocation;

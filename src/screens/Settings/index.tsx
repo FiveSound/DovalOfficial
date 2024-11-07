@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   CardsPreview,
@@ -27,10 +27,20 @@ import {
   UserStatusIcon,
   Wallet02Icon,
 } from '../../constants/IconsPro';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 const Settings = () => {
   const { isAuthenticated, isLoadingApp } = useAppSelector(state => state.auth);
   const { Description, Title } = useTheme();
+    const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
+
 
   if (isLoadingApp) {
     return <LoadingScreen />;
@@ -65,8 +75,8 @@ const Settings = () => {
           navigation: 'Account',
           icon: (
             <UserStatusIcon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -90,8 +100,8 @@ const Settings = () => {
           navigation: 'PaymentsGeneral',
           icon: (
             <Wallet02Icon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -103,8 +113,8 @@ const Settings = () => {
           navigation: 'MyLocationsGeneral',
           icon: (
             <Location09Icon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -115,7 +125,7 @@ const Settings = () => {
           label: 'My Coupons',
           navigation: 'Coupons',
           icon: (
-            <Coupon01Icon width={SIZES.icons} height={SIZES.icons} color={Title} />
+            <Coupon01Icon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />
           ),
           isNavigation: true,
         },
@@ -129,13 +139,13 @@ const Settings = () => {
                 id: 'Notifications',
                 label: 'Notifications',
                 navigation: 'Notifications',
-                icon: <Notification03IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>
+                icon: <Notification03IconStroke width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title}/>
             },
             {
                 id: 'Languages & Currency',
                 label: 'Languages & Currency',
                 navigation: 'Languages',
-                icon: <LanguageSkillIcon width={SIZES.icons} height={SIZES.icons} color={Title}/>
+                icon: <LanguageSkillIcon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title}/>
             },
     {
         id: 'Dark Mode',
@@ -143,8 +153,8 @@ const Settings = () => {
           navigation: 'Dark Mode',
           icon: (
             <AddCircleHalfDotIcon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -162,8 +172,8 @@ const Settings = () => {
           navigation: 'Legal',
           icon: (
             <Legal01Icon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -175,8 +185,8 @@ const Settings = () => {
           navigation: 'Support',
           icon: (
             <HelpSquareIcon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -188,8 +198,8 @@ const Settings = () => {
           navigation: 'Report',
           icon: (
             <HelpSquareIcon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -201,8 +211,8 @@ const Settings = () => {
           navigation: 'OnboardingVerified',
           icon: (
             <Store01IconStroke
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),
@@ -214,8 +224,8 @@ const Settings = () => {
           navigation: 'RegisterDelivery',
           icon: (
             <AddCircleHalfDotIcon
-              width={SIZES.icons}
-              height={SIZES.icons}
+              width={SIZES.icons / 1.1}
+              height={SIZES.icons / 1.1}
               color={Title}
             />
           ),

@@ -44,12 +44,12 @@ const Payments = ({ route }: Props) => {
   };
 
   const onSelected = async (id: string) => {
-    console.log('id', id);
     await setPreferredPaymentService(id, null);
     navigation.navigate('Checkout', {
       locationID: null,
       paymentIntent: id,
     });
+    console.log('Selected', id);
   };
 
   const handleAdd = () => {
@@ -73,7 +73,11 @@ const Payments = ({ route }: Props) => {
         <FlexContainer newStyle={styles.container}>
           {list?.length === 0 && (
             <>
-              <Image source={Ilustrations.CharcoPet} style={styles.image} />
+              <Image
+               placeholderSource={Ilustrations.CharcoPet} 
+               style={styles.image}
+               server={false}
+               />
               <FlexContainer newStyle={styles.header}>
                 <Typography variant="title" newStyle={styles.title}>
                   {i18next.t('My payment methods')}
@@ -92,7 +96,6 @@ const Payments = ({ route }: Props) => {
               </FlexContainer>
             </>
           )}
-
           <SlideCard row={resume} onSelected={onSelected} />
         </FlexContainer>
       </Container>

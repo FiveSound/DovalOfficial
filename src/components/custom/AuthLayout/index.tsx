@@ -20,8 +20,9 @@ const AuthLayout = ({ children, scrollEnabled = true }: AutoLayoutProps) => {
       >
         <View style={styles.logoContainer}>
           <Image
-            source={require('../../../../assets/logo.png')}
-            contentFit="contain"
+            placeholderSource={require('../../../../assets/logo.png')}
+            server={false}
+            contentFit='contain'
             style={styles.logo}
           />
         </View>

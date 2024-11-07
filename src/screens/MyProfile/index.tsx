@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { getFollowersService } from '../../services/follows';
 import { getProfileService } from '../../services/auth';
-import useAPI from '../../hooks/useAPI';
 import { useRefreshData } from '../../hooks/useRefreshData';
 import { LoadingScreen, Typography } from '../../components/custom';
 import {
@@ -22,6 +21,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import i18next from '../../Translate';
 import { useQuery } from '@tanstack/react-query';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 type Props = {};
 
@@ -51,12 +51,21 @@ const MyProfile = (props: Props) => {
     queryFn: () => getProfileService(),
   });
 
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(true);
+
+    return () => {
+      setTabBarVisible(false);
+    };
+  }, [setTabBarVisible]);
+
   const { isRefreshing, onRefresh } = useRefreshData([
     refetchProfile,
     refetchFollowers,
   ]);
 
-  useEffect(() => {}, [business]);
+  useEffect(() => { }, [business]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -113,7 +122,7 @@ const MyProfile = (props: Props) => {
       >
         <AvatarProfile data={userProfileData} refetch={refetchProfile} />
         <Inf data={userProfileData} />
-        <CtoProfile data={userProfileData} />
+
         <Follows
           data={followersData}
           onPressFollowing={() =>
@@ -129,13 +138,15 @@ const MyProfile = (props: Props) => {
             })
           }
         />
+        <CtoProfile data={userProfileData} isUsers={true} />
+        <MyPosts />
         {/* <IncompleteInfo visible={true} /> */}
-        <TabsMyProfile
+        {/* <TabsMyProfile
           MyPosts={<MyPosts />}
           Myshares={<MyShares />}
           MySaves={<MySaves />}
           MyMenu={<MyMenu />}
-        />
+        /> */}
       </LayoutProfile>
     );
   }

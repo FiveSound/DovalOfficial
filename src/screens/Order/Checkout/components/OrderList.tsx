@@ -21,8 +21,9 @@ interface PropsOrderList {
 type OrderType = {
   title: string;
   cover: string;
-  business_name: string;
+  recipe: string;
   row: TypeCart[];
+  variants: string;
 };
 
 const Order = (props: OrderType) => {
@@ -32,17 +33,22 @@ const Order = (props: OrderType) => {
       <FlexContainer style={styles.header}>
         <FlexContainer newStyle={styles.subheader}>
           <Avatars size="medium" source={`${CLOUDFRONT}${props.cover}`} />
-          <View>
+          <View style={{
+            backgroundColor: 'transparent',
+          }}>
             <Typography variant="H4title" newStyle={styles.title}>
-              {props.business_name}
+              {props.recipe}
+            </Typography>
+            <Typography variant="H4title" newStyle={styles.title}>
+              {props.variants}
             </Typography>
           </View>
         </FlexContainer>
-        <Icons
+        {/* <Icons
           appendIcons={
             <Typography variant="H4title">{i18next.t('Change')}</Typography>
           }
-        />
+        /> */}
       </FlexContainer>
 
       <LineDivider lineStyle={{ marginVertical: responsiveFontSize(10) }} />
@@ -55,10 +61,11 @@ const OrderList = (props: PropsOrderList) => {
     <>
       {props.data.map((row, index) => (
         <Order
-          key={row.businessID}
+          key={row.cartID}
           title={index === 0 ? 'Details order' : ''}
-          business_name={row[0].business_name}
-          cover={row[0].cover}
+          recipe={row.recipe}
+          cover={row.cover}
+          variants={row.variants}
           row={row}
         />
       ))}
@@ -71,11 +78,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    backgroundColor: 'transparent',
   },
   subheader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
+    gap: SIZES.gapLarge,
+    backgroundColor: 'transparent',
   },
   title: {
     width: SIZES.width / 2,

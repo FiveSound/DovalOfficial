@@ -7,6 +7,7 @@ import { SOCKET_ORDER_BUSINESS_RECEPT } from "../constants/sockets";
 import { useNavigation } from "../components/native";
 import { useAppSelector } from "../redux";
 import { RootState } from "../redux/store";
+import { ActiveTabContext } from '../context/ActiveTabContext';
 
 type DashboardProviderProps = {
   children: ReactNode;
@@ -46,15 +47,24 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
   const [myRiderAlert, setMyRiderAlert] = useState(false);
   const [verifiedAlert, setVerifiedAlert] = useState(false);
   const [delayAlert, setDelayAlert] = useState(false);
+  const { setActiveTab, activeTab } = useContext(ActiveTabContext);
+  
+   const handleSetPortalTab = () => {
+    setActiveTab('Portal');
+    navigation.navigate('HomeStack');
+  };
+
+  
 
   useEffect(() => {
     const socketInstance = io(SOCKET_URL, { auth: { token: token } }); 
-
+    
     socketInstance.connect();
 
     setSocket(socketInstance);
 
     socketInstance.on(SOCKET_ORDER_BUSINESS_RECEPT, () => {
+      
       // Invalidate Dashboard
       queryClient.invalidateQueries({ queryKey: ["dashboard-orders-screen"] });
       queryClient.invalidateQueries({ queryKey: ["tab-orders-component"] });
@@ -62,8 +72,9 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
 
       // queryClient.resetQueries()
       Alert.alert("Tienes una orden pendiente por aceptar!", "", [
-        { text: "Ir a Dashboard", onPress: () => navigation.navigate("Dashboard/Business") },
+        { text: "Ir a Dashboard", onPress: handleSetPortalTab },
       ]);
+      console.log('Tienes una orden pendiente por aceptar!');
     });
 
     return () => {

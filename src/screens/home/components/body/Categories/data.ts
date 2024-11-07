@@ -24,11 +24,11 @@ export type Category = {
 // ];
 
 const categories: Category[] = [
-  { id: 1, name: 'Restaurantes', description: 'La comida que te gusta', image: iconsNative.restaurants, backgroundColor: '#FFE700', navigation: 'SearchBusiness' },
-  { id: 2, name: 'Recetas', description: 'Tus compras desde casa', image: iconsNative.HamburgerIcons, backgroundColor: '#C6E7FF', navigation: 'Recipes' },
-  { id: 3, name: 'Flash Deals', image: iconsNative.PromotionsIcons, backgroundColor: '#FF885B', navigation: 'FlashDeals' },
-  { id: 4, name: 'Pizza', image: iconsNative.PizzaIcons, backgroundColor: '#FFE700', navigation: 'Pizza' },
-  { id: 5, name: 'Hamburguesas', image: iconsNative.HamburgerIcons, backgroundColor: '#F87A53', navigation: 'Hamburgers' },
+  { id: 1, name: i18next.t('Restaurants'), description: i18next.t('The food you like'), image: iconsNative.restaurants, backgroundColor: '#FFE700', navigation: 'SearchBusiness' },
+  { id: 2, name: i18next.t('Recipes'), description: i18next.t('Your purchases from home'), image: iconsNative.HamburgerIcons, backgroundColor: '#C6E7FF', navigation: 'Recipes' },
+  { id: 3, name: i18next.t('Flash Deals'), image: iconsNative.PromotionsIcons, backgroundColor: '#FF885B', navigation: 'FlashDeals' },
+  { id: 4, name: i18next.t('Pizza'), image: iconsNative.PizzaIcons, backgroundColor: '#FFE700', navigation: 'Pizza' },
+  { id: 5, name: i18next.t('Hamburgers'), image: iconsNative.HamburgerIcons, backgroundColor: '#F87A53', navigation: 'Hamburgers' },
 ];
 
 export default categories;

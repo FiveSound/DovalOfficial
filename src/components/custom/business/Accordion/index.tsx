@@ -12,6 +12,7 @@ import styles from './styles';
 import { CLOUDFRONT } from '../../../../services';
 import i18next from '../../../../Translate';
 import { Pressable } from '../../../native';
+import { Checkbox } from '../../Checkbox';
 
 type CartItemType = {
   cartItemID: number;
@@ -30,14 +31,15 @@ type CartItemType = {
 type Props = {
   row: CartItemType[];
   refetch: () => void;
+  value: boolean;
+  onValueChange: (value: boolean) => void;
 };
 
-const Accordion: React.FC<Props> = ({ row, refetch }) => {
+const Accordion: React.FC<Props> = ({ row, refetch, value, onValueChange }) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const { Title } = useTheme();
   const business = row[0];
 
-  // Animaciones
   const animation = useRef(new Animated.Value(isOpen ? 1 : 0)).current;
   const [contentHeight, setContentHeight] = useState<number>(0);
   const [isMeasured, setIsMeasured] = useState<boolean>(false);
@@ -65,6 +67,7 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
     outputRange: ['0deg', '180deg'],
   });
 
+
   return (
     <FlexContainer newStyle={styles.container}>
       <Pressable
@@ -76,6 +79,12 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
         accessibilityRole="button"
       >
         <View style={styles.subheader}>
+          <Checkbox
+            checked={value}
+            onChange={onValueChange}
+            containerStyle={styles.checkbox}
+            isTouchable={false}
+          />
           <Avatars source={`${CLOUDFRONT}${business.cover}`} size="medium" />
           <FlexContainer>
             <Typography variant="subtitle" newStyle={styles.business}>
@@ -115,7 +124,7 @@ const Accordion: React.FC<Props> = ({ row, refetch }) => {
         >
           <View style={styles.dropdown}>
             {row.map(item => (
-              <CartItem key={item.cartItemID} row={item} refetch={refetch} />
+              <CartItem key={item.cartItemID} row={item}  refetch={refetch} />
             ))}
           </View>
         </View>

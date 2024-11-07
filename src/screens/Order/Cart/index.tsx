@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import {
   RefreshControl,
   ScrollView,
@@ -16,9 +16,14 @@ import styles from './styles';
 import i18next from 'i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addCartQtyService, getCartService, removerCartService } from '../../../services/cart';
-const QUERY_KEY = ["cart-screen"];
+import { useQuery } from '@tanstack/react-query';
+import { getCartService } from '../../../services/cart';
+import { useTheme } from '../../../hooks';
+import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
+import { useRoute } from '@react-navigation/native';
+import { useAppDispatch } from '../../../redux';
+import { setCartID } from '../../../redux/slides/navigations';
+const QUERY_KEY = ["cart-screen-useQuerys"];
 
 type CartItemType = {
   cartItemID: number;
@@ -35,15 +40,30 @@ type CartItemType = {
 
 
 const Cart = memo(() => {
+  const route = useRoute();
+  const { Title } = useTheme();
   const navigation = useNavigation();
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: QUERY_KEY,
     queryFn: getCartService,
   });
+  console.log('data', data);
   const [refreshing, setRefreshing] = useState(false);
   const { isLoadingApp, isAuthenticated } = useSelector(
     (state: RootState) => state.auth,
   );
+  const dispatch = useAppDispatch();
+  const [cartID, setCartIDLocal] = useState<null | number>(null);
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  const [selectedPrice, setSelectedPrice] = useState<string>('0');
+
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
 
   
   const onRefresh = async () => {
@@ -57,10 +77,13 @@ const Cart = memo(() => {
   };
 
   const handleNavigate = () => {
-    navigation.navigate('Checkout', {
-      locationID: null,
-    });
+    navigation.navigate('Checkout', 
+      { cartID, ...route.params }
+    );
+    dispatch(setCartID(cartID))
+   
   };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,9 +99,21 @@ const Cart = memo(() => {
     fetchData();
   }, [data, isLoading, isLoadingApp, isAuthenticated]);
 
-  if (isLoading || isLoadingApp) return <LoadingScreen />;
+  useEffect(() => {
+    if (cartID !== null) {
+      const selectedItem = data?.flat().find((item: CartItemType) => item.cartID === cartID);
+      console.log('selectedItem', selectedItem);
+      if (selectedItem) {
+        setSelectedPrice(selectedItem.total);
+      }
+    } else {
+      setSelectedPrice('0');
+    }
+  }, [cartID, data]);
 
-  if (data.list.length === 0 && isAuthenticated) {
+  if (isLoading || isFetching) return <LoadingScreen />;
+
+  if (data?.length === 0 && isAuthenticated) {
     return (
       <Container showBack={true} showHeader={true} label={i18next.t('Cart')}>
         <ScrollView
@@ -91,13 +126,18 @@ const Cart = memo(() => {
           <ScreenEmpty
             source={Ilustrations.CharcoPet}
             labelPart1={i18next.t('Oops! Your cart is empty 🍽️')}
-            subLabel={i18next.t(
+            labelPart2={i18next.t(
               'Once you add items from a restaurants or storem your cart will appear here',
             )}
             ImgWidth={SIZES.width}
-            ImgHeigth={SIZES.height / 2}
+            ImgHeigth={SIZES.height / 3}
             labelButton={i18next.t('View restaurants')}
-            labelStylePart1={styles.labelpart1}
+            labelStylePart1={[styles.labelpart1, {
+              color: Title
+            }]}
+            labelStylePart2={[styles.labelpart1, {
+              color: Title
+            }]}
             onPress={handleBusiness}
           />
         </ScrollView>
@@ -105,7 +145,7 @@ const Cart = memo(() => {
     );
   }
 
-  if (data.list.length > 0 && isAuthenticated) {
+  if (data?.length > 0 && isAuthenticated) {
     return (
       <Container
         showBack={true}
@@ -113,10 +153,11 @@ const Cart = memo(() => {
         label={i18next.t('Cart')}
         showFooterCart={true}
         FooterPress={handleNavigate}
-        ProductsLength={data.list.flat().length || 0}
+        ProductsLength={data.flat().length || 0}
         labelAdd={i18next.t('Checkout')}
-        TotalPrice={data.total || '0'}
+        TotalPrice={selectedPrice || '0'}
         showAdd={false}
+        disabledCart={!cartID}
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -124,8 +165,13 @@ const Cart = memo(() => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          {data.list.map((row: any) => (
-            <Accordion key={row.businessID} row={row} refetch={refetch} />
+          {data.map((row: any) => (
+            <Accordion 
+            key={row.businessID} 
+            row={row} refetch={refetch} 
+            value={cartID === row.cartID}
+            onValueChange={(checked: boolean) => setCartIDLocal(checked ? row[0].cartID : null)}
+            />
           ))}
         </ScrollView>
       </Container>

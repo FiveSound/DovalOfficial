@@ -19,6 +19,7 @@ type Props = {
   showLabel?: boolean;
   containerStyle?: ViewStyle;
   LabelStyle?: TextStyle;
+  isTouchable?: boolean;
 };
 
 const BaseCheckbox = ({
@@ -74,7 +75,7 @@ const BaseCheckbox = ({
   );
 
   return isTouchable ? (
-    <TouchableOpacity onPress={handlePress} style={styles.container}>
+    <TouchableOpacity onPress={handlePress} style={[styles.container, containerStyle]}>
       {content}
     </TouchableOpacity>
   ) : (

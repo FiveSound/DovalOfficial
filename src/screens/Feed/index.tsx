@@ -1,153 +1,146 @@
-import { memo, useState } from 'react';
+import { lazy, memo, Suspense, useContext, useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
-  Text,
   TouchableOpacity,
-  View,
   StyleSheet,
-  ActivityIndicator,
-  VirtualizedList,
-  Image,
-  RefreshControl,
 } from 'react-native';
 import { getExploreData } from '../../services/recipes';
-import { SafeAreaView, useNavigation } from '../../components/native';
-import { CLOUDFRONT } from '../../services';
+import { View, useNavigation, Text, SafeAreaView } from '../../components/native';
+import {IsLoading, LoadingScreen, ScreenEmpty, TabList } from '../../components/custom';
+import { FeedHeading } from './components';
+import React from 'react';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
+import { useAppDispatch, useAppSelector } from '../../redux';
+import { RootState } from '../../redux/store';
+import { SIZES } from '../../constants/theme';
+import { Ilustrations } from '../../constants';
+import i18next from '../../Translate';
+import { openOnboardingModal } from '../../redux/slides/modalSlice';
+const LazyMansory = lazy(() => import('../../components/custom/Masonry'));
 
-const QUERY_KEY = 'explore-screen';
+const QUERY_KEY = 'feed-screen-new-location';
 
-const Explorar = memo(() => {
+const Feed = memo(() => {
+  const { location } = useAppSelector((state: RootState) => state.location);
+
   const { navigate } = useNavigation();
   const [page, setPage] = useState<number>(2);
-
+  const { user, isAuthenticated, isLoadingApp } = useAppSelector((state: RootState) => state.auth)
+  const dispatch = useAppDispatch()
   const explore = useQuery({
     queryKey: [QUERY_KEY],
-    queryFn: async () => await getExploreData(null, 1),
+    queryFn: async () => await getExploreData(location, 1),
   });
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
-    mutationFn: async p => {
-      setPage(page + 1);
-      return await getExploreData(null, p);
+    mutationFn: async (p) => {
+      setPage(p + 1);
+      return await getExploreData(location, p);
     },
-    onSuccess: data => {
-      queryClient.setQueryData([QUERY_KEY], oldData => [...oldData, ...data]);
+    onSuccess: (data) => {
+      queryClient.setQueryData([QUERY_KEY], (oldData: any[] = []) => [...oldData, ...data]);
     },
   });
 
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(true);
+
+    return () => {
+      setTabBarVisible(false);
+    };
+  }, [setTabBarVisible]);
+
+  useEffect(() => {
+    if (!isLoadingApp && isAuthenticated && !user?.onboarding) {
+     dispatch(openOnboardingModal())
+    }
+  }, [user]);
+  
+
+  const tabsLists = [{
+    title: "All",
+    status: "all"
+  },
+  {
+    title: "New",
+    status: "new"
+  },
+  {
+    title: "Trending",
+    status: "trending"
+  },
+  {
+    title: 'Nearby me',
+    status: 'nearby'
+  },
+  {
+    title: "Popular",
+    status: "popular"
+  },
+  {
+    title: "Recipes",
+    status: "recipes"
+  },
+  {
+    title: "Videos",
+    status: "videos"
+  }
+]
+
   if (explore.isLoading || explore.isFetching) {
-    return <ActivityIndicator />;
+    return <LoadingScreen />;
   }
 
   if (explore.isError) {
     return (
-      <View>
-        <Text>An ocurred error</Text>
-        <TouchableOpacity>
-          <Text>Reload</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  if (explore.data) {
-    return (
       <SafeAreaView style={styles.container}>
-        <Text
-          onPress={() => {
-            setPage(2);
-            explore.refetch();
-          }}
-        >
-          {explore.data.length}
-        </Text>
-        <TouchableOpacity onPress={() => navigate('Onboarding')}>
-          <Text>Set preferences</Text>
-        </TouchableOpacity>
-        <VirtualizedList
-          data={explore.data}
-          initialNumToRender={5}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <Image
-                style={styles.cover}
-                source={{ uri: `${CLOUDFRONT}${item.thumbnail}` }}
-              />
-              <Text style={styles.title}>{item.name}</Text>
-              <Text>{item.business_name}</Text>
-              <Text style={styles.description}>{item.description}</Text>
-              <View
-                style={{
-                  maxWidth: 300,
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  gap: 10,
-                }}
-              >
-                {/* {item.topics.map(row => (
-                  <Text style={[{ padding: 4, backgroundColor: '#FF5500' }]}>
-                    {row}
-                  </Text>
-                ))}
-                {item.tags.map(row => (
-                  <Text style={[{ padding: 4, backgroundColor: '#FF5500' }]}>
-                    {row}
-                  </Text>
-                ))} */}
-              </View>
-              {/* <Text selectable>{JSON.stringify(item, null, 2)}</Text> */}
-            </View>
-          )}
-          keyExtractor={item => item.id.toString()}
-          getItemCount={() => explore.data.length}
-          getItem={(data, index) => data[index]}
-          onEndReached={() => {
-            mutation.mutate(page);
-          }}
-          onEndReachedThreshold={3}
-          refreshControl={
-            <RefreshControl
-              refreshing={explore.isRefetching}
-              onRefresh={() => {
-                setPage(2);
-                explore.refetch();
-              }}
-              colors={['#0000ff']}
-            />
-          }
-        />
+      <ScreenEmpty 
+      labelPart1={i18next.t('Oh no!')}
+      labelPart2={i18next.t('Something went wrong')}
+      ImgHeigth={SIZES.height / 3}
+      ImgWidth={SIZES.width}
+      source={Ilustrations.Broken}
+      onPress={explore.refetch}
+      labelButton={i18next.t('Try again')}
+      />
       </SafeAreaView>
     );
   }
+
+  if (explore.isLoading || explore.isFetching) {
+    return <LoadingScreen />;
+  }
+
+    return (
+      <SafeAreaView style={styles.container}>
+       <FeedHeading />
+        {/* <TabList
+        isLoading={false}
+        list={tabsLists}
+        status='nearby'
+      /> */}
+      <Suspense fallback={<IsLoading />}>
+      <LazyMansory
+          pins={explore.data}
+          onRefresh={explore.refetch}
+          refreshing={explore.isRefetching}
+          onLoadMore={() => mutation.mutate(page)}
+          loading={mutation.isPending}
+        />
+      </Suspense>
+      </SafeAreaView>
+    );
+
 });
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-  },
-  item: {
-    marginBottom: 20,
-  },
-  cover: {
-    width: 360,
-    height: 360,
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  description: {
-    maxWidth: 350,
-    fontSize: 15,
-    marginBottom: 10,
-    color: '#666',
   },
 });
 
-export default Explorar;
+export default React.memo(Feed);

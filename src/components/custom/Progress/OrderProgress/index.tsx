@@ -21,6 +21,8 @@ interface OrderProgressProps {
   messageOptional?: string;
   rider_waiting?: boolean;
   status?: string;
+  creation_time?: string;
+  estimated_time?: string;
 }
 
 const OrderProgress: React.FC<OrderProgressProps> = ({
@@ -30,6 +32,8 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
   messageOptional,
   rider_waiting,
   status,
+  creation_time,
+  estimated_time,
 }) => {
   const progressAnim = useRef(new Animated.Value(0)).current;
   const { backgroundMaingrey, backSuccess, Description } = useTheme();
@@ -103,7 +107,7 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
               {rider_waiting ? messageOptional : activeStep.title}
             </Typography>
             <Typography variant="title" newStyle={styles.description}>
-              {activeStep.timeEstimated}
+              {creation_time} - {estimated_time}
             </Typography>
           </FlexContainer>
         )
@@ -188,19 +192,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeStepContainer: {
-    borderWidth: SIZES.borderWidth,
     padding: SIZES.gapLarge,
-    width: '90%',
+    width: '98%',
     alignItems: 'center',
     borderRadius: SIZES.radius,
   },
   activeStepContainerNoHero: {
     padding: SIZES.gapSmall,
-    width: '90%',
+    width: '98%',
     alignItems: 'center',
   },
   title: {
-    ...FONTS.text16,
+    ...FONTS.semi18,
     marginBottom: SIZES.gapSmall,
     textAlign: 'center',
   },
@@ -217,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: SIZES.radius * 1.4,
     marginVertical: SIZES.radius,
-    width: '90%',
+    width: '98%',
   },
   progressSegment: {
     flex: 1,

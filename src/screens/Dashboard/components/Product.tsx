@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { CLOUDFRONT } from '../../../services';
 import { Image, Text } from '../../../components/native';
-import { COLORS, responsiveFontSize } from '../../../constants/theme';
+import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
 import { Typography } from '../../../components/custom';
 
 type Props = {
@@ -13,8 +13,14 @@ type Props = {
 };
 
 const Product = memo((props: Props) => {
+  console.log('props', props);
   return (
     <View>
+      <Typography variant='subtitle' newStyle={{
+        color: COLORS.primary
+      }}>
+        Cant. {props.quantity}
+      </Typography>
       <View style={styles.body}>
         <Image
           style={styles.cover}
@@ -24,11 +30,6 @@ const Product = memo((props: Props) => {
           <Typography variant='title'>{props.title}</Typography>
           <Typography variant='H4title'>{props.variants}</Typography>
         </View>
-        <Typography variant='subtitle' newStyle={{
-          color: COLORS.primary
-        }}>
-          Cant. {props.quantity}
-        </Typography>
       </View>
     </View>
   );
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   variants: {
-    minWidth: responsiveFontSize(160),
-    maxWidth: responsiveFontSize(160),
+    // minWidth: responsiveFontSize(160),
+    maxWidth: SIZES.width / 1.4,
   }
 });
 

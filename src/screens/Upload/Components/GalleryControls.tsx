@@ -20,7 +20,6 @@ const GalleryControls = ({ pickedMedia, label }: GalleryControlsProps) => {
   const navigation = useNavigation();
   const { color } = useTheme();
   const MediaType = pickedMedia[0]?.type === 'video' ? true : false;
-  console.log(pickedMedia);
 
   return (
     <>
@@ -38,7 +37,7 @@ const GalleryControls = ({ pickedMedia, label }: GalleryControlsProps) => {
             containerButtons={styles.containerButtons}
             onPress={() => {
               if (pickedMedia.length >= 1) {
-                navigation.navigate(MediaType ? 'UploadPost' : 'UploadReview', {
+                navigation.navigate( 'UploadPost', {
                   pickedMedia: pickedMedia,
                 });
               } else {

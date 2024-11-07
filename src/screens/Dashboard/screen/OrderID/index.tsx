@@ -45,12 +45,20 @@ const OrderID: React.FC<Props> = (props: Props) => {
     } = order.data;
 
     return (
-      <Container style={styles.container}>
-        <ScrollView>
+      <Container
+        label='Orden'
+        style={styles.container}
+        showHeader={true}
+
+        >
+        <ScrollView 
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
+        >
           <View style={styles.container}>
             <OrderItems items={items} />
             <OrderHeader orderId={id} status={status} />
-            <OrderActions onAccept={handleAccept} onReject={handleReject} />
+            {/* <OrderActions onAccept={handleAccept} onReject={handleReject} /> */}
             <LineDivider lineStyle={styles.lineDivider} variant='secondary' />
             <OrderPaymentInfo resume={resume} />
             <LineDivider lineStyle={styles.lineDivider} variant='secondary' />
@@ -92,4 +100,7 @@ const styles = StyleSheet.create({
     width: SIZES.width,
     alignSelf: 'center',
   },
+  contentContainer: {
+    paddingBottom: SIZES.height / 10,
+  }
 });

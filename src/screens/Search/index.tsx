@@ -15,7 +15,7 @@ import {
   SearchLayout,
 } from '../../components/custom';
 import { FlatList } from '../../components/native';
-import { useAPI } from '../../hooks';
+import { useQuery } from '@tanstack/react-query';
 const LazyCardUser = lazy(
   () => import('../../components/custom/Cards/CardUsers'),
 );
@@ -27,7 +27,7 @@ const Search = () => {
   );
 
   const debouncedQuery = useDebounce(query, 500);
-  const { refetch: refetchPostData } = useAPI({
+  const { refetch: refetchPostData } = useQuery({
     queryKey: ['DataSearch-initial'],
     queryFn: () => initialData(1),
   });
@@ -61,9 +61,6 @@ const Search = () => {
             username={item.username || item.name}
             isVerified={item.verify === 1}
             followersCount={item.follower_count || 0}
-            onFollow={() =>
-              console.log(`[LazyCardUser] User ${item.id} follow state toggled`)
-            }
             Follow={item.follow}
             ShowName={true}
             ShowLine={false}

@@ -13,6 +13,7 @@ const useUploadMedia = () => {
     videos,
     mediaType,
     error,
+    optimizedMediaURLs
   } = useSelector((state: RootState) => state.upload);
 
   const handleUploadMedia = (pickedMedia: any[]) => {
@@ -29,6 +30,7 @@ const useUploadMedia = () => {
     videos,
     mediaType,
     error,
+    optimizedMediaURLs
   };
 };
 

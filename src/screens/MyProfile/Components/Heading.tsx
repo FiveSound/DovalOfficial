@@ -16,6 +16,8 @@ import { FONTS, SIZES } from '../../../constants/theme';
 import { useDispatch } from 'react-redux';
 import { openUploadModal } from '../../../redux/slides/modalSlice';
 import { TouchableOpacity } from '../../../components/native';
+import { useAppSelector } from '../../../redux';
+import { RootState } from '../../../redux/store';
 
 interface PropsHeader {
   username: string | null | undefined;
@@ -37,6 +39,7 @@ const Heading = ({
 }: PropsHeader) => {
   const { color, Description } = useTheme();
   const dispatch = useDispatch();
+  const { businessVerified } = useAppSelector((state: RootState) => state.auth)
 
   return (
     <>
@@ -56,7 +59,7 @@ const Heading = ({
         </FlexContainer>
         {action && (
           <FlexContainer variant="row" newStyle={styles.actionContainer}>
-            {true && (
+            {businessVerified && (
               <TouchableOpacity onPress={() => dispatch(openUploadModal())}>
                 <UploadCircle01Icon
                   width={SIZES.icons}
@@ -74,7 +77,7 @@ const Heading = ({
             </TouchableOpacity>
           </FlexContainer>
         )}
-        {Arrowback && (
+        {/* {Arrowback && (
           <FlexContainer variant="row" newStyle={styles.arrowBackContainer}>
             <TouchableOpacity>
               <Notification03IconStroke
@@ -84,7 +87,7 @@ const Heading = ({
               />
             </TouchableOpacity>
           </FlexContainer>
-        )}
+        )} */}
       </FlexContainer>
     </>
   );

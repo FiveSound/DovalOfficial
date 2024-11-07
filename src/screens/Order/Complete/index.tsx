@@ -11,13 +11,16 @@ import { responsiveFontSize, SIZES } from '../../../constants/theme';
 import styles from '../ConfirmOrder/styles';
 import ThreeIcons from '../../../components/custom/Bar/ThreeIcons';
 import i18next from '../../../Translate';
+import { useAppDispatch } from '../../../redux';
+import { closeModalPin } from '../../../redux/slides/modalSlice';
+import { reloadApp } from '../../../redux/slides/appSlice';
 
 interface Props {}
 
 const Complete = (props: Props) => {
   const [counter, setCounter] = useState(3);
   const navigation = useNavigation();
-
+  const dispatch = useAppDispatch();
   const handleNavigateToTracking = () => {
     const intervalId = setInterval(() => {
       setCounter(prevCounter => {
@@ -34,8 +37,9 @@ const Complete = (props: Props) => {
     handleNavigateToTracking();
   }, []);
 
-  const handleNavegate = () => {
-    navigation.navigate('TabsNavigation');
+  const handlePress = () => {
+    dispatch(closeModalPin());
+    dispatch(reloadApp());
   };
 
   return (
@@ -47,7 +51,7 @@ const Complete = (props: Props) => {
       <ThreeIcons
         showBack={false}
         showRightIcons={false}
-        onPress={handleNavegate}
+        onPress={handlePress}
       />
       <ScrollView
         contentContainerStyle={{

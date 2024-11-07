@@ -264,8 +264,8 @@ const Home = () => {
     }
   }, [currentOrderID, delayTime]);
 
-  console.log(orders.data.list, 'orders.data.list')
   const isEmpty = orders.data.list.length === 0;
+
   if (orders.isLoading || orders.isFetching) return <LoadingScreen />;
   if (orders.isError) return;
   <ScreenEmpty
@@ -321,8 +321,7 @@ const Home = () => {
                 onSend={onSend}
                 onAddTime={onAddTime}
                 onComplete={onComplete}
-                onNavigateTo={orderID =>
-                  navigation.navigate('Dashboard/Business/OrderID', { orderID })
+                onNavigateTo={orderID => navigation.navigate('Dashboard/Business/OrderID', { orderID })
                 }
                 {...item}
               />

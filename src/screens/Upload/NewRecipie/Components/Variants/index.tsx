@@ -101,7 +101,7 @@ const Variants = () => {
             ))}
 
             <VariantComponent
-              title="Title variant"
+              title="Add title variant"
               onPress={handleAddVariant}
               onRemove={() => {}}
               subvariants={[]}

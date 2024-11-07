@@ -36,7 +36,6 @@ import {
   InfoCard,
   CardsPreview,
   CardUsers,
-  CardUserSkeleton,
 } from './Cards';
 import Hero from './hero';
 import Dots from './Dots';
@@ -61,6 +60,8 @@ import Pagination from './Pagination';
 import PaginationHeader from './Pagination/PaginationHeader';
 import { TabList } from './Table';
 import { MapSelector, TextSelector } from './Select';
+import MasonryList from './Masonry';
+import CustomMarker from './Marker';
 
 export {
   IsLoading,
@@ -117,7 +118,6 @@ export {
   CardsPreview,
   PersonalInf,
   CardUsers,
-  CardUserSkeleton,
   NavCustom,
   Carrousel,
   ProgressBar,
@@ -128,4 +128,6 @@ export {
   TabList,
   MapSelector,
   TextSelector,
+  MasonryList,
+  CustomMarker
 };

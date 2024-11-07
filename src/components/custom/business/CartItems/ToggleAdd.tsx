@@ -17,28 +17,17 @@ import { useCart } from '../../../../context/CartContext';
 import i18next from '../../../../Translate';
 
 type Props = {
-  recipeID: number;
   qty: number;
+  add: () => void;
+  remove: () => void;
 };
 
 const ToggleAdd = (props: Props) => {
-  const { recipeID, qty } = props;
-  const { addProduct, removeProduct } = useCart();
-  const [load, setLoad] = useState<boolean>(false);
-
-  const handleAdd = useCallback(() => {
-    addProduct(recipeID, setLoad);
-    console.log('Adding product with recipeID:', recipeID);
-  }, [addProduct, recipeID]);
-
-  const handleRemove = useCallback(() => {
-    removeProduct(recipeID, setLoad);
-    console.log('Removing product with recipeID:', recipeID);
-  }, [removeProduct, recipeID]);
+  const { qty, add, remove } = props
 
   return (
     <FlexContainer variant="row" newStyle={styles.container}>
-      <AddRemove qty={qty} add={handleAdd} remove={handleRemove} />
+      <AddRemove qty={qty} add={add} remove={remove} />
       <EditRecipie />
     </FlexContainer>
   );

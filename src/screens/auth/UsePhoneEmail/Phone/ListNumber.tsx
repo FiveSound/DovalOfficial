@@ -7,8 +7,8 @@ import {
 } from '../../../../components/custom';
 import { FlatList, Modal } from '../../../../components/native';
 import { StyleSheet } from 'react-native';
-import { COLORS, SIZES } from '../../../../constants/theme';
-import { useAPI, useTheme } from '../../../../hooks';
+import { SIZES } from '../../../../constants/theme';
+import { useTheme } from '../../../../hooks';
 import { Country } from '../../../../constants';
 import RenderItem from './RenderItem';
 import i18next from '../../../../Translate';

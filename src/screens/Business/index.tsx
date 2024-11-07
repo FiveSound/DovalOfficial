@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { useRoute } from '@react-navigation/native';
-import { useAPI, useRangeNearbyLocation, useRefreshData } from '../../hooks';
+import {  useRefreshData } from '../../hooks';
 import { getDetailsBusinessIDService } from '../../services/business';
 import { Container, LoadingScreen, Tabs } from '../../components/custom';
 import { GetMenuBusiness, Overview, ProfileBusiness } from './Components';
@@ -21,8 +21,8 @@ const Business: React.FC = () => {
   const businessID = params.id;
   console.log(businessID, 'businessID');
   const { location } = useSelector((state: RootState) => state.location);
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['business-businessID', businessID],
+  const { data, isLoading, refetch, isFetching } = useQuery({
+    queryKey: ['business-businessID-query', businessID],
     queryFn: () => getDetailsBusinessIDService(location, businessID),
   });
   const { isRefreshing, onRefresh } = useRefreshData([refetch]);
@@ -40,10 +40,10 @@ const Business: React.FC = () => {
     },
   ];
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <LoadingScreen label={i18next.t('Loading')} />;
   }
-  console.log(data, 'data');
+
   if (data) {
     const { banner, avatar, business_name } = data;
     return (

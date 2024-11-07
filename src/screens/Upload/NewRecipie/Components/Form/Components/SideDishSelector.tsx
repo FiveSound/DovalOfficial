@@ -13,6 +13,7 @@ import {
 } from '../../../../../../components/custom';
 import styles from './styles';
 import { useFormContext } from 'react-hook-form';
+import { useTheme } from '../../../../../../hooks';
 
 interface VariantItem {
   id: number;
@@ -30,6 +31,7 @@ interface Props {
 
 const SideDishSelector: React.FC<Props> = ({ variants, navigation }) => {
   const { watch } = useFormContext();
+  const { backgroundMaingrey } = useTheme();
   const values = watch();
 
   if (variants.isLoading) {
@@ -73,10 +75,15 @@ const SideDishSelector: React.FC<Props> = ({ variants, navigation }) => {
                   key={row.id}
                   appendIcons={
                     <Typography variant="H4title" newStyle={styles.text}>
-                      Varianst: {row.title}
+                      Varianst: {row.title || ''}
                     </Typography>
                   }
-                  styles={styles.icon}
+                  styles={[
+                    styles.icon,
+                    {
+                      backgroundColor: backgroundMaingrey,
+                    },
+                  ]}
                 />
               ))}
             </FlexContainer>

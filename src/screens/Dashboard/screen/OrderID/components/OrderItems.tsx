@@ -22,9 +22,6 @@ const OrderItems: React.FC<OrderItemsProps> = ({ items }) => {
 const { backgroundMaingrey } = useTheme()
   return (
     <View style={styles.box}>
-      <View style={{ marginBottom: 15 }}>
-        <Typography variant='title'>Order:</Typography>
-      </View>
       <FlatList
         data={items}
         renderItem={({ item }) => (

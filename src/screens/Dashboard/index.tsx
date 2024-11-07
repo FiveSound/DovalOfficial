@@ -12,6 +12,8 @@ import Notifications from './screen/Notifications';
 import Support from './screen/Support';
 import { useTheme } from '../../hooks';
 import { COLORS } from '../../constants/theme';
+import { useContext, useEffect } from 'react';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,8 +28,15 @@ const DashboardScreen = () => {
     },
   });
 
-  console.log(header.data);
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(true);
 
+    return () => {
+      setTabBarVisible(false);
+    };
+  }, [setTabBarVisible]);
+  
   return (
     <Drawer.Navigator
       screenOptions={{

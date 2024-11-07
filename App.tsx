@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, useEffect } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import {
   Linking,
   SplashScreen,
@@ -7,8 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-import RootNavigation from "./src/navigation";
-import { LogBox, ScrollView, StatusBar} from "react-native";
+import { LogBox, StatusBar} from "react-native";
 import { useLocation, usePrepareApp, useTheme } from "./src/hooks";
 import styles from "./AppStyles";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
@@ -18,6 +17,9 @@ import Modal from "./src/screens/Modal";
 import { CartProvider } from "./src/context/CartContext";
 import { DashboardProvider } from "./src/context/DashboardContext";
 import { LoadingScreen } from "./src/components/custom";
+import { enableScreens } from "react-native-screens";
+import RootNavigator from "./src/navigation";
+import { ActiveTabProvider } from "./src/context/ActiveTabContext";
 
 const queryClient = new QueryClient();
 LogBox.ignoreAllLogs();
@@ -41,7 +43,8 @@ const App = () => {
 
   usePrepareApp(setAppIsReady);
   useLocation(); 
-  
+  enableScreens();
+
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
@@ -50,24 +53,27 @@ const App = () => {
   }, [appIsReady]);
   
   if (!appIsReady) {
-    return <LoadingScreen />;
+    return <LoadingScreen label="Loading..." />;
   }
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider onLayout={onLayoutRootView} style={styles.flexContainer}>
+      <SafeAreaProvider onLayout={onLayoutRootView} style={[styles.flexContainer, { backgroundColor: BackgroundMain }]}>
         <NavigationContainer linking={linking}>
+        <ActiveTabProvider>
           <AuthProvider>
             <DashboardProvider>
               <CartProvider>
                 <GestureHandlerRootView style={styles.gestureHandlerRootView}>
                   <StatusBar barStyle='dark-content' backgroundColor={BackgroundMain} />
-                  <RootNavigation />
+
+                    <RootNavigator />
                   <Modal />
                 </GestureHandlerRootView>
               </CartProvider>
             </DashboardProvider>
           </AuthProvider>
+        </ActiveTabProvider>
         </NavigationContainer>
       </SafeAreaProvider>
     </QueryClientProvider>

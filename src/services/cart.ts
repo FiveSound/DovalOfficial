@@ -48,15 +48,12 @@ export const addToCartService = async (
   return response.data;
 };
 
-export const removerCartService = async (
-  recipeID: number,
-  subVariants: number[],
-) => {
+export const removerCartService = async (cartItemID: number, recipeID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.delete(`${API_URL}/api/cart`, {
-      data: { recipeID, subVariants },
+      data: { cartItemID, recipeID },
       headers: {
         Authorization: `Bearer ${userToken}`,
       },

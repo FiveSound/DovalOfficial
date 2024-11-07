@@ -9,6 +9,8 @@ import FlexContainer from '../../FlexContainer';
 import Dots from '../../Dots';
 import Icons from '../../Icons';
 import Typography from '../../Typography';
+import { setOrderID } from '../../../../redux/slides/navigations';
+import { useAppDispatch } from '../../../../redux';
 
 type Order = {
   currentStep: number;
@@ -32,7 +34,8 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
   const [activeOrder, setActiveOrder] = useState<Order | null>(null);
-
+  const dispatch = useAppDispatch();
+  
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       if (viewableItems.length > 0) {
@@ -83,6 +86,7 @@ const Carrousel = ({ row, onSelected, RenderItem, label }: Props) => {
                     orderID: activeOrder.orderID,
                   },
                 });
+                dispatch(setOrderID(activeOrder.orderID));
               }
             }}
           />

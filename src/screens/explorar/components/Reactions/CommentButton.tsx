@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Message02Icon } from '../../../../constants/IconsPro';
-import useAPI from '../../../../hooks/useAPI';
+import { Message02Icon, Messege01IconStroke } from '../../../../constants/IconsPro';
 import { getCommentsPostService } from '../../../../services/reactions';
 import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import { formatMilesAndMillions } from '../../../../utils/format';
@@ -9,6 +8,7 @@ import * as Haptics from 'expo-haptics';
 import styles from './styles';
 import { useDispatch } from 'react-redux';
 import { openCommentModal } from '../../../../redux/slides/modalSlice';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   postID: number;
@@ -18,8 +18,8 @@ const CommentButton = memo(({ postID }: Props) => {
   const dispatch = useDispatch();
   const [commentsCount, setCommentsCount] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(true);
-  const { data, isLoading, isFetching } = useAPI({
-    queryKey: [`comments-post-id-${postID}`, postID.toString()],
+  const { data, isLoading, isFetching } = useQuery({
+    queryKey: [`comments-post-id-${postID}`],
     queryFn: getCommentsPostService,
   });
 
@@ -42,8 +42,8 @@ const CommentButton = memo(({ postID }: Props) => {
       style={styles.container}
     >
       <Message02Icon
-        width={SIZES.icons * 1.2}
-        height={SIZES.icons * 1.2}
+        width={SIZES.icons}
+        height={SIZES.icons}
         color={COLORS.TranspLight}
       />
       <Text style={styles.label}>{formatMilesAndMillions(commentsCount)}</Text>

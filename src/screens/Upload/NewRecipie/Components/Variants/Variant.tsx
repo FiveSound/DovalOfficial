@@ -140,7 +140,10 @@ const Variant = React.memo((props: TypeVariant) => {
 
           {editRequired && (
             <View
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}
+              style={{
+                paddingHorizontal: SIZES.gapLarge,
+                backgroundColor: 'transparent',
+                 flexDirection: 'row', alignItems: 'center', gap: SIZES.gapSmall }}
             >
               <Text>Limite</Text>
               <Pressable
@@ -219,26 +222,33 @@ const Variant = React.memo((props: TypeVariant) => {
             </View>
           )}
 
-          <Pressable style={styles.switch}>
-            <Typography variant="H4title">Select if required</Typography>
-            <Checkbox
-              label={editRequired ? 'Yes' : 'No'}
-              checked={editRequired}
-              isTouchable={false}
-              onChange={() => {
-                setEditRequired(!editRequired);
-                mutationOnsave.mutate({
-                  id,
-                  required: !editRequired,
-                  checked: true,
-                });
-              }}
-              containerStyle={{
-                width: SIZES.BtnWidth,
-              }}
-            />
-          </Pressable>
+          {
+            !editRequired && (
+              <Pressable style={styles.switch}>
+              <Typography variant="H4title">Select if required</Typography>
+              <Checkbox
+                label={editRequired ? 'Yes' : 'No'}
+                checked={editRequired || false}
+                isTouchable={false}
+                onChange={() => {
+                  setEditRequired(!editRequired);
+                  mutationOnsave.mutate({
+                    id,
+                    required: !editRequired,
+                    checked: true,
+                  });
+                }}
+                containerStyle={{
+                  width: SIZES.BtnWidth,
+                }}
+              />
+            </Pressable>
+            )
+          }
+
+       
         </FlexContainer>
+
         <LineDivider />
 
         {subvariants.map(row => (
@@ -283,7 +293,7 @@ const Variant = React.memo((props: TypeVariant) => {
         <Buttons label="Add more variants" onPress={onPress} />
         {success && <Perks label="Guardado con exito!" status="success" />}
       </FlexContainer>
-      <LineDivider variant="secondary" lineStyle={styles.lineDivider} />
+      {/* <LineDivider variant="secondary" lineStyle={styles.lineDivider} /> */}
     </>
   );
 });

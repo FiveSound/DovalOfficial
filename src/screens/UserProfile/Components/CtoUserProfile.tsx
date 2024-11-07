@@ -28,6 +28,8 @@ import {
 import i18next from '../../../Translate';
 import { openModalMoreOptionsProfile } from '../../../redux/slides/modalSlice';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../../redux';
+import { RootState } from '../../../redux/store';
 
 type Props = {
   label?: string | undefined;
@@ -144,16 +146,19 @@ const CtoUserProfile = ({ data }: Props) => {
 
 const MoreOptions = ({ data }: { data: any }) => {
   const { Title, Description } = useTheme();
+  const { businessVerified } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const handleNavigation = useCallback(() => {
+    console.log(data.userID, 'data.userID');
     navigation.navigate('Business', { id: data.userID });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   }, [navigation]);
 
   return (
     <FlexContainer variant="row" newStyle={styles.moreOptionsContainer}>
-      <Icons
+      {businessVerified && (
+        <Icons
         appendIcons={
           <StoreLocation01Icon
             width={SIZES.icons}
@@ -163,6 +168,7 @@ const MoreOptions = ({ data }: { data: any }) => {
         }
         onPress={handleNavigation}
       />
+      )}
       <Icons
         appendIcons={
           <MoreHorizontalCircle01Icon

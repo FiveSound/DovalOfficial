@@ -20,15 +20,10 @@ import {
   validateUserNameService,
 } from '../../../services/auth';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { useLocation } from '../../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { StaticCheckbox } from '../../../components/custom/Checkbox';
 import i18next from '../../../Translate';
-import {
-  refreshProfileData,
-  signInSuccess,
-} from '../../../redux/slides/authSlice';
 import { useAppSelector } from '../../../redux';
 import { openOnboardingModal } from '../../../redux/slides/modalSlice';
 
@@ -40,8 +35,7 @@ type RouteParams = {
 };
 
 const SignupForm = (props: Props) => {
-  useLocation();
-  const { countryKey } = useAppSelector((state: RootState) => state.location);
+  const { countryKey, country } = useAppSelector((state: RootState) => state.location);
   const route = useRoute<RouteProp<RouteParams, 'params'>>();
   const dispatch = useDispatch();
   const { method } = route.params;
@@ -97,14 +91,14 @@ const SignupForm = (props: Props) => {
     setValidationMessage('');
     if (value.trim() === '') {
       setIsUsernameValid(false);
-      setValidationMessage('Username cannot be empty');
+      setValidationMessage(i18next.t('Username cannot be empty'));
       setLoading(false);
       return;
     }
 
     if (value.length < 3) {
       setIsUsernameValid(false);
-      setValidationMessage('Username must be at least 3 characters long');
+      setValidationMessage(i18next.t('Username must be at least 3 characters long'));
       setLoading(false);
       return;
     }
@@ -121,18 +115,18 @@ const SignupForm = (props: Props) => {
           valid => {
             setIsUsernameValid(valid);
             setValidationMessage(
-              valid ? 'Username is available' : 'Username is not available',
+              valid ? i18next.t('Username is available') : i18next.t('Username is not available'),
             );
             success = true;
           },
           error => {
             console.error('Username validation error:', error);
-            setValidationMessage('Error validating username');
+            setValidationMessage(i18next.t('Error validating username'));
           },
         );
       } catch (error) {
         console.error('Error validating username:', error);
-        setValidationMessage('Error validating username');
+        setValidationMessage(i18next.t('Error validating username'));
       } finally {
         attempts++;
         if (success || attempts >= maxRetries) {

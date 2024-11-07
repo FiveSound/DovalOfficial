@@ -122,7 +122,7 @@ const MapSelector = memo(({ setValue }: Props) => {
         setValue('city', city, { shouldDirty: true });
         setValue('state', state, { shouldDirty: true });
         setValue('country', country, { shouldDirty: true });
-        setValue('postal_code', postal_code, { shouldDirty: true });
+        // setValue('postal_code', postal_code, { shouldDirty: true });
       } else {
         console.warn('No se encontraron resultados para la geocodificación.');
       }

@@ -14,11 +14,9 @@ const styles =  StyleSheet.create({
   },
   flexContainer: {
     flex: 1,
-    backgroundColor: "#000",
   },
   gestureHandlerRootView: {
     flex: 1,
-    backgroundColor: "#000",
   },
   safeAreaView: {
     flex: 1,

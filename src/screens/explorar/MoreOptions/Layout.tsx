@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       style={{ flex: 1 }}
     >
       <FlexContainer style={styles.container}>
-        {isAuthenticated && (
+        {/* {isAuthenticated && (
           <Search
             label="Search"
             placeholder="Search"
@@ -52,23 +52,22 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             onFocus={() => dispatch(setExpandOnKeyboard(true))}
             onBlur={() => dispatch(setExpandOnKeyboard(false))}
           />
-        )}
+        )} */}
 
         {children}
         <>
-          {isAuthenticated && <LineDivider />}
           {!selectedItem && (
             <FlexContainer
               newStyle={{
                 alignItems: 'center',
               }}
             >
-              <SharesOptions />
+              {/* <SharesOptions /> */}
               <Options />
             </FlexContainer>
           )}
         </>
-        {selectedItem && (
+        {/* {selectedItem && (
           <>
             <FlexContainer
               newStyle={{
@@ -84,7 +83,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Buttons label="Send Message" variant="primary" />
             </FlexContainer>
           </>
-        )}
+        )} */}
       </FlexContainer>
     </KeyboardAvoidingView>
   );

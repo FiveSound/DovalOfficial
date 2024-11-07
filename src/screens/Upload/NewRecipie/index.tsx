@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useQuery } from '@tanstack/react-query';
 import { getDraftService } from '../../../services/recipes';
 import { IsLoading, LoadingScreen } from '../../../components/custom';
@@ -11,8 +11,10 @@ import {
   Media,
   Variants,
 } from './Components';
+import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
+import { useContext, useEffect } from 'react';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 type Props = {
   route?: {
@@ -28,6 +30,14 @@ type ContainerProps = {
 
 const Container = ({ defaultValues }: ContainerProps) => {
   const methods = useForm({ defaultValues });
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
 
   return (
     <FormProvider {...methods}>
@@ -48,7 +58,7 @@ const Container = ({ defaultValues }: ContainerProps) => {
 
 const NewRecipie = ({ route }: Props) => {
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['form-recipe-screen', route?.params?.id],
+    queryKey: ['form-recipe-screen-new', route?.params?.id],
     queryFn: getDraftService,
   });
 

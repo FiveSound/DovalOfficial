@@ -12,18 +12,28 @@ import {
 import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import Signup from '../../../auth/Signup';
 import {
+  Buttons,
+  Container,
   FlexContainer,
+  ScreenEmpty,
   TextButton,
   Typography,
 } from '../../../../components/custom';
+import { RootState } from '../../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../../redux';
+import { Ilustrations } from '../../../../constants';
+import { Image } from '../../../../components/native';
+import styles from '../../../../components/custom/AuthLayout/styles';
+import { closeUploadPermissionModal } from '../../../../redux/slides/modalSlice';
 
-const AlbumsPermission = ({ navigation }: any) => {
-  const { color, Bg } = useTheme();
-  const { user } = useAuth();
+const AlbumsPermission = () => {
+
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
   const requestPermission = async () => {
     const { status } = await MediaLibrary.requestPermissionsAsync();
     if (status === 'granted') {
-      navigation.navigate('TabsNavigation');
+      dispatch(closeUploadPermissionModal())
     } else {
       console.log(i18next.t('Location permission not granted'));
     }
@@ -71,23 +81,23 @@ const AlbumsPermission = ({ navigation }: any) => {
     },
   ];
 
-  if (!user) {
+  if (!isAuthenticated) {
     return <Signup />;
   }
 
   return (
-    <KeyboardAwareScrollView
-      style={{
-        flex: 1,
-        backgroundColor: Bg,
-      }}
+    <Container
+    label='Permission to Access Your Photos and Videos'
+    style={styles.container}
     >
-      {/* <EmptyScreen label={i18next.t('Permission to Access Your Photos and Videos')}
-        Lottiew
-        sourceLottiew={Animation.EmptyFood}
-        width={SIZES.width}
-        height={SIZES.height / 3}
-        /> */}
+    <Image 
+      placeholderSource={Ilustrations.CharcoPet}
+      server={false}
+      style={{
+        width: SIZES.width,
+        height: SIZES.height / 3,
+      }}
+      />
 
       <FlexContainer
         newStyle={{
@@ -101,36 +111,26 @@ const AlbumsPermission = ({ navigation }: any) => {
           <FlexContainer
             key={feature.key}
             variant="row"
-            newStyle={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginVertical: SIZES.gapMedium,
-              gap: SIZES.gapMedium,
-            }}
+            newStyle={styles.row}
           >
             {feature.icon ? feature.icon : null}
             <FlexContainer>
-              <Typography variant="H4title">{feature.key}</Typography>
-              <Typography variant="SubDescription">{feature.text}</Typography>
+              <Typography variant='subtitle'>{feature.key}</Typography>
+              <Typography variant='H4title'>{feature.text}</Typography>
             </FlexContainer>
           </FlexContainer>
         ))}
-        <TextButton
+        <Buttons
           label={i18next.t('Next')}
-          sizeVariant="full"
-          colorVariant="primary"
+          color='primary'
           onPress={requestPermission}
-          labelStyle={{
-            color: COLORS.dark,
-            ...FONTS.h3,
-          }}
         />
         <Typography variant="H4title">
           {i18next.t('You can change this option later in the Settings app.')}
         </Typography>
         {/* <RequireLegal /> */}
       </FlexContainer>
-    </KeyboardAwareScrollView>
+    </Container>
   );
 };
 

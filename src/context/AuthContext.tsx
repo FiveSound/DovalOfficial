@@ -21,6 +21,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { UserType } from '../types/User.types';
 import { AppType } from '../types/Context.type';
 import { openOnboardingModal } from '../redux/slides/modalSlice';
+import { ActiveTabContext } from './ActiveTabContext';
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -39,7 +40,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const { user, isAuthenticated, isLoadingApp } = useAppSelector(
     state => state.auth,
   );
-
+  const { setActiveTab, activeTab } = useContext(ActiveTabContext);
   const signIn = async (usr: UserType) => {
     dispatch(signInStart());
     try {
@@ -58,8 +59,9 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const signOutUser = async () => {
     await AsyncStorage.clear();
+    setActiveTab('Feed')
     dispatch(signOut());
-    navigation.navigate('TabsNavigation');
+    navigation.navigate('MainStackt', { screen: 'Feed' })
   };
 
   useEffect(() => {
@@ -78,11 +80,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }
   }, [user, expoPushToken]);
 
-  // useEffect(() => {
-  //   if (!isLoadingApp && isAuthenticated && !user?.onboarding) {
-  //    dispatch(openOnboardingModal())
-  //   }
-  // }, [user]);
+
 
   return (
     <AuthContext.Provider

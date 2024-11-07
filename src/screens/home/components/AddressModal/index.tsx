@@ -1,27 +1,19 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import {
-  ButtonIcons,
-  FlexContainer,
-  Icons,
-  Typography,
-} from '../../../../components/custom';
-import { PlusSignIcon } from '../../../../constants/IconsPro';
-import { responsiveFontSize, SIZES } from '../../../../constants/theme';
-import { useAPI } from '../../../../hooks';
 import { getMyLocations } from '../../../../services/orders';
 import Main from './Main';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
+const QUERY_KEY = 'get-My-Locations';
 const AddressModal = (props: Props) => {
   const {
     data,
     isLoading: Loading,
     isFetching,
     isRefetching,
-  } = useAPI({
-    queryKey: ['get-My-Locations'],
+  } = useQuery({
+    queryKey: [QUERY_KEY],
     queryFn: getMyLocations,
   });
 

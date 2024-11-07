@@ -1,7 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
-  CardUserSkeleton,
   FlexContainer,
   IsLoading,
   ScreenEmpty,
@@ -59,7 +58,7 @@ const Layout = ({
   const renderItem = useCallback(
     ({ item }: { item: PropsFollower }) => {
       return (
-        <Suspense fallback={<CardUserSkeleton />}>
+        <Suspense fallback={<IsLoading />}>
           <Follow
             key={item.userID}
             userID={item.userID}

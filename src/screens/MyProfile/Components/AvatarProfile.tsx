@@ -12,10 +12,11 @@ type Props = {
     avatar?: string;
   };
   refetch: any;
+  Upload?: boolean;
 };
 
 const AvatarProfile = (props: Props) => {
-  const { data, refetch } = props;
+  const { data, refetch , Upload = true} = props;
   const [loadCount, setLoadCount] = useState(0);
   const [avatarLoader, setAvatarLoader] = useState(false);
   const [imageAvatar, setImageAvatar] = useState<string | null>(null);
@@ -39,7 +40,7 @@ const AvatarProfile = (props: Props) => {
       <Avatars
         source={`${CLOUDFRONT}${data?.avatar}`}
         size="xxLarge"
-        Upload={true}
+        Upload={Upload}
         onPress={updateAvatar}
         label={i18next.t('Upload Image..')}
         IsLoading={avatarLoader}

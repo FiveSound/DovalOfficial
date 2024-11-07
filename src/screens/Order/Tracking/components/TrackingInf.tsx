@@ -31,7 +31,6 @@ const TrackingInf = (props: Props) => {
     queryFn: getRiderDetailsService,
     enabled: riderID ? true : false,
   });
-
   const translateYAnim = useRef(new Animated.Value(50)).current;
 
   useEffect(() => {
@@ -47,11 +46,12 @@ const TrackingInf = (props: Props) => {
     const {
       rider_waiting,
       riderID,
-      locationDetails,
+      details,
       business_name,
       products_length,
       total,
       verification_code,
+      products,
     } = data;
 
     if (verification_code !== null) {
@@ -80,7 +80,7 @@ const TrackingInf = (props: Props) => {
                       height={SIZES.icons * 1.2}
                     />
                   }
-                  title={i18next.t('Confirm order PIN')}
+                  title={`Confirm order PIN: ${verification_code}`}
                   description={i18next.t('Confirm your order to avoid fraud')}
                   showArrow={true}
                   showLineDivider={true}
@@ -122,7 +122,7 @@ const TrackingInf = (props: Props) => {
                   />
                 }
                 title={i18next.t('You receive it in')}
-                description={locationDetails || ''}
+                description={details}
                 showArrow={true}
                 showLineDivider={true}
               />
@@ -139,7 +139,7 @@ const TrackingInf = (props: Props) => {
                     color={Title}
                   />
                 }
-                title={business_name || ''}
+                title={products[0].name}
                 description={
                   `${products_length || 0} ${i18next.t('Products')} | $${total}` ||
                   '0 Products'

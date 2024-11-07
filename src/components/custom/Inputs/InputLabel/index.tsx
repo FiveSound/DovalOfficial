@@ -50,6 +50,7 @@ type Props = {
   onSize?: boolean;
   orientation?: 'Up' | 'Down';
   returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
+  ShowDivider?: boolean;
 };
 
 const InputLabel = (props: Props) => {
@@ -78,6 +79,7 @@ const InputLabel = (props: Props) => {
     orientation = 'Up',
     returnKeyType,
     testID,
+    ShowDivider = true,
   } = props;
   const { Description, Title, borderInput } = useTheme();
   const [height, setHeight] = useState(SIZES.InputsHeight);
@@ -134,13 +136,15 @@ const InputLabel = (props: Props) => {
         onContentSizeChange={handleContentSizeChange}
         returnKeyType={returnKeyType}
       />
-      <LineDivider
-        lineStyle={{
-          ...lineStyle,
-          backgroundColor: isFocused ? COLORS.success : borderInput,
-          marginTop: SIZES.gapSmall,
-        }}
-      />
+      {ShowDivider && (
+        <LineDivider
+          lineStyle={{
+            ...lineStyle,
+            backgroundColor: isFocused ? COLORS.success : borderInput,
+            marginTop: SIZES.gapSmall,
+          }}
+        />
+      )}
       {orientation === 'Down' && (
         <FlexContainer variant="row" newStyle={styles.row}>
           <FlexContainer variant="row" newStyle={styles.innerRow}>

@@ -48,11 +48,11 @@ const UploadSource = ({ setValue }: Props) => {
     }
   };
 
-  useEffect(() => {
-    if (thumbnailURLs) {
-      setValue('imgIdentification', thumbnailURLs, { shouldDirty: true });
-    }
-  }, [thumbnailURLs, setValue]);
+  // useEffect(() => {
+  //   if (thumbnailURLs) {
+  //     setValue('imgIdentification', thumbnailURLs, { shouldDirty: true });
+  //   }
+  // }, [thumbnailURLs, setValue]);
 
   return (
         <FlexContainer>

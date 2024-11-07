@@ -30,6 +30,7 @@ const VideoPreview = React.memo(
       },
     ).current;
 
+    console.log(pickedMedia, 'pickedMedia');
     const renderItem = useCallback(
       ({ item }: { item: MediaItem }) => {
         const isVideo = item.type === 'video';
@@ -48,7 +49,7 @@ const VideoPreview = React.memo(
               <Image
                 key={item.id}
                 contentFit="cover"
-                style={[styles.media, { borderColor: '' }]}
+                style={styles.media}
                 placeholderSource={item.uri}
               />
             )}
@@ -58,9 +59,7 @@ const VideoPreview = React.memo(
       [pickedMedia],
     );
 
-    if (pickedMedia.length === 0) return null;
-
-    if (pickedMedia.length > 1) {
+    if (pickedMedia.length >= 1) {
       return (
         <>
           <View style={styles.main}>
@@ -85,7 +84,7 @@ const VideoPreview = React.memo(
               />
             )}
           </View>
-          {ShowDivider && <LineDivider lineStyle={styles.lineDivider} />}
+          {/* {ShowDivider && <LineDivider lineStyle={styles.lineDivider} />} */}
         </>
       );
     }

@@ -48,7 +48,7 @@ const CardBusiness = ({
   const navigation = useNavigation();
   const handleNavigation = useCallback(() => {
     if (item) {
-      navigation.navigate('Business', { id: businessID });
+      navigation.navigate('MainStackt', { screen: 'Business', params: { id: businessID } });
     }
   }, [navigation]);
 

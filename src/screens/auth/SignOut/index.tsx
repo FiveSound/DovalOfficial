@@ -5,8 +5,6 @@ import { ArrowRight01Icon, Logout04Icon } from '../../../constants/IconsPro';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, SIZES } from '../../../constants/theme';
 import { Typography } from '../../../components/custom';
-import { useAppDispatch } from '../../../redux';
-import { signOut } from '../../../redux/slides/authSlice';
 import { useQueryClient } from '@tanstack/react-query';
 
 type Props = {};
@@ -16,11 +14,9 @@ const SignOut = (props: Props) => {
   const { signOut: signOutAuth } = useAuth();
   const queryClient = useQueryClient();
 
-  const dispatch = useAppDispatch();
   const handleSignOut = () => {
     queryClient.resetQueries()
     signOutAuth();
-    dispatch(signOut());
   };
   return (
     <>

@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
   useMemo,
+  useContext,
 } from 'react';
 import {
   GalleryLayout,
@@ -24,14 +25,23 @@ import { Alert, Linking } from 'react-native';
 import i18next from '../../Translate';
 import { MediaItem } from './Components/MediaList';
 import Signup from '../auth/Signup';
-import { ScreenEmpty } from '../../components/custom';
+import { Container, ScreenEmpty } from '../../components/custom';
 import { COLORS, SIZES } from '../../constants/theme';
 import { Ilustrations } from '../../constants';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 const LazyCard = lazy(
   () => import('../../components/custom/Cards/CardGallery'),
 );
 
 const Upload = () => {
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
   const isFetching = useRef(false);
   const [videoKey, setVideoKey] = useState<number>(0);
   const { user } = useAuth();
@@ -203,20 +213,20 @@ const Upload = () => {
   }
 
   return (
-    <GalleryLayout>
-      <GalleryControls label="Continuar" pickedMedia={pickedMedia} />
-      <VideoPreview pickedMedia={pickedMedia} />
-      <PickerComponent
+    <Container>
+        <PickerComponent
         value={selectedAlbumId}
         onValueChange={handleAlbumChange}
         items={albums}
       />
+      <GalleryControls label={i18next.t('Continue')} pickedMedia={pickedMedia} />
+      <VideoPreview pickedMedia={pickedMedia} />
       <MediaList
         media={media}
         onEndReached={handleEndReached}
         renderItem={renderItem}
       />
-    </GalleryLayout>
+    </Container>
   );
 };
 

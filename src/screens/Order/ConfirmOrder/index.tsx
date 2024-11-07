@@ -14,6 +14,7 @@ interface Props {
 }
 const ConfirmOrder = ({ route }: Props) => {
   const { orderID } = route.params;
+  
   const { Title } = useTheme();
   const navigation = useNavigation();
   const [counter, setCounter] = useState(3);

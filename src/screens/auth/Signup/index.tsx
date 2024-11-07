@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   AuthLayout,
   ButtonIcons,
@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux';
 import { RootState } from '../../../redux/store';
 
 const Signup = () => {
+
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const { location } = useAppSelector((state: RootState) => state.location);
@@ -98,6 +99,8 @@ const Signup = () => {
 export const styles = StyleSheet.create({
   container: {
     gap: SIZES.gapLarge,
+    borderBottomLeftRadius: SIZES.gapLarge,
+    borderBottomRightRadius: SIZES.gapLarge,
   },
   text: {
     textAlign: 'center',

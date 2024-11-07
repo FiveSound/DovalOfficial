@@ -22,7 +22,7 @@ export interface BusinessRegistrationForm {
   uri: string;
   type: string;
   size: number;
-  schedules: any;
+  schedule: any;
   OurRiders: boolean;
   idSchedule: number;
   days: string[];
@@ -33,11 +33,8 @@ export interface BusinessRegistrationForm {
   role: string;
   email: string;
   phone_number: string;
-  imgIdentification: string;
   commercial_registry: Document | null;
   tax_certificate: Document | null;
-  legal_representative_id: Document | null;
-  business_address_proof: Document | null;
   bank_details: string;
   account_currency: 'DOP' | 'USD';
   account_type: 'Checking' | 'Savings';

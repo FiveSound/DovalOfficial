@@ -6,6 +6,7 @@ interface UploadProgressCallback {
   (progress: number): void;
 }
 
+
 export const uploadImageService = async (
   file: any,
   response_id: string,
