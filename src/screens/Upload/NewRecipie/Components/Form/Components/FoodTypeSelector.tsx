@@ -19,7 +19,7 @@ interface Props {
 }
 
 const FoodTypeSelector: React.FC<Props> = ({ foodTypes, navigation }) => {
-  const { Description } = useTheme();
+  const { Description, backgroundMaingrey } = useTheme();
   const isAtLeastOneSelected = foodTypes.data?.list.some(
     (item: any) => item.selected,
   );
@@ -61,7 +61,12 @@ const FoodTypeSelector: React.FC<Props> = ({ foodTypes, navigation }) => {
                           {row.name}
                         </Typography>
                       }
-                      styles={styles.icon}
+                      styles={[
+                        styles.icon,
+                        {
+                          backgroundColor: backgroundMaingrey,
+                        },
+                      ]}
                     />
                   ),
               )}

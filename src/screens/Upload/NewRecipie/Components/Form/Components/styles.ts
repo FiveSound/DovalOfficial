@@ -17,11 +17,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: responsiveFontSize(10),
   },
   icon: {
-    backgroundColor: COLORS.primary,
     justifyContent: 'center',
     alignItems: 'center',
     height: SIZES.BtnHeight / 1.4,
     padding: SIZES.gapSmall,
+    paddingHorizontal: SIZES.gapMedium,
+    borderRadius: SIZES.radius,
   },
   text: {
     color: COLORS.dark,

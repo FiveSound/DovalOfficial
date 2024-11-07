@@ -13,11 +13,14 @@ interface OrderHeaderProps {
 
 const OrderHeader: React.FC<OrderHeaderProps> = ({ orderId, status }) => {
   return (
+   <>
     <View style={[styles.group, styles.headerGroup]}>
       <Typography variant='H4title' newStyle={styles.orderLabel}>Order: #</Typography>
       <Typography variant='H4title' newStyle={styles.orderId}>{orderId}</Typography>
-    <OrderStatus status={status as OrderStatusType} />
     </View>
+        <OrderStatus status={status as OrderStatusType} />
+    </>
+
   );
 };
 
@@ -30,11 +33,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   orderLabel: {
-    ...FONTS.heading24
+    ...FONTS.semi18
   },
   orderId: {
     color: '#FF5500',
-    ...FONTS.heading24
+    ...FONTS.semi18
   },
 });
 

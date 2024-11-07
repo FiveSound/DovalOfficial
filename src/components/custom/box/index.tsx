@@ -34,7 +34,7 @@ const Box = ({ children, title, variant }: BoxProps) => {
           </FlexContainer>
         )}
       </FlexContainer>
-      <LineDivider lineStyle={styles.line} />
+      <LineDivider variant='secondary' />
     </>
   );
 };
@@ -50,9 +50,6 @@ const createStyles = (variant: boolean) => {
     box: {
       padding: SIZES.gapMedium,
       borderRadius: SIZES.radius,
-    },
-    line: {
-      height: SIZES.gapSmall,
     },
   });
 };

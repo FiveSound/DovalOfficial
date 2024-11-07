@@ -6,7 +6,6 @@ import {
   Typography,
 } from '../../../../components/custom';
 import { SIZES } from '../../../../constants/theme';
-import { formatPrice } from '../../../../utils/format';
 import i18next from '../../../../Translate';
 
 type Props = {
@@ -28,14 +27,14 @@ const ResumeOrderList = ({ details }: Props) => {
     <Box title={i18next.t('Resume Order list')}>
       <TypographyOrders
         label={i18next.t('Estimated Time')}
-        sublabel={duration}
+        sublabel={duration || 0}
       />
-      <TypographyOrders label={i18next.t('Service')} sublabel={service} />
-      <TypographyOrders label={i18next.t('Delivery')} sublabel={delivery} />
-      <TypographyOrders label={i18next.t('Products')} sublabel={products} />
-      <TypographyOrders label={i18next.t('Discount')} sublabel={discount} />
+      <TypographyOrders label={i18next.t('Service')} sublabel={service || 0} />
+      <TypographyOrders label={i18next.t('Delivery')} sublabel={delivery || 0} />
+      <TypographyOrders label={i18next.t('Products')} sublabel={products || 0} />
+      <TypographyOrders label={i18next.t('Discount')} sublabel={discount || 0} />
       <LineDivider />
-      <TypographyOrders label={i18next.t('Total')} sublabel={total} />
+      <TypographyOrders label={i18next.t('Total')} sublabel={total || 0} />
     </Box>
   );
 };

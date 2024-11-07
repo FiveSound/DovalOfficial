@@ -76,7 +76,10 @@ const SlideCard = ({ row, onSelected }: Props) => {
           activeColor={Title}
           inactiveColor={border}
         />
-        <Buttons label="Choose payment method" onPress={() => {}} />
+        <Buttons
+          label="Choose payment method"
+          onPress={() => onSelected?.(row[currentVisibleIndex].id)}
+        />
       </FlexContainer>
     </View>
   );

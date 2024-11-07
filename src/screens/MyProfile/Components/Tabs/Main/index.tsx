@@ -20,10 +20,7 @@ import {
   useNavigation,
 } from '../../../../../components/native';
 import styles from '../styles';
-import { ListRenderItem } from '@shopify/flash-list';
-import { PostsList } from './Components';
-const LazyCardPosts = lazy(
-  () => import('../../../../../components/custom/Cards/Posts'),
+const MasonryList = lazy(() => import('../../../../../components/custom/MasonryUsers'),
 );
 
 const Main = (props: any) => {
@@ -39,40 +36,19 @@ const Main = (props: any) => {
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);
   const navigation = useNavigation();
 
-  const renderItem: ListRenderItem<any> = useCallback(
-    ({ item, index }) => {
-      return (
-        <Suspense fallback={<IsLoading />}>
-          <FlexContainer newStyle={styles.grid}>
-            <LazyCardPosts
-              row={item}
-              posterHeight={responsiveFontSize(172)}
-              posterWidth={SIZES.width / 3.06}
-              onPress={() => console.log('item')}
-            />
-          </FlexContainer>
-        </Suspense>
-      );
-    },
-    [data, navigation],
-  );
-
-  const estimatedItemSize = useMemo(() => {
-    return 158;
-  }, []);
-
   if (isLoading) {
     return <LoadingScreen />;
   } else if (data.length > 0) {
     return (
       <FlexContainer newStyle={styles.containerGrid}>
-        <PostsList
-          data={data}
-          renderItem={renderItem}
-          isRefreshing={isRefreshing}
+        <Suspense fallback={<IsLoading />}>
+          <MasonryList 
+          pins={data} 
+          refreshing={isRefreshing} 
           onRefresh={onRefresh}
-          estimatedItemSize={estimatedItemSize}
-        />
+          loading={isLoading} 
+           />
+        </Suspense>
       </FlexContainer>
     );
   } else {

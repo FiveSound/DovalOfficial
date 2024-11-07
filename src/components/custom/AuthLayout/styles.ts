@@ -3,11 +3,9 @@ import { SIZES, COLORS, responsiveFontSize } from '../../../constants/theme';
 
 export default StyleSheet.create({
   container: {
-    width: SIZES.width,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.primary,
-    zIndex: 0,
+    
   },
   keyboardAvoidingView: {
     width: SIZES.width,
@@ -22,7 +20,14 @@ export default StyleSheet.create({
     height: SIZES.height / 3,
   },
   logo: {
-    width: responsiveFontSize(120),
-    height: responsiveFontSize(120),
+    width: responsiveFontSize(140),
+    height: responsiveFontSize(140),
+  },
+  row: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: SIZES.gapMedium,
+    gap: SIZES.gapMedium,
+    paddingHorizontal: SIZES.gapLarge
   },
 });

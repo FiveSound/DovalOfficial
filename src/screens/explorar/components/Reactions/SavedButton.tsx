@@ -4,9 +4,8 @@ import {
   handleSavedService,
 } from '../../../../services/reactions';
 import { useAuth } from '../../../../context/AuthContext';
-import useAPI from '../../../../hooks/useAPI';
 import { COLORS, SIZES } from '../../../../constants/theme';
-import { Bookmark02Icon } from '../../../../constants/IconsPro';
+import { Bookmark02Icon, BookmarkAdd02IconStroke } from '../../../../constants/IconsPro';
 import { formatMilesAndMillions } from '../../../../utils/format';
 import * as Haptics from 'expo-haptics';
 import styles from './styles';
@@ -18,6 +17,7 @@ import {
   setSavedCount,
 } from '../../../../redux/slides/reactionsSlice';
 import { LoginAlert } from '../../../../components/custom';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   postID: number;
@@ -36,7 +36,7 @@ const SavedButton: React.FC<Props> = memo(({ postID }) => {
   const [visible, setVisible] = useState(false);
   const [notification, setNotification] = useState(false);
 
-  const { data, isLoading, isFetching } = useAPI({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: [
       `saved-post-id-${postID}`,
       JSON.stringify({ postID, userID: user?.userID }),
@@ -92,8 +92,8 @@ const SavedButton: React.FC<Props> = memo(({ postID }) => {
       style={styles.container}
     >
       <Bookmark02Icon
-        width={SIZES.icons * 1.2}
-        height={SIZES.icons * 1.2}
+        width={SIZES.icons}
+        height={SIZES.icons}
         color={saved ? COLORS.primary : COLORS.TranspLight}
       />
       <Text style={styles.label}>{formatMilesAndMillions(length)}</Text>

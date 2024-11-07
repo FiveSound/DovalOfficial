@@ -13,6 +13,10 @@ import { CLOUDFRONT } from '../../../../services';
 import InfoCard from '../InfoCard';
 import Avatars from '../../Avatars';
 import CoverProducts from './CoverProducts';
+import { useAppSelector } from '../../../../redux';
+import { RootState } from '../../../../redux/store';
+import { VerifyIcons } from '../../../../constants/IconsPro';
+import i18next from '../../../../Translate';
 
 interface Cover {
   key: string;
@@ -34,13 +38,14 @@ type Props = {
 const ProductCard: React.FC<Props> = React.memo(({ product }) => {
   const navigation = useNavigation();
   const coverBusiness = `${CLOUDFRONT}${product.business_cover}`;
+  const { businessVerified } = useAppSelector((state: RootState) => state.auth);
 
   return (
     <FlexContainer newStyle={styles.container}>
       <CoverProducts row={product.cover} />
       <InfoCard
-        title={product?.business_name || 'business name'}
-        description="Business verification"
+        title={product?.business_name || i18next.t('business name')}
+        description={businessVerified ? i18next.t('This is a verified business') : ''}
         showArrow={true}
         showLineDivider={true}
         containerStyle={styles.containerInfoCard}
@@ -48,6 +53,11 @@ const ProductCard: React.FC<Props> = React.memo(({ product }) => {
         icon={<Avatars source={coverBusiness} size="medium" />}
         onPress={() => navigation.navigate('Business', { id: product.userID })}
         lineStyle={styles.lineDivider}
+        AppTitle={
+          businessVerified ? (
+            <VerifyIcons width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
+          ) : null
+        }
       />
       <FlexContainer newStyle={styles.containerheaders}>
         <FlexContainer newStyle={styles.containerheader}>

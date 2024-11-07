@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { getProfileUserByUsernameService } from '../../services/accounts';
 import { useAuth } from '../../context/AuthContext';
-import { useAPI, useTheme } from '../../hooks';
+import { useTheme } from '../../hooks';
 import { LoadingScreen, Typography } from '../../components/custom';
 import { useNavigation } from '../../components/native';
 import {
@@ -20,6 +20,8 @@ import {
   CtoUserProfile,
 } from './Components';
 import i18next from '../../Translate';
+import { useQuery } from '@tanstack/react-query';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 interface RouteParams {
   username: string;
@@ -35,10 +37,19 @@ const UserProfile = (props: Props) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const { data, isError, isLoading, isFetching, isRefetching, refetch } =
-    useAPI({
-      queryKey: ['getProfileUserByUsernameService', username],
+    useQuery({
+      queryKey: ['getProfileUserByUsernameService-useQuery', username],
       queryFn: getProfileUserByUsernameService,
     });
+
+    const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+    useEffect(() => {
+      setTabBarVisible(false);
+  
+      return () => {
+        setTabBarVisible(true);
+      };
+    }, [setTabBarVisible]);
 
   useEffect(() => {
     if (refreshing) {
@@ -68,9 +79,8 @@ const UserProfile = (props: Props) => {
 
   return (
     <LayoutProfile data={data} isRefreshing={refreshing} onRefresh={refetch}>
-      <AvatarProfile data={data} refetch={refetch} />
+      <AvatarProfile data={data} refetch={refetch} Upload={false} />
       <Inf data={data} />
-      <CtoUserProfile data={data} />
       <Follows
         data={data}
         onPressFollowing={() =>
@@ -86,15 +96,8 @@ const UserProfile = (props: Props) => {
           })
         }
       />
-
-      <TabsMyProfile
-        MyPosts={
-          <MyPosts username={username}/>
-        }
-        Myshares={<MyShares username={username} />}
-        MySaves={<MySaves username={username} />}
-        MyMenu={<MyMenu businessID={businessID} />}
-      />
+      <CtoUserProfile data={data} />
+      <MyPosts username={username} />
     </LayoutProfile>
   );
 };

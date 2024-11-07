@@ -2,14 +2,18 @@
   "expo": {
     "name": "doval",
     "slug": "doval",
-    "scheme": "doval",
-    "version": "1.6.3",
+    "scheme": [
+      "doval",
+      "fb703314045273320"
+    ],
+    "version": "1.6.7",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
+    "icon": "./assets/splash.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain"
+      "resizeMode": "contain",
+      "backgroundColor": "#FF5500"
     },
     "ios": {
       "supportsTablet": true,
@@ -28,7 +32,7 @@
     "android": {
       "package": "com.doval.doval",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png"
+        "foregroundImage": "./assets/splash.png"
       },
       "config": {
         "googleMaps": {
@@ -37,7 +41,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/splash.png"
     },
     "extra": {
       "eas": {

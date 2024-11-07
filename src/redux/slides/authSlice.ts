@@ -82,21 +82,21 @@ export const loadUser = createAsyncThunk<
   async (_, thunkAPI) => {
     try {
       const data = await initialStateService();
-      console.log('initialStateService data:', data);
+      // console.log('initialStateService data:', data);
 
       if (data && data.token) {
         const { token, ...user } = data;
-        console.log('Destructured user:', user);
+        // console.log('Destructured user:', user);
 
         // Validar que `userID` existe
         if (!user.userID) {
-          console.log('loadUser: userID es undefined en los datos del usuario');
+          // console.log('loadUser: userID es undefined en los datos del usuario');
           return thunkAPI.rejectWithValue('Detalles del usuario incompletos');
         }
 
         await AsyncStorage.setItem('user', JSON.stringify(user));
         await AsyncStorage.setItem('userToken', token);
-        console.log('loadUser from initialStateService successful:', { token, user });
+        // console.log('loadUser from initialStateService successful:', { token, user });
         return { success: true, token, user: user as UserType };
       } else {
         const token = await AsyncStorage.getItem('userToken');
@@ -104,7 +104,7 @@ export const loadUser = createAsyncThunk<
 
         if (token && userData) {
           const user: UserType = JSON.parse(userData);
-          console.log('loadUser successful from AsyncStorage:', { token, user });
+          // console.log('loadUser successful from AsyncStorage:', { token, user });
           return { success: true, token, user };
         } else {
           return thunkAPI.rejectWithValue('No hay detalles del usuario');
@@ -131,15 +131,15 @@ export const verifyCode = createAsyncThunk<
       if (response.success && response.token) {
         // Guardar el token en AsyncStorage
         await AsyncStorage.setItem('userToken', response.token);
-        console.log('Token guardado exitosamente:', response.token);
+        // console.log('Token guardado exitosamente:', response.token);
 
         // Llamar a initialStateService para obtener los datos del usuario
         const userData = await initialStateService();
-        console.log('Datos del usuario obtenidos:', userData);
+        // console.log('Datos del usuario obtenidos:', userData);
 
         if (userData && userData.userID) {
           await AsyncStorage.setItem('user', JSON.stringify(userData));
-          console.log('Datos del usuario guardados en AsyncStorage');
+          // console.log('Datos del usuario guardados en AsyncStorage');
 
           return {
             success: true,
@@ -147,7 +147,7 @@ export const verifyCode = createAsyncThunk<
             user: userData as UserType,
           };
         } else {
-          console.log('Datos del usuario incompletos en initialStateService');
+          // console.log('Datos del usuario incompletos en initialStateService');
           return thunkAPI.rejectWithValue('Detalles del usuario incompletos');
         }
       } else {
@@ -199,20 +199,20 @@ export const login = createAsyncThunk<
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await signInEmailAndPasswordService(email, password);
-      console.log('login response:', response);
+      // console.log('login response:', response);
       
       if (response.success && response.token) {
         // Guardar solo el token en AsyncStorage
         await AsyncStorage.setItem('userToken', response.token);
-        console.log('Token guardado exitosamente:', response.token);
+        // console.log('Token guardado exitosamente:', response.token);
         
         // Llamar a initialStateService para obtener los datos del usuario
         const userData = await initialStateService();
-        console.log('Datos del usuario obtenidos:', userData);
+        // console.log('Datos del usuario obtenidos:', userData);
         
         if (userData && userData.userID) {
           await AsyncStorage.setItem('user', JSON.stringify(userData));
-          console.log('Datos del usuario guardados en AsyncStorage');
+          // console.log('Datos del usuario guardados en AsyncStorage');
           
           return {
             success: true,
@@ -220,7 +220,7 @@ export const login = createAsyncThunk<
             user: userData as UserType,
           };
         } else {
-          console.log('loadUser: Datos del usuario incompletos en initialStateService');
+          // console.log('loadUser: Datos del usuario incompletos en initialStateService');
           return thunkAPI.rejectWithValue('Detalles del usuario incompletos');
         }
       } else {

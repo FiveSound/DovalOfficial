@@ -69,6 +69,18 @@ export const searchLocationsService = async ({ queryKey }: QueryKeyType) => {
     return [];
   }
 };
+export const searchLocationByPlaceIDOrder = async ({ queryKey }: QueryKeyType) => {
+  try {
+    const placeID = queryKey[1];
+    const respnse = await axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?place_id=${placeID}&key=${KeyApi.GoogleMapApi}`
+    );
+    return respnse.data;
+  } catch (error) {
+    return {};
+  }
+};
+
 export const searchLocationByPlaceID = async ({
   queryKey,
 }: QueryKeyType): Promise<BusinessAddressType> => {
@@ -104,7 +116,7 @@ export const searchLocationByPlaceID = async ({
 
 export const addNewLocationService = async (body: object) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/orders/add-new-location`,
@@ -115,7 +127,7 @@ export const addNewLocationService = async (body: object) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -270,18 +282,21 @@ export const availableService = async () => {
   }
 };
 
-export const verificateOrderService = async () => {
+export const verificateOrderService = async (cartID: number | undefined, couponID: number | undefined) => {
+  
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
-
+    const userToken = await AsyncStorage.getItem("userToken");
     const response = await axios.post(
       `${API_URL}/api/orders/resume`,
-      {},
+      {
+        cartID,
+        couponID,
+      },
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -376,4 +391,36 @@ export const fetchAllEventsService = async (): Promise<EventType[]> => {
     console.error('Error en fetchAllEventsService:', error);
     return [];
   }
+};
+
+export const getAvailableCouponsService = async () => {
+  const userToken = await AsyncStorage.getItem("userToken");
+
+  const response = await axios.post(
+    `${API_URL}/api/coupons`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const getCouponIDService = async (id: number) => {
+  const userToken = await AsyncStorage.getItem("userToken");
+
+  const response = await axios.post(
+    `${API_URL}/api/coupons/id`,
+    { id },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    }
+  );
+
+  return response.data;
 };

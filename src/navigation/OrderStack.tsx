@@ -9,6 +9,8 @@ import AddCard from '../screens/Order/Checkout/AddCard';
 import ConfirmOrder from '../screens/Order/ConfirmOrder';
 import Complete from '../screens/Order/Complete';
 import Cancel from '../screens/Order/Cancel';
+import Coupons from '../screens/Order/Checkout/Coupons';
+import MainStackt from './MainStackt';
 
 const Stack = createNativeStackNavigator();
 const OrderStack = () => {
@@ -26,6 +28,8 @@ const OrderStack = () => {
       <Stack.Screen name="ConfirmOrder" component={ConfirmOrder} />
       <Stack.Screen name="Complete" component={Complete} />
       <Stack.Screen name="Cancel" component={Cancel} />
+      <Stack.Screen name="Coupons" component={Coupons} />
+      <Stack.Screen name='MainStackt' component={MainStackt} />
     </Stack.Navigator>
   );
 };

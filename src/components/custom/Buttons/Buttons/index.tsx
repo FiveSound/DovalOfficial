@@ -72,7 +72,7 @@ const Buttons = (props: Props) => {
       case 'secondary':
         return COLORS.dark;
       case 'disabled':
-        return COLORS.Description;
+        return Description;
       default:
         return COLORS.dark;
     }

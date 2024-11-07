@@ -58,11 +58,11 @@ const PaymentMethodList = (props: Props) => {
             />
           </FlexContainer>
           <LineDivider />
-          <ButtonAcces
+          {/* <ButtonAcces
             label={i18next.t('Add Coupons')}
             ShowLineDivider={false}
-            onPress={() => console.log('Add Coupons')}
-          />
+            onPress={() => navigation.navigate('Coupons')}
+          /> */}
         </FlexContainer>
       )}
     </Box>

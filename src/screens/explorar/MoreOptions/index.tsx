@@ -9,7 +9,8 @@ type Props = {
 const MoreOptions: React.FC<Props> = ({ postID }: Props) => {
   return (
     <Layout>
-      <SenderGrid />
+      {/* <SenderGrid /> */}
+      <></>
     </Layout>
   );
 };

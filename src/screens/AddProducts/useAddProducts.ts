@@ -42,7 +42,6 @@ export const useAddProducts = () => {
   const [limites, setLimites] = useState<{ [key: number]: boolean }>({});
   const [isFormValid, setIsFormValid] = useState(false);
   const { recipeID } = useSelector((state: RootState) => state.navigation);
-  console.log('recipeID en recibiodo', recipeID);
 
   const total = useQuery({
     queryKey: [QueryKey, recipeID, JSON.stringify(subVariants), qty],
@@ -50,14 +49,11 @@ export const useAddProducts = () => {
     enabled: !!recipeID,
   });
 
-  console.log('recipeID en total', total);
-
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: [QueryKeyData, recipeID],
     queryFn: getRecipeVariantsService,
     enabled: !!recipeID,
   });
-  console.log('recipeID en data', data);
 
   const { isRefreshing, onRefresh } = useRefreshData([refetch]);
 

@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     paddingVertical: SIZES.gapLarge,
     borderRadius: SIZES.radius,
     gap: SIZES.gapSmall,
+    justifyContent: 'space-between',
   },
   variantHeader: {
     marginBottom: SIZES.gapSmall,

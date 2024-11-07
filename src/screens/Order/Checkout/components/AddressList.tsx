@@ -35,18 +35,18 @@ const AddressList = (props: Props) => {
   return (
     <Box title={i18next.t('Deliver to')}>
       <FlexContainer newStyle={styles.header}>
-        {location.details ? (
+        {location?.details ? (
           <FlexContainer newStyle={styles.container}>
-            <Typography variant="subtitle">{location.tag}</Typography>
+            <Typography variant="subtitle">{location?.tag}</Typography>
             <Typography
               numberOfLines={2}
               newStyle={styles.text}
               variant="SubDescription"
             >
-              {location.details}
+              {location?.details}
             </Typography>
             <LineDivider />
-            <Icons
+            {/* <Icons
               styles={styles.icons}
               appendIcons={
                 <FlexContainer variant="row" newStyle={styles.containerIcons}>
@@ -58,7 +58,7 @@ const AddressList = (props: Props) => {
                   <Typography variant="H4title">{details.duration}</Typography>
                 </FlexContainer>
               }
-            />
+            /> */}
           </FlexContainer>
         ) : (
           <FlexContainer>

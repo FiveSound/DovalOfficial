@@ -3,13 +3,13 @@ import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { LocationObjectCoords } from 'expo-location';
 import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
-import mapStyle from './mapStyle';
 import {
   Home01Icon,
   Location08Icon,
   StoreLocation02Icon,
 } from '../../../constants/IconsPro';
-import { FlexContainer, Icons } from '../../../components/custom';
+import { CustomMarker, FlexContainer, Icons } from '../../../components/custom';
+import mapStyle from '../../../constants/mapStyle';
 
 interface PropsMapOrdenStatus {
   user: {
@@ -100,46 +100,46 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
       pitchEnabled={true}
       rotateEnabled={true}
     >
-      <Marker
-        coordinate={{
-          latitude: props.user.latitude,
-          longitude: props.user.longitude,
-        }}
-        children={
-          <FlexContainer newStyle={styles.containerIcons}>
+        {
+        props.user.latitude && props.user.longitude && (
+          <Marker
+            coordinate={{
+              latitude: props.user.latitude,
+              longitude: props.user.longitude,
+            }}
+          >
+            <CustomMarker>
             <Location08Icon
-              color={COLORS.primary}
+              color={COLORS.dark}
               width={SIZES.icons}
               height={SIZES.icons}
             />
-          </FlexContainer>
-        }
-      />
-      {props.rider && (
-        <Marker
-          coordinate={{
-            latitude: props.rider.latitude,
-            longitude: props.rider.longitude,
-          }}
-          children={<Home01Icon />}
-        />
-      )}
-
-      <Marker
-        coordinate={{
-          latitude: props.business.latitude,
-          longitude: props.business.longitude,
-        }}
-        children={
-          <FlexContainer newStyle={styles.containerIcons}>
+          </CustomMarker>
+          </Marker>
+        )
+      }
+      
+     
+      {
+        props.business.latitude && props.business.longitude && (
+          <Marker 
+            coordinate={{
+              latitude: props.business.latitude,
+              longitude: props.business.longitude,
+            }}
+          >
+            <CustomMarker>
             <StoreLocation02Icon
-              color={COLORS.primary}
+              color={COLORS.dark}
               width={SIZES.icons}
               height={SIZES.icons}
             />
-          </FlexContainer>
-        }
-      />
+          </CustomMarker>
+          </Marker>
+        )
+      }
+
+
 
       {/* {props.coords && (
         <Polyline

@@ -34,7 +34,7 @@ const Upload = (props: props) => {
         />
       ),
       showLineDivider: true,
-      navigation: 'NewPost',
+      navigation: 'NewPosts',
       show: true,
     },
     {

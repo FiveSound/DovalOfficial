@@ -1,5 +1,4 @@
-import React from 'react';
-import { useCart } from '../../../context/CartContext';
+import React, { useState } from 'react';
 import { verificateOrderService } from '../../../services/orders';
 import { Container, LoadingScreen } from '../../../components/custom';
 import { ScrollView, useNavigation } from '../../../components/native';
@@ -11,31 +10,62 @@ import {
 } from './components';
 import i18next from '../../../Translate';
 import { useQuery } from '@tanstack/react-query';
+import { useDashboard } from '../../../context/DashboardContext';
+import { SOCKET_ORDER_BUSINESS_NOTIFY } from '../../../constants/sockets';
+import { useAppDispatch, useAppSelector } from '../../../redux';
+import { setOrderID } from '../../../redux/slides/navigations';
+import { RootState } from '../../../redux/store';
 
 interface Props {
   route: {
     params: {
-      locationID: string;
-      paymentIntent: string;
+      cartID: number;
+      couponID: number
     };
   };
 }
-
+const QUERY_KEY = 'screen-checkout-orders-useQuery';
 const Checkout = ({ route }: Props) => {
-  const { createNewOrder, submitting } = useCart();
-  const { locationID, paymentIntent } = route.params;
+  const { socket } = useDashboard();
+  const {  couponID } = route.params;
+  const [submitting, setSubmitting] = useState(false);
   const navigation = useNavigation();
-
+  const dispatch = useAppDispatch();
+  const { cartID } = useAppSelector((state: RootState) => state.navigation);
   const { data, isError, isLoading, isFetching, isRefetching } = useQuery({
-    queryKey: ['screen-verificar-orders-useQuery', paymentIntent, locationID],
-    queryFn: verificateOrderService,
+    queryKey: [QUERY_KEY, route.params],
+    queryFn: async () => await verificateOrderService(cartID, couponID),
   });
 
-  if (isLoading || isFetching || isRefetching) return <LoadingScreen />;
+  console.log('data', data);
+  console.log('cartID', cartID);
+  console.log('couponID', couponID);
+
+  const onSubmit = async () => {
+    setSubmitting(true);
+    try {
+      const response = await socket?.emitWithAck(SOCKET_ORDER_BUSINESS_NOTIFY, {
+        cartID: cartID,
+        couponID: couponID,
+      });
+      console.log('response socket onSubmit', response);
+      if (!response.success) throw Error("Error create order!");
+      console.log({ response });
+      navigation.navigate('ConfirmOrder', { orderID: response.orderID });
+      dispatch(setOrderID(response.orderID));
+    } catch (error) {
+      console.error("An error occurred while creating the order:", error);
+      setSubmitting(false);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+
+  if (isLoading || isFetching || isRefetching || submitting) return <LoadingScreen label={!submitting ? i18next.t('Loading...') : i18next.t('Processing...')} />;
 
   if (data) {
     const { location, card, cart, available, details } = data;
-
     return (
       <Container
         label={i18next.t('Checkout')}
@@ -43,9 +73,9 @@ const Checkout = ({ route }: Props) => {
         showHeader={true}
         showFooter={true}
         labels={submitting ? i18next.t('Loading...') : i18next.t('Order Now')}
-        onPressButtons={createNewOrder}
+        onPressButtons={onSubmit}
         loading={submitting}
-        disabled={!available || submitting}
+        disabled={submitting}
       >
         <ScrollView>
           <AddressList location={location} details={details} />
@@ -55,7 +85,9 @@ const Checkout = ({ route }: Props) => {
         </ScrollView>
       </Container>
     );
-  }
+  } 
+
+  return null
 };
 
 export default Checkout;

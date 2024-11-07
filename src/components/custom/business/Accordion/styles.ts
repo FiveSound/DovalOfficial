@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: SIZES.gapMedium,
+    gap: SIZES.gapLarge,
   },
   business: {
     ...FONTS.semi18,
@@ -35,17 +35,16 @@ const styles = StyleSheet.create({
     transform: 'rotate(180deg)',
     width: SIZES.icons,
     height: SIZES.icons,
-    tintColor: '#FFF',
+
   },
   arrowUp: {
     width: SIZES.icons,
     height: SIZES.icons,
-    tintColor: '#FFF',
   },
   dropdown: {
     width: '100%',
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: responsiveFontSize(5),
+    paddingBottom: responsiveFontSize(5),
     borderRadius: SIZES.radius,
     marginTop: SIZES.radius,
     backgroundColor: 'transparent',
@@ -56,6 +55,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     opacity: 0,
+  },
+  checkbox: {
+    width: 0,
+    paddingHorizontal: 0,
+    marginRight: SIZES.gapLarge * 1.5,
   },
 });
 

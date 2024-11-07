@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, memo } from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useAuth } from '../../../../context/AuthContext';
-import useAPI from '../../../../hooks/useAPI';
 import {
   getSharePostService,
   sharingService,
@@ -18,6 +17,7 @@ import {
   setSharedCount,
 } from '../../../../redux/slides/reactionsSlice';
 import { LoginAlert } from '../../../../components/custom';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   postID: number;
@@ -36,7 +36,7 @@ const ShareButton = memo((props: Props) => {
   const [visible, setVisible] = useState(false);
   const [notification, setNotification] = useState(false);
 
-  const { data, isLoading, isFetching } = useAPI({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: [
       `share-post-id-${postID}`,
       JSON.stringify({ postID, userID: user?.userID }),

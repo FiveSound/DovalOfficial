@@ -25,6 +25,7 @@ import { validateEmail } from '../../../../utils/Utils';
 import { useAppDispatch, useAppSelector } from '../../../../redux';
 import { login } from '../../../../redux/slides/authSlice';
 import { RootState } from '../../../../redux/store';
+import { reloadApp } from '../../../../redux/slides/appSlice';
 
 const SignUpEmail = () => {
   const [state, setState] = useState({
@@ -100,16 +101,17 @@ const SignUpEmail = () => {
     }
   };
 
-  const handleLogin = () => {
-    // Despacha la thunk de login desde authSlice
-    dispatch(login({ email: state.email, password: state.password }));
-  };
- 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigation.goBack()
+  const handleLogin = async () => {
+    try {
+      const result = await dispatch(login({ email: state.email, password: state.password })).unwrap();
+      if (result.success) {
+        dispatch(reloadApp())
+      }
+    } catch (error) {
+      console.error('Error en el inicio de sesión:', error);
+      setState(prevState => ({ ...prevState, loginError: true, loginMessage: error }));
     }
-  }, [isAuthenticated, navigation]);
+  };
 
   if (state.screenLoading || loginLoading) {
     return <LoadingScreen />;

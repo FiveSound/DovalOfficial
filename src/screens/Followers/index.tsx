@@ -13,6 +13,8 @@ type Props = {
 
 const Followers = (props: Props) => {
   const { initialIndex, username } = props.route.params;
+  console.log('initialIndex', initialIndex);
+
   const { BackgroundMain } = useTheme();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: BackgroundMain }}>

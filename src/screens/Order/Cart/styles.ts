@@ -3,7 +3,7 @@ import { FONTS } from '../../../constants/theme';
 
 const styles = StyleSheet.create({
   labelpart1: {
-    ...FONTS.heading32,
+    ...FONTS.heading24,
   },
 });
 

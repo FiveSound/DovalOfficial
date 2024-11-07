@@ -37,10 +37,10 @@ const { backgroundMaingrey } = useTheme()
         <Typography variant='H4title'>{resume.delivery_costs}</Typography>
       </View> */}
 
-      <View style={[styles.group, styles.paymentRow]}>
+      {/* <View style={[styles.group, styles.paymentRow]}>
         <Typography variant='H4title'>Service</Typography>
         <Typography variant='H4title'>{resume.service_costs}</Typography>
-      </View>
+      </View> */}
 
       <View style={[styles.group, styles.paymentRow]}>
         <Typography variant='H4title'>Discount</Typography>

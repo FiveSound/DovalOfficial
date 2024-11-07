@@ -1,7 +1,6 @@
 import CardGallery from './CardGallery';
 import CardsPreview from './CardsPreview';
 import CardUsers from './CardUsers';
-import { CardUserSkeleton } from './CardUsers/CardUserSkeleton';
 import CardComments from './Comments';
 import InfoCard from './InfoCard';
 import MiniCard from './PaymentCard/MiniCard';
@@ -17,7 +16,6 @@ export {
   MiniCard,
   InfoCard,
   CardsPreview,
-  CardUserSkeleton,
   CardUsers,
   CardGallery,
 };

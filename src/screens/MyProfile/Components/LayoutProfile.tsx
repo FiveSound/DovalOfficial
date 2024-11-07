@@ -10,6 +10,8 @@ import styles from '../styles';
 import { useTheme } from '../../../hooks';
 import Heading from './Heading';
 import { useAuth } from '../../../context/AuthContext';
+import { RootState } from '../../../redux/store';
+import { useAppSelector } from '../../../redux';
 
 type Props = {
   children: ReactNode;
@@ -23,7 +25,7 @@ type Props = {
 };
 
 const LayoutProfile = (props: Props) => {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state: RootState) => state.auth);
   const { children, data, isRefreshing, onRefresh } = props;
   const { BackgroundMain } = useTheme();
   const navigation = useNavigation();
@@ -32,13 +34,13 @@ const LayoutProfile = (props: Props) => {
     <SafeAreaView
       style={[styles.container, { backgroundColor: BackgroundMain }]}
     >
-      {data.username !== data.username ? (
+      {data.username !== user?.username ? (
         <Heading
           username={data?.username || ''}
           verify={data?.verify || false}
-          action={data?.userID === data?.userID ? true : false}
+          action={data?.userID === user?.userID ? true : false}
           Arrowback={false}
-          ArrowbackNavigation={false}
+          ArrowbackNavigation={true}
           onPressMenu={() => console.log('press')}
         />
       ) : (
@@ -47,7 +49,7 @@ const LayoutProfile = (props: Props) => {
           verify={data?.verify === true ? true : false}
           action={data.username == user?.username ? true : false}
           Arrowback={data.username !== user?.username ? true : false}
-          ArrowbackNavigation={true}
+          ArrowbackNavigation={false}
           onPressMenu={() => navigation.navigate('SettingStack')}
         />
       )}

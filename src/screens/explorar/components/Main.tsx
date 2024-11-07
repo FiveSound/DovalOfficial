@@ -8,7 +8,7 @@ import LoaderMain from './LoaderMain';
 import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
 import SwipeUpIntro from '../SwipeUpIntro';
 import { FlexContainer } from '../../../components/custom';
-import { Heading } from './Bar';
+import { Heading } from '../../Feed/components/Bar';
 import {
   getTutorialStatus,
   setTutorialStatus,

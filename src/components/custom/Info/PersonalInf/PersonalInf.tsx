@@ -33,7 +33,7 @@ const PersonalInf = (props: props) => {
 
   return (
     <FlexContainer newStyle={styles.container}>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: SIZES.height / 10 }}>
         {row.map((item, index) => (
           <>
             <Typography
@@ -93,8 +93,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: SIZES.gapLarge,
     marginVertical: SIZES.gapMedium,
-    gap: SIZES.gapSmall,
-    padding: SIZES.gapSmall,
   },
   title: {
     marginBottom: SIZES.gapSmall,
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.gapSmall,
   },
   labelStyle: {
-    ...FONTS.semi16
+    ...FONTS.semi14
   },
 });
 

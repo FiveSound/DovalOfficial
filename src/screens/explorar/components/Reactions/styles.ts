@@ -8,9 +8,11 @@ import {
 
 const styles = StyleSheet.create({
   container: {
-    width: responsiveFontSize(44),
-    height: responsiveFontSize(44),
+    width: responsiveFontSize(34),
+    height: responsiveFontSize(34),
     alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: responsiveFontSize(50),
   },
   label: {
     ...FONTS.semi14,

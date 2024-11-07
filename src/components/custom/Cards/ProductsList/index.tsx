@@ -62,6 +62,12 @@ const OptionList: React.FC<Props> = React.memo(
       setExpanded(!expanded);
     };
 
+    useEffect(() => {
+      if (required === 1 && limites[variantID]) {
+        setExpanded(false);
+      }
+    }, [required, limites, variantID]);
+
     const animatedHeight = animation.interpolate({
       inputRange: [0, 1],
       outputRange: [0, contentHeight],
@@ -178,7 +184,7 @@ const OptionList: React.FC<Props> = React.memo(
                       <Typography variant="H4title" newStyle={styles.itemName}>
                         {parseFloat(item.price) > 0
                           ? `+$${item.price}`
-                          : 'Free'}
+                          : i18next.t('Free')}
                       </Typography>
                       <StaticCheckbox
                         checked={value.includes(item.id)}

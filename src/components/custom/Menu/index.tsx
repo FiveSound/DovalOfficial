@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import FlexContainer from '../FlexContainer';
 import { COLORS, FONTS, SIZES } from '../../../constants/theme';
 import { StyleSheet } from 'react-native';
 import Typography from '../Typography';
 import { useTheme } from '../../../hooks';
-import { TouchableOpacity } from '../../native';
+import { Pressable, TouchableOpacity } from '../../native';
 
 type Props = {
   focused: boolean;
@@ -15,7 +15,7 @@ type Props = {
   onPress?: () => void;
 };
 
-const MenuItems = (props: Props) => {
+const MenuItems = memo((props: Props) => {
   const { focused, label, focusedIcon, unfocusedIcon, isDrawer = false, onPress } = props;
   const { Description } = useTheme();
 
@@ -42,22 +42,22 @@ const MenuItems = (props: Props) => {
 
   if (!isDrawer) {
     return (
-      <FlexContainer newStyle={styles.iconContainer}>
+      <Pressable onPress={onPress} style={styles.iconContainer}>
         {focused ? focusedIcon : unfocusedIcon}
         <Typography
           variant="SubDescription"
           newStyle={{
             ...styles.iconText,
             color: focused ? COLORS.primary : Description,
-            ...(focused ? FONTS.semi14 : FONTS.text14),
+            ...(focused ? FONTS.semi14 : FONTS.semi14),
           }}
         >
           {label}
         </Typography>
-      </FlexContainer>
+      </Pressable>
     );
   }
-};
+});
 
 export const styles = StyleSheet.create({
   tabBarStyle: {

@@ -1,5 +1,5 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TabsNavigation from './TabsNavigation';
+import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Onboarding from '../screens/Onboarding';
 import Splash from '../screens/Splash';
 import UsePhoneEmail from '../screens/auth/UsePhoneEmail';
@@ -19,22 +19,45 @@ import Followers from '../screens/Followers';
 import ReportUsers from '../screens/Reports/ReportUsers';
 import Search from '../screens/Search';
 import NewRecipie from '../screens/Upload/NewRecipie';
-import OrderList from '../screens/home/components/body/LiveOrders/OrderList';
 import AlbumsPermission from '../screens/Permiss/Locations/Albums/AlbumsPermission';
 import UploadStack from './UploadStack';
 import OrderID from '../screens/Dashboard/screen/OrderID';
 import OnboardingVerified from '../screens/Dashboard/FormBusiness/OnboardingForm';
 import FormVerified from '../screens/Dashboard/FormBusiness';
+import FeedDetails from '../screens/FeedDetails';
+import Feed from '../screens/Feed';
+import Upload from '../screens/Upload/Upload';
+import NewPosts from '../screens/Upload/UploadPost';
+import MyProfile from '../screens/MyProfile';
+import HomeStack from './HomeStack';
+import { OrderList } from '../screens/Order/Checkout/components';
+
+
+export type SharedElementStackParamList = {
+  Home: undefined;
+  FeedDetails: { item: { id: number; uri: string } };
+};
+
+
+const Stack = createNativeStackNavigator();
 
 const MainStackt = () => {
-  const Stack = createNativeStackNavigator();
-
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName="TabsNavigation"
+      initialRouteName="Feed"
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
+      }}
     >
-      <Stack.Screen name="TabsNavigation" component={TabsNavigation} />
+      <Stack.Screen 
+        name="Feed" 
+        component={Feed}
+        options={{
+          headerShown: false,
+          animation: 'slide_from_right',
+        }}
+      />
       <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="UsePhoneEmail" component={UsePhoneEmail} />
@@ -57,9 +80,20 @@ const MainStackt = () => {
       <Stack.Screen name="OrderList" component={OrderList} />
       <Stack.Screen name="AlbumsPermission" component={AlbumsPermission} />
       <Stack.Screen name="UploadStack" component={UploadStack} />
-      <Stack.Screen name="Dashboard/Business/OrderID" component={OrderID} />
       <Stack.Screen name="FormVerified" component={FormVerified} />
       <Stack.Screen name="OnboardingVerified" component={OnboardingVerified} />
+      <Stack.Screen name="Upload" component={Upload} />
+      <Stack.Screen name="NewPosts" component={NewPosts} />
+      <Stack.Screen name='HomeStack' component={HomeStack} />
+      <Stack.Screen
+        name="FeedDetails"
+        component={FeedDetails}
+        options={{
+          headerShown: false,
+          animation: 'slide_from_right',
+        }}
+      />
+
     </Stack.Navigator>
   );
 };

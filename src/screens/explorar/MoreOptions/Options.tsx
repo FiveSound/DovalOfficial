@@ -31,7 +31,6 @@ const Options = (props: Props) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const postID = useSelector((state: RootState) => state.modal.data?.postID);
-  console.log('Ahora si crack se llama post ID', postID);
 
   const handleReport = async () => {
     console.log('handleReport called');
@@ -119,16 +118,6 @@ const Options = (props: Props) => {
           label="Feedback"
           icon={
             <CommentAdd02Icon
-              color={Description}
-              width={SIZES.icons * 1.2}
-              height={SIZES.icons * 1.2}
-            />
-          }
-        />
-        <IconsOptions
-          label="help"
-          icon={
-            <HelpSquareIcon
               color={Description}
               width={SIZES.icons * 1.2}
               height={SIZES.icons * 1.2}

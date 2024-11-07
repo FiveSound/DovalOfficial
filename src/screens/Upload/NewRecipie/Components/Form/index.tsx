@@ -45,7 +45,8 @@ const Details = () => {
   const navigation = useNavigation();
   const { setValue, watch } = useFormContext();
   const values = watch();
-
+  console.log('values', values);
+  
   const onSaveDraft = async (body: object) => {
     const response = await onSaveDraftService({ id: values.id, ...body });
     if (response.success) {
@@ -168,6 +169,7 @@ const Details = () => {
         keyboardOpeningTime={0}
         resetScrollToCoords={{ x: 0, y: 0 }}
         scrollEnabled={true}
+        contentContainerStyle={{ paddingBottom: SIZES.height / 10 }}
       >
         <FlexContainer newStyle={styles.container}>
           <Covers data={values.key} ShowDivider={true} />

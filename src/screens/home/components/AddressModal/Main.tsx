@@ -13,6 +13,7 @@ import { useTheme } from '../../../../hooks';
 import { TouchableOpacity, useNavigation } from '../../../../components/native';
 import { useAppDispatch } from '../../../../redux';
 import { closeAddressModal } from '../../../../redux/slides/modalSlice';
+import i18next from '../../../../Translate';
 
 type Props = {};
 
@@ -52,7 +53,7 @@ const Main = (props: any) => {
           styles={styles.containerCircle}
         />
         <Typography variant="subtitle" newStyle={styles.text}>
-          Add Address
+          {i18next.t('Add Address')}
         </Typography>
       </TouchableOpacity>
       <AddressList data={data} />

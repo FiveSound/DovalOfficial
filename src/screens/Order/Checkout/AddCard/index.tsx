@@ -161,7 +161,7 @@ const AddCard = () => {
           alignItems: 'center',
           flex: 1,
         }}
-        showFooter
+        showFooter={false}
         showHeader={true}
         labels={load ? i18next.t('Loading...') : i18next.t('Add card')}
         disabled={!cardDetails?.complete}
@@ -181,6 +181,7 @@ const AddCard = () => {
             placeholder={i18next.t('Enter your name')}
             value={name}
             onChangeText={text => setName(text)}
+            ShowDivider={true}
           />
           <View style={styles.separator} />
           <CardField
@@ -208,6 +209,13 @@ const AddCard = () => {
               setCardDetails(details);
               setStatusMessage(getStatusMessage(details));
             }}
+          />
+          <Buttons
+            label={i18next.t('Add card')}
+            onPress={handlePayPress}
+            disabled={!cardDetails?.complete}
+            loading={load}
+            variant={!cardDetails?.complete ? 'disabled' : 'primary'}
           />
           <FlexContainer newStyle={styles.containerMessage}>
             {success && (

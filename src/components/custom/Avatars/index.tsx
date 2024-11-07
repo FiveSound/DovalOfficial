@@ -7,7 +7,6 @@ import {
   responsiveFontSize,
   SIZES,
 } from '../../../constants/theme';
-import { Skeleton } from 'moti/skeleton';
 import { useTheme } from '../../../hooks';
 import FlexContainer from '../FlexContainer';
 import { PlusSignIcon } from '../../../constants/IconsPro';
@@ -52,18 +51,6 @@ const avatarSizeMap = {
   xxxLarge: responsiveFontSize(180),
 };
 
-const ImgSkeleton = ({ size }: { size: AvatarSize }) => {
-  const theme = useColorScheme();
-  const sizeScaled = scale(avatarSizeMap[size]);
-  return (
-    <Skeleton
-      width={sizeScaled}
-      height={sizeScaled}
-      radius={sizeScaled}
-      colorMode={theme === 'light' ? 'light' : 'dark'}
-    />
-  );
-};
 
 const Avatars = React.memo((props: Props) => {
   const {
@@ -94,7 +81,7 @@ const Avatars = React.memo((props: Props) => {
 
   const sizeScaled = scale(avatarSizeMap[size]);
   return loader ? (
-    <ImgSkeleton size={size} />
+    <IsLoading  />
   ) : (
     <>
       <FlexContainer newStyle={styles.containerLabel}>

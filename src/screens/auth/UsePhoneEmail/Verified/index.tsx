@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../../../redux';
 import { verifyCode, resendCode } from '../../../../redux/slides/authSlice';
 import { RootState } from '../../../../redux/store';
 import i18next from '../../../../Translate';
+import { reloadApp } from '../../../../redux/slides/appSlice';
 
 type Props = {};
 type RouteParams = {
@@ -85,7 +86,7 @@ const Verified = (props: Props) => {
         if (method === 0 ? Form : !Form) {
           navigation.navigate('SignupForm', { method, provided });
         } else {
-          navigation.navigate('TabsNavigation');
+          dispatch(reloadApp());
         }
       }, 500);
     }
@@ -105,8 +106,8 @@ const Verified = (props: Props) => {
         label={i18next.t('Enter 6-digit code')}
         sublabel={
           method === 0
-            ? `Your code was sent to ${phone}`
-            : `Your code was sent to ${user}`
+            ? `${i18next.t('Your code was sent to')} ${phone}`
+            : `${i18next.t('Your code was sent to')} ${user}`
         }
       />
       {(isVerifying || isResending) && (

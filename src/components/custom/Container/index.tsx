@@ -109,7 +109,7 @@ const Container = ({
             labelStyle={labelStyle}
             Icons={Icons}
             orientationsIcons={orientationsIcons}
-            variant={disabled ? 'disabled' : 'primary'}
+            variant='primary'
             onPress={onPressButtons}
             color='dark'
           />

@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
   status: {
     paddingVertical: 3,
     paddingHorizontal: 10,
-    position: 'absolute',
-    right: 0,
     fontWeight: 'bold',
   },
   PENDING: { backgroundColor: 'rgba(255, 151, 0, 0.38)', color: '#FF9700' },

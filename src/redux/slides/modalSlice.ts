@@ -136,7 +136,14 @@ const modalSlice = createSlice({
       state.open = false;
       state.modalType = 8;
     },
-    
+    openUploadPermissionModal(state) {
+      state.open = true;
+      state.modalType = 9;
+    },
+    closeUploadPermissionModal(state) {
+      state.open = false;
+      state.modalType = 9;
+    },
   },
   extraReducers: builder => {
     builder.addCase(
@@ -172,6 +179,8 @@ export const {
   closeAddressModal,
   openLocationModal,
   closeLocationModal,
+  openUploadPermissionModal,
+  closeUploadPermissionModal,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

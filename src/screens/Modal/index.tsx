@@ -93,7 +93,7 @@ const Modal: React.FC = () => {
 
     switch (modalType) {
       case 0:
-        return COLORS.BackgroundMainLight;
+        return Title;
       case 1:
         return COLORS.BackgroundMainLight;
       case 2:

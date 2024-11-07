@@ -16,6 +16,8 @@ import { COLORS, FONTS, SIZES } from '../../../constants/theme';
 import { TouchableOpacity, useNavigation } from '../../../components/native';
 import * as Haptics from 'expo-haptics';
 import i18next from '../../../Translate';
+import { RootState } from '../../../redux/store';
+import { useAppSelector } from '../../../redux';
 
 type Props = {
   label?: string | undefined;
@@ -32,9 +34,10 @@ type Props = {
     username: string;
     userID: string;
   };
+  isUsers: boolean;
 };
 
-const CtoProfile = ({ data }: Props) => {
+const CtoProfile = ({ data, isUsers }: Props) => {
   const { backgroundMaingrey, Description } = useTheme();
   const navigation = useNavigation();
 
@@ -52,23 +55,27 @@ const CtoProfile = ({ data }: Props) => {
           }}
           labelStyle={styles.textLabel}
         />
-        <MoreOptions data={data} />
+        <MoreOptions data={data} isUsers={isUsers} />
       </FlexContainer>
     </>
   );
 };
 
-const MoreOptions = ({ data }: { data: any }) => {
+const MoreOptions = ({ data, isUsers = false }: { data: any, isUsers: boolean }) => {
   const { Title, Description } = useTheme();
+  const { user, businessVerified } = useAppSelector((state: RootState) => state.auth);
   const navigation = useNavigation();
   const handleNavigation = useCallback(() => {
-    navigation.navigate('Business', { id: data.businessID });
+    navigation.navigate('Business', { id: isUsers ? user?.userID : data.businessID });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   }, [navigation]);
 
   return (
     <FlexContainer variant="row" newStyle={styles.moreOptionsContainer}>
-      {/* <Icons appendIcons={<StoreLocation01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>} onPress={handleNavigation}/> */}
+      {
+        businessVerified &&
+        <Icons appendIcons={<StoreLocation01Icon width={SIZES.icons} height={SIZES.icons} color={Title}/>} onPress={handleNavigation}/>
+      }
       <Icons
         appendIcons={
           <MoreHorizontalCircle01Icon

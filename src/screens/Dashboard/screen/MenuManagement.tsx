@@ -24,7 +24,7 @@ type DataQueryType = {
   pagination: number[] | null;
 };
 
-const QUERY_KEY = 'menu-management-screen';
+const QUERY_KEY = 'menu-management-screen-new';
 const DEFAULT_PAGE = 1;
 const DEFAULT_SEARCH = '';
 
@@ -105,7 +105,9 @@ const MenuManagement = () => {
     ]);
   }, []);
 
+  console.log(menu.data);
   if (menu.isLoading || menu.isFetching) return <LoadingScreen label='Loading recipes...' />;
+  
   if (menu.data.list.length === 0) return (
     <Container style={styles.container}>
    <ScreenEmpty 
@@ -114,7 +116,9 @@ const MenuManagement = () => {
    source={Ilustrations.CharcoPet}
    ShowButton={true}
    labelButton='Create recipe'
-   onPress={() => navigation.navigate('NewRecipie')}
+   onPress={() => navigation.navigate('MainStackt', {
+    screen: 'NewRecipie',
+   })}
    ImgHeigth={SIZES.height / 3}
    ImgWidth={SIZES.width}
    />

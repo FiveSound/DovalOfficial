@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, TouchableOpacity, useNavigation } from '../../../native';
-import { COLORS, SIZES } from '../../../../constants/theme';
+import { Image, SafeAreaView, TouchableOpacity, useNavigation } from '../../../native';
+import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import { iconsNative } from '../../../../constants';
 import { StyleSheet } from 'react-native';
@@ -12,16 +12,16 @@ const ArrowBack = (props: Props) => {
   const { Title } = useTheme();
 
   return (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
+    <SafeAreaView>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
       <Image
-        priority="high"
-        cachePolicy="memory-disk"
         style={styles.imag}
         tintColor={Title}
-        placeholderSource={iconsNative.arrowBack}
+        source={iconsNative.arrowBack}
         server={false}
       />
     </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 

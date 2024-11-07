@@ -12,7 +12,9 @@ const AppWithReload: React.FC = () => {
     dispatch(loadUser());
   }, [dispatch]);
 
-  return <App key={reloadKey} />;
+  return (
+      <App key={reloadKey} />
+  );
 };
 
 export default AppWithReload;

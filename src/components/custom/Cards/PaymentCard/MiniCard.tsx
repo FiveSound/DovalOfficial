@@ -124,25 +124,33 @@ const MiniCard = ({ row, index, scrollX }: Props) => {
                   width: responsiveFontSize(40),
                   height: responsiveFontSize(40),
                 }}
-                source={iconsNative.cardTouch}
+                placeholderSource={iconsNative.cardTouch}
                 tintColor={Title}
+                server={false}
               />
               {row?.display_brand == 'visa' && (
                 <Image
                   style={styles.iconsImage}
-                  source={iconsNative.visa}
-                  contentFit="contain"
+                  placeholderSource={iconsNative.visa}
+                  contentFit='cover'
+                  server={false}
                 />
               )}
               {row?.display_brand == 'mastercard' && (
                 <Image
                   style={styles.iconsImage}
-                  source={iconsNative.masterCard}
-                  contentFit="contain"
+                  placeholderSource={iconsNative.masterCard}
+                  contentFit='cover'
+                  server={false}
                 />
               )}
               {row?.brand == 'amex' && (
-                <Image style={styles.iconsImage} source={iconsNative.amex} />
+                <Image
+                  style={styles.iconsImage}
+                  placeholderSource={iconsNative.amex}
+                  contentFit='cover'
+                  server={false}
+                />
               )}
             </FlexContainer>
           </FlexContainer>
@@ -182,8 +190,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   iconsImage: {
-    width: responsiveFontSize(60),
-    height: responsiveFontSize(50),
+    width: SIZES.icons,
+    height: SIZES.icons,
   },
   iconsContainer: {
     alignItems: 'center',

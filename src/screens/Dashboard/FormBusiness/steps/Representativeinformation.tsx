@@ -50,7 +50,7 @@ const Representativeinformation = ({ control, setValue }: any) => {
       />
       <UploadSource
         control={control}
-        name="imgIdentifications"
+        name="imgIdentification"
         placeholder="Identification Image*"
         required
         setValue={setValue}

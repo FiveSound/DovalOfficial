@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { NavigationProp, useFocusEffect } from '@react-navigation/native';
 import { StyleSheet, useColorScheme } from 'react-native';
-import { useAPI, useTheme } from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 import { useCart } from '../../../../context/CartContext';
 import { getDefaultLocationService } from '../../../../services/orders';
 import {
@@ -28,6 +28,7 @@ import { useAppDispatch } from '../../../../redux';
 import { openAddressModal } from '../../../../redux/slides/modalSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
+import { useQuery } from '@tanstack/react-query';
 
 interface RootNavigation {
   MyLocations: undefined;
@@ -38,6 +39,7 @@ interface Location {
   details: string;
 }
 
+const QUERY_KEY = 'getDefaultLocationService-Datas';
 const Header = () => {
   const { color, bgInput, borderInput, backgroundMaingrey } = useTheme();
   const { cart } = useCart();
@@ -49,8 +51,8 @@ const Header = () => {
     isLoading,
     isError,
     refetch: refetchLocationData,
-  } = useAPI({
-    queryKey: ['getDefaultLocationService-Datas'],
+  } = useQuery({
+    queryKey: [QUERY_KEY],
     queryFn: () => getDefaultLocationService(),
   });
 
@@ -82,7 +84,9 @@ const Header = () => {
       backgroundColor: theme === 'dark' ? '#000' : '#fff',
     }]}>
       <Icons
-        onPress={() => navigation.navigate('OrderStack')}
+        onPress={() => navigation.navigate('MainStackt', {
+          screen: 'OrderStack',
+        })}
         appendIcons={
           <>
             {/* {cart?.list.length > 0 && (

@@ -1,27 +1,24 @@
 import React, { useCallback } from 'react';
-import { useAPI, useRangeNearbyLocation } from '../../../../../hooks';
 import { getRecipesByBusinessIDService } from '../../../../../services/business';
 import Main from '../../../../MyProfile/Components/Tabs/MyMenu/Main';
 import { useNavigation } from '../../../../../components/native';
+import { useQuery } from '@tanstack/react-query';
+import { RootState } from '../../../../../redux/store';
+import { useAppSelector } from '../../../../../redux';
 
 type Props = {
   businessID: string;
 };
 
 const GetMenuBusiness = (props: Props) => {
-  const navigation = useNavigation();
-  const navigateToPermissionScreen = useCallback(() => {
-    navigation.navigate('LocationPermissionScreen');
-  }, []);
-  const { currentLocation } = useRangeNearbyLocation(
-    navigateToPermissionScreen,
-  );
+
   const businessID = props.businessID;
-  const { data, isLoading, isError, error, refetch } = useAPI({
+  const { location } = useAppSelector((state: RootState) => state.location);
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: [
-      'get-Recipes-By-Business-ID-Service',
+      'get-Recipes-By-Business-ID-Service-useQuery',
       businessID,
-      currentLocation,
+      location,
     ],
     queryFn: getRecipesByBusinessIDService,
   });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   IsLoading,
@@ -20,6 +20,9 @@ import { useAuth } from '../../../context/AuthContext';
 import i18next from 'i18next';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { RootState } from '../../../redux/store';
+import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
+import { ActiveTabContext } from '../../../context/ActiveTabContext';
+import { reloadApp } from '../../../redux/slides/appSlice';
 
 interface Props {
   route: {
@@ -50,13 +53,15 @@ const Tracking = ({ route }: Props) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
-  const { orderID } = route.params;
+  const { orderID } = useAppSelector((state: RootState) => state.navigation);
   const { socket } = useDashboard();
   const { BackgroundMain } = useTheme();
   const [sucess, setSucess] = useState(false);
-  const [riderLocation, setRiderLocation] =
-    useState<LocationObjectCoords | null>(null);
+  const [riderLocation, setRiderLocation] = useState<LocationObjectCoords | null>(null);
   const queryClient = useQueryClient();
+  const { setActiveTab } = useContext(ActiveTabContext);
+
+  
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ['screen-order-id', orderID],
     queryFn: getOrderIDService,
@@ -77,9 +82,19 @@ const Tracking = ({ route }: Props) => {
     }
   }, [data]);
 
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
+  
   const handlePress = () => {
     dispatch(closeModalPin());
-    navigation.navigate('TabsNavigation');
+    setActiveTab('Feed');
+    dispatch(reloadApp());
   };
 
   useEffect(() => {
@@ -130,7 +145,9 @@ const Tracking = ({ route }: Props) => {
     }
   }, [data, navigation, dispatch]);
 
-  if (isLoading || isFetching) return <LoadingScreen />;
+  console.log('data tracking', data);
+
+  if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading...')}/>;
 
   if (data) {
     const {
@@ -142,6 +159,8 @@ const Tracking = ({ route }: Props) => {
       currentStep,
       rider_waiting,
       status,
+      creation_time,
+      estimated_time,
     } = data;
 
     if (
@@ -169,6 +188,8 @@ const Tracking = ({ route }: Props) => {
             steps={steps}
             currentStep={currentStep}
             showHero={true}
+            creation_time={creation_time}
+            estimated_time={estimated_time}
             messageOptional={
               rider_waiting &&
               i18next.t('🏍️ Rider is waiting for the order in the restaurant')

@@ -35,11 +35,11 @@ const MediaList: React.FC<MediaListProps> = ({
       onEndReachedThreshold={1}
       renderItem={renderItem}
       scrollEnabled={true}
-      // removeClippedSubviews={true} // Mejora el rendimiento en listas largas
-      // getItemLayout={(data, index) => (
-      //   {length: 50, offset: 50 * index, index}
-      // )}
-      // windowSize={5} // Ajusta cuántas páginas se mantienen en memoria
+      removeClippedSubviews={true} // Mejora el rendimiento en listas largas
+      getItemLayout={(data, index) => (
+        {length: 50, offset: 50 * index, index}
+      )}
+      windowSize={5} // Ajusta cuántas páginas se mantienen en memoria
       contentContainerStyle={{ paddingBottom: SIZES.height }}
     />
   </FlexContainer>

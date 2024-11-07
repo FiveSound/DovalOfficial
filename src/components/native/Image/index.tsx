@@ -1,15 +1,14 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import {
   View,
   StyleSheet,
   Animated,
   Dimensions,
   TouchableOpacity,
-  useColorScheme,
-  Text
+  Text,
+  Image as RNImage,
 } from 'react-native';
-import { Image as RNImage, ImageProps } from 'expo-image';
-import { Skeleton } from 'moti/skeleton';
+import { Image as ExpoImage, ImageProps } from 'expo-image';
 
 type Props = ImageProps & {
   placeholderSource?: string;
@@ -25,6 +24,7 @@ type Props = ImageProps & {
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
+
 const ImageComponent: React.FC<Props> = ({
   source,
   placeholderSource = source,
@@ -39,6 +39,9 @@ const ImageComponent: React.FC<Props> = ({
   const [hasError, setHasError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const uriMemo = useMemo(() => {
+    return server ? { uri: source } : source
+  }, [source, server])
 
   const handleLoad = useCallback(() => {
     setIsLoading(false);
@@ -86,18 +89,19 @@ const ImageComponent: React.FC<Props> = ({
       ]}
     >
       {placeholderSource && (
-        <RNImage
+        <ExpoImage
           tintColor={props.tintColor}
           source={server ? { uri: placeholderSource } : placeholderSource}
           style={[StyleSheet.absoluteFill, styles.placeholder]}
           priority={props.priority}
           cachePolicy={props.cachePolicy}
           transition={0}
+          contentFit={props.contentFit}
         />
       )}
       {!hasError && (
         <Animated.View style={{ opacity: fadeAnim }}>
-          <RNImage
+          <ExpoImage
             {...props}
             onLoad={handleLoad}
             onError={handleError}
@@ -109,16 +113,10 @@ const ImageComponent: React.FC<Props> = ({
           />
         </Animated.View>
       )}
-      {isLoading && !placeholderSource && (
-        <Loading
-          isLoading={isLoading}
-          height={SCREEN_WIDTH * 0.75}
-          width={SCREEN_WIDTH}
-        />
-      )}
+
       {hasError && placeholderSource && (
         <View style={styles.errorContainer}>
-          <RNImage
+          <ExpoImage
             tintColor={props.tintColor}
             source={{ uri: placeholderSource }}
             style={[StyleSheet.absoluteFill, styles.placeholder]}
@@ -132,23 +130,6 @@ const ImageComponent: React.FC<Props> = ({
   );
 };
 
-interface LoadingProps { 
-  isLoading: boolean;
-  height: number;
-  width: number;
-}
-export const Loading = ({ isLoading, height, width }: LoadingProps) => {
-  const theme = useColorScheme();
-  return (
-    <Skeleton
-      show={isLoading}
-      height={height}
-      width={width}
-      transition={{ type: 'spring', duration: 1000 }}
-      colorMode={theme === 'light' ? 'light' : 'dark'}
-    />
-  );
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -167,7 +148,6 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
   },
   loader: {
     position: 'absolute',
@@ -190,5 +170,7 @@ const styles = StyleSheet.create({
     tintColor: '#fff',
   },
 });
+
+(ImageComponent as any).getSize = RNImage.getSize;
 
 export default React.memo(ImageComponent);

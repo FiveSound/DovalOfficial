@@ -89,58 +89,7 @@ const PickerComponent = React.memo(
             </>
           )}
         </TouchableOpacity>
-        <FlexContainer variant="row" newStyle={styles.iconsContainer}>
-          <Icons
-            appendIcons={
-              <FlexContainer newStyle={styles.containrerS}>
-                <Home01Icon
-                  color={BackgroundMain}
-                  width={SIZES.icons}
-                  height={SIZES.icons}
-                />
-                <Typography
-                  variant="H4title"
-                  newStyle={{
-                    color: BackgroundMain,
-                  }}
-                >
-                  Camara
-                </Typography>
-              </FlexContainer>
-            }
-            styles={[
-              styles.icons,
-              {
-                backgroundColor: Title,
-              },
-            ]}
-          />
-          <Icons
-            appendIcons={
-              <FlexContainer newStyle={styles.containrerS}>
-                <Home01Icon
-                  color={BackgroundMain}
-                  width={SIZES.icons}
-                  height={SIZES.icons}
-                />
-                <Typography
-                  variant="H4title"
-                  newStyle={{
-                    color: BackgroundMain,
-                  }}
-                >
-                  Draft
-                </Typography>
-              </FlexContainer>
-            }
-            styles={[
-              styles.icons,
-              {
-                backgroundColor: Title,
-              },
-            ]}
-          />
-        </FlexContainer>
+      
         <Modal
           animationType="slide"
           transparent={true}
@@ -177,6 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     marginHorizontal: SIZES.radius2,
     marginVertical: SIZES.radius,
+    paddingHorizontal: SIZES.gapLarge
   },
   touchable: {
     flexDirection: 'row',

@@ -7,7 +7,8 @@ import { COLORS, SIZES } from '../../../../constants/theme';
 import Typography from '../../Typography';
 import FlexContainer from '../../FlexContainer';
 import { IsLoading } from '../../Loaders';
-import { Platform, Pressable } from '../../../native';
+import { Platform, Pressable, TouchableOpacity } from '../../../native';
+import { useTheme } from '../../../../hooks';
 
 type Item = {
   title: string;
@@ -23,6 +24,7 @@ type Props = {
 
 const TabList = ({ isLoading, list, status, onChange }: Props) => {
   const flatListRef = useRef<FlatList<Item>>(null);
+  const { backgroundMaingrey } = useTheme()
 
   const handlePress = (index: number) => {
     flatListRef.current?.scrollToIndex({ index, animated: true });
@@ -31,18 +33,17 @@ const TabList = ({ isLoading, list, status, onChange }: Props) => {
   const renderItem = useCallback(
     ({ item, index }: { item: Item; index: number }) => {
       const isSelected = status === item.status;
-      console.log('isSelected', item);
       return (
-        <Pressable
-          style={[styles.tabItem, isSelected && styles.selected]}
+        <TouchableOpacity
+          style={[styles.tabItem, { backgroundColor: backgroundMaingrey }, isSelected && styles.selected]}
           onPress={() => {
             onChange(item.status);
             handlePress(index);
           }}
           disabled={isSelected}
         >
-          <Typography variant="H4title">{item.title}</Typography>
-        </Pressable>
+          <Typography variant="H4title" newStyle={styles.title}>{item.title}</Typography>
+        </TouchableOpacity>
       );
     },
     [status, onChange],
@@ -68,13 +69,16 @@ export default memo(TabList);
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal:
+    padding:
       Platform.OS === 'android' ? SIZES.gapLarge : SIZES.gapLarge,
   },
   tabItem: {
     paddingVertical: SIZES.gapMedium,
     paddingHorizontal: SIZES.gapSmall,
     marginRight: SIZES.gapMedium,
+  },
+  title: {
+    color: COLORS.dark,
   },
   selected: {
     backgroundColor: COLORS.primary,

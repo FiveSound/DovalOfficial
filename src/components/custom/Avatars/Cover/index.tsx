@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
-import { Skeleton } from 'moti/skeleton';
 import { responsiveFontSize, SIZES } from '../../../../constants/theme';
 import { Image } from '../../../native';
-import IsLoading from '../../Loaders/IsLoading';
-import { Loading } from '../../../native/Image';
+import { IsLoading } from '../../Loaders';
 
 type Props = {
   source: string;
@@ -43,7 +41,7 @@ const Cover = ({ source, size = 'medium' }: Props) => {
   const imageSize = getSize();
 
   return loader ? (
-    <Loading isLoading={loader} height={imageSize} width={imageSize} />
+    <IsLoading  />
   ) : (
     <Image
       source={{ uri: source }}

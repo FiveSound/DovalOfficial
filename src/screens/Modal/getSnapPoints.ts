@@ -5,7 +5,7 @@ export const getSnapPoints = (
   const snapPoints = ['80%', '90%', '70%', '60%'];
   const snapPointsMoreOptions = !isAuthenticated
     ? ['30%', '60%', '90%']
-    : ['60%', '90%'];
+    : ['30%'];
   const snapPointsAddress = ['50%', '70%', '94%'];
   const snapPointsPin = ['43%', '30%', '60%'];
   const snapPointsOnboarding = ['100%'];
@@ -13,7 +13,8 @@ export const getSnapPoints = (
   const snapPointsMoreOptionsProfile = ['40%', '60%'];
   const snapPointsAboutAccount = ['40%', '60%'];
   const snapPointsLocation = ['100%'];
-
+  const snapPointsAlbumsPermission = ['100%'];
+  
   switch (modalType) {
     case 0:
       return snapPoints;
@@ -33,6 +34,8 @@ export const getSnapPoints = (
       return snapPointsAboutAccount;
     case 8:
       return snapPointsLocation;
+    case 9:
+      return snapPointsAlbumsPermission;
     default:
       return snapPoints;
   }
