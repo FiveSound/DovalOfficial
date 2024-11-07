@@ -14,7 +14,6 @@ import { CLOUDFRONT } from "../../services";
 import i18next from "../../Translate";
 import { FlexContainer, IsLoading, ScreenEmpty } from "../../components/custom";
 import { Ilustrations } from "../../constants";
-import { handleTextRequest } from "../../services/chats/chatService";
 import { TabBarVisibilityContext } from "../../context/TabBarVisibilityContext";
 
 interface ExploreItem {
@@ -50,7 +49,8 @@ const ChatIa = () => {
 
     try {
       const startTime = Date.now();
-      const respuestaCompleta = await handleTextRequest(userInput, chatHistory);
+      const respuestaCompleta = ''
+      // const respuestaCompleta = await handleTextRequest(userInput, chatHistory);
       const endTime = Date.now();
       console.log(
         "Respuesta completa de handleTextRequest:",
@@ -134,29 +134,29 @@ const ChatIa = () => {
 
 
 
-  useEffect(() => {
-    setTimeout(() => {
-      scrollViewRef.current?.scrollToEnd({ animated: true });
-    }, 1000);
-  }, [transformedChatHistory.length]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     scrollViewRef.current?.scrollToEnd({ animated: true });
+  //   }, 1000);
+  // }, [transformedChatHistory.length]);
 
-  useEffect(() => {
-    const updateExploreData = async () => {
-      if (!country) {
-        console.log("Country is not set yet.");
-        return;
-      }
-        const fetchData = [
-        // fetchDynamicExploreData(chatHistory, country).then(data => setExploreData(data)).catch(err => console.error("Error fetching general explore data:", err)),
-        fetchDynamicExploreData(chatHistory, promps).then(data => setDataSalud(data)).catch(err => console.error("Error fetching health data:", err)),
-      ];
+  // useEffect(() => {
+  //   const updateExploreData = async () => {
+  //     if (!country) {
+  //       console.log("Country is not set yet.");
+  //       return;
+  //     }
+  //       const fetchData = [
+  //       // fetchDynamicExploreData(chatHistory, country).then(data => setExploreData(data)).catch(err => console.error("Error fetching general explore data:", err)),
+  //       fetchDynamicExploreData(chatHistory, promps).then(data => setDataSalud(data)).catch(err => console.error("Error fetching health data:", err)),
+  //     ];
   
-      await Promise.all(fetchData);
-      setLoading(false);
-    };
+  //     await Promise.all(fetchData);
+  //     setLoading(false);
+  //   };
   
-    updateExploreData();
-  }, [user, chatHistory]);
+  //   updateExploreData();
+  // }, [user, chatHistory]);
 
   return (
     <LayoutIa
