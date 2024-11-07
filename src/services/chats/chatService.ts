@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const apiUrlChat = "https://api.openai.com/v1/chat/completions";
-const apiUrlImage = "https://api.openai.com/v1/images/generations";
-const apiKey = "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";
-const apiUrlModeration = "https://api.openai.com/v1/moderations";
-const ApiKeyGemini = 'AIzaSyDB42TPeiavoE5hhr9XWJCtMZSXCxHaHsI'
+const apiUrlChat = "";
+const apiUrlImage = "";
+const apiKey = "";
+const apiUrlModeration = "";
+const ApiKeyGemini = ''
 
 export const generateImage = async (imagePrompt: string) => {
   if (imagePrompt.length < 10) {
