@@ -21,6 +21,7 @@ import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import { getHashtagsService } from '../../../../services/posts';
 import { iconsNative } from '../../../../constants';
+import i18next from '../../../../Translate';
 
 const Hashtags = memo(() => {
   const { control } = useFormContext();
@@ -54,7 +55,7 @@ const Hashtags = memo(() => {
   };
 
   if (isLoading || isFetching) {
-    return <LoadingScreen label="Cargando categorias" />;
+    return <LoadingScreen label={i18next.t('Loading')} />;
   }
 
   if (isError) {
@@ -66,19 +67,19 @@ const Hashtags = memo(() => {
       style={styles.container}
       label="Hashtags"
       showBack={true}
-      showHeader={false}
+      showHeader={true}
+      
     >
-      <Typography variant="title">Hashtags</Typography>
-      <SearchHeader
+      {/* <SearchHeader
         onChange={text => setSearchTerm(text)}
         placeholder="Search hashtags"
-      />
+        showBack={false}
+      /> */}
 
       <FlatList
         data={data?.list || []}
         renderItem={({ item }) => {
           const isSelected = selectedIds.includes(item.id);
-
           return (
             <TouchableOpacity
               onPress={() => handleAddOrRemoveItem(item.id)}
@@ -88,15 +89,19 @@ const Hashtags = memo(() => {
                 source={iconsNative.Topics}
                 style={{ tintColor: isSelected ? '#FF5500' : '#000' }}
               />
-              <Text
-                style={[styles.itemText, isSelected && styles.selectedItem]}
+              <Typography
+                variant="H4title"
+                newStyle={[isSelected && styles.selectedItem]}
               >
                 {item.title}
-              </Text>
+              </Typography>
             </TouchableOpacity>
           );
         }}
         keyExtractor={item => item.title}
+        maxToRenderPerBatch={10}
+        initialNumToRender={10}
+        windowSize={10}
       />
 
       {success && (
@@ -110,23 +115,20 @@ export default Hashtags;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
+    paddingHorizontal: SIZES.gapLarge,
   },
   item: {
-    marginBottom: 10,
+    marginVertical: SIZES.gapMedium,
     backgroundColor: 'transparent',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
+    gap: SIZES.gapMedium,
+    paddingHorizontal: SIZES.gapLarge,
   },
   icon: {
     padding: 10,
     backgroundColor: 'transparent',
     borderRadius: 25,
-  },
-  itemText: {
-    fontSize: 17,
-    fontWeight: 'bold',
   },
   selectedItem: {
     color: '#FF5500',

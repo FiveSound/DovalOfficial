@@ -27,14 +27,14 @@ interface PinProps {
   };
   showInf: boolean;
   itemIndex: number;
-  sharedTransitionTag: string;
+  isFocused: boolean;
 }
 
-const Card = memo(({ pin, showInf = true, sharedTransitionTag }: PinProps) => {
+const Card = memo(({ pin, showInf = true, isFocused }: PinProps) => {
   const { id, thumbnail, description, mediaType , ProfileName } = pin;
   const ImageMemo = useMemo(() => {
-    return <RemoteImage pin={pin} />
-  }, [pin])
+    return <RemoteImage pin={pin} isFocused={isFocused} />
+  }, [pin, isFocused])
   
   const navigation = useNavigation();
   const onLike = () => {

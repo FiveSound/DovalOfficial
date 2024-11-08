@@ -2,11 +2,11 @@ import CategoriesSelector from './CategoriesSelector';
 import FoodTypeSelector from './FoodTypeSelector';
 import PriceInput from './PriceInput';
 import PostDescriptionInput from './PostDescriptionInput';
-import RecipeNameInput from './RecipeNameInput';
+import PostNameInput from './PostNameInput';
 import SideDishSelector from './SideDishSelector';
 
 export {
-  RecipeNameInput,
+  PostNameInput,
   PostDescriptionInput,
   CategoriesSelector,
   FoodTypeSelector,

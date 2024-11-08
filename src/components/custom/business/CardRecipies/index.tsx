@@ -3,7 +3,7 @@ import { useTheme } from '../../../../hooks';
 import FlexContainer from '../../FlexContainer';
 import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import Typography from '../../Typography';
-import { ShoppingBasketAdd03Icon } from '../../../../constants/IconsPro';
+import { CheckmarkCircle01Icon, ShoppingBasketAdd03Icon } from '../../../../constants/IconsPro';
 import LineDivider from '../../LineDivider';
 import Cover from '../../Avatars/Cover';
 import { CLOUDFRONT } from '../../../../services';
@@ -35,10 +35,11 @@ type props = {
   row: Row;
   rowBusiness?: RowBusiness;
   isBusiness?: boolean;
+  isSelected?: boolean;
 };
 
 const CardMenu = (props: props) => {
-  const { row, rowBusiness, isBusiness = false } = props;
+  const { row, rowBusiness, isBusiness = false, isSelected = false } = props;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const { color } = useTheme();
@@ -55,6 +56,7 @@ const CardMenu = (props: props) => {
 
     return (
       <>
+
         <FlexContainer newStyle={styles.flexContainer}>
           <FlexContainer newStyle={styles.touchableOpacity}>
             <Cover source={covers} size="medium" />
@@ -105,30 +107,39 @@ const CardMenu = (props: props) => {
           isBusiness && (
             <>
               <FlexContainer variant='row' newStyle={styles.containerDescount}>
-              {/* <Typography variant='H4title'>
+                {/* <Typography variant='H4title'>
                   Discount: {rowBusiness?.discount}%
                 </Typography> */}
-              <View style={styles.chipContainer}>
+                <View style={styles.chipContainer}>
                   {rowBusiness?.complete && <Chip title="Live" color={COLORS.success} size='medium' />}
                   {!rowBusiness?.complete && <Chip title="Draft" color={COLORS.error} size="small" />}
                 </View>
-              <FlexContainer variant='row' newStyle={styles.buttonsContainer}>
-              <TouchableOpacity 
-                style={styles.buttonsDelete}
-                onPress={() => rowBusiness?.onDelete(row.id, row.name)}>
-                  <Typography variant='H4title'>
-                    Eliminar
-                  </Typography>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.editButton} disabled>
-                  <Typography variant='H4title'>
-                    Editar
-                  </Typography>
-                </TouchableOpacity>
-              </FlexContainer>
+                <FlexContainer variant='row' newStyle={styles.buttonsContainer}>
+                  <TouchableOpacity
+                    style={styles.buttonsDelete}
+                    onPress={() => rowBusiness?.onDelete(row.id, row.name)}>
+                    <Typography variant='H4title'>
+                      Eliminar
+                    </Typography>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.editButton} disabled>
+                    <Typography variant='H4title'>
+                      Editar
+                    </Typography>
+                  </TouchableOpacity>
+                </FlexContainer>
               </FlexContainer>
             </>
           )}
+        {
+          isSelected && (
+            <View style={styles.selectedContainer}>
+              <CheckmarkCircle01Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.success} />
+              <Typography variant="H4title">Seleccionado</Typography>
+            </View>
+          )
+        }
+
         <LineDivider variant="secondary" lineStyle={styles.lineDivider} />
       </>
     );

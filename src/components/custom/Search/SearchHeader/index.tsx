@@ -11,16 +11,22 @@ import { ArrowBack } from '../../Arrows';
 type Props = {
   onChange: (text: string) => void;
   placeholder: string;
+  showBack?: boolean;
+  value?: string;
 };
 
-const SearchHeader = ({ onChange, placeholder }: Props) => {
+const SearchHeader = ({ onChange, placeholder, showBack = true, value }: Props) => {
   const { borderInput, color } = useTheme();
   const [isFocused, setIsFocused] = useState(false);
   const navigation = useNavigation();
 
   return (
     <FlexContainer variant="row" newStyle={styles.flexContainers}>
-      <ArrowBack />
+     {
+      showBack && (
+        <ArrowBack />
+      )
+     }
       <Search
         placeholder={placeholder}
         onChange={onChange}
@@ -30,6 +36,7 @@ const SearchHeader = ({ onChange, placeholder }: Props) => {
         }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        value={value}
       />
     </FlexContainer>
   );
@@ -39,6 +46,7 @@ const styles = StyleSheet.create({
   flexContainers: {
     alignItems: 'center',
     width: SIZES.width,
+    justifyContent: 'center',
   },
   touchableOpacity: {
     marginLeft: SIZES.gapMedium / 2,

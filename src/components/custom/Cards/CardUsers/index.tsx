@@ -39,6 +39,8 @@ export type PropsCardUser = {
   LoaderButton?: boolean;
   isLoading?: boolean;
   businessID: string;
+  customLabel?: boolean;
+  customLabelText?: string;
 };
 
 const CardUsers = ({
@@ -57,6 +59,8 @@ const CardUsers = ({
   LoaderButton,
   isLoading = true,
   businessID,
+  customLabel= false,
+  customLabelText= ''
 }: PropsCardUser) => {
   const { Description, backgroundMaingrey } = useTheme();
   const navigation = useNavigation();
@@ -126,14 +130,20 @@ const CardUsers = ({
             disabled={LoaderButton}
           >
             {LoaderButton ? (
-              <ActivityIndicator />
+              <IsLoading />
             ) : (
-              <Typography
-                variant={Follow ? 'SubDescription' : 'H4title'}
-                newStyle={{ color: Follow ? Description : COLORS.dark }}
-              >
-                {Follow ? i18next.t('following') : i18next.t('follow')}
-              </Typography>
+              customLabel ? <Typography
+              variant={Follow ? 'SubDescription' : 'H4title'}
+              newStyle={{ color: Follow ? Description : COLORS.dark }}
+            >
+              {customLabelText}
+            </Typography> :
+            <Typography
+            variant={Follow ? 'SubDescription' : 'H4title'}
+            newStyle={{ color: Follow ? Description : COLORS.dark }}
+          >
+            {Follow ? i18next.t('following') : i18next.t('follow')}
+          </Typography>
             )}
           </TouchableOpacity>
         )}

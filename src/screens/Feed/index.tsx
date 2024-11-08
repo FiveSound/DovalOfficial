@@ -15,6 +15,7 @@ import { RootState } from '../../redux/store';
 import { SIZES } from '../../constants/theme';
 import { Ilustrations } from '../../constants';
 import i18next from '../../Translate';
+import { useIsFocused } from '@react-navigation/native';
 import { openOnboardingModal } from '../../redux/slides/modalSlice';
 const LazyMansory = lazy(() => import('../../components/custom/Masonry'));
 
@@ -59,7 +60,7 @@ const Feed = memo(() => {
      dispatch(openOnboardingModal())
     }
   }, [user]);
-  
+  const isFocused = useIsFocused(); 
 
   const tabsLists = [{
     title: "All",
@@ -130,6 +131,7 @@ const Feed = memo(() => {
           refreshing={explore.isRefetching}
           onLoadMore={() => mutation.mutate(page)}
           loading={mutation.isPending}
+          isFocused={isFocused}
         />
       </Suspense>
       </SafeAreaView>

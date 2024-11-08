@@ -34,5 +34,6 @@ export default PostDescriptionInput;
 const styles = StyleSheet.create({
   labelDescription: {
     height: SIZES.height / 10,
+    ...FONTS.semi14,
   },
 });

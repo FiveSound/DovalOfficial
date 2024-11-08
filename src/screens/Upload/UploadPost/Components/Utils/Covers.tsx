@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Image, Dimensions } from 'react-native';
-import {  responsiveFontSize, SIZES } from '../../../../../constants/theme';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
+import { StyleSheet, Image, Dimensions, View, Button } from 'react-native';
+import { responsiveFontSize, SIZES } from '../../../../../constants/theme';
 import { CLOUDFRONT } from '../../../../../services';
 import { Ilustrations } from '../../../../../constants';
-import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
-import { Typography } from '../../../../../components/custom';
+import * as VideoThumbnails from 'expo-video-thumbnails';
+import { VideoView, useVideoPlayer, VideoPlayer } from 'expo-video';
+import { LineDivider } from '../../../../../components/custom';
 
 interface MediaItem {
   key: string;
@@ -14,59 +15,72 @@ interface MediaItem {
 }
 
 interface CoversProps {
-  data: MediaItem[];
+  data?: MediaItem[];
   ShowDivider?: boolean;
 }
 
 const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
   const [displayHeight, setDisplayHeight] = useState<number>(responsiveFontSize(200));
-  const [imageSize, setImageSize] = useState<number>(0);
-  const thumbnail = data || ''
-  const imgSource = `${CLOUDFRONT}${thumbnail}`
+  const { type, key } = data?.[0] || {};
+  const source = `${CLOUDFRONT}${key}`;
+  const memoSource = useMemo(() => source, [source]);
+  const playerRef = useRef<VideoPlayer>(null);
 
-  
- 
   useEffect(() => {
-    if (imgSource) {
+    if (type === 'photo') {
       Image.getSize(
-        imgSource,
+        memoSource,
         (width, height) => {
           const screenWidth = Dimensions.get('window').width;
           const desiredWidth = screenWidth / 1.4;
           const calculatedHeight = (height / width) * desiredWidth;
-          console.log('calculatedHeight', calculatedHeight)
-          setDisplayHeight(calculatedHeight);
+          console.log('calculatedHeight', calculatedHeight);
+          setDisplayHeight(responsiveFontSize(calculatedHeight));
         },
         (error) => {
           console.log('Error fetching image size:', error);
-          setDisplayHeight(responsiveFontSize(400)); 
+          setDisplayHeight(responsiveFontSize(400));
         }
       );
-    }
-
-     if (imgSource) {
-      console.log('optimizedImage', imgSource)
-      fetch(imgSource, { method: 'HEAD' })
-      .then(response => {
-
-        const contentLength = response.headers.get('Content-Length');
-        console.log('contentLength', contentLength)
-        if (contentLength) {
-          const sizeInBytes = parseInt(contentLength, 10);
-          const sizeInMB = sizeInBytes / (1024 * 1024); 
-          setImageSize(sizeInBytes);
-          console.log(`Tamaño de la imagen: ${sizeInMB.toFixed(2)} MB`);
+    } else if (type === 'video') {
+      // Generar miniatura y obtener dimensiones
+      (async () => {
+        try {
+          const { width, height } = await VideoThumbnails.getThumbnailAsync(source, {
+            time: 1000, // Tiempo en milisegundos para generar la miniatura
+          });
+          const screenWidth = Dimensions.get('window').width;
+          const desiredWidth = screenWidth / 1.4;
+          const calculatedHeight = (height / width) * desiredWidth;
+          console.log('calculatedHeight for video', calculatedHeight);
+          setDisplayHeight(responsiveFontSize(calculatedHeight));
+        } catch (e) {
+          console.warn('Error generating thumbnail for video:', e);
+          setDisplayHeight(responsiveFontSize(400));
         }
-      })
-      .catch(err => {
-          console.error('Error obteniendo el tamaño de la imagen:', err);
-        });
+      })();
     }
-  }, [imgSource]);
+  }, [memoSource, type]);
 
+  // Configurar el reproductor de video
+  const player = useVideoPlayer(memoSource, (playerInstance) => {
+    playerInstance.loop = true;
+    playerInstance.play();
+  });
 
+  useEffect(() => {
+    const subscription = player.addListener('playingChange', (isPlaying: boolean) => {
+      // Puedes manejar el estado de reproducción aquí si es necesario
+      console.log('Is video playing:', isPlaying);
+    });
 
-  if (data?.length === 0 || 0) {
+    return () => {
+      subscription.remove();
+      // player.dispose(); 
+    };
+  }, [player]);
+
+  if (!data || data.length === 0) {
     return (
       <Image
         source={Ilustrations.EmptyMedia}
@@ -76,17 +90,34 @@ const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
     );
   }
 
-  if (data) {
-    return (
-     <>
-      <Image
-      source={{ uri: imgSource }}
-      style={[styles.media, { height: displayHeight }]}
-      resizeMode="cover"
-    />
-    </>
-    );
-  }
+  return (
+    <View>
+      {type === 'photo' ? (
+        <Image
+          source={{ uri: memoSource }}
+          style={[styles.media, { height: displayHeight }]}
+          resizeMode="cover"
+        />
+      ) : (
+        <>
+          <VideoView
+            ref={playerRef}
+            style={[styles.media, { height: displayHeight }]}
+            player={player}
+            contentFit='cover'
+            allowsFullscreen
+            allowsPictureInPicture
+            onError={(error: any) => {
+              console.log('Error loading video:', error);
+              setDisplayHeight(responsiveFontSize(400));
+            }}
+          />
+  
+        </>
+      )}
+      {ShowDivider && <LineDivider lineStyle={styles.divider}  variant='secondary' />}
+    </View>
+  );
 });
 
 const styles = StyleSheet.create({
@@ -102,13 +133,30 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.gapMedium,
   },
   media: {
-    width: "90%",
+    width: '90%',
     borderRadius: SIZES.radius * 2,
     alignSelf: 'center',
+    overflow: 'hidden',
+  },
+  video: {
+    width: '100%',
+    height: '100%',
   },
   mediaEmpty: {
     height: SIZES.height / 2.5,
     width: SIZES.width,
+  },
+  controlsContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: '50%',
+    transform: [{ translateX: -50 }],
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    padding: 5,
+    borderRadius: 5,
+  },
+  divider: {
+    marginTop: SIZES.gapMedium,
   },
 });
 

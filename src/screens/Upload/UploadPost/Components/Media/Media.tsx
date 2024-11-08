@@ -24,6 +24,7 @@ import { useTheme } from '../../../../../hooks';
 import { useDispatch } from 'react-redux';
 import { resetProgress } from '../../../../../redux/slides/uploadSlice';
 import i18next from '../../../../../Translate';
+import { saveDraftService } from '../../../../../services/posts';
 
 const Media = () => {
   const dispatch = useDispatch();
@@ -36,17 +37,14 @@ const Media = () => {
     isLoading: Loading,
     progress,
     mediaURLs,
-    thumbnailURLs,
-    photos,
-    videos,
-    error,
-    optimizedMediaURLs,
+    
   } = useUploadMedia();
 
+  
   const keys = watch('key') || [];
   console.log('keys', keys);
-  console.log('optimizedMediaURLs', optimizedMediaURLs);
-  console.log('progress', progress);
+  console.log('mediaURLs', mediaURLs);
+
 
   const pickImage = async () => {
     setIsSubmittingLocal(true);
@@ -65,10 +63,11 @@ const Media = () => {
           const uriParts = file.uri.split('/');
           file.fileName = uriParts[uriParts.length - 1];
         }
+        const type = file.type === 'video' ? 'video' : 'photo';
 
         return {
           uri: file.uri,
-          type: 'photo' as const,
+          type: type,
         };
       });
 
@@ -82,29 +81,28 @@ const Media = () => {
   };
 
   useEffect(() => {
-    if (photos.length > 0) {
-      const updatedKeys = [...keys, ...optimizedMediaURLs];
-      setValue('key', updatedKeys, { shouldValidate: true, shouldDirty: true });
-
-      // addDraftService({
-      //   cover: updatedKeys,
-      // })
-      //   .then(response => {
-      //     console.log('response addDraftService', response);
-      //     if (response.success) {
-      //       console.log('Guardado con éxito...');
-      //       setValue('id', response.id);
-      //     }
-      //     // Reset progress
-      //     dispatch(resetProgress());
-      //   })
-      //   .catch(error => {
-      //     console.error('Add Draft Failed', error);
-      //     // Reset progress even if adding draft fails
-      //     dispatch(resetProgress());
-      //   });
+    if (mediaURLs.length > 0) {
+      const updatedKeys = [...keys, ...mediaURLs];
+      // setValue('key', updatedKeys, { shouldValidate: true, shouldDirty: true });
+      saveDraftService(
+        updatedKeys,
+      )
+        .then(response => {
+          console.log('response addDraftService', response);
+          if (response.success) {
+            console.log('Guardado con éxito...');
+            setValue('id', response.id);
+          }
+          // Reset progress
+          dispatch(resetProgress());
+        })
+        .catch(error => {
+          console.error('Add Draft Failed', error);
+          // Reset progress even if adding draft fails
+          dispatch(resetProgress());
+        });
     }
-  }, [photos]);
+  }, [mediaURLs]);
 
   return (
     <Container
@@ -118,24 +116,28 @@ const Media = () => {
         <Buttons
           label={i18next.t('Continue')}
           onPress={() => navigation.navigate('PostDetails')}
-          disabled={keys.length === 0}
-          variant={keys.length === 0 ? 'disabled' : 'primary'}
-          variantLabel={keys.length === 0 ? 'disabled' : 'secondary'}
+          disabled={mediaURLs.length === 0}
+          variant={mediaURLs.length === 0 ? 'disabled' : 'primary'}
+          variantLabel={mediaURLs.length === 0 ? 'disabled' : 'secondary'}
           containerButtons={styles.containerButtonss}
         />
       </FlexContainer>
       <FlexContainer>
-        <Covers data={keys} ShowDivider={false} />
+        <Covers data={mediaURLs || []} ShowDivider={false} />
         <FlexContainer newStyle={styles.progressContainer}>
           {Loading && <IsLoading />}
-          <Buttons
-            label={i18next.t('Upload Media')}
-            onPress={pickImage}
-            disabled={isSubmittingLocal || Loading}
-            variant={isSubmittingLocal || Loading ? 'disabled' : 'primary'}
-            labelStyle={styles.labelStyle}
-            color={isSubmittingLocal || Loading ? 'primary' : 'dark'}
-          />
+          {
+            mediaURLs.length === 0 && (
+              <Buttons
+                label={i18next.t('Upload Media')}
+                onPress={pickImage}
+                disabled={isSubmittingLocal || Loading}
+                variant={isSubmittingLocal || Loading ? 'disabled' : 'primary'}
+                labelStyle={styles.labelStyle}
+                color={isSubmittingLocal || Loading ? 'primary' : 'dark'}
+              />
+            )
+          }
 
           <Buttons
             label={i18next.t('Drafts')}

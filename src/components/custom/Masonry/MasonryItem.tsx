@@ -12,9 +12,10 @@ interface MasonryItemProps {
   pin: any;
   showInf: boolean;
   delay: number;
+  isFocused: boolean;
 }
 
-const MasonryItem: React.FC<MasonryItemProps> = ({ pin, showInf, delay }) => {
+const MasonryItem: React.FC<MasonryItemProps> = ({ pin, showInf, delay, isFocused }) => {
   const opacity = useSharedValue(0);
   const translateY = useSharedValue(20);
   const scale = useSharedValue(0.8);
@@ -48,7 +49,7 @@ const MasonryItem: React.FC<MasonryItemProps> = ({ pin, showInf, delay }) => {
 
   return (
     <Animated.View style={animatedStyle}>
-        <Card pin={pin} key={pin.id} showInf={showInf} />
+        <Card pin={pin} key={pin.id} showInf={showInf} isFocused={isFocused} />
     </Animated.View>
   );
 };
