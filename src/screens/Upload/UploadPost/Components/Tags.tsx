@@ -17,7 +17,7 @@ const Tags = memo(() => {
     control,
     name: 'tags',
     rules: {
-      required: true,
+      required: false,
     },
   });
   const selectedIds = fields.map((field: any) => field.value);

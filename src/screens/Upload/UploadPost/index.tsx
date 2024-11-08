@@ -14,14 +14,6 @@ import { useContext, useEffect } from 'react';
 
 const Stack = createStackNavigator();
 
-type Props = {
-  route?: {
-    params: {
-      id: number;
-    };
-  };
-};
-
 const defaultValues = {
   id: null,
   title: '',

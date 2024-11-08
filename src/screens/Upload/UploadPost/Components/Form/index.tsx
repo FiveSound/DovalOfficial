@@ -50,10 +50,15 @@ const InputLabel = (props: { label: string; href: string }) => {
       }}
     >
       <Image source={iconsNative.People} />
-      <Typography variant="H4title" newStyle={{
-        ...FONTS.semi16,
-        color: Description,
-      }}>{props.label}</Typography>
+      <Typography
+        variant="H4title"
+        newStyle={{
+          ...FONTS.semi16,
+          color: Description,
+        }}
+      >
+        {props.label}
+      </Typography>
     </TouchableOpacity>
   );
 };
@@ -65,37 +70,25 @@ const PostDetails = memo(() => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const values = watch();
-  const {
-    mediaURLs,
-  } = useUploadMedia();
+  const { mediaURLs } = useUploadMedia();
 
   const onSubmit = async (data: object) => {
     setLoading(true);
-    if (!data['key'] || data['key'].length === 0) {
-      Alert.alert(
-        'Error',
-        'El campo "key" es obligatorio para subir un post.',
-        [{ text: 'OK' }]
-      );
-      return;
-    }
 
     try {
       const response = await publishPostService(data);
-      console.log({ response });
+
       if (response.success) {
         setSuccess(true);
-        setLoading(false);
         setTimeout(() => {
           setSuccess(false);
           navigation.navigate('Feed');
         }, 1000);
-
       } else {
         Alert.alert(
           'Error',
           'Hubo un problema al subir el post. Por favor, intenta nuevamente.',
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
       }
     } catch (error) {
@@ -104,8 +97,10 @@ const PostDetails = memo(() => {
       Alert.alert(
         'Error',
         'Ocurrió un error inesperado. Por favor, intenta nuevamente.',
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -140,14 +135,17 @@ const PostDetails = memo(() => {
           label={i18next.t('Publish')}
           onPress={handleSubmit(onSubmit)}
           containerButtons={styles.containerButtonss}
-          variantLabel={disable ? 'disabled' : 'secondary'}
-          variant={disable ? 'disabled' : 'primary'}
-          disabled={disable}
+          // variantLabel={disable ? 'disabled' : 'secondary'}
+          // variant={disable ? 'disabled' : 'primary'}
+          // disabled={disable}
           loading={loading}
         />
       </FlexContainer>
-      <LineDivider variant="secondary" lineStyle={{ marginBottom: SIZES.gapLarge }} />
-     
+      <LineDivider
+        variant="secondary"
+        lineStyle={{ marginBottom: SIZES.gapLarge }}
+      />
+
       <KeyboardAwareScrollView
         extraScrollHeight={responsiveFontSize(100)}
         enableOnAndroid={true}
@@ -156,12 +154,14 @@ const PostDetails = memo(() => {
         scrollEnabled={true}
         contentContainerStyle={{ paddingBottom: SIZES.height / 10 }}
       >
-        {success && <Perks label='Posts Publicado con exito' status='success'/>}
+        {success && (
+          <Perks label="Posts Publicado con exito" status="success" />
+        )}
         <FlexContainer newStyle={styles.container}>
           <Covers data={mediaURLs} ShowDivider={true} />
           <PostDescriptionInput
             setValue={setValue}
-            onSaveDraft={onSaveDraft} 
+            onSaveDraft={onSaveDraft}
             value={values.description}
           />
           <FlexContainer newStyle={styles.persContainer}>
@@ -178,7 +178,7 @@ const PostDetails = memo(() => {
 
           <InputLabel label="add recipe" href="Recipes" />
           {/* <LineDivider variant="primary" /> */}
-{/* 
+          {/* 
           <View
             style={{
               marginHorizontal: 10,

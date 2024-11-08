@@ -5,8 +5,7 @@ import { QueryKeyType } from '../../types/ReactQuery.type';
 
 export const publishPostService = async (body: object) => {
   const userToken = await AsyncStorage.getItem('userToken');
-
-  await axios.post(
+  const response = await axios.post(
     `${API_URL}/api/posts/add`,
     {
       ...body,
@@ -17,6 +16,8 @@ export const publishPostService = async (body: object) => {
       },
     },
   );
+
+  return response.data;
 };
 
 export const getMyPostService = async () => {
@@ -339,6 +340,7 @@ export const saveDraftService = async (key: string[]) => {
       },
     },
   );
+  console.log({ idpost: response.data.id });
   return response.data;
 };
 
@@ -357,17 +359,17 @@ export const getHashtagsService = async () => {
   return response.data;
 };
 
-export const saveDraftService = async (key: string[]) => {
-  const userToken = await AsyncStorage.getItem('userToken');
+// export const saveDraftService = async (key: string[]) => {
+//   const userToken = await AsyncStorage.getItem('userToken');
 
-  const response = await axios.post(
-    `${API_URL}/api/posts/draft`,
-    { key },
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    },
-  );
-  return response.data;
-};
+//   const response = await axios.post(
+//     `${API_URL}/api/posts/draft`,
+//     { key },
+//     {
+//       headers: {
+//         Authorization: `Bearer ${userToken}`,
+//       },
+//     },
+//   );
+//   return response.data;
+// };

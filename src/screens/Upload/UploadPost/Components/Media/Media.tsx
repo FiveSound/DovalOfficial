@@ -37,14 +37,11 @@ const Media = () => {
     isLoading: Loading,
     progress,
     mediaURLs,
-    
   } = useUploadMedia();
 
-  
   const keys = watch('key') || [];
   console.log('keys', keys);
   console.log('mediaURLs', mediaURLs);
-
 
   const pickImage = async () => {
     setIsSubmittingLocal(true);
@@ -84,9 +81,7 @@ const Media = () => {
     if (mediaURLs.length > 0) {
       const updatedKeys = [...keys, ...mediaURLs];
       // setValue('key', updatedKeys, { shouldValidate: true, shouldDirty: true });
-      saveDraftService(
-        updatedKeys,
-      )
+      saveDraftService(updatedKeys)
         .then(response => {
           console.log('response addDraftService', response);
           if (response.success) {
@@ -126,18 +121,16 @@ const Media = () => {
         <Covers data={mediaURLs || []} ShowDivider={false} />
         <FlexContainer newStyle={styles.progressContainer}>
           {Loading && <IsLoading />}
-          {
-            mediaURLs.length === 0 && (
-              <Buttons
-                label={i18next.t('Upload Media')}
-                onPress={pickImage}
-                disabled={isSubmittingLocal || Loading}
-                variant={isSubmittingLocal || Loading ? 'disabled' : 'primary'}
-                labelStyle={styles.labelStyle}
-                color={isSubmittingLocal || Loading ? 'primary' : 'dark'}
-              />
-            )
-          }
+          {mediaURLs.length === 0 && (
+            <Buttons
+              label={i18next.t('Upload Media')}
+              onPress={pickImage}
+              disabled={isSubmittingLocal || Loading}
+              variant={isSubmittingLocal || Loading ? 'disabled' : 'primary'}
+              labelStyle={styles.labelStyle}
+              color={isSubmittingLocal || Loading ? 'primary' : 'dark'}
+            />
+          )}
 
           <Buttons
             label={i18next.t('Drafts')}
