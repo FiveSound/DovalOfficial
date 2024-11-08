@@ -88,6 +88,13 @@ const styles = StyleSheet.create({
     gap: SIZES.gapLarge,
     alignItems: 'center',
   },
+  selectedContainer: {
+    backgroundColor: COLORS.backSuccess,
+    padding: SIZES.gapSmall,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SIZES.gapSmall,
+  },
 });
 
 export default styles;

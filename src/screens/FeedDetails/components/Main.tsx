@@ -54,7 +54,7 @@ const Main = memo(({ item }: MainProps) => {
         showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
       >
-        <FrontCover />
+        <FrontCover/>
         <Animated.View entering={FadeIn.delay(500)}>
         <RenderItem />
         </Animated.View>

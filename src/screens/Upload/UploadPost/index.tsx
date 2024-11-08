@@ -23,14 +23,14 @@ type Props = {
 };
 
 const defaultValues = {
+  id: null,
   title: '',
   description: '',
-  key: [],
   hashtags: [],
   tags: [],
   topics: [],
   recipeID: null,
-  comments: false,
+  comments: true,
 };
 
 const NewPosts = () => {

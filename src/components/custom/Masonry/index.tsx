@@ -18,16 +18,17 @@ interface IMasonryList {
   onLoadMore?: () => void;
   loading?: boolean;
   showInf?: boolean;
-  sharedTransitionTag?: string;
+  isFocused?: boolean;
 }
 
 const MasonryList = ({
   pins = [],
   refreshing = false,
-  onRefresh = () => {},
-  onLoadMore = () => {},
+  onRefresh ,
+  onLoadMore ,
   loading = false,
   showInf = true,
+  isFocused = false,
 }: IMasonryList) => {
   const { width } = useWindowDimensions();
 
@@ -63,13 +64,14 @@ const MasonryList = ({
         {columns.map((columnPins, colIndex) => (
           <View style={styles.column} key={`column_${colIndex}`}>
             {columnPins.map((pin, itemIndex) => {
-              const delay = useMemo(() => { return (colIndex * columns.length + itemIndex) * 100;}, [colIndex, itemIndex, columns.length]);
+              const delay = (colIndex * columns.length + itemIndex) * 100;
               return (
                 <MasonryItem
                   key={pin.id}
                   pin={pin}
                   showInf={showInf}
                   delay={delay}
+                  isFocused={isFocused} 
                 />
               );
             })}

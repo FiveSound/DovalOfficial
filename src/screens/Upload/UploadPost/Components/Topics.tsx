@@ -21,6 +21,7 @@ import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import { getTopicsService } from '../../../../services/posts';
 import { iconsNative } from '../../../../constants';
+import i18next from '../../../../Translate';
 
 const Topics = memo(() => {
   const { control } = useFormContext();
@@ -54,7 +55,7 @@ const Topics = memo(() => {
   };
 
   if (isLoading || isFetching) {
-    return <LoadingScreen label="Cargando categorias" />;
+    return <LoadingScreen label={i18next.t('Loading')} />;
   }
 
   if (isError) {
@@ -66,13 +67,13 @@ const Topics = memo(() => {
       style={styles.container}
       label="Topics"
       showBack={true}
-      showHeader={false}
+      showHeader={true}
     >
-      <Typography variant="title">Topics</Typography>
+      {/* <Typography variant="title">Topics</Typography>
       <SearchHeader
         onChange={text => setSearchTerm(text)}
         placeholder="Search topics..."
-      />
+      /> */}
 
       <FlatList
         data={data?.list || []}
@@ -89,11 +90,12 @@ const Topics = memo(() => {
                 style={{ tintColor: isSelected ? '#FF5500' : '#000' }}
               />
 
-              <Text
-                style={[styles.itemText, isSelected && styles.selectedItem]}
+              <Typography
+                variant="H4title"
+                newStyle={[isSelected && styles.selectedItem]}
               >
                 {item.title}
-              </Text>
+              </Typography>
             </TouchableOpacity>
           );
         }}
@@ -114,11 +116,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   item: {
-    marginBottom: 10,
+    marginVertical: SIZES.gapMedium,
     backgroundColor: 'transparent',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
+    gap: SIZES.gapMedium,
+    paddingHorizontal: SIZES.gapLarge,
   },
   icon: {
     padding: 10,
@@ -126,8 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   itemText: {
-    fontSize: 17,
-    fontWeight: 'bold',
   },
   selectedItem: {
     color: '#FF5500',

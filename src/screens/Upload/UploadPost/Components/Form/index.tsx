@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Switch,
-  Alert,
+  Alert, // Asegúrate de importar Alert
 } from 'react-native';
 import { useFormContext } from 'react-hook-form';
 import {
@@ -16,6 +16,7 @@ import {
   Icons,
   LineDivider,
   Perks,
+  Typography,
 } from '../../../../../components/custom';
 import { Covers } from '../Utils';
 import {
@@ -30,26 +31,29 @@ import {
   responsiveFontSize,
   SIZES,
 } from '../../../../../constants/theme';
-import { useTheme } from '../../../../../hooks';
-import { PostDescriptionInput, RecipeNameInput } from './Components';
+import { useTheme, useUploadMedia } from '../../../../../hooks';
+import { PostDescriptionInput, PostNameInput } from './Components';
 import { iconsNative } from '../../../../../constants';
 import { publishPostService } from '../../../../../services/posts';
 
 const InputLabel = (props: { label: string; href: string }) => {
   const navigation = useNavigation();
+  const { Description } = useTheme();
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(props.href)}
       style={{
-        marginHorizontal: 10,
-        padding: 10,
+        padding: SIZES.gapLarge,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 20,
+        gap: SIZES.gapLarge,
       }}
     >
       <Image source={iconsNative.People} />
-      <Text style={{ fontSize: 17 }}>{props.label}</Text>
+      <Typography variant="H4title" newStyle={{
+        ...FONTS.semi16,
+        color: Description,
+      }}>{props.label}</Typography>
     </TouchableOpacity>
   );
 };
@@ -58,12 +62,51 @@ const PostDetails = memo(() => {
   const { watch, handleSubmit, setValue } = useFormContext();
   const navigation = useNavigation();
   const { Title } = useTheme();
-
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const values = watch();
+  const {
+    mediaURLs,
+  } = useUploadMedia();
 
   const onSubmit = async (data: object) => {
-    const response = await publishPostService(data);
-    console.log({ response });
+    setLoading(true);
+    if (!data['key'] || data['key'].length === 0) {
+      Alert.alert(
+        'Error',
+        'El campo "key" es obligatorio para subir un post.',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
+    try {
+      const response = await publishPostService(data);
+      console.log({ response });
+      if (response.success) {
+        setSuccess(true);
+        setLoading(false);
+        setTimeout(() => {
+          setSuccess(false);
+          navigation.navigate('Feed');
+        }, 1000);
+
+      } else {
+        Alert.alert(
+          'Error',
+          'Hubo un problema al subir el post. Por favor, intenta nuevamente.',
+          [{ text: 'OK' }]
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      Alert.alert(
+        'Error',
+        'Ocurrió un error inesperado. Por favor, intenta nuevamente.',
+        [{ text: 'OK' }]
+      );
+    }
   };
 
   const onSaveDraft = async (body: object) => {
@@ -72,6 +115,11 @@ const PostDetails = memo(() => {
     //   console.log('Guardado con éxito...');
     // }
   };
+
+  console.log({ values });
+
+  // Determinar si el botón debe estar deshabilitado
+  const disable = !values.key || values.key.length === 0;
 
   return (
     <Container
@@ -89,19 +137,17 @@ const PostDetails = memo(() => {
           onPress={() => navigation.goBack()}
         />
         <Buttons
-          label={i18next.t('Continue')}
+          label={i18next.t('Publish')}
           onPress={handleSubmit(onSubmit)}
           containerButtons={styles.containerButtonss}
-          // variantLabel={disable ? 'disabled' : 'secondary'}
-          // variant={disable ? 'disabled' : 'primary'}
-          // disabled={disable}
-          labelStyle={{
-            ...FONTS.semi16,
-          }}
+          variantLabel={disable ? 'disabled' : 'secondary'}
+          variant={disable ? 'disabled' : 'primary'}
+          disabled={disable}
+          loading={loading}
         />
       </FlexContainer>
-      <LineDivider variant="primary" />
-
+      <LineDivider variant="secondary" lineStyle={{ marginBottom: SIZES.gapLarge }} />
+     
       <KeyboardAwareScrollView
         extraScrollHeight={responsiveFontSize(100)}
         enableOnAndroid={true}
@@ -110,11 +156,12 @@ const PostDetails = memo(() => {
         scrollEnabled={true}
         contentContainerStyle={{ paddingBottom: SIZES.height / 10 }}
       >
+        {success && <Perks label='Posts Publicado con exito' status='success'/>}
         <FlexContainer newStyle={styles.container}>
-          <Covers data={values.key} ShowDivider={true} />
+          <Covers data={mediaURLs} ShowDivider={true} />
           <PostDescriptionInput
             setValue={setValue}
-            onSaveDraft={onSaveDraft}
+            onSaveDraft={onSaveDraft} 
             value={values.description}
           />
           <FlexContainer newStyle={styles.persContainer}>
@@ -123,15 +170,15 @@ const PostDetails = memo(() => {
             <Pers label="Topics" navigation={navigation} />
           </FlexContainer>
           <LineDivider variant="secondary" />
-          <RecipeNameInput
+          <PostNameInput
             setValue={setValue}
             onSaveDraft={onSaveDraft}
             value={values.name}
           />
 
-          <InputLabel label="Add Recipie" href="Recipes" />
-          <LineDivider variant="primary" />
-
+          <InputLabel label="add recipe" href="Recipes" />
+          {/* <LineDivider variant="primary" /> */}
+{/* 
           <View
             style={{
               marginHorizontal: 10,
@@ -152,7 +199,7 @@ const PostDetails = memo(() => {
                 transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], // Cambia el tamaño con scaleX y scaleY
               }}
             />
-          </View>
+          </View> */}
         </FlexContainer>
       </KeyboardAwareScrollView>
     </Container>
