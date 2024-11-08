@@ -1,6 +1,13 @@
-import React from 'react';
-import { Alert, StyleSheet } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
+import { memo } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Switch,
+  Alert,
+} from 'react-native';
 import { useFormContext } from 'react-hook-form';
 import {
   Buttons,
@@ -15,130 +22,61 @@ import {
   KeyboardAwareScrollView,
   useNavigation,
 } from '../../../../../components/native';
-import {
-  CategoriesSelector,
-  FoodTypeSelector,
-  PostDescriptionInput,
-  RecipeNameInput,
-  SideDishSelector,
-} from './Components';
-import {
-  getListCategoriesService,
-  getListTypesService,
-  getVariantsByRecipeService,
-  onCompleteService,
-  onSaveDraftService,
-} from '../../../../../services/recipes';
+import Pers from './Components/Pers';
+import i18next from '../../../../../Translate';
+import { CloseIcon } from '../../../../../constants/IconsPro';
 import {
   FONTS,
   responsiveFontSize,
   SIZES,
 } from '../../../../../constants/theme';
-import { styles } from '../Media/Media';
-import i18next from '../../../../../Translate';
-import { ArrowLeft, CloseIcon } from '../../../../../constants/IconsPro';
 import { useTheme } from '../../../../../hooks';
-import Pers from './Components/Pers';
+import { PostDescriptionInput, RecipeNameInput } from './Components';
+import { iconsNative } from '../../../../../constants';
+import { publishPostService } from '../../../../../services/posts';
 
-const Details = () => {
-  const { Title } = useTheme();
+const InputLabel = (props: { label: string; href: string }) => {
   const navigation = useNavigation();
-  const { setValue, watch } = useFormContext();
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate(props.href)}
+      style={{
+        marginHorizontal: 10,
+        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 20,
+      }}
+    >
+      <Image source={iconsNative.People} />
+      <Text style={{ fontSize: 17 }}>{props.label}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const PostDetails = memo(() => {
+  const { watch, handleSubmit, setValue } = useFormContext();
+  const navigation = useNavigation();
+  const { Title } = useTheme();
+
   const values = watch();
-  console.log('values', values);
-  
-  const onSaveDraft = async (body: object) => {
-    const response = await onSaveDraftService({ id: values.id, ...body });
-    if (response.success) {
-      console.log('Guardado con éxito...');
-    }
+
+  const onSubmit = async (data: object) => {
+    const response = await publishPostService(data);
+    console.log({ response });
   };
 
-  // Queries
-  const categories = useQuery({
-    queryKey: ['recipe-list-categories', values.id],
-    queryFn: getListCategoriesService,
-  });
-  const selecCategories = categories.data?.list.some(
-    (item: any) => item.selected,
-  );
-
-  const foodTypes = useQuery({
-    queryKey: ['recipe-list-types', values.id],
-    queryFn: getListTypesService,
-  });
-
-  const selecFooTypes = foodTypes.data?.list.some((item: any) => item.selected);
-  const variants = useQuery({
-    queryKey: ['recipe-variants-component', values.id],
-    queryFn: getVariantsByRecipeService,
-  });
-
-  const disable =
-    !values.name ||
-    !values.description ||
-    !values.price ||
-    values.name.length === 0 ||
-    values.description.length === 0 ||
-    values.price.length === 0 ||
-    !selecFooTypes ||
-    (variants.data.resume && variants.data.resume.length === 0) ||
-    !selecCategories;
-
-  const onSubmit = async () => {
-    const missingFields = [];
-
-    if (!values.name || values.name.trim().length === 0) {
-      missingFields.push('Nombre');
-    }
-    if (!values.description || values.description.trim().length === 0) {
-      missingFields.push('Descripción');
-    }
-    if (!values.price || values.price.trim().length === 0) {
-      missingFields.push('Precio');
-    }
-    if (!selecFooTypes) {
-      missingFields.push('Tipos de comida');
-    }
-    if (variants.data.resume && variants.data.resume.length === 0) {
-      missingFields.push('Acompañamientos');
-    }
-    if (!selecCategories) {
-      missingFields.push('Categorías');
-    }
-
-    if (missingFields.length > 0) {
-      Alert.alert(
-        'Campos incompletos',
-        `Por favor, completa los siguientes campos: ${missingFields.join(', ')}`,
-      );
-      return <Perks label={missingFields.join(', ')} status="error" />;
-    }
-
-    const response = await onCompleteService(values.id);
-    console.log('response', response);
-    if (response.success) {
-      Alert.alert(
-        'Receta agregada con éxito!',
-        '¿Quieres crear otra receta o volver atrás?',
-        [
-          {
-            text: 'Crear mas recetas',
-            onPress: () => {},
-          },
-          {
-            text: 'Volver atrás',
-            onPress: () => navigation.goBack(),
-          },
-        ],
-      );
-    }
+  const onSaveDraft = async (body: object) => {
+    // const response = await onSaveDraftService({ id: values.id, ...body });
+    // if (response.success) {
+    //   console.log('Guardado con éxito...');
+    // }
   };
 
   return (
     <Container
-      label="New Recipe"
-      onPress={onSubmit}
+      label="New Post"
+      // onPress={handleSubmit(onSubmit)}
       showHeader={false}
       showTwoIconsLabel={true}
       showBack={false}
@@ -152,17 +90,18 @@ const Details = () => {
         />
         <Buttons
           label={i18next.t('Continue')}
-          onPress={onSubmit}
+          onPress={handleSubmit(onSubmit)}
           containerButtons={styles.containerButtonss}
-          variantLabel={disable ? 'disabled' : 'secondary'}
-          variant={disable ? 'disabled' : 'primary'}
-          disabled={disable}
+          // variantLabel={disable ? 'disabled' : 'secondary'}
+          // variant={disable ? 'disabled' : 'primary'}
+          // disabled={disable}
           labelStyle={{
             ...FONTS.semi16,
           }}
         />
       </FlexContainer>
       <LineDivider variant="primary" />
+
       <KeyboardAwareScrollView
         extraScrollHeight={responsiveFontSize(100)}
         enableOnAndroid={true}
@@ -179,26 +118,70 @@ const Details = () => {
             value={values.description}
           />
           <FlexContainer newStyle={styles.persContainer}>
-          <Pers label='Hashtags' navigation={navigation} />
-          <Pers label='Mention creators' navigation={navigation} />
-          <Pers label='Topics' navigation={navigation} />
-         </FlexContainer>
-         <LineDivider variant='secondary'/>
+            <Pers label="Hashtags" navigation={navigation} />
+            <Pers label="Tags" navigation={navigation} />
+            <Pers label="Topics" navigation={navigation} />
+          </FlexContainer>
+          <LineDivider variant="secondary" />
           <RecipeNameInput
             setValue={setValue}
             onSaveDraft={onSaveDraft}
             value={values.name}
           />
-    
-          <CategoriesSelector categories={categories} navigation={navigation} />
+
+          <InputLabel label="Add Recipie" href="Recipes" />
           <LineDivider variant="primary" />
-          <FoodTypeSelector foodTypes={foodTypes} navigation={navigation} />
-          <LineDivider variant="primary" />
-          {/* <SideDishSelector variants={variants} navigation={navigation} /> */}
+
+          <View
+            style={{
+              marginHorizontal: 10,
+              padding: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <View style={{ flexDirection: 'row' }}>
+              <Image source={iconsNative.Comments} style={{ marginRight: 4 }} />
+              <Text style={{ fontSize: 20 }}>Allow comments</Text>
+            </View>
+            <Switch
+              value={values.comments}
+              onValueChange={value => setValue('comments', value)}
+              style={{
+                transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], // Cambia el tamaño con scaleX y scaleY
+              }}
+            />
+          </View>
         </FlexContainer>
       </KeyboardAwareScrollView>
     </Container>
   );
-};
+});
 
-export default Details;
+export default PostDetails;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: responsiveFontSize(20),
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: SIZES.gapLarge,
+    marginBottom: SIZES.gapLarge,
+  },
+  containerButtonss: {
+    width: '30%',
+  },
+  persContainer: {
+    flexDirection: 'row',
+    gap: SIZES.gapLarge,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginBottom: SIZES.gapLarge,
+    paddingHorizontal: SIZES.gapLarge,
+  },
+});

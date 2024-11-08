@@ -19,14 +19,14 @@ import {
 import { GridIcon } from '../../../../constants/IconsPro';
 import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
-import { getHashtagsService } from '../../../../services/posts';
+import { getTopicsService } from '../../../../services/posts';
 import { iconsNative } from '../../../../constants';
 
-const Hashtags = memo(() => {
+const Topics = memo(() => {
   const { control } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
-    name: 'hashtags',
+    name: 'topics',
     rules: {
       required: true,
     },
@@ -38,8 +38,8 @@ const Hashtags = memo(() => {
   const selectedIds = fields.map((field: any) => field.value);
 
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ['posts-list-hashtags'],
-    queryFn: getHashtagsService,
+    queryKey: ['posts-list-topics'],
+    queryFn: getTopicsService,
   });
 
   const handleAddOrRemoveItem = (id: number) => {
@@ -64,14 +64,14 @@ const Hashtags = memo(() => {
   return (
     <Container
       style={styles.container}
-      label="Hashtags"
+      label="Topics"
       showBack={true}
       showHeader={false}
     >
-      <Typography variant="title">Hashtags</Typography>
+      <Typography variant="title">Topics</Typography>
       <SearchHeader
         onChange={text => setSearchTerm(text)}
-        placeholder="Search hashtags"
+        placeholder="Search topics..."
       />
 
       <FlatList
@@ -88,6 +88,7 @@ const Hashtags = memo(() => {
                 source={iconsNative.Topics}
                 style={{ tintColor: isSelected ? '#FF5500' : '#000' }}
               />
+
               <Text
                 style={[styles.itemText, isSelected && styles.selectedItem]}
               >
@@ -106,7 +107,7 @@ const Hashtags = memo(() => {
   );
 });
 
-export default Hashtags;
+export default Topics;
 
 const styles = StyleSheet.create({
   container: {

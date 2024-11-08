@@ -24,6 +24,10 @@ const dot = require('../../assets/icons/Dots.png');
 const Contactless = require('../../assets/icons/Contactless.png');
 const CardBrand = require('../../assets/icons/Cards_brand.png');
 const x = require('../../assets/icons/x.png');
+const People = require('../../assets/icons/People.png');
+const Comments = require('../../assets/icons/Comments.png');
+const Topics = require('../../assets/icons/topics.png');
+const Hashtag = require('../../assets/icons/hashtag.png');
 
 export default {
   google,
@@ -52,4 +56,8 @@ export default {
   Contactless,
   CardBrand,
   x,
+  People,
+  Comments,
+  Topics,
+  Hashtag,
 };

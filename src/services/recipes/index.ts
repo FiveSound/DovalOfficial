@@ -207,19 +207,20 @@ export const onSaveDraftService = async (body: object) => {
 };
 
 export const onCompleteService = async (id: number) => {
-  const userToken = await AsyncStorage.getItem('userToken');
+  // const userToken = await AsyncStorage.getItem('userToken');
 
-  const response = await axios.post(
-    `${API_URL}/api/recipes/complete`,
-    { id },
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    },
-  );
+  // const response = await axios.post(
+  //   `${API_URL}/api/recipes/complete`,
+  //   { id },
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${userToken}`,
+  //     },
+  //   },
+  // );
 
-  return response.data;
+  // return response.data;
+  console.log({ id });
 };
 
 export const getRecipeDrafts = async () => {

@@ -16,8 +16,7 @@ type props = {
   subLabel?: string;
 };
 export const LabelVariants = (props: props) => {
-  const { data, onPress, isLoading, AppendIcons, subLabel} = props;
-
+  const { data, onPress, isLoading, AppendIcons, subLabel } = props;
 
   if (isLoading) return <IsLoading />;
 
@@ -34,13 +33,13 @@ export const LabelVariants = (props: props) => {
       >
         {AppendIcons}
         <FlexContainer newStyle={styles.flexContainer}>
-          <Typography variant="subtitle">{row.name}</Typography>
-          <Typography variant="SubDescription">{row.description}</Typography>
+          <Typography variant="subtitle">{row.title}</Typography>
+          {/* <Typography variant="SubDescription">{row.description}</Typography> */}
         </FlexContainer>
-        <Typography variant="SubDescription">{subLabel}</Typography>
+        {/* <Typography variant="SubDescription">{subLabel}</Typography>
         {row.selected && (
           <Perks status="success" label="Seleccionado" Reverse={false} />
-        )}
+        )} */}
       </TouchableOpacity>
     ));
   }

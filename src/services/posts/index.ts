@@ -1,29 +1,22 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert } from 'react-native';
 import { API_URL } from '../index';
 import { QueryKeyType } from '../../types/ReactQuery.type';
 
-export const publishPostService = async (body: any, reset: any) => {
-  try {
-    const userToken = await AsyncStorage.getItem('userToken');
+export const publishPostService = async (body: object) => {
+  const userToken = await AsyncStorage.getItem('userToken');
 
-    await axios.post(
-      `${API_URL}/api/posts/add`,
-      {
-        ...body,
+  await axios.post(
+    `${API_URL}/api/posts/add`,
+    {
+      ...body,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      },
-    );
-    reset();
-  } catch (error) {
-    console.log({ error });
-    Alert.alert('Intentalo de nuevo mas tarde!');
-  }
+    },
+  );
 };
 
 export const getMyPostService = async () => {
@@ -313,4 +306,38 @@ export const getMyPostByIDService = async ({ queryKey }: QueryKeyType) => {
     console.log({ error });
     return [];
   }
+};
+
+// Tag user from create post
+export const tagUserService = async (postID: number, userID: string) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+  const response = await axios.post(
+    `${API_URL}/api/posts/tag`,
+    {
+      postID,
+      userID,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+  );
+
+  return response.data;
+};
+
+export const getTagsService = async () => {
+  const response = await axios.get(`${API_URL}/api/posts/tags`);
+  return response.data;
+};
+
+export const getTopicsService = async () => {
+  const response = await axios.get(`${API_URL}/api/posts/topics`);
+  return response.data;
+};
+
+export const getHashtagsService = async () => {
+  const response = await axios.get(`${API_URL}/api/posts/hashtags`);
+  return response.data;
 };

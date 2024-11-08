@@ -1,8 +1,10 @@
 import Categories from './Categories';
 import Details from './Form';
 import Drafts from './Drafts';
-import FoodTypes from './FoodTypes';
-import Variants from './Variants';
 import Media from './Media/Media';
+import Tags from './Tags';
+import Hashtags from './Hashtags';
+import Topics from './Topics';
+import Recipes from './Recipes';
 
-export { Categories, Details, Drafts, FoodTypes, Variants, Media };
+export { Categories, Details, Drafts, Media, Tags, Hashtags, Topics, Recipes };

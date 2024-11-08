@@ -40,7 +40,7 @@ const Media = () => {
     photos,
     videos,
     error,
-    optimizedMediaURLs
+    optimizedMediaURLs,
   } = useUploadMedia();
 
   const keys = watch('key') || [];
@@ -117,7 +117,7 @@ const Media = () => {
       <FlexContainer newStyle={styles.actions}>
         <Buttons
           label={i18next.t('Continue')}
-          onPress={() => navigation.navigate('RecipeDetails')}
+          onPress={() => navigation.navigate('PostDetails')}
           disabled={keys.length === 0}
           variant={keys.length === 0 ? 'disabled' : 'primary'}
           variantLabel={keys.length === 0 ? 'disabled' : 'secondary'}
@@ -127,9 +127,7 @@ const Media = () => {
       <FlexContainer>
         <Covers data={keys} ShowDivider={false} />
         <FlexContainer newStyle={styles.progressContainer}>
-          {Loading  && (
-            <IsLoading  />
-          )}
+          {Loading && <IsLoading />}
           <Buttons
             label={i18next.t('Upload Media')}
             onPress={pickImage}
@@ -141,7 +139,7 @@ const Media = () => {
 
           <Buttons
             label={i18next.t('Drafts')}
-            onPress={() => navigation.navigate('RecipeDrafts')}
+            onPress={() => navigation.navigate('PostDrafts')}
             containerButtons={styles.containerButtonss}
             variant="transparent"
           />
