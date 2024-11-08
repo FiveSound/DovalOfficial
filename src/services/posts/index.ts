@@ -327,6 +327,21 @@ export const tagUserService = async (postID: number, userID: string) => {
   return response.data;
 };
 
+export const saveDraftService = async (key: string[]) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+
+  const response = await axios.post(
+    `${API_URL}/api/posts/draft`,
+    { key },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+  );
+  return response.data;
+};
+
 export const getTagsService = async () => {
   const response = await axios.get(`${API_URL}/api/posts/tags`);
   return response.data;
