@@ -6,16 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { getRecipeDrafts } from '../../../../services/recipes';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Recipe } from '../../../../types/comments/types';
+import { getPostsDrafts } from '../../../../services/posts';
 
 const Drafts = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 
-  const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ['recipes-draft-list'],
-    queryFn: getRecipeDrafts,
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
+    queryKey: ['posts-draft-list'],
+    queryFn: getPostsDrafts,
   });
 
   if (isLoading || isFetching) return <ActivityIndicator />;
@@ -27,7 +27,7 @@ const Drafts = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Drafts</Text>
 
-        {data.list.length === 0 && <Text>No hay borradores</Text>}
+        {/* {data.list.length === 0 && <Text>No hay borradores</Text>}
         {data.list.map((row: Recipe) => (
           <TouchableOpacity
             onPress={() => {
@@ -46,8 +46,8 @@ const Drafts = () => {
             <Text style={styles.itemSubtitle}>{row.description}</Text>
             <Text>{row.created_at}</Text>
           </TouchableOpacity>
-        ))}
-        {/* <Text selectable>{JSON.stringify(data, null, 2)}</Text> */}
+        ))} */}
+        <Text onPress={() => refetch()} selectable>{JSON.stringify(data, null, 2)}</Text>
       </View>
     );
   }

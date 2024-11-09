@@ -13,10 +13,8 @@ import {
   Container,
   LoadingScreen,
   Perks,
-  SearchHeader,
   Typography,
 } from '../../../../components/custom';
-import { GridIcon } from '../../../../constants/IconsPro';
 import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
 import { getHashtagsService } from '../../../../services/posts';
@@ -68,7 +66,6 @@ const Hashtags = memo(() => {
       label="Hashtags"
       showBack={true}
       showHeader={true}
-      
     >
       {/* <SearchHeader
         onChange={text => setSearchTerm(text)}

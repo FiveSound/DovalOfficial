@@ -1,4 +1,3 @@
-import Categories from './Categories';
 import Details from './Form';
 import Drafts from './Drafts';
 import Media from './Media/Media';
@@ -7,4 +6,4 @@ import Hashtags from './Hashtags';
 import Topics from './Topics';
 import Recipes from './Recipes';
 
-export { Categories, Details, Drafts, Media, Tags, Hashtags, Topics, Recipes };
+export { Details, Drafts, Media, Tags, Hashtags, Topics, Recipes };
