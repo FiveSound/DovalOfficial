@@ -17,6 +17,7 @@ const Stack = createStackNavigator();
 const defaultValues = {
   id: null,
   title: '',
+  test: [],
   description: '',
   hashtags: [],
   tags: [],

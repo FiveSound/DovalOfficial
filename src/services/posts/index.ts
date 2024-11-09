@@ -340,7 +340,7 @@ export const saveDraftService = async (key: string[]) => {
       },
     },
   );
-  console.log({ idpost: response.data.id });
+  
   return response.data;
 };
 

@@ -64,7 +64,7 @@ const InputLabel = (props: { label: string; href: string }) => {
 };
 
 const PostDetails = memo(() => {
-  const { watch, handleSubmit, setValue } = useFormContext();
+  const { watch, handleSubmit, setValue, reset } = useFormContext();
   const navigation = useNavigation();
   const { Title } = useTheme();
   const [success, setSuccess] = useState(false);
@@ -101,6 +101,7 @@ const PostDetails = memo(() => {
       );
     } finally {
       setLoading(false);
+      reset();
     }
   };
 

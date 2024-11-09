@@ -2,7 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo, useState } from 'react';
 import { FlatList, Text, TouchableOpacity } from 'react-native';
 import { getMyRecipesService } from '../../../../services/recipes';
-import { Container, LoadingScreen, SearchHeader, Typography } from '../../../../components/custom';
+import {
+  Container,
+  LoadingScreen,
+  SearchHeader,
+  Typography,
+} from '../../../../components/custom';
 import CardRecipies from '../../../../components/custom/business/CardRecipies';
 import i18next from '../../../../Translate';
 import { useFieldArray, useFormContext } from 'react-hook-form';
@@ -34,14 +39,14 @@ const Recipes = memo(() => {
 
     setSuccess(true);
   };
-  
+
   const filteredData = useMemo(() => {
     if (!data) return [];
     return data.filter((recipe: any) =>
-      recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
+      recipe.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [data, searchTerm]);
-  
+
   if (isLoading || isFetching) {
     return <LoadingScreen label="Cargando categorias" />;
   }
@@ -51,10 +56,7 @@ const Recipes = memo(() => {
   }
 
   return (
-    <Container
-      showHeader={true}
-      label={i18next.t('My MenuRecipes')}
-    >
+    <Container showHeader={true} label={i18next.t('My MenuRecipes')}>
       <SearchHeader
         onChange={setSearchTerm}
         placeholder={i18next.t('Search')}
@@ -67,11 +69,15 @@ const Recipes = memo(() => {
           const isSelected = selectedIds.includes(item.id);
           return (
             <TouchableOpacity onPress={() => handleAddOrRemoveItem(item.id)}>
-              <CardRecipies row={item} isSelected={isSelected} isBusiness={false} />
+              <CardRecipies
+                row={item}
+                isSelected={isSelected}
+                isBusiness={false}
+              />
             </TouchableOpacity>
           );
         }}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
       />
     </Container>
   );

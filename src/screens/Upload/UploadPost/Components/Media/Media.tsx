@@ -2,25 +2,21 @@ import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useFormContext } from 'react-hook-form';
-// import { addDraftService } from '../../../../../services/recipes';
 import {
   Buttons,
   Container,
   FlexContainer,
   IsLoading,
   LineDivider,
-  ProgressBar,
 } from '../../../../../components/custom';
 import useUploadMedia from '../../../../../hooks/useUploadMedia';
 import {
   COLORS,
-  FONTS,
   responsiveFontSize,
   SIZES,
 } from '../../../../../constants/theme';
 import { Covers } from '../Utils';
 import { useNavigation } from '../../../../../components/native';
-import { useTheme } from '../../../../../hooks';
 import { useDispatch } from 'react-redux';
 import { resetProgress } from '../../../../../redux/slides/uploadSlice';
 import i18next from '../../../../../Translate';
@@ -31,64 +27,54 @@ const Media = () => {
   const { setValue, watch } = useFormContext();
   const [isSubmittingLocal, setIsSubmittingLocal] = useState(false);
   const navigation = useNavigation();
-  const { Title, Description } = useTheme();
-  const {
-    uploadMedia,
-    isLoading: Loading,
-    progress,
-    mediaURLs,
-  } = useUploadMedia();
+
+  const { uploadMedia, isLoading: Loading, mediaURLs } = useUploadMedia();
 
   const keys = watch('key') || [];
-  console.log('keys', keys);
-  console.log('mediaURLs', mediaURLs);
 
   const pickImage = async () => {
     setIsSubmittingLocal(true);
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,
-      quality: 1,
-      allowsMultipleSelection: false,
-    });
-
-    if (!result.canceled && result.assets.length > 0) {
-      const files = result.assets;
-
-      const media = files.map(file => {
-        if (!file.fileName) {
-          const uriParts = file.uri.split('/');
-          file.fileName = uriParts[uriParts.length - 1];
-        }
-        const type = file.type === 'video' ? 'video' : 'photo';
-
-        return {
-          uri: file.uri,
-          type: type,
-        };
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: false,
+        quality: 1,
+        allowsMultipleSelection: false,
       });
 
-      try {
+      if (!result.canceled && result.assets.length > 0) {
+        const files = result.assets;
+
+        const media = files.map(file => {
+          if (!file.fileName) {
+            const uriParts = file.uri.split('/');
+            file.fileName = uriParts[uriParts.length - 1];
+          }
+          const type = file.type === 'video' ? 'video' : 'photo';
+
+          return {
+            uri: file.uri,
+            type: type,
+          };
+        });
+
         uploadMedia(media);
-      } catch (error) {
-        console.error('Upload failed', error);
       }
+    } catch (error) {
+      console.error('Upload failed', error);
+    } finally {
+      setIsSubmittingLocal(false);
     }
-    setIsSubmittingLocal(false);
   };
 
   useEffect(() => {
     if (mediaURLs.length > 0) {
       const updatedKeys = [...keys, ...mediaURLs];
-      // setValue('key', updatedKeys, { shouldValidate: true, shouldDirty: true });
       saveDraftService(updatedKeys)
         .then(response => {
-          console.log('response addDraftService', response);
           if (response.success) {
-            console.log('Guardado con éxito...');
-            setValue('id', response.id);
+            setValue('id', response.id, { shouldDirty: true });
           }
-          // Reset progress
           dispatch(resetProgress());
         })
         .catch(error => {
