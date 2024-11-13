@@ -20,6 +20,7 @@ import {
   useNavigation,
 } from '../../../../../components/native';
 import styles from '../styles';
+import MasonrySkeleton from '../../../../../components/custom/Masonry/MansorySkeleton';
 const MasonryList = lazy(() => import('../../../../../components/custom/MasonryUsers'),
 );
 
@@ -32,29 +33,36 @@ const Main = (props: any) => {
     error,
     refetch: refetchPostData,
     username,
+    isRefetching,
   } = props;
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);
   const navigation = useNavigation();
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  } else if (data.length > 0) {
+  console.log('isLoading: isLoading', isLoading);
+
+  if (isLoading || isRefetching) {
+    return <FlexContainer newStyle={styles.containerGrid}>
+      <MasonrySkeleton showHeader={false} />
+    </FlexContainer>;
+  }
+
+
+   if (data.length > 0) {
     return (
       <FlexContainer newStyle={styles.containerGrid}>
-        <Suspense fallback={<IsLoading />}>
           <MasonryList 
           pins={data} 
           refreshing={isRefreshing} 
           onRefresh={onRefresh}
           loading={isLoading} 
            />
-        </Suspense>
       </FlexContainer>
     );
   } else {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.containerEmpty}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
         }

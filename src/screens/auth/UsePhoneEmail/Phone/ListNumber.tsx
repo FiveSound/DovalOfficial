@@ -5,7 +5,7 @@ import {
   Search,
   TwoIconsLabel,
 } from '../../../../components/custom';
-import { FlatList, Modal } from '../../../../components/native';
+import { FlashList, FlatList, Modal } from '../../../../components/native';
 import { StyleSheet } from 'react-native';
 import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
@@ -79,16 +79,12 @@ const ListNumber = (props: Props) => {
           }}
         />
         <FlexContainer newStyle={styles.containerList}>
-          <FlatList
+          <FlashList
             data={filteredCountries.slice(0, data.length)}
             keyExtractor={item => item.key.toString()}
             renderItem={renderItem}
-            initialNumToRender={18}
             onEndReached={loadMoreData}
             onEndReachedThreshold={0.5}
-            maxToRenderPerBatch={10}
-            updateCellsBatchingPeriod={10}
-            windowSize={10}
             showsVerticalScrollIndicator={false}
             scrollEnabled={true}
             horizontal={false}
@@ -96,6 +92,7 @@ const ListNumber = (props: Props) => {
             contentContainerStyle={{
               paddingBottom: SIZES.height / 3,
             }}
+            estimatedItemSize={100}
           />
         </FlexContainer>
       </Container>
@@ -111,6 +108,7 @@ const styles = StyleSheet.create({
   containerList: {
     width: SIZES.width,
     paddingHorizontal: SIZES.gapLarge,
+    flex: 1,
   },
 });
 export default ListNumber;

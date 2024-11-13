@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { COLORS, responsiveFontSize } from '../../../../../constants/theme';
 
 interface OrderActionsProps {
   onAccept: () => void;
@@ -23,16 +24,17 @@ const OrderActions: React.FC<OrderActionsProps> = ({ onAccept, onReject }) => {
 const styles = StyleSheet.create({
   group: {
     flexDirection: 'row',
-    gap: 10,
+    gap: responsiveFontSize(10),
   },
   button: {
-    width: 170,
-    padding: 10,
-    borderWidth: 2,
-    borderRadius: 5,
+    width: responsiveFontSize(170),
+    padding: responsiveFontSize(10),
+    borderWidth: responsiveFontSize(2),
+    borderRadius: responsiveFontSize(5),
   },
   acceptButton: {
-    borderColor: '#4ADE80',
+    borderColor: COLORS.success,
+    backgroundColor: COLORS.success,
   },
   rejectButton: {
     backgroundColor: '#F41F52',
@@ -40,11 +42,11 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: responsiveFontSize(16),
     fontWeight: 'bold',
   },
   acceptText: {
-    color: '#4ADE80',
+    color: COLORS.dark,
   },
   rejectText: {
     color: '#FFF',

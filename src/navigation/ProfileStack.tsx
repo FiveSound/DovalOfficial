@@ -12,10 +12,13 @@ import Onboarding from '../screens/Onboarding';
 import SignupForm from '../screens/auth/SignupForm';
 import MainStackt from './MainStackt';
 import Followers from '../screens/Followers';
+import { useAppSelector } from '../redux';
+import { RootState } from '../redux/store';
 
 
 const Stack = createNativeStackNavigator();
 const ProfileStack = () => {
+  const { businessVerified } = useAppSelector((state: RootState) => state.auth);
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}

@@ -1,25 +1,35 @@
 import { ReactNode } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { SIZES } from '../../../constants/theme';
+import { View, StyleSheet, Text, ViewStyle } from 'react-native';
+import { COLORS, SIZES } from '../../../constants/theme';
 import FlexContainer from '../FlexContainer';
 import Typography from '../Typography';
 import { useTheme } from '../../../hooks';
 import LineDivider from '../LineDivider';
+import { CheckmarkCircle02Icon } from '../../../constants/IconsPro';
 
 interface BoxProps {
   children?: ReactNode;
   title?: string;
   variant?: boolean;
+  showLineDivider?: boolean;
+  containerStyle?: ViewStyle;
+  sucess?: boolean;
 }
 
-const Box = ({ children, title, variant }: BoxProps) => {
+const Box = ({ children, title, variant, showLineDivider = true, containerStyle, sucess = false }: BoxProps) => {
   const styles = createStyles(variant ? variant : false);
   const { backgroundMaingrey, border } = useTheme();
 
   return (
     <>
-      <FlexContainer newStyle={styles.container}>
-        {title && <Typography variant="subtitle">{title}</Typography>}
+      <FlexContainer newStyle={[styles.container, containerStyle]}>
+        {title && 
+        <FlexContainer newStyle={styles.title} variant='row'>
+          <Typography variant="subtitle">{title}
+      
+            </Typography>
+           {sucess &&  <CheckmarkCircle02Icon width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} color={COLORS.success}/>}
+            </FlexContainer>}
         {children && (
           <FlexContainer
             newStyle={[
@@ -34,7 +44,7 @@ const Box = ({ children, title, variant }: BoxProps) => {
           </FlexContainer>
         )}
       </FlexContainer>
-      <LineDivider variant='secondary' />
+      {showLineDivider && <LineDivider variant='secondary' />}
     </>
   );
 };
@@ -51,6 +61,12 @@ const createStyles = (variant: boolean) => {
       padding: SIZES.gapMedium,
       borderRadius: SIZES.radius,
     },
+    title: {
+      gap: SIZES.gapSmall,
+      width: '100%',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    }
   });
 };
 

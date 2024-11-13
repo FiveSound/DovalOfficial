@@ -11,6 +11,7 @@ type Props = {};
 
 const Overview = (props: any) => {
   const { data } = props;
+  console.log(data, 'data');
 
   return (
     <ScrollView
@@ -22,7 +23,7 @@ const Overview = (props: any) => {
       <View style={{ marginBottom: SIZES.gapLarge }} />
       <OpeningHours openingDays={data.opening_days || []} />
       <View style={{ marginBottom: SIZES.gapLarge }} />
-      {/* <Location address={data.details} latitude={data.latitude} longitude={data.longitude} /> */}
+      <Location latitude={data.latitude} longitude={data.longitude} />
       <View style={{ marginBottom: SIZES.gapLarge }} />
       {/* <Reviews reviews={reviews} /> */}
     </ScrollView>

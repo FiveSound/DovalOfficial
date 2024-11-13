@@ -23,7 +23,7 @@ const PostNameInput: React.FC<Props> = ({ setValue, onSaveDraft, value }) => {
       }}
       inputStyle={{
         height: responsiveFontSize(50),
-        ...FONTS.semi16,
+        ...FONTS.semi14,
       }}
     />
   );

@@ -3,10 +3,11 @@ import RemoteImage from "../RemoteImage";
 import FlexContainer from "../../FlexContainer";
 import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
 import { Image01Icon, PlayListIcon } from "../../../../constants/IconsPro";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Pressable, useNavigation } from "../../../native";
+import { CommentButton, LikeButton } from "./Reactions";
 import Inf from "./Inf";
-import { CommentButton, LikeButton, SavedButton } from "./Reactions";
+import { ViewsButton } from "../../Masonry/Card/Reactions";
 
 interface PinProps {
   pin: {
@@ -22,25 +23,24 @@ interface PinProps {
   
   };
   showInf: boolean;
-  itemIndex: number;
+  isFocused: boolean;
 }
 
-const Card = memo(({ pin, showInf = true }: PinProps) => {
-  const { id, thumbnail, description, mediaType , ProfileName } = pin;
+const Card = memo(({ pin, showInf = true, isFocused }: PinProps) => {
+  const { id, mediaType } = pin;
+  
   const navigation = useNavigation();
   const onLike = () => {
     console.log(`Card: Se ha pulsado like en el post con ID ${id}`);
   };
-
+  
 
   return (
     <Pressable 
       style={styles.pin}
     >
       <View>
-        <RemoteImage 
-          pin={pin}
-        />
+      <RemoteImage pin={pin} isFocused={isFocused} />
         <FlexContainer newStyle={styles.heartBtn}>
           {mediaType === 0 ? (
             <PlayListIcon
@@ -55,9 +55,9 @@ const Card = memo(({ pin, showInf = true }: PinProps) => {
               color={COLORS.TranspLight}
             />
           )}
+          <ViewsButton postID={id} />
           <LikeButton postID={id} onLikeChange={onLike} />
           <CommentButton postID={id} />
-          <SavedButton postID={id} />
         </FlexContainer>
       </View>
       <Inf item={pin} showInf={showInf}/>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   heartBtn: {
     position: "absolute",
-    top: responsiveFontSize(10),
+    top: responsiveFontSize(4),
     right: responsiveFontSize(0),
     padding: responsiveFontSize(5),
     borderRadius: responsiveFontSize(50),

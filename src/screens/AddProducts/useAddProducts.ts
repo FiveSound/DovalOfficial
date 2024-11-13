@@ -156,6 +156,7 @@ export const useAddProducts = () => {
   }, [data, subVariants]);
 
   const handleSubmit = useCallback(async () => {
+    setLoad(true);
     if (!data) return;
 
     let success = false;
@@ -188,7 +189,7 @@ export const useAddProducts = () => {
     }
 
     if (success && recipeID) {
-      setLoad(true);
+      setLoad(false);
       try {
         const response = await addToCartService(recipeID, subVariants, qty);
         if (response.success) {
@@ -218,6 +219,7 @@ export const useAddProducts = () => {
         } else {
           console.error('Failed to add product to cart:', response);
           Alert.alert(i18next.t('Error'), i18next.t('Failed to add to cart.'));
+          setLoad(false);
         }
       } catch (error) {
         console.error('Error adding to cart:', error);
@@ -225,6 +227,7 @@ export const useAddProducts = () => {
           i18next.t('Error'),
           i18next.t('There was a problem adding the product to the cart.'),
         );
+        setLoad(false);
       } finally {
         setLoad(false);
       }

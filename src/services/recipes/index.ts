@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API_URL } from '../index';
+import { API, API_URL } from '../index';
 import { QueryKeyType } from '../../types/ReactQuery.type';
 
 export const publishRecipeService = async (
@@ -58,33 +58,57 @@ export const getMyRecipesService = async () => {
   }
 };
 
-export const getExploreData = async (location: object | null, page: number) => {
-  const userToken = await AsyncStorage.getItem('userToken');
+// interface LocationDetails {
+//   latitude: number;
+//   longitude: number;
+// }
+// export const feedService = async (
+//   location: LocationDetails,
+//   userID: string,
+//   page: number,
+// ) => {
+//   try {
+//     // # Page es obligatorio
+//     // # userID no es obligatorio pero ayuda a traer un contenido mas personal, si no te retorna lo mas popular
+//     // # Si no hay interacciones, orders, likes, views, comments, shared, saved te retornara un filtro popular
+//     // # Latitude y longitude siempre priorizara el contenido mas cercano, lo mismo si no hay interacciones o si no hay un userID(no logueado)
+//     const response = await axios.get(
+//       `${API}/advanced?user_id=${userID}&page=${page}&latitude=${location.latitude}&longitude=${location.longitude}`,
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.log({ error });
+//     return [];
+//   }
+// };
 
-  if (userToken) {
-    let response = await axios.post(`${API_URL}/api/explore/public`, {
-      page,
-      ...location,
-    });
+// export const getExploreData = async (location: object | null, page: number) => {
+//   const userToken = await AsyncStorage.getItem('userToken');
 
-    return response.data;
-  }
+//   if (userToken) {
+//     let response = await axios.post(`${API_URL}/api/explore/public`, {
+//       page,
+//       ...location,
+//     });
 
-  const response = await axios.post(
-    `${API_URL}/api/explore`,
-    {
-      page,
-      ...location,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    },
-  );
+//     return response.data;
+//   }
 
-  return response.data;
-};
+//   const response = await axios.post(
+//     `${API_URL}/api/explore`,
+//     {
+//       page,
+//       ...location,
+//     },
+//     {
+//       headers: {
+//         Authorization: `Bearer ${userToken}`,
+//       },
+//     },
+//   );
+
+//   return response.data;
+// };
 
 export const getRelatedPosts = async (postID: number, page: number) => {
   const response = await axios.post(`${API_URL}/api/explore/related`, {
@@ -207,20 +231,19 @@ export const onSaveDraftService = async (body: object) => {
 };
 
 export const onCompleteService = async (id: number) => {
-  // const userToken = await AsyncStorage.getItem('userToken');
+  const userToken = await AsyncStorage.getItem('userToken');
 
-  // const response = await axios.post(
-  //   `${API_URL}/api/recipes/complete`,
-  //   { id },
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${userToken}`,
-  //     },
-  //   },
-  // );
+  const response = await axios.post(
+    `${API_URL}/api/recipes/complete`,
+    { id },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+  );
 
-  // return response.data;
-  console.log({ id });
+  return response.data;
 };
 
 export const getRecipeDrafts = async () => {

@@ -36,11 +36,7 @@ const Headers = ({
   placeholder?: string;
   value?: string;
 }) => {
-  const handleChange = (text: string) => {
-    if (onChange) {
-      onChange(text);
-    }
-  };
+
 
   return (
     <FlexContainer
@@ -51,7 +47,7 @@ const Headers = ({
       }}
     >
       <ArrowBack />
-      <Search value={value} placeholder={placeholder} onChange={handleChange} />
+      <Search value={value} placeholder={placeholder} onChange={onChange} />
     </FlexContainer>
   );
 };
@@ -59,13 +55,12 @@ const Headers = ({
 const SearchLayout = ({
   children,
   onChange,
-  Components,
   placeholder,
   showChildren = true,
   showLine = true,
   isRefreshing,
   onRefresh,
-  value = '',
+  value,
 }: Props) => {
   const { BackgroundMain } = useTheme();
   return (
@@ -84,22 +79,21 @@ const SearchLayout = ({
           }}
         />
       )}
-      {Components}
       {showChildren && (
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-          }
-          decelerationRate="fast"
-          contentContainerStyle={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            paddingHorizontal: SIZES.gapMedium,
-            paddingBottom: SIZES.height / 4,
-          }}
-        >
+        // <ScrollView
+        //   refreshControl={
+        //     <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+        //   }
+        //   decelerationRate="fast"
+        //   contentContainerStyle={{
+        //     flex: 1,
+        //     backgroundColor: 'transparent',
+        //     paddingHorizontal: SIZES.gapMedium,
+        //     paddingBottom: SIZES.height / 4,
+        //   }}
+        <FlexContainer newStyle={{ flex: 1 }}>
           {children}
-        </ScrollView>
+        </FlexContainer>
       )}
     </SafeAreaView>
   );

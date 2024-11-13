@@ -15,6 +15,7 @@ import { RootState } from '../redux/store';
 import { useAppSelector } from '../redux';
 
 type Tab = 'Feed' | 'ChatIa' | 'Home' |'Portal'| 'Profile';
+
 interface BottomTabBarProps {
   activeTab: Tab;
   setActiveTab: (tab: Tab) => void;
@@ -32,11 +33,11 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({ activeTab, setActiveTab }) 
       focusedIcon: <Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/>,
       unfocusedIcon: <Home01IconStroke color={Description} width={SIZES.icons} height={SIZES.icons}/>,
     },
-    {
-      label: 'ChatIa',
-      focusedIcon: <Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/>,
-      unfocusedIcon: <Home01Icon color={Description} width={SIZES.icons} height={SIZES.icons}/>,
-    },  
+    // {
+    //   label: 'ChatIa',
+    //   focusedIcon: <Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/>,
+    //   unfocusedIcon: <Home01Icon color={Description} width={SIZES.icons} height={SIZES.icons}/>,
+    // },  
     {
       label: businessVerified ? 'Portal' : 'Home',
       focusedIcon: businessVerified ? <DashboardSquare01IconSolid color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/> : <DashboardSquare01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/>,

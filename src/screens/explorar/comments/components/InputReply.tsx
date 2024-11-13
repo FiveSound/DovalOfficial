@@ -5,7 +5,6 @@ import {
   TextInputContentSizeChangeEventData,
   TouchableOpacity,
 } from 'react-native';
-import { scale } from 'react-native-size-matters';
 import useTheme from '../../../../hooks/useTheme';
 import DarkMode from '../../../../hooks/DarkMode';
 import { BaseSyntheticEvent, useState } from 'react';
@@ -13,6 +12,7 @@ import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
 import { MessageUpload01Icon } from '../../../../constants/IconsPro';
 import i18next from '../../../../Translate';
 import { FlexContainer } from '../../../../components/custom';
+import { scale } from '../../../../../__mocks__/react-native-size-matters';
 
 type Props = {
   value: string;
@@ -21,9 +21,9 @@ type Props = {
 };
 
 const InputReply = (props: Props) => {
-  const { bgInput, borderInput } = useTheme();
+  const { backgroundMaingrey, borderInput } = useTheme();
   const { SecundaryText } = DarkMode();
-  const [inputHeight, setInputHeight] = useState(responsiveFontSize(scale(18)));
+  const [inputHeight, setInputHeight] = useState(responsiveFontSize(18));
 
   const handleContentSizeChange = (
     event: BaseSyntheticEvent<TextInputContentSizeChangeEventData>,
@@ -34,7 +34,7 @@ const InputReply = (props: Props) => {
   return (
     <FlexContainer
       newStyle={{
-        backgroundColor: bgInput,
+        backgroundColor: backgroundMaingrey,
         width: SIZES.width,
         flexDirection: 'row',
         alignItems: 'center',
@@ -49,7 +49,7 @@ const InputReply = (props: Props) => {
       <TextInput
         style={{
           width: SIZES.BtnWidth / 1.1,
-          backgroundColor: bgInput,
+          backgroundColor: backgroundMaingrey,
           borderRadius: SIZES.radius,
           height: inputHeight,
           color: SecundaryText,
@@ -70,9 +70,9 @@ const InputReply = (props: Props) => {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: COLORS.primary,
-          borderRadius: responsiveFontSize(scale(28)),
-          height: responsiveFontSize(scale(18)),
-          width: responsiveFontSize(scale(18)),
+          borderRadius: responsiveFontSize(28),
+          height: responsiveFontSize(18),
+          width: responsiveFontSize(18),
           margin: SIZES.radius,
         }}
       >

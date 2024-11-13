@@ -15,7 +15,7 @@ const FrontCover = memo((props: Props) => {
   const { CurrentFeed } = useAppSelector((state: RootState) => state.navigation);
   const { backgroundMaingrey } = useTheme();
   const thumbnailUri = `${CLOUDFRONT}${CurrentFeed.thumbnail}`
-  const videoUri = `${CLOUDFRONT}${CurrentFeed.video}`
+  const videoUri = `${CLOUDFRONT}${CurrentFeed.videos.key}`
   const memoUri = useMemo(() => thumbnailUri, [thumbnailUri]);
   const memoVideo = useMemo(() => videoUri, [videoUri]);
   const playerRef = useRef<VideoPlayer>(null);

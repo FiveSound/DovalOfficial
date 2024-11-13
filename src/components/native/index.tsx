@@ -24,6 +24,7 @@ import FlashList from './FlashList';
 import Reanimated from './Reanimated';
 import Animated from './Animated';
 import Alert from './Alert';
+import AsyncStorage from './AsyncStorage';
 
 export {
   ActivityIndicator,
@@ -52,4 +53,5 @@ export {
   Reanimated,
   Animated,
   Alert,
+  AsyncStorage,
 };

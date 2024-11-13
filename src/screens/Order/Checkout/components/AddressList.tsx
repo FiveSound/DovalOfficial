@@ -1,16 +1,13 @@
-import { Text, StyleSheet, Button, View } from 'react-native';
+import { StyleSheet} from 'react-native';
 import { memo } from 'react';
 import { useNavigation } from '../../../../components/native';
 import {
   Box,
   FlexContainer,
   Icons,
-  LineDivider,
   Typography,
 } from '../../../../components/custom';
 import { SIZES } from '../../../../constants/theme';
-import { useTheme } from '../../../../hooks';
-import { Home01Icon, SafeDelivery01Icon } from '../../../../constants/IconsPro';
 import i18next from '../../../../Translate';
 
 type Props = {
@@ -25,15 +22,14 @@ type Props = {
 };
 
 const AddressList = (props: Props) => {
-  const { location, details } = props;
-  const { border, Title } = useTheme();
+  const { location } = props;
   const navigation = useNavigation();
-  const handleChange = () => {
-    navigation.navigate('MyLocations');
-  };
+  const handleChange = () => {navigation.navigate('MyLocations');};
 
   return (
-    <Box title={i18next.t('Deliver to')}>
+    <Box title={i18next.t('Deliver to')}
+    sucess={location.details ? true : false}
+    >
       <FlexContainer newStyle={styles.header}>
         {location?.details ? (
           <FlexContainer newStyle={styles.container}>
@@ -45,20 +41,6 @@ const AddressList = (props: Props) => {
             >
               {location?.details}
             </Typography>
-            <LineDivider />
-            {/* <Icons
-              styles={styles.icons}
-              appendIcons={
-                <FlexContainer variant="row" newStyle={styles.containerIcons}>
-                  <SafeDelivery01Icon
-                    color={Title}
-                    width={SIZES.icons}
-                    height={SIZES.icons}
-                  />
-                  <Typography variant="H4title">{details.duration}</Typography>
-                </FlexContainer>
-              }
-            /> */}
           </FlexContainer>
         ) : (
           <FlexContainer>

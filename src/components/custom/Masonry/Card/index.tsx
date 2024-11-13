@@ -2,15 +2,11 @@ import { View, StyleSheet } from "react-native";
 import RemoteImage from "../RemoteImage";
 import FlexContainer from "../../FlexContainer";
 import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
-import Typography from "../../Typography";
-import { Image01Icon, PlayListIcon, VideoReplayIcon } from "../../../../constants/IconsPro";
+import { Image01Icon, PlayListIcon } from "../../../../constants/IconsPro";
 import { memo, useMemo } from "react";
-import { Pressable, TouchableOpacity, useNavigation } from "../../../native";
-import { CommentButton, LikeButton, MenuVertical, SavedButton, ViewsButton } from "./Reactions";
+import { Pressable, useNavigation } from "../../../native";
+import { CommentButton, LikeButton, ViewsButton } from "./Reactions";
 import Inf from "./Inf";
-import { useAppSelector } from "../../../../redux";
-import { RootState } from "../../../../redux/store";
-import { SharedElement } from "react-native-shared-element";
 
 interface PinProps {
   pin: {
@@ -26,15 +22,11 @@ interface PinProps {
   
   };
   showInf: boolean;
-  itemIndex: number;
   isFocused: boolean;
 }
 
 const Card = memo(({ pin, showInf = true, isFocused }: PinProps) => {
-  const { id, thumbnail, description, mediaType , ProfileName } = pin;
-  const ImageMemo = useMemo(() => {
-    return <RemoteImage pin={pin} isFocused={isFocused} />
-  }, [pin, isFocused])
+  const { id, mediaType } = pin;
   
   const navigation = useNavigation();
   const onLike = () => {
@@ -47,7 +39,7 @@ const Card = memo(({ pin, showInf = true, isFocused }: PinProps) => {
       style={styles.pin}
     >
       <View>
-      {ImageMemo}
+      <RemoteImage pin={pin} isFocused={isFocused} />
         <FlexContainer newStyle={styles.heartBtn}>
           {mediaType === 0 ? (
             <PlayListIcon

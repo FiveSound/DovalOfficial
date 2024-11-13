@@ -78,6 +78,7 @@ const Buttons = (props: Props) => {
     }
   };
 
+
   return (
     <TouchableOpacity
       onPress={handlePress}

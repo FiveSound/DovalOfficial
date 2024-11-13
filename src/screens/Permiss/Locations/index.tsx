@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import i18next from '../../../Translate';
 import { FONTS, SIZES } from '../../../constants/theme';
@@ -11,7 +11,7 @@ import {
 } from '../../../components/custom';
 import { Ilustrations } from '../../../constants';
 import features from './features';
-import { Image, ScrollView, useNavigation } from '../../../components/native';
+import { Image, ScrollView } from '../../../components/native';
 import { useAppDispatch } from '../../../redux';
 import { closeLocationModal } from '../../../redux/slides/modalSlice';
 import { reloadApp } from '../../../redux/slides/appSlice';
@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
   featureContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: SIZES.gapMedium,
     gap: SIZES.gapMedium,
   },
   featureTextContainer: {

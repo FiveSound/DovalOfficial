@@ -41,22 +41,21 @@ type CartItemType = {
 
 const Cart = memo(() => {
   const route = useRoute();
-  const { Title } = useTheme();
   const navigation = useNavigation();
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: QUERY_KEY,
     queryFn: getCartService,
   });
-  console.log('data', data);
+
   const [refreshing, setRefreshing] = useState(false);
   const { isLoadingApp, isAuthenticated } = useSelector(
     (state: RootState) => state.auth,
   );
   const dispatch = useAppDispatch();
   const [cartID, setCartIDLocal] = useState<null | number>(null);
-  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
   const [selectedPrice, setSelectedPrice] = useState<string>('0');
 
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
   useEffect(() => {
     setTabBarVisible(false);
 
@@ -64,6 +63,7 @@ const Cart = memo(() => {
       setTabBarVisible(true);
     };
   }, [setTabBarVisible]);
+
 
   
   const onRefresh = async () => {
@@ -102,7 +102,6 @@ const Cart = memo(() => {
   useEffect(() => {
     if (cartID !== null) {
       const selectedItem = data?.flat().find((item: CartItemType) => item.cartID === cartID);
-      console.log('selectedItem', selectedItem);
       if (selectedItem) {
         setSelectedPrice(selectedItem.total);
       }
@@ -126,18 +125,9 @@ const Cart = memo(() => {
           <ScreenEmpty
             source={Ilustrations.CharcoPet}
             labelPart1={i18next.t('Oops! Your cart is empty 🍽️')}
-            labelPart2={i18next.t(
-              'Once you add items from a restaurants or storem your cart will appear here',
-            )}
             ImgWidth={SIZES.width}
-            ImgHeigth={SIZES.height / 3}
+            ImgHeigth={SIZES.height / 2}
             labelButton={i18next.t('View restaurants')}
-            labelStylePart1={[styles.labelpart1, {
-              color: Title
-            }]}
-            labelStylePart2={[styles.labelpart1, {
-              color: Title
-            }]}
             onPress={handleBusiness}
           />
         </ScrollView>

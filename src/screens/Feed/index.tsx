@@ -1,12 +1,8 @@
-import { lazy, memo, Suspense, useContext, useEffect, useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
-import { getExploreData } from '../../services/recipes';
-import { View, useNavigation, Text, SafeAreaView } from '../../components/native';
-import {IsLoading, LoadingScreen, ScreenEmpty, TabList } from '../../components/custom';
+import { memo, useContext, useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { StyleSheet } from 'react-native';
+import { Platform, SafeAreaView } from '../../components/native';
+import { ScreenEmpty } from '../../components/custom';
 import { FeedHeading } from './components';
 import React from 'react';
 import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
@@ -15,133 +11,85 @@ import { RootState } from '../../redux/store';
 import { SIZES } from '../../constants/theme';
 import { Ilustrations } from '../../constants';
 import i18next from '../../Translate';
-import { useIsFocused } from '@react-navigation/native';
 import { openOnboardingModal } from '../../redux/slides/modalSlice';
-const LazyMansory = lazy(() => import('../../components/custom/Masonry'));
+import Masonry from '../../components/custom/Masonry';
+import MansorySkeleton from '../../components/custom/Masonry/MansorySkeleton';
+import { feedService } from '../../services/feed';
 
-const QUERY_KEY = 'feed-screen-new-location';
+const QUERY_KEY = 'QUERY_KEY_FEED';
 
 const Feed = memo(() => {
+  const [page, setPage] = useState<number>(1);
+  const { user, isAuthenticated, isLoadingApp } = useAppSelector((state: RootState) => state.auth);
   const { location } = useAppSelector((state: RootState) => state.location);
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
 
-  const { navigate } = useNavigation();
-  const [page, setPage] = useState<number>(2);
-  const { user, isAuthenticated, isLoadingApp } = useAppSelector((state: RootState) => state.auth)
-  const dispatch = useAppDispatch()
   const explore = useQuery({
     queryKey: [QUERY_KEY],
-    queryFn: async () => await getExploreData(location, 1),
+    queryFn: async () => await feedService(location, user?.userID, page),
   });
-
-  const queryClient = useQueryClient();
-
+  
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
-    mutationFn: async (p) => {
-      setPage(p + 1);
-      return await getExploreData(location, p);
+    mutationFn: async () => {
+      const nextPage = page + 1;
+      const data = await feedService(location, user?.userID, nextPage);
+      return { data, nextPage };
     },
-    onSuccess: (data) => {
+    onSuccess: ({ data, nextPage }) => {
       queryClient.setQueryData([QUERY_KEY], (oldData: any[] = []) => [...oldData, ...data]);
+      setPage(nextPage);
     },
   });
 
-  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
   useEffect(() => {
     setTabBarVisible(true);
-
     return () => {
       setTabBarVisible(false);
     };
   }, [setTabBarVisible]);
 
-  useEffect(() => {
-    if (!isLoadingApp && isAuthenticated && !user?.onboarding) {
-     dispatch(openOnboardingModal())
-    }
-  }, [user]);
-  const isFocused = useIsFocused(); 
-
-  const tabsLists = [{
-    title: "All",
-    status: "all"
-  },
-  {
-    title: "New",
-    status: "new"
-  },
-  {
-    title: "Trending",
-    status: "trending"
-  },
-  {
-    title: 'Nearby me',
-    status: 'nearby'
-  },
-  {
-    title: "Popular",
-    status: "popular"
-  },
-  {
-    title: "Recipes",
-    status: "recipes"
-  },
-  {
-    title: "Videos",
-    status: "videos"
-  }
-]
-
   if (explore.isLoading || explore.isFetching) {
-    return <LoadingScreen />;
+    return <MansorySkeleton showHeader={true} />;
   }
 
   if (explore.isError) {
-    return (
+    return ( 
       <SafeAreaView style={styles.container}>
-      <ScreenEmpty 
-      labelPart1={i18next.t('Oh no!')}
-      labelPart2={i18next.t('Something went wrong')}
-      ImgHeigth={SIZES.height / 3}
-      ImgWidth={SIZES.width}
-      source={Ilustrations.Broken}
-      onPress={explore.refetch}
-      labelButton={i18next.t('Try again')}
-      />
-      </SafeAreaView>
-    );
-  }
-
-  if (explore.isLoading || explore.isFetching) {
-    return <LoadingScreen />;
-  }
-
-    return (
-      <SafeAreaView style={styles.container}>
-       <FeedHeading />
-        {/* <TabList
-        isLoading={false}
-        list={tabsLists}
-        status='nearby'
-      /> */}
-      <Suspense fallback={<IsLoading />}>
-      <LazyMansory
-          pins={explore.data}
-          onRefresh={explore.refetch}
-          refreshing={explore.isRefetching}
-          onLoadMore={() => mutation.mutate(page)}
-          loading={mutation.isPending}
-          isFocused={isFocused}
+        <FeedHeading />
+        <ScreenEmpty
+          labelPart1={i18next.t('Oh no!')}
+          labelPart2={i18next.t('Something went wrong')}
+          ImgHeigth={SIZES.height / 3}
+          ImgWidth={SIZES.width}
+          source={Ilustrations.Broken}
+          onPress={explore.refetch}
+          labelButton={i18next.t('Try again')}
         />
-      </Suspense>
       </SafeAreaView>
     );
+  }
 
+  return (
+    <SafeAreaView style={styles.container}>
+      <FeedHeading />
+      <Masonry
+        pins={explore.data}
+        onRefresh={explore.refetch}
+        refreshing={explore.isRefetching}
+        onLoadMore={() => mutation.mutate()}
+        loading={mutation.isPending}
+      />
+    </SafeAreaView>
+  );
 });
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: Platform.OS === 'ios' ? SIZES.gapLarge : SIZES.gapSmall,
   },
 });
 

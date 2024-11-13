@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
 import {  useRefreshData } from '../../hooks';
 import { getDetailsBusinessIDService } from '../../services/business';
@@ -10,6 +10,7 @@ import BannerBusiness from './Components/BannerBusiness';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useQuery } from '@tanstack/react-query';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 type RouteParams = {
   id: string;
@@ -19,13 +20,21 @@ const Business: React.FC = () => {
   const route = useRoute();
   const params = route.params as RouteParams;
   const businessID = params.id;
-  console.log(businessID, 'businessID');
   const { location } = useSelector((state: RootState) => state.location);
   const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['business-businessID-query', businessID],
     queryFn: () => getDetailsBusinessIDService(location, businessID),
   });
   const { isRefreshing, onRefresh } = useRefreshData([refetch]);
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
+  
 
   const tabs = [
     {
@@ -54,11 +63,11 @@ const Business: React.FC = () => {
         showHeader={true}
         style={{ paddingHorizontal: 0 }}
       >
-        <ScrollView>
+        {/* <ScrollView> */}
           <BannerBusiness banner={banner} avatar={avatar} />
           <ProfileBusiness data={data} />
-          <Tabs tabs={tabs} />
-        </ScrollView>
+          <Tabs tabs={tabs} isBorder={true} />
+        {/* </ScrollView> */}
       </Container>
     );
   }

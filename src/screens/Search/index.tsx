@@ -25,7 +25,7 @@ const Search = () => {
   const { query, users, isLoading, isError, error } = useSelector(
     (state: RootState) => state.search,
   );
-
+  console.log(users);
   const debouncedQuery = useDebounce(query, 500);
   const { refetch: refetchPostData } = useQuery({
     queryKey: ['DataSearch-initial'],
@@ -81,7 +81,6 @@ const Search = () => {
       value={query}
     >
       {(isLoading || isRefreshing) && <IsLoading />}
-      {isError && <div>{error}</div>}
       <FlatList
         showsVerticalScrollIndicator={false}
         numColumns={1}

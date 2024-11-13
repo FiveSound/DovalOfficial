@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { CLOUDFRONT } from '../../../services';
 import { Menu01Icon } from '../../../constants/IconsPro';
@@ -9,10 +9,11 @@ import {
   Image,
   Text,
   Platform,
+  Switch,
 } from '../../../components/native';
 import { COLORS, SIZES } from '../../../constants/theme';
 import { useTheme } from '../../../hooks';
-import { Avatars, LineDivider, Typography } from '../../../components/custom';
+import { Avatars, FlexContainer, LineDivider, Typography } from '../../../components/custom';
 
 type Props = {
   title: string;
@@ -24,12 +25,14 @@ const HeaderDashboard = memo(
   (props: Props) => {
     const { Title } = useTheme();
     const BusinessCover =  `${CLOUDFRONT}${props.cover}`
-    console.log(BusinessCover, 'props.title');
+    const [isSwitchOn, setIsSwitchOn] = useState(true);
+const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
     return (
       <>
         <SafeAreaView style={styles.container}>
           <View style={styles.header}>
-            <TouchableOpacity onPress={props.openDrawer}>
+          <FlexContainer variant='row' newStyle={styles.icons}>
+          <TouchableOpacity onPress={props.openDrawer}>
               <Menu01Icon
                 width={SIZES.icons}
                 height={SIZES.icons}
@@ -39,7 +42,16 @@ const HeaderDashboard = memo(
             {props.cover && (
               <Avatars size="small" source={`${CLOUDFRONT}${props.cover}`} />
             )}
-            <Typography variant="subtitle">{props.title}</Typography>
+          </FlexContainer>
+            <FlexContainer variant='row' newStyle={styles.switch}>
+              <Typography variant="subtitle">{isSwitchOn ? 'Abierto' : 'Cerrado'}</Typography>
+              <Switch 
+              value={isSwitchOn} 
+              onValueChange={onToggleSwitch} 
+              trackColor={{false: COLORS.error, true: COLORS.success}}
+              ios_backgroundColor={isSwitchOn ? COLORS.success : COLORS.error}
+              />
+            </FlexContainer>
           </View>
           <LineDivider variant="secondary" lineStyle={styles.divider} />
         </SafeAreaView>
@@ -61,8 +73,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: SIZES.gapLarge,
     paddingHorizontal: Platform.OS === 'android' ? 0 : SIZES.gapLarge,
+    justifyContent: 'space-between',
   },
   icons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SIZES.gapLarge,
+  },
+  switch: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: SIZES.gapLarge,
@@ -71,5 +89,8 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.gapLarge,
     width: Platform.OS === 'ios' ? '100%' : SIZES.width,
     alignSelf: 'center',
+  },
+  title: {
+    width: SIZES.width / 2.4,
   },
 });

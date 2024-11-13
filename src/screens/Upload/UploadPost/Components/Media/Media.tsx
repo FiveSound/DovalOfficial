@@ -73,7 +73,7 @@ const Media = () => {
       saveDraftService(updatedKeys)
         .then(response => {
           if (response.success) {
-            setValue('id', response.id, { shouldDirty: true });
+            setValue('id', response.id, { shouldDirty: true, shouldValidate: true });
           }
           dispatch(resetProgress());
         })
@@ -84,6 +84,8 @@ const Media = () => {
         });
     }
   }, [mediaURLs]);
+
+  
 
   return (
     <Container

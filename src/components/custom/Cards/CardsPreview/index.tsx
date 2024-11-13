@@ -1,11 +1,10 @@
 import React, { ReactNode } from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useTheme } from '../../../../hooks';
 import FlexContainer from '../../FlexContainer';
 import { FONTS, SIZES } from '../../../../constants/theme';
 import Avatars from '../../Avatars';
 import Typography from '../../Typography';
-import { ArrowRight01Icon } from '../../../../constants/IconsPro';
 import { useAuth } from '../../../../context/AuthContext';
 import { CLOUDFRONT } from '../../../../services';
 

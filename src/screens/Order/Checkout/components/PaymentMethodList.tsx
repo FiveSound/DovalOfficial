@@ -28,8 +28,10 @@ const PaymentMethodList = (props: Props) => {
 
   return (
     <Box
+      showLineDivider={false}
       title={i18next.t('Payment Method')}
       variant={props.card ? true : false}
+      sucess={props.card ? true : false}
     >
       {props.card && (
         <Pressable
@@ -56,13 +58,7 @@ const PaymentMethodList = (props: Props) => {
                 <Typography variant="H4title">{i18next.t('Change')}</Typography>
               }
             />
-          </FlexContainer>
-          <LineDivider />
-          {/* <ButtonAcces
-            label={i18next.t('Add Coupons')}
-            ShowLineDivider={false}
-            onPress={() => navigation.navigate('Coupons')}
-          /> */}
+          </FlexContainer>    
         </FlexContainer>
       )}
     </Box>

@@ -13,6 +13,7 @@ import { COLORS, SIZES } from '../../../../../constants/theme';
 import LoginAlert from '../../../Alert/Login';
 import Typography from '../../../Typography';
 import { formatMilesAndMillions } from '../../../../../utils/format';
+import { openSignupModal } from '../../../../../redux/slides/modalSlice';
 
 type Props = {
   postID: number;
@@ -41,8 +42,8 @@ const SavedButton: React.FC<Props> = memo(({ postID }) => {
 
   const handleSaved = useCallback(async () => {
     if (!user) {
-      setVisible(true);
-      return;
+      dispatch(openSignupModal());
+      return
     }
     const newSaved = !saved;
     dispatch(setSaved({ postID, saved: newSaved }));
@@ -76,10 +77,6 @@ const SavedButton: React.FC<Props> = memo(({ postID }) => {
     }
   }, [data, dispatch, postID]);
 
-  const handleAlertDismiss = useCallback(() => {
-    setVisible(false);
-  }, []);
-
   return (
     <TouchableOpacity
       onPress={handleSaved}
@@ -92,7 +89,6 @@ const SavedButton: React.FC<Props> = memo(({ postID }) => {
         color={saved ? COLORS.primary : COLORS.TranspLight}
       />
       <Typography variant='title' newStyle={styles.label}>{formatMilesAndMillions(length)}</Typography>
-      <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
     </TouchableOpacity>
   );
 });

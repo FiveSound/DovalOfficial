@@ -10,10 +10,10 @@ import {
   deleteMenuOrderIDService,
   getMenuManagementService,
 } from '../../../services/business';
-import { Container, LoadingScreen, Pagination, PaginationHeader, ScreenEmpty } from '../../../components/custom';
+import { Container, IsLoading, LoadingScreen, Pagination, PaginationHeader, ScreenEmpty } from '../../../components/custom';
 import { Ilustrations } from '../../../constants';
 import { useAppDispatch } from '../../../redux';
-import { useNavigation } from '../../../components/native';
+import { FlashList, useNavigation } from '../../../components/native';
 import { SIZES } from '../../../constants/theme';
 type DataQueryType = {
   list: any[];
@@ -128,19 +128,19 @@ const MenuManagement = () => {
   return (
     <Container style={styles.container}>
       <PaginationHeader
-        text={search}
-        onChangeText={txt => onSearch(txt)}
-        refetch={onRefetch}
+        value={search}
+        onChange={txt => onSearch(txt)}
         placeholder='Search recipe list...'
       />
 
-      <FlatList
+      <FlashList
         data={menu.data.list}
         renderItem={({ item }) => <Recipe onDelete={onDeleted} {...item} />}
-        initialNumToRender={3}
+        estimatedItemSize={100}
         keyExtractor={row => row.id.toString()}
         refreshing={menu.isFetching}
         onRefresh={onRefetch}
+        ListFooterComponent={menu.isFetching ? <IsLoading /> : null}
       />
 
       <Pagination

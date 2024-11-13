@@ -45,20 +45,20 @@ const data: data[] = [
     showLineDivider: true,
     action: 'ReportUsers',
   },
-  {
-    id: 3,
-    title: 'Share to Social Media',
-    description: 'View and manage your past posts, recipes, and live streams.',
-    icon: (
-      <Share08Icon
-        width={SIZES.icons}
-        height={SIZES.icons}
-        color={COLORS.dark}
-      />
-    ),
-    showLineDivider: true,
-    action: 'ShareToSocialMedia',
-  },
+  // {
+  //   id: 3,
+  //   title: 'Share to Social Media',
+  //   description: 'View and manage your past posts, recipes, and live streams.',
+  //   icon: (
+  //     <Share08Icon
+  //       width={SIZES.icons}
+  //       height={SIZES.icons}
+  //       color={COLORS.dark}
+  //     />
+  //   ),
+  //   showLineDivider: true,
+  //   action: 'ShareToSocialMedia',
+  // },
   {
     id: 4,
     title: 'About this user',

@@ -3,9 +3,8 @@ import {
   getSavedPostService,
   handleSavedService,
 } from '../../../../services/reactions';
-import { useAuth } from '../../../../context/AuthContext';
 import { COLORS, SIZES } from '../../../../constants/theme';
-import { Bookmark02Icon, BookmarkAdd02IconStroke } from '../../../../constants/IconsPro';
+import { Bookmark02Icon } from '../../../../constants/IconsPro';
 import { formatMilesAndMillions } from '../../../../utils/format';
 import * as Haptics from 'expo-haptics';
 import styles from './styles';
@@ -16,9 +15,9 @@ import {
   setSaved,
   setSavedCount,
 } from '../../../../redux/slides/reactionsSlice';
-import { LoginAlert } from '../../../../components/custom';
 import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '../../../../redux';
+import { openSignupModal } from '../../../../redux/slides/modalSlice';
 
 type Props = {};
 
@@ -46,7 +45,7 @@ const SavedButton: React.FC<Props> = memo((props: Props) => {
 
   const handleSaved = useCallback(async () => {
     if (!user) {
-      setVisible(true);
+      dispatch(openSignupModal());
       return;
     }
     const newSaved = !saved;
@@ -81,9 +80,6 @@ const SavedButton: React.FC<Props> = memo((props: Props) => {
     }
   }, [data, dispatch, CurrentFeed]);
 
-  const handleAlertDismiss = useCallback(() => {
-    setVisible(false);
-  }, []);
 
   return (
     <TouchableOpacity
@@ -97,7 +93,6 @@ const SavedButton: React.FC<Props> = memo((props: Props) => {
         color={saved ? COLORS.primary : COLORS.TranspLight}
       />
       <Text style={styles.label}>{formatMilesAndMillions(length)}</Text>
-      <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
     </TouchableOpacity>
   );
 });

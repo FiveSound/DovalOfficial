@@ -6,7 +6,7 @@ import ButtonIcons from './Buttons/ButtonIcons';
 import Tabs from './Tabs';
 import Container from './Container';
 import { TwoIconsLabel, Skip } from './Bar';
-import { ArrowBack } from './Arrows';
+import { ArrowBack, ArrowRight } from './Arrows';
 import Hint from './hint';
 import Actions from './Actions';
 import Buttons from './Buttons/Buttons';
@@ -62,6 +62,7 @@ import { TabList } from './Table';
 import { MapSelector, TextSelector } from './Select';
 import MasonryList from './Masonry';
 import CustomMarker from './Marker';
+import SignupAlert from './SignupAlert';
 
 export {
   IsLoading,
@@ -129,5 +130,7 @@ export {
   MapSelector,
   TextSelector,
   MasonryList,
-  CustomMarker
+  CustomMarker,
+  ArrowRight,
+  SignupAlert
 };

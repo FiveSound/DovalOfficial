@@ -12,13 +12,12 @@ import { useAppSelector } from '../../../../redux';
 import Signup from '../../../auth/Signup';
 import { infoAccount } from './data';
 import {
-  AddCircleHalfDotIcon,
   EditUser02Icon,
 } from '../../../../constants/IconsPro';
 import { SIZES } from '../../../../constants/theme';
 import { useTheme } from '../../../../hooks';
-import SignOut from '../../../auth/SignOut';
 import ClosedAccount from '../../../auth/ClosedAccount';
+import i18next from '../../../../Translate';
 
 const Account = () => {
   const { Description, border, Title } = useTheme();
@@ -35,18 +34,7 @@ const Account = () => {
   }
 
   const footerCustom = (
-    <FlexContainer>
-      <Typography
-        variant='subtitle'
-        newStyle={{
-          color: Description,
-          marginBottom: SIZES.gapLarge,
-        }}
-      >
-        My Account 
-      </Typography>
       <ClosedAccount />
-    </FlexContainer>
   );
 
   const appent = (
@@ -65,76 +53,76 @@ const Account = () => {
   const AccountData = [
     {
       id: 'Account',
-      label: 'Account',
+      label: i18next.t('Account'),
       content: [
         {
           id: 'Username',
-          label: 'Username',
+          label: i18next.t('Username'),
           navigation: 'Username',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: user?.username || 'Add username',
+          subLabel: user?.username || i18next.t('Add username'),
           showAppend: false,
           isNavigation: false,
         },
         {
           id: 'Full name',
-          label: 'Full name',
+          label: i18next.t('Full name'),
           navigation: 'Full name',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: user?.name || 'Add full name',
+          subLabel: user?.name || i18next.t('Add full name'),
           showAppend: false,
           isNavigation: false,
         },
         {
           id: 'Email',
-          label: 'Email',
+          label: i18next.t('Email'),
           navigation: 'Email',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: user?.email || 'Add email',
+          subLabel: user?.email || i18next.t('Add email'),
           showAppend: false,
         },
         {
           id: 'Gender',
-          label: 'Gender',
+          label: i18next.t('Gender'),
           navigation: 'Gender',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: user?.gender || 'Add gender',
+          subLabel: user?.gender || i18next.t('Add gender'),
           showAppend: false,
           isNavigation: false,
         },
         {
           id: 'Reset password',
-          label: 'Reset password',
+          label: i18next.t('Reset password'),
           navigation: 'Resetpassword',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: 'Reset password',
+          subLabel: i18next.t('Reset password'),
           showAppend: false,
           isNavigation: false,
         },
         {
           id: 'Phone number',
-          label: 'Phone number',
+          label: i18next.t('Phone number'),
           navigation: 'Phone-number',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: user?.phone || 'Add phone number',
+          subLabel: user?.phone || i18next.t('Add phone number'),
           showAppend: false,
           isNavigation: false,
         },
         {
           id: 'Country',
-          label: 'Country',
+          label: i18next.t('Country'),
           navigation: 'Country',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: user?.country || 'Add country',
+          subLabel: user?.country || i18next.t('Add country'),
           showAppend: false,
           isNavigation: false,
         },
         {
           id: 'Date',
-          label: 'Date',
+          label: i18next.t('Date'),
           navigation: 'Date',
           // icon: <AddCircleHalfDotIcon />,
-          subLabel: user?.date_birthday || 'Add date',
+          subLabel: user?.date_birthday || i18next.t('Add Date'),
           showAppend: false,
           isNavigation: false,
         },
@@ -143,7 +131,7 @@ const Account = () => {
   ];
 
   return (
-    <Container showBack={true} showHeader={true} label="Account">
+    <Container showBack={true} showHeader={true} label={i18next.t('Account')}>
       <CardsPreview row={infoAccount} showAvatar={false} custom={appent} />
       <PersonalInf
         row={AccountData}

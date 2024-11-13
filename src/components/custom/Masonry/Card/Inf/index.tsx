@@ -20,11 +20,11 @@ const Inf = memo(({ item, showInf = true }: Props) => {
     const { description, id, username, businessID, business_name ,  verify} = item;
     const MyProfile = user?.username === username ? true : false;
     const navigation = useNavigation();
-    
     const handleNavigation = () => {
   
-      if (MyProfile) {
+      if (MyProfile && !username && !businessID) {
         navigation.navigate('MyProfile');
+
       } else {
         navigation.navigate('UserProfile', {
           username: username,

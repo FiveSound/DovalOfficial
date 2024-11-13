@@ -27,7 +27,7 @@ const Hashtags = memo(() => {
     control,
     name: 'hashtags',
     rules: {
-      required: true,
+      required: false,
     },
   });
 

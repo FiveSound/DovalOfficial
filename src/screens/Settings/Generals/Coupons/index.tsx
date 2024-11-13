@@ -30,10 +30,10 @@ const Coupons = memo(() => {
         style={styles.container}
         showHeader={true}
         showTwoIconsLabel={true}
-        label={i18next.t('Coupons')}
+        label={i18next.t('My Coupons')}
       >
         <Hero
-          label={i18next.t('Coupons')}
+          label={i18next.t('My Coupons')}
           sublabel={i18next.t('Available coupons')}
         />
         <ScrollView>
@@ -43,7 +43,7 @@ const Coupons = memo(() => {
             }]}>
               <Typography variant='title'>{item.title}</Typography>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-                <Typography variant='H4title'>Código:</Typography>
+                <Typography variant='H4title'>{i18next.t('Code:')}</Typography>
                 <View>
                   <Typography variant='H4title'>{item.code}</Typography>
                   <Typography variant='H4title'>{item.discount}</Typography>
@@ -52,14 +52,14 @@ const Coupons = memo(() => {
 
               <View style={styles.flex}>
                 <TouchableOpacity>
-                  <Typography variant='H4title' newStyle={{  textDecorationLine: "underline" }}>Términos y condiciones</Typography>
+                  <Typography variant='H4title' newStyle={{  textDecorationLine: "underline" }}>{i18next.t('Terms and conditions')}</Typography>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleApply(item.id)}
                   style={[styles.button, { opacity: item.redeemed ? 0.5 : 1 }]}
                   disabled={item.redeemed}
                 >
-                  <Text style={styles.textButton}>Usar cupón</Text>
+                  <Text style={styles.textButton}>{i18next.t('Use coupon')}</Text>
                 </TouchableOpacity>
               </View>
             </FlexContainer>

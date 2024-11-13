@@ -13,16 +13,16 @@ import { useAppSelector } from '../../../../redux';
 import { RootState } from '../../../../redux/store';
 
 type Props = { };
-
+const QUERY_KEY = 'component-cto-public-new';
 const FollowButtons = (props: Props) => {
   const { CurrentFeed } = useAppSelector((state: RootState) => state.navigation);
-  const { user , isLoadingApp} = useAppSelector((state: RootState) => state.auth);
+  const { user , isLoadingApp, isAuthenticated} = useAppSelector((state: RootState) => state.auth);
   const queryClient = useQueryClient();
   const MyUser = CurrentFeed.userID === user?.userID;
   const [visible, setVisible] = useState(false);
 
   const { data, isError, isLoading, isFetching } = useQuery({
-    queryKey: ['component-cto-public-new',  CurrentFeed.userID, user?.userID],
+    queryKey: [QUERY_KEY,  CurrentFeed.userID, user?.userID],
     queryFn: getFollowingProfileService,
     enabled:  CurrentFeed.userID && !isLoadingApp ? true : false,
   });
@@ -32,7 +32,7 @@ const FollowButtons = (props: Props) => {
     onMutate: variables => {},
     onSuccess: ({ follow }) => {
       queryClient.setQueryData(
-        ['component-cto-public',  CurrentFeed.userID, user?.userID],
+        [QUERY_KEY,  CurrentFeed.userID, user?.userID],
         (oldData: any) => {
           const newData = {
             ...oldData,
@@ -51,7 +51,7 @@ const FollowButtons = (props: Props) => {
 
   if (isError) return <Text>Ha ocurrido un error!</Text>;
 
-  if (data) {
+  if (data && isAuthenticated) {
     const { followed, following, followers, posts } = data;
 
     return (
@@ -61,6 +61,7 @@ const FollowButtons = (props: Props) => {
           label={followed ? i18next.t('Following') : i18next.t('Follow')}
           disabled={false}
           containerButtons={styles.containerButtons}
+          loading={mutation.isPending}
           onPress={() => {
             if (user) {
               mutation.mutate(CurrentFeed.userID);

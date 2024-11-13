@@ -9,8 +9,8 @@ import AddCard from '../screens/Order/Checkout/AddCard';
 import ConfirmOrder from '../screens/Order/ConfirmOrder';
 import Complete from '../screens/Order/Complete';
 import Cancel from '../screens/Order/Cancel';
-import Coupons from '../screens/Order/Checkout/Coupons';
 import MainStackt from './MainStackt';
+import Coupons from '../screens/Order/Checkout/Coupons';
 
 const Stack = createNativeStackNavigator();
 const OrderStack = () => {

@@ -22,9 +22,9 @@ import { COLORS, FONTS, SIZES } from '../../../../../constants/theme';
 import { Ilustrations } from '../../../../../constants';
 import { ScrollView } from '../../../../../components/native';
 import { RecipeList, SearchBar } from './Components';
-const LazyCard = lazy(
-  () => import('../../../../../components/custom/business/CardRecipies'),
-);
+import { useAppSelector } from '../../../../../redux';
+import { RootState } from '../../../../../redux/store';
+const LazyCard = lazy(() => import('../../../../../components/custom/business/CardRecipies'));
 
 interface Recipe {
   name: string;
@@ -46,7 +46,7 @@ interface MainProps {
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
   const { data, isLoading, isError, refetch } = props;
-  const { user } = useAuth();
+  const { user } = useAppSelector((state: RootState) => state.auth);
   const userSellers = user?.businessID !== null;
   const [focus, setFocus] = useState(false);
   const { onRefresh, isRefreshing } = useRefreshData([refetch]);
@@ -71,7 +71,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   const renderItem = useCallback(
     ({ item }: { item: Recipe }) => (
       <Suspense fallback={<IsLoading />}>
-        <LazyCard row={item} />
+        <LazyCard row={item} isBusiness={userSellers} />
       </Suspense>
     ),
     [],

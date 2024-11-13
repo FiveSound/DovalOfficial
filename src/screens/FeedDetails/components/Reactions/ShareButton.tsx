@@ -19,6 +19,7 @@ import {
 import { LoginAlert } from '../../../../components/custom';
 import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '../../../../redux';
+import { openSignupModal } from '../../../../redux/slides/modalSlice';
 
 type Props = {
 };
@@ -47,8 +48,8 @@ const ShareButton = memo((props: Props) => {
 
   const handleShare = useCallback(async () => {
     if (!user) {
-      setVisible(true);
-      return;
+      dispatch(openSignupModal());
+      return
     }
     const newShared = !shared;
     dispatch(setShared({ postID: CurrentFeed.id, shared: newShared }));
@@ -73,10 +74,6 @@ const ShareButton = memo((props: Props) => {
     }
   }, [user, shared, CurrentFeed, dispatch, length]);
 
-  const handleAlertDismiss = useCallback(() => {
-    setVisible(false);
-  }, []);
-
   useEffect(() => {
     if (data) {
       dispatch(setShared({ postID: CurrentFeed.id, shared: data.shared }));
@@ -92,7 +89,6 @@ const ShareButton = memo((props: Props) => {
         color={shared ? COLORS.primary : COLORS.TranspLight}
       />
       <Text style={styles.label}>{formatMilesAndMillions(length)}</Text>
-      <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
     </TouchableOpacity>
   );
 });

@@ -20,8 +20,8 @@ import { subscribeNotificationsService } from '../services/notifications';
 import NetInfo from '@react-native-community/netinfo';
 import { UserType } from '../types/User.types';
 import { AppType } from '../types/Context.type';
-import { openOnboardingModal } from '../redux/slides/modalSlice';
 import { ActiveTabContext } from './ActiveTabContext';
+import { reloadApp } from '../redux/slides/appSlice';
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -61,7 +61,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     await AsyncStorage.clear();
     setActiveTab('Feed')
     dispatch(signOut());
-    navigation.navigate('MainStackt', { screen: 'Feed' })
+    dispatch(reloadApp());
   };
 
   useEffect(() => {

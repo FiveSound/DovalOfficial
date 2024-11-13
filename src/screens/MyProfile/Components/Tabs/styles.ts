@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     marginTop: SIZES.gapLarge * 2,
+    paddingBottom: SIZES.height / 10,
   },
   labelStylePart1: {
     ...FONTS.heading24,

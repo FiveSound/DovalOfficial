@@ -17,6 +17,7 @@ import { setLikes, setLiked } from '../../../../redux/slides/reactionsSlice';
 import { useQuery } from '@tanstack/react-query';
 import { useTheme } from '../../../../hooks';
 import { useAppSelector } from '../../../../redux';
+import { openSignupModal } from '../../../../redux/slides/modalSlice';
 
 type Props = {};
 
@@ -44,8 +45,8 @@ const LikeButton: React.FC<Props> = memo((props: Props) => {
 
   const handleLike = useCallback(async () => {
     if (!user) {
-      setVisible(true);
-      return;
+      dispatch(openSignupModal());
+      return
     }
     try {
       const newLiked = !liked;
@@ -66,9 +67,6 @@ const LikeButton: React.FC<Props> = memo((props: Props) => {
     }
   }, [data, dispatch, CurrentFeed]);
 
-  const handleAlertDismiss = useCallback(() => {
-    setVisible(false);
-  }, []);
 
   return (
     <>
@@ -86,7 +84,6 @@ const LikeButton: React.FC<Props> = memo((props: Props) => {
           {formatMilesAndMillions(likes)}
           
         </Typography>
-        <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
       </TouchableOpacity>
 
     </>

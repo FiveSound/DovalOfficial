@@ -263,15 +263,28 @@ export const SuccessDark = {
 
 export const responsiveFontSize = (fontSize: number): number => {
   const { width, height } = Dimensions.get('window');
-  const standardScreenHeight = 812;
-  const standardScreenWidth = 375;
+  
+  // Define los puntos de corte para tablets
+  const isTablet = Math.min(width, height) >= 768;
+  
+  // Estándares de pantalla para móviles y tablets
+  const standardScreenHeight = isTablet ? 1366 : 812;
+  const standardScreenWidth = isTablet ? 1024 : 375;
 
   const scaleWidth = width / standardScreenWidth;
   const scaleHeight = height / standardScreenHeight;
-  const scale = Math.min(scaleWidth, scaleHeight);
+  let scale = Math.min(scaleWidth, scaleHeight);
 
   // Ajuste específico para Android si es necesario
-  const adjustmentFactor = Platform.OS === 'android' ? 0.92 : 0.88;
+  let adjustmentFactor = Platform.OS === 'android' ? 0.92 : 0.88;
+
+  if (isTablet) {
+    // Incrementa el factor de ajuste para tabletas
+    adjustmentFactor = Platform.OS === 'android' ? 1.0 : 1.05;
+    
+    // Opcional: Incrementar la escala en tablets
+    scale = scale * 1.5;
+  }
 
   const scaledFontSize = fontSize * scale * adjustmentFactor;
 

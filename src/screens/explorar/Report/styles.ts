@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { responsiveFontSize, SIZES } from '../../../constants/theme';
+import { Platform } from '../../../components/native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: SIZES.gapLarge * 2,
+    paddingHorizontal: Platform.OS === 'ios' ? SIZES.gapLarge * 2 : SIZES.gapSmall,
     alignItems: 'center',
   },
   scrollViewContent: {
@@ -15,8 +16,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: responsiveFontSize(10),
-    paddingHorizontal: SIZES.gapLarge * 1.4,
-    width: SIZES.width,
+    paddingHorizontal: Platform.OS === 'ios' ? SIZES.gapLarge * 2 : SIZES.gapSmall,
+    width: SIZES.width ,
   },
   label: {
     width: SIZES.width / 1.2,

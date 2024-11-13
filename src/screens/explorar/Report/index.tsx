@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Buttons,
   Container,
@@ -13,6 +13,8 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import { reportedListService, reportService } from '../../../services/shares';
 import { useQuery } from '@tanstack/react-query';
+import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
+import i18next from 'i18next';
 
 export type ReportOption = {
   id: number;
@@ -26,16 +28,23 @@ type RootStackParamList = {
 const Report = () => {
   const router = useRoute<RouteProp<RootStackParamList>>();
   const { postID } = router.params;
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, error, refetch , isFetching} = useQuery({
     queryKey: ['reported-List-Service-useQuery'],
     queryFn: reportedListService,
   });
-
+    
   const [options, setOptions] = useState<ReportOption[]>();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  console.log('postID recibido', postID);
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
 
   const handleCheckboxChange = (id: number, checked: boolean) => {
     setOptions(
@@ -53,14 +62,12 @@ const Report = () => {
       .map(option => option.id);
     try {
       await reportService(postID, selectedItems);
-      console.log('Sending report...');
       setTimeout(() => {
         setLoading(false);
-        console.log('Report sent!');
         Alert.alert(
-          'Success',
-          'Your report has been successfully submitted. Thank you for your report, it helps us improve.',
-          [{ text: 'OK', onPress: () => navigation.goBack() }],
+          i18next.t('Success'),
+          i18next.t('Your report has been successfully submitted. Thank you for your report, it helps us improve.'),
+          [{ text: i18next.t('OK'), onPress: () => navigation.goBack() }],
         );
       }, 2000);
     } catch (error) {
@@ -68,8 +75,8 @@ const Report = () => {
       console.error('Error sending report:', error);
       Alert.alert(
         'Error',
-        'There was an error submitting your report. Please try again later.',
-        [{ text: 'OK' }],
+        i18next.t('There was an error submitting your report. Please try again later.'),
+        [{ text: i18next.t('OK') }],
       );
     }
   };
@@ -100,7 +107,7 @@ const Report = () => {
   const isAnyOptionChecked =
     Array.isArray(options) && options.some(option => option.checked);
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <LoadingScreen />;
   }
 
@@ -114,13 +121,14 @@ const Report = () => {
       style={styles.container}
       showHeader={true}
       showTwoIconsLabel={true}
-      label="Report"
+      label={i18next.t('Report')}
       showFooter={true}
-      labels="Report Post"
+      labels={i18next.t('Report Post')}
       variant={!isAnyOptionChecked ? 'disabled' : 'primary'}
       disabled={!isAnyOptionChecked || loading}
       onPressButtons={handleSendReport}
       loading={loading}
+      color='dark'
     >
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
@@ -132,7 +140,7 @@ const Report = () => {
             onPress={() => handleCheckboxChange(item.id, !item.checked)}
             style={styles.optionContainer}
           >
-            <Typographys title={item.title} subtitle={item.description} />
+            <Typographys title={i18next.t(item.title)} subtitle={i18next.t(item.description)  } />
             <Checkbox
               checked={item.checked}
               onChange={checked => handleCheckboxChange(item.id, checked)}

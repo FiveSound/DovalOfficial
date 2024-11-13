@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { verificateOrderService } from '../../../services/orders';
-import { Container, LoadingScreen } from '../../../components/custom';
+import { Container, LoadingScreen, ScreenEmpty } from '../../../components/custom';
 import { ScrollView, useNavigation } from '../../../components/native';
 import {
   AddressList,
+  CouponList,
   OrderList,
   PaymentMethodList,
   ResumeOrderList,
@@ -16,30 +17,20 @@ import { useAppDispatch, useAppSelector } from '../../../redux';
 import { setOrderID } from '../../../redux/slides/navigations';
 import { RootState } from '../../../redux/store';
 
-interface Props {
-  route: {
-    params: {
-      cartID: number;
-      couponID: number
-    };
-  };
-}
+interface Props {}
+
 const QUERY_KEY = 'screen-checkout-orders-useQuery';
-const Checkout = ({ route }: Props) => {
+const Checkout = (props: Props) => {
   const { socket } = useDashboard();
-  const {  couponID } = route.params;
   const [submitting, setSubmitting] = useState(false);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const { cartID } = useAppSelector((state: RootState) => state.navigation);
-  const { data, isError, isLoading, isFetching, isRefetching } = useQuery({
-    queryKey: [QUERY_KEY, route.params],
+  const { cartID, couponID  } = useAppSelector((state: RootState) => state.navigation);
+  const { data, isError, isLoading, isFetching, isRefetching, refetch } = useQuery({
+    queryKey: [QUERY_KEY, cartID, couponID],
     queryFn: async () => await verificateOrderService(cartID, couponID),
   });
 
-  console.log('data', data);
-  console.log('cartID', cartID);
-  console.log('couponID', couponID);
 
   const onSubmit = async () => {
     setSubmitting(true);
@@ -61,6 +52,13 @@ const Checkout = ({ route }: Props) => {
     }
   };
 
+  if (isError) return <ScreenEmpty 
+  labelPart1={i18next.t('This order is not available')} 
+  labelPart2={i18next.t('Please try again later')} 
+  onPress={refetch}
+  labelButton={i18next.t('Try again')}
+  />;
+
 
   if (isLoading || isFetching || isRefetching || submitting) return <LoadingScreen label={!submitting ? i18next.t('Loading...') : i18next.t('Processing...')} />;
 
@@ -80,6 +78,7 @@ const Checkout = ({ route }: Props) => {
         <ScrollView>
           <AddressList location={location} details={details} />
           <PaymentMethodList card={card} />
+          <CouponList  id={couponID}/>
           <ResumeOrderList details={details} />
           <OrderList data={cart} />
         </ScrollView>

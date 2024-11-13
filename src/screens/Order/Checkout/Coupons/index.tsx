@@ -7,6 +7,8 @@ import { Container, FlexContainer, Hero, LoadingScreen, Typography } from "../..
 import i18next from "../../../../Translate";
 import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
 import { useTheme } from "../../../../hooks";
+import { useAppDispatch } from "../../../../redux";
+import { setCouponID } from "../../../../redux/slides/navigations";
 
 
 const Coupons = memo(() => {
@@ -17,10 +19,7 @@ const Coupons = memo(() => {
     queryKey: ["coupons"],
     queryFn: getAvailableCouponsService,
   });
-
-  const handleApply = async (id: number) => {
-    navigation.navigate('OrderStack', { screen: 'Checkout', params: { ...route.params, couponID: id } });
-  };
+  const dispatch = useAppDispatch();
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading...')} />;
 
@@ -30,10 +29,10 @@ const Coupons = memo(() => {
         style={styles.container}
         showHeader={true}
         showTwoIconsLabel={true}
-        label={i18next.t('Coupons')}
+        label={i18next.t('My Coupons')}
       >
         <Hero
-          label={i18next.t('Coupons')}
+          label={i18next.t('My Coupons')}
           sublabel={i18next.t('Available coupons')}
         />
         <ScrollView>
@@ -43,7 +42,7 @@ const Coupons = memo(() => {
             }]}>
               <Typography variant='title'>{item.title}</Typography>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-                <Typography variant='H4title'>Código:</Typography>
+                <Typography variant='H4title'>{i18next.t('Code:')}</Typography>
                 <View>
                   <Typography variant='H4title'>{item.code}</Typography>
                   <Typography variant='H4title'>{item.discount}</Typography>
@@ -52,14 +51,17 @@ const Coupons = memo(() => {
 
               <View style={styles.flex}>
                 <TouchableOpacity>
-                  <Typography variant='H4title' newStyle={{  textDecorationLine: "underline" }}>Términos y condiciones</Typography>
+                  <Typography variant='H4title' newStyle={{  textDecorationLine: "underline" }}>{i18next.t('Terms and conditions')}</Typography>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => handleApply(item.id)}
+                  onPress={() => {
+                    navigation.goBack();
+                    dispatch(setCouponID(item.id));
+                  }}
                   style={[styles.button, { opacity: item.redeemed ? 0.5 : 1 }]}
                   disabled={item.redeemed}
                 >
-                  <Text style={styles.textButton}>Usar cupón</Text>
+                  <Text style={styles.textButton}>{i18next.t('Use coupon')}</Text>
                 </TouchableOpacity>
               </View>
             </FlexContainer>
@@ -69,7 +71,7 @@ const Coupons = memo(() => {
     );
   }
 
-  return null; // Handle the case where data is undefined or null
+  return null; 
 });
 
 const styles = StyleSheet.create({

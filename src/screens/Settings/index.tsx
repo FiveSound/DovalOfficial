@@ -51,17 +51,7 @@ const Settings = () => {
   }
 
   const footerCustom = (
-    <FlexContainer>
-      <Typography
-        variant="H4title"
-        newStyle={{
-          color: Description,
-        }}
-      >
-        {i18next.t('Logout')}
-      </Typography>
       <SignOut />
-    </FlexContainer>
   );
 
   const Settings = [
@@ -122,7 +112,7 @@ const Settings = () => {
         },
         {
           id: 'MyCoupons',
-          label: 'My Coupons',
+          label: i18next.t('My Coupons'),
           navigation: 'Coupons',
           icon: (
             <Coupon01Icon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />
@@ -131,37 +121,37 @@ const Settings = () => {
         },
       ],
     },
-    {
-        id: 'Display',
-        label: 'Display',
-        content: [
-            {
-                id: 'Notifications',
-                label: 'Notifications',
-                navigation: 'Notifications',
-                icon: <Notification03IconStroke width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title}/>
-            },
-            {
-                id: 'Languages & Currency',
-                label: 'Languages & Currency',
-                navigation: 'Languages',
-                icon: <LanguageSkillIcon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title}/>
-            },
-    {
-        id: 'Dark Mode',
-          label: 'Dark Mode',
-          navigation: 'Dark Mode',
-          icon: (
-            <AddCircleHalfDotIcon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
-          isNavigation: true,
-        },
-      ],
-    },
+    // {
+    //     id: 'Display',
+    //     label: i18next.t('Display'),
+    //     content: [
+    //         {
+    //             id: 'Notifications',
+    //             label: i18next.t('Notifications'),
+    //             navigation: 'Notifications',
+    //             icon: <Notification03IconStroke width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title}/>
+    //         },
+    //         {
+    //             id: 'Languages & Currency',
+    //             label: i18next.t('Languages & Currency'),
+    //             navigation: 'Languages',
+    //             icon: <LanguageSkillIcon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title}/>
+    //         },
+    // {
+    //     id: 'Dark Mode',
+    //       label: i18next.t('Dark Mode') ,
+    //       navigation: 'Dark Mode',
+    //       icon: (
+    //         <AddCircleHalfDotIcon
+    //           width={SIZES.icons / 1.1}
+    //           height={SIZES.icons / 1.1}
+    //           color={Title}
+    //         />
+    //       ),
+    //       isNavigation: true,
+    //     },
+    //   ],
+    // },
     {
       id: 'Support and about',
       label: i18next.t('Support and about'),

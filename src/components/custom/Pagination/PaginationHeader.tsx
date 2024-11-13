@@ -1,36 +1,26 @@
-import { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import {
   StyleSheet,
-  View,
-  TouchableOpacity,
-  Image,
-  TextInput,
   Text,
 } from 'react-native';
-import { Home01Icon } from '../../../constants/IconsPro';
 import { Search } from '../Inputs';
 import FlexContainer from '../FlexContainer';
 import { SIZES } from '../../../constants/theme';
 
 type Props = {
-  text?: string;
-  onChangeText?: (text: string) => void;
-  refetch?: () => void;
+  value?: string;
+  onChange?: (text: string) => void;
   placeholder: string;
 };
 
-const PaginationHeader = ({ text, onChangeText, refetch, placeholder }: Props) => (
+const PaginationHeader = ({ value, onChange, placeholder }: Props) => (
   <FlexContainer style={styles.containerFilters}>
-    {onChangeText ? (
       <Search
-        value={text}
-        onChange={txt => onChangeText(txt)}
+        value={value}
+        onChange={onChange}
         maxLength={30}
         placeholder={placeholder}
       />
-    ) : (
-      <Text />
-    )}
   </FlexContainer>
 );
 

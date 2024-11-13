@@ -10,6 +10,7 @@ import i18next from '../../../../Translate';
 import { useTheme } from '../../../../hooks';
 import { useAppSelector } from '../../../../redux';
 import { RootState } from '../../../../redux/store';
+import { SafeAreaView } from '../../../../components/native';
 
 type Props = {};
 
@@ -18,7 +19,7 @@ const FeedHeading = (props: Props) => {
   const { Title} = useTheme()
 
   return (
-    <FlexContainer newStyle={styles.container}>
+    <SafeAreaView style={styles.container}>
       <SearchHome />
       <Typography variant="H4title" newStyle={styles.title}>
         {i18next.t('Doval for you')}
@@ -28,7 +29,7 @@ const FeedHeading = (props: Props) => {
         <ButtonAlert />
         {!isLoadingApp && isAuthenticated && businessVerified && <ButtonUpload />}
       </FlexContainer>
-    </FlexContainer>
+    </SafeAreaView>
   );
 };
 
@@ -43,7 +44,8 @@ const styles = StyleSheet.create({
     // position: 'absolute',
     // top: SIZES.BtnHeight * 1.24,
     zIndex: 12,
-    padding: SIZES.gapLarge,
+    paddingVertical: SIZES.gapLarge,
+    paddingHorizontal: SIZES.gapLarge,
   },
   subContainer: {
     justifyContent: 'space-between',

@@ -13,6 +13,7 @@ import i18next from '../../../../../Translate';
 import { Ilustrations } from '../../../../../constants';
 import { FONTS, SIZES } from '../../../../../constants/theme';
 import {
+  FlashList,
   FlatList,
   ScrollView,
   useNavigation,
@@ -118,32 +119,20 @@ const Main = ({
     emptyComponent()
   ) : (
     <FlexContainer
-      newStyle={{ marginTop: SIZES.gapMedium, gap: SIZES.gapMedium }}
+      newStyle={{ gap: SIZES.gapMedium, flex: 1, width: SIZES.width }}
     >
-      <ButtonAcces
-        label={i18next.t('Nearby Restaurant')}
-        onPress={() => {
-          console.log('Navigating to SearchBusiness');
-          navigation.navigate('SearchBusiness');
-        }}
-        ShowLineDivider={false}
-        labelPreview={i18next.t('More')}
-        labelStyle={{
-          ...FONTS.heading18,
-        }}
-      />
-      <ToggleFilter
+  
+      {/* <ToggleFilter
         onPressStores={toggleFilterStores}
         filterStores={filterStores}
         onPressFreeShipping={toggleFreeShipping}
         freeShipping={freeShipping}
-      />
-      <FlatList
+      /> */}
+      <FlashList
         data={filteredData}
         keyExtractor={item => item.businessID.toString()}
         renderItem={renderItem}
-        initialNumToRender={3}
-        maxToRenderPerBatch={3}
+        estimatedItemSize={100}
         onRefresh={onRefresh}
         scrollEnabled={false}
         refreshing={isRefreshing}

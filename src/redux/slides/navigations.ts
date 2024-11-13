@@ -44,6 +44,7 @@ interface NavigationState {
   isError: boolean;
   orderID: number | null;
   cartID: number | null;
+  couponID: number | null;
 }
 
 const initialState: NavigationState = {
@@ -56,6 +57,7 @@ const initialState: NavigationState = {
   isError: false,
   orderID: null,
   cartID: null,
+  couponID: null,
 };
 
 const navigationSlice = createSlice({
@@ -83,16 +85,20 @@ const navigationSlice = createSlice({
     setCartID(state, action: PayloadAction<number>) {
       state.cartID = action.payload;
     },
+    setCouponID(state, action: PayloadAction<number>) {
+      state.couponID = action.payload;
+    },
     resetNavigation(state) {
       state.currentSlide = 0;
       state.recipeID = null;
       state.businessID = null;
       state.postID = null;
       state.cartID = null;
+      state.couponID = null;
     },
   },
 });
 
-export const { setCurrentSlide, setRecipeID, setBusinessID, resetNavigation, setPostID, setFeedData, setOrderID, setCartID } = navigationSlice.actions;
+export const { setCurrentSlide, setRecipeID, setBusinessID, resetNavigation, setPostID, setFeedData, setOrderID, setCartID, setCouponID } = navigationSlice.actions;
 
 export default navigationSlice.reducer;

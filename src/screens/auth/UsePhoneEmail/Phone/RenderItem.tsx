@@ -1,9 +1,8 @@
-import React, { lazy, memo, Suspense, useEffect, useState } from 'react';
-import { IsLoading } from '../../../../components/custom';
-import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
-const ButtonLazy = lazy(
-  () => import('../../../../components/custom/Buttons/ButtonAcces'),
-);
+import React, { memo } from 'react';
+import { StyleSheet } from 'react-native';
+import { ArrowRight, FlexContainer, LineDivider, Typography } from '../../../../components/custom';
+import { TouchableOpacity } from '../../../../components/native';
+import { SIZES } from '../../../../constants/theme';
 
 type Props = {
   item: {
@@ -20,26 +19,35 @@ type Props = {
 
 const RenderItem = (props: Props) => {
   const { item, onSelectItem } = props;
-  const fadeAnim = useSharedValue(0);
+  const NumberCode = `${'+'}${item.CodePostal.toString()}`;
 
-  useEffect(() => {
-    fadeAnim.value = withTiming(1, { duration: 500 });
-  }, [fadeAnim]);
 
-  return (
-    <Animated.View style={{ opacity: fadeAnim }}>
-      <Suspense fallback={<IsLoading />}>
-        <ButtonLazy
-          label={item.countryName}
-          subLabel=""
-          labelPreview={`${'+'}${item.CodePostal.toString()}`}
-          onPress={() => {
-            onSelectItem(item);
-          }}
-        />
-      </Suspense>
-    </Animated.View>
+
+    return (
+    <>
+      <TouchableOpacity onPress={() => onSelectItem(item)} style={styles.container}>
+        <FlexContainer variant='row' newStyle={styles.containerText}>
+        <Typography variant="H4title">{NumberCode}</Typography>
+        <Typography variant="H4title">{item.countryName}</Typography>
+        </FlexContainer>
+
+        <ArrowRight onPress={() => onSelectItem(item)} />
+      </TouchableOpacity>
+      <LineDivider />
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: SIZES.gapLarge,
+  },
+  containerText: {
+    gap: SIZES.gapMedium,
+  },
+});
 
 export default memo(RenderItem);

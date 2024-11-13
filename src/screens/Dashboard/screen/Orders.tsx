@@ -13,6 +13,7 @@ import {
 } from '../../../components/custom';
 import { Ilustrations } from '../../../constants';
 import { SIZES } from '../../../constants/theme';
+import { FlashList } from '../../../components/native';
 
 const QUERY_KEY = 'all-orders-dashboard-screen';
 const DEFAULT_PAGE = 1;
@@ -39,7 +40,7 @@ const Orders = () => {
       }),
     initialData,
   });
-
+  console.log(orders);
   // Mutate
   const queryClient = useQueryClient();
 
@@ -60,6 +61,7 @@ const Orders = () => {
   };
 
   const onSearch = useCallback((txt: string) => {
+    console.log(txt);
     setSearch(txt);
     mutation.mutate({ page: DEFAULT_PAGE, search: txt });
   }, []);
@@ -84,19 +86,23 @@ const Orders = () => {
   return (
     <Container style={styles.container}>
       <PaginationHeader
-        text={search}
-        onChangeText={txt => onSearch(txt)}
-        refetch={onRefetch}
+        value={search}
+        onChange={txt => onSearch(txt)}
         placeholder='Search orders...'
       />
 
       {mutation.isPending && <IsLoading />}
 
-      <FlatList
+      <FlashList
         data={orders.data.list}
         renderItem={({ item }) => <ResumeOrder {...item} />}
         keyExtractor={item => item.orderID.toString()}
-        initialNumToRender={3}
+        decelerationRate='normal'
+        estimatedItemSize={100}
+        onRefresh={onRefetch}
+        refreshing={orders.isFetching}
+        ListFooterComponent={orders.isFetching ? <IsLoading /> : null}
+        contentContainerStyle={styles.contentContainer}
       />
 
       <Pagination
@@ -116,5 +122,8 @@ export default Orders;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 0
+  },
+  contentContainer: {
+    paddingBottom: SIZES.height / 10,
   },
 });

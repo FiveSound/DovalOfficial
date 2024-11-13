@@ -8,9 +8,10 @@ import {
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getPaymentsHistoryService } from '../../../services/business';
 import Transaction from '../components/Transaction';
-import { PaginationHeader, Pagination, LoadingScreen, ScreenEmpty, Container } from '../../../components/custom';
+import { PaginationHeader, Pagination, LoadingScreen, ScreenEmpty, Container, IsLoading } from '../../../components/custom';
 import { Ilustrations } from '../../../constants';
 import { SIZES } from '../../../constants/theme';
+import { FlashList } from '../../../components/native';
 
 const QUERY_KEY = 'payments-history-screen';
 const DEFAULT_PAGE = 1;
@@ -69,11 +70,14 @@ const PaymentHistory = () => {
       placeholder='Search payments...'
        />
 
-      <FlatList
+      <FlashList
         data={transactions.data.list}
         renderItem={({ item }) => <Transaction {...item} />}
         keyExtractor={item => item.id.toString()}
-        initialNumToRender={3}
+        estimatedItemSize={100}
+        onRefresh={onRefetch}
+        refreshing={transactions.isFetching}
+        ListFooterComponent={transactions.isFetching ? <IsLoading /> : null}
       />
 
       <Pagination

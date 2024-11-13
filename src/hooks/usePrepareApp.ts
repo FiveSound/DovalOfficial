@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
+// usePrepareApp.ts
+import { useEffect, useState } from 'react';
 import { useAppSelector } from '../redux';
 
 const usePrepareApp = (setAppIsReady: (isReady: boolean) => void) => {
   const { isLoadingApp } = useAppSelector(state => state.auth);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+
   useEffect(() => {
     async function prepare() {
       try {
-        const Font = await import('../components/native').then(
-          module => module.Font,
-        );
+        const Font = await import('../components/native').then(module => module.Font);
         await Font.loadAsync({
           'PlusJakartaSans-Bold': require('../../assets/Fonts/PlusJakartaSans-Bold.ttf'),
           'PlusJakartaSans-SemiBold': require('../../assets/Fonts/PlusJakartaSans-SemiBold.ttf'),
@@ -16,18 +17,24 @@ const usePrepareApp = (setAppIsReady: (isReady: boolean) => void) => {
           'PlusJakartaSans-Regular': require('../../assets/Fonts/PlusJakartaSans-Regular.ttf'),
           'PlusJakartaSans-Light': require('../../assets/Fonts/PlusJakartaSans-Light.ttf'),
         });
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulación de carga adicional
+        setIsFontLoaded(true);
+        console.log('usePrepareApp: Fuentes cargadas.');
       } catch (error) {
         console.warn('Error preparing app', error);
-      } finally {
-        if (!isLoadingApp) {
-          setAppIsReady(true);
-        }
+        setIsFontLoaded(true); // Continúa incluso si hay un error en la carga de fuentes
       }
     }
 
     prepare();
-  }, [setAppIsReady, isLoadingApp]);
+  }, []);
+
+  useEffect(() => {
+    if (isFontLoaded && !isLoadingApp) {
+      console.log('usePrepareApp: setAppIsReady(true)');
+      setAppIsReady(true);
+    }
+  }, [isFontLoaded, isLoadingApp, setAppIsReady]);
 };
 
 export default usePrepareApp;

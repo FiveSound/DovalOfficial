@@ -24,6 +24,7 @@ type Props = {
   Icons?: ReactNode;
   orientationsIcons?: 'Left' | 'Right';
   variant?: 'primary' | 'secondary' | 'disabled';
+  color?: 'primary' | 'dark';
 };
 
 const FooterButtons: React.FC<Props> = props => {
@@ -38,6 +39,7 @@ const FooterButtons: React.FC<Props> = props => {
     Icons,
     orientationsIcons,
     variant,
+    color,
   } = props;
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
@@ -71,17 +73,6 @@ const FooterButtons: React.FC<Props> = props => {
     }
   };
 
-  const getBorderColor = () => {
-    switch (variant) {
-      case 'primary':
-        return COLORS.dark;
-      case 'secondary':
-        return COLORS.primary;
-      case 'disabled':
-        return COLORS.primary;
-    }
-  };
-
   return (
     <>
       <LineDivider />
@@ -97,7 +88,7 @@ const FooterButtons: React.FC<Props> = props => {
         >
           {loading && (
             <IsLoading
-              style={{ borderColor: getBorderColor() as ColorValue }}
+            color={color}
             />
           )}
           {orientationsIcons === 'Left' && Icons}

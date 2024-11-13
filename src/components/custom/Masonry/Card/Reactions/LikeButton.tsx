@@ -14,6 +14,7 @@ import { getLikePostService, handleLikeService } from '../../../../../services/r
 import { TouchableOpacity } from '../../../../native';
 import { COLORS, SIZES } from '../../../../../constants/theme';
 import LoginAlert from '../../../Alert/Login';
+import { openSignupModal } from '../../../../../redux/slides/modalSlice';
 
 type Props = {
   postID: number;
@@ -43,8 +44,8 @@ const LikeButton: React.FC<Props> = memo(({ postID, onLikeChange }) => {
 
   const handleLike = useCallback(async () => {
     if (!user) {
-      setVisible(true);
-      return;
+      dispatch(openSignupModal());
+      return
     }
     try {
       const newLiked = !liked;
@@ -66,9 +67,6 @@ const LikeButton: React.FC<Props> = memo(({ postID, onLikeChange }) => {
     }
   }, [data, dispatch, postID]);
 
-  const handleAlertDismiss = useCallback(() => {
-    setVisible(false);
-  }, []);
 
   return (
     <>
@@ -85,7 +83,6 @@ const LikeButton: React.FC<Props> = memo(({ postID, onLikeChange }) => {
          <Typography variant="H4title" newStyle={styles.label}>
           {formatMilesAndMillions(likes)}
         </Typography>
-        <LoginAlert showAlert={visible} onDismiss={handleAlertDismiss} />
       </TouchableOpacity>
 
     </>

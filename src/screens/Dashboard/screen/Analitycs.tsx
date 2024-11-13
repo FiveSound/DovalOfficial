@@ -11,9 +11,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getAnalitycsService } from '../../../services/business';
 import FormBanner from '../components/FormBanner';
 import { useAuth } from '../../../context/AuthContext';
-import { Container, LoadingScreen, PaginationHeader } from '../../../components/custom';
+import { Container, LoadingScreen, PaginationHeader, Typography } from '../../../components/custom';
 import { iconsNative } from '../../../constants';
 import { Picker } from '@react-native-picker/picker';
+import { useTheme } from '../../../hooks';
+import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
 
 type Props = {
   selected?: boolean;
@@ -23,19 +25,23 @@ type Props = {
   color: string;
 };
 
-const Box = memo(({ selected, icon, title, amount, color }: Props) => (
-  <View style={[styles.item, selected ? styles.selected : styles.default]}>
+const Box = memo(({ selected, icon, title, amount, color }: Props) => {
+const { backgroundMaingrey , Title} = useTheme();
+  return (
+    <View style={[styles.item, {backgroundColor: backgroundMaingrey}]}>
     <View style={[styles.icon, { backgroundColor: color }]}>
-      <Image source={icon} style={{ width: 30, height: 30 }} resizeMode='contain' />
+      <Image source={icon} style={{ width: SIZES.icons, height: SIZES.icons }} resizeMode='contain' />
     </View>
-    <Text
-      style={[styles.subtitle, { color: selected ? '#C2570C' : '#616161' }]}
+    <Typography
+      variant='title'
+      newStyle={[styles.subtitle, { color: selected ? COLORS.primary : Title }]}
     >
       {title}
-    </Text>
-    <Text style={styles.title}>{amount}</Text>
+      </Typography>
+    <Typography variant='title'>{amount}</Typography>
   </View>
-));
+  );
+});
 
 const Analitycs = () => {
   const { user } = useAuth();
@@ -85,10 +91,10 @@ const Analitycs = () => {
   return (
     <Container style={styles.container}>
       {/* <FormBanner /> */}
-      <PaginationHeader 
+      {/* <PaginationHeader 
       refetch={refetch}
       placeholder='Search analitycs...'
-       />
+       /> */}
 
       <FlatList
         data={dataBoxes}
@@ -142,34 +148,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   item: {
-    marginLeft: 10,
-    marginBottom: 10,
+    marginLeft: SIZES.gapSmall,
+    marginBottom: SIZES.gapSmall,
     width: '50%',
-    paddingVertical: 20,
-    paddingHorizontal: 10,
+    paddingVertical: SIZES.gapLarge,
+    paddingHorizontal: SIZES.gapLarge,
   },
   selected: {
     backgroundColor: '#432007',
-  },
-  default: {
-    backgroundColor: '#222222',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#C9C9C9',
   },
   errorText: {
     color: 'red',
     textAlign: 'center',
   },
   icon: {
-    marginBottom: 10,
-    width: 60,
-    height: 60,
+    marginBottom: SIZES.gapSmall,
+    width: responsiveFontSize(60),
+    height: responsiveFontSize(60),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: responsiveFontSize(10),
   },
 });
 

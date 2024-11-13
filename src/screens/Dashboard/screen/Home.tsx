@@ -18,9 +18,9 @@ import {
 } from '../../../services/business';
 import ORDER_STATUS from '../../../constants/ORDER_STATUS';
 const LazyOrder = lazy(() => import('../components/Order'));
-// import Popup from "../../../components/Popup";
-// import OTPInput from "../../../components/OTPInput";
-// import Select from "../../../components/Select";
+import Popup from "../components/Popup";
+import OTPInput from "../components/OTPInput";
+import Select from "../components/Select";
 
 import {
   SOCKET_ORDER_BUSINESS_ACCEPT,
@@ -32,16 +32,19 @@ import {
 } from '../../../constants/sockets';
 import {
   Container,
+  FlexContainer,
   IsLoading,
   LoadingScreen,
   Pagination,
   PaginationHeader,
   ScreenEmpty,
   TabList,
+  Typography,
 } from '../../../components/custom';
-import { Platform } from '../../../components/native';
+import { FlashList, Platform } from '../../../components/native';
 import { COLORS, SIZES } from '../../../constants/theme';
 import { Ilustrations } from '../../../constants';
+import i18next from '../../../Translate';
 
 type DataQueryType = {
   status: string;
@@ -293,7 +296,7 @@ const Home = () => {
       />
 
       {/* Header */}
-      <PaginationHeader refetch={onRefetch} />
+      {/* <PaginationHeader refetch={onRefetch} placeholder={i18next.t('Pending')} /> */}
 
       {/* Body */}
       {mutation.isPending && (
@@ -302,16 +305,17 @@ const Home = () => {
 
 {isEmpty ? (
         <ScreenEmpty
-          labelPart1="Sin órdenes disponibles"
-          labelPart2="No hemos encontrado órdenes en este estado."
+          labelPart1={i18next.t('No orders available')}
+          labelPart2={i18next.t('We have not found orders in this state.')}
           source={Ilustrations.CharcoPet}
           ImgWidth={SIZES.width}
           ImgHeigth={SIZES.height / 3}
           onPress={onRefetch}
-          labelButton='Intentar de nuevo'
+          labelButton={i18next.t('Try again')}
         />
       ) : (
-        <FlatList
+        <FlexContainer newStyle={{ flex: 1 }}>
+          <FlashList
           data={orders.data.list}
           renderItem={({ item }) => (
             <Suspense fallback={<IsLoading />}>
@@ -327,12 +331,14 @@ const Home = () => {
               />
             </Suspense>
           )}
-          keyExtractor={item => item.orderID.toString()}
-          initialNumToRender={4}
-          maxToRenderPerBatch={4}
+          keyExtractor={(item: any) => item.orderID.toString()}
+          estimatedItemSize={100}
           onRefresh={onRefetch}
           refreshing={orders.isFetching}
+          ListFooterComponent={orders.isFetching ? <IsLoading /> : null}
+          contentContainerStyle={styles.contentContainer}
         />
+        </FlexContainer>
       )}
 
       {/* Footer */}
@@ -346,18 +352,16 @@ const Home = () => {
       />
 
       {/* Verify Popup */}
-      {/* <Popup id="popup-verify-order" title="Escribe el codigo de la orden" open={openVerify}>
-        <View style={{ marginVertical: 15 }}>
+      <Popup id="popup-verify-order" title="Escribe el codigo de la orden" open={openVerify}>
           <OTPInput onChange={onVerify} />
-        </View>
 
         <TouchableOpacity onPress={() => setOpenVerify(false)} style={[styles.btn, styles.btnError]}>
           <Text style={{ color: "#F41F52", fontWeight: "bold" }}>Cancelar</Text>
         </TouchableOpacity>
-      </Popup> */}
+      </Popup>
 
       {/* Add time Popup */}
-      {/* <Popup id="popup-delay-order" title="Que tiempo necesitas?" open={openDelay}>
+      <Popup id="popup-delay-order" title="Que tiempo necesitas?" open={openDelay}>
         <Select
           onChange={(value) => setDelayTime(value)}
           value={delayTime}
@@ -369,15 +373,15 @@ const Home = () => {
           defaultValue={5}
         />
 
-        <View style={{ marginTop: 10, flexDirection: "row", gap: 10 }}>
+        <View style={styles.btnContainer}>
           <TouchableOpacity onPress={() => setOpenDelay(false)} style={[styles.btn, styles.btnError]}>
-            <Text style={{ color: "#F41F52", fontWeight: "bold" }}>Cancelar</Text>
+            <Typography variant='H4title' newStyle={{ color: "#F41F52",}}>Cancelar</Typography >
           </TouchableOpacity>
           <TouchableOpacity onPress={onDelay} style={[styles.btn, styles.btnSuccess]}>
-            <Text style={{ color: "#4ADE80", fontWeight: "bold" }}>Confirmar</Text>
+            <Typography variant='H4title' newStyle={{ color: "#4ADE80" }}>Confirmar</Typography>
           </TouchableOpacity>
         </View>
-      </Popup> */}
+      </Popup>
     </Container>
   );
 };
@@ -393,14 +397,22 @@ const styles = StyleSheet.create({
     color: COLORS.error,
   },
   btn: {
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 14,
+    paddingVertical: SIZES.gapMedium,
+    paddingHorizontal: SIZES.gapLarge,
+    borderRadius: SIZES.radius,
   },
   btnSuccess: {
     backgroundColor: 'rgba(74, 222, 128, 0.38)',
   },
   btnError: {
     backgroundColor: 'rgba(244, 31, 82, 0.38)',
+  },
+  contentContainer: {
+    paddingBottom: SIZES.height / 10,
+  },
+  btnContainer: {
+    marginTop: SIZES.gapMedium,
+    flexDirection: "row",
+    gap: SIZES.gapMedium,
   },
 });

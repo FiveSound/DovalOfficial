@@ -1,28 +1,38 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { RestauranteSearchOrderType } from '../../../types/Restaurant.type';
 import OrderStatus from './OrderStatus';
+import { ArrowRight, FlexContainer, LineDivider, Typography } from '../../../components/custom';
+import { TouchableOpacity, useNavigation } from '../../../components/native';
+import { ArrowRight01Icon } from '../../../constants/IconsPro';
+import { useTheme } from '../../../hooks';
 
-const ResumeOrder = (props: RestauranteSearchOrderType) => (
-  <View style={styles.container}>
-    {/* {props.status == "PENDING" && <Image style={styles.cover} source={icons.Pending} />}
-    {props.status == "CANCELED" && <Image style={styles.cover} source={icons.Canceled} />}
-    {props.status == "IN_PROGRESS" && <Image style={styles.cover} source={icons.InProgress} />}
-    {props.status == "DELIVERED" && <Image style={styles.cover} source={icons.Delivered} />}
-    {props.status == "COMPLETED" && <Image style={styles.cover} source={icons.Completed} />} */}
+const ResumeOrder = (props: RestauranteSearchOrderType) => {
+  const navigation = useNavigation();
 
-    <View>
-      <Text style={[styles.text, { fontSize: 20, fontWeight: 'bold' }]}>
-        ID: #{props.orderID}
-      </Text>
-      <Text style={[styles.text]}>{props.creation_time}</Text>
-      <Text style={[styles.text, { marginVertical: 3, color: '#DDD' }]}>
-        Client: {props.client}
-      </Text>
-    </View>
+  return (
+    <>
+     <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Dashboard/Business/OrderID', { orderID: props.orderID })}>
+       <FlexContainer>
+       <FlexContainer>
+         <Typography variant='title'>
+           ID: #{props.orderID}
+         </Typography>
+         <Typography variant='H4title'>
+           {props.creation_time}
+         </Typography>
+         <Typography variant='H4title'>
+           Client: {props.client}
+         </Typography>
+       </FlexContainer>
+       <OrderStatus status={props.status} />
+       </FlexContainer>
+       <ArrowRight onPress={() => navigation.navigate('Dashboard/Business/OrderID', { orderID: props.orderID })} />
+     </TouchableOpacity>
+     <LineDivider variant='secondary' />
+   </>
+   );
+}
 
-    <OrderStatus status={props.status} />
-  </View>
-);
 export default ResumeOrder;
 
 const styles = StyleSheet.create({
@@ -30,10 +40,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
+    gap: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
-    backgroundColor: '#222222',
+    justifyContent: 'space-between',
   },
   cover: {
     width: 40,

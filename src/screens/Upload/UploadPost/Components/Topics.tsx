@@ -29,7 +29,7 @@ const Topics = memo(() => {
     control,
     name: 'topics',
     rules: {
-      required: true,
+      required: false,
     },
   });
 

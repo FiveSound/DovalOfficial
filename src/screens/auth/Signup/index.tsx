@@ -3,6 +3,7 @@ import {
   AuthLayout,
   ButtonIcons,
   FormBottom,
+  SignupAlert,
   Typography,
 } from '../../../components/custom';
 import { Linking, StyleSheet } from 'react-native';
@@ -12,15 +13,17 @@ import { useNavigation } from '../../../components/native';
 import i18next from '../../../Translate';
 import { useTheme } from '../../../hooks';
 import SignupSocials from './SignupSocials';
-import { openLocationModal } from '../../../redux/slides/modalSlice';
+import { closeSignupModal, openLocationModal } from '../../../redux/slides/modalSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { RootState } from '../../../redux/store';
 
-const Signup = () => {
+type Props = {};
 
+const Signup = (props: Props) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const { location } = useAppSelector((state: RootState) => state.location);
+  console.log(location);
   const { Title } = useTheme();
   const handleLinkPress = (url: string) => {
     Linking.openURL(url);
@@ -51,7 +54,10 @@ const Signup = () => {
               color={Title}
             />
           }
-          onPress={() => navigation.navigate('UsePhoneEmail')}
+          onPress={() => {
+            dispatch(closeSignupModal());
+            navigation.navigate('UsePhoneEmail');
+          }}
           labelStyle={{
             color: Title,
           }}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useColorScheme, StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 import {
   COLORS,
   FONTS,
@@ -38,17 +37,18 @@ interface Props {
   showLabel?: boolean;
 }
 
+const isTablet = Math.min(SIZES.width, SIZES.height) >= 768;
 const avatarSizeMap = {
   ModeIcon: SIZES.icons / 1.6,
-  extraSmall: responsiveFontSize(26),
-  small: responsiveFontSize(32),
-  medium: responsiveFontSize(40),
-  large: responsiveFontSize(48),
-  extraLarge: responsiveFontSize(56),
-  xLarge: responsiveFontSize(64),
-  xxLarge: responsiveFontSize(72),
-  xxLargeProFile: responsiveFontSize(92),
-  xxxLarge: responsiveFontSize(180),
+  extraSmall: isTablet ? responsiveFontSize(26) : responsiveFontSize(20),
+  small: isTablet ? responsiveFontSize(12) : responsiveFontSize(24),
+  medium: isTablet ? responsiveFontSize(16) : responsiveFontSize(32),
+  large: isTablet ? responsiveFontSize(24) : responsiveFontSize(36),
+  extraLarge: isTablet ? responsiveFontSize(28) : responsiveFontSize(40),
+  xLarge: isTablet ? responsiveFontSize(32) : responsiveFontSize(48),
+  xxLarge: isTablet ? responsiveFontSize(36) : responsiveFontSize(56),
+  xxLargeProFile: responsiveFontSize(12),
+  xxxLarge: isTablet ? responsiveFontSize(60) : responsiveFontSize(120),
 };
 
 
@@ -79,7 +79,7 @@ const Avatars = React.memo((props: Props) => {
     }
   }, [source]);
 
-  const sizeScaled = scale(avatarSizeMap[size]);
+  const sizeScaled = responsiveFontSize(avatarSizeMap[size]);
   return loader ? (
     <IsLoading  />
   ) : (

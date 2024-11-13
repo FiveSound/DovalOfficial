@@ -1,3 +1,3 @@
 import ArrowBack from './ArrowBack';
-
-export { ArrowBack };
+import ArrowRight from './ArrowRigth';
+export { ArrowBack, ArrowRight };

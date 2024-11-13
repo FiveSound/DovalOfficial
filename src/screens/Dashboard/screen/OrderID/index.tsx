@@ -1,31 +1,150 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { StyleSheet } from 'react-native';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { StyleSheet, Alert } from 'react-native';
 import { Container, LineDivider, LoadingScreen } from '../../../../components/custom';
-import { getOrderIDService } from '../../../../services/business';
+import { getDashboardOrderService, getOrderIDService, getTabsDashboardService } from '../../../../services/business';
 import { OrderCustomerInfo, OrderHeader, OrderItems, OrderPaymentInfo, OrderRiderInfo } from './components';
 import OrderActions from './components/OrderActions';
-import { ScrollView, View } from '../../../../components/native';
+import { ScrollView, useNavigation, View } from '../../../../components/native';
 import { SIZES } from '../../../../constants/theme';
+import { TabBarVisibilityContext } from '../../../../context/TabBarVisibilityContext';
+import { SOCKET_ORDER_BUSINESS_ACCEPT, SOCKET_ORDER_BUSINESS_REJECT } from '../../../../constants/sockets';
+import ORDER_STATUS from '../../../../constants/ORDER_STATUS';
+import { useDashboard } from '../../../../context/DashboardContext';
 
 
 type Props = {
   route: any;
 };
 
+type DataQueryType = {
+  status: string;
+  list: any[];
+  page: number;
+  pageSize: number | null;
+  totalPages: number | null;
+  pagination: number[] | null;
+};
+
+const QUERY_KEY = 'dashboard-orders-screen';
+const QUERY_KEY_TABS = 'dashboard-tabs-orders-component';
+const DEFAULT_STATUS = ORDER_STATUS.PENDING;
+const DEFAULT_PAGE = 1;
+
 const OrderID: React.FC<Props> = (props: Props) => {
+  const { socket } = useDashboard();
+  const queryClient = useQueryClient();
+  const navigate  = useNavigation();
+  const [lastStatus, setLastStatus] = useState(DEFAULT_STATUS);
   const order = useQuery({
     queryKey: ['business-order-id'],
     queryFn: async () => getOrderIDService(props.route.params.orderID),
   });
+ 
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
 
-  const handleAccept = () => {
-    // Lógica para aceptar la orden
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
+  
+  const mutation = useMutation({
+    mutationKey: [QUERY_KEY],
+    mutationFn: async (params: { status: string; page: number }) => {
+      return await getDashboardOrderService({
+        queryKey: [QUERY_KEY, params.status, params.page],
+      });
+    },
+    onSuccess: response => queryClient.setQueryData([QUERY_KEY], response),
+  });
+
+  const mutationTabs = useMutation({
+    mutationKey: [QUERY_KEY_TABS],
+    mutationFn: getTabsDashboardService,
+    onSuccess: response => queryClient.setQueryData([QUERY_KEY_TABS], response),
+  });
+  const onDeleteOrderFromPage = (orderID: number) => {
+    queryClient.setQueryData([QUERY_KEY], (oldData: DataQueryType) => {
+      const updatedList = oldData.list.filter(row => row.orderID !== orderID);
+
+      if (updatedList.length > 0) {
+        return { ...oldData, list: updatedList };
+      }
+
+      const isFirstPage = oldData.page === 1;
+      const newPage = isFirstPage ? 1 : oldData.page - 1;
+
+      mutation.mutate({ status: lastStatus, page: newPage });
+
+      return oldData;
+    });
   };
 
-  const handleReject = () => {
-    // Lógica para rechazar la orden
+  
+  const handleUpdate = async (
+    socketName: string,
+    orderID: number,
+    successMessage: string,
+  ) => {
+    // Indicate loading...
+    // onToast('Procesando orden...');
+
+    const response = await socket
+      ?.timeout(1000)
+      .emitWithAck(socketName, { orderID });
+
+    if (!response.success) {
+      // onToast(`Ha ocurrido un error!`);
+      return;
+    }
+
+    // Success
+    // onToast(successMessage);
+
+    // Mutate data
+    onDeleteOrderFromPage(orderID);
+
+    // Update Tabs...
+    mutationTabs.mutate();
   };
+
+  const onAccept = useCallback((orderID: number) => {
+    Alert.alert('Aceptar esta orden', 'Order ID: ' + orderID, [
+      { text: 'Cancelar' },
+      {
+        text: 'Confirmar',
+        onPress: () =>
+        {
+          handleUpdate(
+            SOCKET_ORDER_BUSINESS_ACCEPT,
+            orderID,
+            `Orden ${orderID} acceptada con exito!`,
+          );
+          navigate.goBack();
+        }
+      },
+    ]);
+  }, []);
+
+  const onReject = useCallback((orderID: number) => {
+    Alert.alert('Rechazar esta orden', 'Order ID: ' + orderID, [
+      { text: 'Cancelar' },
+      {
+        text: 'Confirmar',
+        onPress: () =>
+        {
+          handleUpdate(
+            SOCKET_ORDER_BUSINESS_REJECT,
+            orderID,
+            `Orden #${orderID} rechazada con exito!`,
+          );
+          navigate.goBack();
+        }
+      },
+    ]);
+  }, []);
 
   if (order.isLoading || order.isFetching) return <LoadingScreen />;
 
@@ -58,7 +177,7 @@ const OrderID: React.FC<Props> = (props: Props) => {
           <View style={styles.container}>
             <OrderItems items={items} />
             <OrderHeader orderId={id} status={status} />
-            {/* <OrderActions onAccept={handleAccept} onReject={handleReject} /> */}
+            <OrderActions onAccept={() => onAccept(id)} onReject={() => onReject(id)} />
             <LineDivider lineStyle={styles.lineDivider} variant='secondary' />
             <OrderPaymentInfo resume={resume} />
             <LineDivider lineStyle={styles.lineDivider} variant='secondary' />

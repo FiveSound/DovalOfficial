@@ -4,13 +4,13 @@ import { ScrollView, Modal } from 'react-native';
 import Searched from './Searched';
 import SearchInput from './SearchInput';
 import MySavedLocations from './MySavedLocations';
-import { scale } from 'react-native-size-matters';
 import { Container, FlexContainer } from '../../../../components/custom';
 import i18next from '../../../../Translate';
 import { useTheme } from '../../../../hooks';
 import MapSelector from '../../../../components/custom/Select/MapSelector';
 import DetailsLocation from './DetailsLocation';
 import { Button } from '../../../../components/native';
+import { responsiveFontSize } from '../../../../constants/theme';
 
 const MyLocationsGeneral = () => {
   const [hiddenSearch, setHiddenSearch] = useState(false);
@@ -43,7 +43,7 @@ const MyLocationsGeneral = () => {
         </FlexContainer>
       )}
 
-      <FlexContainer newStyle={{ alignItems: 'center', marginVertical: 10 }}>
+      {/* <FlexContainer newStyle={{ alignItems: 'center', marginVertical: 10 }}>
         <Button
           title={i18next.t('Add Location via Map')}
           onPress={() => setIsMapSelectorVisible(true)}
@@ -54,11 +54,11 @@ const MyLocationsGeneral = () => {
           onPress={() => setIsMapSelectorVisible(true)}
           style={{ marginTop: 10 }}
         />
-      </FlexContainer>
+      </FlexContainer> */}
 
       <ScrollView
         style={{
-          paddingHorizontal: scale(15),
+          paddingHorizontal: responsiveFontSize(15),
         }}
       >
         {search?.length > 0 ? (

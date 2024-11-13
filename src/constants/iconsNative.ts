@@ -28,8 +28,14 @@ const People = require('../../assets/icons/People.png');
 const Comments = require('../../assets/icons/Comments.png');
 const Topics = require('../../assets/icons/topics.png');
 const Hashtag = require('../../assets/icons/hashtag.png');
+const logoDark = require('../../assets/vector-dark.png');
+const logoLight = require('../../assets/vector-light.png');
+const logo = require('../../assets/logo.png');
 
 export default {
+  logoDark,
+  logoLight,
+  logo,
   google,
   facebook,
   arrowBack,

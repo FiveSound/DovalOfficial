@@ -72,20 +72,7 @@ const ProfileBusiness = ({ data }: Props) => {
           >
             {bio}
           </Typography>
-          <FlexContainer newStyle={styles.locationContainer} variant="row">
-            <Location09Icon
-              width={SIZES.icons}
-              height={SIZES.icons}
-              color={Description}
-            />
-            <Typography
-              newStyle={styles.address}
-              variant="SubDescription"
-              numberOfLines={1}
-            >
-              {details}
-            </Typography>
-          </FlexContainer>
+
         </FlexContainer>
         <FlexContainer
           newStyle={[

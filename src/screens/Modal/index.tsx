@@ -69,17 +69,25 @@ const Modal: React.FC = () => {
       case 0:
         return COLORS.BackgroundMainLight;
       case 1:
-        return COLORS.BackgroundMainLight;
+        return BgMain
       case 2:
         return COLORS.BackgroundMainLight;
       case 3:
         return BgMain;
       case 4:
-        return COLORS.BackgroundMainLight;
+        return BgMain;
       case 5:
         return COLORS.BackgroundMainLight;
       case 6:
         return COLORS.BackgroundMainLight;
+      case 7:
+        return COLORS.BackgroundMainLight;  
+      case 8:
+        return BgMain;
+      case 9:
+        return BgMain;
+      case 10:
+        return BgMain;
       default:
         return COLORS.BackgroundMainLight;
     }
@@ -93,21 +101,21 @@ const Modal: React.FC = () => {
 
     switch (modalType) {
       case 0:
-        return Title;
+        return TitleColor;
       case 1:
-        return COLORS.BackgroundMainLight;
+        return TitleColor;
       case 2:
-        return COLORS.BackgroundMainLight;
+        return TitleColor;
       case 3:
         return TitleColor;
       case 4:
-        return COLORS.BackgroundMainLight;
+        return TitleColor;
       case 5:
-        return COLORS.BackgroundMainLight;
+        return TitleColor;
       case 6:
-        return COLORS.BackgroundMainLight;
+        return TitleColor;
       default:
-        return COLORS.BackgroundMainLight;
+        return TitleColor;
     }
   };
 
