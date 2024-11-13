@@ -139,7 +139,7 @@ const MyProfile = (props: Props) => {
           }
         />
         <CtoProfile data={userProfileData} isUsers={true} />
-        <MyPosts />
+        {/* <MyPosts /> */}
         {/* <IncompleteInfo visible={true} /> */}
         {/* <TabsMyProfile
           MyPosts={<MyPosts />}

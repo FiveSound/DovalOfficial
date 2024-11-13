@@ -9,6 +9,7 @@ import {
   Container,
   LoadingScreen,
   ScreenEmpty,
+  SignupAlert,
 } from '../../../components/custom';
 import { SIZES } from '../../../constants/theme';
 import { Ilustrations } from '../../../constants';
@@ -42,7 +43,7 @@ type CartItemType = {
 const Cart = memo(() => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { data, isLoading, isFetching, refetch } = useQuery({
+  const { data, isLoading, isFetching, refetch , isError} = useQuery({
     queryKey: QUERY_KEY,
     queryFn: getCartService,
   });
@@ -110,7 +111,13 @@ const Cart = memo(() => {
     }
   }, [cartID, data]);
 
+  if (!isAuthenticated) return <Container showBack={true} showHeader={true} label={i18next.t('Cart')}>
+    <SignupAlert />
+  </Container>;
+
   if (isLoading || isFetching) return <LoadingScreen />;
+
+  if (isError) return <ScreenEmpty source={Ilustrations.CharcoPet} labelPart1={i18next.t('Oops! Error getting cart')} />;
 
   if (data?.length === 0 && isAuthenticated) {
     return (

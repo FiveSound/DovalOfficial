@@ -31,7 +31,7 @@ const MasonryUsers = ({
 }: IMasonryList) => {
   const { width } = useWindowDimensions();
   const [focusedIds, setFocusedIds] = useState<Set<string>>(new Set());
-  const COLUMN_WIDTH = useMemo(() => SIZES.width / 2, []); // Si SIZES.width es constante, sino incluye dependencias
+  const COLUMN_WIDTH = useMemo(() => SIZES.width / 2, []);
   const numColumns = useMemo(() => {
     const calculatedColumns = Math.max(Math.floor(width / COLUMN_WIDTH), 1);
     return calculatedColumns;

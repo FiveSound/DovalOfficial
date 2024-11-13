@@ -38,8 +38,6 @@ const Main = (props: any) => {
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);
   const navigation = useNavigation();
 
-  console.log('isLoading: isLoading', isLoading);
-
   if (isLoading || isRefetching) {
     return <FlexContainer newStyle={styles.containerGrid}>
       <MasonrySkeleton showHeader={false} />

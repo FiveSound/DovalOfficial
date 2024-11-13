@@ -67,7 +67,7 @@ const Modal: React.FC = () => {
     const BgMainGrey = backgroundMaingrey;
     switch (modalType) {
       case 0:
-        return COLORS.BackgroundMainLight;
+        return BgMain;
       case 1:
         return BgMain
       case 2:

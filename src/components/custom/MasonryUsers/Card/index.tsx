@@ -5,9 +5,8 @@ import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
 import { Image01Icon, PlayListIcon } from "../../../../constants/IconsPro";
 import { memo, useMemo } from "react";
 import { Pressable, useNavigation } from "../../../native";
-import { CommentButton, LikeButton } from "./Reactions";
 import Inf from "./Inf";
-import { ViewsButton } from "../../Masonry/Card/Reactions";
+import { ViewsButton, LikeButton, CommentButton } from "../../Masonry/Card/Reactions";
 
 interface PinProps {
   pin: {
