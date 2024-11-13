@@ -1,5 +1,5 @@
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { Alert } from "react-native";
+import { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useRef, useState } from "react";
+import { Alert, Vibration } from "react-native";
 import { io, Socket } from "socket.io-client";
 import { useQueryClient } from "@tanstack/react-query";
 import { SOCKET_URL } from "../services";
@@ -8,6 +8,8 @@ import { useNavigation } from "../components/native";
 import { useAppSelector } from "../redux";
 import { RootState } from "../redux/store";
 import { ActiveTabContext } from '../context/ActiveTabContext';
+import * as Haptics from 'expo-haptics';
+import { Audio } from 'expo-av';
 
 type DashboardProviderProps = {
   children: ReactNode;
@@ -34,7 +36,7 @@ type ContextType = {
 export const DashboardContext = createContext<ContextType>({} as ContextType);
 
 export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
-  const { token , user} = useAppSelector((state: RootState) => state.auth);
+  const { token, user } = useAppSelector((state: RootState) => state.auth);
   const navigation = useNavigation();
 
   const queryClient = useQueryClient();
@@ -48,37 +50,91 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
   const [verifiedAlert, setVerifiedAlert] = useState(false);
   const [delayAlert, setDelayAlert] = useState(false);
   const { setActiveTab, activeTab } = useContext(ActiveTabContext);
-  
-   const handleSetPortalTab = () => {
+  const soundRef = useRef<Audio.Sound | null>(null);
+
+  const setupAudioMode = async () => {
+    try {
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        staysActiveInBackground: true,
+        playsInSilentModeIOS: true, 
+        shouldDuckAndroid: false,
+        playThroughEarpieceAndroid: false,
+      });
+    } catch (error) {
+      console.error("Error setting audio mode:", error);
+    }
+  };
+
+  useEffect(() => {
+    setupAudioMode();
+  }, []);
+
+  const handleSetPortalTab = async () => {
+    if (soundRef.current) {
+      await soundRef.current.stopAsync();
+      await soundRef.current.unloadAsync();
+      soundRef.current = null;
+    }
+
+    Vibration.cancel();
+
     setActiveTab('Portal');
     navigation.navigate('HomeStack');
   };
 
-  
-
   useEffect(() => {
-    const socketInstance = io(SOCKET_URL, { auth: { token: token } }); 
-    
+    const socketInstance = io(SOCKET_URL, { auth: { token: token } });
+
     socketInstance.connect();
 
     setSocket(socketInstance);
 
-    socketInstance.on(SOCKET_ORDER_BUSINESS_RECEPT, () => {
-      
+    socketInstance.on(SOCKET_ORDER_BUSINESS_RECEPT, async (data) => {
+      console.log('Received SOCKET_ORDER_BUSINESS_RECEPT data:', data);
+
       // Invalidate Dashboard
       queryClient.invalidateQueries({ queryKey: ["dashboard-orders-screen"] });
       queryClient.invalidateQueries({ queryKey: ["tab-orders-component"] });
       queryClient.invalidateQueries({ queryKey: ["all-orders-dashboard-screen"] });
 
-      // queryClient.resetQueries()
+      // Iniciar vibración continua
+      Vibration.vibrate([500, 500], true);
+
+      try {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../assets/audios/simple-notification-152054.mp3'),
+          { shouldPlay: true, isLooping: true }
+        );
+        soundRef.current = sound;
+      } catch (error) {
+        console.error("Error playing sound:", error);
+      }
+
       Alert.alert("Tienes una orden pendiente por aceptar!", "", [
         { text: "Ir a Dashboard", onPress: handleSetPortalTab },
       ]);
       console.log('Tienes una orden pendiente por aceptar!');
     });
 
+    socketInstance.on('connect', () => {
+      console.log('Socket connected:', socketInstance.id);
+    });
+
+    socketInstance.on('disconnect', (reason) => {
+      console.log('Socket disconnected:', reason);
+    });
+
     return () => {
       socketInstance.disconnect();
+      // Limpiar el sonido al desmontar
+      if (soundRef.current) {
+        soundRef.current.stopAsync();
+        soundRef.current.unloadAsync();
+        soundRef.current = null;
+      }
+      // Detener la vibración al desmontar
+      Vibration.cancel();
     };
   }, [user]);
 

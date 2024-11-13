@@ -63,13 +63,13 @@ const CardMenu = (props: props) => {
             <View style={styles.textContainer}>
               <Typography
                 variant="subtitle"
-                numberOfLines={3}
+                numberOfLines={2}
                 newStyle={styles.typographyName}
               >
                 {name}
               </Typography>
               <Typography
-                numberOfLines={3}
+                numberOfLines={2}
                 variant="SubDescription"
                 newStyle={styles.typographyDescription}
               >
@@ -101,7 +101,7 @@ const CardMenu = (props: props) => {
               </FlexContainer>
             </View>
           </FlexContainer>
-          <LineDivider variant='primary' lineStyle={styles.lineDivider} />
+          {/* <LineDivider variant='primary' lineStyle={styles.lineDivider} /> */}
         </FlexContainer>
         {
           isBusiness && (

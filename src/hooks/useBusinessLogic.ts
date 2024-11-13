@@ -1,7 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { getNearbyBusinessService } from '../services/business';
-import useRangeNearbyLocation from './useRangeNearbyLocation';
-import useAPI from './useAPI';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +17,7 @@ export function useBusinessLogic({
   freeShipping,
 }: UseBusinessLogicParams) {
   const { location } = useSelector((state: RootState) => state.location);
-
+  console.log('location', location);
   const {
     data,
     isLoading,

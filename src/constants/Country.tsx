@@ -1737,23 +1737,11 @@ export const Country = [
     countryName: i18next.t('Zimbabwe'),
     CodePostal: 263,
     codigoISO: 'ZW',
-    bounds: {
-      latMin: -22.417,
-      latMax: -15.609,
-      lonMin: 25.237,
-      lonMax: 33.056,
-    },
   },
   {
     key: 194,
     countryName: i18next.t('Dominican Republic'),
     CodePostal: 1,
     codigoISO: 'DO',
-    bounds: {
-      latMin: 17.539,
-      latMax: 19.937,
-      lonMin: -72.003,
-      lonMax: -68.322,
-    },
   },
 ];

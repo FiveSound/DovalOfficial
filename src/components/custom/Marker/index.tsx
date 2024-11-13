@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
-import {  StyleSheet } from 'react-native';
-import { View } from '../../native';
+import {  StyleSheet, View } from 'react-native';
 import FlexContainer from '../FlexContainer';
 import { COLORS, responsiveFontSize } from '../../../constants/theme';
 

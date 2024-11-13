@@ -21,7 +21,6 @@ const ClosedAccount = (props: Props) => {
   const handleSignOut = async () => {
     const Disable = await disabledAccountService()
     if (Disable) {
-      console.log('Account disabled successfully');
       queryClient.resetQueries()
       signOutAuth();
       dispatch(signOut());

@@ -33,7 +33,7 @@ const Media = () => {
   const { Title, Description } = useTheme();
   const {
     uploadMedia,
-    isLoading,
+    isLoading: Loading,
     progress,
     mediaURLs,
     thumbnailURLs,
@@ -126,17 +126,17 @@ const Media = () => {
       <FlexContainer>
         <Covers data={keys} ShowDivider={false} />
         <FlexContainer newStyle={styles.progressContainer}>
-          {(isSubmittingLocal || isLoading) && progress > 0 && (
-            <ProgressBar progress={progress} />
+        {Loading && <IsLoading />}
+          {mediaURLs.length === 0 && (
+            <Buttons
+              label={i18next.t('Upload Media')}
+              onPress={pickImage}
+              disabled={isSubmittingLocal || Loading}
+              variant={isSubmittingLocal || Loading ? 'disabled' : 'primary'}
+              labelStyle={styles.labelStyle}
+              color={isSubmittingLocal || Loading ? 'primary' : 'dark'}
+            />
           )}
-          <Buttons
-            label={i18next.t('Upload Media')}
-            onPress={pickImage}
-            disabled={isSubmittingLocal || isLoading}
-            variant={isSubmittingLocal || isLoading ? 'disabled' : 'primary'}
-            labelStyle={styles.labelStyle}
-            color={isSubmittingLocal || isLoading ? 'primary' : 'dark'}
-          />
 
           <Buttons
             label={i18next.t('Drafts')}

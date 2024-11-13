@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import FlexContainer from '../../FlexContainer';
 import LineDivider from '../../LineDivider';
@@ -6,11 +6,12 @@ import Typography from '../../Typography';
 import Cover from '../../Avatars/Cover';
 import { useTheme } from '../../../../hooks';
 import styles from './styles';
-import { useNavigation } from '../../../native';
+import { Switch, useNavigation } from '../../../native';
 import { CLOUDFRONT } from '../../../../services';
 import i18next from '../../../../Translate';
-import { ArrowRight01Icon } from '../../../../constants/IconsPro';
-import { SIZES } from '../../../../constants/theme';
+import { ArrowRight01Icon, Clock01Icon, HeartAddIconStroke, ShoppingBag01Icon } from '../../../../constants/IconsPro';
+import { COLORS, SIZES } from '../../../../constants/theme';
+import { ArrowRight } from '../../Arrows';
 
 export type businessListitems = {
   id: number;
@@ -46,6 +47,8 @@ const CardBusiness = ({
   } = item;
   const { Title } = useTheme();
   const navigation = useNavigation();
+  const CoverBusiness = `${CLOUDFRONT}${avatar}`;
+  const memoizedCoverBusiness = useMemo(() => CoverBusiness, [CoverBusiness]);
   const handleNavigation = useCallback(() => {
     if (item) {
       navigation.navigate('MainStackt', { screen: 'Business', params: { id: businessID } });
@@ -55,23 +58,25 @@ const CardBusiness = ({
   return (
     <>
       <FlexContainer key={id} newStyle={styles.flexContainer}>
-        {!open && (
-          <Typography
-            variant="H4title"
-            numberOfLines={1}
-            newStyle={styles.storeStatus}
-          >
-            {i18next.t('closed for moments')}
-          </Typography>
-        )}
+
+        <Typography
+          variant="H4title"
+          numberOfLines={1}
+          newStyle={{
+            color: open ? COLORS.success : COLORS.error,
+          }}
+        >
+          {open ? i18next.t('Open store') : i18next.t('closed for moments')}
+        </Typography>
         <TouchableOpacity
           onPress={handleNavigation}
           style={styles.touchableOpacity}
         >
-          <Cover source={`${CLOUDFRONT}${avatar}`} size="small" />
+          <Cover source={memoizedCoverBusiness} size='medium' />
+
           <View style={styles.flexContainerInner}>
             <Typography
-              variant="subtitle"
+              variant='title'
               numberOfLines={1}
               newStyle={styles.businessName}
             >
@@ -79,26 +84,31 @@ const CardBusiness = ({
             </Typography>
             <FlexContainer newStyle={styles.flexContainerInner}>
               <Typography
-                variant="SubDescription"
+                variant='H4title'
                 newStyle={styles.timeSend}
                 numberOfLines={1}
               >
                 {bio}
               </Typography>
-              <Typography variant="SubDescription" newStyle={styles.timeSend}>
-                {timeSend}
-              </Typography>
-              <Typography variant="SubDescription">
-                {i18next.t('Send')} {amountSend}
-              </Typography>
             </FlexContainer>
+
           </View>
-          <ArrowRight01Icon
-            width={SIZES.icons}
-            height={SIZES.icons}
-            color={Title}
-          />
+          <ArrowRight onPress={handleNavigation} />
         </TouchableOpacity>
+        <FlexContainer variant='row' newStyle={{ gap: SIZES.gapSmall, marginTop: SIZES.gapSmall }}>
+        <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
+          <Clock01Icon color={Title} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
+          <Typography variant='H4title' newStyle={styles.timeSend}>
+            Times: {timeSend}
+          </Typography>
+        </FlexContainer>
+        <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
+          <ShoppingBag01Icon color={Title} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
+          <Typography variant='H4title' newStyle={styles.timeSend}>
+            Shopping: {amountSend}
+          </Typography>
+        </FlexContainer>
+        </FlexContainer>
       </FlexContainer>
       <LineDivider lineStyle={styles.lineDivider} variant="secondary" />
     </>

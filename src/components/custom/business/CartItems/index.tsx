@@ -14,6 +14,7 @@ import {
   removerCartService,
 } from '../../../../services/cart';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Platform } from '../../../native';
 const QUERY_KEY = ["cart-screen-useQuerys"];
 
 interface row {
@@ -74,9 +75,6 @@ const CartItem: React.FC<Props> = ({ row, refetch }) => {
         variant="row"
         newStyle={[
           styles.containerExtra,
-          {
-            backgroundColor: backgroundMaingrey,
-          },
         ]}
       >
         <Cover source={`${CLOUDFRONT}${cover}`} size="medium" />
@@ -84,13 +82,13 @@ const CartItem: React.FC<Props> = ({ row, refetch }) => {
           <Typography
             newStyle={styles.maxText}
             variant="subtitle"
-            numberOfLines={2}
+            numberOfLines={1}
           >
             {recipe}
           </Typography>
           <Typography
             variant="SubDescription"
-            numberOfLines={3}
+            numberOfLines={2}
             newStyle={styles.maxText}
           >
             {description}
@@ -117,23 +115,23 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: SIZES.gapMedium,
     width: '100%',
-    padding: SIZES.gapLarge,
+    padding: Platform.OS === 'ios' ? SIZES.gapLarge : SIZES.gapLarge,
     borderRadius: SIZES.radius,
   },
   containerExtra: {
     gap: SIZES.gapLarge,
   },
   maxText: {
-    width: SIZES.width / 1.4,
+    width: SIZES.width / 1.5,
   },
   price: {
     ...FONTS.semi18,
   },
   containerText: {
     gap: SIZES.gapSmall,
+
   },
   containerprice: {
-    flex: 1,
     justifyContent: 'space-between',
     paddingRight: SIZES.gapLarge,
   },

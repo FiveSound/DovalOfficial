@@ -9,16 +9,16 @@ type Props = {
   username: string;
 };
 
+const QUERY_KEY = 'profile-user-posts-username-useQuery';
 const MyPosts = (props: Props) => {
   const { location } = useAppSelector((state: RootState) => state.location);
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, error, refetch, isRefetching } = useQuery({
     queryKey: [
-      'profile-user-posts-username-useQuery',
+      QUERY_KEY,
       props.username,
       JSON.stringify(location),
     ],
     queryFn: getPostsProfileUserService,
-    enabled: props.username ? true : false,
   });
 
   return (
@@ -29,6 +29,7 @@ const MyPosts = (props: Props) => {
       error={error}
       refetch={refetch}
       username={props.username}
+      isRefetching={isRefetching}
     />
   );
 };

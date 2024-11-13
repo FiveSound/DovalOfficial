@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
@@ -43,6 +43,7 @@ import { useTheme } from '../../../../../hooks';
 const Details = () => {
   const { Title } = useTheme();
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
   const { setValue, watch } = useFormContext();
   const values = watch();
   console.log('values', values);
@@ -85,59 +86,77 @@ const Details = () => {
     (variants.data.resume && variants.data.resume.length === 0) ||
     !selecCategories;
 
-  const onSubmit = async () => {
-    const missingFields = [];
-
-    if (!values.name || values.name.trim().length === 0) {
-      missingFields.push('Nombre');
-    }
-    if (!values.description || values.description.trim().length === 0) {
-      missingFields.push('Descripción');
-    }
-    if (!values.price || values.price.trim().length === 0) {
-      missingFields.push('Precio');
-    }
-    if (!selecFooTypes) {
-      missingFields.push('Tipos de comida');
-    }
-    if (variants.data.resume && variants.data.resume.length === 0) {
-      missingFields.push('Acompañamientos');
-    }
-    if (!selecCategories) {
-      missingFields.push('Categorías');
-    }
-
-    if (missingFields.length > 0) {
-      Alert.alert(
-        'Campos incompletos',
-        `Por favor, completa los siguientes campos: ${missingFields.join(', ')}`,
-      );
-      return <Perks label={missingFields.join(', ')} status="error" />;
-    }
-
-    const response = await onCompleteService(values.id);
-    console.log('response', response);
-    if (response.success) {
-      Alert.alert(
-        'Receta agregada con éxito!',
-        '¿Quieres crear otra receta o volver atrás?',
-        [
-          {
-            text: 'Crear mas recetas',
-            onPress: () => {},
-          },
-          {
-            text: 'Volver atrás',
-            onPress: () => navigation.goBack(),
-          },
-        ],
-      );
-    }
-  };
+    const onSubmit = async () => {
+      setIsLoading(true);
+      try {
+        const missingFields: string[] = [];
+    
+        if (!values.name || values.name.trim().length === 0) {
+          missingFields.push('Nombre');
+        }
+        if (!values.description || values.description.trim().length === 0) {
+          missingFields.push('Descripción');
+        }
+        if (!values.price || values.price.trim().length === 0) {
+          missingFields.push('Precio');
+        }
+        if (!selecFooTypes) {
+          missingFields.push('Tipos de comida');
+        }
+        if (variants.data.resume && variants.data.resume.length === 0) {
+          missingFields.push('Acompañamientos');
+        }
+        if (!selecCategories) {
+          missingFields.push('Categorías');
+        }
+    
+        if (missingFields.length > 0) {
+          Alert.alert(
+            i18next.t('Incomplete fields'),
+            `${i18next.t('Please complete the following fields:')} ${missingFields.join(', ')}`,
+          );
+          return <Perks label={missingFields.join(', ')} status="error" />;
+        }
+    
+        const response = await onCompleteService(values.id);
+        console.log('response', response);
+        if (response.success) {
+          Alert.alert(
+            i18next.t('Recipe added successfully!'),
+            i18next.t('Do you want to create another recipe or go back?'),
+            [
+              {
+                text: i18next.t('Create more recipes'),
+                onPress: () => {
+                  // Add your logic here, e.g., reset form
+                },
+              },
+              {
+                text: i18next.t('Go back'),
+                onPress: () => navigation.navigate('Feed'),
+              },
+            ],
+          );
+        } else {
+          Alert.alert(
+            i18next.t('Error'),
+            i18next.t('There was an issue adding the recipe. Please try again.'),
+          );
+        }
+      } catch (error) {
+        console.error('Error during onSubmit:', error);
+        Alert.alert(
+          i18next.t('Unexpected Error'),
+          i18next.t('An unexpected error occurred. Please try again later.'),
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
   return (
     <Container
-      label="New Recipe"
+      label={i18next.t('New Recipe')}
       onPress={onSubmit}
       showHeader={false}
       showTwoIconsLabel={true}
@@ -157,6 +176,7 @@ const Details = () => {
           variantLabel={disable ? 'disabled' : 'secondary'}
           variant={disable ? 'disabled' : 'primary'}
           disabled={disable}
+          loading={isLoading}
           labelStyle={{
             ...FONTS.semi16,
           }}

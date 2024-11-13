@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Linking,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useTheme } from '../../../../../hooks';
 import {
   Box,
@@ -19,14 +19,14 @@ import {
 } from '../../../../../components/custom';
 import { responsiveFontSize, SIZES } from '../../../../../constants/theme';
 import { Location09Icon } from '../../../../../constants/IconsPro';
+import mapStyle from '../../../../../constants/mapStyle';
 
 type Props = {
-  address: string;
   latitude: number;
   longitude: number;
 };
 
-const Location = ({ address, latitude, longitude }: Props) => {
+const Location = ({ latitude, longitude }: Props) => {
   const { Description } = useTheme();
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef<MapView>(null);
@@ -64,6 +64,8 @@ const Location = ({ address, latitude, longitude }: Props) => {
         <MapView
           ref={mapRef}
           style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          customMapStyle={mapStyle}
           initialRegion={{
             latitude: latitude,
             longitude: longitude,

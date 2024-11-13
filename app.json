@@ -2,14 +2,11 @@
   "expo": {
     "name": "doval",
     "slug": "doval",
-    "scheme": [
-      "doval",
-      "fb703314045273320"
-    ],
-    "version": "1.6.7",
+    "scheme": "doval",
+    "version": "1.7.1",
     "orientation": "portrait",
     "icon": "./assets/splash.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

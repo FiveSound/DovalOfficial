@@ -14,6 +14,7 @@ import {
   Image
 } from '../../../../../components/native';
 import { iconsNative } from '../../../../../constants';
+import i18next from '../../../../../Translate';
 
 const AddPayment = () => {
   const { backgroundMaingrey, borderInput, Title, BackgroundMain } = useTheme();
@@ -51,7 +52,7 @@ const AddPayment = () => {
         }}
       />
       <Typography variant="subtitle" newStyle={{ textAlign: 'center' }}>
-        Add credit or debit card
+        {i18next.t('Add credit or debit card')}
       </Typography>
     </TouchableOpacity>
   );

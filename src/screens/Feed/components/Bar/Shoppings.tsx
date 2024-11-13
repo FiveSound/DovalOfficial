@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ShoppingBag01Icon } from '../../../../constants/IconsPro';
 import {
@@ -33,6 +33,11 @@ const Shoppings = (props: Props) => {
     });
     // navigation.navigate('Complete')
   };
+
+  useEffect(() => {
+  
+  }, [cart]);
+
   if (isLoading) return <IsLoading />;
 
   return (

@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { getFollowersService } from '../../services/follows';
 import { getProfileService } from '../../services/auth';
 import { useRefreshData } from '../../hooks/useRefreshData';
-import { LoadingScreen, Typography } from '../../components/custom';
+import { LoadingScreen, SignupAlert, Typography } from '../../components/custom';
 import {
   AvatarProfile,
   LayoutProfile,
@@ -95,7 +95,7 @@ const MyProfile = (props: Props) => {
   }
 
   if (!isAuthenticated && !isLoadingApp) {
-    return <Signup />;
+    return <SignupAlert />;
   }
 
   if (followersError || profileError) {
@@ -139,7 +139,7 @@ const MyProfile = (props: Props) => {
           }
         />
         <CtoProfile data={userProfileData} isUsers={true} />
-        <MyPosts />
+        {/* <MyPosts /> */}
         {/* <IncompleteInfo visible={true} /> */}
         {/* <TabsMyProfile
           MyPosts={<MyPosts />}

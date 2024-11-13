@@ -12,7 +12,6 @@ interface FeedDetailsProps {
 
 const FeedDetails: FeedDetailsProps = ({ route }) => {
   const { item , mediaType } = route.params;
-  console.log('mediaType en feedDetails', mediaType);
   const { setTabBarVisible } = useContext(TabBarVisibilityContext);
   useEffect(() => {
     setTabBarVisible(false);

@@ -24,7 +24,7 @@ type Props = {
 
 const TabList = ({ isLoading, list, status, onChange }: Props) => {
   const flatListRef = useRef<FlatList<Item>>(null);
-  const { backgroundMaingrey } = useTheme()
+  const { backgroundMaingrey , Title} = useTheme()
 
   const handlePress = (index: number) => {
     flatListRef.current?.scrollToIndex({ index, animated: true });
@@ -42,7 +42,9 @@ const TabList = ({ isLoading, list, status, onChange }: Props) => {
           }}
           disabled={isSelected}
         >
-          <Typography variant="H4title" newStyle={styles.title}>{item.title}</Typography>
+          <Typography variant="H4title" newStyle={{
+            color: isSelected ? COLORS.dark : Title
+          }}>{item.title}</Typography>
         </TouchableOpacity>
       );
     },

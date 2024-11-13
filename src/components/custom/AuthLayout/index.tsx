@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { KeyboardAwareScrollView, View, Image } from '../../native';
 import styles from './styles';
+import { useTheme } from '../../../hooks';
 
 type AutoLayoutProps = {
   children: ReactNode;
@@ -8,8 +9,9 @@ type AutoLayoutProps = {
 };
 
 const AuthLayout = ({ children, scrollEnabled = true }: AutoLayoutProps) => {
+  const { BackgroundMain } = useTheme();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: BackgroundMain }]}>
       <KeyboardAwareScrollView
         horizontal={false}
         scrollEnabled={scrollEnabled}
@@ -18,14 +20,14 @@ const AuthLayout = ({ children, scrollEnabled = true }: AutoLayoutProps) => {
         viewIsInsideTabBar={false}
         contentContainerStyle={styles.keyboardAvoidingView}
       >
-        <View style={styles.logoContainer}>
+        {/* <View style={styles.logoContainer}>
           <Image
             placeholderSource={require('../../../../assets/logo.png')}
             server={false}
             contentFit='contain'
             style={styles.logo}
           />
-        </View>
+        </View> */}
         {children}
       </KeyboardAwareScrollView>
     </View>

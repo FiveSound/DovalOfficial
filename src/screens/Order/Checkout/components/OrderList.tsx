@@ -29,7 +29,7 @@ type OrderType = {
 const Order = (props: OrderType) => {
   const { border } = useTheme();
   return (
-    <Box title={props.title}>
+    <Box title={props.title} sucess={true}>
       <FlexContainer style={styles.header}>
         <FlexContainer newStyle={styles.subheader}>
           <Avatars size="medium" source={`${CLOUDFRONT}${props.cover}`} />

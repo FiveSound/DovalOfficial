@@ -9,6 +9,7 @@ import MoreOptionsProfile from '../UserProfile/MoreOptions';
 import AboutAccount from '../UserProfile/AboutAccount';
 import Locations from '../Permiss/Locations';
 import AlbumsPermission from '../Permiss/Locations/Albums/AlbumsPermission';
+import Signup from '../auth/Signup';
 interface ModalContentProps {
   modalType: number;
   data: any;
@@ -41,6 +42,8 @@ const ModalContent: React.FC<ModalContentProps> = ({
       return <Locations />;
     case 9:
       return <AlbumsPermission />;
+    case 10:
+      return <Signup />;
     default:
       return <></>;
   }

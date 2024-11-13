@@ -115,6 +115,13 @@ const CtoUserProfile = ({ data }: Props) => {
                   ? 'disabled'
                   : 'primary'
             }
+            variantLabel={
+              user?.userID === data?.userID
+                ? 'disabled'
+                : followed
+                  ? 'disabled'
+                  : 'secondary'
+            }
             onPress={
               user?.userID === data?.userID
                 ? () => navigation.navigate('ProfileStack')
@@ -132,10 +139,8 @@ const CtoUserProfile = ({ data }: Props) => {
                   }
             }
             containerButtons={{
-              backgroundColor: backgroundMaingrey,
               flex: 1,
             }}
-            labelStyle={styles.textLabel}
           />
           <MoreOptions data={data} />
         </FlexContainer>
@@ -149,15 +154,16 @@ const MoreOptions = ({ data }: { data: any }) => {
   const { businessVerified } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+
   const handleNavigation = useCallback(() => {
-    console.log(data.userID, 'data.userID');
     navigation.navigate('Business', { id: data.userID });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   }, [navigation]);
 
   return (
     <FlexContainer variant="row" newStyle={styles.moreOptionsContainer}>
-      {businessVerified && (
+      {businessVerified || data.businessID !== null && (
         <Icons
         appendIcons={
           <StoreLocation01Icon

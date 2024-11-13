@@ -263,6 +263,10 @@ const uploadSlice = createSlice({
       // console.log('Reiniciando progreso a 0%');
       state.progress = 0;
     },
+    resetUploadState(state) {
+      // Reinicia todo el estado a initialState
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -325,5 +329,5 @@ const uploadSlice = createSlice({
   },
 });
 
-export const { setProgress, resetProgress } = uploadSlice.actions;
+export const { setProgress, resetProgress, resetUploadState } = uploadSlice.actions;
 export default uploadSlice.reducer;

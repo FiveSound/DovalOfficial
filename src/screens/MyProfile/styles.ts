@@ -13,6 +13,10 @@ const styles = StyleSheet.create({
   scrollContainer: {
     alignItems: 'center',
     flexGrow: 1,
+    paddingBottom: SIZES.height / 10,
+  },
+  containerEmpty: {
+
   },
 });
 

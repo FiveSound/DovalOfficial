@@ -10,7 +10,7 @@ type Props = TouchableOpacityProps;
 const TouchableOpacity = (props: Props) => {
   const handlePress = () => {
     if (props.onPress) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
       props.onPress?.();
     }
   };

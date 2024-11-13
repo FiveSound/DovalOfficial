@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import {
   Container,
   FlexContainer,
@@ -18,6 +18,7 @@ import { verifyCode, resendCode } from '../../../../redux/slides/authSlice';
 import { RootState } from '../../../../redux/store';
 import i18next from '../../../../Translate';
 import { reloadApp } from '../../../../redux/slides/appSlice';
+import { ActiveTabContext } from '../../../../context/ActiveTabContext';
 
 type Props = {};
 type RouteParams = {
@@ -35,7 +36,7 @@ const Verified = (props: Props) => {
   const { user, phone, Form, method, provided } = route.params;
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-
+  const { setActiveTab, activeTab } = useContext(ActiveTabContext);
   const {
     isLoadingApp,
     isVerifying,

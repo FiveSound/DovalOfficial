@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Buttons,
   Container,
@@ -18,6 +18,7 @@ import {
 } from '../../../services/shares';
 import styles from '../../explorar/Report/styles';
 import i18next from 'i18next';
+import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
 
 export type ReportOption = {
   id: number;
@@ -41,6 +42,15 @@ const ReportUsers = () => {
   const [options, setOptions] = useState<ReportOption[]>();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
 
   const handleCheckboxChange = (id: number, checked: boolean) => {
     setOptions(

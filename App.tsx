@@ -1,32 +1,59 @@
-import React, { useCallback, useState, useMemo } from "react";
-import {
-  Linking,
-  SplashScreen,
-} from "./src/components/native";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
+import { Linking, SplashScreen as NativeSplashScreen } from "./src/components/native";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  GestureHandlerRootView,
-} from "react-native-gesture-handler";
-import { LogBox, StatusBar} from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ColorSchemeName, LogBox, StatusBar, StyleSheet, useColorScheme } from "react-native";
 import { useLocation, usePrepareApp, useTheme } from "./src/hooks";
-import styles from "./AppStyles";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./src/context/AuthContext";
 import Modal from "./src/screens/Modal";
 import { CartProvider } from "./src/context/CartContext";
-import { DashboardProvider } from "./src/context/DashboardContext";
-import { LoadingScreen } from "./src/components/custom";
 import { enableScreens } from "react-native-screens";
 import RootNavigator from "./src/navigation";
 import { ActiveTabProvider } from "./src/context/ActiveTabContext";
+import { useSplashLoading } from "./src/context/SplashLoadingContext";
+import { DashboardProvider } from "./src/context/DashboardContext";
+import Splash from "./Splash";
+import TransitionWrapper from "./TransitionWrapper";
 
 const queryClient = new QueryClient();
+
 LogBox.ignoreAllLogs();
 
-const App = () => {
+const AppContent = ({ onLayoutRootView, linking, theme }: { onLayoutRootView: () => Promise<void>, linking: any, theme: ColorSchemeName }) => {
   const { BackgroundMain } = useTheme();
+
+  return (
+    <NavigationContainer linking={linking}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <DashboardProvider>
+            <CartProvider>
+              <ActiveTabProvider>
+                <SafeAreaProvider onLayout={onLayoutRootView} style={appStyles.flexContainer}>
+                  <GestureHandlerRootView style={appStyles.gestureHandlerRootView}>
+                    <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={BackgroundMain} />
+                    <>
+                      <RootNavigator />
+                      <Modal />
+                    </>
+                  </GestureHandlerRootView>
+                </SafeAreaProvider>
+              </ActiveTabProvider>
+            </CartProvider>
+          </DashboardProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </NavigationContainer>
+
+  );
+};
+
+const AppWithReload = () => {
+  const { isSplashLoading, setSplashLoading } = useSplashLoading();
   const [appIsReady, setAppIsReady] = useState(false);
+  const theme = useColorScheme();
   const linking = useMemo(
     () => ({
       prefixes: [Linking.createURL("/"), "doval://", "https://www.doval.io"],
@@ -42,42 +69,42 @@ const App = () => {
   );
 
   usePrepareApp(setAppIsReady);
-  useLocation(); 
+  useLocation();
   enableScreens();
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      await SplashScreen.hideAsync();
-      console.log("SplashScreen ocultado. La aplicación está lista.");
+      await NativeSplashScreen.hideAsync();
+      console.log("SplashScreen ocultado. La aplicación está pronta.");
+      setSplashLoading(false); // Update splash loading state
     }
-  }, [appIsReady]);
-  
-  if (!appIsReady) {
-    return <LoadingScreen label="Loading..." />;
-  }
+  }, [appIsReady, setSplashLoading]);
+
+  useEffect(() => {
+    if (appIsReady) {
+      onLayoutRootView();
+    }
+  }, [appIsReady, onLayoutRootView]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider onLayout={onLayoutRootView} style={[styles.flexContainer, { backgroundColor: BackgroundMain }]}>
-        <NavigationContainer linking={linking}>
-        <ActiveTabProvider>
-          <AuthProvider>
-            <DashboardProvider>
-              <CartProvider>
-                <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-                  <StatusBar barStyle='dark-content' backgroundColor={BackgroundMain} />
-
-                    <RootNavigator />
-                  <Modal />
-                </GestureHandlerRootView>
-              </CartProvider>
-            </DashboardProvider>
-          </AuthProvider>
-        </ActiveTabProvider>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </QueryClientProvider>
-  );
+    isSplashLoading ? (
+      <Splash />
+    ) : (
+      <TransitionWrapper isVisible={!isSplashLoading}>
+        <AppContent onLayoutRootView={onLayoutRootView} linking={linking} theme={theme} />
+       </TransitionWrapper>
+    )
+  )
 };
 
-export default App;
+
+const appStyles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
+  gestureHandlerRootView: {
+    flex: 1,
+  },
+});
+
+export default AppWithReload;

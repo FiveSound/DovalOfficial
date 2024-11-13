@@ -1,15 +1,16 @@
 import {
   StyleSheet,
-  ScrollView,
-  useWindowDimensions,
   RefreshControl,
-  View
+  View,
+  useWindowDimensions,
 } from "react-native";
-import { useMemo } from "react";
-import MasonryItem from "./MasonryItem";
-import React from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SIZES } from "../../../constants/theme";
 import Buttons from "../Buttons/Buttons";
+import MasonryItem from "./MasonryItem";
+import React from "react";
+import { MasonryFlashList } from "@shopify/flash-list"; 
+import { useIsFocused } from "@react-navigation/native";
 
 interface IMasonryList {
   pins: any[];
@@ -18,87 +19,106 @@ interface IMasonryList {
   onLoadMore?: () => void;
   loading?: boolean;
   showInf?: boolean;
-  sharedTransitionTag?: string;
 }
 
-const MasonryList = ({
+const MasonryUsers = ({
   pins = [],
   refreshing = false,
-  onRefresh = () => {},
-  onLoadMore = () => {},
+  onRefresh,
+  onLoadMore,
   loading = false,
   showInf = true,
-  sharedTransitionTag,
 }: IMasonryList) => {
   const { width } = useWindowDimensions();
+  const [focusedIds, setFocusedIds] = useState<Set<string>>(new Set());
+  const COLUMN_WIDTH = useMemo(() => SIZES.width / 2, []);
+  const numColumns = useMemo(() => {
+    const calculatedColumns = Math.max(Math.floor(width / COLUMN_WIDTH), 1);
+    return calculatedColumns;
+  }, [width, COLUMN_WIDTH]);
 
-  const COLUMN_WIDTH = SIZES.width / 2;
-  const numColumns = Math.max(Math.floor(width / COLUMN_WIDTH), 1);
 
+  const isFocused = useIsFocused();
 
-  const processedPins = useMemo(() => {
-    return pins;
-  }, [pins]);
+  const onViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: any[] }) => {
+      const newFocusedIds = new Set<string>();
+      viewableItems.forEach((item) => {
+        if (item.item && item.item.id) { 
+          newFocusedIds.add(item.item.id.toString());
+        }
+      });
+      setFocusedIds(newFocusedIds);
+    }
+  );
 
-  const columns = useMemo(() => {
-    const cols: any[][] = Array.from({ length: numColumns }, () => []);
-    processedPins.forEach((pin, index) => {
-      const columnIndex = index % numColumns;
-      cols[columnIndex].push(pin);
-    });
-    return cols;
-  }, [processedPins, numColumns]);
+  useEffect(() => {
+    if (!isFocused) {
+      setFocusedIds(new Set());
+    }
+  }, [isFocused]);
+
+  const renderItem = useCallback(
+    ({ item }: { item: any }) => {
+      const isItemFocused = focusedIds.has(item.id.toString());
+      return (
+        <MasonryItem
+          key={item.id}
+          pin={item}
+          showInf={showInf}
+          isFocused={isItemFocused}
+          delay={isItemFocused ? 0 : 1000}
+        />
+      );
+    },
+    [showInf, focusedIds]
+  );
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollView}
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl 
-          refreshing={refreshing} 
-          onRefresh={onRefresh} 
-        />
-      }
-    >
-      <View style={styles.container}>
-        {columns.map((columnPins, colIndex) => (
-          <View style={styles.column} key={`column_${colIndex}`}>
-            {columnPins.map((pin, itemIndex) => {
-              const delay = (colIndex * columns.length + itemIndex) * 100;
-              return (
-                <MasonryItem
-                  key={pin.id}
-                  pin={pin}
-                  showInf={showInf}
-                  delay={delay}
-                />
-              );
-            })}
-          </View>
-        ))}
-      </View>
-      <Buttons
-        label={loading ? "" : "Load more"}
-        loading={loading}
-        onPress={onLoadMore}
-        variant="disabled"
-        containerButtons={styles.containerButtons}
-        variantLabel="disabled"
+    <View style={styles.container}>
+     <MasonryFlashList
+        data={pins}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={numColumns}
+        optimizeItemArrangement={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        contentContainerStyle={styles.flashList}
+        ListFooterComponent={
+          <Buttons
+            label={loading ? "" : "Load more"}
+            loading={loading}
+            onPress={onLoadMore}
+            variant="disabled"
+            containerButtons={styles.containerButtons}
+            variantLabel="disabled"
+          />
+        }
+        estimatedItemSize={300}
+        onViewableItemsChanged={onViewableItemsChanged.current}
+        viewabilityConfig={{
+          itemVisiblePercentThreshold: 50,
+          minimumViewTime: 100,
+        }}
+        getItemType={(item) => {
+          return item.mediaType === 0 ? 'video' : 'image';
+        }}
+        getColumnFlex={(items, index, maxColumns, extraData) => {
+          return index === 1 ? 1 : 1;
+        }}
       />
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {},
   container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  column: {
     flex: 1,
-    marginHorizontal: SIZES.gapSmall / 4,
-    alignItems: "flex-start",
+  },
+  flashList: {
+    paddingBottom: SIZES.height / 10,
   },
   containerButtons: {
     borderRadius: SIZES.padding,
@@ -108,4 +128,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(MasonryList);
+export default React.memo(MasonryUsers);

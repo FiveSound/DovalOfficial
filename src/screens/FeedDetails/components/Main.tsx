@@ -9,9 +9,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRelatedPosts } from '../../../services/recipes';
 import { IsLoading, MasonryList, Typography } from '../../../components/custom';
 import RenderItem from './Body/RenderItem';
-import { LinearGradient } from 'expo-linear-gradient';
 import ArrowClosed from '../../../components/custom/Arrows/ArrowClosed';
-import Cover from './FrontCover';
 import FrontCover from './FrontCover';
 import i18next from '../../../Translate';
 

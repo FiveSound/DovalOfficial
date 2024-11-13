@@ -1,11 +1,12 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '../index';
 import { UserType } from '../../types/User.types';
+import { USER_TOKEN } from '../../constants';
+import { AsyncStorage } from '../../components/native';
 
 export const initialStateService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem(USER_TOKEN);
     const response = await axios.post(
       `${API_URL}/api/auth/me`,
       {},

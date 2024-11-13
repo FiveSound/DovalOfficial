@@ -35,7 +35,7 @@ type RouteParams = {
 };
 
 const SignupForm = (props: Props) => {
-  const { countryKey, country } = useAppSelector((state: RootState) => state.location);
+  const { countryISO } = useAppSelector((state: RootState) => state.location);
   const route = useRoute<RouteProp<RouteParams, 'params'>>();
   const dispatch = useDispatch();
   const { method } = route.params;
@@ -142,14 +142,14 @@ const SignupForm = (props: Props) => {
       const phoneDetails = {
         name: name,
         username: username,
-        country: countryKey,
+        country: countryISO,
         contact_policy: contact_policy,
       };
 
       const emailDetails = {
         name: name,
         username: username,
-        country: countryKey,
+        country: countryISO,
         contact_policy: true,
         password: password,
         email: user?.email,
@@ -159,7 +159,6 @@ const SignupForm = (props: Props) => {
         ? completeWithEmailService(emailDetails)
         : completeWithPhoneService(phoneDetails, token));
 
-      console.log('response', response);
 
       if (response.success) {
           dispatch(openOnboardingModal());
@@ -171,7 +170,7 @@ const SignupForm = (props: Props) => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [name, username, countryKey, navigation, password, user?.email, token]);
+  }, [name, username, countryISO, navigation, password, user?.email, token]);
 
   if (!isAuthenticated) {
     return <LoadingScreen />;

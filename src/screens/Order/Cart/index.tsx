@@ -9,6 +9,7 @@ import {
   Container,
   LoadingScreen,
   ScreenEmpty,
+  SignupAlert,
 } from '../../../components/custom';
 import { SIZES } from '../../../constants/theme';
 import { Ilustrations } from '../../../constants';
@@ -41,22 +42,21 @@ type CartItemType = {
 
 const Cart = memo(() => {
   const route = useRoute();
-  const { Title } = useTheme();
   const navigation = useNavigation();
-  const { data, isLoading, isFetching, refetch } = useQuery({
+  const { data, isLoading, isFetching, refetch , isError} = useQuery({
     queryKey: QUERY_KEY,
     queryFn: getCartService,
   });
-  console.log('data', data);
+
   const [refreshing, setRefreshing] = useState(false);
   const { isLoadingApp, isAuthenticated } = useSelector(
     (state: RootState) => state.auth,
   );
   const dispatch = useAppDispatch();
   const [cartID, setCartIDLocal] = useState<null | number>(null);
-  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
   const [selectedPrice, setSelectedPrice] = useState<string>('0');
 
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
   useEffect(() => {
     setTabBarVisible(false);
 
@@ -64,6 +64,7 @@ const Cart = memo(() => {
       setTabBarVisible(true);
     };
   }, [setTabBarVisible]);
+
 
   
   const onRefresh = async () => {
@@ -102,7 +103,6 @@ const Cart = memo(() => {
   useEffect(() => {
     if (cartID !== null) {
       const selectedItem = data?.flat().find((item: CartItemType) => item.cartID === cartID);
-      console.log('selectedItem', selectedItem);
       if (selectedItem) {
         setSelectedPrice(selectedItem.total);
       }
@@ -111,7 +111,13 @@ const Cart = memo(() => {
     }
   }, [cartID, data]);
 
+  if (!isAuthenticated) return <Container showBack={true} showHeader={true} label={i18next.t('Cart')}>
+    <SignupAlert />
+  </Container>;
+
   if (isLoading || isFetching) return <LoadingScreen />;
+
+  if (isError) return <ScreenEmpty source={Ilustrations.CharcoPet} labelPart1={i18next.t('Oops! Error getting cart')} />;
 
   if (data?.length === 0 && isAuthenticated) {
     return (
@@ -126,18 +132,9 @@ const Cart = memo(() => {
           <ScreenEmpty
             source={Ilustrations.CharcoPet}
             labelPart1={i18next.t('Oops! Your cart is empty 🍽️')}
-            labelPart2={i18next.t(
-              'Once you add items from a restaurants or storem your cart will appear here',
-            )}
             ImgWidth={SIZES.width}
-            ImgHeigth={SIZES.height / 3}
+            ImgHeigth={SIZES.height / 2}
             labelButton={i18next.t('View restaurants')}
-            labelStylePart1={[styles.labelpart1, {
-              color: Title
-            }]}
-            labelStylePart2={[styles.labelpart1, {
-              color: Title
-            }]}
             onPress={handleBusiness}
           />
         </ScrollView>

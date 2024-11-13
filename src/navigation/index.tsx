@@ -16,8 +16,8 @@ const RootNavigator = () => {
     switch (activeTab) {
       case 'Feed':
         return <MainStackt />;
-      case 'ChatIa':
-        return <StackChatIa />;
+      // case 'ChatIa':
+      //   return <StackChatIa />;
       case 'Portal':
         return <HomeStack />;
       case 'Home':

@@ -7,6 +7,7 @@ import FlexContainer from '../../FlexContainer';
 import Dots from '../../Dots';
 import Buttons from '../../Buttons/Buttons';
 import MiniCard from './MiniCard';
+import i18next from '../../../../Translate';
 
 type Row = {
   id?: string;
@@ -77,7 +78,7 @@ const SlideCard = ({ row, onSelected }: Props) => {
           inactiveColor={border}
         />
         <Buttons
-          label="Choose payment method"
+          label={i18next.t('Choose payment method')}
           onPress={() => onSelected?.(row[currentVisibleIndex].id)}
         />
       </FlexContainer>

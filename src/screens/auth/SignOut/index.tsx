@@ -28,7 +28,7 @@ const SignOut = (props: Props) => {
             color={COLORS.error}
           />
           <Typography variant="H4title" newStyle={styles.typography}>
-            {i18next.t('Sign Out')}
+            {i18next.t('Logout')}
           </Typography>
         </TouchableOpacity>
 

@@ -72,14 +72,12 @@ class RenderItem extends PureComponent<PropsRenderItem> {
   }
 
   renderUserInfo() {
-    const { item } = this.props;
-    const { liked } = this.state;
 
     return (
       <FlexContainer newStyle={styles.containerInfo}>
         <UserInfo />
         <InfoDescriptions  />
-        <FollowButtons />
+         <FollowButtons />
         {/* <ShareButtons liked={liked} postID={item.id} /> */}
         {/* <BusinessButton item={item} /> */}
 

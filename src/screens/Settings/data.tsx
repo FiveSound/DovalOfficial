@@ -13,22 +13,24 @@ import {
   Wallet02Icon,
 } from '../../constants/IconsPro';
 import { COLORS, SIZES } from '../../constants/theme';
+import i18next from '../../Translate';
 
 const SettingsData = {
   id: 'Settings',
-  label: 'Account Settings',
-  description:
+  label: i18next.t('Account Settings'),
+  description: i18next.t(
     'Manage your Doval profile, preferencesprivacy settings, and notifications.',
+  ),
 };
 
 const Settings = [
   {
     id: 'General',
-    label: 'General',
+    label: i18next.t('General'),
     content: [
       {
         id: 'Account',
-        label: 'Account',
+        label: i18next.t('Account'),
         navigation: 'Account',
         icon: (
           <UserStatusIcon
@@ -52,7 +54,7 @@ const Settings = [
       // },
       {
         id: 'Paymentmethods',
-        label: 'Payment methods',
+        label: i18next.t('Payment methods'),
         navigation: 'PaymentsGeneral',
         icon: (
           <Wallet02Icon
@@ -64,7 +66,7 @@ const Settings = [
       },
       {
         id: 'MyLocations',
-        label: 'My Locations',
+        label: i18next.t('My Locations'),
         navigation: 'MyLocationsGeneral',
         icon: (
           <Location09Icon
@@ -76,7 +78,7 @@ const Settings = [
       },
       {
         id: 'MyCoupons',
-        label: 'My Coupons',
+        label: i18next.t('My Coupons'),
         navigation: 'Coupons',
         icon: (
           <Coupon01Icon
@@ -90,11 +92,11 @@ const Settings = [
   },
   {
     id: 'Display',
-    label: 'Display',
+    label: i18next.t('Display'),
     content: [
       {
         id: 'Notifications',
-        label: 'Notifications',
+        label: i18next.t('Notifications'),
         navigation: 'Notifications',
         icon: (
           <Notification03IconStroke
@@ -106,7 +108,7 @@ const Settings = [
       },
       {
         id: 'Languages & Currency',
-        label: 'Languages & Currency',
+        label: i18next.t('Languages & Currency'),
         navigation: 'Languages',
         icon: (
           <LanguageSkillIcon
@@ -126,11 +128,11 @@ const Settings = [
   },
   {
     id: 'Support and about',
-    label: 'Support and about',
+    label: i18next.t('Support and about'),
     content: [
       {
         id: 'Legal',
-        label: 'Legal',
+        label: i18next.t('Legal'),
         navigation: 'Legal',
         icon: (
           <Legal01Icon
@@ -142,7 +144,7 @@ const Settings = [
       },
       {
         id: 'Support',
-        label: 'Support',
+        label: i18next.t('Support'),
         navigation: 'Support',
         icon: (
           <HelpSquareIcon
@@ -154,7 +156,7 @@ const Settings = [
       },
       {
         id: 'Report a problem',
-        label: 'Report a problem',
+        label: i18next.t('Report a problem'),
         navigation: 'Report',
         icon: (
           <HelpSquareIcon
@@ -166,7 +168,7 @@ const Settings = [
       },
       {
         id: 'Register business',
-        label: 'Register business',
+        label: i18next.t('Register business'),
         navigation: 'RegisterBusiness',
         icon: (
           <Store01IconStroke
@@ -178,7 +180,7 @@ const Settings = [
       },
       {
         id: 'Register delivery',
-        label: 'Register delivery',
+        label: i18next.t('Register delivery'),
         navigation: 'RegisterDelivery',
         icon: (
           <AddCircleHalfDotIcon

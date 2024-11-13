@@ -4,12 +4,15 @@ import { useTheme } from '../../../hooks';
 import { FlexContainer, Typography } from '../../../components/custom';
 import { FONTS, SIZES } from '../../../constants/theme';
 import i18next from '../../../Translate';
+import { useAppSelector } from '../../../redux';
+import { RootState } from '../../../redux/store';
 
 type Props = {
   data: {
     name?: string | undefined;
     MyDescription?: string;
     bio?: boolean | undefined;
+    userID?: string;
   };
 };
 
@@ -19,6 +22,8 @@ const Inf = (props: Props) => {
   const [extend, setExtend] = useState(false);
   const bionull = data.bio === null;
   const bioEmpty = data.bio !== '';
+  const { user } = useAppSelector((state: RootState) => state.auth);
+  const isMyProfile = user?.userID === data?.userID;
 
   return (
     <FlexContainer style={styles.container}>
@@ -31,7 +36,7 @@ const Inf = (props: Props) => {
           {data.name || ''}
         </Typography>
       </FlexContainer>
-      {bionull && bioEmpty ? (
+      {bionull && bioEmpty && isMyProfile ? (
         <TouchableOpacity
           onPress={() => setExtend(!extend)}
           style={{

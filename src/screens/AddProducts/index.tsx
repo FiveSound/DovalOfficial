@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Container,
   InputLabel,
@@ -18,6 +18,7 @@ import i18next from '../../Translate';
 import Signup from '../auth/Signup';
 import { useAddProducts } from './useAddProducts';
 import { TypeSubVariant, TypeVariant } from './types';
+import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 type Props = {};
 
@@ -40,6 +41,15 @@ const AddProducts: React.FC<Props> = (props: Props) => {
     limites,
     subVariants,
   } = useAddProducts();
+
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  useEffect(() => {
+    setTabBarVisible(false);
+
+    return () => {
+      setTabBarVisible(true);
+    };
+  }, [setTabBarVisible]);
 
   if (!isAuthenticated) {
     return <Signup />;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { StyleSheet, View, Dimensions, Image, TouchableOpacity } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 import { responsiveFontSize, SIZES } from "../../../constants/theme";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -9,7 +9,6 @@ import { useAppDispatch } from "../../../redux";
 import { setFeedData, setPostID } from "../../../redux/slides/navigations";
 import { useTheme } from "../../../hooks";
 import { CLOUDFRONT } from "../../../services";
-import * as VideoThumbnails from 'expo-video-thumbnails';
 import { useVideoPlayer } from 'expo-video';
 import AnimatedVideoView from "./ AnimatedVideoView";
 
@@ -19,17 +18,19 @@ interface RemoteImageProps {
 }
 
 const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
-  const { thumbnail, id, mediaType, video } = pin;
+  const { thumbnail, id, mediaType, videos } = pin;
   const playerRef = useRef<any>(null);
   const thumbnailUri = `${CLOUDFRONT}${thumbnail}`
-  const videoUri = `${CLOUDFRONT}${video}`
+  const videoUri = mediaType === 0 && videos && videos.key 
+    ? `${CLOUDFRONT}${videos.key}` 
+    : '';
   const { backgroundMaingrey } = useTheme();
   const [displayHeight, setDisplayHeight] = useState<number>(responsiveFontSize(200));
   const navigation = useNavigation<NativeStackNavigationProp<SharedElementStackParamList>>();
   const dispatch = useAppDispatch();
   const memoUri = useMemo(() => thumbnailUri, [thumbnailUri]);
   const memoVideo = useMemo(() => videoUri, [videoUri]);
-  const [videoHeight, setVideoHeight] = useState<number>(responsiveFontSize(200));
+  const [videoHeight, setVideoHeight] = useState<number>(responsiveFontSize(340));
 
   useEffect(() => {
     if (mediaType === 1) {
@@ -37,7 +38,7 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
         memoUri,
         (width, height) => {
           const screenWidth = Dimensions.get('window').width;
-          const desiredWidth = screenWidth / 2.4 - 4;
+          const desiredWidth = screenWidth / 2.4 - 10;
           const calculatedHeight = (height / width) * desiredWidth;
           setDisplayHeight(calculatedHeight);
         },
@@ -46,51 +47,47 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
           setDisplayHeight(responsiveFontSize(200));
         }
       );
-    } else if (mediaType === 0) {
-      (async () => {
-        try {
-          const { width, height } = await VideoThumbnails.getThumbnailAsync(memoVideo, {
-            time: 1000,
-          });
-          const screenWidth = Dimensions.get('window').width;
-          const desiredWidth = screenWidth / 2.4 - 4;
-          const calculatedHeight = (height / width) * desiredWidth;
-          console.log('calculatedHeight for video', calculatedHeight);
-          setVideoHeight(calculatedHeight);
-        } catch (e) {
-          console.warn('Error generating thumbnail for video:', e);
-          setVideoHeight(responsiveFontSize(400));
-        }
-      })();
     }
   }, [memoUri, memoVideo]);
 
+  const randomizeVideoHeight = useCallback(() => {
+    const min = 200;
+    const max = 420;
+    const randomHeight = Math.floor(Math.random() * (max - min + 1)) + min;
+    setVideoHeight(responsiveFontSize(randomHeight));
+  }, []);
+
+  useEffect(() => {
+    if (mediaType === 0) {
+      randomizeVideoHeight();
+    }
+  }, [mediaType, randomizeVideoHeight]);
+
+
   const handlePress = useCallback(() => {
-    navigation.navigate('FeedDetails', {
-      item: { id, uri: mediaType === 1 ? thumbnail : video, mediaType }
+    navigation.push('FeedDetails', {
+      item: { id, uri: mediaType === 1 ? memoUri : memoVideo }
     });
     dispatch(setPostID(id));
     dispatch(setFeedData(pin));
-  }, [pin, navigation, dispatch, id, thumbnail, video, mediaType]);
+  }, [pin, dispatch]);
+
 
   const player = useVideoPlayer(memoVideo, (playerInstance) => {
     playerInstance.loop = true;
-    if (isFocused) {
-      playerInstance.play();
-    } else {
-      playerInstance.pause();
-    }
+    playerInstance.muted = true; // Inicialmente silenciado
   });
 
-  // useEffect(() => {
-  //   if (playerRef.current) {
-  //     if (isFocused) {
-  //       playerRef.current.play();
-  //     } else {
-  //       playerRef.current.pause();
-  //     }
-  //   }
-  // }, [isFocused]);
+  // Controlar la reproducción del video según isFocused
+  useEffect(() => {
+    if (mediaType === 0 && player) { // Asegurarse de que solo los videos se controlen
+      if (isFocused) {
+        player.play();
+      } else {
+        player.pause();
+      }
+    }
+  }, [isFocused, mediaType, player, id]);
 
   return (
     <>
@@ -101,7 +98,6 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
             style={[styles.image, { height: displayHeight, backgroundColor: backgroundMaingrey }]}
             resizeMode="cover"
             sharedTransitionTag={`front-cover-image-${id}`}
-            entering={FadeInDown.duration(600)}
           />
         )}
         {mediaType === 0 && (
@@ -117,6 +113,10 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
               console.log('Error loading video:', error);
               setDisplayHeight(responsiveFontSize(400));
             }}
+            onReadyForDisplay={() => {
+              console.log('Video ready for display');
+            }}
+            
           />
         )}
       </TouchableOpacity>
@@ -132,6 +132,8 @@ const styles = StyleSheet.create({
   video: {
     width: '100%',
     borderRadius: SIZES.radius * 2,
+    overflow: 'hidden',
+    height: '100%',
   },
 
   videoContainer: {

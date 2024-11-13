@@ -1,6 +1,7 @@
-import { lazy, Suspense, useCallback } from 'react';
+import { lazy, Suspense, useCallback, useMemo, useState } from 'react';
 import { FlatList } from 'react-native';
 import {
+  FlexContainer,
   IsLoading,
   LoadingScreen,
   ScreenEmpty,
@@ -12,13 +13,13 @@ import { useRefreshData, useTheme } from '../../../hooks';
 import { responsiveFontSize, SIZES } from '../../../constants/theme';
 import i18next from '../../../Translate';
 import { Ilustrations } from '../../../constants';
-import { RefreshControl, ScrollView, View } from '../../../components/native';
+import { FlashList, RefreshControl, ScrollView, View } from '../../../components/native';
 const LazyCard = lazy(
   () => import('../../../components/custom/business/CardBusiness'),
 );
 
 type Props = {
-  filteredData: any[];
+  data: any[];
   isLoading: boolean;
   isError: boolean;
   error: any;
@@ -33,35 +34,27 @@ type Props = {
 };
 
 const Main = ({
-  filteredData,
+  data,
   isLoading,
   isError,
   error,
   refetchPostData,
-  Search,
-  setSearch,
-  filterStores,
-  setFilterStores,
-  freeShipping,
-  setFreeShipping,
-  navigateToPermissionScreen,
 }: Props) => {
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);
   const { backgroundMaingrey, BackgroundMain } = useTheme();
-
+  const [Search, setSearch] = useState('');
   const handleSearch = (text: string) => {
     setSearch(text);
   };
 
-  const toggleFilterStores = useCallback(() => {
-    console.log('toggleFilterStores clicked');
-    setFilterStores(prev => !prev);
-  }, [setFilterStores]);
+  const filteredData = useMemo(() => {
+    if (!Search.trim()) return data;
+    return data.filter(item =>
+      item.business_name.toLowerCase().includes(Search.toLowerCase())
+    );
+  }, [data, Search]);
+  
 
-  const toggleFreeShipping = useCallback(() => {
-    console.log('toggleFreeShipping clicked');
-    setFreeShipping(prev => !prev);
-  }, [setFreeShipping]);
 
   const renderItem = useCallback(({ item }: { item: any }) => {
     return (
@@ -77,19 +70,12 @@ const Main = ({
 
   return (
     <SearchLayout
+      value={Search}
       placeholder={i18next.t('Search for nearby restaurants, and businesses')}
       container={{ backgroundColor: backgroundMaingrey }}
       onChange={handleSearch}
       isRefreshing={isRefreshing}
       onRefresh={onRefresh}
-      Compenents={
-        <ToggleFilter
-          onPressStores={toggleFilterStores}
-          filterStores={filterStores}
-          onPressFreeShipping={toggleFreeShipping}
-          freeShipping={freeShipping}
-        />
-      }
     >
       {filteredData.length === 0 && !IsLoading ? (
         <ScrollView
@@ -114,16 +100,22 @@ const Main = ({
           />
         </ScrollView>
       ) : (
-        <FlatList
+       <>
+         <FlashList
           data={filteredData}
           keyExtractor={item => item.businessID.toString()}
           renderItem={renderItem}
           onRefresh={refetchPostData}
           refreshing={isLoading}
-          contentContainerStyle={{ paddingBottom: responsiveFontSize(100) }}
-          initialNumToRender={3}
-          maxToRenderPerBatch={3}
+          decelerationRate='normal'
+          contentContainerStyle={{ paddingBottom: SIZES.height / 2 }}
+          estimatedItemSize={300}
+          viewabilityConfig={{
+            itemVisiblePercentThreshold: 50,
+            minimumViewTime: 100,
+          }}
         />
+       </>
       )}
     </SearchLayout>
   );

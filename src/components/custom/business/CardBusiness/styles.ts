@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   flexContainer: {
     paddingHorizontal: SIZES.gapMedium,
     marginVertical: SIZES.gapSmall,
-    width: '98%',
+    width: SIZES.width,
     alignSelf: 'center',
   },
   touchableOpacity: {
@@ -18,27 +18,24 @@ const styles = StyleSheet.create({
     height: 'auto',
     paddingVertical: SIZES.gapSmall,
     flexDirection: 'row',
-    width: '98%',
+    width: SIZES.BtnWidth,
     justifyContent: 'space-between',
   },
   businessName: {
-    width: SIZES.width / 1.6,
+    width: SIZES.width / 1.8,
     ...FONTS.semi16,
   },
   flexContainerInner: {
     marginLeft: SIZES.gapSmall,
   },
   timeSend: {
-    width: SIZES.width / 1.5,
     marginRight: SIZES.padding,
+    maxWidth: SIZES.width / 2,
   },
   view: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  storeStatus: {
-    color: COLORS.error,
   },
   storeStatusText: {
     color: COLORS.dark,
@@ -62,6 +59,7 @@ const styles = StyleSheet.create({
   lineDivider: {
     alignSelf: 'flex-start',
     width: SIZES.width,
+    marginTop: SIZES.gapMedium,
   },
   buttonscontainer: {
     backgroundColor: COLORS.primary,

@@ -42,6 +42,7 @@ type Props = {
   qty?: number;
   disabledCart?: boolean;
   showAdd?: boolean;
+  color?: 'primary' | 'dark';
 };
 
 const Container = ({
@@ -77,6 +78,7 @@ const Container = ({
   qty,
   disabledCart,
   showAdd,
+  color,
 }: Props) => {
   const Component = useSafeArea
     ? Platform.OS === 'ios'
@@ -109,9 +111,9 @@ const Container = ({
             labelStyle={labelStyle}
             Icons={Icons}
             orientationsIcons={orientationsIcons}
-            variant='primary'
+            variant={variant}
             onPress={onPressButtons}
-            color='dark'
+            color={color}
           />
         </SafeAreaView>
       )}

@@ -35,6 +35,8 @@ import { useTheme, useUploadMedia } from '../../../../../hooks';
 import { PostDescriptionInput, PostNameInput } from './Components';
 import { iconsNative } from '../../../../../constants';
 import { publishPostService } from '../../../../../services/posts';
+import { useAppDispatch } from '../../../../../redux';
+import { resetUploadState } from '../../../../../redux/slides/uploadSlice';
 
 const InputLabel = (props: { label: string; href: string }) => {
   const navigation = useNavigation();
@@ -71,6 +73,7 @@ const PostDetails = memo(() => {
   const [loading, setLoading] = useState(false);
   const values = watch();
   const { mediaURLs } = useUploadMedia();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (data: object) => {
     setLoading(true);
@@ -80,6 +83,7 @@ const PostDetails = memo(() => {
 
       if (response.success) {
         setSuccess(true);
+        dispatch(resetUploadState());
         setTimeout(() => {
           setSuccess(false);
           navigation.navigate('Feed');
@@ -104,7 +108,8 @@ const PostDetails = memo(() => {
       reset();
     }
   };
-
+  console.log(values, 'values');
+  
   const onSaveDraft = async (body: object) => {
     // const response = await onSaveDraftService({ id: values.id, ...body });
     // if (response.success) {
@@ -112,10 +117,6 @@ const PostDetails = memo(() => {
     // }
   };
 
-  console.log({ values });
-
-  // Determinar si el botón debe estar deshabilitado
-  const disable = !values.key || values.key.length === 0;
 
   return (
     <Container

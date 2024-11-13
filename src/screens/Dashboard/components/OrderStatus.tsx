@@ -1,15 +1,18 @@
 import { memo } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { OrderStatusType } from '../../../types/Restaurant.type';
+import { COLORS } from '../../../constants/theme';
+import { Typography } from '../../../components/custom';
+import i18next from '../../../Translate';
 
 const OrderStatus = ({ status }: { status: OrderStatusType }) => (
-  <Text style={[styles.status, styles[status]]}>
-    {status == 'PENDING' && 'Pendiente'}
-    {status == 'IN_PROGRESS' && 'En progreso'}
-    {status == 'DELIVERED' && 'Repartiendo'}
-    {status == 'COMPLETED' && 'Completado'}
-    {status == 'CANCELED' && 'Cancelado'}
-  </Text>
+  <Typography variant='H4title' newStyle={[styles.status, styles[status]]}>
+    {status == 'PENDING' && i18next.t('Pending')}
+    {status == 'IN_PROGRESS' && i18next.t('In progress')}
+    {status == 'DELIVERED' && i18next.t('Delivering')}
+    {status == 'COMPLETED' && i18next.t('Completed')}
+    {status == 'CANCELED' && i18next.t('Canceled')}
+  </Typography>
 );
 
 export default memo(OrderStatus);
@@ -22,10 +25,10 @@ const styles = StyleSheet.create({
   },
   PENDING: { backgroundColor: 'rgba(255, 151, 0, 0.38)', color: '#FF9700' },
   IN_PROGRESS: {
-    backgroundColor: 'rgba(255, 194, 37, 0.38)',
-    color: '#FFC225',
+    backgroundColor: 'rgba(255, 151, 0, 0.38)',
+    color: COLORS.dark,
   },
-  DELIVERED: { backgroundColor: 'rgba(74, 222, 128, 0.38)', color: '#4ADE80' },
-  COMPLETED: { backgroundColor: 'rgba(74, 222, 128, 0.38)', color: '#4ADE80' },
-  CANCELED: { backgroundColor: 'rgba(244, 31, 82, 0.38)', color: '#F41F52' },
+  DELIVERED: { backgroundColor: 'rgba(74, 222, 128, 0.38)', color: COLORS.dark },
+  COMPLETED: { backgroundColor: 'rgba(74, 222, 128, 0.38)', color: COLORS.dark },
+  CANCELED: { backgroundColor: 'rgba(244, 31, 82, 0.38)', color: COLORS.error },
 });

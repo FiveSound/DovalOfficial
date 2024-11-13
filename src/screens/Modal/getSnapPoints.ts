@@ -14,6 +14,7 @@ export const getSnapPoints = (
   const snapPointsAboutAccount = ['40%', '60%'];
   const snapPointsLocation = ['100%'];
   const snapPointsAlbumsPermission = ['100%'];
+  const snapPointsSignupAlert = ['80%'];
   
   switch (modalType) {
     case 0:
@@ -36,6 +37,8 @@ export const getSnapPoints = (
       return snapPointsLocation;
     case 9:
       return snapPointsAlbumsPermission;
+    case 10:
+      return snapPointsSignupAlert;
     default:
       return snapPoints;
   }

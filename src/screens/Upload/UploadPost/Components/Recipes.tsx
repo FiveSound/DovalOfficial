@@ -18,26 +18,29 @@ const Recipes = memo(() => {
     queryFn: getMyRecipesService,
   });
   const [success, setSuccess] = useState(false);
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
     name: 'recipeID',
     rules: {
-      required: true,
+      required: false,
     },
   });
   const selectedIds = fields.map((field: any) => field.value);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const handleAddOrRemoveItem = (id: number) => {
-    const itemIndex = selectedIds.indexOf(id);
-    if (itemIndex === -1) {
-      append({ value: id });
+
+  const handleSelectItem = (id: number) => {
+    if (selectedId === id) {
+      // Si el mismo ID está seleccionado, lo deselecciona
+      setSelectedId(null);
+      setValue('recipeID', null, { shouldDirty: true, shouldValidate: true });
     } else {
-      remove(itemIndex);
+      // Selecciona un nuevo ID y actualiza el formulario
+      setSelectedId(id);
+      setValue('recipeID', id, { shouldDirty: true, shouldValidate: true });
     }
-
-    setSuccess(true);
   };
 
   const filteredData = useMemo(() => {
@@ -66,9 +69,9 @@ const Recipes = memo(() => {
       <FlatList
         data={filteredData}
         renderItem={({ item }) => {
-          const isSelected = selectedIds.includes(item.id);
+          const isSelected = selectedId === item.id;
           return (
-            <TouchableOpacity onPress={() => handleAddOrRemoveItem(item.id)}>
+            <TouchableOpacity onPress={() => handleSelectItem(item.id)}>
               <CardRecipies
                 row={item}
                 isSelected={isSelected}

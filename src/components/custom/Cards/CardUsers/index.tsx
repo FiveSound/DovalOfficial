@@ -123,9 +123,9 @@ const CardUsers = ({
             style={[
               styles.button,
               {
-                backgroundColor: !Follow ? COLORS.primary : backgroundMaingrey,
+                backgroundColor: !Follow ? COLORS.primary : backgroundMaingrey
               },
-              { paddingHorizontal: !Follow ? SIZES.gapLarge : SIZES.gapSmall },
+              { paddingHorizontal: !Follow ? SIZES.gapLarge : SIZES.gapSmall }
             ]}
             disabled={LoaderButton}
           >

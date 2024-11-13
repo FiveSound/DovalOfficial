@@ -21,6 +21,7 @@ import { RootState } from '../../../redux/store';
 import { blockPostService } from '../../../services/shares';
 import { Alert } from 'react-native';
 import { useAuth } from '../../../context/AuthContext';
+import i18next from '../../../Translate';
 
 type Props = {};
 
@@ -33,13 +34,11 @@ const Options = (props: Props) => {
   const postID = useSelector((state: RootState) => state.modal.data?.postID);
 
   const handleReport = async () => {
-    console.log('handleReport called');
     dispatch(closeMoreOptions());
     setTimeout(() => {
       if (postID) {
         navigation.navigate('Report', { postID: postID });
       }
-      console.log('Navigated to Report');
     }, 500);
   };
 
@@ -48,30 +47,31 @@ const Options = (props: Props) => {
     const BlockUser = async () => {
       try {
         await blockPostService(postID);
-        Alert.alert('Success', 'User has been blocked successfully.');
-        console.log('User blocked successfully');
+        Alert.alert(i18next.t('User blocked successfully.'));
         dispatch(closeMoreOptions());
       } catch (error) {
         console.error('Error blocking user:', error);
         Alert.alert(
-          'Error',
-          'There was an error blocking the user. Please try again.',
+          i18next.t('Error'),
+          i18next.t('There was an error blocking the user. Please try again.'),
         );
       }
     };
 
     Alert.alert(
-      'Are you sure you want to block this user?',
-      'Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content.',
+      i18next.t('Are you sure you want to block this user?'),
+      i18next.t(
+        'Blocking will prevent this user from interacting with you or your content on Doval. They will not be able to follow you, message you, or see your posts. You will also not be able to see their content.',
+      ),
       [
         {
-          text: 'Cancel',
+          text: i18next.t('Cancel'),
           onPress: () => {
             console.log('Cancel Pressed', postID);
           },
           style: 'cancel',
         },
-        { text: 'Block', onPress: BlockUser },
+        { text: i18next.t('Block'), onPress: BlockUser },
       ],
       { cancelable: false },
     );
@@ -87,7 +87,7 @@ const Options = (props: Props) => {
         {isAuthenticated && (
           <IconsOptions
             onPress={handleReport}
-            label="Report"
+            label={i18next.t('Report')}
             icon={
               <VideoOffIcon
                 color={COLORS.error}
@@ -104,7 +104,7 @@ const Options = (props: Props) => {
         {isAuthenticated && (
           <IconsOptions
             onPress={handleBlock}
-            label="Block"
+            label={i18next.t('Block')}
             icon={
               <SecurityBlockIcon
                 color={Description}
@@ -115,7 +115,7 @@ const Options = (props: Props) => {
           />
         )}
         <IconsOptions
-          label="Feedback"
+          label={i18next.t('Feedback')}
           icon={
             <CommentAdd02Icon
               color={Description}
@@ -125,7 +125,7 @@ const Options = (props: Props) => {
           }
         />
         <IconsOptions
-          label="help"
+          label={i18next.t('Help')}
           icon={
             <HelpSquareIcon
               color={Description}

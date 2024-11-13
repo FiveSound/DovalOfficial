@@ -3315,27 +3315,9 @@ const EditUser02Icon = (props: SvgProps) => (
 );
 
 const Logout04Icon = (props: SvgProps) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width={24}
-    height={24}
-    color="#ffffff"
-    fill="none"
-    {...props}
-  >
-    <Path
-      d="M7.02331 5.5C4.59826 7.11238 3 9.86954 3 13C3 17.9706 7.02944 22 12 22C16.9706 22 21 17.9706 21 13C21 9.86954 19.4017 7.11238 16.9767 5.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M12 2V10"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-    />
+  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+    <Path d="M14 3.09502C13.543 3.03241 13.0755 3 12.6 3C7.29807 3 3 7.02944 3 12C3 16.9706 7.29807 21 12.6 21C13.0755 21 13.543 20.9676 14 20.905" stroke="currentColor" strokeWidth="1.5" />
+    <Path d="M11 12H20.4925M17.9998 9L21 12L17.9998 15" stroke="currentColor" strokeWidth="1.5" />
   </Svg>
 );
 

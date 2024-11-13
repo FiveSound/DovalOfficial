@@ -10,7 +10,7 @@ import {
 } from './components';
 import { View } from '../../components/native';
 import { SIZES } from '../../constants/theme';
-import { LoadingScreen, Tabs } from '../../components/custom';
+import { LoadingScreen, SignupAlert, Tabs } from '../../components/custom';
 import { useAppSelector } from '../../redux';
 import { RootState } from '../../redux/store';
 import i18next from '../../Translate';
@@ -43,7 +43,7 @@ const Home = () => {
   }
 
   if (!isAuthenticated && !isLoadingApp) {
-    return <Signup />;
+    return <SignupAlert />;
   }
 
 
@@ -52,7 +52,7 @@ const Home = () => {
       <View style={styles.marginBottom} />
       <Categories />
       <View style={styles.marginBottom} />
-      <Tabs tabs={tabs} isBorder={true}/>
+      <Restaurants />
     </Layout>
   );
 };

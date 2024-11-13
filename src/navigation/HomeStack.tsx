@@ -8,6 +8,8 @@ import SearchBusiness from '../screens/home/SearchBusiness';
 import OrderID from '../screens/Dashboard/screen/OrderID';
 import MainStackt from './MainStackt';
 import OrderStack from './OrderStack';
+import UsePhoneEmail from '../screens/auth/UsePhoneEmail';
+import Verified from '../screens/auth/UsePhoneEmail/Verified';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,9 +45,11 @@ const HomeStack = () => {
           animation: 'slide_from_right',
         }}
       />
-            <Stack.Screen name="Dashboard/Business/OrderID" component={OrderID} />
-            <Stack.Screen name="MainStackt" component={MainStackt} />
-            <Stack.Screen name="OrderStack" component={OrderStack} />
+      <Stack.Screen name="Dashboard/Business/OrderID" component={OrderID} />
+      <Stack.Screen name="MainStackt" component={MainStackt} />
+      <Stack.Screen name="OrderStack" component={OrderStack} />
+      <Stack.Screen name="UsePhoneEmail" component={UsePhoneEmail} />
+      <Stack.Screen name="Verified" component={Verified} />
     </Stack.Navigator>
   );
 };
