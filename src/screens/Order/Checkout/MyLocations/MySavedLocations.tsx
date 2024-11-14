@@ -1,28 +1,14 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import {
-  TouchableOpacity,
-  useNavigation,
-  View,
-  Text,
-} from '../../../../components/native';
-import {
-  getMyLocations,
-  setDefaultLocationService,
-} from '../../../../services/orders';
-import { COLORS, SIZES, responsiveFontSize } from '../../../../constants/theme';
-import { Location09Icon } from '../../../../constants/IconsPro';
-import { useTheme } from '../../../../hooks';
-import {
-  FlexContainer,
-  IsLoading,
-  LineDivider,
-  ScreenEmpty,
-  Typography,
-} from '../../../../components/custom';
-import i18next from '../../../../Translate';
-import { Ilustrations } from '../../../../constants';
-import { useQuery } from '@tanstack/react-query';
+import React from "react";
+import { StyleSheet, TextInput } from "react-native";
+import { TouchableOpacity, useNavigation, View, Text } from "../../../../components/native";
+import { getMyLocations, setDefaultLocationService } from "../../../../services/orders";
+import { COLORS, SIZES, responsiveFontSize } from "../../../../constants/theme";
+import { Location09Icon } from "../../../../constants/IconsPro";
+import { useTheme } from "../../../../hooks";
+import { FlexContainer, IsLoading, LineDivider, ScreenEmpty, Typography } from "../../../../components/custom";
+import i18next from "../../../../Translate";
+import { Ilustrations } from "../../../../constants";
+import { useQuery } from "@tanstack/react-query";
 
 interface PropsData {
   data: any;
@@ -42,7 +28,7 @@ const Location = (props: any) => {
     setLoading(true); // Set loading to true when pressed
     await setDefaultLocationService(locationID);
     setLoading(false); // Set loading to false when success
-    navigation.navigate('Checkout', {
+    navigation.navigate("Checkout", {
       locationID,
     });
   };
@@ -52,11 +38,7 @@ const Location = (props: any) => {
       <TouchableOpacity onPress={handleSelected}>
         <View style={styles.locationContainer}>
           <View style={styles.locationDetails}>
-            <Location09Icon
-              color={Description}
-              width={SIZES.icons}
-              height={SIZES.icons}
-            />
+            <Location09Icon color={Description} width={SIZES.icons} height={SIZES.icons} />
             <View>
               <Typography
                 variant="subtitle"
@@ -89,7 +71,7 @@ const Location = (props: any) => {
 
 const MySavedLocations = () => {
   const { data, isLoading, isFetching, isRefetching }: PropsData = useQuery({
-    queryKey: ['locations-useQuery'],
+    queryKey: ["locations-useQuery"],
     queryFn: getMyLocations,
   });
 
@@ -100,12 +82,14 @@ const MySavedLocations = () => {
   if (data) {
     return (
       <>
+        <TextInput style={styles.searchInput} />
+
         {data.length === 0 && (
           <FlexContainer newStyle={styles.emptyContainer}>
             <ScreenEmpty
-              labelPart1={i18next.t('You dont have saved addresses yet.')}
+              labelPart1={i18next.t("You dont have saved addresses yet.")}
               labelStylePart1={styles.emptyLabel}
-              subLabel={i18next.t('Add your addresses...')}
+              subLabel={i18next.t("Add your addresses...")}
               source={Ilustrations.Map}
               ImgWidth={SIZES.width}
               ImgHeigth={SIZES.height / 3}
@@ -122,20 +106,25 @@ const MySavedLocations = () => {
 };
 
 const styles = StyleSheet.create({
+  searchInput: {
+    borderWidth: 1,
+    borderColor: "#DDD",
+    width: SIZES.width,
+  },
   locationContainer: {
     padding: responsiveFontSize(10),
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: 'transparent',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "transparent",
   },
   locationDetails: {
-    display: 'flex',
+    display: "flex",
     gap: responsiveFontSize(10),
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "transparent",
   },
   lineDivider: {
     marginTop: responsiveFontSize(10),
@@ -143,12 +132,12 @@ const styles = StyleSheet.create({
   },
   emptyContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     height: SIZES.height / 2,
   },
   emptyLabel: {
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 

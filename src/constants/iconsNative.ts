@@ -31,6 +31,7 @@ const Hashtag = require('../../assets/icons/hashtag.png');
 const logoDark = require('../../assets/vector-dark.png');
 const logoLight = require('../../assets/vector-light.png');
 const logo = require('../../assets/logo.png');
+const Map = require('../../assets/icons/map.png');
 
 export default {
   logoDark,
@@ -66,4 +67,5 @@ export default {
   Comments,
   Topics,
   Hashtag,
+  Map
 };

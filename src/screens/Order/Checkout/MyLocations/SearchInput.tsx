@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useTheme } from '../../../../hooks';
-import { Search } from '../../../../components/custom';
-import i18next from '../../../../Translate';
-import { COLORS } from '../../../../constants/theme';
+import { useState } from "react";
+import { useTheme } from "../../../../hooks";
+import { Search } from "../../../../components/custom";
+import i18next from "../../../../Translate";
+import { COLORS } from "../../../../constants/theme";
 
 interface PropsSearchInput {
   setValue: Function;
@@ -16,9 +16,9 @@ const SearchInput = (props: PropsSearchInput) => {
 
   return (
     <Search
-      placeholder={i18next.t('Add my location')}
-      label={i18next.t('Add my location')}
-      onChange={value => setValue('search', value, { shouldDirty: true })}
+      placeholder={i18next.t("Add my location")}
+      label={i18next.t("Add my location")}
+      onChange={(value) => setValue("search", value, { shouldDirty: true })}
       containerStyle={{
         borderColor: select ? COLORS.primary : borderInput,
       }}
