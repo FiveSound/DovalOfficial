@@ -1,11 +1,14 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { View, Text, ActivityIndicator } from "react-native";
+import { Text, ActivityIndicator, TouchableOpacity, StyleSheet } from "react-native";
 import { getMyLocations } from "../../../../services/orders";
 import EmptyLocations from "./EmptyLocations";
 import SavedLocations from "./SavedLocations";
+import { useNavigation } from "../../../../components/native";
 
 const MyLocations = memo(() => {
+  const navigation = useNavigation();
+
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["locations-useQuery"],
     queryFn: getMyLocations,
@@ -17,13 +20,32 @@ const MyLocations = memo(() => {
 
   if (data) {
     return (
-      <View>
+      <>
         {data.length === 0 && <EmptyLocations />}
 
-        <SavedLocations data={data} />
-      </View>
+        {data.length > 0 && <SavedLocations data={data} />}
+
+        <TouchableOpacity onPress={() => navigation.navigate("ScreenNewLocation")} style={styles.button}>
+          <Text style={styles.textButton}>Agregar direccion</Text>
+        </TouchableOpacity>
+      </>
     );
   }
+});
+
+const styles = StyleSheet.create({
+  button: {
+    margin: 20,
+    backgroundColor: "#4ADE80",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  textButton: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
 export default MyLocations;
