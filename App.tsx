@@ -16,6 +16,7 @@ import { useSplashLoading } from "./src/context/SplashLoadingContext";
 import { DashboardProvider } from "./src/context/DashboardContext";
 import Splash from "./Splash";
 import TransitionWrapper from "./TransitionWrapper";
+import useLocale from "./src/hooks/useLocale";
 
 const queryClient = new QueryClient();
 
@@ -71,6 +72,7 @@ const AppWithReload = () => {
   usePrepareApp(setAppIsReady);
   useLocation();
   enableScreens();
+  useLocale();
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {

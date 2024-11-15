@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { RouteProp } from '@react-navigation/native';
-import { SharedElementStackParamList } from "../../navigation/MainStackt";
+import { SharedElementStackParamList } from "../../navigation/MainStack";
 import  Main from "./components/Main";
 import { TabBarVisibilityContext } from "../../context/TabBarVisibilityContext";
 

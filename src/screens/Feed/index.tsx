@@ -20,9 +20,8 @@ const QUERY_KEY = 'QUERY_KEY_FEED';
 
 const Feed = memo(() => {
   const [page, setPage] = useState<number>(1);
-  const { user, isAuthenticated, isLoadingApp } = useAppSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state: RootState) => state.auth);
   const { location } = useAppSelector((state: RootState) => state.location);
-  const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const { setTabBarVisible } = useContext(TabBarVisibilityContext);
 
@@ -30,7 +29,6 @@ const Feed = memo(() => {
     queryKey: [QUERY_KEY],
     queryFn: async () => await feedService(location, user?.userID, page),
   });
-  
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
     mutationFn: async () => {

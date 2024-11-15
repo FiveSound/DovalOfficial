@@ -4,7 +4,7 @@ import Animated from "react-native-reanimated";
 import { responsiveFontSize, SIZES } from "../../../constants/theme";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { SharedElementStackParamList } from "../../../navigation/MainStackt";
+import { SharedElementStackParamList } from "../../../navigation/MainStack";
 import { useAppDispatch } from "../../../redux";
 import { setFeedData, setPostID } from "../../../redux/slides/navigations";
 import { useTheme } from "../../../hooks";

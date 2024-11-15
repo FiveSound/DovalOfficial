@@ -6,7 +6,7 @@ import { RootState } from '../redux/store';
 import DashboardScreen from '../screens/Dashboard';
 import SearchBusiness from '../screens/home/SearchBusiness';
 import OrderID from '../screens/Dashboard/screen/OrderID';
-import MainStackt from './MainStackt';
+import MainStackt from './MainStack';
 import OrderStack from './OrderStack';
 import UsePhoneEmail from '../screens/auth/UsePhoneEmail';
 import Verified from '../screens/auth/UsePhoneEmail/Verified';

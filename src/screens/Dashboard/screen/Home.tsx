@@ -352,13 +352,13 @@ const Home = () => {
       />
 
       {/* Verify Popup */}
-      <Popup id="popup-verify-order" title="Escribe el codigo de la orden" open={openVerify}>
+      {/* <Popup id="popup-verify-order" title="Escribe el codigo de la orden" open={openVerify}>
           <OTPInput onChange={onVerify} />
 
         <TouchableOpacity onPress={() => setOpenVerify(false)} style={[styles.btn, styles.btnError]}>
           <Text style={{ color: "#F41F52", fontWeight: "bold" }}>Cancelar</Text>
         </TouchableOpacity>
-      </Popup>
+      </Popup> */}
 
       {/* Add time Popup */}
       <Popup id="popup-delay-order" title="Que tiempo necesitas?" open={openDelay}>

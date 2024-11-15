@@ -20,9 +20,7 @@ import {
   useNavigation,
 } from '../../../../../components/native';
 import styles from '../styles';
-import MasonrySkeleton from '../../../../../components/custom/Masonry/MansorySkeleton';
-const MasonryList = lazy(() => import('../../../../../components/custom/MasonryUsers'),
-);
+import MasonryUsers from '../../../../../components/custom/MasonryUsers';
 
 const Main = (props: any) => {
   const { isOffline, user } = useAuth();
@@ -39,16 +37,14 @@ const Main = (props: any) => {
   const navigation = useNavigation();
 
   if (isLoading || isRefetching) {
-    return <FlexContainer newStyle={styles.containerGrid}>
-      <MasonrySkeleton showHeader={false} />
-    </FlexContainer>;
+    return <LoadingScreen />
   }
 
 
    if (data.length > 0) {
     return (
       <FlexContainer newStyle={styles.containerGrid}>
-          <MasonryList 
+          <MasonryUsers 
           pins={data} 
           refreshing={isRefreshing} 
           onRefresh={onRefresh}

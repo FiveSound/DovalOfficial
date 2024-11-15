@@ -1,8 +1,5 @@
-// useLocation.ts
-
 import { useEffect, useCallback } from 'react';
 import * as Location from 'expo-location';
-import { isLocationInCountry } from '../constants/SellersCountry';
 import KeyApi from '../constants/KeyApi';
 import { Country } from '../constants/Country';
 import { setLocationData } from '../redux/slides/locationSlice';

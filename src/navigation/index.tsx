@@ -4,7 +4,7 @@ import HomeStack from './HomeStack';
 import ProfileStack from './ProfileStack';
 import BottomTabBar from './BottomTabBar';
 import { FlexContainer } from '../components/custom';
-import MainStackt from './MainStackt';
+import MainStackt from './MainStack';
 import { TabBarVisibilityProvider, TabBarVisibilityContext } from '../context/TabBarVisibilityContext';
 import StackChatIa from './StackChatIa';
 import { ActiveTabContext } from '../context/ActiveTabContext'
