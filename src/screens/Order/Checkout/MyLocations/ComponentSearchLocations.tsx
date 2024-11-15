@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import SearchInput from "./SearchInput";
 import { searchLocalAddressService } from "../../../../services/locations";
 import { useNavigation } from "../../../../components/native";
@@ -21,7 +21,6 @@ const ComponentSearchLocations = memo(() => {
   useEffect(() => {
     searchLocalAddressService(values.search)
       .then((data) => {
-        console.log(data);
         setResults(data);
       })
       .catch((error) => {
@@ -30,7 +29,7 @@ const ComponentSearchLocations = memo(() => {
   }, [values.search]);
 
   return (
-    <>
+    <View style={styles.container}>
       <SearchInput value={values.search} setValue={setValue} />
       <FlatList
         data={results}
@@ -49,12 +48,15 @@ const ComponentSearchLocations = memo(() => {
         ListEmptyComponent={<Text>No hay items</Text>}
         keyExtractor={(item) => item.description}
       />
-    </>
+    </View>
   );
 });
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
   item: {
     padding: 10,
     marginBottom: 8,
