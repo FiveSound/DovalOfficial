@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator } from "react-native";
 import TitleWithBack from "./TitleWithBack";
 import { useNavigation } from "../../../../components/native";
 import { addNewLocationService } from "../../../../services/orders";
@@ -57,30 +57,29 @@ const ScreenSaveLocation = memo((props: Props) => {
     const response = await addNewLocationService(data);
 
     if (response.success) {
-      Alert.alert("Enhorabuena campeon!");
       reset();
-      queryClient.invalidateQueries({ queryKey: ["locations-useQuery"] });
-      navigation.navigate("MyLocations");
+      queryClient.invalidateQueries({ queryKey: ["screen-checkout-orders-useQuery"] });
+      navigation.navigate("Checkout");
     }
   };
 
   return (
     <View style={styles.container}>
       <TitleWithBack onPress={() => navigation.goBack()}>Guardar nueva ubicacion</TitleWithBack>
-      <TextInput placeholder="City" value={values.city} style={styles.input} readOnly />
-      <TextInput placeholder="Details" value={values.details} style={styles.input} readOnly />
       <TextInput
-        placeholder="Aparment"
+        placeholder="Aparment (Required)"
         value={values.apartment}
         onChangeText={(txt) => setValue("apartment", txt, { shouldDirty: true })}
         style={styles.input}
       />
       <TextInput
-        placeholder="Tag"
+        placeholder="Tag (Required)"
         value={values.tag}
         onChangeText={(txt) => setValue("tag", txt, { shouldDirty: true })}
         style={styles.input}
       />
+      <TextInput placeholder="City" value={values.city} style={styles.input} readOnly />
+      <TextInput placeholder="Details" value={values.details} style={styles.input} readOnly />
 
       <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button} disabled={isSubmitting || !isDirty}>
         <Text style={styles.textButton}>Confirmar ubicacion</Text>
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginBottom: 10,
     paddingHorizontal: 10,
+    paddingVertical: 5,
     borderWidth: 1,
     borderColor: "#ccc",
   },

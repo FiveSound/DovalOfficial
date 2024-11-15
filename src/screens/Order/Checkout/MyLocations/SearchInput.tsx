@@ -25,6 +25,7 @@ const SearchInput = (props: PropsSearchInput) => {
       value={value}
       onBlur={() => setSelect(false)}
       onFocus={() => setSelect(true)}
+      autoFocus
     />
   );
 };

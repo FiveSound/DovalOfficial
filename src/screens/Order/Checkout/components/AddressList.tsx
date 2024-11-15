@@ -1,14 +1,9 @@
-import { StyleSheet} from 'react-native';
-import { memo } from 'react';
-import { useNavigation } from '../../../../components/native';
-import {
-  Box,
-  FlexContainer,
-  Icons,
-  Typography,
-} from '../../../../components/custom';
-import { SIZES } from '../../../../constants/theme';
-import i18next from '../../../../Translate';
+import { StyleSheet } from "react-native";
+import { memo } from "react";
+import { useNavigation } from "../../../../components/native";
+import { Box, FlexContainer, Icons, Typography } from "../../../../components/custom";
+import { SIZES } from "../../../../constants/theme";
+import i18next from "../../../../Translate";
 
 type Props = {
   location: {
@@ -24,29 +19,23 @@ type Props = {
 const AddressList = (props: Props) => {
   const { location } = props;
   const navigation = useNavigation();
-  const handleChange = () => {navigation.navigate('MyLocations');};
+  const handleChange = () => {
+    navigation.navigate("MyLocations");
+  };
 
   return (
-    <Box title={i18next.t('Deliver to')}
-    sucess={location.details ? true : false}
-    >
+    <Box title={i18next.t("Deliver to")} sucess={location.details ? true : false}>
       <FlexContainer newStyle={styles.header}>
         {location?.details ? (
           <FlexContainer newStyle={styles.container}>
             <Typography variant="subtitle">{location?.tag}</Typography>
-            <Typography
-              numberOfLines={2}
-              newStyle={styles.text}
-              variant="SubDescription"
-            >
+            <Typography numberOfLines={2} newStyle={styles.text} variant="SubDescription">
               {location?.details}
             </Typography>
           </FlexContainer>
         ) : (
           <FlexContainer>
-            <Typography variant="H4title">
-              {i18next.t('Select address to')}
-            </Typography>
+            <Typography variant="H4title">{i18next.t("Select address to")}</Typography>
           </FlexContainer>
         )}
         <Icons
@@ -54,9 +43,7 @@ const AddressList = (props: Props) => {
           styles={{
             borderRadius: SIZES.radius,
           }}
-          appendIcons={
-            <Typography variant="H4title">{i18next.t('Change')}</Typography>
-          }
+          appendIcons={<Typography variant="H4title">{i18next.t("Change")}</Typography>}
         />
       </FlexContainer>
     </Box>
@@ -65,9 +52,9 @@ const AddressList = (props: Props) => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   text: {
     width: SIZES.width / 1.4,
@@ -76,10 +63,10 @@ const styles = StyleSheet.create({
     gap: SIZES.gapSmall,
   },
   icons: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   containerIcons: {
-    alignItems: 'center',
+    alignItems: "center",
     gap: SIZES.gapLarge,
   },
 });

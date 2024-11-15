@@ -46,6 +46,7 @@ const ComponentSearchLocations = memo(() => {
             {item.description}
           </Text>
         )}
+        ListEmptyComponent={<Text>No hay items</Text>}
         keyExtractor={(item) => item.description}
       />
     </>

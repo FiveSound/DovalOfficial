@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
-import { useTheme } from '../../../../hooks';
-import FlexContainer from '../../FlexContainer';
-import { FONTS, SIZES } from '../../../../constants/theme';
-import { Search01Icon } from '../../../../constants/IconsPro';
-import { ViewStyle, StyleSheet, TextInput } from 'react-native';
+import React, { ReactNode } from "react";
+import { useTheme } from "../../../../hooks";
+import FlexContainer from "../../FlexContainer";
+import { FONTS, SIZES } from "../../../../constants/theme";
+import { Search01Icon } from "../../../../constants/IconsPro";
+import { ViewStyle, StyleSheet, TextInput } from "react-native";
 
 type Props = {
   containerStyle?: ViewStyle;
@@ -16,19 +16,14 @@ type Props = {
   appendComponent?: ReactNode;
   onChange?: ((text: string) => void) | undefined;
   secureTextEntry?: boolean;
-  keyboardType?:
-    | 'default'
-    | 'number-pad'
-    | 'decimal-pad'
-    | 'numeric'
-    | 'email-address'
-    | 'phone-pad';
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  keyboardType?: "default" | "number-pad" | "decimal-pad" | "numeric" | "email-address" | "phone-pad";
+  autoCapitalize?: "none" | "sentences" | "words" | "characters";
   errorMsg?: string;
   maxLength?: number;
   autoCompleteType?: undefined;
   onFocus?: () => void;
   onBlur?: () => void;
+  autoFocus?: boolean;
 };
 
 const Search = ({
@@ -37,18 +32,19 @@ const Search = ({
   label,
   placeholder,
   inputStyle,
-  value = '',
+  value = "",
   prependComponent,
   appendComponent,
   onChange,
   secureTextEntry,
   keyboardType,
   autoCompleteType,
-  autoCapitalize = 'none',
-  errorMsg = '',
+  autoCapitalize = "none",
+  errorMsg = "",
   maxLength,
   onFocus,
   onBlur,
+  autoFocus
 }: Props) => {
   const { backgroundMaingrey, borderInput, color, Description } = useTheme();
   return (
@@ -59,11 +55,7 @@ const Search = ({
         ...containerStyle,
       }}
     >
-      <Search01Icon
-        width={SIZES.icons / 1.4}
-        height={SIZES.icons / 1.4}
-        color={onFocus ? Description : Description}
-      />
+      <Search01Icon width={SIZES.icons / 1.4} height={SIZES.icons / 1.4} color={onFocus ? Description : Description} />
       <TextInput
         numberOfLines={1}
         style={{
@@ -82,6 +74,7 @@ const Search = ({
         onChangeText={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
+        autoFocus={autoFocus}
       />
     </FlexContainer>
   );
@@ -89,8 +82,8 @@ const Search = ({
 
 const styles = StyleSheet.create({
   flexContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: SIZES.radius,
     height: SIZES.InputsHeight,
     width: SIZES.BtnWidth,
