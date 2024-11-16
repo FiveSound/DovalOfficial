@@ -107,11 +107,13 @@ const businessTypeList = [
 ];
 
 const Basic = memo(() => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const navigation = useNavigation();
   const { Title, backgroundMaingrey } = useTheme();
 
   const [taxIdentificationNumber, setTaxIdentificationNumber] = useState(false);
+
+  const values = watch();
 
   return (
     <>
@@ -121,6 +123,11 @@ const Basic = memo(() => {
         goBack={() => navigation.goBack()}
         goNext={() => navigation.navigate("FormBusiness/Representative")}
         showDivider
+        disabled={
+          values.business_name.length === 0 ||
+          values.business_description.length === 0 ||
+          values.business_category.length < 3
+        }
       />
       <KeyboardAwareScrollView
         behavior="padding"

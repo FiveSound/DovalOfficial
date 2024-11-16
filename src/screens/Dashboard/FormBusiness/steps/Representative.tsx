@@ -9,8 +9,10 @@ import { Input } from "../components";
 import i18next from "../../../../Translate";
 
 const Representative = memo(() => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const navigation = useNavigation();
+
+  const values = watch();
 
   return (
     <>
@@ -20,6 +22,12 @@ const Representative = memo(() => {
         goBack={() => navigation.goBack()}
         goNext={() => navigation.navigate("FormBusiness/Address")}
         showDivider
+        disabled={
+          values.full_name.length === 0 ||
+          values.identification_number.length === 0 ||
+          values.email.length === 0 ||
+          values.phone.length === 0
+        }
       />
       <KeyboardAwareScrollView
         behavior="padding"

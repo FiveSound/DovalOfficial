@@ -1,18 +1,57 @@
 import { memo } from "react";
-import { Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { useFormContext } from "react-hook-form";
 import { Header } from "../components";
 import { KeyboardAwareScrollView, useNavigation } from "../../../../components/native";
-import { FlexContainer, Hero, InfoCard } from "../../../../components/custom";
+import { FlexContainer, Hero, InfoCard, LineDivider } from "../../../../components/custom";
 import { Checkbox } from "../../../../components/custom/Checkbox";
-import { FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
+import { CheckmarkCircle02Icon } from "../../../../constants/IconsPro";
+import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
+import { registerBusinessService } from "../../../../services/business";
 import i18next from "../../../../Translate";
 
+const steps = [
+  {
+    title: i18next.t("Basic Business Information"),
+    description: "Business name, Business description, Business categories",
+  },
+  {
+    title: i18next.t("Basic Business Information 2"),
+    description: "Business name, Business description, Business categories",
+  },
+  {
+    title: i18next.t("Basic Business Information 3"),
+    description: "Business name, Business description, Business categories",
+  },
+  {
+    title: i18next.t("Basic Business Information 4"),
+    description: "Business name, Business description, Business categories",
+  },
+
+  {
+    title: i18next.t("Basic Business Information 5"),
+    description: "Business name, Business description, Business categories",
+  },
+];
+
 const Agreements = memo(() => {
-  const { watch, setValue } = useFormContext();
+  const {
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useFormContext();
+
   const navigation = useNavigation();
 
   const values = watch();
+
+  const onSubmit = async (data: object) => {
+    console.log({ data });
+
+    const response = await registerBusinessService(data);
+    console.log({ response });
+  };
 
   return (
     <>
@@ -20,8 +59,11 @@ const Agreements = memo(() => {
         currentStep={6}
         label=""
         goBack={() => navigation.goBack()}
-        goNext={() => console.log("Submit...")}
+        goNext={handleSubmit(onSubmit)}
+        loading={isSubmitting}
+        disabled={isSubmitting}
         showDivider
+        submit
       />
 
       <KeyboardAwareScrollView
@@ -38,9 +80,20 @@ const Agreements = memo(() => {
             )}
           />
 
-          <InfoCard title="Hola" description="Hola 2" />
+          {steps.map((step) => (
+            <InfoCard
+              key={step.title}
+              title={step.title}
+              description={step.description}
+              icon={
+                <CheckmarkCircle02Icon color={COLORS.success} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
+              }
+            />
+          ))}
 
-          <Text>{JSON.stringify(watch(), null, 2)}</Text>
+          {/* <Text>{JSON.stringify(watch(), null, 2)}</Text> */}
+
+          <LineDivider lineStyle={{ marginTop: 20, marginBottom: 20 }} variant="primary" />
 
           <FlexContainer newStyle={styles.checkboxContainer}>
             <Checkbox

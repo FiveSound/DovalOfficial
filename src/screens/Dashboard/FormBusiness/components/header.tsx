@@ -34,7 +34,7 @@ const Header = memo((props: Props) => {
           onPress={() => props.goNext()}
           loading={props.loading}
           variant="primary"
-          containerButtons={styles.containerButtons}
+          containerButtons={[styles.containerButtons, props.disabled ? { opacity: 0.5 } : { opacity: 1 }]}
         />
       </SafeAreaView>
       {props.showDivider && <LineDivider variant="secondary" />}

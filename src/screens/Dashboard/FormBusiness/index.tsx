@@ -5,6 +5,7 @@ import OnboardingForm from "./steps/OnboardingForm";
 import Basic from "./steps/Basic";
 import Representative from "./steps/Representative";
 import Address from "./steps/Address";
+import MapLocation from "./steps/MapLocation";
 import Operations from "./steps/Operations";
 import Financial from "./steps/Financial";
 import Agreements from "./steps/Agreements";
@@ -23,10 +24,16 @@ const defaultValues = {
   phone: "",
   cover: "",
   banner: "",
+  search_location: "",
+  country: "",
   city: "",
+  state: "",
+  formatted_address: "",
+  street: "",
   country_code: "",
-  latitude: "",
-  longitude: "",
+  postalCode: "",
+  latitude: null,
+  longitude: null,
   bank_details: "Banco de Reservas (Banreservas)",
   schedule: [],
   account_currency: "DOP",
@@ -39,8 +46,8 @@ const defaultValues = {
   authorize_verification: "",
   show_store: false,
   privacy: false,
-  verification: true,
-  terms: true,
+  verification: false,
+  terms: false,
 };
 
 const FormBusiness = memo(() => {
@@ -58,6 +65,7 @@ const FormBusiness = memo(() => {
         <Stack.Screen name="FormBusiness/Basic" component={Basic} />
         <Stack.Screen name="FormBusiness/Representative" component={Representative} />
         <Stack.Screen name="FormBusiness/Address" component={Address} />
+        <Stack.Screen name="FormBusiness/MapLocation" component={MapLocation} />
         <Stack.Screen name="FormBusiness/Operations" component={Operations} />
         <Stack.Screen name="FormBusiness/Financial" component={Financial} />
         <Stack.Screen name="FormBusiness/Agreements" component={Agreements} />
