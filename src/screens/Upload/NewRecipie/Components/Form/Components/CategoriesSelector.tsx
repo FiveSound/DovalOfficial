@@ -1,18 +1,11 @@
-import React from 'react';
-import { NavigationProp } from '@react-navigation/native';
-import { useQuery } from '@tanstack/react-query';
-import {
-  IsLoading,
-  ButtonAcces,
-  Typography,
-  Icons,
-  FlexContainer,
-  Perks,
-} from '../../../../../../components/custom';
-import { ScrollView } from '../../../../../../components/native';
-import styles from './styles';
-import { FONTS } from '../../../../../../constants/theme';
-import { useTheme } from '../../../../../../hooks';
+import React from "react";
+import { NavigationProp } from "@react-navigation/native";
+import { useQuery } from "@tanstack/react-query";
+import { IsLoading, ButtonAcces, Typography, Icons, FlexContainer, Perks } from "../../../../../../components/custom";
+import { ScrollView } from "../../../../../../components/native";
+import styles from "./styles";
+import { FONTS } from "../../../../../../constants/theme";
+import { useTheme } from "../../../../../../hooks";
 
 interface Props {
   categories: ReturnType<typeof useQuery>;
@@ -20,9 +13,7 @@ interface Props {
 }
 
 const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
-  const isAtLeastOneSelected = categories.data?.list.some(
-    (item: any) => item.selected,
-  );
+  const isAtLeastOneSelected = categories.data?.list.some((item: any) => item.selected);
   const { Description, backgroundMaingrey } = useTheme();
 
   return (
@@ -30,7 +21,7 @@ const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
       <ButtonAcces
         label="Categories"
         labelPreview="Required"
-        onPress={() => navigation.navigate('RecipeCategories')}
+        onPress={() => navigation.navigate("RecipeCategories")}
         showAppendBottom="DOWN"
         ShowLineDivider={false}
         container={styles.containerButton}
@@ -41,8 +32,8 @@ const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
         }}
         AppendPreview={
           <Perks
-            label={!isAtLeastOneSelected ? 'Required' : 'Completed'}
-            status={!isAtLeastOneSelected ? 'error' : 'success'}
+            label={!isAtLeastOneSelected ? "Required" : "Completed"}
+            status={!isAtLeastOneSelected ? "error" : "success"}
             Reverse={false}
           />
         }
@@ -73,7 +64,7 @@ const CategoriesSelector: React.FC<Props> = ({ categories, navigation }) => {
                           },
                         ]}
                       />
-                    ),
+                    )
                 )}
               </FlexContainer>
             </ScrollView>

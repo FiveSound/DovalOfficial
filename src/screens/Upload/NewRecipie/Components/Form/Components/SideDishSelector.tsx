@@ -1,19 +1,9 @@
-import React from 'react';
-import { NavigationProp } from '@react-navigation/native';
-import { useQuery } from '@tanstack/react-query';
-import { ScrollView } from '../../../../../../components/native';
-import {
-  ButtonAcces,
-  Container,
-  FlexContainer,
-  Icons,
-  IsLoading,
-  Perks,
-  Typography,
-} from '../../../../../../components/custom';
-import styles from './styles';
-import { useFormContext } from 'react-hook-form';
-import { useTheme } from '../../../../../../hooks';
+import { NavigationProp } from "@react-navigation/native";
+import { useQuery } from "@tanstack/react-query";
+import { ScrollView } from "../../../../../../components/native";
+import { ButtonAcces, FlexContainer, Icons, IsLoading, Perks, Typography } from "../../../../../../components/custom";
+import styles from "./styles";
+import { Text } from "react-native";
 
 interface VariantItem {
   id: number;
@@ -30,35 +20,27 @@ interface Props {
 }
 
 const SideDishSelector: React.FC<Props> = ({ variants, navigation }) => {
-  const { watch } = useFormContext();
-  const { backgroundMaingrey } = useTheme();
-  const values = watch();
-
   if (variants.isLoading) {
     return <IsLoading />;
   }
 
   if (variants.isError) {
-    return (
-      <Typography variant="H4title">
-        Ocurrió un error al cargar las variantes.
-      </Typography>
-    );
+    return <Typography variant="H4title">Ocurrió un error al cargar las variantes.</Typography>;
   }
 
   return (
     <ButtonAcces
       label="Side Dish Everyone"
-      onPress={() => navigation.navigate('RecipeAddDish')}
+      onPress={() => navigation.navigate("RecipeAddDish")}
       showAppendBottom="DOWN"
       ShowLineDivider={false}
       container={styles.containerButton}
       AppendPreview={
-        <Perks
-          label={variants.data?.resume.length === 0 ? 'Required' : 'Completed'}
-          status={variants.data?.resume.length === 0 ? 'error' : 'success'}
-          Reverse={false}
-        />
+        variants.data && variants.data?.resume.length > 0 ? (
+          <Perks label="Completed" status="success" Reverse={false} />
+        ) : (
+          <Typography variant="H4title">Opcional</Typography>
+        )
       }
       append={
         variants.isLoading ? (
@@ -75,15 +57,9 @@ const SideDishSelector: React.FC<Props> = ({ variants, navigation }) => {
                   key={row.id}
                   appendIcons={
                     <Typography variant="H4title" newStyle={styles.text}>
-                      Varianst: {row.title || ''}
+                      Varianst: {row.title || ""}
                     </Typography>
                   }
-                  styles={[
-                    styles.icon,
-                    {
-                      backgroundColor: backgroundMaingrey,
-                    },
-                  ]}
                 />
               ))}
             </FlexContainer>
