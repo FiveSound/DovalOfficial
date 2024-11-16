@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useContext, useEffect } from "react";
+import { StyleSheet } from "react-native";
 import {
   CardsPreview,
   Container,
@@ -7,14 +7,14 @@ import {
   LoadingScreen,
   PersonalInf,
   Typography,
-} from '../../components/custom';
-import i18next from '../../Translate';
-import { SettingsData } from './data';
-import { SIZES } from '../../constants/theme';
-import { useAppSelector } from '../../redux';
-import Signup from '../auth/Signup';
-import SignOut from '../auth/SignOut';
-import { useTheme } from '../../hooks';
+} from "../../components/custom";
+import i18next from "../../Translate";
+import { SettingsData } from "./data";
+import { SIZES } from "../../constants/theme";
+import { useAppSelector } from "../../redux";
+import Signup from "../auth/Signup";
+import SignOut from "../auth/SignOut";
+import { useTheme } from "../../hooks";
 import {
   AddCircleHalfDotIcon,
   Coupon01Icon,
@@ -26,13 +26,13 @@ import {
   Store01IconStroke,
   UserStatusIcon,
   Wallet02Icon,
-} from '../../constants/IconsPro';
-import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
+} from "../../constants/IconsPro";
+import { TabBarVisibilityContext } from "../../context/TabBarVisibilityContext";
 
 const Settings = () => {
-  const { isAuthenticated, isLoadingApp } = useAppSelector(state => state.auth);
+  const { isAuthenticated, isLoadingApp } = useAppSelector((state) => state.auth);
   const { Description, Title } = useTheme();
-    const { setTabBarVisible } = useContext(TabBarVisibilityContext);
+  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
   useEffect(() => {
     setTabBarVisible(false);
 
@@ -40,7 +40,6 @@ const Settings = () => {
       setTabBarVisible(true);
     };
   }, [setTabBarVisible]);
-
 
   if (isLoadingApp) {
     return <LoadingScreen />;
@@ -50,26 +49,18 @@ const Settings = () => {
     return <Signup />;
   }
 
-  const footerCustom = (
-      <SignOut />
-  );
+  const footerCustom = <SignOut />;
 
   const Settings = [
     {
-      id: 'General',
-      label: i18next.t('General'),
+      id: "General",
+      label: i18next.t("General"),
       content: [
         {
-          id: 'Account',
-          label: i18next.t('Account'),
-          navigation: 'Account',
-          icon: (
-            <UserStatusIcon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "Account",
+          label: i18next.t("Account"),
+          navigation: "Account",
+          icon: <UserStatusIcon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
         // {
@@ -85,38 +76,24 @@ const Settings = () => {
         //     icon: <AddCircleHalfDotIcon />
         // },
         {
-          id: 'Paymentmethods',
-          label: i18next.t('Payment methods'),
-          navigation: 'PaymentsGeneral',
-          icon: (
-            <Wallet02Icon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "Paymentmethods",
+          label: i18next.t("Payment methods"),
+          navigation: "PaymentsGeneral",
+          icon: <Wallet02Icon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
         {
-          id: 'MyLocations',
-          label: i18next.t('My Locations'),
-          navigation: 'MyLocationsGeneral',
-          icon: (
-            <Location09Icon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "MyLocations",
+          label: i18next.t("My Locations"),
+          navigation: "MyLocationsGeneral",
+          icon: <Location09Icon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
         {
-          id: 'MyCoupons',
-          label: i18next.t('My Coupons'),
-          navigation: 'Coupons',
-          icon: (
-            <Coupon01Icon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />
-          ),
+          id: "MyCoupons",
+          label: i18next.t("My Coupons"),
+          navigation: "Coupons",
+          icon: <Coupon01Icon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
       ],
@@ -153,72 +130,42 @@ const Settings = () => {
     //   ],
     // },
     {
-      id: 'Support and about',
-      label: i18next.t('Support and about'),
+      id: "Support and about",
+      label: i18next.t("Support and about"),
       content: [
         {
-          id: 'Legal',
-          label: i18next.t('Legal'),
-          navigation: 'Legal',
-          icon: (
-            <Legal01Icon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "Legal",
+          label: i18next.t("Legal"),
+          navigation: "Legal",
+          icon: <Legal01Icon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
         {
-          id: 'Support',
-          label: i18next.t('Support'),
-          navigation: 'Support',
-          icon: (
-            <HelpSquareIcon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "Support",
+          label: i18next.t("Support"),
+          navigation: "Support",
+          icon: <HelpSquareIcon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
         {
-          id: 'Report a problem',
-          label: i18next.t('Report a problem'),
-          navigation: 'Report',
-          icon: (
-            <HelpSquareIcon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "Report a problem",
+          label: i18next.t("Report a problem"),
+          navigation: "Report",
+          icon: <HelpSquareIcon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
         {
-          id: 'Register business',
-          label: i18next.t('Register business'),
-          navigation: 'OnboardingVerified',
-          icon: (
-            <Store01IconStroke
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "Register business",
+          label: i18next.t("Register business"),
+          navigation: "FormVerified",
+          icon: <Store01IconStroke width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
         {
-          id: 'Register delivery',
-          label: i18next.t('Register delivery'),
-          navigation: 'RegisterDelivery',
-          icon: (
-            <AddCircleHalfDotIcon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
+          id: "Register delivery",
+          label: i18next.t("Register delivery"),
+          navigation: "RegisterDelivery",
+          icon: <AddCircleHalfDotIcon width={SIZES.icons / 1.1} height={SIZES.icons / 1.1} color={Title} />,
           isNavigation: true,
         },
       ],
@@ -226,12 +173,7 @@ const Settings = () => {
   ];
 
   return (
-    <Container
-      showHeader={true}
-      showBack={true}
-      label={i18next.t('My Settings')}
-      style={styles.container}
-    >
+    <Container showHeader={true} showBack={true} label={i18next.t("My Settings")} style={styles.container}>
       <CardsPreview row={SettingsData} showAvatar={true} />
       <PersonalInf row={Settings} footerCustom={footerCustom} />
     </Container>

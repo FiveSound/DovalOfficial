@@ -1,78 +1,45 @@
-import React from 'react';
-import { SafeAreaView, TouchableOpacity } from '../../../../components/native';
-import {
-  Buttons,
-  LineDivider,
-  Typography,
-} from '../../../../components/custom';
-import { styles } from '../styles';
-import { useTheme } from '../../../../hooks';
+import { memo } from "react";
+import { SafeAreaView, TouchableOpacity } from "../../../../components/native";
+import { Buttons, LineDivider, Typography } from "../../../../components/custom";
+import { useTheme } from "../../../../hooks";
+import ProgressBar from "./ProgressBar";
+import { styles } from "../styles";
 
 type Props = {
+  currentStep: number;
   label: string;
-  disabled?: boolean;
-  onPress?: () => void;
-  loading?: boolean;
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'disabled'
-    | 'transparent'
-    | 'outline'
-    | 'error';
-  labelButtons: string;
+  goBack: () => void;
+  goNext: () => void;
   showDivider?: boolean;
-  showBackPersonal?: boolean;
-  onPressBack?: () => void;
+  submit?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 };
 
-const Header = (props: Props) => {
-  const {
-    label,
-    disabled,
-    onPress,
-    loading,
-    variant,
-    labelButtons,
-    showDivider = true,
-    showBackPersonal = true,
-    onPressBack,
-  } = props;
+const Header = memo((props: Props) => {
   const { backgroundMaingrey } = useTheme();
   return (
     <>
+      <ProgressBar progress={(props.currentStep - 1) * 20} />
       <SafeAreaView style={styles.header}>
-        {showBackPersonal ? (
-          <></>
-        ) : (
-          <TouchableOpacity
-            onPress={onPressBack}
-            style={[
-              styles.backPersonal,
-              { backgroundColor: backgroundMaingrey },
-            ]}
-          >
-            <Typography variant="H4title"> Back</Typography>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity onPress={props.goBack} style={[styles.backPersonal, { backgroundColor: backgroundMaingrey }]}>
+          <Typography variant="H4title">Back</Typography>
+        </TouchableOpacity>
         <Typography variant="subtitle" testID="header-label">
-          {label}
+          {props.label}
         </Typography>
         <Buttons
-          label={labelButtons}
-          disabled={disabled}
-          onPress={onPress}
-          loading={loading}
-          variant={variant}
+          label={props.submit ? "Submit" : "Continue"}
+          disabled={props.disabled}
+          onPress={() => props.goNext()}
+          loading={props.loading}
+          variant="primary"
           containerButtons={styles.containerButtons}
-          variantLabel={variant === 'disabled' ? 'Primary' : 'secondary'}
-          color={variant === 'disabled' ? 'dark' : 'dark'}
-          testID="header-button"
         />
       </SafeAreaView>
-      {showDivider && <LineDivider variant="secondary" />}
+      {props.showDivider && <LineDivider variant="secondary" />}
     </>
   );
-};
+});
 
 export default Header;

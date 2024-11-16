@@ -1,41 +1,39 @@
-import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Onboarding from '../screens/Onboarding';
-import Splash from '../screens/Splash';
-import UsePhoneEmail from '../screens/auth/UsePhoneEmail';
-import Signup from '../screens/auth/Signup';
-import SignupForm from '../screens/auth/SignupForm';
-import Verified from '../screens/auth/UsePhoneEmail/Verified';
-import Report from '../screens/explorar/Report';
-import AddProducts from '../screens/AddProducts';
-import SearchBusiness from '../screens/home/SearchBusiness';
-import Business from '../screens/Business';
-import Complete from '../screens/Order/Complete';
-import OrderStack from './OrderStack';
-import ProfileStack from './ProfileStack';
-import SettingStack from './SettingStack';
-import UserProfile from '../screens/UserProfile';
-import Followers from '../screens/Followers';
-import ReportUsers from '../screens/Reports/ReportUsers';
-import Search from '../screens/Search';
-import NewRecipie from '../screens/Upload/NewRecipie';
-import AlbumsPermission from '../screens/Permiss/Locations/Albums/AlbumsPermission';
-import OrderID from '../screens/Dashboard/screen/OrderID';
-import OnboardingVerified from '../screens/Dashboard/FormBusiness/OnboardingForm';
-import FormVerified from '../screens/Dashboard/FormBusiness';
-import FeedDetails from '../screens/FeedDetails';
-import Feed from '../screens/Feed';
-import NewPosts from '../screens/Upload/UploadPost';
-import MyProfile from '../screens/MyProfile';
-import HomeStack from './HomeStack';
-import { OrderList } from '../screens/Order/Checkout/components';
-
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Onboarding from "../screens/Onboarding";
+import Splash from "../screens/Splash";
+import UsePhoneEmail from "../screens/auth/UsePhoneEmail";
+import Signup from "../screens/auth/Signup";
+import SignupForm from "../screens/auth/SignupForm";
+import Verified from "../screens/auth/UsePhoneEmail/Verified";
+import Report from "../screens/explorar/Report";
+import AddProducts from "../screens/AddProducts";
+import SearchBusiness from "../screens/home/SearchBusiness";
+import Business from "../screens/Business";
+import Complete from "../screens/Order/Complete";
+import OrderStack from "./OrderStack";
+import ProfileStack from "./ProfileStack";
+import SettingStack from "./SettingStack";
+import UserProfile from "../screens/UserProfile";
+import Followers from "../screens/Followers";
+import ReportUsers from "../screens/Reports/ReportUsers";
+import Search from "../screens/Search";
+import NewRecipie from "../screens/Upload/NewRecipie";
+import AlbumsPermission from "../screens/Permiss/Locations/Albums/AlbumsPermission";
+import OrderID from "../screens/Dashboard/screen/OrderID";
+// import OnboardingVerified from "../screens/Dashboard/FormBusiness/steps/OnboardingForm";
+import FormVerifiedStack from "../screens/Dashboard/FormBusiness";
+import FeedDetails from "../screens/FeedDetails";
+import Feed from "../screens/Feed";
+import NewPosts from "../screens/Upload/UploadPost";
+import MyProfile from "../screens/MyProfile";
+import HomeStack from "./HomeStack";
+import { OrderList } from "../screens/Order/Checkout/components";
 
 export type SharedElementStackParamList = {
   Home: undefined;
   FeedDetails: { item: { id: number; uri: string } };
 };
-
 
 const Stack = createNativeStackNavigator();
 
@@ -48,12 +46,12 @@ const MainStack = () => {
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen 
-        name="Feed" 
+      <Stack.Screen
+        name="Feed"
         component={Feed}
         options={{
           headerShown: false,
-          animation: 'slide_from_right',
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen name="Onboarding" component={Onboarding} />
@@ -77,19 +75,18 @@ const MainStack = () => {
       <Stack.Screen name="NewRecipie" component={NewRecipie} />
       <Stack.Screen name="OrderList" component={OrderList} />
       <Stack.Screen name="AlbumsPermission" component={AlbumsPermission} />
-      <Stack.Screen name="FormVerified" component={FormVerified} />
-      <Stack.Screen name="OnboardingVerified" component={OnboardingVerified} />
+      <Stack.Screen name="FormVerified" component={FormVerifiedStack} />
+      {/* <Stack.Screen name="OnboardingVerified" component={OnboardingVerified} /> */}
       <Stack.Screen name="NewPosts" component={NewPosts} />
-      <Stack.Screen name='HomeStack' component={HomeStack} />
+      <Stack.Screen name="HomeStack" component={HomeStack} />
       <Stack.Screen
         name="FeedDetails"
         component={FeedDetails}
         options={{
           headerShown: false,
-          animation: 'slide_from_right',
+          animation: "slide_from_right",
         }}
       />
-    
     </Stack.Navigator>
   );
 };

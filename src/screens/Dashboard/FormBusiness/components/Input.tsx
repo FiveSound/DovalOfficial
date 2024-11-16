@@ -1,13 +1,8 @@
-import React, { ReactNode } from 'react';
-import { Controller, RegisterOptions } from 'react-hook-form';
-import { KeyboardTypeOptions, TextStyle, StyleSheet, Text } from 'react-native';
-import {
-  FlexContainer,
-  InputLabel,
-  Search,
-  Typography,
-} from '../../../../components/custom';
-import { SIZES } from '../../../../constants/theme';
+import React, { ReactNode } from "react";
+import { Controller, RegisterOptions } from "react-hook-form";
+import { KeyboardTypeOptions, TextStyle, StyleSheet } from "react-native";
+import { FlexContainer, InputLabel, Search, Typography } from "../../../../components/custom";
+import { SIZES } from "../../../../constants/theme";
 
 type InputProps = {
   control: any;
@@ -34,7 +29,7 @@ const Input: React.FC<InputProps> = ({
   inputStyle,
   isSearch = false,
   validationRules,
-  testID
+  testID,
 }) => {
   return (
     <>
@@ -49,10 +44,7 @@ const Input: React.FC<InputProps> = ({
           },
           ...validationRules,
         }}
-        render={({
-          field: { onChange, onBlur, value },
-          fieldState: { error },
-        }) => (
+        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
           <>
             {isSearch ? (
               <FlexContainer newStyle={styles.searchContainer}>
@@ -95,10 +87,10 @@ const Input: React.FC<InputProps> = ({
 
 const styles = StyleSheet.create({
   searchContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   errorText: {
-    color: 'red',
+    color: "red",
     paddingHorizontal: SIZES.gapLarge,
   },
 });
