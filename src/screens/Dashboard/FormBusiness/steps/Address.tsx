@@ -70,7 +70,6 @@ const Address = memo(() => {
                 control={control}
                 name="postalCode"
                 placeholder={i18next.t("postal_code")}
-                required
                 keyboardType="numeric"
               />
             </>

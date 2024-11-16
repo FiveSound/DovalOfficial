@@ -156,24 +156,12 @@ const Basic = memo(() => {
             testID="input-business-description"
           />
 
-          {taxIdentificationNumber && (
-            <Input
-              control={control}
-              name="tax_identification_number"
-              placeholder={i18next.t("Tax identification number")}
-              required={true}
-              keyboardType="numeric"
-            />
-          )}
-
-          <TouchableOpacity
-            onPress={() => setTaxIdentificationNumber(!taxIdentificationNumber)}
-            style={[styles.showTaxIdentificationNumber, { backgroundColor: backgroundMaingrey }]}
-          >
-            <Typography variant="subtitle">
-              {taxIdentificationNumber ? "This business is not registered" : "Business is registered"}
-            </Typography>
-          </TouchableOpacity>
+          <Input
+            control={control}
+            name="tax_identification_number"
+            placeholder={"Tax identification number (Optional)"}
+            keyboardType="numeric"
+          />
 
           <Select
             control={control}

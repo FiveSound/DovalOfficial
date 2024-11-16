@@ -8,8 +8,10 @@ import { ListBank } from "./data";
 import i18next from "../../../../Translate";
 
 const Financial = memo(() => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const navigation = useNavigation();
+
+  const values = watch();
 
   return (
     <>
@@ -19,6 +21,11 @@ const Financial = memo(() => {
         goBack={() => navigation.goBack()}
         goNext={() => navigation.navigate("FormBusiness/Agreements")}
         showDivider
+        disabled={
+          values.account_number.length === 0 ||
+          values.account_holder_name.length === 0 ||
+          values.fiscal_identification.length === 0
+        }
       />
 
       <KeyboardAwareScrollView

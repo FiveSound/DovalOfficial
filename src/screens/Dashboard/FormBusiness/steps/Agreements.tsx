@@ -16,21 +16,20 @@ const steps = [
     description: "Business name, Business description, Business categories",
   },
   {
-    title: i18next.t("Basic Business Information 2"),
-    description: "Business name, Business description, Business categories",
+    title: i18next.t("Representative information"),
+    description: i18next.t("Please fill in the following information to complete the process."),
   },
   {
-    title: i18next.t("Basic Business Information 3"),
-    description: "Business name, Business description, Business categories",
+    title: i18next.t("Business Address"),
+    description: i18next.t("Please fill in the following information to complete the process."),
   },
   {
-    title: i18next.t("Basic Business Information 4"),
-    description: "Business name, Business description, Business categories",
+    title: i18next.t("Business Hours"),
+    description: i18next.t("Please provide the business hours of your business."),
   },
-
   {
-    title: i18next.t("Basic Business Information 5"),
-    description: "Business name, Business description, Business categories",
+    title: i18next.t("Financial Information"),
+    description: i18next.t("Please fill in the following information to complete the process."),
   },
 ];
 
@@ -40,6 +39,7 @@ const Agreements = memo(() => {
     setValue,
     handleSubmit,
     formState: { isSubmitting },
+    reset,
   } = useFormContext();
 
   const navigation = useNavigation();
@@ -47,10 +47,19 @@ const Agreements = memo(() => {
   const values = watch();
 
   const onSubmit = async (data: object) => {
-    console.log({ data });
-
     const response = await registerBusinessService(data);
-    console.log({ response });
+    if (response.success) {
+      reset();
+      navigation.navigate("FormBusiness/Complete");
+
+      // navigation.reset({
+      //   routes: [
+      //     {
+      //       name: "Home",
+      //     },
+      //   ],
+      // });
+    }
   };
 
   return (
@@ -61,7 +70,7 @@ const Agreements = memo(() => {
         goBack={() => navigation.goBack()}
         goNext={handleSubmit(onSubmit)}
         loading={isSubmitting}
-        disabled={isSubmitting}
+        disabled={isSubmitting || !values.verification || !values.privacy || !values.terms}
         showDivider
         submit
       />
@@ -91,7 +100,7 @@ const Agreements = memo(() => {
             />
           ))}
 
-          {/* <Text>{JSON.stringify(watch(), null, 2)}</Text> */}
+          {/* <Text>{JSON.stringify(errors, null, 2)}</Text> */}
 
           <LineDivider lineStyle={{ marginTop: 20, marginBottom: 20 }} variant="primary" />
 

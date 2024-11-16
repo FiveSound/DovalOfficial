@@ -9,6 +9,8 @@ import MapLocation from "./steps/MapLocation";
 import Operations from "./steps/Operations";
 import Financial from "./steps/Financial";
 import Agreements from "./steps/Agreements";
+import Complete from "./steps/Complete";
+import { schedules } from "./steps/data";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +37,8 @@ const defaultValues = {
   latitude: null,
   longitude: null,
   bank_details: "Banco de Reservas (Banreservas)",
-  schedule: [],
+  schedules: schedules,
+  delivery_service: false,
   account_currency: "DOP",
   account_type: "Ahorros",
   account_number: "",
@@ -69,6 +72,7 @@ const FormBusiness = memo(() => {
         <Stack.Screen name="FormBusiness/Operations" component={Operations} />
         <Stack.Screen name="FormBusiness/Financial" component={Financial} />
         <Stack.Screen name="FormBusiness/Agreements" component={Agreements} />
+        <Stack.Screen name="FormBusiness/Complete" component={Complete} />
       </Stack.Navigator>
     </FormProvider>
   );
