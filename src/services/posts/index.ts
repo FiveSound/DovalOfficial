@@ -1,10 +1,10 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API_URL } from '../index';
-import { QueryKeyType } from '../../types/ReactQuery.type';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API, API_URL } from "../index";
+import { QueryKeyType } from "../../types/ReactQuery.type";
 
 export const publishPostService = async (body: object) => {
-  const userToken = await AsyncStorage.getItem('userToken');
+  const userToken = await AsyncStorage.getItem("userToken");
   const response = await axios.post(
     `${API_URL}/api/posts/add`,
     {
@@ -14,7 +14,7 @@ export const publishPostService = async (body: object) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
 
   return response.data;
@@ -22,7 +22,7 @@ export const publishPostService = async (body: object) => {
 
 export const getMyPostService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/my-posts`,
@@ -31,7 +31,7 @@ export const getMyPostService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -43,7 +43,7 @@ export const getMyPostService = async () => {
 
 export const getMyPostAndRecipesService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/my-posts-and-recipes`,
@@ -52,7 +52,7 @@ export const getMyPostAndRecipesService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -64,12 +64,9 @@ export const getMyPostAndRecipesService = async () => {
 
 export const getAllReactions = async (postID: number, setTestData: any) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/api/posts/getAllVisualizations`,
-      {
-        postID,
-      },
-    );
+    const response = await axios.post(`${API_URL}/api/posts/getAllVisualizations`, {
+      postID,
+    });
 
     setTestData(response.data);
 
@@ -83,7 +80,7 @@ export const getAllReactions = async (postID: number, setTestData: any) => {
 
 export const handleLikeService = async (postID: number, liked: boolean) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     await axios.post(
       `${API_URL}/api/posts/liked`,
@@ -95,7 +92,7 @@ export const handleLikeService = async (postID: number, liked: boolean) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return {};
@@ -111,7 +108,7 @@ export const handleLikeService = async (postID: number, liked: boolean) => {
 
 export const handleViewService = async (postID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     await axios.post(
       `${API_URL}/api/posts/visualization`,
@@ -122,7 +119,7 @@ export const handleViewService = async (postID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     // return response.data;
@@ -134,7 +131,7 @@ export const handleViewService = async (postID: number) => {
 
 export const CommentService = async (postID: number, comment: string) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/comment`,
@@ -146,7 +143,7 @@ export const CommentService = async (postID: number, comment: string) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -155,13 +152,9 @@ export const CommentService = async (postID: number, comment: string) => {
   }
 };
 
-export const ReplyCommentService = async (
-  postID: number,
-  commentID: number,
-  comment: string,
-) => {
+export const ReplyCommentService = async (postID: number, commentID: number, comment: string) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/reply`,
@@ -174,7 +167,7 @@ export const ReplyCommentService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -183,13 +176,9 @@ export const ReplyCommentService = async (
   }
 };
 
-export const getCommentByPostService = async (
-  postID: number,
-  setData: any,
-  setLoading: any,
-) => {
+export const getCommentByPostService = async (postID: number, setData: any, setLoading: any) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/get-comments`,
@@ -200,7 +189,7 @@ export const getCommentByPostService = async (
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
     // console.log({ COMMENTS: response.data });
     setData(response.data);
@@ -212,7 +201,7 @@ export const getCommentByPostService = async (
 
 export const getRepliesCommentService = async (commentID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/get-replies`,
@@ -223,7 +212,7 @@ export const getRepliesCommentService = async (commentID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -234,7 +223,7 @@ export const getRepliesCommentService = async (commentID: number) => {
 
 export const setLikesCommentService = async (commentID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/set-likes-comment`,
@@ -245,7 +234,7 @@ export const setLikesCommentService = async (commentID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
     return response.data;
   } catch (error) {
@@ -255,7 +244,7 @@ export const setLikesCommentService = async (commentID: number) => {
 
 export const desLikesCommentService = async (commentID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     await axios.post(
       `${API_URL}/api/posts/deslikes-comment`,
@@ -266,7 +255,7 @@ export const desLikesCommentService = async (commentID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
     return 1;
   } catch (error) {
@@ -276,7 +265,7 @@ export const desLikesCommentService = async (commentID: number) => {
 
 export const getLikesCommentService = async (commentID: number) => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/get-likes-comment`,
@@ -287,7 +276,7 @@ export const getLikesCommentService = async (commentID: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
     return response.data;
   } catch (error) {
@@ -311,7 +300,7 @@ export const getMyPostByIDService = async ({ queryKey }: QueryKeyType) => {
 
 // Tag user from create post
 export const tagUserService = async (postID: number, userID: string) => {
-  const userToken = await AsyncStorage.getItem('userToken');
+  const userToken = await AsyncStorage.getItem("userToken");
   const response = await axios.post(
     `${API_URL}/api/posts/tag`,
     {
@@ -322,14 +311,14 @@ export const tagUserService = async (postID: number, userID: string) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
 
   return response.data;
 };
 
 export const saveDraftService = async (key: string[]) => {
-  const userToken = await AsyncStorage.getItem('userToken');
+  const userToken = await AsyncStorage.getItem("userToken");
 
   const response = await axios.post(
     `${API_URL}/api/posts/draft`,
@@ -338,14 +327,14 @@ export const saveDraftService = async (key: string[]) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
-  
+
   return response.data;
 };
 
 export const getPostsDrafts = async () => {
-  const userToken = await AsyncStorage.getItem('userToken');
+  const userToken = await AsyncStorage.getItem("userToken");
 
   const response = await axios.post(
     `${API_URL}/api/posts/drafts`,
@@ -354,7 +343,7 @@ export const getPostsDrafts = async () => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
   return response.data;
 };
@@ -388,3 +377,8 @@ export const getHashtagsService = async () => {
 //   );
 //   return response.data;
 // };
+
+export const getReelationatedPostsService = async (postID: number, page: number) => {
+  const response = await axios.get(`${API}/relationated/?post_id=${postID}&page=${page}`);
+  return response.data;
+};
