@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import {
   Buttons,
   Container,
@@ -9,32 +9,22 @@ import {
   LoadingScreen,
   Perks,
   Typography,
-} from '../../components/custom';
-import {
-  getInterestsService,
-  Interests,
-  saveInterestsService,
-} from '../../services/personalized';
-import { COLORS, FONTS, SIZES } from '../../constants/theme';
-import {
-  ScrollView,
-  TouchableOpacity,
-  View,
-  Text,
-  useNavigation,
-} from '../../components/native';
-import { useTheme } from '../../hooks';
-import i18next from '../../Translate';
-import { useDispatch } from 'react-redux';
-import { closeOnboardingModal } from '../../redux/slides/modalSlice';
-import { reloadApp } from '../../redux/slides/appSlice';
-import { useQuery } from '@tanstack/react-query';
+} from "../../components/custom";
+import { getInterestsService, Interests, saveInterestsService } from "../../services/personalized";
+import { COLORS, FONTS, SIZES } from "../../constants/theme";
+import { ScrollView, TouchableOpacity, View, Text, useNavigation } from "../../components/native";
+import { useTheme } from "../../hooks";
+import i18next from "../../Translate";
+import { useDispatch } from "react-redux";
+import { closeOnboardingModal } from "../../redux/slides/modalSlice";
+import { reloadApp } from "../../redux/slides/appSlice";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {};
 
 const Onboarding = (props: Props) => {
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['getInterestsService-useQuery'],
+    queryKey: ["getInterestsService-useQuery"],
     queryFn: () => getInterestsService(),
   });
   const { backgroundMaingrey, Title } = useTheme();
@@ -46,10 +36,10 @@ const Onboarding = (props: Props) => {
   const dispatch = useDispatch();
 
   const toggleInterest = (interest: Interests) => {
-    setSelectedInterests(prevState =>
-      prevState.some(item => item.id === interest.id)
-        ? prevState.filter(item => item.id !== interest.id)
-        : [...prevState, interest],
+    setSelectedInterests((prevState) =>
+      prevState.some((item) => item.id === interest.id)
+        ? prevState.filter((item) => item.id !== interest.id)
+        : [...prevState, interest]
     );
   };
 
@@ -60,8 +50,8 @@ const Onboarding = (props: Props) => {
       const response = await saveInterestsService(selectedInterests);
       setSaveSuccess(response.success);
       if (response.success) {
-          dispatch(reloadApp())
-          dispatch(closeOnboardingModal());
+        dispatch(reloadApp());
+        dispatch(closeOnboardingModal());
       }
     } catch (error) {
       setSaveError(error.message);
@@ -72,33 +62,18 @@ const Onboarding = (props: Props) => {
     }
   };
 
-
   if (isLoading) {
-    return <LoadingScreen label={i18next.t('Loading interest')} />;
+    return <LoadingScreen label={i18next.t("Loading interest")} />;
   }
 
   return (
-    <Container
-      showHeader={false}
-      useSafeArea={true}
-      showTwoIconsLabel={false}
-      showSkip={true}
-    >
+    <Container showHeader={false} useSafeArea={true} showTwoIconsLabel={false} showSkip={true}>
       <Hero
-        label={i18next.t('Choose Yours intereses')}
-        sublabel={i18next.t(
-          'Personalize your experiencie by picking 3 or more topics',
-        )}
+        label={i18next.t("Choose Yours intereses")}
+        sublabel={i18next.t("Personalize your experiencie by picking 3 or more topics")}
       />
-      {saveError && (
-        <Perks label={i18next.t('Interests saved error!')} status="error" />
-      )}
-      {saveSuccess && (
-        <Perks
-          label={i18next.t('Interests saved successfully!')}
-          status="success"
-        />
-      )}
+      {saveError && <Perks label={i18next.t("Interests saved error!")} status="error" />}
+      {saveSuccess && <Perks label={i18next.t("Interests saved successfully!")} status="success" />}
       <ScrollView>
         {data.map((category: any, index: number) => (
           <FlexContainer key={index} newStyle={styles.categoryContainer}>
@@ -111,12 +86,9 @@ const Onboarding = (props: Props) => {
                   key={interest.id}
                   style={[
                     styles.interestButton,
-                    selectedInterests.some(item => item.id === interest.id) &&
-                      styles.selectedInterestButton,
+                    selectedInterests.some((item) => item.id === interest.id) && styles.selectedInterestButton,
                     {
-                      backgroundColor: !selectedInterests.some(
-                        item => item.id === interest.id,
-                      )
+                      backgroundColor: !selectedInterests.some((item) => item.id === interest.id)
                         ? backgroundMaingrey
                         : COLORS.primary,
                     },
@@ -128,11 +100,7 @@ const Onboarding = (props: Props) => {
                     newStyle={[
                       styles.interestText,
                       {
-                        color: !selectedInterests.some(
-                          item => item.id === interest.id,
-                        )
-                          ? Title
-                          : COLORS.dark,
+                        color: !selectedInterests.some((item) => item.id === interest.id) ? Title : COLORS.dark,
                       },
                     ]}
                   >
@@ -146,12 +114,12 @@ const Onboarding = (props: Props) => {
       </ScrollView>
       <FlexContainer newStyle={styles.nextButton}>
         <Buttons
-          label={i18next.t('Save interests')}
+          label={i18next.t("Save interests")}
           disabled={selectedInterests.length < 3}
           onPress={saveInterests}
           loading={isSaving}
-          variant={selectedInterests.length < 3 ? 'disabled' : 'primary'}
-          color='dark'
+          variant={selectedInterests.length < 3 ? "disabled" : "primary"}
+          color="dark"
         />
       </FlexContainer>
     </Container>
@@ -168,8 +136,8 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.gapLarge,
   },
   interestsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   interestButton: {
     padding: SIZES.gapLarge,
@@ -177,24 +145,24 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   selectedInterestButton: {
-    backgroundColor: 'orange',
+    backgroundColor: "orange",
   },
   interestText: {
     ...FONTS.semi12,
   },
   nextButton: {
     padding: SIZES.gapMedium,
-    alignItems: 'center',
+    alignItems: "center",
     margin: SIZES.gapLarge,
   },
   errorText: {
-    color: 'red',
-    textAlign: 'center',
+    color: "red",
+    textAlign: "center",
     marginTop: SIZES.gapMedium,
   },
   successText: {
-    color: 'green',
-    textAlign: 'center',
+    color: "green",
+    textAlign: "center",
     marginTop: SIZES.gapMedium,
   },
 });

@@ -1,15 +1,15 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API_URL } from '../index';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "../index";
 
 type queryKeyProps = {
   queryKey: any;
 };
 
-export const getProfileUserService = async ({ queryKey }: queryKeyProps) => {
+export const getProfileUserByUsernameService = async ({ queryKey }: queryKeyProps) => {
   try {
-    const response = await axios.post(`${API_URL}/api/account/profile-userid`, {
-      userID: queryKey[1],
+    const response = await axios.post(`${API_URL}/api/account/profile-username`, {
+      username: queryKey[1],
     });
 
     return response.data;
@@ -18,26 +18,7 @@ export const getProfileUserService = async ({ queryKey }: queryKeyProps) => {
   }
 };
 
-export const getProfileUserByUsernameService = async ({
-  queryKey,
-}: queryKeyProps) => {
-  try {
-    const response = await axios.post(
-      `${API_URL}/api/account/profile-username`,
-      {
-        username: queryKey[1],
-      },
-    );
-
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-};
-
-export const getPostsProfileUserService = async ({
-  queryKey,
-}: queryKeyProps) => {
+export const getPostsProfileUserService = async ({ queryKey }: queryKeyProps) => {
   try {
     const response = await axios.post(`${API_URL}/api/account/posts`, {
       username: queryKey[1],
@@ -48,9 +29,7 @@ export const getPostsProfileUserService = async ({
   }
 };
 
-export const getRecipesProfileUserService = async ({
-  queryKey,
-}: queryKeyProps) => {
+export const getRecipesProfileUserService = async ({ queryKey }: queryKeyProps) => {
   try {
     const response = await axios.post(`${API_URL}/api/account/recipes`, {
       username: queryKey[1],
@@ -61,9 +40,7 @@ export const getRecipesProfileUserService = async ({
   }
 };
 
-export const getSavedProfileUserService = async ({
-  queryKey,
-}: queryKeyProps) => {
+export const getSavedProfileUserService = async ({ queryKey }: queryKeyProps) => {
   try {
     const response = await axios.post(`${API_URL}/api/account/saved`, {
       userID: queryKey[1],
@@ -76,7 +53,7 @@ export const getSavedProfileUserService = async ({
 
 export const disabledAccountService = async () => {
   try {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/account/disabled-account`,
@@ -85,7 +62,7 @@ export const disabledAccountService = async () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     await AsyncStorage.clear();
