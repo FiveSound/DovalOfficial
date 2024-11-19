@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from "react";
 import {
   Container,
   InputLabel,
@@ -7,18 +7,15 @@ import {
   OptionList,
   ProductCard,
   Typography,
-} from '../../components/custom';
-import { StyleSheet } from 'react-native';
-import {
-  RefreshControl,
-  KeyboardAwareScrollView,
-} from '../../components/native';
-import { SIZES } from '../../constants/theme';
-import i18next from '../../Translate';
-import Signup from '../auth/Signup';
-import { useAddProducts } from './useAddProducts';
-import { TypeSubVariant, TypeVariant } from './types';
-import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
+} from "../../components/custom";
+import { StyleSheet } from "react-native";
+import { RefreshControl, KeyboardAwareScrollView } from "../../components/native";
+import { SIZES } from "../../constants/theme";
+import i18next from "../../Translate";
+import Signup from "../auth/Signup";
+import { useAddProducts } from "./useAddProducts";
+import { TypeSubVariant, TypeVariant } from "./types";
+import { TabBarVisibilityContext } from "../../context/TabBarVisibilityContext";
 
 type Props = {};
 
@@ -71,10 +68,10 @@ const AddProducts: React.FC<Props> = (props: Props) => {
         showFooter={false}
         showFooterCart={true}
         FooterPress={handleSubmit}
-        labelAdd={i18next.t('Add to cart')}
+        labelAdd={i18next.t("Add to cart")}
         loading={load}
         disabled={load}
-        TotalPrice={total.data?.amount || '0'}
+        TotalPrice={total.data?.amount || "0"}
         add={() => handleQuantityChange(qty + 1)}
         remove={() => {
           if (qty > 1) {
@@ -85,18 +82,14 @@ const AddProducts: React.FC<Props> = (props: Props) => {
         disabledCart={load || !isFormValid}
       >
         <KeyboardAwareScrollView
-          refreshControl={
-            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-          }
+          refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
           contentContainerStyle={styles.containerScroll}
           extraScrollHeight={SIZES.gapLarge * 2}
         >
           <ProductCard product={data} />
           <LineDivider lineStyle={styles.lineDivider} />
           {data?.variants.map((variant: TypeVariant) => {
-            const subvariants = data.subvariants.filter(
-              (sub: TypeSubVariant) => sub.variantID === variant.id,
-            );
+            const subvariants = data.subvariants.filter((sub: TypeSubVariant) => sub.variantID === variant.id);
             return (
               <OptionList
                 key={`${variant.recipeID}-${variant.id}`}
@@ -111,12 +104,8 @@ const AddProducts: React.FC<Props> = (props: Props) => {
               />
             );
           })}
-          <Typography variant="subtitle">{i18next.t('Notes')}</Typography>
-          <InputLabel
-            label={i18next.t('Notes')}
-            placeholder={i18next.t('Notes for riderMan')}
-            onSize={true}
-          />
+          <Typography variant="subtitle">{i18next.t("Notes")}</Typography>
+          <InputLabel label={i18next.t("Notes")} placeholder={i18next.t("Notes for riderMan")} onSize={true} />
         </KeyboardAwareScrollView>
       </Container>
     );
@@ -136,8 +125,8 @@ const styles = StyleSheet.create({
   lineDivider: {
     height: SIZES.gapMedium,
     width: SIZES.width,
-    alignItems: 'center',
-    alignSelf: 'center',
+    alignItems: "center",
+    alignSelf: "center",
   },
 });
 
