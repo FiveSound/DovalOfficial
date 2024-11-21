@@ -1,36 +1,70 @@
 {
   "expo": {
     "name": "Doval",
-    "slug": "Doval",
-    "version": "1.0.0",
+    "slug": "doval",
+    "version": "1.7.9",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/splash.png",
+    "scheme": "doval",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
+    "newArchEnabled": false,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FF5500"
+    },
+   "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.doval.doval",
+      "config": {
+        "googleMapsApiKey": "AIzaSyB0zu_snYOixCixdrrRinmoqbMk7sKfWEI"
+      },
+      "associatedDomains": [
+        "applinks:doval.io"
+      ],
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location while using the app to offer you recipes and delivery services tailored to your immediate surroundings, such as finding the daily special at a nearby restaurant or the fastest delivery option available in your area.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to always access your location to provide notifications and updates even when the app is not in use."
+      }
     },
     "android": {
+      "package": "com.doval.doval",
+      "versionCode": 7,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/splash.png"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB0zu_snYOixCixdrrRinmoqbMk7sKfWEI"
+        }
       }
     },
     "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/splash.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5500fa17-a41b-4860-a113-b8d7bbb9dd4a"
+      }
+    },
+    "owner": "doval",
+    "cli": {
+      "appVersionSource": "local" 
     },
     "plugins": [
-      "expo-router",
+      "expo-font",
+      "expo-localization",
+      "expo-video",
       [
-        "expo-splash-screen",
+        "expo-image-picker",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ]
     ],
