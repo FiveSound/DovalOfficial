@@ -5,7 +5,6 @@ import {
   LiveOrders,
   Categories,
   Restaurants,
-  Orders,
 } from './components';
 import { View } from '../../components/native';
 import { SIZES } from '../../constants/theme';
@@ -21,8 +20,7 @@ const Home = () => {
       key: 'Restaurants',
       title: i18next.t('Restaurants'),
       content: <Restaurants />,
-    },
-    { key: 'Orders', title: i18next.t('Orders'), content: <Orders /> },
+    }
   ];
 
   const { isLoadingApp, isAuthenticated, business, user } = useAppSelector(

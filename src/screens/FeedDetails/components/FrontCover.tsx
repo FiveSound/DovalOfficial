@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { responsiveFontSize, SIZES } from '../../../constants/theme';
 import { useAppSelector } from '../../../redux';
@@ -9,14 +9,16 @@ import { useVideoPlayer, VideoPlayer, VideoView } from 'expo-video';
 import { Image, Platform } from "@/src/components/native"
 import { useIsFocused } from '@react-navigation/native';
 import { FlexContainer } from '@/src/components/custom';
+import { getCachedImage, getCachedVideo } from '../../../utils/cacheMMKV'; 
+
 type Props = {};
 
 const FrontCover = memo((props: Props) => {
   const { CurrentFeed, postHeight } = useAppSelector((state: RootState) => state.navigation);
   const { backgroundMaingrey } = useTheme();
-  const thumbnailUri = `${CLOUDFRONT}${CurrentFeed.thumbnail}`
-  const videoUri = `${CLOUDFRONT}${CurrentFeed.videos.key}`
-  const memoUri = useMemo(() => thumbnailUri, [thumbnailUri]);
+  const [imageUri, setImageUri] = useState<string>(`${CLOUDFRONT}${CurrentFeed.thumbnail}`);
+  const [videoUri, setVideoUri] = useState<string>(`${CLOUDFRONT}${CurrentFeed.videos.key}`);
+  const memoUri = useMemo(() => imageUri, [imageUri]);
   const memoVideo = useMemo(() => videoUri, [videoUri]);
   const playerRef = useRef<VideoPlayer>(null);
   const videoHeight = SIZES.height / 1.4;
@@ -28,12 +30,29 @@ const FrontCover = memo((props: Props) => {
   });
 
   useEffect(() => {
-      if (isFocused) {
-        player.play();
-      } else {
-        player.pause();
-      }
+    if (isFocused) {
+      player.play();
+    } else {
+      player.pause();
+    }
   }, [isFocused, CurrentFeed.mediaType, player]);
+
+  useEffect(() => {
+    const loadCache = async () => {
+      if (CurrentFeed.mediaType === 1 && CurrentFeed.thumbnail) {
+        const cachedImage = await getCachedImage(`${CLOUDFRONT}${CurrentFeed.thumbnail}`);
+        console.log('cachedImage', cachedImage);
+        setImageUri(cachedImage);
+      }
+      if (CurrentFeed.mediaType === 0 && CurrentFeed.videos.key) {
+        const cachedVideo = await getCachedVideo(`${CLOUDFRONT}${CurrentFeed.videos.key}`);
+        console.log('cachedVideo', cachedVideo);
+        setVideoUri(cachedVideo);
+      }
+    };
+
+    loadCache();
+  }, [CurrentFeed]);
 
   return (
     <FlexContainer newStyle={styles.container}>

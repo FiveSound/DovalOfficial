@@ -14,6 +14,8 @@ import { feedService } from '../../services/feed';
 import { FEED_DATA } from '@/src/constants/storages';
 import { useScrollToTop } from '@react-navigation/native';
 import MasonrySkeleton from '@/src/components/custom/Masonry/MansorySkeleton';
+import { getCachedImage, getCachedVideo } from '../../utils/cacheMMKV';
+import { CLOUDFRONT } from '@/src/services';
 const MansoryLazy = lazy(() => import('../../components/custom/Masonry'));
 const QUERY_KEY = 'QUERY_KEY_FEED';
 
@@ -30,7 +32,6 @@ const Feed = memo(() => {
     queryKey: [QUERY_KEY],
     queryFn: async () => await feedService(location, user?.userID, page),
   });
-
   
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
@@ -40,6 +41,26 @@ const Feed = memo(() => {
       return { data, nextPage };
     },
     onSuccess: ({ data, nextPage }) => {
+      data.forEach(async (item: any) => {
+        try {
+          if (item.thumbnail && typeof item.thumbnail === 'string') {
+            const imageUrl = `${CLOUDFRONT}${item.thumbnail}`;
+            await getCachedImage(imageUrl);
+          }
+        } catch (error) {
+          console.error(`Error al cachear la imagen con URL "${item.thumbnail}":`, error);
+        }
+
+        try {
+          if (item.videos && item.videos.key && typeof item.videos.key === 'string') {
+            const videoUrl = `${CLOUDFRONT}${item.videos.key}`;
+            await getCachedVideo(videoUrl);
+          }
+        } catch (error) {
+          console.error(`Error al cachear el video con URL "${item.videos.key}":`, error);
+        }
+      });
+
       queryClient.setQueryData([QUERY_KEY], (oldData: any[] = []) => [...oldData, ...data]);
       setPage(nextPage);
     },
