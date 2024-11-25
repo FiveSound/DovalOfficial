@@ -46,7 +46,6 @@ export default function Splash() {
               withTiming(-dimensions.height, { duration: 400 }, () => {
                 contentDisplay.value = withTiming(1, { duration: 300 }, (finishedContent) => {
                   if (finishedContent) {
-                    console.log("Splash: Animación completada. Ocultando splash.");
                     runOnJS(handleSplashEnd)();
                   }
                 });
@@ -62,7 +61,6 @@ export default function Splash() {
   }
 
   function handleSplashEnd() {
-    console.log("Splash: setSplashLoading(false) llamado.");
     setSplashLoading(false);
   }
 
@@ -95,7 +93,6 @@ export default function Splash() {
   }
 
   useEffect(() => {
-    console.log("Splash: Iniciando animación.");
     logoAnimation();
 
     // Timeout de respaldo para asegurar que la splash screen se oculte después de 5 segundos

@@ -13,7 +13,6 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import { reportedListService, reportService } from '../../../services/shares';
 import { useQuery } from '@tanstack/react-query';
-import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
 import i18next from 'i18next';
 
 export type ReportOption = {

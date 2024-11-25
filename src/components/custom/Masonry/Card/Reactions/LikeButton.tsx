@@ -76,8 +76,8 @@ const LikeButton: React.FC<Props> = memo(({ postID, onLikeChange }) => {
         disabled={disabled}
       >
         <FavouriteIcon
-          width={SIZES.icons}
-          height={SIZES.icons}
+          width={SIZES.icons / 1.2}
+          height={SIZES.icons / 1.2}
           color={liked ? COLORS.error : COLORS.TranspLight}
         />
          <Typography variant="H4title" newStyle={styles.label}>

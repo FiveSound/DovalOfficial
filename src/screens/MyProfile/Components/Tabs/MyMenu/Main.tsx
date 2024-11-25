@@ -49,9 +49,9 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   const [focus, setFocus] = useState(false);
   const [searchText, setSearchText] = useState('');
   const PLACEHOLDER_TEXT = i18next.t('Find recipes from your favorite');
-  const EMPTY_STATE_LABEL = i18next.t("You don't have posts yet");
-  const EMPTY_STATE_SUBLABEL = i18next.t('Upload your content today');
-  const EMPTY_STATE_BUTTON_LABEL = i18next.t('Upload posts');
+  const EMPTY_STATE_LABEL = i18next.t("We don't have recipes yet");
+  const EMPTY_STATE_SUBLABEL = i18next.t('Upload your recipes today');
+  const EMPTY_STATE_BUTTON_LABEL = i18next.t('Upload recipes');
 
   const filteredData = useMemo(() => {
     return Array.isArray(data)
@@ -109,16 +109,16 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
             >
               <ScreenEmpty
                 labelPart1={EMPTY_STATE_LABEL}
-                subLabel={EMPTY_STATE_SUBLABEL}
+                labelPart2={EMPTY_STATE_SUBLABEL}
                 labelButton={EMPTY_STATE_BUTTON_LABEL}
                 onPress={() => console.log('')}
                 labelStylePart1={{
                   ...FONTS.LargeTitle,
                   textAlign: 'center',
                 }}
-                source={Ilustrations.FoodStores}
+                source={Ilustrations.CharcoPet}
                 ImgWidth={SIZES.width}
-                ImgHeigth={SIZES.height / 3.6}
+                ImgHeigth={SIZES.height / 3}
                 colorVariant="primary"
                 ShowButton={userSellers}
               />

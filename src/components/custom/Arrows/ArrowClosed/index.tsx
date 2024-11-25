@@ -5,17 +5,24 @@ import { useTheme } from '../../../../hooks';
 import { StyleSheet } from 'react-native';
 import { ArrowLeft } from '../../../../constants/IconsPro';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { useAppSelector } from '@/src/redux';
+import { RootState } from '@/src/redux/store';
 
 type Props = {};
 
 const ArrowClosed = (props: Props) => {
   const navigation = useNavigation();
   const { backgroundMaingrey } = useTheme();
+  const { CurrentFeed } = useAppSelector((state: RootState) => state.navigation);
 
   return (
-     <Animated.View entering={FadeIn.delay(400)} style={styles.container}>
-       <TouchableOpacity onPress={() => navigation.goBack()} >
-      <ArrowLeft width={SIZES.icons * 1.8} height={SIZES.icons * 1.8} color={COLORS.dark}/>
+     <Animated.View entering={FadeIn.delay(400)} style={[styles.container, {
+      top: Platform.OS === 'android' ?
+      CurrentFeed.mediaType === 0 ? SIZES.gapLarge : SIZES.gapMedium :
+      CurrentFeed.mediaType === 0 ? SIZES.gapLarge : SIZES.gapMedium,
+     }]}>
+       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button}>
+      <ArrowLeft width={SIZES.icons * 1.5} height={SIZES.icons * 1.5} color={COLORS.TranspLight}/>
     </TouchableOpacity>
      </Animated.View>
   );
@@ -24,13 +31,16 @@ const ArrowClosed = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: Platform.OS === 'android' ? responsiveFontSize(20) : responsiveFontSize(20),
-    left: responsiveFontSize(20),
+
+    left: SIZES.gapLarge,
     zIndex: 1000,
     borderRadius: responsiveFontSize(40),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.BackgroundMainLight
+    backgroundColor: COLORS.TranspDark
+  },
+  button: {
+    padding: SIZES.gapMedium
   },
   imag: {
     width: SIZES.icons,

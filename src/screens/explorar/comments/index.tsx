@@ -84,6 +84,7 @@ const Comments = ({ postID, onFocusInput }: Props) => {
       onChangeText={text => setValue('comment', text)}
       onPressChat={handleCreatedComment}
       onFocusInput={onFocusInput}
+      loading={loading}
     >
       {isLoadings && <IsLoading />}
       <View style={styles.container}>

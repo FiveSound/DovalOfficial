@@ -136,7 +136,7 @@ const Tracking = ({ route }: Props) => {
       setTimeout(() => {
         navigation.navigate('Complete');
         dispatch(closeModalPin());
-      }, 500);
+      });
     }
 
     if (data?.status === 'CANCELED') {
@@ -145,7 +145,6 @@ const Tracking = ({ route }: Props) => {
     }
   }, [data, navigation, dispatch]);
 
-  console.log('data tracking', data);
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading...')}/>;
 

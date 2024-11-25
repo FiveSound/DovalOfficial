@@ -1,12 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useLinkBuilder } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { Platform, Pressable, View } from "../components/native";
 import { useTheme } from "../hooks";
 import { COLORS, responsiveFontSize, SIZES } from "../constants/theme";
 import Feed from "../screens/Feed";
-import Home from "../screens/home";
+import HomeScreen from "../screens/home";
 import MyProfile from "../screens/MyProfile";
 import { DashboardSquare01Icon, DashboardSquare01IconSolid, Home01Icon, Home01IconStroke, UserIcon, UserIconSolid } from '../constants/IconsPro';
 import { useAppSelector } from "../redux";
@@ -14,13 +13,14 @@ import { RootState } from "../redux/store";
 import DashboardScreen from "../screens/Dashboard";
 import { Typography } from "../components/custom";
 import { BlurView } from 'expo-blur'; 
+import i18next from "../Translate";
+import ChatIa from "../screens/ChatIa";
 
 const Tab = createBottomTabNavigator();
 
 function MyTabBar({ state, descriptors, navigation }: any) {
     const { BackgroundMain, Description, Title } = useTheme();
-    const { businessVerified } = useAppSelector((state: RootState) => state.auth);
-    const { buildHref } = useLinkBuilder();
+    const { businessVerified, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
 
     const tabs = [
         {
@@ -33,13 +33,24 @@ function MyTabBar({ state, descriptors, navigation }: any) {
         //     focusedIcon: <Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons} />,
         //     unfocusedIcon: <Home01Icon color={Description} width={SIZES.icons} height={SIZES.icons} />,
         // },
+        ...(isAuthenticated && businessVerified
+            ? [{
+                label: i18next.t('Portal'),
+                name: 'Portal',
+                component: DashboardScreen,
+                focusedIcon: <DashboardSquare01IconSolid color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/>,
+                unfocusedIcon: <DashboardSquare01Icon color={Description} width={SIZES.icons} height={SIZES.icons}/>,
+            }]
+            : [{
+                label: i18next.t('Home'),
+                name: 'Home',
+                component: HomeScreen,
+                focusedIcon: <Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons} />,
+                unfocusedIcon: <Home01IconStroke color={Description} width={SIZES.icons} height={SIZES.icons} />,
+            }]
+        ),
         {
-            label: businessVerified ? 'Portal' : 'Home',
-            focusedIcon: businessVerified ? <DashboardSquare01IconSolid color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/> : <DashboardSquare01IconSolid color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/>,
-            unfocusedIcon: businessVerified ? <DashboardSquare01Icon color={Description} width={SIZES.icons} height={SIZES.icons}/> : <DashboardSquare01Icon color={Description} width={SIZES.icons} height={SIZES.icons}/>,
-          },
-        {
-            label: 'Profile',
+            label: i18next.t('Profile'),
             focusedIcon: <UserIconSolid color={COLORS.primary} width={SIZES.icons} height={SIZES.icons}/>,
             unfocusedIcon: <UserIcon color={Description} width={SIZES.icons} height={SIZES.icons}/>,
         },
@@ -100,14 +111,15 @@ function MyTabBar({ state, descriptors, navigation }: any) {
 
 
 const MyTabs = () => {
-    const { businessVerified } = useAppSelector((state: RootState) => state.auth);
+    const { businessVerified, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
     return (
         <Tab.Navigator
             tabBar={(props) => <MyTabBar {...props} />}
             screenOptions={{ headerShown: false }}
         >
             <Tab.Screen name="Feed" component={Feed} />
-            <Tab.Screen name={businessVerified ? 'Portal' : 'Home'} component={businessVerified ? DashboardScreen : Home} />
+            {/* <Tab.Screen name="ChatIa" component={ChatIa} /> */}
+            <Tab.Screen name={isAuthenticated && businessVerified ? 'Portal' : 'HomeScreen'} component={isAuthenticated && businessVerified ? DashboardScreen : HomeScreen} />
             <Tab.Screen name="MyProfile" component={MyProfile} />
         </Tab.Navigator>
     )

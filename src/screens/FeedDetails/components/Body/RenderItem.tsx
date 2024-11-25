@@ -53,13 +53,13 @@ class RenderItem extends PureComponent<PropsRenderItem> {
     return (
       <FlexContainer newStyle={styles.containerReactions}>
         <FlexContainer variant='row' newStyle={styles.containerReactionsButtons}>
-        {/* <ViewsButton /> */}
+        <ViewsButton />
         <LikeButton />
         <CommentButton />
         <SavedButton />
-        <MenuVertical />
-        </FlexContainer>
         <CartButton />
+        </FlexContainer>
+        <MenuVertical />
       </FlexContainer>
     );
   }

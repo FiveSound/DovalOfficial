@@ -45,7 +45,7 @@ const avatarSizeMap = {
   medium: isTablet ? responsiveFontSize(16) : responsiveFontSize(32),
   large: isTablet ? responsiveFontSize(24) : responsiveFontSize(36),
   extraLarge: isTablet ? responsiveFontSize(28) : responsiveFontSize(40),
-  xLarge: isTablet ? responsiveFontSize(32) : responsiveFontSize(48),
+  xLarge: isTablet ? responsiveFontSize(38) : responsiveFontSize(68),
   xxLarge: isTablet ? responsiveFontSize(36) : responsiveFontSize(56),
   xxLargeProFile: responsiveFontSize(12),
   xxxLarge: isTablet ? responsiveFontSize(60) : responsiveFontSize(120),
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     padding: SIZES.radius2 / 2,
     borderRadius: SIZES.radiusExtra,
     right: responsiveFontSize(174),
-    top: responsiveFontSize(66),
+    top: responsiveFontSize(46),
   },
   plusIconContainer: {
     backgroundColor: COLORS.primary,

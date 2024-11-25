@@ -8,13 +8,16 @@ import {
 
 const styles = StyleSheet.create({
   container: {
-    // width: responsiveFontSize(34),
-    height: responsiveFontSize(34),
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: responsiveFontSize(50),
-    flexDirection: 'row',
-    gap: SIZES.gapMedium,
     marginHorizontal: SIZES.gapSmall,
+    backgroundColor: '#D3D3D3',
+    width: responsiveFontSize(40),
+    height: responsiveFontSize(40),
+  },
+  containerAll: {
+    alignItems: 'center',
   },
   containerIcon: {
     backgroundColor: COLORS.TranspLight,

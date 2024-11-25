@@ -892,26 +892,10 @@ const MessageUpload01Icon = (props: SvgProps) => (
 );
 
 export const Upload05Icon = (props: SvgProps) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width={24}
-    height={24}
-    color="#000000"
-    fill="none"
-    {...props}
-  >
-    <Path
-      d="M12 15L12 5.2727M9 8.00021L12 5L15 8.00021"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    />
-    <Path
-      d="M5 19H19.0001"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-    />
+  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+    <Path d="M22 12C21.763 17.0821 17.3782 21.1334 12.005 21.1334C11.3554 21.1343 10.7076 21.0742 10.0695 20.9545C9.61016 20.8682 9.3805 20.8251 9.22017 20.8496C9.05983 20.8741 8.83262 20.9949 8.3782 21.2364C7.0927 21.9197 5.59376 22.161 4.1522 21.893C4.7001 21.2194 5.07429 20.4112 5.23941 19.5448C5.33946 19.0148 5.09156 18.5 4.72026 18.1231C3.03385 16.4115 2 14.1051 2 11.5667C2 6.28357 6.48004 2 12.005 2C12.5131 2 13.0123 2.03622 13.5 2.10611" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M16 4.5C16.4915 3.9943 17.7998 2 18.5 2M21 4.5C20.5085 3.9943 19.2002 2 18.5 2M18.5 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M11.9955 12H12.0045M15.991 12H16M8 12H8.00897" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 
@@ -3557,28 +3541,10 @@ const EarthIcon = (props: SvgProps) => (
 );
 
 const SmartPhone01Icon = (props: SvgProps) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width={24}
-    height={24}
-    color="#ffffff"
-    fill="none"
-    {...props}
-  >
-    <Path
-      d="M19 2H5V22H19V2Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M10.5 19H13.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-    />
-    <Path d="M9 2L10 5H14L15 2" stroke="currentColor" strokeWidth="1.5" />
+<Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+    <Path d="M5 9C5 5.70017 5 4.05025 6.02513 3.02513C7.05025 2 8.70017 2 12 2C15.2998 2 16.9497 2 17.9749 3.02513C19 4.05025 19 5.70017 19 9V15C19 18.2998 19 19.9497 17.9749 20.9749C16.9497 22 15.2998 22 12 22C8.70017 22 7.05025 22 6.02513 20.9749C5 19.9497 5 18.2998 5 15V9Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <Path d="M11 19H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M9 2L9.089 2.53402C9.28188 3.69129 9.37832 4.26993 9.77519 4.62204C10.1892 4.98934 10.7761 5 12 5C13.2239 5 13.8108 4.98934 14.2248 4.62204C14.6217 4.26993 14.7181 3.69129 14.911 2.53402L15 2" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
   </Svg>
 );
 
@@ -3662,6 +3628,14 @@ const CalendarAdd01Icon = (props: SvgProps) => (
       strokeWidth="1.5"
       strokeLinejoin="round"
     />
+  </Svg>
+);
+
+const ShieldUserIcon = (props: SvgProps) => (
+  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color="#000000" fill="none" {...props}>
+    <Path d="M21 11V5C16 4.5 12 2 12 2C12 2 8 4.5 3 5V11C3 18.5 12 22 12 22C12 22 21 18.5 21 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <Path d="M14 8C14 9.10453 13.1046 10 12 10C10.8954 10 10 9.10453 10 8C10 6.89543 10.8954 6 12 6C13.1046 6 14 6.89543 14 8Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M12 12.5C9.79085 12.5 8 14.067 8 16H16C16 14.067 14.2091 12.5 12 12.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
   </Svg>
 );
 
@@ -4237,6 +4211,7 @@ const GridIcon = (props: SvgProps) => (
 );
 
 export {
+  ShieldUserIcon,
   AnalyticsUpIcon,
   ShoppingCartCheckIn01Icon,
   ShoppingBasket03Icon,

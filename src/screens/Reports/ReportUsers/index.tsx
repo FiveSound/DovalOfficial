@@ -13,12 +13,10 @@ import { Alert } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import {
   reportedListService,
-  reportService,
   reportUserService,
 } from '../../../services/shares';
 import styles from '../../explorar/Report/styles';
 import i18next from 'i18next';
-import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
 
 export type ReportOption = {
   id: number;
@@ -31,26 +29,20 @@ type RootStackParamList = {
   Report: { userID: string };
 };
 
+const queryKey = ['reported-List-Service-useQuery'];
 const ReportUsers = () => {
   const router = useRoute<RouteProp<RootStackParamList>>();
   const { userID } = router.params;
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ['reported-List-Service-useQuery'],
+  const { data, isLoading, isError, error, refetch, isFetching } = useQuery({
+    queryKey: [queryKey, userID],
     queryFn: reportedListService,
   });
+
+  console.log('data', data);
 
   const [options, setOptions] = useState<ReportOption[]>();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-
-  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
-  useEffect(() => {
-    setTabBarVisible(false);
-
-    return () => {
-      setTabBarVisible(true);
-    };
-  }, [setTabBarVisible]);
 
   const handleCheckboxChange = (id: number, checked: boolean) => {
     setOptions(
@@ -118,8 +110,8 @@ const ReportUsers = () => {
   const isAnyOptionChecked =
     Array.isArray(options) && options.some(option => option.checked);
 
-  if (isLoading) {
-    return <LoadingScreen />;
+  if (isLoading || isFetching) {
+    return <LoadingScreen label={i18next.t('Loading')} />;
   }
 
   if (!Array.isArray(options)) {

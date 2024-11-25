@@ -24,7 +24,6 @@ const AvatarProfile = (props: Props) => {
     null,
   );
   const avatar = `${CLOUDFRONT}${data?.avatar}`;
-  console.log('avatar', avatar);
 
   const updateAvatar = useCallback(() => {
     UploadAvatar(
@@ -41,7 +40,7 @@ const AvatarProfile = (props: Props) => {
     <FlexContainer newStyle={styles.container}>
       <Avatars
         source={avatar}
-        size="xxLarge"
+        size='xLarge'
         Upload={Upload}
         onPress={updateAvatar}
         label={i18next.t('Upload Image..')}

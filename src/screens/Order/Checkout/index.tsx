@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux";
 import { setOrderID } from "../../../redux/slides/navigations";
 import { RootState } from "../../../redux/store";
 
-interface Props {}
+interface Props { }
 
 const QUERY_KEY = "screen-checkout-orders-useQuery";
 const Checkout = (props: Props) => {
@@ -59,10 +59,14 @@ const Checkout = (props: Props) => {
 
   if (isLoading || isFetching || isRefetching || submitting)
     return <LoadingScreen label={!submitting ? i18next.t("Loading...") : i18next.t("Processing...")} />;
-  
-  
+
+
   if (data) {
     const { location, card, cart, available, details } = data;
+    const isCardValid = card && card.last4 && card.exp_month && card.exp_year;
+    const isDetailsValid = details && details.delivery && details.total;
+    const disabled = !isCardValid || !isDetailsValid;
+
     return (
       <Container
         label={i18next.t("Checkout")}
@@ -72,7 +76,8 @@ const Checkout = (props: Props) => {
         labels={submitting ? i18next.t("Loading...") : i18next.t("Order Now")}
         onPressButtons={onSubmit}
         loading={submitting}
-        disabled={submitting}
+        disabled={disabled}
+        variant={disabled ? "disabled" : "primary"}
       >
         <ScrollView>
           <AddressList location={location} details={details} />

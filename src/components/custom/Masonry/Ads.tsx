@@ -28,7 +28,7 @@ const Ads = (props: Props) => {
                 />
             </View>
             <View style={styles.textContainer}>
-                <Typography variant='title' newStyle={styles.text}>{label}</Typography>
+                <Typography variant='subtitle' newStyle={styles.text}>{label}</Typography>
             </View>
         </TouchableOpacity>
     )
@@ -36,7 +36,7 @@ const Ads = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: "100%",
+        width: "98%",
         height: responsiveFontSize(110),
         borderRadius: SIZES.radius * 2,
         padding: SIZES.gapSmall,

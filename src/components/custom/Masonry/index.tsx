@@ -5,7 +5,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { SIZES } from "../../../constants/theme";
+import { COLORS, SIZES } from "../../../constants/theme";
 import Buttons from "../Buttons/Buttons";
 import MasonryItem from "./MasonryItem";
 import React from "react";
@@ -13,7 +13,7 @@ import { MasonryFlashList } from "@shopify/flash-list";
 import { useIsFocused } from "@react-navigation/native";
 import { Platform } from "../../native";
 import i18next from "@/src/Translate";
-import { LoadingScreen } from "../Loaders";
+import Ads from "./Ads";
 
 interface IMasonryList {
   pins: any[];
@@ -60,6 +60,18 @@ const MasonryList = ({
     }
   }, [isFocused]);
 
+  const insertAdsRandomly = (data: any[], adProbability: number): any[] => {
+    const dataWithAds: any[] = [];
+    data.forEach((item, index) => {
+      dataWithAds.push(item);
+      if (Math.random() < adProbability) {
+        dataWithAds.push({ id: `ad-${index}-${Math.random()}`, isAd: true });
+      }
+    });
+    return dataWithAds;
+  };
+
+  const dataWithAds = useMemo(() => insertAdsRandomly(pins, 0.05), [pins]);
 
   const handleEndReached = () => {
     if (onLoadMore && !loading) {
@@ -69,6 +81,12 @@ const MasonryList = ({
 
   const renderItem = useCallback(
     ({ item }: { item: any }) => {
+      if (item.isAd) {
+        return (
+          <Ads background={COLORS.error} label={i18next.t('Business nearby for You')} />
+        );
+      }
+
       const isItemFocused = focusedIds.has(item.id.toString());
       return (
         <MasonryItem
@@ -76,6 +94,7 @@ const MasonryList = ({
           pin={item}
           showInf={showInf}
           isFocused={isItemFocused}
+          ads={false} 
         />
       );
     },
@@ -85,7 +104,7 @@ const MasonryList = ({
   return (
     <View style={styles.container}>
      <MasonryFlashList
-        data={pins}
+        data={dataWithAds}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         numColumns={numColumns}

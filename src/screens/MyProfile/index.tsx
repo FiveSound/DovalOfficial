@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { getFollowersService } from '../../services/follows';
-import { LoadingScreen, SignupAlert, Tabs, Typography } from '../../components/custom';
+import { LoadingScreen, SignupAlert, Typography } from '../../components/custom';
 import {
   AvatarProfile,
   LayoutProfile,
   Inf,
   Follows,
-  TabsMyProfile,
   MyPosts,
-  MyShares,
-  MySaves,
   MyMenu,
   CtoProfile,
 } from './Components';
@@ -20,7 +17,7 @@ import i18next from '../../Translate';
 import { useQuery } from '@tanstack/react-query';
 import { FOLLOWERS_DATA, USER_PROFILE_DATA } from '@/src/constants/storages';
 import { getProfileService } from '@/src/services/auth';
-import { AllBookmarkIcon, AllBookmarkIconStroke, DashboardSquare03Icon, DashboardSquare03IconStroke, SentIconReaction, StoreAdd02Icon, StoreAdd02IconStroke } from '@/src/constants/IconsPro';
+import { DashboardSquare03Icon, DashboardSquare03IconStroke, StoreAdd02Icon, StoreAdd02IconStroke } from '@/src/constants/IconsPro';
 import { COLORS, SIZES } from '@/src/constants/theme';
 import { useTheme } from '@/src/hooks';
 
@@ -118,32 +115,6 @@ const MyProfile = (props: Props) => {
 
   const finalFollowersData = isConnected ? followersData : cachedData?.followersData;
   const finalUserProfileData = isConnected ? userProfileData : cachedData?.userProfileData;
-  const tabs = [
-    {
-      key: 'posts',
-      content: <MyPosts />,
-      activeIcon: <DashboardSquare03Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.primary}/>,    
-      inactiveIcon: <DashboardSquare03IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>,       
-    },
-    {
-      key: 'menu',
-      content: <MyMenu />,
-      activeIcon: <StoreAdd02Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.primary}/>,
-      inactiveIcon: <StoreAdd02IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>,
-    },
-    // {
-    //   key: 'shares',
-    //   content: <MyShares />,
-    //   activeIcon: <SentIconReaction width={SIZES.icons} height={SIZES.icons} color={COLORS.primary}/>,
-    //   inactiveIcon: <SentIconReaction width={SIZES.icons} height={SIZES.icons} color={Title}/>,
-    // },
-    // {
-    //   key: 'saves',
-    //   content: <MySaves />,
-    //   activeIcon: <AllBookmarkIcon width={SIZES.icons} height={SIZES.icons} color={COLORS.primary}/>,
-    //   inactiveIcon: <AllBookmarkIconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>,
-    // }
-  ];
 
   if (finalUserProfileData && finalFollowersData) {
     return (

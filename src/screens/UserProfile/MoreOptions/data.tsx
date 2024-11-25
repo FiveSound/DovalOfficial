@@ -1,3 +1,4 @@
+import i18next from '@/src/Translate';
 import {
   AlertSquareIconStroke,
   ComplaintIcon,
@@ -18,8 +19,8 @@ interface data {
 const data: data[] = [
   {
     id: 1,
-    title: 'Blocked Users',
-    description: 'View and manage your past posts, recipes, and live streams.',
+    title: i18next.t('BlockedUsers'),
+    description: i18next.t('BlockedUsersDescription'),
     icon: (
       <UserBlock01IconStroke
         width={SIZES.icons}
@@ -32,9 +33,8 @@ const data: data[] = [
   },
   {
     id: 2,
-    title: 'Report a User',
-    description:
-      'Start a live stream to connect with your audience in real-time.',
+    title: i18next.t('ReportUser'),
+    description: i18next.t('ReportUserDescription'),
     icon: (
       <ComplaintIcon
         width={SIZES.icons * 1.2}
@@ -61,8 +61,8 @@ const data: data[] = [
   // },
   {
     id: 4,
-    title: 'About this user',
-    description: 'View and manage your past posts, recipes, and live streams.',
+    title: i18next.t('AboutThisUser'),
+    description: i18next.t('AboutThisUserDescription'),
     icon: (
       <AlertSquareIconStroke
         width={SIZES.icons}
@@ -71,7 +71,7 @@ const data: data[] = [
       />
     ),
     showLineDivider: false,
-    action: 'About this user',
+    action: 'AboutThisUser',
   },
 ];
 

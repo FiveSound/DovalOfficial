@@ -96,7 +96,7 @@ const CtoUserProfile = ({ data }: Props) => {
 
     return (
       <>
-        <Website />
+        {/* <Website /> */}
         <FlexContainer variant="row" newStyle={styles.container}>
           <Buttons
             loading={isLoading || isFetching}
@@ -205,7 +205,7 @@ const Website = () => {
           color: Title,
         }}
       >
-        Supporting: Be The Match
+        Supporting: Be The Matchs
       </Typography>
     </TouchableOpacity>
   );

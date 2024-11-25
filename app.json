@@ -4,12 +4,12 @@
     "slug": "doval",
     "version": "1.7.9",
     "orientation": "portrait",
-    "icon": "./assets/splash.png",
+    "icon": "./assets/logo.png",
     "scheme": "doval",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#FF5500"
     },
@@ -18,6 +18,9 @@
       "bundleIdentifier": "com.doval.doval",
       "config": {
         "googleMapsApiKey": "AIzaSyB0zu_snYOixCixdrrRinmoqbMk7sKfWEI"
+      },
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
       },
       "associatedDomains": [
         "applinks:doval.io"
@@ -31,7 +34,7 @@
       "package": "com.doval.doval",
       "versionCode": 7,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.png"
+        "foregroundImage": "./assets/logo.png"
       },
       "config": {
         "googleMaps": {
@@ -40,7 +43,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/splash.png"
+      "favicon": "./assets/logo.png"
     },
     "extra": {
       "eas": {

@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import {
   CardsPreview,
   Container,
-  FlexContainer,
   LoadingScreen,
   PersonalInf,
-  Typography,
 } from '../../components/custom';
 import i18next from '../../Translate';
 import { SettingsData } from './data';
@@ -19,15 +17,12 @@ import {
   AddCircleHalfDotIcon,
   Coupon01Icon,
   HelpSquareIcon,
-  LanguageSkillIcon,
   Legal01Icon,
   Location09Icon,
-  Notification03IconStroke,
   Store01IconStroke,
   UserStatusIcon,
   Wallet02Icon,
 } from '../../constants/IconsPro';
-import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 const Settings = () => {
   const { isAuthenticated, isLoadingApp } = useAppSelector(state => state.auth);
@@ -37,7 +32,7 @@ const Settings = () => {
     return <LoadingScreen />;
   }
 
-  if (!isAuthenticated) {
+  if (isLoadingApp ||!isAuthenticated) {
     return <Signup />;
   }
 
@@ -199,19 +194,19 @@ const Settings = () => {
           ),
           isNavigation: true,
         },
-        {
-          id: 'Register delivery',
-          label: i18next.t('Register delivery'),
-          navigation: 'RegisterDelivery',
-          icon: (
-            <AddCircleHalfDotIcon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
-          isNavigation: true,
-        },
+        // {
+        //   id: 'Register delivery',
+        //   label: i18next.t('Register delivery'),
+        //   navigation: 'RegisterDelivery',
+        //   icon: (
+        //     <AddCircleHalfDotIcon
+        //       width={SIZES.icons / 1.1}
+        //       height={SIZES.icons / 1.1}
+        //       color={Title}
+        //     />
+        //   ),
+        //   isNavigation: true,
+        // },
       ],
     },
   ];

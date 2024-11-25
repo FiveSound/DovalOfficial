@@ -26,11 +26,11 @@ const Business: React.FC = () => {
       title: i18next.t('Menu'),
       content: <GetMenuBusiness businessID={businessID} />,
     },
-    // {
-    //   key: 'Overview',
-    //   title: i18next.t('Overview'),
-    //   content: <Overview data={data} />,
-    // },
+    {
+      key: 'Overview',
+      title: i18next.t('Overview'),
+      content: <Overview data={data} />,
+    },
   ];
 
   if (isLoading || isFetching) {

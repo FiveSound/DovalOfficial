@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '../../../../redux';
 import { RootState } from '../../../../redux/store';
 import { useTheme } from '@/src/hooks';
-import { Typography } from '@/src/components/custom';
+import { FlexContainer, Typography } from '@/src/components/custom';
 
 type Props = {
 };
@@ -41,9 +41,9 @@ const CommentButton = memo((props: Props) => {
     dispatch(openCommentModal({ postID: CurrentFeed.id }));
   };
 
-  console.log('commentsCount', commentsCount);
   
   return (
+    <TouchableOpacity style={styles.containerAll} onPress={handlePress}>
     <TouchableOpacity
       onPress={handlePress}
       disabled={disabled}
@@ -52,8 +52,9 @@ const CommentButton = memo((props: Props) => {
       <Messege01IconStroke
         width={SIZES.icons}
         height={SIZES.icons}
-        color={Title}
+        color={COLORS.dark}
       />
+      </TouchableOpacity>
       <Typography variant='H4title' newStyle={styles.label}>{formatMilesAndMillions(commentsCount)}</Typography>
     </TouchableOpacity>
   );

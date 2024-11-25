@@ -6,6 +6,7 @@ import { MY_POSTS_DATA } from '@/src/constants/storages';
 import { storage } from '@/src/components/native';
 import { useAppSelector } from '@/src/redux';
 import { RootState } from '@/src/redux/store';
+import { FlexContainer } from '@/src/components/custom';
 
 const QUERY_KEY = 'get-My-Post-ServiceAll-new-useQuery';
 const MY_POSTS_QUERY_KEY = 'myPostsData';
@@ -74,7 +75,7 @@ const MyPosts = () => {
   const finalFeedData = isConnected ? data : myPostsData;
 
   return (
-    <Main
+      <Main
       data={finalFeedData}
       isLoading={isLoadingMain}
       isError={isError}

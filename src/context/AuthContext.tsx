@@ -43,7 +43,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const { user, isAuthenticated, isLoadingApp } = useAppSelector(
     state => state.auth,
   );
-  
+
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 5;
+
   const signIn = async (usr: UserType) => {
     dispatch(signInStart());
     try {
@@ -61,37 +64,63 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   };
 
   const signOutUser = async () => {
-    await AsyncStorage.clear();
     dispatch(signOut());
     storage.clearAll()
     navigation.reset({
       index: 0,
       routes: [{ name: 'MyTabs' }],
     });
+    // dispatch(reloadApp())
   };
 
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
 
-
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
+    const handleConnectivityChange = (state: NetInfoState) => {
       dispatch(setIsConnected(state.isConnected !== false));
-      
-    });
+
+      if (state.isConnected) {
+        setRetryCount(0);
+      } else {
+        attemptReconnect();
+      }
+    };
+
+    const unsubscribe = NetInfo.addEventListener(handleConnectivityChange);
 
     return () => unsubscribe();
   }, []);
 
+  const attemptReconnect = () => {
+    if (retryCount >= maxRetries) {
+      console.warn('Máximo de intentos de reconexión alcanzado.');
+      return;
+    }
+
+    const retryDelay = Math.min(1000 * 2 ** retryCount, 30000); // Exponential backoff up to 30 seconds
+
+    console.log(`Intentando reconectar en ${retryDelay / 1000} segundos...`);
+
+    setTimeout(() => {
+      NetInfo.fetch().then(state => {
+        if (state.isConnected) {
+          dispatch(setIsConnected(true));
+          setRetryCount(0);
+        } else {
+          setRetryCount(prev => prev + 1);
+          attemptReconnect();
+        }
+      });
+    }, retryDelay);
+  };
 
   useEffect(() => {
     if (user && expoPushToken?.data) {
       subscribeNotificationsService(expoPushToken.data);
     }
   }, [user, expoPushToken]);
-
-
 
   return (
     <AuthContext.Provider

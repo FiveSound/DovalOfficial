@@ -101,7 +101,8 @@ const UserProfile = (props: Props) => {
         }
       />
       <CtoUserProfile data={data} />
-      <MyPosts username={username} />
+      <MyPosts username={username}/>
+      {/* <MyMenu businessID={businessID} /> */}
     </LayoutProfile>
   );
 };

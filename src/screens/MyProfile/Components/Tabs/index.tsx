@@ -162,6 +162,7 @@ const TabsMyProfile = (props: Props) => {
       renderTabBar={renderTabBar}
       style={{
         flex: 1,
+        backgroundColor: 'red',
       }}
     />
   );

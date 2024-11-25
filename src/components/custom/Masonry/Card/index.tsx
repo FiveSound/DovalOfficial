@@ -40,24 +40,11 @@ const Card = memo(({ pin, showInf = true, isFocused }: PinProps) => {
     >
       <View>
       <RemoteImage pin={pin} isFocused={isFocused} />
-        <FlexContainer newStyle={styles.heartBtn}>
-          {mediaType === 0 ? (
-            <PlayListIcon
-              width={SIZES.icons}
-              height={SIZES.icons}
-              color={COLORS.TranspLight}
-            />
-          ) : (
-            <Image01Icon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={COLORS.TranspLight}
-            />
-          )}
+        {/* <FlexContainer newStyle={styles.heartBtn}>
           <ViewsButton postID={id} />
           <LikeButton postID={id} onLikeChange={onLike} />
           <CommentButton postID={id} />
-        </FlexContainer>
+        </FlexContainer> */}
       </View>
       <Inf item={pin} showInf={showInf}/>
     </Pressable>

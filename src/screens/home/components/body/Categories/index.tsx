@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { iconsNative } from '../../../../../constants';
+import { StyleSheet, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { COLORS, responsiveFontSize, SIZES } from '../../../../../constants/theme';
 import { useTheme } from '../../../../../hooks';
 import { FlexContainer, Typography } from '../../../../../components/custom';
@@ -11,32 +10,35 @@ const { width } = Dimensions.get('window');
 
 
 const Categories = () => {
-  const { backgroundMaingrey } = useTheme();
+  const { backgroundMaingrey, mode } = useTheme();
   const navigation = useNavigation();
-
+  const isDarkMode = mode === 'dark';
   return (
     <FlexContainer newStyle={styles.container}>
       <FlexContainer style={styles.row}>
         {categories.slice(0, 2).map((item) => (
           <TouchableOpacity 
           key={item.id} 
+          disabled={item.id === 2}
           onPress={() => navigation.navigate(item.navigation)}
           style={[styles.largeItem, {
-            backgroundColor: item.backgroundColor,
+            backgroundColor: isDarkMode ? item.darkBackgroundColor : item.lightBackgroundColor,
+            opacity: item.id === 2 ? 0.5 : 1,
           }]}>
             <Image source={item.image} style={styles.largeImage} />
-            <Typography variant='subtitle'>{item.name}</Typography>
-            <Typography variant='SubDescription'>{item.description}</Typography>
+            <Typography variant='subtitle' newStyle={styles.title}>{item.name}</Typography>
+            {/* <Typography variant='SubDescription'>{item.description}</Typography> */}
           </TouchableOpacity>
         ))}
       </FlexContainer>
       <View style={styles.row}>
         {categories.slice(2).map((item) => (
           <View key={item.id} style={[styles.smallItem, {
-            backgroundColor: item.id === 3 ? backgroundMaingrey : item.backgroundColor,
+            backgroundColor: isDarkMode ? item.darkBackgroundColor : item.lightBackgroundColor,
+            opacity: item.id === 3 || item.id === 4 || item.id === 5 ? 0.5 : 1,
           }]}>
             <Image source={item.image} style={styles.smallImage} />
-            <Text style={styles.title}>{item.name}</Text>
+              <Typography variant='H4title' newStyle={styles.title}>{item.name}</Typography>
           </View>
         ))}
       </View>
@@ -56,26 +58,30 @@ const styles = StyleSheet.create({
   },
   largeItem: {
     width: (width - SIZES.gapLarge * 2.4) / 2,
-    borderRadius: SIZES.radius,
+    borderRadius: SIZES.gapSmall,
     padding: SIZES.gapLarge,
     alignItems: 'center',
   },
   smallItem: {
     width: (width - SIZES.gapLarge * 3) / 3,
-    borderRadius: SIZES.radius,
+    borderRadius: SIZES.gapSmall,
     padding: SIZES.gapLarge,
     alignItems: 'center',
   },
   largeImage: {
-    width: responsiveFontSize(100),
-    height: responsiveFontSize(100),
+    width: responsiveFontSize(60),
+    height: responsiveFontSize(60),
     marginBottom: SIZES.gapSmall,
   },
   smallImage: {
-    width: responsiveFontSize(50),
-    height: responsiveFontSize(50),
+    width: responsiveFontSize(44),
+    height: responsiveFontSize(44),
     marginBottom: SIZES.gapSmall,
-  }
+  },
+  title: {
+    textAlign: 'center',
+    color: COLORS.dark
+  },
 });
 
 export default Categories;

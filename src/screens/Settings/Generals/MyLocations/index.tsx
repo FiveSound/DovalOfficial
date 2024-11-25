@@ -32,15 +32,15 @@ const MyLocations = memo(() => {
     return (
       <Container 
       showHeader={true}
-      label={i18next.t('My locations')}
+      label={i18next.t('My Addresses')}
       style={styles.container}
-      labels={i18next.t('Add a new location')}
+      labels={i18next.t('Add a new address')}
       onPressButtons={handleAddLocation}
       showFooter={true}
       >
         {data.length === 0 && <ScreenEmpty 
         labelPart1={i18next.t('No locations found')}
-        labelButton={i18next.t('Add a new location')}
+        labelButton={i18next.t('Add a new address')}
         source={Ilustrations.CharcoPet}
         onPress={handleAddLocation}
         ImgWidth={SIZES.width / 1.5}

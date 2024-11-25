@@ -6,6 +6,7 @@ import { addNewLocationService } from "../../../../services/orders";
 import { useForm } from "react-hook-form";
 import { Container, InputLabel, IsLoading } from "@/src/components/custom";
 import { responsiveFontSize, SIZES } from "@/src/constants/theme";
+import i18next from "@/src/Translate";
 
 type Props = {
   route: {
@@ -29,7 +30,6 @@ interface AddressDetails {
 
 const ScreenSaveLocation = memo((props: Props) => {
   const { location } = props.route.params;
-  console.log('location recibida en ScreenSaveLocation', location);
   const navigation = useNavigation();
 
   const queryClient = useQueryClient();
@@ -63,7 +63,13 @@ const ScreenSaveLocation = memo((props: Props) => {
     if (response.success) {
       reset();
       queryClient.invalidateQueries({ queryKey: ["screen-checkout-orders-useQuery"] });
-      navigation.navigate("Checkout");
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: "Settings" }, 
+          { name: "MyLocationsGeneral" },
+        ],
+      });
     }
   };
 
@@ -71,9 +77,9 @@ const ScreenSaveLocation = memo((props: Props) => {
     <Container
       style={styles.container}
       showHeader={true}
-      label="Agregar nueva direccion"
+      label={i18next.t('Add a new address')}
       showFooter={true}
-      labels="Guardar"
+      labels={i18next.t('Save')}
       onPressButtons={handleSubmit(onSubmit)}
       loading={isSubmitting}
     >
@@ -85,27 +91,27 @@ const ScreenSaveLocation = memo((props: Props) => {
         contentContainerStyle={{ paddingBottom: responsiveFontSize(100) }}
       >
         <InputLabel
-          label="Etiqueta tu direccion*"
-          placeholder="Etiqueta: (ej: Mi casa, Oficina, Novia)"
+          label={i18next.t('Tag your address*')}
+          placeholder={i18next.t('Tag: (ej: Mi casa, Oficina, Novia)')}
           value={values.tag}
           onChangeText={(txt) => setValue("tag", txt, { shouldDirty: true })}
         />
         <InputLabel
-          label="Detalles de la direccion*"
-          placeholder="No. Apto, Oficina, Casa"
+          label={i18next.t('Details of the address*')}
+          placeholder={i18next.t('No. Apto, Oficina, Casa')}
           value={values.apartment}
           onChangeText={(txt) => setValue("apartment", txt, { shouldDirty: true })}
         />
         <InputLabel
-          label="Detalles de la ubicacion"
-          placeholder="Details"
+          label={i18next.t('Details of the location')}
+          placeholder={i18next.t('Details')}
           value={values.details}
           onChangeText={(txt) => setValue("instructions", txt, { shouldDirty: true })}
           readOnly={true}
         />
         <InputLabel
-          label="Instrucciones (Opcional)"
-          placeholder="(ej: La casa de rejas negras frente a la tienda de empanadas)"
+          label={i18next.t('Instructions (optional)')}
+          placeholder={i18next.t('(ej: La casa de rejas negras frente a la tienda de empanadas)')}
           value={values.instructions}
           onChangeText={(txt) => setValue("instructions", txt, { shouldDirty: true })}
           inputStyle={{ height: SIZES.BtnHeight }}

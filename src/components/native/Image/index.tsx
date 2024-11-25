@@ -20,6 +20,7 @@ type Props = ImageProps & {
   retryLimit?: number;
   retryDelay?: number;
   source?: string;
+  ref?: React.RefObject<RNImage>;
 };
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -33,6 +34,7 @@ const ImageComponent: React.FC<Props> = ({
   server = true,
   retryLimit = 3,
   retryDelay = 1000,
+  ref,
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -90,6 +92,7 @@ const ImageComponent: React.FC<Props> = ({
     >
       {placeholderSource && (
         <ExpoImage
+          ref={ref}
           tintColor={props.tintColor}
           source={server ? { uri: placeholderSource } : placeholderSource}
           style={[StyleSheet.absoluteFill, styles.placeholder]}

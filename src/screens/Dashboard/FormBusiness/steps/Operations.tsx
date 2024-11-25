@@ -10,11 +10,14 @@ import { SchedulesInterface } from "./data";
 import { formatDateHourUtil } from "../../../../utils/format";
 import ScheduleTime from "../components/ScheduleTime";
 import i18next from "../../../../Translate";
+import { useAppSelector } from "@/src/redux";
+import { RootState } from "@/src/redux/store";
 
 const Operations = memo(() => {
   const navigation = useNavigation();
+  const { user } = useAppSelector((state: RootState) => state.auth);
   const { setValue, getValues, watch } = useFormContext();
-
+  
   const [picker, setPicker] = useState({
     show: false,
     type: "opening_time",
@@ -75,7 +78,6 @@ const Operations = memo(() => {
             .length < 3
         }
       />
-      <ScrollView>
       <View style={styles.container}>
         {/* <Typography variant="H4title">{JSON.stringify(values.schedules, null, 2)}</Typography> */}
           <Hero
@@ -145,9 +147,9 @@ const Operations = memo(() => {
 
           <FlexContainer variant='row' newStyle={styles.delivery_service}>
             {values.delivery_service ? (
-              <Typography variant="H4title">Yes</Typography>
+              <Typography variant="H4title">{i18next.t('Yes')}</Typography>
             ) : (
-              <Typography variant="H4title">No</Typography>
+              <Typography variant="H4title">{i18next.t('No')}</Typography>
             )}
             <Switch
               value={values.delivery_service}
@@ -156,7 +158,6 @@ const Operations = memo(() => {
           </FlexContainer>
           </View>
         </View>
-      </ScrollView>
       {picker.show && Platform.OS === "ios" && (
         <Modal
           transparent={true}

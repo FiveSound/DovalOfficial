@@ -62,7 +62,7 @@ const OrderList = (props: PropsOrderList) => {
       {props.data.map((row, index) => (
         <Order
           key={row.cartItemID}
-          title={index === 0 ? 'Details order' : ''}
+          title={index === 0 ? i18next.t('Details order') : ''}
           recipe={row.recipe}
           cover={row.cover}
           variants={row.variants}

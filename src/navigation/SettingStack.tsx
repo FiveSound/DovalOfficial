@@ -13,7 +13,10 @@ import Report from '../screens/Settings/Support/Report';
 import RegisterBusiness from '../screens/Settings/Support/RegisterBusiness';
 import RegisterDelivery from '../screens/Settings/Support/RegisterDelivery';
 import ScreenNewLocation from '../screens/Settings/Generals/MyLocations/ScreenNewLocation';
+import ScreenConfirmLocation from '../screens/Settings/Generals/MyLocations/ScreenConfirmLocation';
+import ScreenSaveLocation from '../screens/Settings/Generals/MyLocations/ScreenSaveLocation';
 const Stack = createNativeStackNavigator();
+
 const SettingStack = () => {
   return (
     <Stack.Navigator
@@ -34,6 +37,8 @@ const SettingStack = () => {
       <Stack.Screen name="RegisterBusiness" component={RegisterBusiness} />
       <Stack.Screen name="RegisterDelivery" component={RegisterDelivery} />
       <Stack.Screen name="ScreenNewLocation" component={ScreenNewLocation} />
+      <Stack.Screen name="ScreenConfirmLocation" component={ScreenConfirmLocation} />
+      <Stack.Screen name="ScreenSaveLocation" component={ScreenSaveLocation} />
     </Stack.Navigator>
   );
 };

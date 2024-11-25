@@ -11,7 +11,7 @@ const ScreenNewLocation = memo(() => {
   return (
     <Container 
     showHeader={true}
-    label={i18next.t('Add a new location')}
+    label={i18next.t('Add a new address')}
     style={styles.centeredView}
     >
       <SearchResults />

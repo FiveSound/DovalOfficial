@@ -44,6 +44,7 @@ import { FlashList, Platform } from '../../../components/native';
 import { COLORS, SIZES } from '../../../constants/theme';
 import { Ilustrations } from '../../../constants';
 import i18next from '../../../Translate';
+import OTPInput from '../components/OTPInput';
 
 type DataQueryType = {
   status: string;
@@ -236,10 +237,10 @@ const DashboardHome = () => {
       const response = await socket
         ?.timeout(1000)
         .emitWithAck(SOCKET_ORDER_BUSINESS_VERIFY, params);
+        console.log('response verify', response);
 
       if (response.success && currentOrderID) {
         onToast(`Order ${currentOrderID} completada con exito!`);
-
         // Mutate
         onDeleteOrderFromPage(currentOrderID);
 
@@ -257,9 +258,10 @@ const DashboardHome = () => {
     const response = await socket
       ?.timeout(1000)
       .emitWithAck(SOCKET_ORDER_BUSINESS_DELAY, params);
-
+      console.log('response delay', response);
     if (response.success) {
       onToast(`Tiempo agregado a la orden #${currentOrderID}!`);
+
       setOpenDelay(false);
     } else {
       onToast(`Ha ocurrido un error!`);
@@ -351,13 +353,12 @@ const DashboardHome = () => {
       />
 
       {/* Verify Popup */}
-      {/* <Popup id="popup-verify-order" title="Escribe el codigo de la orden" open={openVerify}>
+      <Popup id="popup-verify-order" title="Escribe el codigo de la orden" open={openVerify}>
           <OTPInput onChange={onVerify} />
-
         <TouchableOpacity onPress={() => setOpenVerify(false)} style={[styles.btn, styles.btnError]}>
           <Text style={{ color: "#F41F52", fontWeight: "bold" }}>Cancelar</Text>
         </TouchableOpacity>
-      </Popup> */}
+      </Popup>
 
       {/* Add time Popup */}
       <Popup id="popup-delay-order" title="Que tiempo necesitas?" open={openDelay}>

@@ -25,7 +25,7 @@ const BannerBusiness = (props: Props) => {
         // placeholderSource={bannerBusiness}
       />
       <FlexContainer style={styles.containerAvatar}>
-        <Avatars source={avatarBusiness} size="large" ShowStatus={false} />
+        <Avatars source={avatarBusiness} size='xLarge' ShowStatus={false} />
       </FlexContainer>
     </FlexContainer>
   );
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     width: responsiveFontSize(58),
     height: responsiveFontSize(20),
     borderRadius: responsiveFontSize(48),
-    bottom: SIZES.height / 40,
+    bottom: SIZES.height / 20,
   },
 });
 export default BannerBusiness;

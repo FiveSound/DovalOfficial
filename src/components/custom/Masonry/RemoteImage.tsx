@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import { StyleSheet , Image as ImageRN, Dimensions} from "react-native";
-import { responsiveFontSize, SIZES } from "../../../constants/theme";
+import { StyleSheet, Image as ImageRN, Dimensions } from "react-native";
+import { COLORS, responsiveFontSize, SIZES } from "../../../constants/theme";
 import { useAppDispatch, useAppSelector } from "../../../redux";
 import { setFeedData, setPostHeight, setPostID } from "../../../redux/slides/navigations";
 import { useTheme } from "../../../hooks";
 import { CLOUDFRONT } from "../../../services";
 import { TouchableOpacity, Image, useNavigation } from "../../native";
-import { useVideoPlayer, VideoView } from 'expo-video';
+import { Video, AVPlaybackStatus, ResizeMode } from 'expo-av';
 import { RootState } from "@/src/redux/store";
+import Typography from "../Typography";
+import FlexContainer from "../FlexContainer";
 
 interface RemoteImageProps {
   pin: any;
@@ -16,8 +18,8 @@ interface RemoteImageProps {
 
 const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
   const { thumbnail, id, mediaType, videos, height } = pin;
-  const playerRef = useRef<any>(null);
-  const thumbnailUri = `${CLOUDFRONT}${thumbnail}`
+  const videoRef = useRef<Video>(null);
+  const thumbnailUri = `${CLOUDFRONT}${thumbnail}`;
   const videoUri = mediaType === 0 && videos && videos.key 
     ? `${CLOUDFRONT}${videos.key}` 
     : '';
@@ -28,7 +30,8 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
   const memoUri = useMemo(() => thumbnailUri, [thumbnailUri]);
   const memoVideo = useMemo(() => videoUri, [videoUri]);
   const videoHeight = responsiveFontSize(280);
-  const { isConnected } = useAppSelector((state: RootState) => state.auth)
+  const [videoDuration, setVideoDuration] = useState<number>(0);
+  const { isConnected } = useAppSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     if (mediaType === 1) {
@@ -48,31 +51,37 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
     }
   }, [memoUri, mediaType]);
 
-
-
   const handlePress = useCallback(() => {
     navigation.navigate('FeedDetails');
     dispatch(setPostID(id));
     dispatch(setFeedData(pin));
     dispatch(setPostHeight(displayHeight * 2.4 + 10));
-    console.log('displayHeight + id ', id, displayHeight);
-  }, [pin, dispatch, displayHeight, id]);
+  }, [pin, dispatch, displayHeight, id, navigation]);
 
-
-  const player = useVideoPlayer(memoVideo, (playerInstance) => {
-    playerInstance.loop = true;
-    playerInstance.muted = true; 
-  });
+  const handlePlaybackStatusUpdate = (status: AVPlaybackStatus) => {
+    if (status.isLoaded && status.durationMillis) {
+      setVideoDuration(status.durationMillis / 1000); 
+    } else {
+      console.warn('Failed to load video');
+    }
+  };
 
   useEffect(() => {
-    if (mediaType === 0 && player) { 
+    if (mediaType === 0 && videoRef.current) { 
       if (isFocused) {
-        player.play();
+        videoRef.current.playAsync();
       } else {
-        player.pause();
+        videoRef.current.pauseAsync();
       }
     }
-  }, [isFocused, mediaType, player, id]);
+  }, [isFocused, mediaType, videoRef]);
+
+  const formatDuration = (duration: number) => {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
 
   return (
     <>
@@ -86,15 +95,22 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
           />
         )}
         {mediaType === 0 && (
-          <VideoView
-            ref={playerRef}
+          <Video
+            ref={videoRef}
+            source={{ uri: memoVideo }}
             style={[styles.video, { height: videoHeight, backgroundColor: backgroundMaingrey }]}
-            player={player}
-            contentFit='cover'
-            allowsFullscreen
-            allowsPictureInPicture
-            nativeControls={false}            
+            resizeMode={ResizeMode.COVER}
+            shouldPlay={isFocused}
+            isLooping
+            isMuted
+            onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
+            useNativeControls={false}
           />
+        )}
+        {videoDuration > 0 && (
+          <FlexContainer newStyle={styles.duration}>
+            <Typography variant='H4title' newStyle={styles.durationText}>{formatDuration(videoDuration)}</Typography>
+          </FlexContainer>
         )}
       </TouchableOpacity>
     </>
@@ -117,6 +133,17 @@ const styles = StyleSheet.create({
     aspectRatio: 16 / 9,
     borderRadius: SIZES.radius * 2,
     overflow: 'hidden',
+  },
+  duration: {
+    position: 'absolute',
+    top: SIZES.gapSmall,
+    left: SIZES.gapSmall,
+    backgroundColor: COLORS.TranspDark,
+    padding: SIZES.gapSmall,
+    borderRadius: SIZES.radius * 2,
+  },
+  durationText: {
+    color: COLORS.TranspLight,
   },
 });
 

@@ -24,9 +24,7 @@ const Inf = (props: Props) => {
   const bioEmpty = data.bio !== '';
   const { user } = useAppSelector((state: RootState) => state.auth);
   const isMyProfile = user?.userID === data?.userID;
-
-
-
+  
   return (
     <FlexContainer style={styles.container}>
       <FlexContainer style={styles.nameContainer}>

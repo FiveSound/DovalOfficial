@@ -5,17 +5,25 @@ import { responsiveFontSize, SIZES } from '../../../constants/theme';
 import { Platform, SafeAreaView } from '../../native';
 import { useTheme } from '../../../hooks';
 import { FlexContainer } from '..';
-import TransitionWrapper from '../../../../TransitionWrapper';
 
 export default function MasonrySkeleton({ showHeader = true }: { showHeader: boolean }) {
-    const theme  = useColorScheme();
-    const [isVisible, setIsVisible] = useState(false);
     const { BackgroundMain } = useTheme();
+    const colorScheme = useColorScheme(); // Obtener el esquema de color actual
+    const skeletonColorsLight = [
+      '#E0E0E0',
+      '#D3D3D3',
+      '#C0C0C0',
+  ];
 
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
-    
+  const skeletonColorsDark = [
+      '#4A4A4A',
+      '#5A5A5A',
+      '#6A6A6A',
+  ];    
+
+  const skeletonColors = colorScheme === 'dark' ? skeletonColorsDark : skeletonColorsLight;
+
+
     const columns = 2;
 
     const items = Array.from({ length: 20 }).map((_, index) => ({
@@ -35,7 +43,6 @@ export default function MasonrySkeleton({ showHeader = true }: { showHeader: boo
 
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: BackgroundMain }]}>
-           <TransitionWrapper isVisible={isVisible}>
                 {
                   showHeader && (
                     <View style={styles.header}>
@@ -43,14 +50,16 @@ export default function MasonrySkeleton({ showHeader = true }: { showHeader: boo
                       width={responsiveFontSize(60)}
                       height={responsiveFontSize(26)}
                       radius={responsiveFontSize(6)}
-                      colorMode={theme === 'dark' ? 'dark' : 'light'}
+                      colors={skeletonColors}
+                      // colorMode={theme === 'dark' ? 'dark' : 'light'}
 
                     />
                     <Skeleton
                       width={responsiveFontSize(140)}
                       height={responsiveFontSize(26)}
                       radius={responsiveFontSize(6)}
-                      colorMode={theme === 'dark' ? 'dark' : 'light'}
+                      colors={skeletonColors}
+                      // colorMode={theme === 'dark' ? 'dark' : 'light'}
 
                     />
                    <FlexContainer variant='row' newStyle={{ gap: 12, alignItems: "center" }}>
@@ -58,14 +67,16 @@ export default function MasonrySkeleton({ showHeader = true }: { showHeader: boo
                           width={responsiveFontSize(40)}
                           height={responsiveFontSize(26)}
                           radius={responsiveFontSize(6)}
-                          colorMode={theme === 'dark' ? 'dark' : 'light'}
+                          colors={skeletonColors}
+                          // colorMode={theme === 'dark' ? 'dark' : 'light'}
 
                         />
                         <Skeleton
                           width={responsiveFontSize(40)}
                           height={responsiveFontSize(26)}
                           radius={responsiveFontSize(6)}
-                          colorMode={theme === 'dark' ? 'dark' : 'light'}
+                          colors={skeletonColors}
+                          // colorMode={theme === 'dark' ? 'dark' : 'light'}
                 
                         />
                    </FlexContainer>
@@ -79,7 +90,8 @@ export default function MasonrySkeleton({ showHeader = true }: { showHeader: boo
                       {columnItems.map((item: any) => (
                         <View key={item.id} style={[styles.box, { height: item.height }]}>
                           <Skeleton 
-                          colorMode={theme === 'dark' ? 'dark' : 'light'} 
+                          colors={skeletonColors}
+                          // colorMode={theme === 'dark' ? 'dark' : 'light'} 
                           width="100%" 
                           height={item.height} 
                    />
@@ -88,7 +100,6 @@ export default function MasonrySkeleton({ showHeader = true }: { showHeader: boo
                     </View>
                   ))}
                 </View>
-           </TransitionWrapper>
         </SafeAreaView>
     );
 }
@@ -104,7 +115,7 @@ const styles = StyleSheet.create({
         gap: SIZES.gapLarge,
     },
     header: {
-        width: "100%",
+        width: SIZES.width,
         flexDirection: "row",
         gap: SIZES.gapLarge,
         paddingBottom: SIZES.gapLarge,

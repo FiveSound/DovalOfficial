@@ -28,13 +28,11 @@ const FrontCover = memo((props: Props) => {
   });
 
   useEffect(() => {
-    if (CurrentFeed.mediaType === 0 && player) { 
       if (isFocused) {
         player.play();
       } else {
         player.pause();
       }
-    }
   }, [isFocused, CurrentFeed.mediaType, player]);
 
   return (

@@ -34,22 +34,22 @@ const CartButton = memo(() => {
   if (!CurrentFeed.recipeID || !CurrentFeed.ordenable) return null;
 
   return (
-    <>
+    <TouchableOpacity style={styles.containerAll} onPress={handleProduct}>
       <TouchableOpacity
-        style={styless.addButton}
+        style={styles.container}
         onPress={handleProduct}
       >
-        <Typography variant="H4title" newStyle={styless.typographyAdd}>
-          {' '}
-          {i18next.t('Add')}
-        </Typography>
         <ShoppingCartCheckIn01Icon
           width={SIZES.icons}
           height={SIZES.icons}
           color={COLORS.dark}
         />
       </TouchableOpacity>
-    </>
+      <Typography variant="H4title" newStyle={styless.typographyAdd}>
+          {' '}
+          {i18next.t('Add')}
+        </Typography>
+    </TouchableOpacity>
   );
 });
 
@@ -62,10 +62,10 @@ const styless = StyleSheet.create({
     alignItems: 'center',
     gap: SIZES.gapMedium,
     justifyContent: 'space-between',
+    borderRadius: SIZES.radius,
   },
   typographyAdd: {
     ...FONTS.semi14,
-    color: COLORS.dark,
   },
 })
 export default CartButton;

@@ -9,7 +9,6 @@ import {
   openModalAboutAccount,
 } from '../../../redux/slides/modalSlice';
 import { blockService } from '../../../services/shares';
-import { useAuth } from '../../../context/AuthContext';
 import data from './data';
 import { RootState } from '../../../redux/store';
 import i18next from '../../../Translate';
@@ -21,6 +20,8 @@ const MoreOptions = (props: props) => {
   const navigation = useNavigation();
   const [block, setBlock] = useState(false);
   const { data: userData } = useSelector((state: RootState) => state.modal);
+
+  console.log('userData', userData);
 
   if (block) {
     const BlockUser = async () => {
@@ -78,6 +79,7 @@ const MoreOptions = (props: props) => {
                 dispatch(openModalAboutAccount());
               } else if (typeof row.action === 'string') {
                 navigation.navigate(row.action, { userID: userData.userID });
+                console.log('row.action', userData.userID );
               } else {
                 setBlock(typeof row.action === 'boolean' ? row.action : false);
               }

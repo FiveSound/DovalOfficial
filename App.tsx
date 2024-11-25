@@ -92,6 +92,7 @@ const AppWithReload = () => {
       <Splash />
     ) : (
       <SafeAreaView 
+      edges={['bottom']}
       style={[appStyles.flexContainer, {backgroundColor: BackgroundMain}]}
     >
       <AppContent onLayoutRootView={onLayoutRootView} linking={linking} theme={theme} />

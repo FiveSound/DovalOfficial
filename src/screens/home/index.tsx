@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
-import Signup from '../auth/Signup';
 import {
   Layout,
   LiveOrders,
@@ -10,21 +9,13 @@ import {
 } from './components';
 import { View } from '../../components/native';
 import { SIZES } from '../../constants/theme';
-import { LoadingScreen, SignupAlert, Tabs } from '../../components/custom';
+import { LoadingScreen, SignupAlert } from '../../components/custom';
 import { useAppSelector } from '../../redux';
 import { RootState } from '../../redux/store';
 import i18next from '../../Translate';
-import { TabBarVisibilityContext } from '../../context/TabBarVisibilityContext';
 
 const Home = () => {
-  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
-  useEffect(() => {
-    setTabBarVisible(true);
 
-    return () => {
-      setTabBarVisible(false);
-    };
-  }, [setTabBarVisible]);
   const tabs = [
     {
       key: 'Restaurants',

@@ -3,7 +3,7 @@ import { getViewPostService } from '../../../../services/reactions';
 import { COLORS, SIZES } from '../../../../constants/theme';
 import { EyeIcon, EyeIconStroke } from '../../../../constants/IconsPro';
 import { formatMilesAndMillions } from '../../../../utils/format';
-import { Typography } from '../../../../components/custom';
+import { FlexContainer, Typography } from '../../../../components/custom';
 import { memo } from 'react';
 import styles from './styles';
 import { useQuery } from '@tanstack/react-query';
@@ -25,16 +25,19 @@ const ViewsButton = memo((props: Props) => {
   const length = data?.length || 0;
 
   return (
-    <View style={styles.container}>
+    <FlexContainer newStyle={styles.containerAll}>
+      <View style={styles.container}>
       <EyeIconStroke
         width={SIZES.icons}
         height={SIZES.icons}
-        color={Title}
+        color={COLORS.dark}
       />
-      <Typography variant="H4title" newStyle={styles.label}>
+
+    </View>
+    <Typography variant="H4title" newStyle={styles.label}>
         {formatMilesAndMillions(length)}
       </Typography>
-    </View>
+    </FlexContainer>
   );
 });
 

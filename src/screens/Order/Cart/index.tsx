@@ -139,7 +139,8 @@ const Cart = memo(() => {
         labels={i18next.t('Checkout')}
         TotalPrice={selectedPrice || '0'}
         showAdd={false}
-        disabledCart={!cartID}
+        disabled={!cartID}
+        variant={!cartID ? "disabled" : "primary"}
       >
         <ScrollView
           showsVerticalScrollIndicator={false}

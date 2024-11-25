@@ -73,7 +73,6 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
 
   return (
     <FlexContainer newStyle={styles.container}>
-      {/* Mostrar solo el paso activo */}
       {status === 'COMPLETED' ? (
         <FlexContainer
           key={activeStep.id}
@@ -104,7 +103,7 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
             ]}
           >
             <Typography variant="subtitle" newStyle={styles.title}>
-              {rider_waiting ? messageOptional : activeStep.title}
+              {rider_waiting ? messageOptional : i18next.t(activeStep.title)}
             </Typography>
             <Typography variant="title" newStyle={styles.description}>
               {creation_time} - {estimated_time}
@@ -124,7 +123,7 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
           ]}
         >
           <Typography variant="title" newStyle={styles.descriptionNoHero}>
-            {activeStep.title} || {activeStep.timeEstimated}
+            {i18next.t(activeStep.title)} || {activeStep.timeEstimated}
           </Typography>
         </FlexContainer>
       )}
@@ -165,7 +164,6 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
         ))}
       </FlexContainer>
 
-      {/* Mensaje de llegada más reciente */}
       <Typography
         variant="SubDescription"
         newStyle={[
@@ -177,7 +175,7 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
       >
         {status === 'COMPLETED'
           ? i18next.t('Gracias por su order, ha sido completada')
-          : activeStep.message}
+          : i18next.t(activeStep.message)}
       </Typography>
     </FlexContainer>
   );

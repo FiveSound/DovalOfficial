@@ -23,8 +23,8 @@ const ViewsButton = memo(({ postID }: Props) => {
   return (
     <View style={styles.container}>
       <EyeIcon
-        width={SIZES.icons}
-        height={SIZES.icons}
+        width={SIZES.icons / 1.2}
+        height={SIZES.icons / 1.2}
         color={COLORS.TranspLight}
       />
       <Typography variant="H4title" newStyle={styles.label}>

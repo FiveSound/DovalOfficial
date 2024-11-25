@@ -24,6 +24,7 @@ import NewPosts from "../screens/Upload/UploadPost";
 import ReportPost from "../screens/explorar/Report";
 import OrderID from "../screens/Dashboard/screen/OrderID";
 import FormBusiness from "../screens/Dashboard/FormBusiness";
+import ProfileStack from "./ProfileStack";
 
 
 const Stack = createNativeStackNavigator();
@@ -68,6 +69,7 @@ const MyStacks = () => {
         }}
       />
       <Stack.Screen name="Dashboard/Business/OrderID" component={OrderID} />
+      <Stack.Screen name="ProfileStack" component={ProfileStack} />
         </Stack.Navigator>
     )
 }

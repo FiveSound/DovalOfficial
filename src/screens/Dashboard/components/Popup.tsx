@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     minWidth: 300,
     padding: SIZES.padding,
     alignItems: "center",
-    borderRadius: SIZES.radius,
+    borderRadius: SIZES.radiusExtra,
     justifyContent: "center",
     borderWidth: SIZES.borderWidth,
   },

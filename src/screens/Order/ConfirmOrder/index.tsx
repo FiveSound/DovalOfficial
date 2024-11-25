@@ -1,64 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { Container, ScreenEmpty } from '../../../components/custom';
-import { Ilustrations } from '../../../constants';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { Container } from '../../../components/custom';
 import { SIZES } from '../../../constants/theme';
-import styles from './styles';
-import { useTheme } from '../../../hooks';
 import { useNavigation } from '../../../components/native';
-import i18next from '../../../Translate';
+import LottieView from 'lottie-react-native';
+import { successLoader } from '@/src/constants/animations';
 
 interface Props {
   route: {
     params: { orderID: number };
   };
 }
-const ConfirmOrder = ({ route }: Props) => {
-  const { orderID } = route.params;
-  
-  const { Title } = useTheme();
-  const navigation = useNavigation();
-  const [counter, setCounter] = useState(3);
 
-  const handleNavigateToTracking = () => {
-    const intervalId = setInterval(() => {
-      setCounter(prevCounter => {
-        if (prevCounter <= 1) {
-          clearInterval(intervalId);
-          navigation.navigate('Tracking', { orderID: orderID });
-          return 0;
+const ConfirmOrder = ({ route }: Props) => {
+  const orderID = route.params.orderID;
+  const animation = useRef<LottieView>(null);
+  const navigation = useNavigation();
+
+  const triggerSuccessAnimation = () => {
+      setTimeout(() => {
+        navigation.reset ({
+          index: 0,
+          routes: [{name: 'Tracking', params: {orderID: orderID}}]
         }
-        return prevCounter - 1;
-      });
-    }, 1000);
+        );
+      }, 2000);
   };
 
   useEffect(() => {
-    handleNavigateToTracking();
+    triggerSuccessAnimation();
   }, []);
 
   return (
-    <Container>
-      <ScreenEmpty
-        source={Ilustrations.GoodJob}
-        ImgWidth={SIZES.width}
-        ImgHeigth={SIZES.height / 2.4}
-        labelPart1={i18next.t('Thank you')}
-        labelPart2={i18next.t(' for your order')}
-        subLabel={i18next.t(
-          'We are excited to prepare your meal for you! You can follow the status of your order in real time.',
-        )}
-        labelStylePart1={styles.labelThank}
-        labelStylePart2={[
-          styles.label,
-          {
-            color: Title,
-          },
-        ]}
-        sublabelStyles={styles.description}
-        labelButton={`${i18next.t('Go to Tracking')} (${counter})`}
+    <Container style={styles.container}>
+      <LottieView
+        autoPlay
+        loop={false}
+        ref={animation}
+        style={styles.lottie}
+        source={successLoader}
       />
     </Container>
   );
 };
 
 export default ConfirmOrder;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  wave: {
+    position: 'absolute',
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: 'rgba(76, 175, 80, 0.7)', // Verde agradable con transparencia
+  },
+  lottie: {
+    width: SIZES.width / 2.5,
+    height: SIZES.width / 2.5,
+  },
+});

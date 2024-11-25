@@ -7,28 +7,54 @@ export type Category = {
   navigation?: string;
   description?: string;
   image?: any;
-  backgroundColor?: string;
+  lightBackgroundColor?: string;
+  darkBackgroundColor?: string;
 };
 
-// const categories: Category[] = [
-//   {
-//     id: 1,
-//     name: i18next.t('Restaurants'),
-//     icon: iconsNative.Restaurants,
-//     navigation: 'SearchBusiness',
-//   },
-//   { id: 2, name: i18next.t('Flash sales'), icon: iconsNative.PromotionsIcons },
-//   { id: 3, name: 'Pizza', icon: iconsNative.PizzaIcons },
-//   { id: 4, name: 'Hamburgesa', icon: iconsNative.HamburgerIcons },
-//   { id: 5, name: i18next.t('More'), icon: iconsNative.Restaurants },
-// ];
-
 const categories: Category[] = [
-  { id: 1, name: i18next.t('Restaurants'), description: i18next.t('The food you like'), image: iconsNative.restaurants, backgroundColor: '#FFE700', navigation: 'SearchBusiness' },
-  { id: 2, name: i18next.t('Recipes'), description: i18next.t('Your purchases from home'), image: iconsNative.HamburgerIcons, backgroundColor: '#C6E7FF', navigation: 'Recipes' },
-  { id: 3, name: i18next.t('Flash Deals'), image: iconsNative.PromotionsIcons, backgroundColor: '#FF885B', navigation: 'FlashDeals' },
-  { id: 4, name: i18next.t('Pizza'), image: iconsNative.PizzaIcons, backgroundColor: '#FFE700', navigation: 'Pizza' },
-  { id: 5, name: i18next.t('Hamburgers'), image: iconsNative.HamburgerIcons, backgroundColor: '#F87A53', navigation: 'Hamburgers' },
+  { 
+    id: 1, 
+    name: i18next.t('Restaurants'),
+    description: i18next.t('The food you like'),
+    image: iconsNative.restaurants,
+    lightBackgroundColor: '#FF5733', // Naranja rojizo que estimula el apetito
+    darkBackgroundColor: '#C70039',  // Rojo intenso que capta atención y apela al hambre
+    navigation: 'SearchBusiness'
+  },
+  { 
+    id: 2,
+    name: i18next.t('Recipes'),
+    description: i18next.t('Your purchases from home'),
+    image: iconsNative.HamburgerIcons,
+    lightBackgroundColor: '#FFC300', // Amarillo brillante que evoca alegría y apetito
+    darkBackgroundColor: '#FF8C00',  // Naranja oscuro que añade calidez y energía
+    navigation: 'SearchBusiness'
+
+  },
+  { 
+    id: 3, 
+    name: i18next.t('Flash Deals'), 
+    image: iconsNative.PromotionsIcons, 
+    lightBackgroundColor: '#FF6F61', // Coral vibrante que llama la atención
+    darkBackgroundColor: '#E63946',  // Rojo coral profundo que destaca ofertas
+    navigation: 'SearchBusiness'
+  },
+  { 
+    id: 4, 
+    name: i18next.t('Pizza'), 
+    image: iconsNative.PizzaIcons, 
+    lightBackgroundColor: '#FFB74D', // Naranja suave que es acogedor y apetitoso
+    darkBackgroundColor: '#D35400',  // Naranja quemado que resalta la categoría
+    navigation: 'SearchBusiness'
+  },
+  { 
+    id: 5, 
+    name: i18next.t('Hamburgers'), 
+    image: iconsNative.HamburgerIcons, 
+    lightBackgroundColor: '#FF7043', // Naranja vibrante que es energizante
+    darkBackgroundColor: '#BF360C',  // Marrón rojizo que transmite robustez y apetito
+    navigation: 'SearchBusiness'
+  },
 ];
 
 export default categories;

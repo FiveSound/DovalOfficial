@@ -76,7 +76,7 @@ const Complete = (props: Props) => {
           labelButton={`${i18next.t('Go to Tracking')} (${counter})`}
           ShowButton={false}
         />
-        <Rating rating={4} />
+        <Rating rating={4} setRating={() => {}} />
         <InputLabel placeholder={i18next.t('Enter your review')} />
       </ScrollView>
     </Container>

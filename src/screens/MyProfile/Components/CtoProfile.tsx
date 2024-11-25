@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: SIZES.gapMedium,
     backgroundColor: 'transparent',
-    marginTop: SIZES.gapMedium,
+    marginVertical: SIZES.gapMedium,
     width: SIZES.width,
     paddingHorizontal: SIZES.gapLarge,
   },

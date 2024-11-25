@@ -27,7 +27,7 @@ const InfoDescriptions = memo(() => {
         >
           {CurrentFeed.title !== '' && (
             <Typography
-              variant='title'
+              variant='subtitle'
               numberOfLines={descriptionOpen ? undefined : 1}
             >
               {CurrentFeed.title || ''}
@@ -40,7 +40,7 @@ const InfoDescriptions = memo(() => {
               onPress={() => setDescriptionOpen(!descriptionOpen)}
             >
               <Typography
-                variant='SubDescription'
+                variant='H4title'
                 numberOfLines={descriptionOpen ? undefined : 2}
                 newStyle={{
                   ...styles.descriptionPost,

@@ -141,25 +141,25 @@ const SignUpEmail = () => {
         <InputLabel
           placeholder={i18next.t('Add your password')}
           label={i18next.t('Add your password')}
-          secureTextEntry={!state.showPassword}
+          secureTextEntry={state.showPassword}
           value={state.password}
           onChangeText={value =>
             setState(prevState => ({ ...prevState, password: value }))
           }
-          endComponent={
-            <TouchableOpacity
-              onPress={() =>
-                setState(prevState => ({
-                  ...prevState,
-                  showPassword: !prevState.showPassword,
-                }))
-              }
-            >
-              <Typography variant="H4title">
-                {state.showPassword ? i18next.t('Hide') : i18next.t('Show')}
-              </Typography>
-            </TouchableOpacity>
-          }
+          // endComponent={
+          //   <TouchableOpacity
+          //     onPress={() =>
+          //       setState(prevState => ({
+          //         ...prevState,
+          //         showPassword: !prevState.showPassword,
+          //       }))
+          //     }
+          //   >
+          //     <Typography variant="H4title">
+          //       {state.showPassword ? i18next.t('Hide') : i18next.t('Show')}
+          //     </Typography>
+          //   </TouchableOpacity>
+          // }
         />
       )}
       <FlexContainer newStyle={styles.flexContainer}>
@@ -194,7 +194,7 @@ const SignUpEmail = () => {
       )}
       {!state.exist && (
         <Buttons
-          label={state.loading ? i18next.t('Sending...') : i18next.t('Next')}
+          label={state.loading ? i18next.t('Sending') : i18next.t('Next')}
           loading={state.loading}
           disabled={state.disable}
           onPress={handleSendCode}
@@ -203,7 +203,7 @@ const SignUpEmail = () => {
       )}
       {state.exist && (
         <Buttons
-          label={loginLoading ? i18next.t('Signing in...') : i18next.t('Sign in')}
+          label={loginLoading ? i18next.t('Signing in') : i18next.t('Sign in')}
           loading={loginLoading}
           disabled={!state.password || state.password.length === 0}
           onPress={handleLogin}

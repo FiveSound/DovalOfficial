@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   },
   containerGrid: {
     width: SIZES.width,
+    flex: 1,
   },
   grid: {
     paddingHorizontal: responsiveFontSize(1),

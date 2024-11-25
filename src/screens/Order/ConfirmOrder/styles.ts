@@ -2,15 +2,16 @@ import { StyleSheet } from 'react-native';
 import { COLORS, FONTS, SIZES } from '../../../constants/theme';
 
 const styles = StyleSheet.create({
-  labelThank: {
-    ...FONTS.heading32,
-    color: COLORS.success,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  label: {
-    ...FONTS.heading32,
-  },
-  description: {
-    ...FONTS.text16,
+  animatedBackground: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'green',
+    transform: [{ scale: 0 }],
+    opacity: 0,
   },
 });
 

@@ -46,7 +46,7 @@ const AddProducts: React.FC<Props> = (props: Props) => {
   }
 
   if (isLoading || isFetching || isLoadingApp) {
-    return <LoadingScreen />;
+    return <LoadingScreen label={i18next.t('Loading')} />;
   }
 
   if (data) {

@@ -183,12 +183,12 @@ export const useAddProducts = () => {
                   },
                   style: 'cancel',
                 },
-                {
-                  text: i18next.t('Add more variants'),
-                  onPress: () => {
-                  },
-                  style: 'cancel',
-                },
+                // {
+                //   text: i18next.t('Add more variants'),
+                //   onPress: () => {
+                //   },
+                //   style: 'cancel',
+                // },
                 {
                   text: i18next.t('Go to Cart'),
                   onPress: () => {

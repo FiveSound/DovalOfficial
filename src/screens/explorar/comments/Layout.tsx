@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { COLORS, responsiveFontSize } from '../../../constants/theme';
+import { responsiveFontSize } from '../../../constants/theme';
 import { LineDivider } from '../../../components/custom';
 import {
   KeyboardAvoidingView,
@@ -16,6 +15,7 @@ type Props = {
   onPressChat: () => void;
   onChangeText: any;
   onFocusInput?: () => void;
+  loading?: boolean;
 };
 
 const Layout = ({
@@ -24,6 +24,7 @@ const Layout = ({
   onChangeText,
   value,
   onFocusInput,
+  loading,
 }: Props) => {
   return (
     <SafeAreaView style={styles.keyboardAvoidingView}>
@@ -42,6 +43,7 @@ const Layout = ({
           onChangeText={onChangeText}
           onPressChat={onPressChat}
           onFocusInput={onFocusInput}
+          loading={loading}
         />
       </KeyboardAvoidingView>
     </SafeAreaView>

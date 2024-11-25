@@ -19,11 +19,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: SIZES.radiusExtra,
     paddingHorizontal: SIZES.gapMedium,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: responsiveFontSize(40),
-    marginHorizontal: SIZES.gapSmall,
-    ...FONTS.semi16,
+    ...FONTS.text14,
+    textAlignVertical: 'center',
   },
   touchableOpacity: {
     alignItems: 'center',
@@ -71,9 +68,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: SIZES.radiusExtra,
+    borderRadius: SIZES.radiusExtra / 2,
     padding: SIZES.gapSmall,
     margin: SIZES.gapSmall,
+    gap: SIZES.gapSmall,
   },
   emojiIcon: {
     fontSize: responsiveFontSize(24),
@@ -83,6 +81,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     padding: SIZES.gapSmall,
     borderRadius: SIZES.radiusExtra,
+    paddingHorizontal: SIZES.gapMedium,
+    width: '10%',
+    alignSelf: 'flex-end',
+    marginHorizontal: SIZES.gapMedium,
+  },
+  uploadText: {
+    color: COLORS.dark,
+    textAlign: 'center',
   },
 });
 

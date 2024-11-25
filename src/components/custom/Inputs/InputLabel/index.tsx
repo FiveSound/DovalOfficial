@@ -60,7 +60,7 @@ const InputLabel = (props: Props) => {
     appenComponent,
     label,
     placeholder,
-    secureTextEntry,
+    secureTextEntry = false,
     autoCapitalize,
     keyboardType,
     onChangeText,

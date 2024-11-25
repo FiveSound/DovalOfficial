@@ -6,7 +6,7 @@ import {
 } from '../../../../services/reactions';
 import { COLORS, SIZES } from '../../../../constants/theme';
 import { FavouriteIcon, FavouriteIconStroke } from '../../../../constants/IconsPro';
-import { LoginAlert, Typography } from '../../../../components/custom';
+import { FlexContainer, LoginAlert, Typography } from '../../../../components/custom';
 import { formatMilesAndMillions } from '../../../../utils/format';
 import * as Haptics from 'expo-haptics';
 import styles from './styles';
@@ -69,7 +69,7 @@ const LikeButton: React.FC<Props> = memo((props: Props) => {
 
 
   return (
-    <>
+    <TouchableOpacity style={styles.containerAll} onPress={handleLike}>
       <TouchableOpacity
         onPress={handleLike}
         style={styles.container}
@@ -83,16 +83,15 @@ const LikeButton: React.FC<Props> = memo((props: Props) => {
           /> : <FavouriteIconStroke
             width={SIZES.icons}
             height={SIZES.icons}
-            color={Title}
+            color={COLORS.dark}
           />
         }
-        <Typography variant="H4title" newStyle={styles.label}>
+      </TouchableOpacity>
+      <Typography variant="H4title" newStyle={styles.label}>
           {formatMilesAndMillions(likes)}
 
         </Typography>
-      </TouchableOpacity>
-
-    </>
+    </TouchableOpacity>
   );
 });
 

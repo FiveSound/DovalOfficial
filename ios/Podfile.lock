@@ -13,7 +13,7 @@ PODS:
     - React-Core
   - EXNotifications (0.29.8):
     - ExpoModulesCore
-  - Expo (52.0.9):
+  - Expo (52.0.11):
     - ExpoModulesCore
   - ExpoAsset (11.0.1):
     - ExpoModulesCore
@@ -29,7 +29,7 @@ PODS:
     - ExpoModulesCore
   - ExpoHaptics (14.0.0):
     - ExpoModulesCore
-  - ExpoImage (2.0.1):
+  - ExpoImage (2.0.2):
     - ExpoModulesCore
     - libavif/libdav1d
     - SDWebImage (~> 5.19.1)
@@ -39,7 +39,7 @@ PODS:
     - EXImageLoader
     - ExpoModulesCore
     - SDWebImageWebPCoder
-  - ExpoImagePicker (16.0.2):
+  - ExpoImagePicker (16.0.3):
     - ExpoModulesCore
   - ExpoKeepAwake (14.0.1):
     - ExpoModulesCore
@@ -51,10 +51,10 @@ PODS:
     - ExpoModulesCore
   - ExpoLocation (18.0.2):
     - ExpoModulesCore
-  - ExpoMediaLibrary (17.0.2):
+  - ExpoMediaLibrary (17.0.3):
     - ExpoModulesCore
     - React-Core
-  - ExpoModulesCore (2.0.4):
+  - ExpoModulesCore (2.0.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -77,11 +77,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ExpoSplashScreen (0.29.12):
+  - ExpoSplashScreen (0.29.13):
     - ExpoModulesCore
   - ExpoSymbols (0.2.0):
     - ExpoModulesCore
-  - ExpoSystemUI (4.0.3):
+  - ExpoSystemUI (4.0.4):
     - ExpoModulesCore
   - ExpoVideo (2.0.1):
     - ExpoModulesCore
@@ -119,6 +119,29 @@ PODS:
   - libwebp/sharpyuv (1.3.2)
   - libwebp/webp (1.3.2):
     - libwebp/sharpyuv
+  - lottie-ios (4.5.0)
+  - lottie-react-native (7.1.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - lottie-ios (= 4.5.0)
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - MMKV (2.0.0):
     - MMKVCore (~> 2.0.0)
   - MMKVCore (2.0.0)
@@ -1357,11 +1380,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-google-maps (1.20.0):
+  - react-native-google-maps (1.20.1):
     - Google-Maps-iOS-Utils (= 5.0.0)
     - GoogleMaps (= 8.4.0)
     - React-Core
-  - react-native-maps (1.20.0):
+  - react-native-maps (1.20.1):
     - React-Core
   - react-native-mmkv (2.12.2):
     - DoubleConversion
@@ -1943,6 +1966,7 @@ DEPENDENCIES:
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -2026,6 +2050,7 @@ SPEC REPOS:
     - libavif
     - libdav1d
     - libwebp
+    - lottie-ios
     - MMKV
     - MMKVCore
     - SDWebImage
@@ -2114,6 +2139,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-11-12-RNv0.76.2-5b4aa20c719830dcf5684832b89a6edb95ac3d64
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -2269,7 +2296,7 @@ SPEC CHECKSUMS:
   EXConstants: dd2fe64c6cdb1383b694c309a63028a8e9f2be6d
   EXImageLoader: 759063a65ab016b836f73972d3bb25404888713d
   EXNotifications: c5b96ad5fffef5515c9cfc7887ae10f8720c70a5
-  Expo: 332ffb9c3dccfc1a228791227efb8b2a7c6b3a4c
+  Expo: 148aac4ce0da148c63447d09ae41ddb153f35506
   ExpoAsset: 8138f2a9ec55ae1ad7c3871448379f7d97692d15
   ExpoBlur: 562b3da84d3cd79016c411671eaf71a404266415
   ExpoCrypto: 8465f71eb3798c194c0a509d4a76e5c429656d83
@@ -2277,19 +2304,19 @@ SPEC CHECKSUMS:
   ExpoFileSystem: dc2679a2b5d4c465ca881129074da95faee943d5
   ExpoFont: 7522d869d84ee2ee8093ee997fef5b86f85d856b
   ExpoHaptics: e636188d1d5f7ccb79f3c1bfab47aaf5a1768c73
-  ExpoImage: baf7dee5cb59e3b7b9c8dc204c54385fcc39ff71
+  ExpoImage: 89f672e47b391a749b56fecb3e2a8d6d68b9b379
   ExpoImageManipulator: 774eb1a17c5db07944d6f9000650d422ebb3ce47
-  ExpoImagePicker: a4be622c7081848925519d3329c0ebfac48f0d92
+  ExpoImagePicker: 440a560c9bfc63edae854d08b9f12f75bd11c112
   ExpoKeepAwake: 783e68647b969b210a786047c3daa7b753dcac1f
   ExpoLinearGradient: 7ca3b1d1625a1ab85c129abce4a3cdc78a9500a3
   ExpoLinking: a8332a219379ba80f8e612d5a5de4a3da446886e
   ExpoLocalization: 8e37268a715b82b36fbb5e361efd5fe65a39c208
   ExpoLocation: e0c5b5212381b0b800a2c1f715be823d17c51b05
-  ExpoMediaLibrary: 83f47430d5193186029bc57bae16e2130941bc83
-  ExpoModulesCore: 371193c6b17285837f56807f7cac568f07dc4060
-  ExpoSplashScreen: 30c1ab96eafb0175d3436dc8fec14208bbf8d241
+  ExpoMediaLibrary: 2d20778aafaa2e6f60640167f0618cfacee6f81c
+  ExpoModulesCore: f71914f0725f2f4ca7a8d25dc551263e730d5d7f
+  ExpoSplashScreen: 47a5c337586329223b70b5ef777d34c1f9edf412
   ExpoSymbols: 81d7f433d7a7b20658029eae524a4fa93627159e
-  ExpoSystemUI: d8fb1abd91c7283d8ead3df77ed0575b85f1bb42
+  ExpoSystemUI: 97ec8f20af5e8ca18d3191c5c72e8a04e6e2f02d
   ExpoVideo: 85750319df61d76237b5952fca5a9f39504c6b9b
   ExpoVideoThumbnails: 8b6bbe3cb76dd2225910667b896b27855bbda694
   ExpoWebBrowser: f08aaf1c8a02af8a768d83793186cb6d2c69f529
@@ -2302,6 +2329,8 @@ SPEC CHECKSUMS:
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
+  lottie-ios: a881093fab623c467d3bce374367755c272bdd59
+  lottie-react-native: e23d9bcc85c8730e79e96bdf589a1996d7d388a9
   MMKV: f7d1d5945c8765f97f39c3d121f353d46735d801
   MMKVCore: c04b296010fcb1d1638f2c69405096aac12f6390
   RCT-Folly: bf5c0376ffe4dd2cf438dcf86db385df9fdce648
@@ -2333,8 +2362,8 @@ SPEC CHECKSUMS:
   React-logger: 81d58ca6f1d93fca9a770bda6cc1c4fbfcc99c9c
   React-Mapbuffer: 726951e68f4bb1c2513d322f2548798b2a3d628d
   React-microtasksnativemodule: bc55596cbf40957f5099bc495f1a06f459d0be88
-  react-native-google-maps: 7e82d047dbdba9d4dbc8fc7df2eaba08f274cafd
-  react-native-maps: cb754208646ef20406b41af816a88fd5318a4403
+  react-native-google-maps: 7cc1184afe41fbd15a3dffd53c924819f6587b69
+  react-native-maps: ee1e65647460c3d41e778071be5eda10e3da6225
   react-native-mmkv: 7d0b6c2a79e73100b933f2947a9c8741d664e18b
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-pager-view: c476f76d54f946df5147645e902d3d7173688187

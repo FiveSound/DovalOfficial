@@ -14,11 +14,7 @@ const Overview = (props: any) => {
   console.log(data, 'data');
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        paddingBottom: SIZES.height,
-      }}
-    >
+    <>
       <Bio bio={data.bio} />
       <View style={{ marginBottom: SIZES.gapLarge }} />
       <OpeningHours openingDays={data.opening_days || []} />
@@ -26,7 +22,7 @@ const Overview = (props: any) => {
       <Location latitude={data.latitude} longitude={data.longitude} />
       <View style={{ marginBottom: SIZES.gapLarge }} />
       {/* <Reviews reviews={reviews} /> */}
-    </ScrollView>
+    </>
   );
 };
 

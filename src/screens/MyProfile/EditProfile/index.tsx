@@ -9,21 +9,23 @@ import {
 } from '../../../components/custom';
 import { useNavigation } from '../../../components/native';
 import { useAuth } from '../../../context/AuthContext';
-import { useAPI } from '../../../hooks';
 import { CLOUDFRONT } from '../../../services';
 import { getProfileService } from '../../../services/auth';
 import styles from './styles';
+import { useQuery } from '@tanstack/react-query';
+import i18next from '@/src/Translate';
 
+const QUERY_KEY = ['get-Profile-Service'];
 const EditProfile = () => {
   const navigation = useNavigation();
   const { isAuthenticated, isDataReady } = useAuth();
-  const { data, isLoading, refetch } = useAPI({
-    queryKey: ['get-Profile-Service'],
+  const { data, isLoading, refetch, isFetching } = useQuery({
+    queryKey: QUERY_KEY,
     queryFn: () => getProfileService(),
   });
 
-  if (isLoading && isDataReady) {
-    return <LoadingScreen />;
+  if (isLoading && isDataReady || isFetching) {
+    return <LoadingScreen label={i18next.t('Loading')} />;
   }
   const profileFields = [
     { label: 'Name', value: data?.name, navigation: 'name' },

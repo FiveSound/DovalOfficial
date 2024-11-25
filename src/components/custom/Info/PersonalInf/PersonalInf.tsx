@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.gapSmall,
   },
   labelStyle: {
-    ...FONTS.semi14,
+    ...FONTS.text16,
   },
 });
 

@@ -1,8 +1,8 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { lazy, memo, Suspense, useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Platform, SafeAreaView, storage } from '../../components/native';
-import { LoadingScreen, ScreenEmpty } from '../../components/custom';
+import { ScreenEmpty } from '../../components/custom';
 import { FeedHeading } from './components';
 import React from 'react';
 import { useAppSelector } from '../../redux';
@@ -10,11 +10,11 @@ import { RootState } from '../../redux/store';
 import { SIZES } from '../../constants/theme';
 import { Ilustrations } from '../../constants';
 import i18next from '../../Translate';
-import Masonry from '../../components/custom/Masonry';
 import { feedService } from '../../services/feed';
 import { FEED_DATA } from '@/src/constants/storages';
 import { useScrollToTop } from '@react-navigation/native';
-
+import MasonrySkeleton from '@/src/components/custom/Masonry/MansorySkeleton';
+const MansoryLazy = lazy(() => import('../../components/custom/Masonry'));
 const QUERY_KEY = 'QUERY_KEY_FEED';
 
 const Feed = memo(() => {
@@ -30,8 +30,7 @@ const Feed = memo(() => {
     queryKey: [QUERY_KEY],
     queryFn: async () => await feedService(location, user?.userID, page),
   });
-  
-  console.log(explore.data, 'explore.data');
+
   
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
@@ -77,7 +76,7 @@ const Feed = memo(() => {
   
 
   if (isLoading) {
-    return <LoadingScreen label={i18next.t('Loading')}/>;
+    return <MasonrySkeleton showHeader={true} />;
   }
 
   if (explore.isError) {
@@ -102,13 +101,15 @@ const Feed = memo(() => {
   return (
     <SafeAreaView style={styles.container}>
       <FeedHeading />
-      <Masonry
-        pins={finalFeedData}
-        onRefresh={explore.refetch}
-        refreshing={explore.isRefetching}
-        onLoadMore={() => mutation.mutate()}
-        loading={mutation.isPending}
-      />
+      <Suspense fallback={<MasonrySkeleton showHeader={true} />}>
+        <MansoryLazy
+          pins={finalFeedData}
+          onRefresh={explore.refetch}
+          refreshing={explore.isRefetching}
+          onLoadMore={() => mutation.mutate()}
+          loading={mutation.isPending}
+        />
+      </Suspense>
     </SafeAreaView>
   );
 });

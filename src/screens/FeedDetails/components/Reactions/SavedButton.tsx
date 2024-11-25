@@ -19,7 +19,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '../../../../redux';
 import { openSignupModal } from '../../../../redux/slides/modalSlice';
 import { useTheme } from '@/src/hooks';
-import { Typography } from '@/src/components/custom';
+import { FlexContainer, Typography } from '@/src/components/custom';
 
 type Props = {};
 
@@ -85,7 +85,8 @@ const SavedButton: React.FC<Props> = memo((props: Props) => {
 
 
   return (
-    <TouchableOpacity
+   <TouchableOpacity style={styles.containerAll} onPress={handleSaved}>
+     <TouchableOpacity
       onPress={handleSaved}
       disabled={disabled}
       style={styles.container}
@@ -98,9 +99,10 @@ const SavedButton: React.FC<Props> = memo((props: Props) => {
         /> : <BookmarkAdd02IconStroke
           width={SIZES.icons}
           height={SIZES.icons}
-          color={Title}
+          color={COLORS.dark}
         />
       }
+    </TouchableOpacity>
       <Typography variant='H4title' newStyle={styles.label}>{formatMilesAndMillions(length)}</Typography>
     </TouchableOpacity>
   );

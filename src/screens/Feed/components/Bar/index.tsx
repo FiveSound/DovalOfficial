@@ -20,7 +20,7 @@ const FeedHeading = (props: Props) => {
 
   return (
     <FlexContainer newStyle={styles.container}>
-      <SearchHome />
+      {/* <SearchHome /> */}
       <Typography variant="H4title" newStyle={styles.title}>
         {i18next.t('Doval for you')}
       </Typography>

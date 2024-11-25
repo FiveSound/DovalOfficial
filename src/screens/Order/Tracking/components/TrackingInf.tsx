@@ -80,7 +80,7 @@ const TrackingInf = (props: Props) => {
                       height={SIZES.icons * 1.2}
                     />
                   }
-                  title={`Confirm order PIN: ${verification_code}`}
+                  title={`${i18next.t('Confirm order PIN')}: ${verification_code}`}
                   description={i18next.t('Confirm your order to avoid fraud')}
                   showArrow={true}
                   showLineDivider={true}
