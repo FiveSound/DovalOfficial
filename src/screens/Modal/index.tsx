@@ -1,16 +1,14 @@
-import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Keyboard } from 'react-native';
-import { RootState } from '../../redux/store';
-import { useTheme } from '../../hooks';
-import BottomSheet, {
-  BottomSheetMethods,
-} from '../../components/custom/Slide Up/BottomSheet';
-import { clearModal, setExpandOnKeyboard } from '../../redux/slides/modalSlice';
-import { COLORS } from '../../constants/theme';
-import ModalContent from './ModalContent';
-import { useAuth } from '../../context/AuthContext';
-import { getSnapPoints } from './getSnapPoints';
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Keyboard } from "react-native";
+import { RootState } from "../../redux/store";
+import { useTheme } from "../../hooks";
+import BottomSheet, { BottomSheetMethods } from "../../components/custom/Slide Up/BottomSheet";
+import { clearModal, setExpandOnKeyboard } from "../../redux/slides/modalSlice";
+import { COLORS } from "../../constants/theme";
+import ModalContent from "./ModalContent";
+import { useAuth } from "../../context/AuthContext";
+import { getSnapPoints } from "./getSnapPoints";
 
 const Modal: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -26,23 +24,17 @@ const Modal: React.FC = () => {
       bottomSheetRef.current.close();
     }
 
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        if (bottomSheetRef.current && modalState.expandOnKeyboard) {
-          bottomSheetRef.current.expandTo(1);
-        }
-      },
-    );
+    const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
+      if (bottomSheetRef.current && modalState.expandOnKeyboard) {
+        bottomSheetRef.current.expandTo(1);
+      }
+    });
 
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        if (bottomSheetRef.current && modalState.expandOnKeyboard) {
-          bottomSheetRef.current.expandTo(0);
-        }
-      },
-    );
+    const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () => {
+      if (bottomSheetRef.current && modalState.expandOnKeyboard) {
+        bottomSheetRef.current.expandTo(0);
+      }
+    });
 
     return () => {
       keyboardDidShowListener.remove();
@@ -69,7 +61,7 @@ const Modal: React.FC = () => {
       case 0:
         return BgMain;
       case 1:
-        return BgMain
+        return BgMain;
       case 2:
         return COLORS.BackgroundMainLight;
       case 3:
@@ -81,7 +73,7 @@ const Modal: React.FC = () => {
       case 6:
         return COLORS.BackgroundMainLight;
       case 7:
-        return COLORS.BackgroundMainLight;  
+        return COLORS.BackgroundMainLight;
       case 8:
         return BgMain;
       case 9:
@@ -151,11 +143,7 @@ const Modal: React.FC = () => {
         showBackdrop={getBackdrop(modalState.modalType)}
         LineColor={getBackdropColor(modalState.modalType)}
       >
-        <ModalContent
-          modalType={modalState.modalType}
-          data={modalState.data}
-          handleFocusInput={handleFocusInput}
-        />
+        <ModalContent modalType={modalState.modalType} data={modalState.data} handleFocusInput={handleFocusInput} />
       </BottomSheet>
     </>
   );

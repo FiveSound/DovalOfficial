@@ -30,13 +30,15 @@ export const getAllRecipedService = async () => {
   }
 };
 
-export const getMyRecipesService = async () => {
+export const getMyRecipesService = async (page: number) => {
   try {
     const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/recipes/my-recipes`,
-      {},
+      {
+        page,
+      },
       {
         headers: {
           Authorization: `Bearer ${userToken}`,

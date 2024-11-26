@@ -20,13 +20,15 @@ export const publishPostService = async (body: object) => {
   return response.data;
 };
 
-export const getMyPostService = async () => {
+export const getMyPostService = async (page: number) => {
   try {
     const userToken = await AsyncStorage.getItem("userToken");
 
     const response = await axios.post(
       `${API_URL}/api/posts/my-posts`,
-      {},
+      {
+        page,
+      },
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
@@ -285,17 +287,14 @@ export const getLikesCommentService = async (commentID: number) => {
 };
 
 // Individual Post
-export const getMyPostByIDService = async ({ queryKey }: QueryKeyType) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/posts/post`, {
-      postID: queryKey[1],
-    });
+export const getPostByIDService = async (postID: number, latitude: string, longitude: string) => {
+  const response = await axios.post(`${API_URL}/api/posts/post`, {
+    postID: postID,
+    latitude: latitude,
+    longitude: longitude,
+  });
 
-    return response.data;
-  } catch (error) {
-    console.log({ error });
-    return [];
-  }
+  return response.data;
 };
 
 // Tag user from create post
