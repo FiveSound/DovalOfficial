@@ -33,7 +33,6 @@ const AppContent = ({ onLayoutRootView, linking, theme }: { onLayoutRootView: ()
               <ActiveTabProvider>
                 <SafeAreaProvider onLayout={onLayoutRootView} style={appStyles.flexContainer}>
                   <GestureHandlerRootView>
-                    <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={BackgroundMain} />
                     <>
                       <RootNavigator />
                       <Modal />
@@ -92,11 +91,11 @@ const AppWithReload = () => {
       <Splash />
     ) : (
       <SafeAreaView 
-      edges={['bottom']}
       style={[appStyles.flexContainer, {backgroundColor: BackgroundMain}]}
     >
-      <AppContent onLayoutRootView={onLayoutRootView} linking={linking} theme={theme} />
-    </SafeAreaView>
+        <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={BackgroundMain} />
+        <AppContent onLayoutRootView={onLayoutRootView} linking={linking} theme={theme} />
+      </SafeAreaView>
     )
   )
 };

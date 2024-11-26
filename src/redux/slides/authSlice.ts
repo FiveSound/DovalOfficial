@@ -6,8 +6,8 @@ import {
   signInPhoneService,
   signInEmailAndPasswordService,
   initialStateService,
-} from '../../services/auth';
-import {  USER_BODY, USER_TOKEN } from '../../constants/storages';
+} from '@/src/services/auth';
+import {  USER_BODY, USER_TOKEN } from '@/src/constants/storages';
 import { storage } from '@/src/components/native';
 
 interface VerifyCodeResponse {

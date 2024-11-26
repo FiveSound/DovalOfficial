@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     alignItems: 'center',
     flexGrow: 1,
-    paddingBottom: SIZES.height / 6,
+    // paddingBottom: SIZES.height / 6,
   },
   containerEmpty: {
 

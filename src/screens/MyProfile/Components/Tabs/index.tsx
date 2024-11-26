@@ -1,27 +1,27 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import {
   NavigationState,
   SceneRendererProps,
   TabBar,
   TabView,
-} from 'react-native-tab-view';
-import useTheme from '../../../../hooks/useTheme';
-import { COLORS, responsiveFontSize, SIZES } from '../../../../constants/theme';
+} from "react-native-tab-view";
+import { FlexContainer, Typography } from "@/src/components/custom";
+import { useTheme } from "@/src/hooks";
+import { COLORS, responsiveFontSize, SIZES } from "@/src/constants/theme";
 import {
   AllBookmarkIcon,
   AllBookmarkIconStroke,
+  DashboardSquare03Icon,
+  DashboardSquare03IconStroke,
+  SentIconReaction,
   StoreAdd02Icon,
   StoreAdd02IconStroke,
-  DashboardSquare03IconStroke,
-  DashboardSquare03Icon,
-  SentIconReaction,
-} from '../../../../constants/IconsPro';
-import { FlexContainer } from '../../../../components/custom';
+} from "@/src/constants/IconsPro";
 
 type Props = {
   MyPosts: ReactNode;
-  MySaves?: ReactNode;
   MyMenu: ReactNode;
+  MySaves?: ReactNode;
   Myshares?: ReactNode;
   showMyShares?: boolean;
   showStore?: boolean;
@@ -29,140 +29,223 @@ type Props = {
 
 interface Route {
   key: string;
-  icons: any;
+  content: ReactNode;
 }
 
-const TabsMyProfile = (props: Props) => {
+const TabsMyProfile = ({
+  MyPosts,
+  MyMenu,
+  MySaves,
+  Myshares,
+  showMyShares = false,
+  showStore = false,
+}: Props) => {
+  console.log("TabsMyProfile: Renderizando componente con props:", {
+    MyPosts,
+    MyMenu,
+    MySaves,
+    Myshares,
+    showMyShares,
+    showStore,
+  });
+
   const [index, setIndex] = useState(0);
   const { borderInput, Description } = useTheme();
-  const [routes] = useState([
-    { key: 'first' },
-    { key: 'second' },
-    // { key: 'five' },
-    // { key: 'third' },
-  ]);
+
+  // Definir rutas condicionalmente
+  const routes: Route[] = [
+    { key: "first", content: MyPosts },
+    { key: "second", content: MyMenu },
+    ...(showStore && MySaves
+      ? [{ key: "third", content: MySaves }]
+      : []),
+    ...(showMyShares && Myshares
+      ? [{ key: "five", content: Myshares }]
+      : []),
+  ];
+
+  console.log("TabsMyProfile: Definidas las rutas:", routes);
 
   const renderScene = useCallback(
     ({ route }: { route: Route }) => {
-      switch (route.key) {
-        case 'first':
-          return props.MyPosts;
-        case 'second':
-          return props.MyMenu;
-        // case 'third':
-        //   return props.MySaves;
-        // case 'five':
-        //   return props.Myshares;
-        default:
-          return null;
-      }
+      console.log("renderScene: Renderizando escena para la ruta:", route.key);
+      return route.content;
     },
-    [props.MyPosts, props.MyMenu, props.MySaves, props.Myshares],
+    [routes]
   );
 
-  const renderTabBar = (
-    props: SceneRendererProps & {
-      navigationState: NavigationState<Route>;
+  const renderTabBar = useCallback(
+    (
+      props: SceneRendererProps & {
+        navigationState: NavigationState<Route>;
+      }
+    ) => {
+      console.log(
+        "renderTabBar: Renderizando TabBar con estado de navegación:",
+        props.navigationState
+      );
+      return (
+        <TabBar
+          {...props}
+          scrollEnabled={true}
+          style={{
+            backgroundColor: "transparent",
+            zIndex: 1,
+            borderBottomWidth: responsiveFontSize(1),
+            borderColor: borderInput,
+            width: SIZES.width,
+            height: 60, // Ajuste de altura adecuada
+          }}
+          indicatorStyle={{
+            backgroundColor: COLORS.primary,
+            width: SIZES.width / routes.length, // Adaptar al número de pestañas
+          }}
+          renderLabel={({ route, focused }) => {
+            console.log(
+              `renderLabel: Ruta ${route.key} está ${
+                focused ? "focalizada" : "no focalizada"
+              }`
+            );
+            let IconComponent = null;
+
+            switch (route.key) {
+              case "first":
+                IconComponent = focused ? (
+                  <FlexContainer
+                    newStyle={{
+                      width: SIZES.width / routes.length,
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                      elevation: 5, // Sombra para Android
+                    }}
+                  >
+                    <DashboardSquare03Icon
+                      width={SIZES.icons / 1.4}
+                      height={SIZES.icons / 1.4}
+                      color={COLORS.primary}
+                    />
+                  </FlexContainer>
+                ) : (
+                  <DashboardSquare03IconStroke
+                    width={SIZES.icons / 1.4}
+                    height={SIZES.icons / 1.4}
+                    color={Description}
+                  />
+                );
+                break;
+              case "second":
+                IconComponent = focused ? (
+                  <FlexContainer
+                    newStyle={{
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                      elevation: 5,
+                    }}
+                  >
+                    <StoreAdd02Icon
+                      width={SIZES.icons / 1.4}
+                      height={SIZES.icons / 1.4}
+                      color={COLORS.primary}
+                    />
+                  </FlexContainer>
+                ) : (
+                  <StoreAdd02IconStroke
+                    width={SIZES.icons / 1.4}
+                    height={SIZES.icons / 1.4}
+                    color={Description}
+                  />
+                );
+                break;
+              case "third":
+                IconComponent = focused ? (
+                  <FlexContainer
+                    newStyle={{
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                      elevation: 5,
+                    }}
+                  >
+                    <AllBookmarkIcon
+                      width={SIZES.icons / 1.4}
+                      height={SIZES.icons / 1.4}
+                      color={COLORS.primary}
+                    />
+                  </FlexContainer>
+                ) : (
+                  <AllBookmarkIconStroke
+                    width={SIZES.icons / 1.4}
+                    height={SIZES.icons / 1.4}
+                    color={Description}
+                  />
+                );
+                break;
+              case "five":
+                IconComponent = focused ? (
+                  <FlexContainer
+                    newStyle={{
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                      elevation: 5,
+                    }}
+                  >
+                    <SentIconReaction
+                      width={SIZES.icons / 1.4}
+                      height={SIZES.icons / 1.4}
+                      color={COLORS.primary}
+                    />
+                  </FlexContainer>
+                ) : (
+                  <SentIconReaction
+                    width={SIZES.icons / 1.4}
+                    height={SIZES.icons / 1.4}
+                    color={Description}
+                  />
+                );
+                break;
+              default:
+                console.log(
+                  "renderLabel: Ruta sin icono asociada:",
+                  route.key
+                );
+                IconComponent = null;
+            }
+
+            console.log(
+              `renderLabel: IconComponent para ${route.key}:`,
+              IconComponent
+            );
+            return IconComponent;
+          }}
+        />
+      );
     },
-  ) => (
-    <TabBar
-      {...props}
-      scrollEnabled={false}
-      style={{
-        backgroundColor: 'transparent',
-        zIndex: 1,
-        borderBottomWidth: responsiveFontSize(1),
-        borderColor: borderInput,
-        width: SIZES.width,
-        shadowColor: 'transparent',
-      }}
-      indicatorStyle={{
-        backgroundColor: COLORS.primary,
-        width: SIZES.width / 2,
-      }}
-      renderLabel={({ route, focused }) => {
-        let IconComponent;
-        console.log(`Rendering label for route: ${route.key}, focused: ${focused}`);
-        switch (route.key) {
-          case 'first':
-            IconComponent = focused ? (
-              <FlexContainer
-                newStyle={{
-                  width: SIZES.width / 2,
-                }}
-              >
-                <DashboardSquare03Icon
-                  width={SIZES.icons}
-                  height={SIZES.icons}
-                  color={focused ? COLORS.primary : Description}
-                />
-              </FlexContainer>
-            ) : (
-              <DashboardSquare03IconStroke
-                width={SIZES.icons}
-                height={SIZES.icons}
-                color={focused ? COLORS.primary : Description}
-              />
-            );
-            break;
-          case 'second':
-            IconComponent = focused ? (
-              <StoreAdd02Icon
-                width={SIZES.icons}
-                height={SIZES.icons}
-                color={focused ? COLORS.primary : Description}
-              />
-            ) : (
-              <StoreAdd02IconStroke
-                width={SIZES.icons}
-                height={SIZES.icons}
-                color={focused ? COLORS.primary : Description}
-              />
-            );
-            break;
-          case 'five':
-            IconComponent = (
-              <SentIconReaction
-                width={SIZES.icons}
-                height={SIZES.icons}
-                color={focused ? COLORS.primary : Description}
-              />
-            );
-            break;
-          case 'third':
-            IconComponent = focused ? (
-              <AllBookmarkIcon
-                width={SIZES.icons}
-                height={SIZES.icons}
-                color={COLORS.primary}
-              />
-            ) : (
-              <AllBookmarkIconStroke
-                width={SIZES.icons}
-                height={SIZES.icons}
-                color={Description}
-              />
-            );
-            break;
-          default:
-            IconComponent = null;
-        }
-        console.log('IconComponent:', IconComponent);
-        return IconComponent;
-      }}
-    />
+    [borderInput, routes, Description]
   );
+
+  useEffect(() => {
+    console.log("TabsMyProfile: Índice de pestaña cambiado a:", index);
+  }, [index]);
 
   return (
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
-      onIndexChange={setIndex}
+      onIndexChange={(newIndex) => {
+        console.log("TabView: onIndexChange llamado con nuevo índice:", newIndex);
+        setIndex(newIndex);
+      }}
       initialLayout={{ width: SIZES.width }}
       renderTabBar={renderTabBar}
       style={{
         flex: 1,
-        backgroundColor: 'red',
       }}
     />
   );

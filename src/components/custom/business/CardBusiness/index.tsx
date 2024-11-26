@@ -104,13 +104,13 @@ const CardBusiness = ({
         <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
           <Clock01Icon color={Title} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
           <Typography variant='H4title' newStyle={styles.timeSend}>
-            Times: {timeSend}
+            Tiempo: {timeSend}
           </Typography>
         </FlexContainer>
         <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
           <ShoppingBag01Icon color={Title} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
           <Typography variant='H4title' newStyle={styles.timeSend}>
-            Shopping: {amountSend}
+            Envios: {i18next.t(amountSend)}
           </Typography>
         </FlexContainer>
         </FlexContainer>

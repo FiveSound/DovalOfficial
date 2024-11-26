@@ -15,6 +15,9 @@ import RegisterDelivery from '../screens/Settings/Support/RegisterDelivery';
 import ScreenNewLocation from '../screens/Settings/Generals/MyLocations/ScreenNewLocation';
 import ScreenConfirmLocation from '../screens/Settings/Generals/MyLocations/ScreenConfirmLocation';
 import ScreenSaveLocation from '../screens/Settings/Generals/MyLocations/ScreenSaveLocation';
+import Terms from '../screens/Settings/Support/Legal/screens/terms';
+import Privacy from '../screens/Settings/Support/Legal/screens/Privacy';
+import Copyright from '../screens/Settings/Support/Legal/screens/Copyright';
 const Stack = createNativeStackNavigator();
 
 const SettingStack = () => {
@@ -39,6 +42,9 @@ const SettingStack = () => {
       <Stack.Screen name="ScreenNewLocation" component={ScreenNewLocation} />
       <Stack.Screen name="ScreenConfirmLocation" component={ScreenConfirmLocation} />
       <Stack.Screen name="ScreenSaveLocation" component={ScreenSaveLocation} />
+      <Stack.Screen name="TermsAndConditions" component={Terms} />
+      <Stack.Screen name="PrivacyPolicy" component={Privacy} />
+      <Stack.Screen name="CopyrightPolicy" component={Copyright} />
     </Stack.Navigator>
   );
 };

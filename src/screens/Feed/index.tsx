@@ -1,22 +1,22 @@
-import { lazy, memo, Suspense, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ScrollView, StyleSheet } from 'react-native';
-import { Platform, SafeAreaView, storage } from '../../components/native';
-import { ScreenEmpty } from '../../components/custom';
-import { FeedHeading } from './components';
 import React from 'react';
-import { useAppSelector } from '../../redux';
-import { RootState } from '../../redux/store';
-import { SIZES } from '../../constants/theme';
-import { Ilustrations } from '../../constants';
-import i18next from '../../Translate';
-import { feedService } from '../../services/feed';
 import { FEED_DATA } from '@/src/constants/storages';
 import { useScrollToTop } from '@react-navigation/native';
 import MasonrySkeleton from '@/src/components/custom/Masonry/MansorySkeleton';
 import { getCachedImage, getCachedVideo } from '../../utils/cacheMMKV';
 import { CLOUDFRONT } from '@/src/services';
-const MansoryLazy = lazy(() => import('../../components/custom/Masonry'));
+import Masonry from '@/src/components/custom/Masonry';
+import { useAppSelector } from '@/src/redux';
+import { feedService } from '@/src/services/feed';
+import { RootState } from '@/src/redux/store';
+import { Platform, SafeAreaView, storage } from '@/src/components/native';
+import { FeedHeading } from './components';
+import { ScreenEmpty } from '@/src/components/custom';
+import i18next from '@/src/Translate';
+import { SIZES } from '@/src/constants/theme';
+import { Ilustrations } from '@/src/constants';
 const QUERY_KEY = 'QUERY_KEY_FEED';
 
 const Feed = memo(() => {
@@ -122,15 +122,13 @@ const Feed = memo(() => {
   return (
     <SafeAreaView style={styles.container}>
       <FeedHeading />
-      <Suspense fallback={<MasonrySkeleton showHeader={true} />}>
-        <MansoryLazy
+        <Masonry
           pins={finalFeedData}
           onRefresh={explore.refetch}
           refreshing={explore.isRefetching}
           onLoadMore={() => mutation.mutate()}
           loading={mutation.isPending}
         />
-      </Suspense>
     </SafeAreaView>
   );
 });

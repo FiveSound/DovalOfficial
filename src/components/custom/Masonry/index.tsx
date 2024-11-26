@@ -106,7 +106,7 @@ const MasonryList = ({
      <MasonryFlashList
         data={dataWithAds}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => `masonry-item-${item.id}`}
         numColumns={numColumns}
         optimizeItemArrangement={false}
         refreshControl={
@@ -147,7 +147,7 @@ const MasonryList = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Platform.OS === 'ios' ? SIZES.gapLarge : SIZES.gapSmall,
+    paddingHorizontal: Platform.OS === 'ios' ? SIZES.gapSmall : SIZES.gapSmall,
   },
   flashList: {
     paddingBottom: SIZES.height / 10,

@@ -33,10 +33,6 @@ const MyStacks = () => {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true }}>
       <Stack.Screen name="MyTabs" component={MyTabs} 
-       options={{
-        headerShown: false,
-        animation: 'slide_from_right',
-      }}
       />
       <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="UsePhoneEmail" component={UsePhoneEmail} />
@@ -63,10 +59,6 @@ const MyStacks = () => {
       <Stack.Screen
         name="FeedDetails"
         component={FeedDetails}
-        options={{
-          headerShown: false,
-          animation: 'slide_from_right',
-        }}
       />
       <Stack.Screen name="Dashboard/Business/OrderID" component={OrderID} />
       <Stack.Screen name="ProfileStack" component={ProfileStack} />

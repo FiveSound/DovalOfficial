@@ -7,20 +7,17 @@ import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import Shoppings from './Shoppings';
 import ButtonAlert from './ButtonAlert';
 import i18next from '../../../../Translate';
-import { useTheme } from '../../../../hooks';
 import { useAppSelector } from '../../../../redux';
 import { RootState } from '../../../../redux/store';
-import { SafeAreaView } from '../../../../components/native';
 
 type Props = {};
 
 const FeedHeading = (props: Props) => {
   const { isAuthenticated, businessVerified, isLoadingApp } = useAppSelector((state: RootState) => state.auth);
-  const { Title} = useTheme()
 
   return (
     <FlexContainer newStyle={styles.container}>
-      {/* <SearchHome /> */}
+      <SearchHome />
       <Typography variant="H4title" newStyle={styles.title}>
         {i18next.t('Doval for you')}
       </Typography>

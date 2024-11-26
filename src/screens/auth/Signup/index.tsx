@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import {
   AuthLayout,
   ButtonIcons,
+  Buttons,
   FormBottom,
   SignupAlert,
   Typography,
@@ -9,7 +10,7 @@ import {
 import { Linking, StyleSheet } from 'react-native';
 import { SIZES } from '../../../constants/theme';
 import { SmartPhone01Icon } from '../../../constants/IconsPro';
-import { useNavigation } from '../../../components/native';
+import { Button, useNavigation } from '../../../components/native';
 import i18next from '../../../Translate';
 import { useTheme } from '../../../hooks';
 import SignupSocials from './SignupSocials';
@@ -64,38 +65,39 @@ const Signup = (props: Props) => {
         <SignupSocials />
         <Typography variant="SubDescription" newStyle={styles.text}>
           {i18next.t(
-            'By using the "Doval" platform, you hereby consent to the outlined in our ',
+            'By using the Doval platform, you hereby consent to the outlined in our ',
           )}
           <Typography
             variant="H4title"
-            onPress={() =>
-              handleLinkPress('https://example.com/terms-and-conditions')
-            }
+            onPress={() => {
+              dispatch(closeSignupModal());
+              navigation.navigate('SettingStack', { screen: 'TermsAndConditions' })
+            }}
           >
             {i18next.t('terms and conditions')}
           </Typography>
-          {i18next.t(' and our ')}
+          {i18next.t('and our')}
           <Typography
             variant="H4title"
-            onPress={() =>
-              handleLinkPress('https://example.com/privacy-policy')
-            }
+            onPress={() => {
+              dispatch(closeSignupModal());
+              navigation.navigate('SettingStack', { screen: 'PrivacyPolicy' })
+            }}
           >
             {i18next.t('Privacy Policy')}
           </Typography>
-          {i18next.t(' and ')}
-          <Typography
-            variant="H4title"
-            onPress={() =>
-              handleLinkPress('https://example.com/terms-of-service')
-            }
-          >
-            {i18next.t('Terms of Service')}
-          </Typography>
+  
           {i18next.t(
             '. We prioritize the protection of your personal information and adhere to strict data privacy standards.',
           )}
         </Typography>
+
+        <Buttons 
+        label={i18next.t('Support')} 
+        onPress={() => {
+          dispatch(closeSignupModal());
+          navigation.navigate('SettingStack', { screen: 'Support' })
+        }} />
       </FormBottom>
     </AuthLayout>
   );

@@ -861,5 +861,11 @@
   "Wednesday": "Miércoles",
   "Thursday": "Jueves",
   "Friday": "Viernes",
-  "Saturday": "Sábado"
+  "Saturday": "Sábado",
+  "You don't have posts yet": "No tienes publicaciones todavía",
+  "Upload your content today": "Publica tu contenido hoy",
+  "By using the Doval platform, you hereby consent to the outlined in our ": "Al usar la plataforma Doval, aceptas los términos y condiciones descritos en nuestra",
+  "terms and conditions": "Términos y condiciones",
+  " and our": " y nuestra",
+  ". We prioritize the protection of your personal information and adhere to strict data privacy standards.": "Priorizamos la protección de tu información personal y nos adherimos a estándares estrictos de privacidad de datos."
 }

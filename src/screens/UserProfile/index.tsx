@@ -15,6 +15,7 @@ import {
   MyMenu,
   MyPosts,
   CtoUserProfile,
+  TabsUserprofile,
 } from './Components';
 import i18next from '../../Translate';
 import { useQuery } from '@tanstack/react-query';
@@ -66,20 +67,6 @@ const UserProfile = (props: Props) => {
     );
   }
 
-  // const tabs = [
-  //   {
-  //     key: 'posts',
-  //     content: <MyPosts username={username} />,
-  //     activeIcon: <DashboardSquare03Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.primary}/>,    
-  //     inactiveIcon: <DashboardSquare03IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>,       
-  //   },
-  //   {
-  //     key: 'menu',
-  //     content: <MyMenu businessID={businessID} />,
-  //     activeIcon: <StoreAdd02Icon width={SIZES.icons} height={SIZES.icons} color={COLORS.primary}/>,
-  //     inactiveIcon: <StoreAdd02IconStroke width={SIZES.icons} height={SIZES.icons} color={Title}/>,
-  //   },
-  // ];
 
   return (
     <LayoutProfile data={data} isRefreshing={refreshing} onRefresh={refetch}>
@@ -102,7 +89,10 @@ const UserProfile = (props: Props) => {
       />
       <CtoUserProfile data={data} />
       <MyPosts username={username}/>
-      {/* <MyMenu businessID={businessID} /> */}
+      {/* <TabsUserprofile 
+        username={username}
+        businessID={businessID}
+      /> */}
     </LayoutProfile>
   );
 };
