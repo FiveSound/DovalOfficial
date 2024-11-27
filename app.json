@@ -2,7 +2,7 @@
   "expo": {
     "name": "Doval",
     "slug": "doval",
-    "version": "1.7.9",
+    "version": "1.8.9",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "scheme": "doval",
@@ -58,6 +58,18 @@
       "expo-font",
       "expo-localization",
       "expo-video",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/logo.png",
+          "color": "#ffffff",
+          "defaultChannel": "default",
+          "sounds": [
+            "./assets/audios/simple-notification-152054.mp3"
+          ],
+          "enableBackgroundRemoteNotifications": false
+        }
+      ],
       [
         "expo-image-picker",
         {

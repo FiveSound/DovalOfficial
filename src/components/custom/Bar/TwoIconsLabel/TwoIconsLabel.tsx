@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, TouchableOpacity, View } from '../../../native';
+import { SafeAreaView, TouchableOpacity, useNavigation, View } from '../../../native';
 import { StyleSheet } from 'react-native';
 import { SIZES } from '../../../../constants/theme';
 import Typography from '../../Typography';
@@ -23,6 +23,7 @@ type Props = {
 
 const TwoIconsLabel = (props: Props) => {
   const { label, showBack = true, onPress } = props;
+  const navigation = useNavigation();
   const [show, setShow] = useState(false);
   const { Title } = useTheme();
 
@@ -41,7 +42,10 @@ const TwoIconsLabel = (props: Props) => {
       <Typography variant="subtitle" numberOfLines={1} newStyle={styles.label}>
         {label}
       </Typography>
-      <Actions onPress={() => setShow(!show)}>
+      <Actions onPress={() => {
+        console.log('show', show);
+        navigation.navigate('SettingStack', { screen: 'Support' });
+      }}>
         <HelpCircleIcon
           width={SIZES.icons}
           height={SIZES.icons}

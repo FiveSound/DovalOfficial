@@ -34,9 +34,7 @@ const Checkout = (props: Props) => {
         cartID: cartID,
         couponID: couponID,
       });
-      console.log("response socket onSubmit", response);
       if (!response.success) throw Error("Error create order!");
-      console.log({ response });
       navigation.navigate("ConfirmOrder", { orderID: response.orderID });
       dispatch(setOrderID(response.orderID));
     } catch (error) {
@@ -58,7 +56,7 @@ const Checkout = (props: Props) => {
     );
 
   if (isLoading || isFetching || isRefetching || submitting)
-    return <LoadingScreen label={!submitting ? i18next.t("Loading...") : i18next.t("Processing...")} />;
+    return <LoadingScreen label={!submitting ? i18next.t("Loading") : i18next.t("Processing")} />;
 
 
   if (data) {

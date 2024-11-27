@@ -137,7 +137,7 @@ const MasonryList = ({
           return index === 1 ? 1 : 1;
         }}
         onEndReached={handleEndReached}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
       />
     </View>

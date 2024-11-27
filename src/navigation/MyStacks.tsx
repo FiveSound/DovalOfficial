@@ -25,6 +25,8 @@ import ReportPost from "../screens/explorar/Report";
 import OrderID from "../screens/Dashboard/screen/OrderID";
 import FormBusiness from "../screens/Dashboard/FormBusiness";
 import ProfileStack from "./ProfileStack";
+import Notifications from "../screens/Feed/Notifications";
+import ResetPasswords from "../screens/auth/ResetPasswords";
 
 
 const Stack = createNativeStackNavigator();
@@ -62,6 +64,8 @@ const MyStacks = () => {
       />
       <Stack.Screen name="Dashboard/Business/OrderID" component={OrderID} />
       <Stack.Screen name="ProfileStack" component={ProfileStack} />
+      <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="ResetPasswords" component={ResetPasswords} />
         </Stack.Navigator>
     )
 }

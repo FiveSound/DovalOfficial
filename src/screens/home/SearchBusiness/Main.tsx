@@ -47,6 +47,8 @@ const Main = ({
     setSearch(text);
   };
 
+  console.log(data);
+
   const filteredData = useMemo(() => {
     if (!Search.trim()) return data;
     return data.filter(item =>
@@ -54,6 +56,7 @@ const Main = ({
     );
   }, [data, Search]);
   
+  console.log("filteredData", filteredData);
 
 
   const renderItem = useCallback(({ item }: { item: any }) => {
@@ -77,7 +80,7 @@ const Main = ({
       isRefreshing={isRefreshing}
       onRefresh={onRefresh}
     >
-      {filteredData.length === 0 && !IsLoading ? (
+      {filteredData.length === 0 ? (
         <ScrollView
           refreshControl={
             <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />

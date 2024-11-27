@@ -94,6 +94,8 @@ const Signup = (props: Props) => {
 
         <Buttons 
         label={i18next.t('Support')} 
+        variant='disabled'
+        variantLabel='disabled'
         onPress={() => {
           dispatch(closeSignupModal());
           navigation.navigate('SettingStack', { screen: 'Support' })

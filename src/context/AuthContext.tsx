@@ -44,6 +44,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     state => state.auth,
   );
 
+  console.log('expoPushToken', expoPushToken);
+
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 5;
 
@@ -72,10 +74,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     });
     // dispatch(reloadApp())
   };
-
-  useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
 
   useEffect(() => {
     const handleConnectivityChange = (state: NetInfoState) => {
@@ -117,8 +115,20 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (user && expoPushToken?.data) {
-      subscribeNotificationsService(expoPushToken.data);
+    if (isAuthenticated) {
+      alert('Usuario ha iniciado sesión.');
+    }
+    alert(`expoPushToken: ${expoPushToken}`);
+    if (expoPushToken?.data) {
+      alert(`Expo Push Token obtenido: ${expoPushToken.data}`);
+      alert('Suscribiendo a notificaciones...');
+      subscribeNotificationsService(expoPushToken.data)
+        .then(response => {
+          alert('Suscripción a notificaciones exitosa.');
+        })
+        .catch(error => {
+          alert(`Fallo al suscribirse a notificaciones: ${error}`);
+        });
     }
   }, [user, expoPushToken]);
 

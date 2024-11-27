@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   businessName: {
-    width: SIZES.width / 1.8,
+    width: SIZES.width /1.5,
     ...FONTS.semi16,
   },
   flexContainerInner: {
-    marginLeft: SIZES.gapSmall,
+
   },
   timeSend: {
     marginRight: SIZES.padding,

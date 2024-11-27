@@ -18,7 +18,7 @@ const ButtonAlert = (props: Props) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('Discover');
+        navigation.navigate('Notifications');
       }}
     >
       <Notification03IconStroke

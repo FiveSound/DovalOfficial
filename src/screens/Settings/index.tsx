@@ -168,19 +168,19 @@ const Settings = () => {
           ),
           isNavigation: true,
         },
-        {
-          id: 'Report a problem',
-          label: i18next.t('Report a problem'),
-          navigation: 'Report',
-          icon: (
-            <HelpSquareIcon
-              width={SIZES.icons / 1.1}
-              height={SIZES.icons / 1.1}
-              color={Title}
-            />
-          ),
-          isNavigation: true,
-        },
+        // {
+        //   id: 'Report a problem',
+        //   label: i18next.t('Report a problem'),
+        //   navigation: 'Report',
+        //   icon: (
+        //     <HelpSquareIcon
+        //       width={SIZES.icons / 1.1}
+        //       height={SIZES.icons / 1.1}
+        //       color={Title}
+        //     />
+        //   ),
+        //   isNavigation: true,
+        // },
         {
           id: 'Register business',
           label: i18next.t('Register business'),

@@ -2,14 +2,9 @@ import { useState, useCallback, Suspense, lazy } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import {
-  ActivityIndicator,
-  FlatList,
   StyleSheet,
-  Text,
-  View,
   Alert,
   ToastAndroid,
-  TouchableOpacity,
 } from 'react-native';
 import { useDashboard } from '../../../context/DashboardContext';
 import {
@@ -20,7 +15,6 @@ import ORDER_STATUS from '../../../constants/ORDER_STATUS';
 const LazyOrder = lazy(() => import('../components/Order'));
 import Popup from "../components/Popup";
 import Select from "../components/Select";
-
 import {
   SOCKET_ORDER_BUSINESS_ACCEPT,
   SOCKET_ORDER_BUSINESS_DELIVERED,
@@ -40,7 +34,7 @@ import {
   TabList,
   Typography,
 } from '../../../components/custom';
-import { FlashList, Platform } from '../../../components/native';
+import { FlashList, Platform, TouchableOpacity , View} from '../../../components/native';
 import { COLORS, SIZES } from '../../../constants/theme';
 import { Ilustrations } from '../../../constants';
 import i18next from '../../../Translate';
@@ -142,14 +136,14 @@ const DashboardHome = () => {
     successMessage: string,
   ) => {
     // Indicate loading...
-    onToast('Procesando orden...');
+    onToast(i18next.t('Processing order...'));
 
     const response = await socket
       ?.timeout(1000)
       .emitWithAck(socketName, { orderID });
 
     if (!response.success) {
-      onToast(`Ha ocurrido un error!`);
+      onToast(i18next.t('An error occurred!'));
       return;
     }
 
@@ -185,7 +179,7 @@ const DashboardHome = () => {
   }, []);
 
   const onReject = useCallback((orderID: number) => {
-    Alert.alert('Rechazar esta orden', 'Order ID: ' + orderID, [
+    Alert.alert(i18next.t('Reject this order'), 'Order ID: ' + orderID, [
       { text: 'Cancelar' },
       {
         text: 'Confirmar',
@@ -193,22 +187,22 @@ const DashboardHome = () => {
           handleUpdate(
             SOCKET_ORDER_BUSINESS_REJECT,
             orderID,
-            `Orden #${orderID} rechazada con exito!`,
+            `${i18next.t('Order')} #${orderID} ${i18next.t('rejected successfully!')}`,
           ),
       },
     ]);
   }, []);
 
   const onSend = useCallback((orderID: number) => {
-    Alert.alert('Enviar esta orden', 'Order ID: ' + orderID, [
-      { text: 'Cancelar' },
+    Alert.alert(i18next.t('Send this order'), 'Order ID: ' + orderID, [
+      { text: i18next.t('Cancel') },
       {
-        text: 'Confirmar',
+        text: i18next.t('Confirm'),
         onPress: () =>
           handleUpdate(
             SOCKET_ORDER_BUSINESS_DELIVERED,
             orderID,
-            `Orden #${orderID} enviada con exito!`,
+            `${i18next.t('Order')} #${orderID} ${i18next.t('sent successfully!')}`,
           ),
       },
     ]);
@@ -222,7 +216,7 @@ const DashboardHome = () => {
       setCurrentOrderID(orderID);
       setOpenVerify(true);
     } else {
-      onToast(`Ha ocurrido un error!`);
+      onToast(i18next.t('An error occurred!'));
     }
   }, []);
 
@@ -240,14 +234,14 @@ const DashboardHome = () => {
         console.log('response verify', response);
 
       if (response.success && currentOrderID) {
-        onToast(`Order ${currentOrderID} completada con exito!`);
+        onToast(`${i18next.t('Order')} ${currentOrderID} ${i18next.t('completed successfully!')}!`);
         // Mutate
         onDeleteOrderFromPage(currentOrderID);
 
         setOpenVerify(false);
         setCurrentOrderID(null);
       } else {
-        onToast('Código incorrecto!');
+        onToast(i18next.t('Incorrect code!'));
       }
     },
     [currentOrderID],
@@ -260,11 +254,11 @@ const DashboardHome = () => {
       .emitWithAck(SOCKET_ORDER_BUSINESS_DELAY, params);
       console.log('response delay', response);
     if (response.success) {
-      onToast(`Tiempo agregado a la orden #${currentOrderID}!`);
+      onToast(`${i18next.t('Time')} ${i18next.t('added to the order')} #${currentOrderID}!`);
 
       setOpenDelay(false);
     } else {
-      onToast(`Ha ocurrido un error!`);
+      onToast(i18next.t('An error occurred!'));
     }
   }, [currentOrderID, delayTime]);
 
@@ -273,13 +267,13 @@ const DashboardHome = () => {
   if (orders.isLoading || orders.isFetching) return <LoadingScreen />;
   if (orders.isError) return;
   <ScreenEmpty
-    labelPart1="An ocurred error!"
-    labelPart2="Please try again later."
+    labelPart1={i18next.t('An ocurred error!')}
+    labelPart2={i18next.t('Please try again later.')}
     source={Ilustrations.CharcoPet}
     ImgWidth={SIZES.width}
     ImgHeigth={SIZES.height / 3}
     onPress={onRefetch}
-    labelButton='Try again'
+    labelButton={i18next.t('Try again')}
     labelStylePart1={styles.textError}
   />;
 
@@ -356,7 +350,7 @@ const DashboardHome = () => {
       <Popup id="popup-verify-order" title="Escribe el codigo de la orden" open={openVerify}>
           <OTPInput onChange={onVerify} />
         <TouchableOpacity onPress={() => setOpenVerify(false)} style={[styles.btn, styles.btnError]}>
-          <Text style={{ color: "#F41F52", fontWeight: "bold" }}>Cancelar</Text>
+          <Typography variant='H4title' newStyle={{ color: "#F41F52", fontWeight: "bold" }}>Cancelar</Typography>
         </TouchableOpacity>
       </Popup>
 

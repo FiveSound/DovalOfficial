@@ -29,61 +29,85 @@ export const usePushNotifications = (): PushNotificationState => {
   const notificationListener = useRef<Notifications.Subscription>();
   const responderListener = useRef<Notifications.Subscription>();
 
-  async function registerForPushNotificationsAsync() {
+  const registerForPushNotificationsAsync = async () => {
+    alert('Registrando para notificaciones push...');
     let token;
     if (Device.isDevice) {
       const { status: existingStatus } =
         await Notifications.getPermissionsAsync();
+      alert(`Permisos existentes: ${existingStatus}`);
       let finalStatus = existingStatus;
 
       if (existingStatus !== 'granted') {
         const { status } = await Notifications.requestPermissionsAsync();
+        alert(`Permisos solicitados: ${status}`);
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        console.log('Failed to get push token for push notification');
+        console.warn('Falló al obtener el token de push');
         return;
       }
       token = await Notifications.getExpoPushTokenAsync({
         projectId: Constants.expoConfig?.extra?.eas.projectid,
       });
+      alert(`Token obtenido: ${JSON.stringify(token)}`);
     } else {
-      console.log('Must be usandi a phoyscal devide for push notifications');
+      console.warn(
+        'Debes usar un dispositivo físico para notificaciones push'
+      );
+      return;
     }
+
     if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
+      await Notifications.setNotificationChannelAsync('default', {
         name: 'default',
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
         lightColor: '#FF231F7C',
       });
+      alert('Canal de notificación Android configurado');
     }
 
     return token;
-  }
+  };
 
   useEffect(() => {
+    alert('usePushNotifications - useEffect iniciado');
     registerForPushNotificationsAsync().then(token => {
-      setExpoPushToken(token);
+      if (token) {
+        setExpoPushToken(token);
+        alert(`Push token establecido: ${token}`);
+      }
     });
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener(notification => {
         setNotification(notification);
+        alert(
+          `Notificación recibida: ${JSON.stringify(notification)}`
+        );
       });
 
-    responderListener.current = Notifications.addNotificationReceivedListener(
-      response => {
-        console.log('Response', response);
-      },
-    );
+    responderListener.current =
+      Notifications.addNotificationResponseReceivedListener(response => {
+        alert(
+          `Respuesta a notificación: ${JSON.stringify(response)}`
+        );
+      });
 
     return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current!,
-      );
-
-      Notifications.removeNotificationSubscription(responderListener.current!);
+      if (notificationListener.current) {
+        Notifications.removeNotificationSubscription(
+          notificationListener.current
+        );
+        alert('Listener de notificación removido');
+      }
+      if (responderListener.current) {
+        Notifications.removeNotificationSubscription(
+          responderListener.current
+        );
+        alert('Listener de respuesta removido');
+      }
     };
   }, []);
 

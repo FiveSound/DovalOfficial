@@ -84,9 +84,7 @@ const Header = () => {
       backgroundColor: theme === 'dark' ? '#000' : '#fff',
     }]}>
       <Icons
-        onPress={() => navigation.navigate('MainStackt', {
-          screen: 'OrderStack',
-        })}
+        onPress={() => navigation.navigate('OrderStack')}
         appendIcons={
           <>
             {/* {cart?.list.length > 0 && (

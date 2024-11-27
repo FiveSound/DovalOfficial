@@ -13,6 +13,7 @@ const Categories = () => {
   const { backgroundMaingrey, mode } = useTheme();
   const navigation = useNavigation();
   const isDarkMode = mode === 'dark';
+
   return (
     <FlexContainer newStyle={styles.container}>
       <FlexContainer style={styles.row}>
@@ -27,10 +28,10 @@ const Categories = () => {
           }]}>
             <Image source={item.image} style={styles.largeImage} />
             <Typography variant='subtitle' newStyle={styles.title}>{item.name}</Typography>
-            {/* <Typography variant='SubDescription'>{item.description}</Typography> */}
           </TouchableOpacity>
         ))}
       </FlexContainer>
+      
       <View style={styles.row}>
         {categories.slice(2).map((item) => (
           <View key={item.id} style={[styles.smallItem, {

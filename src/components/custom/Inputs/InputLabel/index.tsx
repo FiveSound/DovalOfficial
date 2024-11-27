@@ -52,6 +52,7 @@ type Props = {
   returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
   ShowDivider?: boolean;
   readOnly?: boolean;
+  editable?: boolean;
 };
 
 const InputLabel = (props: Props) => {
@@ -82,6 +83,7 @@ const InputLabel = (props: Props) => {
     testID,
     ShowDivider = true,
     readOnly = false,
+    editable = true,
   } = props;
   const { Description, Title, borderInput } = useTheme();
   const [height, setHeight] = useState(SIZES.InputsHeight);
@@ -131,7 +133,7 @@ const InputLabel = (props: Props) => {
         autoCapitalize={autoCapitalize}
         onChangeText={onChangeText}
         value={value}
-        editable={!disabled}
+        editable={editable}
         onBlur={handleBlur}
         maxLength={maxLength}
         multiline={multiline}

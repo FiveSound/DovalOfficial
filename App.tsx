@@ -17,6 +17,7 @@ import { DashboardProvider } from "./src/context/DashboardContext";
 import Splash from "./Splash";
 import useLocale from "./src/hooks/useLocale";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LoadingScreen } from "./src/components/custom";
 
 
 const queryClient = new QueryClient();
@@ -88,7 +89,7 @@ const AppWithReload = () => {
 
   return (
     isSplashLoading ? (
-      <Splash />
+      <LoadingScreen />
     ) : (
       <SafeAreaView 
       style={[appStyles.flexContainer, {backgroundColor: BackgroundMain}]}

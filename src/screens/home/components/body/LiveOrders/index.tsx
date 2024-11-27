@@ -43,6 +43,8 @@ const LiveOrders = () => {
     queryFn: getOrdersService,
   });
 
+  console.log('data', data);
+
   useEffect(() => {
     if (socket) {
       socket.on(`event-realtime-order`, newState => {

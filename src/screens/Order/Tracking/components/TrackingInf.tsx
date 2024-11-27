@@ -1,5 +1,5 @@
-import React, { memo, useEffect, useRef } from 'react';
-import { Alert, StyleSheet, Animated, Easing } from 'react-native';
+import React, { memo } from 'react';
+import { Alert, StyleSheet } from 'react-native';
 import { useTheme } from '../../../../hooks';
 import { FONTS, SIZES } from '../../../../constants/theme';
 import {
@@ -12,6 +12,8 @@ import {
   Avatars,
   FlexContainer,
   InfoCard,
+  LineDivider,
+  Typography,
 } from '../../../../components/custom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
@@ -31,16 +33,6 @@ const TrackingInf = (props: Props) => {
     queryFn: getRiderDetailsService,
     enabled: riderID ? true : false,
   });
-  const translateYAnim = useRef(new Animated.Value(50)).current;
-
-  useEffect(() => {
-    Animated.timing(translateYAnim, {
-      toValue: 0,
-      duration: 500,
-      easing: Easing.ease,
-      useNativeDriver: true,
-    }).start();
-  }, [translateYAnim]);
 
   if (data) {
     const {
@@ -53,14 +45,32 @@ const TrackingInf = (props: Props) => {
       verification_code,
       products,
     } = data;
+    const isValidVerificationCode = verification_code !== null && verification_code !== undefined;
 
-    if (verification_code !== null) {
-      Alert.alert(
-        i18next.t('Confirm order PIN'),
-        i18next.t(`Confirm order PIN: ${verification_code}`),
-        [{ text: 'OK' }],
+    const PinComponents = () => {
+      const { Title, backgroundMaingrey } = useTheme();
+      const codeString = verification_code ? String(verification_code) : '';
+
+      return (
+        <FlexContainer newStyle={styles.container}>
+          <FlexContainer style={styles.pinContainer}>
+            {codeString.split('').map((digit: string, index: number) => (
+              <FlexContainer key={index} newStyle={[styles.pinDigit, { backgroundColor: backgroundMaingrey }]}>
+                <Typography variant='subtitle'>
+                  {digit}
+                </Typography>
+              </FlexContainer>
+            ))}
+
+          </FlexContainer>
+          <Typography variant='subtitle' newStyle={styles.pinText}>
+            {i18next.t('Confirm your order to avoid fraud')}
+          </Typography>
+          <LineDivider variant='secondary' />
+        </FlexContainer>
+        
       );
-    }
+    };
 
     return (
       <FlexContainer
@@ -68,30 +78,14 @@ const TrackingInf = (props: Props) => {
       >
         <ScrollView>
           <>
-            {verification_code !== null && (
-              <Animated.View
-                style={{ transform: [{ translateY: translateYAnim }] }}
-              >
-                <InfoCard
-                  icon={
-                    <GridViewIcon
-                      color={Title}
-                      width={SIZES.icons * 1.2}
-                      height={SIZES.icons * 1.2}
-                    />
-                  }
-                  title={`${i18next.t('Confirm order PIN')}: ${verification_code}`}
-                  description={i18next.t('Confirm your order to avoid fraud')}
-                  showArrow={true}
-                  showLineDivider={true}
-                />
-              </Animated.View>
+            {isValidVerificationCode && (
+              <FlexContainer>
+                <PinComponents />
+              </FlexContainer>
             )}
-
+          
             {riderID !== null && !isLoading && (
-              <Animated.View
-                style={{ transform: [{ translateY: translateYAnim }] }}
-              >
+              <FlexContainer>
                 <InfoCard
                   icon={
                     <Avatars
@@ -107,12 +101,10 @@ const TrackingInf = (props: Props) => {
                   showArrow={true}
                   showLineDivider={true}
                 />
-              </Animated.View>
+              </FlexContainer>
             )}
 
-            <Animated.View
-              style={{ transform: [{ translateY: translateYAnim }] }}
-            >
+            <FlexContainer>
               <InfoCard
                 icon={
                   <Location09Icon
@@ -126,11 +118,9 @@ const TrackingInf = (props: Props) => {
                 showArrow={true}
                 showLineDivider={true}
               />
-            </Animated.View>
+            </FlexContainer>
 
-            <Animated.View
-              style={{ transform: [{ translateY: translateYAnim }] }}
-            >
+            <FlexContainer>
               <InfoCard
                 icon={
                   <Store01IconStroke
@@ -147,11 +137,9 @@ const TrackingInf = (props: Props) => {
                 showArrow={true}
                 showLineDivider={true}
               />
-            </Animated.View>
+            </FlexContainer>
 
-            <Animated.View
-              style={{ transform: [{ translateY: translateYAnim }] }}
-            >
+            <FlexContainer>
               <InfoCard
                 icon={
                   rider_waiting ? (
@@ -176,7 +164,7 @@ const TrackingInf = (props: Props) => {
                 showArrow={true}
                 showLineDivider={true}
               />
-            </Animated.View>
+            </FlexContainer>
           </>
         </ScrollView>
       </FlexContainer>
@@ -193,6 +181,25 @@ const styles = StyleSheet.create({
   header: {
     ...FONTS.heading24,
     marginBottom: SIZES.gapMedium,
+  },
+  pinContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: SIZES.gapLarge * 4,
+  },
+  pinDigit: {
+    borderWidth: SIZES.borderWidth,
+    borderColor: '#E0E0E0',
+    borderRadius: SIZES.padding,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F9F9F9',
+    paddingHorizontal: SIZES.gapLarge * 2,
+    paddingVertical: SIZES.gapLarge,
+  },
+  pinText: {
+    textAlign: 'center',
   },
 });
 

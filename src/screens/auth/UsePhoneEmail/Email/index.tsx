@@ -28,7 +28,7 @@ import { RootState } from '../../../../redux/store';
 import { reloadApp } from '../../../../redux/slides/appSlice';
 
 const SignUpEmail = () => {
-  const [state, setState] = useState({
+  const initialState = {
     loading: false,
     error: false,
     success: false,
@@ -39,8 +39,8 @@ const SignUpEmail = () => {
     exist: false,
     showPassword: false,
     screenLoading: false,
-  });
-
+  };
+  const [state, setState] = useState(initialState);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -116,6 +116,12 @@ const SignUpEmail = () => {
     }
   };
 
+  const handleResetPassword = () => {
+    setState(initialState);
+    navigation.navigate('ResetPasswords');
+  }
+
+
   if (state.screenLoading || loginLoading) {
     return <LoadingScreen />;
   }
@@ -146,20 +152,6 @@ const SignUpEmail = () => {
           onChangeText={value =>
             setState(prevState => ({ ...prevState, password: value }))
           }
-          // endComponent={
-          //   <TouchableOpacity
-          //     onPress={() =>
-          //       setState(prevState => ({
-          //         ...prevState,
-          //         showPassword: !prevState.showPassword,
-          //       }))
-          //     }
-          //   >
-          //     <Typography variant="H4title">
-          //       {state.showPassword ? i18next.t('Hide') : i18next.t('Show')}
-          //     </Typography>
-          //   </TouchableOpacity>
-          // }
         />
       )}
       <FlexContainer newStyle={styles.flexContainer}>
@@ -174,12 +166,23 @@ const SignUpEmail = () => {
         )}
         {loginError && (
           <Perks
-            label={loginMessage || i18next.t('Error al iniciar sesión')}
+            label={i18next.t(`${loginMessage}`) || i18next.t('Error al iniciar sesión')}
             status="error"
           />
         )}
         {loginMessage && !loginError && (
           <Perks label={loginMessage} status="success" />
+        )}
+        {loginMessage === 'Incorrect password' && (
+          <Typography 
+          onPress={handleResetPassword}
+          variant='H4title'
+          newStyle={{
+            textDecorationLine: 'underline',
+          }}
+          > 
+            {i18next.t('Reset my password')}
+          </Typography>
         )}
       </FlexContainer>
       {!state.exist && (

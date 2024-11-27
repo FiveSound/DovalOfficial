@@ -2,7 +2,7 @@ import React from 'react';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { View, StyleSheet } from 'react-native';
 import { COLORS, SIZES } from '../../constants/theme';
-import { AnalyticsUpIcon, DashboardSquare01Icon, Home01Icon, Invoice03Icon, MenuRestaurantIcon, Store01IconStroke } from '../../constants/IconsPro';
+import { AnalyticsUpIcon, DashboardSquare01Icon, HelpSquareIcon, Home01Icon, Invoice03Icon, MenuRestaurantIcon, Store01IconStroke, UserIcon } from '../../constants/IconsPro';
 import { LineDivider, Typography } from '../../components/custom';
 import { Pressable, SafeAreaView } from '@/src/components/native';
 import { useTheme } from '@/src/hooks';
@@ -61,6 +61,16 @@ const CustomDrawerContent: React.FC<CustomDrawerContentProps> = ({ navigation, h
             label: i18next.t('Analytics'),
             icon: <AnalyticsUpIcon color={currentRoute === 'Analytics' ? COLORS.dark : Description} width={SIZES.icons} height={SIZES.icons} />,
             screen: 'Analitycs', 
+        },
+        {
+            label: i18next.t('Profile'),
+            icon: <UserIcon color={currentRoute === 'Profile' ? COLORS.dark : Description} width={SIZES.icons} height={SIZES.icons} />,
+            screen: 'Profile',
+        },
+        {
+            label: i18next.t('Support'),
+            icon: <HelpSquareIcon color={currentRoute === 'Support' ? COLORS.dark : Description} width={SIZES.icons} height={SIZES.icons} />,
+            screen: 'Support',
         },
     ];
 

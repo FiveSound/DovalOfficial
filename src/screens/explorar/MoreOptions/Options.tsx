@@ -22,12 +22,12 @@ import { blockPostService } from '../../../services/shares';
 import { Alert } from 'react-native';
 import { useAuth } from '../../../context/AuthContext';
 import i18next from '../../../Translate';
+import { useAppSelector } from '@/src/redux';
 
 type Props = {};
 
 const Options = (props: Props) => {
-  const { isAuthenticated } = useAuth();
-
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
   const { backgroundMaingrey, Title, Description, borderInput } = useTheme();
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -126,6 +126,12 @@ const Options = (props: Props) => {
         />
         <IconsOptions
           label={i18next.t('Help')}
+          onPress={() => {
+            dispatch(closeMoreOptions());
+            navigation.navigate('SettingStack', {
+              screen: 'Support',
+            })
+          }}
           icon={
             <HelpSquareIcon
               color={Description}

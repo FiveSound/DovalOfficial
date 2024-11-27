@@ -10,6 +10,7 @@ import { Video, AVPlaybackStatus, ResizeMode } from 'expo-av';
 import { RootState } from "@/src/redux/store";
 import Typography from "../Typography";
 import FlexContainer from "../FlexContainer";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface RemoteImageProps {
   pin: any;

@@ -38,7 +38,6 @@ const ReportUsers = () => {
     queryFn: reportedListService,
   });
 
-  console.log('data', data);
 
   const [options, setOptions] = useState<ReportOption[]>();
   const [loading, setLoading] = useState(false);

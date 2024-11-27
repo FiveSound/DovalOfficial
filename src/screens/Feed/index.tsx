@@ -5,8 +5,6 @@ import React from 'react';
 import { FEED_DATA } from '@/src/constants/storages';
 import { useScrollToTop } from '@react-navigation/native';
 import MasonrySkeleton from '@/src/components/custom/Masonry/MansorySkeleton';
-import { getCachedImage, getCachedVideo } from '../../utils/cacheMMKV';
-import { CLOUDFRONT } from '@/src/services';
 import Masonry from '@/src/components/custom/Masonry';
 import { useAppSelector } from '@/src/redux';
 import { feedService } from '@/src/services/feed';
@@ -17,7 +15,10 @@ import { ScreenEmpty } from '@/src/components/custom';
 import i18next from '@/src/Translate';
 import { SIZES } from '@/src/constants/theme';
 import { Ilustrations } from '@/src/constants';
-const QUERY_KEY = 'QUERY_KEY_FEED';
+
+const FEED_QUERY_KEY = 'FEED_QUERY';
+const LOAD_MORE_MUTATION_KEY = 'LOAD_MORE_MUTATION';
+
 
 const Feed = memo(() => {
   const [page, setPage] = useState<number>(1);
@@ -29,39 +30,20 @@ const Feed = memo(() => {
   useScrollToTop(masonryScrollRef);
 
   const explore = useQuery({
-    queryKey: [QUERY_KEY],
+    queryKey: [FEED_QUERY_KEY],
     queryFn: async () => await feedService(location, user?.userID, page),
   });
   
   const mutation = useMutation({
-    mutationKey: [QUERY_KEY],
+    mutationKey: [LOAD_MORE_MUTATION_KEY],
     mutationFn: async () => {
       const nextPage = page + 1;
       const data = await feedService(location, user?.userID, nextPage);
       return { data, nextPage };
     },
     onSuccess: ({ data, nextPage }) => {
-      data.forEach(async (item: any) => {
-        try {
-          if (item.thumbnail && typeof item.thumbnail === 'string') {
-            const imageUrl = `${CLOUDFRONT}${item.thumbnail}`;
-            await getCachedImage(imageUrl);
-          }
-        } catch (error) {
-          console.error(`Error al cachear la imagen con URL "${item.thumbnail}":`, error);
-        }
 
-        try {
-          if (item.videos && item.videos.key && typeof item.videos.key === 'string') {
-            const videoUrl = `${CLOUDFRONT}${item.videos.key}`;
-            await getCachedVideo(videoUrl);
-          }
-        } catch (error) {
-          console.error(`Error al cachear el video con URL "${item.videos.key}":`, error);
-        }
-      });
-
-      queryClient.setQueryData([QUERY_KEY], (oldData: any[] = []) => [...oldData, ...data]);
+      queryClient.setQueryData([FEED_QUERY_KEY], (oldData: any[] = []) => [...oldData, ...data]);
       setPage(nextPage);
     },
   });

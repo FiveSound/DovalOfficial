@@ -20,7 +20,7 @@ const Tab = createBottomTabNavigator();
 
 function MyTabBar({ state, descriptors, navigation }: any) {
     const { BackgroundMain, Description, Title } = useTheme();
-    const { businessVerified, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+    const { businessVerified, isAuthenticated , isLoadingApp} = useAppSelector((state: RootState) => state.auth);
 
     const tabs = [
         {
@@ -33,7 +33,7 @@ function MyTabBar({ state, descriptors, navigation }: any) {
         //     focusedIcon: <Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons} />,
         //     unfocusedIcon: <Home01Icon color={Description} width={SIZES.icons} height={SIZES.icons} />,
         // },
-        ...(isAuthenticated && businessVerified
+        ...(!isLoadingApp &&isAuthenticated && businessVerified
             ? [{
                 label: i18next.t('Portal'),
                 name: 'Portal',
@@ -111,7 +111,9 @@ function MyTabBar({ state, descriptors, navigation }: any) {
 
 
 const MyTabs = () => {
-    const { businessVerified, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+    const { businessVerified, isAuthenticated, isLoadingApp } = useAppSelector((state: RootState) => state.auth);
+    const business = !isLoadingApp && isAuthenticated && businessVerified ;
+
     return (
         <Tab.Navigator
             tabBar={(props) => <MyTabBar {...props} />}
@@ -119,7 +121,7 @@ const MyTabs = () => {
         >
             <Tab.Screen name="Feed" component={Feed} />
             {/* <Tab.Screen name="ChatIa" component={ChatIa} /> */}
-            <Tab.Screen name={isAuthenticated && businessVerified ? 'Portal' : 'HomeScreen'} component={isAuthenticated && businessVerified ? DashboardScreen : HomeScreen} />
+            <Tab.Screen name={business ? 'Portal' : 'HomeScreen'} component={business ? DashboardScreen : HomeScreen} />
             <Tab.Screen name="MyProfile" component={MyProfile} />
         </Tab.Navigator>
     )

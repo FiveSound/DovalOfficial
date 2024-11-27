@@ -59,8 +59,6 @@ const Tracking = ({ route }: Props) => {
   const [sucess, setSucess] = useState(false);
   const [riderLocation, setRiderLocation] = useState<LocationObjectCoords | null>(null);
   const queryClient = useQueryClient();
-  const { setActiveTab } = useContext(ActiveTabContext);
-
   
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ['screen-order-id', orderID],
@@ -82,18 +80,9 @@ const Tracking = ({ route }: Props) => {
     }
   }, [data]);
 
-  const { setTabBarVisible } = useContext(TabBarVisibilityContext);
-  useEffect(() => {
-    setTabBarVisible(false);
-
-    return () => {
-      setTabBarVisible(true);
-    };
-  }, [setTabBarVisible]);
   
   const handlePress = () => {
     dispatch(closeModalPin());
-    setActiveTab('Feed');
     dispatch(reloadApp());
   };
 
@@ -132,7 +121,7 @@ const Tracking = ({ route }: Props) => {
   }, [socket, refetch]);
 
   useEffect(() => {
-    if (data?.status === 'COMPLETED') {
+    if (data?.status === 'COMPLETED' && data?.verified) {
       setTimeout(() => {
         navigation.navigate('Complete');
         dispatch(closeModalPin());
@@ -161,6 +150,8 @@ const Tracking = ({ route }: Props) => {
       creation_time,
       estimated_time,
     } = data;
+
+    console.log('data', data);
 
     if (
       latitude &&

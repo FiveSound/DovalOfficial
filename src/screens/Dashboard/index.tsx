@@ -12,6 +12,8 @@ import { Home01Icon } from '@/src/constants/IconsPro';
 import { useTheme } from '../../hooks';
 import { COLORS, SIZES } from '../../constants/theme';
 import CustomDrawerContent from './CustomDrawerContent';
+import Profile from './screen/Profile';
+import Support from './screen/Support';
 
 const Drawer = createDrawerNavigator();
 
@@ -70,9 +72,15 @@ const DashboardScreen: React.FC = () => {
       <Drawer.Screen
         name="Analitycs"
         component={Analitycs}
-      
       />
-      {/* Opciones adicionales comentadas */}
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+      />
+      <Drawer.Screen
+        name="Support"
+        component={Support}
+      />
     </Drawer.Navigator>
   );
 };

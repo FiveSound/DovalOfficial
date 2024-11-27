@@ -71,13 +71,13 @@ const CardBusiness = ({
             color: open ? COLORS.success : COLORS.error,
           }}
         >
-          {open ? i18next.t('Open store') : i18next.t('closed for moments')}
+          {open ? i18next.t('Open store') : i18next.t('Closed')}
         </Typography>
         <TouchableOpacity
           onPress={handleNavigation}
           style={styles.touchableOpacity}
         >
-          <Cover source={memoizedCoverBusiness} size='medium' />
+          <Cover source={memoizedCoverBusiness} size='small' />
 
           <View style={styles.flexContainerInner}>
             <Typography
@@ -107,12 +107,12 @@ const CardBusiness = ({
             Tiempo: {timeSend}
           </Typography>
         </FlexContainer>
-        <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
+        {/* <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
           <ShoppingBag01Icon color={Title} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
           <Typography variant='H4title' newStyle={styles.timeSend}>
             Envios: {i18next.t(amountSend)}
           </Typography>
-        </FlexContainer>
+        </FlexContainer> */}
         </FlexContainer>
       </FlexContainer>
       <LineDivider lineStyle={styles.lineDivider} variant="secondary" />

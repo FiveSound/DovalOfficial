@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, TouchableOpacity, View } from '../../../native';
+import { SafeAreaView, TouchableOpacity, useNavigation, View } from '../../../native';
 import { StyleSheet } from 'react-native';
 import { SIZES } from '../../../../constants/theme';
 import Typography from '../../Typography';
@@ -16,6 +16,8 @@ import Hint from '../../hint';
 import Actions from '../../Actions';
 import { useTheme } from '../../../../hooks';
 import FlexContainer from '../../FlexContainer';
+import { useAppDispatch } from '@/src/redux';
+import { closeModalPin } from '@/src/redux/slides/modalSlice';
 
 type Props = {
   label?: string;
@@ -37,6 +39,8 @@ const ThreeIcons = (props: Props) => {
   } = props;
   const [show, setShow] = useState(true);
   const { Title } = useTheme();
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   const Close = ({ onPress }: any) => {
     return (
@@ -62,7 +66,10 @@ const ThreeIcons = (props: Props) => {
       {showRightIcons && (
         <FlexContainer variant="row" newStyle={styles.subicons}>
           {!showShare && <Share onPress={onPressShare} />}
-          <Actions onPress={() => console.log('Help')}>
+          <Actions onPress={() => {
+            dispatch(closeModalPin());
+            navigation.navigate('SettingStack', { screen: 'Support' });
+          }}>
             <HelpCircleIcon
               width={SIZES.icons}
               height={SIZES.icons}

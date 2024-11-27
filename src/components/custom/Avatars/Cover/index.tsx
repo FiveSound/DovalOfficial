@@ -44,7 +44,7 @@ const Cover = ({ source, size = 'medium' }: Props) => {
     <IsLoading  />
   ) : (
     <Image
-      source={{ uri: source }}
+      source={source}
       placeholderSource={source}
       showPlaceholder={true}
       contentFit="cover"
