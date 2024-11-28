@@ -1,19 +1,42 @@
-import React from 'react';
-import { ButtonIcons } from '../../../../components/custom';
-import { Image } from '../../../../components/native';
-import i18next from '../../../../Translate';
-import { iconsNative } from '../../../../constants';
-import { useTheme } from '../../../../hooks';
-import { SIZES } from '../../../../constants/theme';
+import { useEffect } from "react";
+import * as Facebook from "expo-auth-session/providers/facebook";
+import * as WebBrowser from "expo-web-browser";
+import { ButtonIcons } from "../../../../components/custom";
+import { Image } from "../../../../components/native";
+import i18next from "../../../../Translate";
+import { signInWithFacebookService } from "../../../../services/auth";
+import { useAuth } from "../../../../context/AuthContext";
+import { iconsNative } from "../../../../constants";
+import { useTheme } from "../../../../hooks";
+import { SIZES } from "../../../../constants/theme";
 
-type Props = {};
+WebBrowser.maybeCompleteAuthSession();
 
-const SignupFacebook = (props: Props) => {
+const SignupFacebook = () => {
+  const { signIn } = useAuth();
   const { Title } = useTheme();
+  const [_request, response, promptAsync] = Facebook.useAuthRequest({
+    clientId: "703314045273320",
+  });
+
+  useEffect(() => {
+    if (response?.type == "success" && response.authentication) {
+      (async () => {
+        let accessToken = response.authentication?.accessToken;
+        if (accessToken) {
+          // setLoad(true);
+          const user = await signInWithFacebookService(accessToken);
+          signIn(user);
+          //   setLoad(false);
+        }
+      })();
+    }
+  }, [response]);
 
   return (
     <ButtonIcons
-      label={i18next.t('continue with my Facebook')}
+      onPress={() => promptAsync()}
+      label={i18next.t("continue with Facebook")}
       orientationsIcons="Left"
       Icons={
         <Image
