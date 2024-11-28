@@ -5,7 +5,7 @@
     "version": "1.8.9",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
-    "scheme": "doval",
+    "scheme": ["doval", "fb703314045273320"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
     "splash": {
