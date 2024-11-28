@@ -28,6 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>doval</string>
+          <string>fb703314045273320</string>
           <string>com.doval.doval</string>
         </array>
       </dict>

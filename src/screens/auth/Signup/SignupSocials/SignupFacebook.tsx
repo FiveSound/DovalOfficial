@@ -5,16 +5,18 @@ import { ButtonIcons } from "../../../../components/custom";
 import { Image } from "../../../../components/native";
 import i18next from "../../../../Translate";
 import { signInWithFacebookService } from "../../../../services/auth";
-import { useAuth } from "../../../../context/AuthContext";
 import { iconsNative } from "../../../../constants";
 import { useTheme } from "../../../../hooks";
 import { SIZES } from "../../../../constants/theme";
+import { useAppDispatch } from "@/src/redux";
+import { signInSuccess } from "@/src/redux/slides/authSlice";
+import { closeSignupModal } from "@/src/redux/slides/modalSlice";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const SignupFacebook = () => {
-  const { signIn } = useAuth();
   const { Title } = useTheme();
+  const dispatch = useAppDispatch();
   const [_request, response, promptAsync] = Facebook.useAuthRequest({
     clientId: "703314045273320",
   });
@@ -26,8 +28,8 @@ const SignupFacebook = () => {
         if (accessToken) {
           // setLoad(true);
           const user = await signInWithFacebookService(accessToken);
-          signIn(user);
-          //   setLoad(false);
+          dispatch(signInSuccess(user));
+          dispatch(closeSignupModal());
         }
       })();
     }

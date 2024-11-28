@@ -13,33 +13,24 @@ import ThreeIcons from '../../../components/custom/Bar/ThreeIcons';
 import i18next from '../../../Translate';
 import { useAppDispatch } from '../../../redux';
 import { closeModalPin } from '../../../redux/slides/modalSlice';
-import { reloadApp } from '../../../redux/slides/appSlice';
 
 interface Props {}
 
 const Complete = (props: Props) => {
   const [counter, setCounter] = useState(3);
+  const [rating, setRating] = useState(0);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const handleNavigateToTracking = () => {
-    const intervalId = setInterval(() => {
-      setCounter(prevCounter => {
-        if (prevCounter <= 1) {
-          clearInterval(intervalId);
-          return 0;
-        }
-        return prevCounter - 1;
-      });
-    }, 1000);
-  };
 
   useEffect(() => {
-    handleNavigateToTracking();
-  }, []);
+    dispatch(closeModalPin());
+  }, [dispatch]);
 
   const handlePress = () => {
-    dispatch(closeModalPin());
-    dispatch(reloadApp());
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MyTabs' }],
+    });
   };
 
   return (
@@ -47,6 +38,7 @@ const Complete = (props: Props) => {
       showFooter={true}
       labels={i18next.t('Submit Review')}
       disabled={false}
+      onPress={handlePress}
     >
       <ThreeIcons
         showBack={false}
@@ -63,7 +55,7 @@ const Complete = (props: Props) => {
         <ScreenEmpty
           source={Ilustrations.GoodJob}
           ImgWidth={SIZES.width}
-          ImgHeigth={responsiveFontSize(261)}
+          ImgHeigth={SIZES.height / 3}
           labelPart1={i18next.t('Congratulations!')}
           labelPart2={i18next.t('Your order has been delivered successfully.')}
           subLabel={i18next.t(
@@ -71,13 +63,10 @@ const Complete = (props: Props) => {
           )}
           labelStylePart1={styles.labelThank}
           labelStylePart2={styles.labelThank}
-          sublabelStyles={styles.description}
-          onPress={handleNavigateToTracking}
-          labelButton={`${i18next.t('Go to Tracking')} (${counter})`}
           ShowButton={false}
         />
-        <Rating rating={4} setRating={() => {}} />
-        <InputLabel placeholder={i18next.t('Enter your review')} />
+        <Rating rating={rating} setRating={setRating} />
+        <InputLabel placeholder={i18next.t('Add a comment')} />
       </ScrollView>
     </Container>
   );

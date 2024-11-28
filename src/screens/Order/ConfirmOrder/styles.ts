@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0 }],
     opacity: 0,
   },
+  labelThank: {
+    color: COLORS.success,
+  }
 });
 
 export default styles;

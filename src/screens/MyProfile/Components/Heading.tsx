@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { StyleSheet } from 'react-native';
 import {
+  AddCircleHalfDotIcon,
   Menu01Icon,
   UploadCircle01Icon,
   VerifyIcons,
@@ -60,7 +61,7 @@ const Heading = ({
           <FlexContainer variant="row" newStyle={styles.actionContainer}>
             {businessVerified && (
               <TouchableOpacity onPress={() => dispatch(openUploadModal())}>
-                <UploadCircle01Icon
+                <AddCircleHalfDotIcon
                   width={SIZES.icons}
                   height={SIZES.icons}
                   color={color}

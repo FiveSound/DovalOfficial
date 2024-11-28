@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
-import { Linking, SplashScreen as NativeSplashScreen } from "./src/components/native";
+import { Linking, SplashScreen as NativeSplashScreen, Platform } from "./src/components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ColorSchemeName, LogBox, StatusBar, StyleSheet, useColorScheme } from "react-native";
@@ -17,14 +17,14 @@ import { DashboardProvider } from "./src/context/DashboardContext";
 import Splash from "./Splash";
 import useLocale from "./src/hooks/useLocale";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LoadingScreen } from "./src/components/custom";
+import { LoadingScreen} from "./src/components/custom";
+import { FONTS, SIZES } from "./src/constants/theme";
+import { ToastProvider } from "./src/components/custom/ToastManager";
 
 
 const queryClient = new QueryClient();
 
 const AppContent = ({ onLayoutRootView, linking, theme }: { onLayoutRootView: () => Promise<void>, linking: any, theme: ColorSchemeName }) => {
-  const { BackgroundMain } = useTheme();
-
   return (
     <NavigationContainer linking={linking}>
       <QueryClientProvider client={queryClient}>
@@ -54,7 +54,7 @@ const AppWithReload = () => {
   const { isSplashLoading, setSplashLoading } = useSplashLoading();
   const [appIsReady, setAppIsReady] = useState(false);
   const theme = useColorScheme();
-  const { BackgroundMain } = useTheme();
+  const { BackgroundMain, Title, backgroundMaingrey } = useTheme();
   const linking = useMemo(
     () => ({
       prefixes: [Linking.createURL("/"), "doval://", "https://www.doval.io"],
@@ -91,12 +91,14 @@ const AppWithReload = () => {
     isSplashLoading ? (
       <LoadingScreen />
     ) : (
-      <SafeAreaView 
-      style={[appStyles.flexContainer, {backgroundColor: BackgroundMain}]}
-    >
-        <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={BackgroundMain} />
-        <AppContent onLayoutRootView={onLayoutRootView} linking={linking} theme={theme} />
-      </SafeAreaView>
+      <ToastProvider >
+        <SafeAreaView 
+          style={[appStyles.flexContainer, {backgroundColor: BackgroundMain}]}
+        >
+          <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={BackgroundMain} />
+          <AppContent onLayoutRootView={onLayoutRootView} linking={linking} theme={theme} />
+        </SafeAreaView>
+      </ToastProvider>
     )
   )
 };

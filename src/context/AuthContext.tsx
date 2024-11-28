@@ -12,10 +12,8 @@ import {
   signInSuccess,
   signInFailure,
   signOut,
-  loadUser,
   setIsConnected,
 } from '../redux/slides/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePushNotifications } from '../hooks/usePushNotifications';
 import { subscribeNotificationsService } from '../services/notifications';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
@@ -23,6 +21,7 @@ import { UserType } from '../types/User.types';
 import { AppType } from '../types/Context.type';
 import { useNavigation } from '../components/native';
 import { MMKV } from 'react-native-mmkv';
+import { USER_TOKEN } from '../constants';
 
 const storage = new MMKV();
 
@@ -44,15 +43,13 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     state => state.auth,
   );
 
-  console.log('expoPushToken', expoPushToken);
-
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 5;
 
   const signIn = async (usr: UserType) => {
     dispatch(signInStart());
     try {
-      await AsyncStorage.setItem('userToken', JSON.stringify(usr));
+      storage.set(USER_TOKEN, JSON.stringify(usr));
       dispatch(signInSuccess(usr));
     } catch (error) {
       dispatch(signInFailure());
@@ -97,8 +94,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       return;
     }
 
-    const retryDelay = Math.min(1000 * 2 ** retryCount, 30000); // Exponential backoff up to 30 seconds
-
+    const retryDelay = Math.min(1000 * 2 ** retryCount, 30000);
     console.log(`Intentando reconectar en ${retryDelay / 1000} segundos...`);
 
     setTimeout(() => {
@@ -116,18 +112,18 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      alert('Usuario ha iniciado sesión.');
+      // alert('Usuario ha iniciado sesión.');
     }
-    alert(`expoPushToken: ${expoPushToken}`);
+    // alert(`expoPushToken: ${expoPushToken}`);
     if (expoPushToken?.data) {
-      alert(`Expo Push Token obtenido: ${expoPushToken.data}`);
-      alert('Suscribiendo a notificaciones...');
+      // alert(`Expo Push Token obtenido: ${expoPushToken.data}`);
+      // alert('Suscribiendo a notificaciones...');
       subscribeNotificationsService(expoPushToken.data)
         .then(response => {
-          alert('Suscripción a notificaciones exitosa.');
+          // alert('Suscripción a notificaciones exitosa.');
         })
         .catch(error => {
-          alert(`Fallo al suscribirse a notificaciones: ${error}`);
+          // alert(`Fallo al suscribirse a notificaciones: ${error}`);
         });
     }
   }, [user, expoPushToken]);

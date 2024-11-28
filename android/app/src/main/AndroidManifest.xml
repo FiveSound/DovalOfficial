@@ -30,6 +30,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="doval"/>
+        <data android:scheme="fb703314045273320"/>
         <data android:scheme="com.doval.doval"/>
       </intent-filter>
     </activity>

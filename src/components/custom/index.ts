@@ -63,6 +63,7 @@ import { MapSelector, TextSelector } from './Select';
 import MasonryList from './Masonry';
 import CustomMarker from './Marker';
 import SignupAlert from './SignupAlert';
+import ToastManager from './ToastManager';
 
 export {
   IsLoading,
@@ -132,5 +133,6 @@ export {
   MasonryList,
   CustomMarker,
   ArrowRight,
-  SignupAlert
+  SignupAlert,
+  ToastManager
 };

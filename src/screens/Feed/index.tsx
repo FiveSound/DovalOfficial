@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Alert } from 'react-native';
 import React from 'react';
 import { FEED_DATA } from '@/src/constants/storages';
 import { useScrollToTop } from '@react-navigation/native';
@@ -18,7 +18,7 @@ import { Ilustrations } from '@/src/constants';
 
 const FEED_QUERY_KEY = 'FEED_QUERY';
 const LOAD_MORE_MUTATION_KEY = 'LOAD_MORE_MUTATION';
-
+const QUERY_KEY_WITHOUT_INTERNET = 'feed-Data-without-internet';
 
 const Feed = memo(() => {
   const [page, setPage] = useState<number>(1);
@@ -31,9 +31,12 @@ const Feed = memo(() => {
 
   const explore = useQuery({
     queryKey: [FEED_QUERY_KEY],
-    queryFn: async () => await feedService(location, user?.userID, page),
+    queryFn: async () => {
+      return await feedService(location, user?.userID, page);
+    }
   });
-  
+
+
   const mutation = useMutation({
     mutationKey: [LOAD_MORE_MUTATION_KEY],
     mutationFn: async () => {
@@ -42,7 +45,6 @@ const Feed = memo(() => {
       return { data, nextPage };
     },
     onSuccess: ({ data, nextPage }) => {
-
       queryClient.setQueryData([FEED_QUERY_KEY], (oldData: any[] = []) => [...oldData, ...data]);
       setPage(nextPage);
     },
@@ -59,11 +61,10 @@ const Feed = memo(() => {
   };
 
   const { data: feedData, isLoading: isLoadingFeedData } = useQuery({
-    queryKey: ['feed-Data'],
+    queryKey: [QUERY_KEY_WITHOUT_INTERNET],
     queryFn: loadDataFromStorage,
     enabled: !isConnected,
   });
-
 
   useEffect(() => {
     if (isAuthenticated && explore.data) {
@@ -76,14 +77,13 @@ const Feed = memo(() => {
   }, [isConnected, isAuthenticated, explore.data]);
 
   const isLoading = (isConnected && (explore.isLoading || explore.isFetching)) || (!isConnected && isLoadingFeedData);
-  
 
   if (isLoading) {
     return <MasonrySkeleton showHeader={true} />;
   }
 
   if (explore.isError) {
-    return ( 
+    return (
       <SafeAreaView style={styles.container}>
         <FeedHeading />
         <ScreenEmpty
@@ -92,7 +92,9 @@ const Feed = memo(() => {
           ImgHeigth={SIZES.height / 3}
           ImgWidth={SIZES.width}
           source={Ilustrations.Broken}
-          onPress={explore.refetch}
+          onPress={() => {
+            explore.refetch();
+          }}
           labelButton={i18next.t('Try again')}
         />
       </SafeAreaView>
@@ -104,13 +106,17 @@ const Feed = memo(() => {
   return (
     <SafeAreaView style={styles.container}>
       <FeedHeading />
-        <Masonry
-          pins={finalFeedData}
-          onRefresh={explore.refetch}
-          refreshing={explore.isRefetching}
-          onLoadMore={() => mutation.mutate()}
-          loading={mutation.isPending}
-        />
+      <Masonry
+        pins={finalFeedData}
+        onRefresh={() => {
+          explore.refetch();
+        }}
+        refreshing={explore.isRefetching}
+        onLoadMore={() => {
+          mutation.mutate();
+        }}
+        loading={mutation.isPending}
+      />
     </SafeAreaView>
   );
 });

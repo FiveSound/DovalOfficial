@@ -35,10 +35,12 @@ import {
   Typography,
 } from '../../../components/custom';
 import { FlashList, Platform, TouchableOpacity , View} from '../../../components/native';
-import { COLORS, SIZES } from '../../../constants/theme';
+import { COLORS, FONTS, SIZES } from '../../../constants/theme';
 import { Ilustrations } from '../../../constants';
 import i18next from '../../../Translate';
 import OTPInput from '../components/OTPInput';
+import { useTheme } from '@/src/hooks';
+import { useToast } from '@/src/components/custom/ToastManager';
 
 type DataQueryType = {
   status: string;
@@ -69,7 +71,8 @@ const onToast = (msg: string) =>
 const DashboardHome = () => {
   const { socket } = useDashboard();
   const navigation = useNavigation<NavigationProp<any>>();
-
+  const { backgroundMaingrey, Title } = useTheme();
+  const { showToast } = useToast();
   // States
   const [lastStatus, setLastStatus] = useState(DEFAULT_STATUS);
   const [lastPage, setLastPage] = useState(DEFAULT_PAGE);
@@ -135,21 +138,20 @@ const DashboardHome = () => {
     orderID: number,
     successMessage: string,
   ) => {
-    // Indicate loading...
-    onToast(i18next.t('Processing order...'));
+    // Mostrar toast de procesamiento
+    showToast('info', 'Procesando orden...');
 
     const response = await socket
       ?.timeout(1000)
       .emitWithAck(socketName, { orderID });
 
     if (!response.success) {
-      onToast(i18next.t('An error occurred!'));
+      showToast('error', '¡Ocurrió un error!');
       return;
     }
 
-    // Success
-    onToast(successMessage);
-
+    // Mostrar toast de éxito
+    showToast('success', successMessage);
     // Mutate data
     onDeleteOrderFromPage(orderID);
 
@@ -172,7 +174,7 @@ const DashboardHome = () => {
           handleUpdate(
             SOCKET_ORDER_BUSINESS_ACCEPT,
             orderID,
-            `Orden ${orderID} acceptada con exito!`,
+            `Orden ${orderID} aceptada con éxito!`,
           ),
       },
     ]);
@@ -216,7 +218,7 @@ const DashboardHome = () => {
       setCurrentOrderID(orderID);
       setOpenVerify(true);
     } else {
-      onToast(i18next.t('An error occurred!'));
+      showToast('error', '¡Ocurrió un error!');
     }
   }, []);
 
@@ -234,14 +236,14 @@ const DashboardHome = () => {
         console.log('response verify', response);
 
       if (response.success && currentOrderID) {
-        onToast(`${i18next.t('Order')} ${currentOrderID} ${i18next.t('completed successfully!')}!`);
+        showToast('success', `¡Orden ${currentOrderID} completada con éxito!`);
         // Mutate
         onDeleteOrderFromPage(currentOrderID);
 
         setOpenVerify(false);
         setCurrentOrderID(null);
       } else {
-        onToast(i18next.t('Incorrect code!'));
+        showToast('error', '¡Código incorrecto!');
       }
     },
     [currentOrderID],
@@ -254,13 +256,13 @@ const DashboardHome = () => {
       .emitWithAck(SOCKET_ORDER_BUSINESS_DELAY, params);
       console.log('response delay', response);
     if (response.success) {
-      onToast(`${i18next.t('Time')} ${i18next.t('added to the order')} #${currentOrderID}!`);
-
+      showToast('success', `¡Tiempo añadido a la orden #${currentOrderID}!`);
       setOpenDelay(false);
     } else {
-      onToast(i18next.t('An error occurred!'));
+      showToast('error', '¡Ocurrió un error!');
     }
   }, [currentOrderID, delayTime]);
+
 
   const isEmpty = orders.data.list.length === 0;
 

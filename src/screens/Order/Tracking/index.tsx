@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   IsLoading,
@@ -14,14 +14,10 @@ import { getOrderIDService } from '../../../services/orders';
 import MapOrdenStatus from './MapOrdenStatus';
 import { Footer } from './components';
 import ThreeIcons from '../../../components/custom/Bar/ThreeIcons';
-import { useDispatch } from 'react-redux';
 import { closeModalPin, openModalPin } from '../../../redux/slides/modalSlice';
-import { useAuth } from '../../../context/AuthContext';
 import i18next from 'i18next';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { RootState } from '../../../redux/store';
-import { TabBarVisibilityContext } from '../../../context/TabBarVisibilityContext';
-import { ActiveTabContext } from '../../../context/ActiveTabContext';
 import { reloadApp } from '../../../redux/slides/appSlice';
 
 interface Props {
@@ -66,7 +62,7 @@ const Tracking = ({ route }: Props) => {
   });
 
   const openModal = () => {
-    if (data && !isLoading) {
+    if (data && !isLoading && data?.status !== 'COMPLETED' && !data?.verified) {
       dispatch(openModalPin({ data }));
     }
   };
@@ -122,20 +118,23 @@ const Tracking = ({ route }: Props) => {
 
   useEffect(() => {
     if (data?.status === 'COMPLETED' && data?.verified) {
-      setTimeout(() => {
-        navigation.navigate('Complete');
-        dispatch(closeModalPin());
+      dispatch(closeModalPin()); 
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Complete' }],
       });
     }
-
+  
     if (data?.status === 'CANCELED') {
-      navigation.navigate('Cancel');
-      dispatch(closeModalPin());
+      dispatch(closeModalPin()); 
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Cancel' }],
+      });
     }
   }, [data, navigation, dispatch]);
 
-
-  if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading...')}/>;
+  if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading')}/>;
 
   if (data) {
     const {
@@ -150,8 +149,6 @@ const Tracking = ({ route }: Props) => {
       creation_time,
       estimated_time,
     } = data;
-
-    console.log('data', data);
 
     if (
       latitude &&

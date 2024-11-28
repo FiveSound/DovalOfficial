@@ -9,6 +9,9 @@ import * as Google from 'expo-auth-session/providers/google';
 import { signInWithGoogleService } from '../../../../services/auth';
 import { useTheme } from '../../../../hooks';
 import { SIZES } from '../../../../constants/theme';
+import { signInSuccess } from '@/src/redux/slides/authSlice';
+import { useAppDispatch } from '@/src/redux';
+import { closeSignupModal } from '@/src/redux/slides/modalSlice';
 
 type Props = {};
 
@@ -21,9 +24,8 @@ const androidClientId =
 WebBrowser.maybeCompleteAuthSession();
 
 const SignupGoogle = (props: Props) => {
-  const { signIn } = useAuth();
   const { Title } = useTheme();
-
+  const dispatch = useAppDispatch();
   const [_request, response, promptAsync] = Google.useAuthRequest({
     webClientId: webClientId,
     iosClientId: iosClientId,
@@ -37,8 +39,8 @@ const SignupGoogle = (props: Props) => {
         if (accessToken) {
           // setLoad(true);
           const user = await signInWithGoogleService(accessToken);
-          signIn(user);
-          // setLoad(false);
+          dispatch(signInSuccess(user));
+          dispatch(closeSignupModal());
         }
       })();
     }

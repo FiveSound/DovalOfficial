@@ -34,7 +34,7 @@
       "package": "com.doval.doval",
       "versionCode": 7,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png"
+        "foregroundImage": "./assets/logoAndroid.png"
       },
       "config": {
         "googleMaps": {
@@ -43,7 +43,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/logo.png"
+      "favicon": "./assets/logoAndroid.png"
     },
     "extra": {
       "eas": {

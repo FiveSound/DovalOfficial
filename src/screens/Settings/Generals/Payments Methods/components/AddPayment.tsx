@@ -28,7 +28,6 @@ const AddPayment = () => {
       style={[
         styles.addCardContainer,
         {
-          borderColor: borderInput,
           backgroundColor: backgroundMaingrey,
         },
       ]}
@@ -60,12 +59,12 @@ const AddPayment = () => {
 
 const styles = StyleSheet.create({
   addCardContainer: {
-    borderWidth: SIZES.borderWidth,
     borderRadius: SIZES.radius,
     padding: SIZES.gapMedium,
-    marginBottom: SIZES.gapMedium,
     alignItems: 'center',
     width: '100%',
+    height: SIZES.height / 6,
+    justifyContent: 'center',
   },
 });
 export default AddPayment;
