@@ -2,7 +2,7 @@
   "expo": {
     "name": "doval",
     "slug": "doval",
-    "scheme": "doval",
+    "scheme": ["doval", "fb703314045273320"],
     "version": "1.7.1",
     "orientation": "portrait",
     "icon": "./assets/splash.png",
@@ -18,9 +18,7 @@
       "config": {
         "googleMapsApiKey": "AIzaSyB0zu_snYOixCixdrrRinmoqbMk7sKfWEI"
       },
-      "associatedDomains": [
-        "applinks:doval.io"
-      ],
+      "associatedDomains": ["applinks:doval.io"],
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location while using the app to offer you recipes and delivery services tailored to your immediate surroundings, such as finding the daily special at a nearby restaurant or the fastest delivery option available in your area.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to always access your location to provide notifications and updates even when the app is not in use."
@@ -47,7 +45,7 @@
     },
     "owner": "doval",
     "cli": {
-      "appVersionSource": "local" 
+      "appVersionSource": "local"
     },
     "plugins": [
       "expo-font",
