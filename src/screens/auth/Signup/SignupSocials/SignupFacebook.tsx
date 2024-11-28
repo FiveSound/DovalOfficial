@@ -36,7 +36,7 @@ const SignupFacebook = () => {
   return (
     <ButtonIcons
       onPress={() => promptAsync()}
-      label={i18next.t("continue with my Facebook")}
+      label={i18next.t("continue with Facebook")}
       orientationsIcons="Left"
       Icons={
         <Image
