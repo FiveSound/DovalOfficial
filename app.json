@@ -13,7 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#FF5500"
     },
-   "ios": {
+    "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.doval.doval",
       "config": {
@@ -22,9 +22,7 @@
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
       },
-      "associatedDomains": [
-        "applinks:doval.io"
-      ],
+      "associatedDomains": ["applinks:doval.io"],
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location while using the app to offer you recipes and delivery services tailored to your immediate surroundings, such as finding the daily special at a nearby restaurant or the fastest delivery option available in your area.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to always access your location to provide notifications and updates even when the app is not in use."
@@ -52,7 +50,7 @@
     },
     "owner": "doval",
     "cli": {
-      "appVersionSource": "local" 
+      "appVersionSource": "local"
     },
     "plugins": [
       "expo-font",
@@ -68,6 +66,13 @@
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.66SP9GJC6S",
+          "enableGooglePay": false
         }
       ]
     ],

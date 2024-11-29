@@ -58,13 +58,55 @@ const createTime = (hour: number, minute = 0) => {
 };
 
 const schedules: SchedulesInterface[] = [
-  { day: 'Monday', frontDay: i18next.t('Monday'), enabled: true, opening_time: createTime(10, 0), closing_time: createTime(20, 0) },
-  { day: 'Tuesday', frontDay: i18next.t('Tuesday'), enabled: true, opening_time: createTime(10, 0), closing_time: createTime(20, 0) },
-  { day: 'Wednesday', frontDay: i18next.t('Wednesday'), enabled: true, opening_time: createTime(10, 0), closing_time: createTime(20, 0) },
-  { day: 'Thursday', frontDay: i18next.t('Thursday'), enabled: true, opening_time: createTime(10, 0), closing_time: createTime(20, 0) },
-  { day: 'Friday', frontDay: i18next.t('Friday'), enabled: true, opening_time: createTime(10, 0), closing_time: createTime(20, 0) },
-  { day: 'Saturday', frontDay: i18next.t('Saturday'), enabled: true, opening_time: createTime(10, 0), closing_time: createTime(20, 0) },
-  { day: 'Sunday', frontDay: i18next.t('Sunday'), enabled: false, opening_time: createTime(10, 0), closing_time: createTime(20, 0) },
+  {
+    day: "Monday",
+    frontDay: i18next.t("Monday"),
+    enabled: true,
+    opening_time: createTime(10, 0),
+    closing_time: createTime(20, 0),
+  },
+  {
+    day: "Tuesday",
+    frontDay: i18next.t("Tuesday"),
+    enabled: true,
+    opening_time: createTime(10, 0),
+    closing_time: createTime(20, 0),
+  },
+  {
+    day: "Wednesday",
+    frontDay: i18next.t("Wednesday"),
+    enabled: true,
+    opening_time: createTime(10, 0),
+    closing_time: createTime(20, 0),
+  },
+  {
+    day: "Thursday",
+    frontDay: i18next.t("Thursday"),
+    enabled: true,
+    opening_time: createTime(10, 0),
+    closing_time: createTime(20, 0),
+  },
+  {
+    day: "Friday",
+    frontDay: i18next.t("Friday"),
+    enabled: true,
+    opening_time: createTime(10, 0),
+    closing_time: createTime(20, 0),
+  },
+  {
+    day: "Saturday",
+    frontDay: i18next.t("Saturday"),
+    enabled: true,
+    opening_time: createTime(10, 0),
+    closing_time: createTime(20, 0),
+  },
+  {
+    day: "Sunday",
+    frontDay: i18next.t("Sunday"),
+    enabled: false,
+    opening_time: createTime(10, 0),
+    closing_time: createTime(20, 0),
+  },
 ];
 
 export { ListBank, timezoneItems, schedules };
