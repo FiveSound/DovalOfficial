@@ -2,15 +2,15 @@ import { memo } from "react";
 import { Alert, StyleSheet } from "react-native";
 import { useFormContext } from "react-hook-form";
 import { Header } from "../components";
-import { KeyboardAwareScrollView, useNavigation, View } from "../../../../components/native";
+import { useNavigation, View } from "../../../../components/native";
 import { FlexContainer, Hero, InfoCard, LineDivider } from "../../../../components/custom";
 import { Checkbox } from "../../../../components/custom/Checkbox";
 import { CheckmarkCircle02Icon } from "../../../../constants/IconsPro";
-import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
+import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
 import { registerBusinessService } from "../../../../services/business";
 import i18next from "../../../../Translate";
-import { reloadApp } from "@/src/redux/slides/appSlice";
 import { useAppDispatch } from "@/src/redux";
+import { convertLocalToUtc, SchedulesInterface } from "./data";
 
 const steps = [
   {
@@ -51,13 +51,19 @@ const Agreements = memo(() => {
 
   const onSubmit = async (data: object) => {
     console.log("onSubmit called with data:", data);
+    const updatedData = {
+      ...data,
+      schedules: (data as any).schedules.map((schedule: SchedulesInterface) => ({
+        ...schedule,
+        opening_time: convertLocalToUtc(schedule.opening_time),
+        closing_time: convertLocalToUtc(schedule.closing_time),
+      })),
+    };
+   
     try {
-      
-      const response = await registerBusinessService(data);
-      console.log('Response from registerBusinessService:', response);
+      const response = await registerBusinessService(updatedData);
 
       if (response.success) {
-        console.log("Registration successful, resetting form and navigating.");
         reset();
         navigation.navigate("FormBusiness/Complete");
       } else {

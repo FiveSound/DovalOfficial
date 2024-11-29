@@ -4,7 +4,7 @@ import { Container } from '../../../components/custom';
 import { SIZES } from '../../../constants/theme';
 import { useNavigation } from '../../../components/native';
 import LottieView from 'lottie-react-native';
-import { successLoader } from '@/src/constants/Animations';
+import { successLoader } from '@/src/constants/animations';
 
 interface Props {
   route: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 75,
-    backgroundColor: 'rgba(76, 175, 80, 0.7)', // Verde agradable con transparencia
+    backgroundColor: 'rgba(76, 175, 80, 0.7)',
   },
   lottie: {
     width: SIZES.width / 2.5,

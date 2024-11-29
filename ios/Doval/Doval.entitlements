@@ -8,6 +8,10 @@
     <array>
       <string>applinks:doval.io</string>
     </array>
+    <key>com.apple.developer.in-app-payments</key>
+    <array>
+      <string>merchant.66SP9GJC6S</string>
+    </array>
     <key>com.apple.developer.networking.wifi-info</key>
     <true/>
   </dict>

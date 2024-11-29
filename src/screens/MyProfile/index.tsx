@@ -7,7 +7,6 @@ import {
   Inf,
   Follows,
   MyPosts,
-  MyMenu,
   CtoProfile,
 } from './Components';
 import { storage, useNavigation } from '../../components/native';
@@ -17,8 +16,6 @@ import i18next from '../../Translate';
 import { useQuery } from '@tanstack/react-query';
 import { FOLLOWERS_DATA, USER_PROFILE_DATA } from '@/src/constants/storages';
 import { getProfileService } from '@/src/services/auth';
-import { DashboardSquare03Icon, DashboardSquare03IconStroke, StoreAdd02Icon, StoreAdd02IconStroke } from '@/src/constants/IconsPro';
-import { COLORS, SIZES } from '@/src/constants/theme';
 import { useTheme } from '@/src/hooks';
 
 type Props = {};

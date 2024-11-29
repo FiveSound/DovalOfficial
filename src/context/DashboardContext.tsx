@@ -116,7 +116,6 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
     });
 
     socketInstance.on('disconnect', (reason) => {
-      console.log('Socket disconnected:', reason);
     });
 
     return () => {

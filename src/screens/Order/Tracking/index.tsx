@@ -45,6 +45,8 @@ type TypeLiveOrder = {
   tag: string;
 };
 
+const queryKey = 'screen-order-id-tracking';
+
 const Tracking = ({ route }: Props) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
@@ -57,22 +59,20 @@ const Tracking = ({ route }: Props) => {
   const queryClient = useQueryClient();
   
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
-    queryKey: ['screen-order-id', orderID],
+    queryKey: [queryKey, orderID],
     queryFn: getOrderIDService,
   });
 
   const openModal = () => {
-    if (data && !isLoading && data?.status !== 'COMPLETED' && !data?.verified) {
+    if (data && !isLoading) {
       dispatch(openModalPin({ data }));
     }
   };
 
   useEffect(() => {
     if (data && !isLoading) {
-      setTimeout(() => {
         openModal();
         setSucess(true);
-      }, 500);
     }
   }, [data]);
 
@@ -88,9 +88,8 @@ const Tracking = ({ route }: Props) => {
       const routeEvent = `event-realtime-route-${orderID}`;
 
       socket.on(orderEvent, (newState: Partial<TypeLiveOrder>) => {
-        console.log(`${orderEvent} received:`, newState);
         queryClient.setQueryData(
-          ['screen-order-id', orderID],
+          [queryKey, orderID],
           (old: TypeLiveOrder | undefined) => {
             return old ? { ...old, ...newState } : undefined;
           },
@@ -100,7 +99,7 @@ const Tracking = ({ route }: Props) => {
       socket.on(routeEvent, (route: LocationObjectCoords) => {
         console.log(`${routeEvent} received:`, route);
         setRiderLocation(route);
-      });
+      });      
 
       return () => {
         console.log(`Cleaning up socket events for order ${orderID}`);
@@ -135,7 +134,8 @@ const Tracking = ({ route }: Props) => {
   }, [data, navigation, dispatch]);
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading')}/>;
-
+  console.log('data', data);
+  
   if (data) {
     const {
       latitude,
