@@ -168,6 +168,7 @@ const MapLocation = memo((props: Props) => {
         setValue("latitude", location.latitude);
         setValue("longitude", location.longitude);
         setValue("postalCode", location.postalCode);
+        setValue("placeID", props.route.params.placeId);
       } else {
       }
       setValue("search_location", "");

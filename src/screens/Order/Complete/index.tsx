@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { Alert, ActivityIndicator } from 'react-native';
 import { ScrollView, Text, useNavigation } from '../../../components/native';
 import {
   Container,
@@ -13,14 +14,35 @@ import ThreeIcons from '../../../components/custom/Bar/ThreeIcons';
 import i18next from '../../../Translate';
 import { useAppDispatch } from '../../../redux';
 import { closeModalPin } from '../../../redux/slides/modalSlice';
+import { useForm, Controller } from 'react-hook-form';
+import { setReviewService } from '../../../services/orders';
 
 interface Props {}
 
+interface Review {
+  rating: number;
+  comments: string;
+}
+
+type FormValues = {
+  rating: number;
+  comments: string;
+};
+
 const Complete = (props: Props) => {
-  const [counter, setCounter] = useState(3);
-  const [rating, setRating] = useState(0);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+  } = useForm<FormValues>({
+    defaultValues: {
+      rating: 0,
+      comments: '',
+    },
+  });
 
   useEffect(() => {
     dispatch(closeModalPin());
@@ -33,12 +55,29 @@ const Complete = (props: Props) => {
     });
   };
 
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const reviewBody: Review = {
+        rating: data.rating,
+        comments: data.comments,
+      };
+      await setReviewService(reviewBody);
+      Alert.alert(i18next.t('Success'), i18next.t('Your review has been submitted.'));
+      reset();
+      handlePress();
+    } catch (error) {
+      console.error(error);
+      Alert.alert(i18next.t('Error'), i18next.t('There was an issue submitting your review. Please try again.'));
+    }
+  };
+
   return (
     <Container
       showFooter={true}
       labels={i18next.t('Submit Review')}
-      disabled={false}
-      onPress={handlePress}
+      disabled={isSubmitting}
+      loading={isSubmitting}
+      onPress={handleSubmit(onSubmit)}
     >
       <ThreeIcons
         showBack={false}
@@ -50,6 +89,7 @@ const Complete = (props: Props) => {
           justifyContent: 'center',
           flex: 1,
           paddingBottom: SIZES.height / 8,
+          paddingHorizontal: 20,
         }}
       >
         <ScreenEmpty
@@ -65,8 +105,34 @@ const Complete = (props: Props) => {
           labelStylePart2={styles.labelThank}
           ShowButton={false}
         />
-        <Rating rating={rating} setRating={setRating} />
-        <InputLabel placeholder={i18next.t('Add a comment')} />
+        <Controller
+          control={control}
+          name="rating"
+          rules={{ required: true, min: 1 }}
+          render={({ field: { onChange, value } }) => (
+            <Rating
+              rating={value}
+              setRating={onChange}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="comments"
+          rules={{ required: true, maxLength: 500 }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+            <>
+              <InputLabel
+                placeholder={i18next.t('Add a comment')}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                multiline
+              />
+  
+            </>
+          )}
+        />
       </ScrollView>
     </Container>
   );

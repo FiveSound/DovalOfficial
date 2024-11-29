@@ -139,18 +139,6 @@ const Basic = memo(() => {
             label={i18next.t("Basic Business Information")}
             sublabel={i18next.t("Please fill in the following information to complete the process.")}
           />
-        <Select
-            control={control}
-            name="business_category"
-            listTextSelector={businessTypeList}
-            defaultValue=""
-            placeholder={i18next.t("Business types*")}
-            required
-            maxSelections={3}
-            isDatePicker={true}
-            isMultiSelect={true}
-            IconsendComponent={<Store01IconStroke color={Title} width={SIZES.icons} height={SIZES.icons} />}
-          />
           <Input
             control={control}
             name="business_name"
@@ -166,12 +154,25 @@ const Basic = memo(() => {
             inputStyle={styles.input}
             testID="input-business-description"
           />
-
+{/* 
           <Input
             control={control}
             name="tax_identification_number"
             placeholder={"Tax identification number (Optional)"}
             keyboardType="numeric"
+          /> */}
+
+<Select
+            control={control}
+            name="business_category"
+            listTextSelector={businessTypeList}
+            defaultValue=""
+            placeholder={i18next.t("Business types*")}
+            required
+            maxSelections={3}
+            isDatePicker={true}
+            isMultiSelect={true}
+            IconsendComponent={<Store01IconStroke color={Title} width={SIZES.icons} height={SIZES.icons} />}
           />
         </View>
       </KeyboardAwareScrollView>

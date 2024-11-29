@@ -28,7 +28,7 @@ export const formatPrice = (num: number) => {
 };
 
 
-export const formatDateHourUtil = (fecha: Date, usarUTC: boolean = true): string => {
+export const formatDateHourUtil = (fecha: Date, usarUTC: boolean = false): string => {
   let horas: number = usarUTC ? fecha.getUTCHours() : fecha.getHours();
   let minutos: number = usarUTC ? fecha.getUTCMinutes() : fecha.getMinutes();
 

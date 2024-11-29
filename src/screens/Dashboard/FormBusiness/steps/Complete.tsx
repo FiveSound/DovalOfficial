@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useNavigation } from "../../../../components/native";
-import { FlexContainer, ScreenEmpty } from "../../../../components/custom";
+import { Container, FlexContainer, ScreenEmpty } from "../../../../components/custom";
 import { Ilustrations } from "../../../../constants";
 import { SIZES } from "../../../../constants/theme";
 import i18next from "i18next";
@@ -11,14 +11,10 @@ const Complete = memo(() => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   return (
-    <FlexContainer newStyle={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}>
+    <Container>
       <ScreenEmpty
-      labelPart1={i18next.t("Your account has been created successfully")}
-      subLabel={i18next.t("You will receive your first order shortly")}
+      labelPart1={i18next.t("Your Business has been created successfully")}
+      subLabel={i18next.t("Our review team will check your business, thank you! This process usually takes less than 24 hours")}
       source={Ilustrations.GoodJob}
       ImgWidth={SIZES.width}
       ImgHeigth={SIZES.height / 3}
@@ -28,7 +24,7 @@ const Complete = memo(() => {
       }}
       labelButton={i18next.t("Go to Feed")}
     />
-    </FlexContainer>
+    </Container>
   );
 });
 

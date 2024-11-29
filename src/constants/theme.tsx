@@ -291,6 +291,62 @@ export const responsiveFontSize = (fontSize: number): number => {
   return Math.round(PixelRatio.roundToNearestPixel(scaledFontSize));
 };
 
+export const responsiveWidth = (widthSize: number): number => {
+  const { width, height } = Dimensions.get('window');
+  
+  // Define los puntos de corte para tablets
+  const isTablet = Math.min(width, height) >= 768;
+  
+  // Estándares de pantalla para móviles y tablets
+  const standardScreenWidth = isTablet ? 1024 : 375;
+
+  const scaleWidth = width / standardScreenWidth;
+  
+  // Ajuste específico para Android si es necesario
+  let adjustmentFactor = Platform.OS === 'android' ? 0.92 : 0.88;
+
+  if (isTablet) {
+    // Incrementa el factor de ajuste para tabletas
+    adjustmentFactor = Platform.OS === 'android' ? 1.0 : 1.05;
+    
+    // Opcional: Incrementar la escala en tablets
+    // En este caso, puede que no necesites ajustar la escala para ancho,
+    // pero se incluye por consistencia
+    // scaleWidth = scaleWidth * 1.5;
+  }
+
+  const scaledWidth = widthSize * scaleWidth * adjustmentFactor;
+
+  return Math.round(PixelRatio.roundToNearestPixel(scaledWidth));
+};
+
+export const responsiveHeight = (heightSize: number): number => {
+  const { width, height } = Dimensions.get('window');
+  
+  // Define los puntos de corte para tablets
+  const isTablet = Math.min(width, height) >= 768;
+  
+  // Estándares de pantalla para móviles y tablets
+  const standardScreenHeight = isTablet ? 1366 : 812;
+
+  const scaleHeight = height / standardScreenHeight;
+  
+  // Ajuste específico para Android si es necesario
+  let adjustmentFactor = Platform.OS === 'android' ? 0.92 : 0.88;
+
+  if (isTablet) {
+    // Incrementa el factor de ajuste para tabletas
+    adjustmentFactor = Platform.OS === 'android' ? 1.0 : 1.05;
+    
+    // Opcional: Incrementar la escala en tablets
+    // scaleHeight = scaleHeight * 1.5;
+  }
+
+  const scaledHeight = heightSize * scaleHeight * adjustmentFactor;
+
+  return Math.round(PixelRatio.roundToNearestPixel(scaledHeight));
+};
+
 export const SIZES = {
   base: responsiveFontSize(6),
   font: responsiveFontSize(12),

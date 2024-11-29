@@ -1,5 +1,4 @@
 import { memo, useEffect, useState } from "react";
-import { Text } from "react-native";
 import { useFormContext } from "react-hook-form";
 import { KeyboardAwareScrollView, useNavigation } from "../../../../components/native";
 import { responsiveFontSize, SIZES } from "../../../../constants/theme";

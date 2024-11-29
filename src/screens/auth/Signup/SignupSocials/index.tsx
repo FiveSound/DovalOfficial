@@ -7,7 +7,7 @@ const SignupSocials = () => (
   <>
     {/* <SignupApple /> */}
     <SignupGoogle />
-    <SignupFacebook />
+    {/* <SignupFacebook /> */}
   </>
 );
 

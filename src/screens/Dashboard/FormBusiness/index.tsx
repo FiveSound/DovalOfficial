@@ -51,6 +51,7 @@ const defaultValues = {
   privacy: false,
   verification: false,
   terms: false,
+  placeID: null,
 };
 
 const FormBusiness = memo(() => {

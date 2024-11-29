@@ -17,7 +17,7 @@ const Operations = memo(() => {
   const navigation = useNavigation();
   const { user } = useAppSelector((state: RootState) => state.auth);
   const { setValue, getValues, watch } = useFormContext();
-  
+
   const [picker, setPicker] = useState({
     show: false,
     type: "opening_time",
@@ -61,10 +61,7 @@ const Operations = memo(() => {
 
     setValue("schedules", updatedSchedules);
   };
-
-  console.log(values.schedules);
   
-
   return (
     <>
       <Header
@@ -79,67 +76,66 @@ const Operations = memo(() => {
         }
       />
       <View style={styles.container}>
-        {/* <Typography variant="H4title">{JSON.stringify(values.schedules, null, 2)}</Typography> */}
-          <Hero
-            label={i18next.t("Business Hours")}
-            sublabel={i18next.t(
-              "Please provide the business hours of your business."
-            )}
-          />
-          <View style={styles.schedule_container}>
-            {values.schedules.map((row: SchedulesInterface, dayIndex: number) => (
-              <View key={row.day} style={styles.schedule}>
-                <Pressable
-                  onPress={() => handleEnabledDay(dayIndex, !row.enabled)}
-                  style={styles.schedule_day}
+        <Hero
+          label={i18next.t("Business Hours")}
+          sublabel={i18next.t(
+            "Please provide the business hours of your business."
+          )}
+        />
+        <View style={styles.schedule_container}>
+          {values.schedules.map((row: SchedulesInterface, dayIndex: number) => (
+            <View key={row.day} style={styles.schedule}>
+              <Pressable
+                onPress={() => handleEnabledDay(dayIndex, !row.enabled)}
+                style={styles.schedule_day}
+              >
+                <Switch
+                  onValueChange={(value) => handleEnabledDay(dayIndex, value)}
+                  value={row.enabled}
+                  style={styles.switch}
+                />
+                <Typography
+                  variant="H4title"
+                  newStyle={styles.schedule_day_title}
                 >
-                  <Switch
-                    onValueChange={(value) => handleEnabledDay(dayIndex, value)}
-                    value={row.enabled}
-                    style={styles.switch}
-                  />
-                  <Typography
-                    variant="H4title"
-                    newStyle={styles.schedule_day_title}
-                  >
-                    {row.day}
-                  </Typography>
-                </Pressable>
-                <View style={styles.schedule_times}>
-                  <ScheduleTime
-                    label="From:"
-                    value={formatDateHourUtil(row.opening_time)}
-                    onPress={() =>
-                      setPicker({
-                        show: true,
-                        type: "opening_time",
-                        dayIndex,
-                        date: row.opening_time,
-                      })
-                    }
-                    disabled={!row.enabled}
-                  />
+                  {row.frontDay}
+                </Typography>
+              </Pressable>
+              <View style={styles.schedule_times}>
+                <ScheduleTime
+                  label="From:"
+                  value={formatDateHourUtil(row.opening_time, false)} // Usar hora local
+                  onPress={() =>
+                    setPicker({
+                      show: true,
+                      type: "opening_time",
+                      dayIndex,
+                      date: row.opening_time, // Hora local
+                    })
+                  }
+                  disabled={!row.enabled}
+                />
 
-                  <ScheduleTime
-                    label="To:"
-                    value={formatDateHourUtil(row.closing_time)}
-                    onPress={() =>
-                      setPicker({
-                        show: true,
-                        type: "closing_time",
-                        dayIndex,
-                        date: row.closing_time,
-                      })
-                    }
-                    disabled={!row.enabled}
-                  />
-                </View>
+                <ScheduleTime
+                  label="To:"
+                  value={formatDateHourUtil(row.closing_time, false)} // Usar hora local
+                  onPress={() =>
+                    setPicker({
+                      show: true,
+                      type: "closing_time",
+                      dayIndex,
+                      date: row.closing_time,
+                    })
+                  }
+                  disabled={!row.enabled}
+                />
               </View>
-            ))}
-          </View>
-          <View style={styles.container}>
-            <Hero
-              label={i18next.t("Do you have Riders?")}
+            </View>
+          ))}
+        </View>
+        <View style={styles.container}>
+          <Hero
+            label={i18next.t("Do you have Riders?")}
             sublabel={i18next.t(
               "Please fill in the following information to complete the process."
             )}
@@ -156,8 +152,8 @@ const Operations = memo(() => {
               onValueChange={(value) => setValue("delivery_service", value)}
             />
           </FlexContainer>
-          </View>
         </View>
+      </View>
       {picker.show && Platform.OS === "ios" && (
         <Modal
           transparent={true}
@@ -168,8 +164,9 @@ const Operations = memo(() => {
           <View style={styles.modalContainer}>
             <View style={styles.pickerWrapper}>
               <DateTimePicker
-                value={picker.date}
+                value={picker.date} 
                 mode="time"
+                timeZoneName='America/Santo_Domingo'
                 is24Hour={false}
                 display="spinner"
                 textColor={COLORS.primary}
@@ -190,6 +187,7 @@ const Operations = memo(() => {
         <DateTimePicker
           value={picker.date}
           mode="time"
+          timeZoneName='UTC'
           is24Hour={false}
           display="default"
           onChange={({ nativeEvent, type }) => {

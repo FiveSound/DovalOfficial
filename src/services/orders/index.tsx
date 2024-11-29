@@ -429,3 +429,32 @@ export const getCouponIDService = async (id: number) => {
 
   return response.data;
 };
+
+type Review = {
+  orderID: number;
+  rating: number;
+  review: string;
+};
+
+const setReviewService = async (body: Review) => {
+  try {
+    const userToken = storage.getString(USER_TOKEN);
+    const response = await axios.post(
+      `${API_URL}/api/reviews/create`,
+      {
+        ...body,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log({ error });
+    return [];
+  }
+};
+
+export { setReviewService };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import i18next from '../../../Translate';
-import { FONTS, SIZES } from '../../../constants/theme';
+import { FONTS, responsiveHeight, responsiveWidth, SIZES } from '../../../constants/theme';
 import {
   Container,
   FlexContainer,
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
     width: SIZES.width / 1.2,
   },
   Img: {
-    width: SIZES.width,
-    height: SIZES.height / 3,
+    width: responsiveWidth(300),
+    height: responsiveHeight(300),
   },
 });
 

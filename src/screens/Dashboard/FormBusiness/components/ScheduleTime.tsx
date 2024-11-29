@@ -5,6 +5,7 @@ import { Home01Icon, Moon02Icon } from "@/src/constants/IconsPro";
 import { Typography } from "@/src/components/custom";
 import { COLORS, responsiveFontSize, SIZES } from "@/src/constants/theme";
 import { useTheme } from "@/src/hooks";
+import i18next from "@/src/Translate";
 
 type Props = {
   onPress: () => void;
@@ -24,7 +25,7 @@ const { Title, backgroundMaingrey } = useTheme()
       {props.disabled ? (
         <>
           <Moon02Icon width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} color={Title} />
-          <Typography variant="H4title">Closed</Typography>
+          <Typography variant="H4title">{i18next.t("Closed")}</Typography>
         </>
       ) : (
         <>
