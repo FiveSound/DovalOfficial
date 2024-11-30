@@ -150,9 +150,9 @@ const Cart = memo(() => {
         >
           {data.map((row: any) => (
             <Accordion 
-            key={row.businessID + row.cartID + row.recipeID} 
+            key={`${row[0].businessID}-${row[0].cartID}-${row[0].recipeID}`} 
             row={row} refetch={refetch} 
-            value={cartID === row.cartID}
+            value={cartID === row[0].cartID}
             onValueChange={(checked: boolean) => setCartIDLocal(checked ? row[0].cartID : null)}
             />
           ))}

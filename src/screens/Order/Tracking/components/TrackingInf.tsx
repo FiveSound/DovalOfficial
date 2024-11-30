@@ -30,16 +30,13 @@ const TrackingInf = (props: Props) => {
   const { BackgroundMain, Title } = useTheme();
   const { data } = useSelector((state: RootState) => state.modal);
   const riderID = data?.riderID;
-  console.log('riderID', riderID);
   
-
   const { data: row, isLoading } = useQuery({
     queryKey: [QUERY_KEY, riderID],
     queryFn: getRiderDetailsService,
     enabled: riderID ? true : false,
   });
 
-  console.log('row', row);
 
   if (data) {
     const {

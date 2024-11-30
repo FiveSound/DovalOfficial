@@ -19,6 +19,8 @@ import i18next from 'i18next';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { RootState } from '../../../redux/store';
 import { reloadApp } from '../../../redux/slides/appSlice';
+import { SOCKET_RIDER_SHARE_COORDS } from '@/src/constants/sockets';
+import {  setLocationRiderData } from '@/src/redux/slides/locationRiderSlice';
 
 interface Props {
   route: {
@@ -85,7 +87,7 @@ const Tracking = ({ route }: Props) => {
   useEffect(() => {
     if (socket) {
       const orderEvent = `event-realtime-order-${orderID}`;
-      const routeEvent = `event-realtime-route-${orderID}`;
+      const routeEvent = SOCKET_RIDER_SHARE_COORDS;
 
       socket.on(orderEvent, (newState: Partial<TypeLiveOrder>) => {
         queryClient.setQueryData(
@@ -96,9 +98,9 @@ const Tracking = ({ route }: Props) => {
         );
       });
 
-      socket.on(routeEvent, (route: LocationObjectCoords) => {
+      socket.on(routeEvent, (route) => {
         console.log(`${routeEvent} received:`, route);
-        setRiderLocation(route);
+
       });      
 
       return () => {
@@ -134,7 +136,6 @@ const Tracking = ({ route }: Props) => {
   }, [data, navigation, dispatch]);
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading')}/>;
-  console.log('data', data);
   
   if (data) {
     const {

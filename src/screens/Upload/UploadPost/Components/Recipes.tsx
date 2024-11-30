@@ -12,11 +12,13 @@ import CardRecipies from '../../../../components/custom/business/CardRecipies';
 import i18next from '../../../../Translate';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
+const QUERY_KEY = 'posts-list-my-recipes-production';
 const Recipes = memo(() => {
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ['posts-list-my-recipes'],
+    queryKey: [QUERY_KEY],
     queryFn: getMyRecipesService,
   });
+
   const [success, setSuccess] = useState(false);
   const { control, setValue } = useFormContext();
   const { append, remove, fields } = useFieldArray({
@@ -30,21 +32,20 @@ const Recipes = memo(() => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
-
   const handleSelectItem = (id: number) => {
     if (selectedId === id) {
-      // Si el mismo ID está seleccionado, lo deselecciona
+      // If the same ID is selected, deselect it
       setSelectedId(null);
       setValue('recipeID', null, { shouldDirty: true, shouldValidate: true });
     } else {
-      // Selecciona un nuevo ID y actualiza el formulario
+      // Select a new ID and update the form
       setSelectedId(id);
       setValue('recipeID', id, { shouldDirty: true, shouldValidate: true });
     }
   };
 
   const filteredData = useMemo(() => {
-    if (!data) return [];
+    if (!Array.isArray(data)) return []; // Updated check
     return data.filter((recipe: any) =>
       recipe.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
@@ -55,6 +56,7 @@ const Recipes = memo(() => {
   }
 
   if (isError) {
+    console.error('Error fetching recipes:', data); 
     return <Typography variant="H4title">An occurred error fetch!</Typography>;
   }
 

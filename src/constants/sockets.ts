@@ -12,6 +12,7 @@ const SOCKET_ORDER_BUSINESS_VERIFY = "event-order-business-verify";
 const SOCKET_ORDER_BUSINESS_DELAY = "event-order-business-delay";
 const SOCKET_ORDER_BUSINESS_CHANGE_ID = "event-order-business-update-id";
 const SOCKET_ORDER_BUSINESS_COMPLETE = "event-order-business-complete";
+const SOCKET_RIDER_SHARE_COORDS = "event:rider:share:coords"
 
 export {
   SOCKET_CONNECTION,
@@ -28,4 +29,5 @@ export {
   SOCKET_ORDER_BUSINESS_DELAY,
   SOCKET_ORDER_BUSINESS_CHANGE_ID,
   SOCKET_ORDER_BUSINESS_COMPLETE,
+  SOCKET_RIDER_SHARE_COORDS,
 };

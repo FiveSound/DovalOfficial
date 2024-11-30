@@ -33,7 +33,6 @@ export const getAllRecipedService = async () => {
 export const getMyRecipesService = async () => {
   try {
     const userToken = storage.getString(USER_TOKEN);
-
     const response = await axios.post(
       `${API_URL}/api/recipes/my-recipes`,
       {},
