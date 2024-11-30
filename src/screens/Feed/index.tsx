@@ -15,6 +15,7 @@ import { ScreenEmpty } from '@/src/components/custom';
 import i18next from '@/src/Translate';
 import { SIZES } from '@/src/constants/theme';
 import { Ilustrations } from '@/src/constants';
+// import TestAwayLocation from './components/TestAwayLocation';
 
 const FEED_QUERY_KEY = 'FEED_QUERY';
 const LOAD_MORE_MUTATION_KEY = 'LOAD_MORE_MUTATION';
@@ -106,6 +107,7 @@ const Feed = memo(() => {
   return (
     <SafeAreaView style={styles.container}>
       <FeedHeading />
+      {/* <TestAwayLocation /> */}
       <Masonry
         pins={finalFeedData}
         onRefresh={() => {

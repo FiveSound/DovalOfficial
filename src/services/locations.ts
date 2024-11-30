@@ -1,5 +1,9 @@
 import axios from "axios";
 import KeyApi from "../constants/KeyApi";
+import { storage } from "../components/native";
+import { USER_TOKEN } from "../constants";
+import { API_URL, API } from "./";
+import { LocationObjectCoords } from "expo-location";
 
 export const mapAddressComponents = (
   addressComponents: GeocodeResponse["results"][0]["address_components"]
@@ -168,4 +172,16 @@ export const getAddressDetailsByCoordsIdService = async (latitude: number, longi
     console.error("Error fetching address details by Place ID:", error);
     return null;
   }
+};
+
+export const getAwayFromHomeService = async (currentLocation: LocationObjectCoords | null, userID: string) => {
+  const response = await axios.get(`${API}/away/from/home`, {
+    params: {
+      latitude: currentLocation?.latitude,
+      longitude: currentLocation?.longitude,
+      user_id: userID,
+    },
+  });
+
+  return response.data;
 };
