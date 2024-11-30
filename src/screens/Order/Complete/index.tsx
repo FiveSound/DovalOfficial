@@ -12,7 +12,7 @@ import { responsiveFontSize, SIZES } from '../../../constants/theme';
 import styles from '../ConfirmOrder/styles';
 import ThreeIcons from '../../../components/custom/Bar/ThreeIcons';
 import i18next from '../../../Translate';
-import { useAppDispatch } from '../../../redux';
+import { useAppDispatch, useAppSelector } from '../../../redux';
 import { closeModalPin } from '../../../redux/slides/modalSlice';
 import { useForm, Controller } from 'react-hook-form';
 import { setReviewService } from '../../../services/orders';
@@ -21,17 +21,22 @@ interface Props {}
 
 interface Review {
   rating: number;
-  comments: string;
+  review: string;
+  orderID: number | undefined;
 }
 
-type FormValues = {
+  type FormValues = {
+  orderID: number | undefined;
   rating: number;
-  comments: string;
+  review: string;
 };
 
 const Complete = (props: Props) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const { orderID } = useAppSelector(state => state.navigation);
+  console.log(orderID, 'orderID from navigation')
+
   const {
     control,
     handleSubmit,
@@ -39,8 +44,9 @@ const Complete = (props: Props) => {
     reset,
   } = useForm<FormValues>({
     defaultValues: {
+      orderID: orderID,
       rating: 0,
-      comments: '',
+      review: '',
     },
   });
 
@@ -58,13 +64,19 @@ const Complete = (props: Props) => {
   const onSubmit = async (data: FormValues) => {
     try {
       const reviewBody: Review = {
+        orderID: orderID,
         rating: data.rating,
-        comments: data.comments,
+        review: data.review
       };
       await setReviewService(reviewBody);
-      Alert.alert(i18next.t('Success'), i18next.t('Your review has been submitted.'));
       reset();
-      handlePress();
+      Alert.alert(i18next.t('Success'), i18next.t('Your review has been submitted.'), [{
+        text: 'OK',
+        onPress: () => {
+          handlePress();
+        }
+      }]);
+     
     } catch (error) {
       console.error(error);
       Alert.alert(i18next.t('Error'), i18next.t('There was an issue submitting your review. Please try again.'));
@@ -77,7 +89,8 @@ const Complete = (props: Props) => {
       labels={i18next.t('Submit Review')}
       disabled={isSubmitting}
       loading={isSubmitting}
-      onPress={handleSubmit(onSubmit)}
+      onPressButtons={handleSubmit(onSubmit)}
+      variant='secondary'
     >
       <ThreeIcons
         showBack={false}
@@ -118,7 +131,7 @@ const Complete = (props: Props) => {
         />
         <Controller
           control={control}
-          name="comments"
+          name="review"
           rules={{ required: true, maxLength: 500 }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <>

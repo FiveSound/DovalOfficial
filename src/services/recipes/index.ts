@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { API, API_URL } from '../index';
-import { QueryKeyType } from '../../types/ReactQuery.type';
-import { USER_TOKEN } from '@/src/constants';
-import { storage } from '@/src/components/native';
+import axios from "axios";
+import { API, API_URL } from "../index";
+import { QueryKeyType } from "../../types/ReactQuery.type";
+import { USER_TOKEN } from "@/src/constants";
+import { storage } from "@/src/components/native";
 
 export const publishRecipeService = async (body: Object) => {
   const userToken = storage.getString(USER_TOKEN);
@@ -30,18 +30,19 @@ export const getAllRecipedService = async () => {
   }
 };
 
-export const getMyRecipesService = async () => {
+export const getMyRecipesService = async (page: number) => {
   try {
     const userToken = storage.getString(USER_TOKEN);
-
     const response = await axios.post(
       `${API_URL}/api/recipes/my-recipes`,
-      {},
+      {
+        page,
+      },
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
     return response.data;
   } catch (error) {
@@ -144,7 +145,7 @@ export const getCategoriesByRecipeID = async ({ queryKey }: any) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -166,7 +167,7 @@ export const addDraftService = async (body: object) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
     return { success: true, ...response.data };
   } catch (error) {
@@ -182,8 +183,8 @@ export const getDraftService = async ({ queryKey }: QueryKeyType) => {
       id: null,
       uri: null,
       key: null,
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       food_types: [],
       sidedish: [],
     };
@@ -198,7 +199,7 @@ export const getDraftService = async ({ queryKey }: QueryKeyType) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
 
   return response.data;
@@ -216,7 +217,7 @@ export const onSaveDraftService = async (body: object) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
   return response.data;
 };
@@ -231,7 +232,7 @@ export const onCompleteService = async (id: number) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
 
   return response.data;
@@ -247,14 +248,12 @@ export const getRecipeDrafts = async () => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    },
+    }
   );
   return response.data;
 };
 
-export const getVariantsByRecipeService = async ({
-  queryKey,
-}: QueryKeyType) => {
+export const getVariantsByRecipeService = async ({ queryKey }: QueryKeyType) => {
   try {
     const userToken = storage.getString(USER_TOKEN);
 
@@ -267,7 +266,7 @@ export const getVariantsByRecipeService = async ({
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -292,7 +291,7 @@ export const addVariantService = async (id: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -312,7 +311,7 @@ export const updateVariantService = async (body: object) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -332,7 +331,7 @@ export const addSubVariantService = async (id: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
     return response.data;
   } catch (error) {
@@ -351,7 +350,7 @@ export const updateSubVariantService = async (body: object) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -371,7 +370,7 @@ export const removeSubVariantService = async (id: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -394,7 +393,7 @@ export const removeVariantService = async (id: number) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-      },
+      }
     );
 
     return response.data;
@@ -408,12 +407,9 @@ export const removeVariantService = async (id: number) => {
 
 export const getListCategoriesService = async ({ queryKey }: QueryKeyType) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/api/recipes/list/categories`,
-      {
-        id: queryKey[1],
-      },
-    );
+    const response = await axios.post(`${API_URL}/api/recipes/list/categories`, {
+      id: queryKey[1],
+    });
     return response.data;
   } catch (error) {
     return {
@@ -423,18 +419,12 @@ export const getListCategoriesService = async ({ queryKey }: QueryKeyType) => {
   }
 };
 
-export const selectedCategoriesFromListService = async (
-  recipeID: number,
-  id: number,
-) => {
+export const selectedCategoriesFromListService = async (recipeID: number, id: number) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/api/recipes/selected/categories`,
-      {
-        recipeID,
-        id,
-      },
-    );
+    const response = await axios.post(`${API_URL}/api/recipes/selected/categories`, {
+      recipeID,
+      id,
+    });
 
     return response.data;
   } catch (error) {
@@ -459,10 +449,7 @@ export const getListTypesService = async ({ queryKey }: QueryKeyType) => {
   }
 };
 
-export const selectedTypeFromListService = async (
-  recipeID: number,
-  id: number,
-) => {
+export const selectedTypeFromListService = async (recipeID: number, id: number) => {
   try {
     const response = await axios.post(`${API_URL}/api/recipes/selected/types`, {
       recipeID,

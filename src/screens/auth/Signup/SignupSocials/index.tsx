@@ -1,13 +1,14 @@
 import React from 'react';
-import SignupApple from './SignupApple';
 import SignupGoogle from './SignupGoogle';
 import SignupFacebook from './SignupFacebook';
+import { Platform } from '@/src/components/native';
 
 const SignupSocials = () => (
+
   <>
     {/* <SignupApple /> */}
     <SignupGoogle />
-    {/* <SignupFacebook /> */}
+    { Platform.OS === 'android' && <SignupFacebook /> }
   </>
 );
 

@@ -19,7 +19,7 @@ import MasonryUsers from '../../../../../components/custom/MasonryUsers';
 import { useAppSelector } from '@/src/redux';
 
 const Main = (props: any) => {
-  const { isConnected } = useAppSelector((state) => state.auth);
+  const { isConnected, businessVerified } = useAppSelector((state) => state.auth);
   const {
     data,
     isLoading,
@@ -31,6 +31,7 @@ const Main = (props: any) => {
     onLoadMore,
     loading,
   } = props;
+
   const { isRefreshing, onRefresh } = useRefreshData([refetchPostData]);
   const navigation = useNavigation();
 
@@ -53,9 +54,9 @@ const Main = (props: any) => {
     );
   } else {
     return (
-    
         <FlexContainer newStyle={styles.containerEmpty}>
-          <ScreenEmpty
+          { businessVerified && (
+              <ScreenEmpty
             labelPart1={
               isConnected
                 ? i18next.t("You don't have posts yet")
@@ -86,6 +87,9 @@ const Main = (props: any) => {
             colorVariant="primary"
             ShowButton={false}
           />
+          )
+        }
+    
         </FlexContainer>
     );
   }

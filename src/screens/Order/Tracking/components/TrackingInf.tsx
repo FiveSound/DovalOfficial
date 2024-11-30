@@ -24,15 +24,19 @@ import { getRiderDetailsService } from '../../../../services/orders';
 import { CLOUDFRONT } from '../../../../services';
 
 type Props = {};
+
+const QUERY_KEY = 'get-rider-details-production-tracking';
 const TrackingInf = (props: Props) => {
   const { BackgroundMain, Title } = useTheme();
   const { data } = useSelector((state: RootState) => state.modal);
   const riderID = data?.riderID;
+  
   const { data: row, isLoading } = useQuery({
-    queryKey: ['get-rider-details-production', riderID],
+    queryKey: [QUERY_KEY, riderID],
     queryFn: getRiderDetailsService,
     enabled: riderID ? true : false,
   });
+
 
   if (data) {
     const {
@@ -46,6 +50,7 @@ const TrackingInf = (props: Props) => {
       products,
     } = data;
     const isValidVerificationCode = verification_code !== null && verification_code !== undefined;
+   
 
     const PinComponents = () => {
       const { Title, backgroundMaingrey } = useTheme();
@@ -95,7 +100,7 @@ const TrackingInf = (props: Props) => {
                   }
                   title={row.fullname || ''}
                   description={
-                    `${i18next.t('149 Orders')} || Vehicle: ${row.vehicle}` ||
+                    `${i18next.t('Vehicle')}: ${row.vehicle}` ||
                     ''
                   }
                   showArrow={true}

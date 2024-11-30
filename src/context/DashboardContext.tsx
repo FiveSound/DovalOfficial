@@ -3,12 +3,13 @@ import { Alert, Vibration } from "react-native";
 import { io, Socket } from "socket.io-client";
 import { useQueryClient } from "@tanstack/react-query";
 import { SOCKET_URL } from "../services";
-import { SOCKET_ORDER_BUSINESS_RECEPT } from "../constants/sockets";
+import { SOCKET_ORDER_BUSINESS_RECEPT, SOCKET_RIDER_SHARE_COORDS } from "../constants/sockets";
 import { useNavigation } from "../components/native";
-import { useAppSelector } from "../redux";
+import { useAppDispatch, useAppSelector } from "../redux";
 import { RootState } from "../redux/store";
 import { Audio } from 'expo-av';
 import i18next from "../Translate";
+import { setLocationRiderData } from "../redux/slides/locationRiderSlice";
 
 type DashboardProviderProps = {
   children: ReactNode;
@@ -49,7 +50,8 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
   const [verifiedAlert, setVerifiedAlert] = useState(false);
   const [delayAlert, setDelayAlert] = useState(false);
   const soundRef = useRef<Audio.Sound | null>(null);
-
+  const dispatch = useAppDispatch();
+  
   const setupAudioMode = async () => {
     try {
       await Audio.setAudioModeAsync({
@@ -111,12 +113,22 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
       ]);
     });
 
+    socketInstance.on(SOCKET_RIDER_SHARE_COORDS, (data) => {
+      console.log('SOCKET_RIDER_SHARE_COORDS', data);
+      dispatch(setLocationRiderData({
+        location: {
+          latitude: data.coords.latitude,
+          longitude: data.coords.longitude,
+        }
+      }));
+
+    });
+
     socketInstance.on('connect', () => {
       console.log('Socket connected:', socketInstance.id);
     });
 
     socketInstance.on('disconnect', (reason) => {
-      console.log('Socket disconnected:', reason);
     });
 
     return () => {

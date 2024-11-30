@@ -19,6 +19,8 @@ import i18next from 'i18next';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { RootState } from '../../../redux/store';
 import { reloadApp } from '../../../redux/slides/appSlice';
+import { SOCKET_RIDER_SHARE_COORDS } from '@/src/constants/sockets';
+import {  setLocationRiderData } from '@/src/redux/slides/locationRiderSlice';
 
 interface Props {
   route: {
@@ -45,6 +47,8 @@ type TypeLiveOrder = {
   tag: string;
 };
 
+const queryKey = 'screen-order-id-tracking';
+
 const Tracking = ({ route }: Props) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
@@ -57,22 +61,20 @@ const Tracking = ({ route }: Props) => {
   const queryClient = useQueryClient();
   
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
-    queryKey: ['screen-order-id', orderID],
+    queryKey: [queryKey, orderID],
     queryFn: getOrderIDService,
   });
 
   const openModal = () => {
-    if (data && !isLoading && data?.status !== 'COMPLETED' && !data?.verified) {
+    if (data && !isLoading) {
       dispatch(openModalPin({ data }));
     }
   };
 
   useEffect(() => {
     if (data && !isLoading) {
-      setTimeout(() => {
         openModal();
         setSucess(true);
-      }, 500);
     }
   }, [data]);
 
@@ -85,22 +87,21 @@ const Tracking = ({ route }: Props) => {
   useEffect(() => {
     if (socket) {
       const orderEvent = `event-realtime-order-${orderID}`;
-      const routeEvent = `event-realtime-route-${orderID}`;
+      const routeEvent = SOCKET_RIDER_SHARE_COORDS;
 
       socket.on(orderEvent, (newState: Partial<TypeLiveOrder>) => {
-        console.log(`${orderEvent} received:`, newState);
         queryClient.setQueryData(
-          ['screen-order-id', orderID],
+          [queryKey, orderID],
           (old: TypeLiveOrder | undefined) => {
             return old ? { ...old, ...newState } : undefined;
           },
         );
       });
 
-      socket.on(routeEvent, (route: LocationObjectCoords) => {
+      socket.on(routeEvent, (route) => {
         console.log(`${routeEvent} received:`, route);
-        setRiderLocation(route);
-      });
+
+      });      
 
       return () => {
         console.log(`Cleaning up socket events for order ${orderID}`);
@@ -135,7 +136,7 @@ const Tracking = ({ route }: Props) => {
   }, [data, navigation, dispatch]);
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t('Loading')}/>;
-
+  
   if (data) {
     const {
       latitude,

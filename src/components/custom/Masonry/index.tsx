@@ -106,7 +106,7 @@ const MasonryList = ({
      <MasonryFlashList
         data={dataWithAds}
         renderItem={renderItem}
-        keyExtractor={(item) => `masonry-item-${item.id}`}
+        keyExtractor={(item) => `masonry-item-${item.id}-${item.isAd}-${item.mediaType}`}
         numColumns={numColumns}
         optimizeItemArrangement={false}
         refreshControl={

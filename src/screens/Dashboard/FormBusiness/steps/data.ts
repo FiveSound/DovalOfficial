@@ -57,6 +57,7 @@ const createTime = (hour: number, minute = 0) => {
   return date;
 };
 
+
 const schedules: SchedulesInterface[] = [
   {
     day: "Monday",
@@ -109,4 +110,14 @@ const schedules: SchedulesInterface[] = [
   },
 ];
 
-export { ListBank, timezoneItems, schedules };
+// Función para convertir hora local a UTC
+const convertLocalToUtc = (localDate: Date): Date => {
+  return new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60000);
+};
+
+// Función para convertir UTC a hora local
+const convertUtcToLocal = (utcDate: Date): Date => {
+  return new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000);
+};
+
+export { ListBank, timezoneItems, schedules, convertUtcToLocal, convertLocalToUtc };

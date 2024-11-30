@@ -37,7 +37,8 @@
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyB0zu_snYOixCixdrrRinmoqbMk7sKfWEI"
-        }
+        },
+        "networkSecurityConfig": "./network_security_config.xml"
       }
     },
     "web": {

@@ -1,4 +1,4 @@
-const successLoader = require('../../assets/animations/success.json');
+const successLoader = require('../../assets/Animations/success.json');
 
 export {
     successLoader

@@ -66,14 +66,14 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
     inputRange: [0, 1],
     outputRange: ['0%', '100%'],
   });
-
+ console.log(currentStep, 'currentStep')
   if (!activeStep) {
     return null;
   }
 
   return (
     <FlexContainer newStyle={styles.container}>
-      {status === 'COMPLETED' ? (
+      {status === 'COMPLETED' && currentStep === 3 ? (
         <FlexContainer
           key={activeStep.id}
           newStyle={[

@@ -697,7 +697,7 @@
   "Canceled": "Cancelado",
   "No orders available": "Sin órdenes disponibles",
   "We have not found orders in this state.": "No hemos encontrado órdenes en este estado.",
-  "Success": "Sucesso",
+  "Success": "Éxito",
   "OK": "OK",
   "Your report has been successfully submitted. Thank you for your report, it helps us improve.": "Seu relatório foi enviado com sucesso. Obrigado pelo seu relatório, ele nos ajuda a melhorar.",
   "There was an error submitting your report. Please try again later.": "Ocorreu um erro ao enviar seu relatório. Por favor, tente novamente mais tarde.",
@@ -892,5 +892,8 @@
   "Add a comment": "Agregar un comentario",
   "Your Business has been created successfully": "Tu negocio ha sido creado con éxito",
   "Our review team will check your business, thank you! This process usually takes less than 24 hours": "Nuestro equipo de revisión revisará tu negocio, ¡gracias! Este proceso suele durar menos de 24 horas",
-  "Go to Feed": "Ir a Feed"
+  "Go to Feed": "Ir a Feed",
+  "Vehicle": "Vehículo",
+  "Your review has been submitted.": "Tu reseña ha sido enviada.",
+  "My MenuRecipes": "Mis Recetas"
 }

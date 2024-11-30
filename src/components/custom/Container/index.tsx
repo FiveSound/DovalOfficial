@@ -84,7 +84,9 @@ const Container = ({
     ? Platform.OS === 'ios'
       ? SafeAreaView
       : View
-    : View;
+    : SafeAreaView;
+
+    
   return (
     <Component style={[styles.container, style]}>
       {showHeader && (

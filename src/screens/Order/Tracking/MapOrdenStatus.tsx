@@ -1,15 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import { LocationObjectCoords } from 'expo-location';
-import { COLORS, responsiveFontSize, SIZES } from '../../../constants/theme';
+import { COLORS, responsiveFontSize, responsiveWidth, SIZES } from '../../../constants/theme';
 import {
-  Home01Icon,
   Location08Icon,
+  Motorbike01Icon,
   StoreLocation02Icon,
 } from '../../../constants/IconsPro';
 import { CustomMarker, FlexContainer, Icons } from '../../../components/custom';
 import mapStyle from '../../../constants/mapStyle';
+import { useAppSelector } from '@/src/redux';
+import { RootState } from '@/src/redux/store';
+import KeyApi from '@/src/constants/KeyApi';
+import MapViewDirections from 'react-native-maps-directions';
 
 interface PropsMapOrdenStatus {
   user: {
@@ -27,6 +31,11 @@ interface PropsMapOrdenStatus {
 const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
   const screenHeight = Dimensions.get('window').height;
   const mapHeight = screenHeight * 0.7;
+  const { data } = useAppSelector((state: RootState) => state.modal);
+  const { location: RiderLocation } = useAppSelector((state: RootState) => state.locationRider);
+  console.log('RiderLocation', RiderLocation);
+
+  const mapRef = useRef<MapView>(null);
 
   const calculateMidpoint = (
     lat1: number,
@@ -54,38 +63,63 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
     };
   };
 
-  const [region, setRegion] = useState({
-    latitude: props.business.latitude,
-    longitude: props.business.longitude,
-    latitudeDelta: 0.02,
-    longitudeDelta: 0.02,
-  });
-
-  useEffect(() => {
+  const calculateMapRegion = (): Region => {
     if (props.user && props.business) {
-      const midpoint = calculateMidpoint(
+      let midpoint = calculateMidpoint(
         props.user.latitude,
         props.user.longitude,
         props.business.latitude,
         props.business.longitude,
       );
+
+      // Incluir las coordenadas del rider si están disponibles
+      if (RiderLocation) {
+        midpoint = {
+          latitude: (midpoint.latitude + RiderLocation.latitude) / 2,
+          longitude: (midpoint.longitude + RiderLocation.longitude) / 2,
+        };
+      }
+
       const delta = calculateDelta(
         props.user.latitude,
         props.user.longitude,
         props.business.latitude,
         props.business.longitude,
       );
-      setRegion({
+
+      return {
         latitude: midpoint.latitude,
         longitude: midpoint.longitude,
         latitudeDelta: delta.latitudeDelta,
         longitudeDelta: delta.longitudeDelta,
-      });
+      };
     }
-  }, [props.user, props.business]);
+    return {
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: 0.02,
+      longitudeDelta: 0.02,
+    };
+  };
+
+  const [region, setRegion] = useState<Region>(calculateMapRegion());
+
+  useEffect(() => {
+    const newRegion = calculateMapRegion();
+    
+    if (
+      Math.abs(newRegion.latitude - region.latitude) > 0.001 ||
+      Math.abs(newRegion.longitude - region.longitude) > 0.001 ||
+      Math.abs(newRegion.latitudeDelta - region.latitudeDelta) > 0.002 ||
+      Math.abs(newRegion.longitudeDelta - region.longitudeDelta) > 0.002
+    ) {
+      setRegion(newRegion);
+    }
+  }, [props.user, RiderLocation]);
 
   return (
     <MapView
+      ref={mapRef}
       style={{
         width: SIZES.width,
         height: mapHeight,
@@ -100,67 +134,97 @@ const MapOrdenStatus = (props: PropsMapOrdenStatus) => {
       pitchEnabled={true}
       rotateEnabled={true}
     >
-        {
-        props.user.latitude && props.user.longitude && (
-          <Marker
-            coordinate={{
-              latitude: props.user.latitude,
-              longitude: props.user.longitude,
-            }}
-          >
-            <CustomMarker>
+      {/* Marcador del Usuario */}
+      {props.user.latitude && props.user.longitude && (
+        <Marker
+          coordinate={{
+            latitude: props.user.latitude,
+            longitude: props.user.longitude,
+          }}
+        >
+          <CustomMarker>
             <Location08Icon
               color={COLORS.dark}
               width={SIZES.icons}
               height={SIZES.icons}
             />
           </CustomMarker>
-          </Marker>
-        )
-      }
-      
-     
-      {
-        props.business.latitude && props.business.longitude && (
-          <Marker 
-            coordinate={{
-              latitude: props.business.latitude,
-              longitude: props.business.longitude,
-            }}
-          >
-            <CustomMarker>
+        </Marker>
+      )}
+
+      {/* Marcador del Negocio */}
+      {props.business.latitude && props.business.longitude && (
+        <Marker
+          coordinate={{
+            latitude: props.business.latitude,
+            longitude: props.business.longitude,
+          }}
+        >
+          <CustomMarker>
             <StoreLocation02Icon
               color={COLORS.dark}
               width={SIZES.icons}
               height={SIZES.icons}
             />
           </CustomMarker>
+        </Marker>
+      )}
+
+      {/* Marcador y Ruta del Rider */}
+      {data?.riderID !== null && RiderLocation !== null && (
+        <>
+          {/* Marcador del Rider */}
+          <Marker
+            coordinate={{
+              latitude: RiderLocation.latitude,
+              longitude: RiderLocation.longitude,
+            }}
+          >
+            <CustomMarker>
+              <Motorbike01Icon
+                color={COLORS.dark}
+                width={SIZES.icons}
+                height={SIZES.icons}
+              />
+            </CustomMarker>
           </Marker>
-        )
-      }
 
-
-
-      {/* {props.coords && (
-        <Polyline
-          coordinates={props.coords}
-          strokeWidth={5}
-          strokeColor={COLORS.primary}
-        />
-      )} */}
+          {/* Ruta del Rider hacia el Usuario */}
+          <MapViewDirections
+            origin={{
+              latitude: RiderLocation.latitude,
+              longitude: RiderLocation.longitude,
+            }}
+            destination={{
+              latitude: props.user.latitude,
+              longitude: props.user.longitude,
+            }}
+            apikey={KeyApi.GoogleMapApi}
+            strokeWidth={responsiveWidth(4)}
+            strokeColor={COLORS.primary}
+            optimizeWaypoints={true}
+            strokeColors={[COLORS.dark]}
+            onError={(errorMessage) => {
+              console.log('MapViewDirections error: ', errorMessage);
+            }}
+            onReady={(result) => {
+              if (mapRef.current) {
+                mapRef.current.fitToCoordinates(result.coordinates, {
+                  edgePadding: {
+                    right: SIZES.width / 20,
+                    bottom: SIZES.height / 20,
+                    left: SIZES.width / 20,
+                    top: SIZES.height / 20,
+                  },
+                  animated: true,
+                });
+              }
+            }}
+          />
+        </>
+      )}
     </MapView>
   );
 };
-
-const styles = StyleSheet.create({
-  containerIcons: {
-    borderRadius: responsiveFontSize(44),
-    width: responsiveFontSize(44),
-    height: responsiveFontSize(44),
-    backgroundColor: COLORS.TranspDark,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default MapOrdenStatus;

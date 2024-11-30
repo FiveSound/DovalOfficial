@@ -27,6 +27,8 @@ const Operations = memo(() => {
 
   const values = watch();
 
+  const schedulesLocal: SchedulesInterface[] = values.schedules;
+
   const handleEnabledDay = (dayIndex: number, value: boolean) => {
     const currentSchedules: SchedulesInterface[] = getValues("schedules");
 
@@ -43,7 +45,7 @@ const Operations = memo(() => {
   const handleTime = (dayIndex: number, type: string, date: Date, dismissed: boolean) => {
     setPicker({
       show: false,
-      type: "opening_time",
+      type: type, // Mantener el tipo correcto
       dayIndex: -1,
       date: date,
     });
@@ -71,8 +73,7 @@ const Operations = memo(() => {
         goNext={() => navigation.navigate("FormBusiness/Financial")}
         showDivider={false}
         disabled={
-          values.schedules.filter((row: SchedulesInterface) => row.enabled)
-            .length < 3
+          schedulesLocal.filter((row: SchedulesInterface) => row.enabled).length < 3
         }
       />
       <View style={styles.container}>
@@ -83,7 +84,7 @@ const Operations = memo(() => {
           )}
         />
         <View style={styles.schedule_container}>
-          {values.schedules.map((row: SchedulesInterface, dayIndex: number) => (
+          {schedulesLocal.map((row: SchedulesInterface, dayIndex: number) => (
             <View key={row.day} style={styles.schedule}>
               <Pressable
                 onPress={() => handleEnabledDay(dayIndex, !row.enabled)}
@@ -104,13 +105,13 @@ const Operations = memo(() => {
               <View style={styles.schedule_times}>
                 <ScheduleTime
                   label="From:"
-                  value={formatDateHourUtil(row.opening_time, false)} // Usar hora local
+                  value={formatDateHourUtil(row.opening_time, false)}
                   onPress={() =>
                     setPicker({
                       show: true,
                       type: "opening_time",
                       dayIndex,
-                      date: row.opening_time, // Hora local
+                      date: row.opening_time,
                     })
                   }
                   disabled={!row.enabled}
@@ -118,7 +119,7 @@ const Operations = memo(() => {
 
                 <ScheduleTime
                   label="To:"
-                  value={formatDateHourUtil(row.closing_time, false)} // Usar hora local
+                  value={formatDateHourUtil(row.closing_time, false)}
                   onPress={() =>
                     setPicker({
                       show: true,
@@ -166,9 +167,8 @@ const Operations = memo(() => {
               <DateTimePicker
                 value={picker.date} 
                 mode="time"
-                timeZoneName='America/Santo_Domingo'
                 is24Hour={false}
-                display="spinner"
+                display="default"
                 textColor={COLORS.primary}
                 onChange={({ nativeEvent, type }) => {
                   handleTime(picker.dayIndex, picker.type, new Date(nativeEvent.timestamp), type === "dismissed");
@@ -187,7 +187,6 @@ const Operations = memo(() => {
         <DateTimePicker
           value={picker.date}
           mode="time"
-          timeZoneName='UTC'
           is24Hour={false}
           display="default"
           onChange={({ nativeEvent, type }) => {
