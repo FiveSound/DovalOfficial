@@ -15,6 +15,7 @@ import { ScreenEmpty } from '@/src/components/custom';
 import i18next from '@/src/Translate';
 import { SIZES } from '@/src/constants/theme';
 import { Ilustrations } from '@/src/constants';
+import TestAwayLocation from './components/TestAwayLocation';
 // import TestAwayLocation from './components/TestAwayLocation';
 
 const FEED_QUERY_KEY = 'FEED_QUERY';

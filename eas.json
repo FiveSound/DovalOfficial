@@ -31,9 +31,11 @@
       }
     },
     "production": {
+      "autoIncrement": true,
       "android": {
         "resourceClass": "large",
-        "buildType": "apk"
+        "buildType": "app-bundle"
+ 
       },
       "ios": {
         "resourceClass": "large"

@@ -33,7 +33,7 @@ function MyTabBar({ state, descriptors, navigation }: any) {
         //     focusedIcon: <Home01Icon color={COLORS.primary} width={SIZES.icons} height={SIZES.icons} />,
         //     unfocusedIcon: <Home01Icon color={Description} width={SIZES.icons} height={SIZES.icons} />,
         // },
-        ...(!isLoadingApp &&isAuthenticated && businessVerified
+        ...(!isLoadingApp && isAuthenticated && businessVerified
             ? [{
                 label: i18next.t('Portal'),
                 name: 'Portal',
@@ -116,6 +116,7 @@ const MyTabs = () => {
 
     return (
         <Tab.Navigator
+            key={`${isAuthenticated}-${businessVerified}`}
             tabBar={(props) => <MyTabBar {...props} />}
             screenOptions={{ headerShown: false }}
         >

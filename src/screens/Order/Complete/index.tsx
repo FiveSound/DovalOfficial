@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { Alert, ActivityIndicator } from 'react-native';
-import { ScrollView, Text, useNavigation } from '../../../components/native';
+import { KeyboardAwareScrollView, ScrollView, Text, useNavigation } from '../../../components/native';
 import {
   Container,
   InputLabel,
   Rating,
   ScreenEmpty,
+  Typography,
 } from '../../../components/custom';
 import { Ilustrations } from '../../../constants';
-import { responsiveFontSize, SIZES } from '../../../constants/theme';
+import { COLORS, responsiveFontSize, responsiveHeight, SIZES } from '../../../constants/theme';
 import styles from '../ConfirmOrder/styles';
 import ThreeIcons from '../../../components/custom/Bar/ThreeIcons';
 import i18next from '../../../Translate';
@@ -17,7 +18,7 @@ import { closeModalPin } from '../../../redux/slides/modalSlice';
 import { useForm, Controller } from 'react-hook-form';
 import { setReviewService } from '../../../services/orders';
 
-interface Props {}
+interface Props { }
 
 interface Review {
   rating: number;
@@ -25,7 +26,7 @@ interface Review {
   orderID: number | undefined;
 }
 
-  type FormValues = {
+type FormValues = {
   orderID: number | undefined;
   rating: number;
   review: string;
@@ -40,7 +41,7 @@ const Complete = (props: Props) => {
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
     reset,
   } = useForm<FormValues>({
     defaultValues: {
@@ -62,24 +63,42 @@ const Complete = (props: Props) => {
   };
 
   const onSubmit = async (data: FormValues) => {
+    if (!data.rating || data.rating < 1) {
+      Alert.alert(i18next.t('Error'), i18next.t('Please select a rating'));
+      return;
+    }
+
+    if (!data.review.trim()) {
+      Alert.alert(i18next.t('Error'), i18next.t('Please add a review comment'));
+      return;
+    }
+
     try {
       const reviewBody: Review = {
         orderID: orderID,
         rating: data.rating,
-        review: data.review
+        review: data.review.trim()
       };
-      await setReviewService(reviewBody);
-      reset();
-      Alert.alert(i18next.t('Success'), i18next.t('Your review has been submitted.'), [{
-        text: 'OK',
-        onPress: () => {
-          handlePress();
-        }
-      }]);
-     
+      
+      const response = await setReviewService(reviewBody);
+      
+      if (response) {
+        reset();
+        Alert.alert(
+          i18next.t('Success'), 
+          i18next.t('Your review has been submitted.'), 
+          [{
+            text: 'OK',
+            onPress: handlePress
+          }]
+        );
+      }
     } catch (error) {
-      console.error(error);
-      Alert.alert(i18next.t('Error'), i18next.t('There was an issue submitting your review. Please try again.'));
+      console.error('Review submission error:', error);
+      Alert.alert(
+        i18next.t('Error'), 
+        i18next.t('There was an issue submitting your review. Please try again.')
+      );
     }
   };
 
@@ -87,23 +106,25 @@ const Complete = (props: Props) => {
     <Container
       showFooter={true}
       labels={i18next.t('Submit Review')}
-      disabled={isSubmitting}
+      disabled={isSubmitting || !orderID}
       loading={isSubmitting}
       onPressButtons={handleSubmit(onSubmit)}
-      variant='secondary'
+      color='dark'
     >
       <ThreeIcons
         showBack={false}
         showRightIcons={false}
         onPress={handlePress}
       />
-      <ScrollView
+      <KeyboardAwareScrollView
         contentContainerStyle={{
           justifyContent: 'center',
           flex: 1,
           paddingBottom: SIZES.height / 8,
           paddingHorizontal: 20,
         }}
+        extraHeight={responsiveHeight(100)}
+        
       >
         <ScreenEmpty
           source={Ilustrations.GoodJob}
@@ -123,10 +144,17 @@ const Complete = (props: Props) => {
           name="rating"
           rules={{ required: true, min: 1 }}
           render={({ field: { onChange, value } }) => (
-            <Rating
-              rating={value}
-              setRating={onChange}
-            />
+            <>
+              <Rating
+                rating={value}
+                setRating={onChange}
+              />
+              {errors.rating && (
+                <Typography variant='H4title' newStyle={{ color: COLORS.error }}>
+                  {i18next.t('Please select a rating')}
+                </Typography>
+              )}
+            </>
           )}
         />
         <Controller
@@ -142,11 +170,17 @@ const Complete = (props: Props) => {
                 value={value}
                 multiline
               />
-  
+              {error && (
+                <Typography variant='H4title' newStyle={{ color: COLORS.error }}>
+                  {error.type === 'required' 
+                    ? i18next.t('Please add a review comment')
+                    : i18next.t('Review must be less than 500 characters')}
+                </Typography>
+              )}
             </>
           )}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </Container>
   );
 };

@@ -20,6 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LoadingScreen} from "./src/components/custom";
 import { FONTS, SIZES } from "./src/constants/theme";
 import { ToastProvider } from "./src/components/custom/ToastManager";
+import TestAwayLocation from "./src/screens/Feed/components/TestAwayLocation";
 
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const AppContent = ({ onLayoutRootView, linking, theme }: { onLayoutRootView: ()
                 <SafeAreaProvider onLayout={onLayoutRootView} style={appStyles.flexContainer}>
                   <GestureHandlerRootView>
                     <>
+                      {/* <TestAwayLocation /> */}
                       <RootNavigator />
                       <Modal />
                     </>

@@ -52,6 +52,7 @@ const CardBusiness = ({
   const CoverBusiness = `${CLOUDFRONT}${avatar}`;
   const memoizedCoverBusiness = useMemo(() => CoverBusiness, [CoverBusiness]);
   const dispatch = useAppDispatch();
+  console.log('rating', rating);
 
   const handleNavigation = useCallback(() => {
     if (item) {
@@ -62,8 +63,9 @@ const CardBusiness = ({
 
   return (
     <>
-      <FlexContainer key={id} newStyle={styles.flexContainer}>
-
+      <FlexContainer key={id} newStyle={[styles.flexContainer, {
+        opacity: open ? 1 : 0.5,
+      }]}>
         <Typography
           variant="H4title"
           numberOfLines={1}
@@ -100,20 +102,20 @@ const CardBusiness = ({
           </View>
           <ArrowRight onPress={handleNavigation} />
         </TouchableOpacity>
-        <FlexContainer variant='row' newStyle={{ gap: SIZES.gapSmall, marginTop: SIZES.gapSmall }}>
-        <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
+        {/* <FlexContainer variant='row' newStyle={{ gap: SIZES.gapSmall, marginTop: SIZES.gapSmall }}> */}
+        {/* <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
           <Clock01Icon color={Title} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
           <Typography variant='H4title' newStyle={styles.timeSend}>
             Tiempo: {timeSend}
           </Typography>
-        </FlexContainer>
+        </FlexContainer> */}
         {/* <FlexContainer newStyle={{ gap: SIZES.gapSmall, alignItems: 'center' }} variant='row'>
           <ShoppingBag01Icon color={Title} width={SIZES.icons / 1.2} height={SIZES.icons / 1.2} />
           <Typography variant='H4title' newStyle={styles.timeSend}>
             Envios: {i18next.t(amountSend)}
           </Typography>
         </FlexContainer> */}
-        </FlexContainer>
+        {/* </FlexContainer> */}
       </FlexContainer>
       <LineDivider lineStyle={styles.lineDivider} variant="secondary" />
     </>

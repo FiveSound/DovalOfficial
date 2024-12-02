@@ -2,7 +2,7 @@
   "expo": {
     "name": "Doval",
     "slug": "doval",
-    "version": "1.8.9",
+    "version": "7.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "scheme": ["doval", "fb703314045273320"],
@@ -30,7 +30,6 @@
     },
     "android": {
       "package": "com.doval.doval",
-      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/logoAndroid.png"
       },
@@ -50,9 +49,6 @@
       }
     },
     "owner": "doval",
-    "cli": {
-      "appVersionSource": "local"
-    },
     "plugins": [
       "expo-font",
       "expo-localization",

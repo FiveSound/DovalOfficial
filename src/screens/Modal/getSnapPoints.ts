@@ -7,7 +7,7 @@ export const getSnapPoints = (
     ? ['30%', '60%', '90%']
     : ['30%'];
   const snapPointsAddress = ['50%', '70%', '94%'];
-  const snapPointsPin = ['60%', '30%', '43%'];
+  const snapPointsPin = ['30%', '60%', '43%'];
   const snapPointsOnboarding = ['94%'];
   const snapPointsUpload = ['44%', '80%'];
   const snapPointsMoreOptionsProfile = ['40%', '60%'];

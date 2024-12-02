@@ -54,6 +54,8 @@ export const useAddProducts = () => {
     enabled: !!recipeID,
   });
 
+  console.log('data', data);
+
   const { isRefreshing, onRefresh } = useRefreshData([refetch]);
 
   const resetState = useCallback(() => {

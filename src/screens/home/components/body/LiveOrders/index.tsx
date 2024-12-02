@@ -85,23 +85,31 @@ const LiveOrders = () => {
 
   if (data && data.list.length > 0 && data.success) {
     const { list } = data;
-    return (
-      <FlexContainer>
-        <Carrousel
-          row={list}
-          label={i18next.t('Review your order!')}
-          RenderItem={(item, index: number) => (
-            <OrderProgress
-              key={index}
-              steps={item.steps}
-              currentStep={item.currentStep}
-              showHero={false}
-              status={item.status}
-            />
-          )}
-        />
-      </FlexContainer>
-    );
+    console.log('list', list);
+   
+      return (
+        <FlexContainer>
+          <Carrousel
+            row={list}
+            label={i18next.t('Review your order!')}
+          RenderItem={(item, index: number) => {
+            const showStatus = item.status === 'COMPLETED';
+            if(!showStatus){ 
+              return (
+                <OrderProgress
+                  key={item.orderID}
+                  steps={item.steps}
+                  currentStep={item.currentStep}
+                  showHero={false}
+                  status={item.status}
+                />
+              )
+            }
+            return <></>
+          }}
+          />
+        </FlexContainer>
+      );
   }
 };
 

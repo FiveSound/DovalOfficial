@@ -3,10 +3,9 @@ import { StyleSheet, Text } from "react-native";
 import { IsLoading, LoadingScreen, OrderProgress } from "../../../components/custom";
 import { SafeAreaView, useNavigation, View } from "../../../components/native";
 import { useDashboard } from "../../../context/DashboardContext";
-import { useTheme } from "../../../hooks";
+import { useDebounce, useTheme } from "../../../hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderIDService } from "../../../services/orders";
-// import MapOrdenStatus from "./MapOrdenStatus";
 import { Footer } from "./components";
 import ThreeIcons from "../../../components/custom/Bar/ThreeIcons";
 import { closeModalPin, openModalPin } from "../../../redux/slides/modalSlice";
@@ -15,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux";
 import { RootState } from "../../../redux/store";
 import { reloadApp } from "../../../redux/slides/appSlice";
 import { SOCKET_RIDER_SHARE_COORDS } from "@/src/constants/sockets";
+import { setLocationRiderData } from "@/src/redux/slides/locationRiderSlice";
 import Map from "./Map";
 
 interface Props {
@@ -37,20 +37,6 @@ type TypeLiveOrder = {
   tag: string;
 };
 
-type TypeRiderLocation = {
-  orderID: number | null;
-  riderID: string | null;
-  coords: {
-    latitude: number;
-    longitude: number;
-    altitude: number | null;
-    accuracy: number | null;
-    altitudeAccuracy: number | null;
-    heading: number | null;
-    speed: number | null;
-  };
-};
-
 const queryKey = "screen-order-id-tracking";
 
 const Tracking = ({ route }: Props) => {
@@ -61,13 +47,14 @@ const Tracking = ({ route }: Props) => {
   const { socket } = useDashboard();
   const { BackgroundMain } = useTheme();
   const [sucess, setSucess] = useState(false);
-  const [riderLocation, setRiderLocation] = useState<TypeRiderLocation | null>(null);
+  const [routerRider, setRouterRider] = useState<any>(null);
   const queryClient = useQueryClient();
 
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: [queryKey, orderID],
     queryFn: getOrderIDService,
   });
+
 
   const openModal = () => {
     if (data && !isLoading) {
@@ -99,9 +86,14 @@ const Tracking = ({ route }: Props) => {
       });
 
       socket.on(routeEvent, (route) => {
-        console.log(`${routeEvent} received:`, route);
-        setRiderLocation(route);
-      });
+        console.log('routeEvent', route);
+        console.log('orderID', orderID);
+        console.log('route.orderID', route.orderID);
+        const RouterID = parseInt(route.orderID) === parseInt(orderID);
+        if (RouterID) {
+          setRouterRider(route);
+        }
+    });
 
       return () => {
         console.log(`Cleaning up socket events for order ${orderID}`);
@@ -109,7 +101,8 @@ const Tracking = ({ route }: Props) => {
         socket.off(routeEvent);
       };
     }
-  }, [socket, orderID, queryClient]);
+  }, [socket, orderID, queryClient, dispatch, route]);
+
 
   useEffect(() => {
     socket?.on("connect", () => {
@@ -150,6 +143,8 @@ const Tracking = ({ route }: Props) => {
       creation_time,
       estimated_time,
     } = data;
+    const completed = status === 'COMPLETED';
+    console.log('completed', completed);
 
     if (latitude && longitude && businessLatitude && businessLongitude && isAuthenticated) {
       return (
@@ -175,22 +170,14 @@ const Tracking = ({ route }: Props) => {
           {!sucess ? <IsLoading label={i18next.t("Loading...")} /> : <></>}
 
           <Map
-            user={{ latitude, longitude, longitudeDelta: 0.01, latitudeDelta: 0.01 }}
-            business={[
-              {
-                latitude: businessLatitude,
-                longitude: businessLongitude,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01,
-              },
-            ]}
-            rider={riderLocation ? riderLocation : null}
-            coords={[]}
+            user={{ latitude, longitude }}
+            business={{ latitude: businessLatitude, longitude: businessLongitude }}
+            routerRider={routerRider ? routerRider : null}
           />
           {sucess && <Footer data={data} />}
         </SafeAreaView>
       );
-    } else {
+    } else {  
       return <LoadingScreen />;
     }
   }

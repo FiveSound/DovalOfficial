@@ -4,7 +4,7 @@ import { Container } from '../../../components/custom';
 import { SIZES } from '../../../constants/theme';
 import { useNavigation } from '../../../components/native';
 import LottieView from 'lottie-react-native';
-import { successLoader } from '@/src/constants/Animations';
+import { successLoader } from '@/src/constants/animations';
 
 interface Props {
   route: {

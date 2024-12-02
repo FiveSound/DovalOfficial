@@ -163,8 +163,7 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
           </FlexContainer>
         ))}
       </FlexContainer>
-
-      <Typography
+      {/* <Typography
         variant="SubDescription"
         newStyle={[
           styles.latestArrival,
@@ -176,7 +175,7 @@ const OrderProgress: React.FC<OrderProgressProps> = ({
         {status === 'COMPLETED'
           ? i18next.t('Gracias por su order, ha sido completada')
           : i18next.t(activeStep.message)}
-      </Typography>
+      </Typography> */}
     </FlexContainer>
   );
 };

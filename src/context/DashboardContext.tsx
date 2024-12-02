@@ -113,16 +113,16 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
       ]);
     });
 
-    socketInstance.on(SOCKET_RIDER_SHARE_COORDS, (data) => {
-      console.log('SOCKET_RIDER_SHARE_COORDS', data);
-      dispatch(setLocationRiderData({
-        location: {
-          latitude: data.coords.latitude,
-          longitude: data.coords.longitude,
-        }
-      }));
+    // socketInstance.on(SOCKET_RIDER_SHARE_COORDS, (data) => {
+    //   console.log('SOCKET_RIDER_SHARE_COORDS', data);
+    //   dispatch(setLocationRiderData({
+    //     location: {
+    //       latitude: data.coords.latitude,
+    //       longitude: data.coords.longitude,
+    //     }
+    //   }));
 
-    });
+    // });
 
     socketInstance.on('connect', () => {
       console.log('Socket connected:', socketInstance.id);

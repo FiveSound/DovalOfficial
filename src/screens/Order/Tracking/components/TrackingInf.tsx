@@ -143,33 +143,6 @@ const TrackingInf = (props: Props) => {
                 showLineDivider={true}
               />
             </FlexContainer>
-
-            <FlexContainer>
-              <InfoCard
-                icon={
-                  rider_waiting ? (
-                    <Store01IconStroke
-                      width={SIZES.icons * 1.2}
-                      height={SIZES.icons * 1.2}
-                      color={Title}
-                    />
-                  ) : (
-                    <SafeDelivery01Icon
-                      width={SIZES.icons * 1.2}
-                      height={SIZES.icons * 1.2}
-                      color={Title}
-                    />
-                  )
-                }
-                title={i18next.t('Delivery by')}
-                description={
-                  rider_waiting && row ? row.fullname || '' : 'Doval Rider'
-                }
-                orientation="LEGHT"
-                showArrow={true}
-                showLineDivider={true}
-              />
-            </FlexContainer>
           </>
         </ScrollView>
       </FlexContainer>
