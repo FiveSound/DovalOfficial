@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { ActivityIndicator, StyleSheet, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useRoute } from "@react-navigation/native";
-import { getAvailableProgrammableService } from "../services/programmable";
+import { getAvailableProgrammableService, programmableService } from "../services/programmable";
 import { SafeAreaView, useNavigation } from "../components/native";
 import { LineDivider } from "../components/custom";
 
@@ -15,9 +15,26 @@ const ProgramOrder = memo(() => {
     queryFn: getAvailableProgrammableService,
   });
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationKey: ["programmable-screen"],
+    mutationFn: async (body: any) => {
+      console.log({ body });
+      const data = await programmableService({ orderID: 1, schedule_creation_time: "", schedule_estimated_time: "" });
+      console.log({ data });
+
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log({ data });
+    },
+  });
+
   const handleSelectedDay = () => {};
 
   const handleSelectedHour = (id: number) => {
+    mutation.mutate(id);
     // navigation.navigate("Checkout", {
     //   cartID: params?.cartID,
     //   ...row,
