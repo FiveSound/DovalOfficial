@@ -133,22 +133,19 @@ const Media = () => {
             variant="transparent"
           />
 
-
-         {
-          mediaURLs.length > 0 && (
+          {mediaURLs.length > 0 && (
             <Buttons
-            label={i18next.t('Delete All')}
-            onPress={() => {
-              console.log('Delete All');
-              dispatch(resetUploadState());
-              setValue('key', []);
-            }}
-            // containerButtons={styles.containerButtonss}
-            variant="error"
-            variantLabel="error"
-          />
-          )
-         }
+              label={i18next.t("Delete All")}
+              onPress={() => {
+                console.log("Delete All");
+                dispatch(resetUploadState());
+                setValue("key", []);
+              }}
+              // containerButtons={styles.containerButtonss}
+              variant="error"
+              variantLabel="error"
+            />
+          )}
         </FlexContainer>
       </FlexContainer>
     </Container>

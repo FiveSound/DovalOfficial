@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   Switch,
   Alert, // Asegúrate de importar Alert
-} from 'react-native';
-import { useFormContext } from 'react-hook-form';
+} from "react-native";
+import { useFormContext } from "react-hook-form";
 import {
   Buttons,
   Container,
@@ -17,26 +17,19 @@ import {
   LineDivider,
   Perks,
   Typography,
-} from '../../../../../components/custom';
-import { Covers } from '../Utils';
-import {
-  KeyboardAwareScrollView,
-  useNavigation,
-} from '../../../../../components/native';
-import Pers from './Components/Pers';
-import i18next from '../../../../../Translate';
-import { CloseIcon } from '../../../../../constants/IconsPro';
-import {
-  FONTS,
-  responsiveFontSize,
-  SIZES,
-} from '../../../../../constants/theme';
-import { useTheme, useUploadMedia } from '../../../../../hooks';
-import { PostDescriptionInput, PostNameInput } from './Components';
-import { iconsNative } from '../../../../../constants';
-import { publishPostService } from '../../../../../services/posts';
-import { useAppDispatch } from '../../../../../redux';
-import { resetUploadState } from '../../../../../redux/slides/uploadSlice';
+} from "../../../../../components/custom";
+import { Covers } from "../Utils";
+import { KeyboardAwareScrollView, useNavigation } from "../../../../../components/native";
+import Pers from "./Components/Pers";
+import i18next from "../../../../../Translate";
+import { CloseIcon } from "../../../../../constants/IconsPro";
+import { FONTS, responsiveFontSize, SIZES } from "../../../../../constants/theme";
+import { useTheme, useUploadMedia } from "../../../../../hooks";
+import { PostDescriptionInput, PostNameInput } from "./Components";
+import { iconsNative } from "../../../../../constants";
+import { publishPostService } from "../../../../../services/posts";
+import { useAppDispatch } from "../../../../../redux";
+import { resetUploadState } from "../../../../../redux/slides/uploadSlice";
 
 const InputLabel = (props: { label: string; href: string }) => {
   const navigation = useNavigation();
@@ -46,8 +39,8 @@ const InputLabel = (props: { label: string; href: string }) => {
       onPress={() => navigation.navigate(props.href)}
       style={{
         padding: SIZES.gapLarge,
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
         gap: SIZES.gapLarge,
       }}
     >
@@ -88,37 +81,28 @@ const PostDetails = memo(() => {
           setSuccess(false);
           navigation.reset({
             index: 0,
-            routes: [{ name: 'MyTabs' }],
+            routes: [{ name: "MyTabs" }],
           });
         }, 1000);
       } else {
-        Alert.alert(
-          'Error',
-          'Hubo un problema al subir el post. Por favor, intenta nuevamente.',
-          [{ text: 'OK' }],
-        );
+        Alert.alert("Error", "Hubo un problema al subir el post. Por favor, intenta nuevamente.", [{ text: "OK" }]);
       }
     } catch (error) {
       console.error(error);
       setLoading(false);
-      Alert.alert(
-        'Error',
-        'Ocurrió un error inesperado. Por favor, intenta nuevamente.',
-        [{ text: 'OK' }],
-      );
+      Alert.alert("Error", "Ocurrió un error inesperado. Por favor, intenta nuevamente.", [{ text: "OK" }]);
     } finally {
       setLoading(false);
       reset();
     }
   };
-    
+
   const onSaveDraft = async (body: object) => {
     // const response = await onSaveDraftService({ id: values.id, ...body });
     // if (response.success) {
     //   console.log('Guardado con éxito...');
     // }
   };
-
 
   return (
     <Container
@@ -130,13 +114,11 @@ const PostDetails = memo(() => {
     >
       <FlexContainer newStyle={styles.actions}>
         <Icons
-          appendIcons={
-            <CloseIcon color={Title} width={SIZES.icons} height={SIZES.icons} />
-          }
+          appendIcons={<CloseIcon color={Title} width={SIZES.icons} height={SIZES.icons} />}
           onPress={() => navigation.goBack()}
         />
         <Buttons
-          label={i18next.t('Publish')}
+          label={i18next.t("Publish")}
           onPress={handleSubmit(onSubmit)}
           containerButtons={styles.containerButtonss}
           // variantLabel={disable ? 'disabled' : 'secondary'}
@@ -145,10 +127,7 @@ const PostDetails = memo(() => {
           loading={loading}
         />
       </FlexContainer>
-      <LineDivider
-        variant="secondary"
-        lineStyle={{ marginBottom: SIZES.gapLarge }}
-      />
+      <LineDivider variant="secondary" lineStyle={{ marginBottom: SIZES.gapLarge }} />
 
       <KeyboardAwareScrollView
         extraScrollHeight={responsiveFontSize(100)}
@@ -158,27 +137,17 @@ const PostDetails = memo(() => {
         scrollEnabled={true}
         contentContainerStyle={{ paddingBottom: SIZES.height / 10 }}
       >
-        {success && (
-          <Perks label="Posts Publicado con exito" status="success" />
-        )}
+        {success && <Perks label="Posts Publicado con exito" status="success" />}
         <FlexContainer newStyle={styles.container}>
           <Covers data={mediaURLs} ShowDivider={true} />
-          <PostDescriptionInput
-            setValue={setValue}
-            onSaveDraft={onSaveDraft}
-            value={values.description}
-          />
+          <PostDescriptionInput setValue={setValue} onSaveDraft={onSaveDraft} value={values.description} />
           <FlexContainer newStyle={styles.persContainer}>
             <Pers label="Hashtags" navigation={navigation} />
             <Pers label="Tags" navigation={navigation} />
             <Pers label="Topics" navigation={navigation} />
           </FlexContainer>
           <LineDivider variant="secondary" />
-          <PostNameInput
-            setValue={setValue}
-            onSaveDraft={onSaveDraft}
-            value={values.name}
-          />
+          <PostNameInput setValue={setValue} onSaveDraft={onSaveDraft} value={values.name} />
 
           <InputLabel label="add recipe" href="Recipes" />
           {/* <LineDivider variant="primary" /> */}
@@ -217,21 +186,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   actions: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: responsiveFontSize(20),
-    justifyContent: 'space-between',
-    width: '100%',
+    justifyContent: "space-between",
+    width: "100%",
     paddingHorizontal: SIZES.gapLarge,
     marginBottom: SIZES.gapLarge,
   },
   containerButtonss: {
-    width: '30%',
+    width: "30%",
   },
   persContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: SIZES.gapLarge,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    alignItems: "center",
+    justifyContent: "flex-start",
     marginBottom: SIZES.gapLarge,
     paddingHorizontal: SIZES.gapLarge,
   },
