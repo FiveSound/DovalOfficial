@@ -1,20 +1,11 @@
 import { memo } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Media } from "./Components";
+import { Text, View } from "react-native";
 
-const Stack = createStackNavigator();
-
-type Props = {};
-
-const NewRecipe = memo((defaultValues: Props) => {
-  const methods = useForm({ defaultValues });
+const NewRecipe = memo(() => {
   return (
-    <FormProvider {...methods}>
-      <Stack.Navigator initialRouteName="RecipeMedia" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="RecipeMedia" component={Media} />
-      </Stack.Navigator>
-    </FormProvider>
+    <View>
+      <Text>NewRecipe</Text>
+    </View>
   );
 });
 
