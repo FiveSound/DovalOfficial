@@ -1,10 +1,5 @@
-import { StyleSheet } from 'react-native';
-import {
-  COLORS,
-  FONTS,
-  responsiveFontSize,
-  SIZES,
-} from '../../../../../../constants/theme';
+import { StyleSheet } from "react-native";
+import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../../constants/theme";
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -12,13 +7,13 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.gapMedium,
   },
   scrollView: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: responsiveFontSize(10),
     paddingHorizontal: responsiveFontSize(10),
   },
   icon: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     height: SIZES.BtnHeight / 1.4,
     padding: SIZES.gapSmall,
     paddingHorizontal: SIZES.gapMedium,

@@ -1,15 +1,15 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { StyleSheet, ViewToken } from 'react-native';
-import { useTheme } from '../../../../../hooks';
-import { View, Image, FlatList } from '../../../../../components/native';
-import { COLORS, SIZES } from '../../../../../constants/theme';
-import { Dots, LineDivider } from '../../../../../components/custom';
-import { CLOUDFRONT } from '../../../../../services';
-import { Ilustrations } from '../../../../../constants';
+import React, { useCallback, useRef, useState } from "react";
+import { StyleSheet, ViewToken } from "react-native";
+import { useTheme } from "../../../../../hooks";
+import { View, Image, FlatList } from "../../../../../components/native";
+import { COLORS, SIZES } from "../../../../../constants/theme";
+import { Dots, LineDivider } from "../../../../../components/custom";
+import { CLOUDFRONT } from "../../../../../services";
+import { Ilustrations } from "../../../../../constants";
 
 interface MediaItem {
   key: string;
-  type: 'photo' | 'video';
+  type: "photo" | "video";
   id: string;
   extension?: string;
 }
@@ -23,13 +23,11 @@ const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const { borderInput, backgroundMaingrey } = useTheme();
 
-  const onViewableItemsChanged = useRef(
-    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
-      if (viewableItems.length > 0 && viewableItems[0].index !== null) {
-        setCurrentVisibleIndex(viewableItems[0].index!);
-      }
-    },
-  ).current;
+  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    if (viewableItems.length > 0 && viewableItems[0].index !== null) {
+      setCurrentVisibleIndex(viewableItems[0].index!);
+    }
+  }).current;
 
   const viewabilityConfig = {
     itemVisiblePercentThreshold: 50,
@@ -46,17 +44,12 @@ const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
         />
       </View>
     ),
-    [borderInput],
+    [borderInput]
   );
 
   if (data?.length === 0 || 0) {
     return (
-      <Image
-        server={false}
-        placeholderSource={Ilustrations.EmptyMedia}
-        style={styles.mediaEmpty}
-        contentFit="cover"
-      />
+      <Image server={false} placeholderSource={Ilustrations.EmptyMedia} style={styles.mediaEmpty} contentFit="cover" />
     );
   }
 
@@ -70,7 +63,7 @@ const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           onViewableItemsChanged={onViewableItemsChanged}
           viewabilityConfig={viewabilityConfig}
           style={styles.container}
@@ -91,9 +84,9 @@ const styles = StyleSheet.create({
   main: {
     width: SIZES.width,
     height: SIZES.height / 2.3,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "transparent",
+    alignItems: "center",
+    justifyContent: "center",
   },
   container: {
     width: SIZES.width,

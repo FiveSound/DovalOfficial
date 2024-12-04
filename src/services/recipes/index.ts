@@ -253,51 +253,40 @@ export const getRecipeDrafts = async () => {
   return response.data;
 };
 
-export const getVariantsByRecipeService = async ({ queryKey }: QueryKeyType) => {
-  try {
-    const userToken = storage.getString(USER_TOKEN);
+export const getVariantsByRecipeService = async (recipeID: number) => {
+  const userToken = storage.getString(USER_TOKEN);
 
-    const response = await axios.post(
-      `${API_URL}/api/recipes/variants`,
-      {
-        id: queryKey[1],
+  const response = await axios.post(
+    `${API_URL}/api/recipes/variants`,
+    {
+      id: recipeID,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
+    }
+  );
 
-    return response.data;
-  } catch (error) {
-    return {
-      header: [],
-      body: [],
-    };
-  }
+  return response.data;
 };
 
 export const addVariantService = async (id: number) => {
-  try {
-    const userToken = storage.getString(USER_TOKEN);
+  const userToken = storage.getString(USER_TOKEN);
 
-    const response = await axios.post(
-      `${API_URL}/api/recipes/add/variant`,
-      {
-        id,
+  const response = await axios.post(
+    `${API_URL}/api/recipes/add/variant`,
+    {
+      id,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
+    }
+  );
 
-    return response.data;
-  } catch (error) {
-    return { success: false, error };
-  }
+  return response.data;
 };
 
 export const updateVariantService = async (body: object) => {
@@ -360,26 +349,19 @@ export const updateSubVariantService = async (body: object) => {
 };
 
 export const removeSubVariantService = async (id: number) => {
-  try {
-    const userToken = storage.getString(USER_TOKEN);
+  const userToken = storage.getString(USER_TOKEN);
 
-    const response = await axios.post(
-      `${API_URL}/api/recipes/remove/subvariant`,
-      { id },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
+  const response = await axios.post(
+    `${API_URL}/api/recipes/remove/subvariant`,
+    { id },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    }
+  );
 
-    return response.data;
-  } catch (error) {
-    return {
-      success: false,
-      error,
-    };
-  }
+  return response.data;
 };
 
 export const removeVariantService = async (id: number) => {
@@ -405,27 +387,11 @@ export const removeVariantService = async (id: number) => {
   }
 };
 
-export const getListCategoriesService = async ({ queryKey }: QueryKeyType) => {
+export const getListCategoriesService = async (id: number) => {
   try {
     const response = await axios.post(`${API_URL}/api/recipes/list/categories`, {
-      id: queryKey[1],
-    });
-    return response.data;
-  } catch (error) {
-    return {
-      success: false,
-      error,
-    };
-  }
-};
-
-export const selectedCategoriesFromListService = async (recipeID: number, id: number) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/recipes/selected/categories`, {
-      recipeID,
       id,
     });
-
     return response.data;
   } catch (error) {
     return {
@@ -435,32 +401,28 @@ export const selectedCategoriesFromListService = async (recipeID: number, id: nu
   }
 };
 
-export const getListTypesService = async ({ queryKey }: QueryKeyType) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/recipes/list/types`, {
-      id: queryKey[1],
-    });
-    return response.data;
-  } catch (error) {
-    return {
-      success: false,
-      error,
-    };
-  }
+export const selectedCategoriesFromListService = async (recipeID: number, categoryID: number) => {
+  const response = await axios.post(`${API_URL}/api/recipes/selected/categories`, {
+    recipeID: recipeID,
+    categoryID: categoryID,
+  });
+
+  return response.data;
 };
 
-export const selectedTypeFromListService = async (recipeID: number, id: number) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/recipes/selected/types`, {
-      recipeID,
-      id,
-    });
+export const getListTypesService = async (typeID: number) => {
+  const response = await axios.post(`${API_URL}/api/recipes/list/types`, {
+    typeID: typeID,
+  });
 
-    return response.data;
-  } catch (error) {
-    return {
-      success: false,
-      error,
-    };
-  }
+  return response.data;
+};
+
+export const selectedTypeFromListService = async (recipeID: number, typeID: number) => {
+  const response = await axios.post(`${API_URL}/api/recipes/selected/types`, {
+    recipeID: recipeID,
+    typeID: typeID,
+  });
+
+  return response.data;
 };
