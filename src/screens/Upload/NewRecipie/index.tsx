@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
@@ -61,14 +62,19 @@ const Main = () => {
   const { params } = useRoute<any>();
 
   if (params?.id) {
-    const { data, isLoading, isFetching } = useQuery({
-      queryKey: ["form-recipe-screen-new", params?.id],
-      queryFn: getDraftService,
+    const { data, isLoading, isFetching, isError } = useQuery({
+      queryKey: ["form-recipe-screen", params.id],
+      queryFn: async () => await getDraftService(params.id),
+      enabled: params.id ? true : false,
     });
 
     if (isLoading || isFetching) return <LoadingScreen />;
 
-    return <NewRecipe defaultValues={{ ...data }} />;
+    if (isError) return <Text>An ocurred error!</Text>;
+
+    if (data) {
+      return <NewRecipe defaultValues={{ ...data }} />;
+    }
   }
 
   return <NewRecipe defaultValues={initialValues} />;

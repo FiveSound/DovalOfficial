@@ -8,6 +8,7 @@ type Props = {
   title?: string;
   href: string;
   disabled?: boolean;
+  onSubmit?: () => Promise<void>;
   submit?: boolean;
 };
 
@@ -27,7 +28,7 @@ const Header = memo((props: Props) => {
       {props.submit ? (
         <Buttons
           label={i18next.t("Submit")}
-          onPress={() => Alert.alert("Hola Mundo!")}
+          onPress={props.onSubmit}
           containerButtons={styles.containerButtonss}
           variant={props.disabled ? "disabled" : "primary"}
           disabled={props.disabled}

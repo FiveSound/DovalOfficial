@@ -83,7 +83,7 @@ const Media = () => {
           label={i18next.t("Continue")}
           onPress={() => {
             console.log({ continue: true });
-            navigation.navigate("RecipeMedia");
+            navigation.navigate("PostDetails");
           }}
           disabled={mediaURLs.length === 0}
           variant={mediaURLs.length === 0 ? "disabled" : "primary"}

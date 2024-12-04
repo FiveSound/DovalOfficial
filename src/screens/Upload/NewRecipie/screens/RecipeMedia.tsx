@@ -4,7 +4,7 @@ import { useNavigation } from "@/src/components/native";
 import { StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Layout from "../components/Layout";
-import { Buttons, FlexContainer, Hero, IsLoading, LineDivider } from "@/src/components/custom";
+import { Buttons, FlexContainer, IsLoading, LineDivider } from "@/src/components/custom";
 import { SIZES } from "@/src/constants/theme";
 import { addDraftService } from "../../../../services/recipes";
 import { useUploadMedia } from "@/src/hooks";
@@ -85,8 +85,6 @@ const RecipeMedia = memo(() => {
   return (
     <Layout title="" href="RecipeDetails" disabled={values.keys.length === 0}>
       <LineDivider variant="primary" lineStyle={styles.lineStyle} />
-
-      <Hero label={i18next.t("Empecemos ahora!")} sublabel={i18next.t("Upload cover for recipe")} />
 
       <FlexContainer style={{ alignItems: "center" }}>
         <Covers data={values.keys} ShowDivider={false} />

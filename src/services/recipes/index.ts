@@ -175,25 +175,13 @@ export const addDraftService = async (body: object) => {
   }
 };
 
-export const getDraftService = async ({ queryKey }: QueryKeyType) => {
+export const getDraftService = async (id: number) => {
   const userToken = storage.getString(USER_TOKEN);
-
-  if (!queryKey[1]) {
-    return {
-      id: null,
-      uri: null,
-      key: null,
-      name: "",
-      description: "",
-      food_types: [],
-      sidedish: [],
-    };
-  }
 
   const response = await axios.post(
     `${API_URL}/api/recipes/draft/id`,
     {
-      id: queryKey[1],
+      id,
     },
     {
       headers: {

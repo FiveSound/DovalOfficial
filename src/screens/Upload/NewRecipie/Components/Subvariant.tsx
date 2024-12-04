@@ -30,16 +30,15 @@ type Props = {
 const Subvariant = memo((props: Props) => {
   return (
     <View style={styles.subvariant}>
-      <TouchableOpacity onPress={() => props.mutationRemoveSubVariant.mutate(props.id)}>
-        {props.mutationRemoveSubVariant.isPending ? (
-          <ActivityIndicator />
-        ) : (
-          <Image style={{ tintColor: "#444" }} source={iconsNative.DeleteIcon} />
-        )}
+      <TouchableOpacity
+        onPress={() => props.mutationRemoveSubVariant.mutate(props.id)}
+        disabled={props.mutationRemoveSubVariant.isPending}
+      >
+        <Image style={{ tintColor: "#444" }} source={iconsNative.DeleteIcon} />
       </TouchableOpacity>
 
       <View>
-        <Text style={{ fontWeight: "bold" }}>Title</Text>
+        <Text style={{ fontWeight: "bold" }}>Title*</Text>
         <TextInput
           placeholder="Ej: Papas, Salsas..."
           onChangeText={(txt) => props.mutationEditSubVariant.mutate({ id: props.id, name: "name", value: txt })}
@@ -50,7 +49,20 @@ const Subvariant = memo((props: Props) => {
       </View>
 
       <View style={{ flexDirection: "column" }}>
-        <Text style={{ fontWeight: "bold" }}>Limit</Text>
+        <Text style={{ fontWeight: "bold" }}>Price*</Text>
+        <TextInput
+          placeholder="Price"
+          defaultValue="0"
+          style={{
+            width: 50,
+            fontSize: 15,
+          }}
+          onChangeText={(txt) => props.mutationEditSubVariant.mutate({ id: props.id, name: "price", value: txt })}
+        />
+      </View>
+
+      <View style={{ flexDirection: "column" }}>
+        <Text style={{ fontWeight: "bold" }}>Limit*</Text>
         <Picker
           onChange={(value: string) => {
             props.mutationEditSubVariant.mutate({ id: props.id, name: "limit_qty", value: value });
@@ -74,15 +86,6 @@ const Subvariant = memo((props: Props) => {
       </View>
 
       <View style={{ flexDirection: "column" }}>
-        <Text style={{ fontWeight: "bold" }}>Price $</Text>
-        <TextInput
-          placeholder="Price"
-          defaultValue="0"
-          onChangeText={(txt) => props.mutationEditSubVariant.mutate({ id: props.id, name: "price", value: txt })}
-        />
-      </View>
-
-      <View style={{ flexDirection: "column" }}>
         <Text style={{ fontWeight: "bold" }}>Required</Text>
         <Switch
           onValueChange={(value) => {
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     flexDirection: "row",
     gap: 14,
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
   },
   input_subtitle: {

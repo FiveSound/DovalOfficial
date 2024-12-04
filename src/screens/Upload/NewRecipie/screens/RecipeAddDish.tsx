@@ -1,8 +1,8 @@
 import { memo } from "react";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues, useFormContext } from "react-hook-form";
-import { ActivityIndicator, ScrollView, View } from "@/src/components/native";
+import { ActivityIndicator, ScrollView, useNavigation, View } from "@/src/components/native";
 import Layout from "../components/Layout";
 import { Buttons, Hero, LineDivider, LoadingScreen } from "@/src/components/custom";
 import Variant from "../components/Variant";
@@ -41,7 +41,13 @@ type Payload = {
 const QUERY_KEY = "recipe-variants-component";
 
 const Variants = memo(() => {
-  const { watch, handleSubmit } = useFormContext();
+  const {
+    watch,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useFormContext();
+  const navigation = useNavigation();
   const values = watch();
 
   const { data, isLoading, isFetching, isError } = useQuery({
@@ -136,7 +142,15 @@ const Variants = memo(() => {
 
   const onSubmit = async (body: FieldValues) => {
     const response = await publishRecipeService({ ...body, ...data });
-    console.log({ publishRecipeService: response });
+    if (response.success) {
+      reset();
+      Alert.alert("Has creado una orden!", "Orden creada con exito!", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("MyTabs"),
+        },
+      ]);
+    }
   };
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t("Loading")} />;
@@ -145,11 +159,11 @@ const Variants = memo(() => {
 
   if (data) {
     return (
-      <Layout title="" href="#" submit>
+      <Layout title="" href="#" onSubmit={handleSubmit(onSubmit)} submit disabled={isSubmitting}>
         <ScrollView>
           <LineDivider lineStyle={{ marginBottom: 10 }} />
 
-          <Hero label="Add variants (Optional)" sublabel="Create variants" />
+          <Hero label="Companions" sublabel="Create variants" />
 
           <LineDivider />
 
@@ -169,6 +183,10 @@ const Variants = memo(() => {
           ))}
 
           {mutationAddVariant.isPending && <ActivityIndicator />}
+          {mutationRemoveSubVariant.isPending && <ActivityIndicator />}
+          {mutationAddSubVariant.isPending && <ActivityIndicator />}
+          {mutationRemoveVariant.isPending && <ActivityIndicator />}
+          {isSubmitting && <ActivityIndicator />}
 
           <View
             style={{
@@ -182,8 +200,6 @@ const Variants = memo(() => {
               label={i18next.t("Add more variants +")}
               onPress={() => mutationAddVariant.mutate(values.id)}
             />
-
-            <Buttons label={i18next.t("Create recipe")} onPress={handleSubmit(onSubmit)} />
           </View>
           {/* <Text>{JSON.stringify(data, null, 2)}</Text> */}
         </ScrollView>

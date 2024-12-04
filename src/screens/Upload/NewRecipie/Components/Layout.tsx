@@ -8,13 +8,14 @@ type Props = {
   title: string;
   href: string;
   disabled?: boolean;
+  onSubmit?: () => Promise<void>;
   submit?: boolean;
 };
 
 const Layout = memo((props: Props) => {
   return (
     <Container showBack={true} showHeader={true} label={i18next.t("")} style={{ flex: 1 }}>
-      <Header {...props} disabled={props.disabled} submit={props.submit} />
+      <Header {...props} onSubmit={props.onSubmit} submit={props.submit} disabled={props.disabled} />
       {props.children}
     </Container>
   );

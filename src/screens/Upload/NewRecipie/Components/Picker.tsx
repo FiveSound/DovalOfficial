@@ -22,10 +22,14 @@ const Picker = memo((props: Props) => (
       props.onChange(value);
     }}
     style={{
-      width: 70,
-      height: 50,
+      width: 80,
       backgroundColor: "#F4F4F4",
     }}
+    itemStyle={{
+      width: 80,
+      fontSize: 10,
+    }}
+    mode="dropdown"
   >
     {props.list.map((row) => (
       <PickerComponent.Item key={row.value} label={row.label} value={row.value} />

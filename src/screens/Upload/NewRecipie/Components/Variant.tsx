@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { ActivityIndicator, TextInput, View } from "@/src/components/native";
+import { TextInput, View } from "@/src/components/native";
 import { LineDivider } from "@/src/components/custom";
 import { UseMutationResult } from "@tanstack/react-query";
 import { iconsNative } from "@/src/constants";
@@ -55,12 +55,11 @@ const Variant = memo((props: Props) => {
           <Text>({props.subvariants.length})</Text>
         </View>
 
-        <TouchableOpacity onPress={() => props.mutationRemoveVariant.mutate(props.id)}>
-          {props.mutationRemoveVariant.isPending ? (
-            <ActivityIndicator />
-          ) : (
-            <Image style={{ tintColor: "#444" }} source={iconsNative.DeleteIcon} />
-          )}
+        <TouchableOpacity
+          onPress={() => props.mutationRemoveVariant.mutate(props.id)}
+          disabled={props.mutationRemoveVariant.isPending}
+        >
+          <Image style={{ tintColor: "#444" }} source={iconsNative.DeleteIcon} />
         </TouchableOpacity>
       </View>
 
@@ -76,8 +75,6 @@ const Variant = memo((props: Props) => {
           {...row}
         />
       ))}
-
-      {props.mutationAddSubVariant.isPending && <ActivityIndicator />}
 
       <Text
         onPress={() => props.mutationAddSubVariant.mutate(props.id)}

@@ -4,13 +4,14 @@ import Layout from "../components/Layout";
 import { Covers } from "../components/Utils";
 import { InputLabel } from "../../../../components/custom";
 import { SIZES } from "@/src/constants/theme";
+import MoreDetails from "../components/MoreDetails";
 
 const RecipeDetails = memo(() => {
   const { setValue, watch } = useFormContext();
   const values = watch();
 
   return (
-    <Layout title="" href="RecipeCategories" disabled={values.name.length === 0 || values.description.length === 0}>
+    <Layout title="" href="RecipeAddDish" disabled={values.name.length === 0 || values.price.length === 0}>
       <Covers data={values.keys} ShowDivider={false} />
 
       <InputLabel
@@ -24,7 +25,7 @@ const RecipeDetails = memo(() => {
 
       <InputLabel
         label="Price $"
-        placeholder="Price recipe"
+        placeholder="Price $"
         value={values.price}
         onChangeText={(txt) => {
           setValue("price", txt);
@@ -40,6 +41,10 @@ const RecipeDetails = memo(() => {
         labelStyle={{ height: SIZES.height / 14 }}
         inputStyle={{ height: SIZES.height / 14 }}
       />
+
+      <MoreDetails />
+
+      {/* <Button /> */}
     </Layout>
   );
 });
