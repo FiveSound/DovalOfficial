@@ -30,6 +30,7 @@ type SubVariantType = {
   variantID: number;
   name: string;
   price: string;
+  limit_qty?: number;
   required?: boolean;
 };
 
@@ -142,9 +143,10 @@ const Variants = memo(() => {
 
   const onSubmit = async (body: FieldValues) => {
     const response = await publishRecipeService({ ...body, ...data });
+
     if (response.success) {
       reset();
-      Alert.alert("Has creado una orden!", "Orden creada con exito!", [
+      Alert.alert("Has creado una receta!", "Receta creada con exito!", [
         {
           text: "OK",
           onPress: () => navigation.navigate("MyTabs"),
@@ -199,6 +201,7 @@ const Variants = memo(() => {
               variant="disabled"
               label={i18next.t("Add more variants +")}
               onPress={() => mutationAddVariant.mutate(values.id)}
+              disabled={mutationAddVariant.isPending}
             />
           </View>
           {/* <Text>{JSON.stringify(data, null, 2)}</Text> */}

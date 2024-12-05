@@ -24,6 +24,7 @@ type defaultValues = {
   ingredients: any[];
   instructions: any[];
   variants: any[];
+  subvariants: any[];
 };
 
 const initialValues = {

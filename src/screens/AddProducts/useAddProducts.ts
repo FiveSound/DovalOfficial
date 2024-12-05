@@ -131,6 +131,7 @@ export const useAddProducts = () => {
     if (recipeID) {
       setLoad(true);
       const response = await addToCartService(recipeID, subVariants, qty);
+      console.log({ response });
       if (response.success) {
         Alert.alert(
           i18next.t("Added to Cart"),
