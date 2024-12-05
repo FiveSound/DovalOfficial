@@ -22,9 +22,9 @@ export const SignupAlert = () => {
     <Container style={styles.container}>
       <ShieldUserIcon width={responsiveFontSize(80)} height={responsiveFontSize(80)} color={Title}/>
       <Typography variant='title' newStyle={styles.title}>
-        {i18next.t('Sign up for Doval for the best experience')}
+        {i18next.t('Sign up or login for Doval for the best experience')}
       </Typography>
-      <Buttons label={i18next.t('Sign up')} onPress={handleSignup} />
+      <Buttons label={i18next.t('Sign up or login')} onPress={handleSignup} />
     </Container>
   );
 }
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    ...FONTS.heading24
+    ...FONTS.heading24,
+    width: '90%'
   }
 });
 

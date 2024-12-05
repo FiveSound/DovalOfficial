@@ -15,7 +15,7 @@ type Props = {
   required?: boolean;
 };
 
-const Picker = memo((props: Props) => (
+const Pickers = memo((props: Props) => (
   <PickerComponent
     selectedValue={props.value}
     onValueChange={(value) => {
@@ -37,4 +37,4 @@ const Picker = memo((props: Props) => (
   </PickerComponent>
 ));
 
-export default Picker;
+export default Pickers;

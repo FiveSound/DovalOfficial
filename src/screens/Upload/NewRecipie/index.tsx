@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import FoodTypes from "./screens/RecipeType";
 import RecipeAddDish from "./screens/RecipeAddDish";
 import { LoadingScreen } from "@/src/components/custom";
 import { getDraftService } from "@/src/services/recipes";
+import { SafeAreaView } from "@/src/components/native";
 
 type defaultValues = {
   id: number | null;
@@ -61,10 +62,10 @@ const NewRecipe = memo(({ defaultValues }: { defaultValues: defaultValues }) => 
 
 const Main = () => {
   const { params } = useRoute<any>();
-
+  const QUERY_KEY = "form-recipe-screen";
   if (params?.id) {
     const { data, isLoading, isFetching, isError } = useQuery({
-      queryKey: ["form-recipe-screen", params.id],
+      queryKey: [QUERY_KEY, params.id],
       queryFn: async () => await getDraftService(params.id),
       enabled: params.id ? true : false,
     });
@@ -78,7 +79,13 @@ const Main = () => {
     }
   }
 
-  return <NewRecipe defaultValues={initialValues} />;
+  return <SafeAreaView style={styles.flexContainer}><NewRecipe defaultValues={initialValues} /></SafeAreaView>;
 };
+
+const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
+});
 
 export default Main;

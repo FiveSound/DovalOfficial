@@ -7,7 +7,7 @@
     "icon": "./assets/logo.png",
     "scheme": ["doval", "fb703314045273320"],
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",

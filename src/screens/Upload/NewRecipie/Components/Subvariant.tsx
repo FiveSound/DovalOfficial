@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { UseMutationResult } from "@tanstack/react-query";
 import { Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { ActivityIndicator, TextInput, View, Switch } from "@/src/components/native";
-import Picker from "./Picker";
+import { TextInput, View, Switch } from "@/src/components/native";
 import { iconsNative } from "@/src/constants";
+import Pickers from "../Components/Pickers";
 
 type Props = {
   id: number;
@@ -63,7 +63,7 @@ const Subvariant = memo((props: Props) => {
 
       <View style={{ flexDirection: "column" }}>
         <Text style={{ fontWeight: "bold" }}>Limit*</Text>
-        <Picker
+        <Pickers
           onChange={(value: string) => {
             props.mutationEditSubVariant.mutate({ id: props.id, name: "limit_qty", value: value });
           }}

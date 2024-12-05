@@ -471,7 +471,6 @@
   "International and Ethnic Cuisine": "Cocina Internacional y Étnica",
   "Pastry and Confectionery": "Pastelería y Repostería",
   "You can change this anytime in Settings and privacy > Privacy > Location >  Doval.": "Puedes cambiar esto en cualquier momento en Configuración y privacidad > Privacidad > Ubicación > Doval.",
-  "Welcome to Doval": "Bienvenido a Doval",
   "Discover a world of culinary creativity, where you can explore, share, and enjoy recipes from around the globe. Let's get cooking!": "Descubre un mundo de creatividad culinaria, donde puedes explorar, compartir y disfrutar recetas de todo el mundo. ¡A cocinar!",
   "Sign up for Doval": "Regístrate en Doval",
   "By providing your email, you authorize Doval to utilize this information to optimize your user experience through tailored recommendations and relevant updates.": "Al proporcionar tu correo electrónico, autorizas a Doval a utilizar esta información para optimizar tu experiencia de usuario a través de recomendaciones personalizadas y actualizaciones relevantes.",
@@ -896,5 +895,9 @@
   "Vehicle": "Vehículo",
   "Your review has been submitted.": "Tu reseña ha sido enviada.",
   "My MenuRecipes": "Mis Recetas",
-  "Open store": "Negocio abierto"
+  "Open store": "Negocio abierto",
+  "You can change this anytime in Settings and privacy > Privacy > Location > Doval.": "Puedes cambiar esto en cualquier momento en Configuración y privacidad > Privacidad > Ubicación > Doval.",
+  "Sign up or login": "Regístrate o inicia sesión",
+  "Sign up or login for Doval for the best experience": "Regístrate o inicia sesión para Doval para la mejor experiencia",
+  "Welcome to Doval": "Bienvenido a Doval"
 }

@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useQuery } from "@tanstack/react-query";
-import Layout from "../components/Layout";
+import Layout from "../Components/Layout";
 import { Hero } from "@/src/components/custom";
 import { ActivityIndicator, ScrollView, useNavigation, View } from "@/src/components/native";
 import i18next from "../../../../Translate";

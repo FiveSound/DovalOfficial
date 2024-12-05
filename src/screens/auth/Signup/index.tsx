@@ -38,7 +38,7 @@ const Signup = (props: Props) => {
   return (
     <AuthLayout scrollEnabled={false}>
       <FormBottom
-        label={i18next.t('Sign up for Doval')}
+        label={i18next.t('Welcome to Doval')}
         sublabel={i18next.t(
           "Discover a world of culinary creativity, where you can explore, share, and enjoy recipes from around the globe. Let's get cooking!",
         )}

@@ -94,12 +94,10 @@ const AppWithReload = () => {
       <LoadingScreen />
     ) : (
       <ToastProvider >
-        <SafeAreaView 
-          style={[appStyles.flexContainer, {backgroundColor: BackgroundMain}]}
-        >
+        <>
           <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={BackgroundMain} />
           <AppContent onLayoutRootView={onLayoutRootView} linking={linking} theme={theme} />
-        </SafeAreaView>
+        </>
       </ToastProvider>
     )
   )

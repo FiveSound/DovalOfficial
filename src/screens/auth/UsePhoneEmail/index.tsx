@@ -20,13 +20,25 @@ const UsePhoneEmail = (props: Props) => {
 
 
   const tabs = [
-    { key: 'Phone', title: i18next.t('Phone'), content: <Phone /> },
-    { key: 'Email', title: i18next.t('Email'), content: <SignUpEmail /> },
+    { 
+      key: 'Phone', 
+      title: i18next.t('Phone'), 
+      content: <Phone />,
+      activeIcon: null,
+      inactiveIcon: null
+    },
+    { 
+      key: 'Email', 
+      title: i18next.t('Email'), 
+      content: <SignUpEmail />,
+      activeIcon: null,
+      inactiveIcon: null
+    },
   ];
   return (
     <Container
       useSafeArea={true}
-      label={i18next.t('Sign up')}
+      label={i18next.t('Sign up or login')}
       showHeader={true}
     >
       <Tabs tabs={tabs} isBorder={true} />

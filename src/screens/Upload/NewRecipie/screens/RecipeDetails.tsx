@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { useFormContext } from "react-hook-form";
-import Layout from "../components/Layout";
-import { Covers } from "../components/Utils";
+import Layout from "../Components/Layout";
+import { Covers } from "../Components/Utils";
 import { InputLabel } from "../../../../components/custom";
 import { SIZES } from "@/src/constants/theme";
-import MoreDetails from "../components/MoreDetails";
+import MoreDetails from "../Components/MoreDetails";
 
 const RecipeDetails = memo(() => {
   const { setValue, watch } = useFormContext();

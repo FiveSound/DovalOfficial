@@ -1,8 +1,9 @@
 import { ReactNode, memo } from "react";
 import { StyleSheet } from "react-native";
-import { Buttons, Container } from "@/src/components/custom";
+import { ArrowBack, Buttons, Container } from "@/src/components/custom";
 import { Text, useNavigation, View } from "@/src/components/native";
 import i18next from "../../../../Translate";
+import { SIZES } from "@/src/constants/theme";
 
 type Props = {
   children: ReactNode;
@@ -17,16 +18,9 @@ const Layout = memo((props: Props) => {
   const navigation = useNavigation();
 
   return (
-    <Container showBack={true} showHeader={true} label={i18next.t("")} style={{ flex: 1 }}>
+    <Container showBack={true} showHeader={false} label={i18next.t("")} style={{ flex: 1 }}>
       <View style={styles.header}>
-        <Buttons
-          label={i18next.t("Atras")}
-          onPress={() => navigation.goBack()}
-          variant={"disabled"}
-          variantLabel={"disabled"}
-          containerButtons={styles.containerButtonss}
-        />
-        <Text>{props.title}</Text>
+        <ArrowBack />
         {props.submit ? (
           <Buttons
             label={i18next.t("Submit")}
@@ -44,6 +38,7 @@ const Layout = memo((props: Props) => {
             }}
             containerButtons={styles.containerButtonss}
             variant={props.disabled ? "disabled" : "primary"}
+            variantLabel={props.disabled ? "disabled" : 'secondary'}
             disabled={props.disabled}
           />
         )}
@@ -57,6 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: SIZES.gapLarge,
   },
   containerButtonss: {
     width: "30%",

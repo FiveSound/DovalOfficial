@@ -43,7 +43,7 @@ const FrontCover = memo((props: Props) => {
     <FlexContainer newStyle={styles.container}>
       {CurrentFeed.mediaType === 1 && (
       <Image
-          placeholderSource ={memoUri}
+          placeholderSource={memoUri}
           cachePolicy='memory-disk'
           priority="high"
           contentFit='cover'

@@ -3,9 +3,10 @@ import { Alert, Text } from "react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues, useFormContext } from "react-hook-form";
 import { ActivityIndicator, ScrollView, useNavigation, View } from "@/src/components/native";
-import Layout from "../components/Layout";
+import Layout from "../Components/Layout";
 import { Buttons, Hero, LineDivider, LoadingScreen } from "@/src/components/custom";
-import Variant from "../components/Variant";
+import Variant from "../Components/Variant";
+
 import {
   addSubVariantService,
   addVariantService,

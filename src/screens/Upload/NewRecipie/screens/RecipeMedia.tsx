@@ -3,14 +3,14 @@ import { useFormContext } from "react-hook-form";
 import { useNavigation } from "@/src/components/native";
 import { StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import Layout from "../components/Layout";
+import Layout from "../Components/Layout";
 import { Buttons, FlexContainer, IsLoading, LineDivider } from "@/src/components/custom";
 import { SIZES } from "@/src/constants/theme";
 import { addDraftService } from "../../../../services/recipes";
 import { useUploadMedia } from "@/src/hooks";
 import { useDispatch } from "react-redux";
 import { resetProgress, resetUploadState } from "@/src/redux/slides/uploadSlice";
-import { Covers } from "../components/Utils";
+import { Covers } from "../Components/Utils";
 import i18next from "../../../../Translate";
 
 const RecipeMedia = memo(() => {
@@ -84,11 +84,12 @@ const RecipeMedia = memo(() => {
 
   return (
     <Layout title="" href="RecipeDetails" disabled={values.keys.length === 0}>
-      <LineDivider variant="primary" lineStyle={styles.lineStyle} />
+      <LineDivider variant='secondary' lineStyle={styles.lineStyle} />
 
       <FlexContainer style={{ alignItems: "center" }}>
         <Covers data={values.keys} ShowDivider={false} />
         {Loading && <IsLoading />}
+        <FlexContainer newStyle={styles.containerButtons}>
         <Buttons
           label={i18next.t("Upload Media")}
           onPress={pickImage}
@@ -102,19 +103,25 @@ const RecipeMedia = memo(() => {
           onPress={() => navigation.navigate("RecipeDrafts")}
           disabled={isSubmittingLocal || Loading}
           containerButtons={styles.containerButtonss}
-          variant={isSubmittingLocal || Loading ? "disabled" : "transparent"}
+          variant={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
+          variantLabel={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
         />
-        <Buttons
-          label={i18next.t("Delete All")}
-          onPress={() => {
-            console.log("Delete All");
-            dispatch(resetUploadState());
-            setValue("keys", []);
-          }}
-          disabled={isSubmittingLocal || Loading}
-          containerButtons={styles.containerButtonss}
-          variant={isSubmittingLocal || Loading ? "disabled" : "error"}
-        />
+        {
+          values.keys.length > 0 && (
+            <Buttons
+            label={i18next.t("Delete All")}
+            onPress={() => {
+              console.log("Delete All");
+              dispatch(resetUploadState());
+              setValue("keys", []);
+            }}
+            disabled={isSubmittingLocal || Loading}
+            containerButtons={styles.containerButtonss}
+            variant={isSubmittingLocal || Loading ? "disabled" : "error"}
+          />
+          )
+        }
+        </FlexContainer>
       </FlexContainer>
     </Layout>
   );
@@ -122,11 +129,15 @@ const RecipeMedia = memo(() => {
 
 const styles = StyleSheet.create({
   lineStyle: {
-    marginBottom: SIZES.gapLarge,
+    marginTop: SIZES.gapLarge,
   },
   containerButtonss: {
-    width: "30%",
   },
+  containerButtons: {
+    gap: SIZES.gapMedium,
+    alignItems: "center",
+    marginTop: SIZES.gapLarge,
+  }
 });
 
 export default RecipeMedia;

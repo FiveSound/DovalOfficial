@@ -3,10 +3,10 @@ import { Text } from "react-native";
 import { useFormContext } from "react-hook-form";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getListCategoriesService, selectedCategoriesFromListService } from "@/src/services/recipes";
-import Layout from "../components/Layout";
+import Layout from "../Components/Layout";
 import { ActivityIndicator, ScrollView } from "@/src/components/native";
 import { Hero, LineDivider, LoadingScreen } from "@/src/components/custom";
-import ItemCategory from "../components/ItemCategory";
+import ItemCategory from "../Components/ItemCategory";
 import i18next from "@/src/Translate";
 
 type TypeListData = {
