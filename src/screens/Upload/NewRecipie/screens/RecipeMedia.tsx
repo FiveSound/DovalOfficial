@@ -3,14 +3,14 @@ import { useFormContext } from "react-hook-form";
 import { useNavigation } from "@/src/components/native";
 import { StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import Layout from "../Components/Layout";
+import Layout from "../components/Layout";
 import { Buttons, FlexContainer, IsLoading, LineDivider } from "@/src/components/custom";
 import { SIZES } from "@/src/constants/theme";
 import { addDraftService } from "../../../../services/recipes";
 import { useUploadMedia } from "@/src/hooks";
 import { useDispatch } from "react-redux";
 import { resetProgress, resetUploadState } from "@/src/redux/slides/uploadSlice";
-import { Covers } from "../Components/Utils";
+import { Covers } from "../components/Utils";
 import i18next from "../../../../Translate";
 
 const RecipeMedia = memo(() => {
@@ -83,44 +83,42 @@ const RecipeMedia = memo(() => {
   }, [photos]);
 
   return (
-    <Layout title={i18next.t('Media')} href="RecipeDetails" disabled={values.keys.length === 0}>
-      <LineDivider variant='secondary' lineStyle={styles.lineStyle} />
+    <Layout title={i18next.t("Media")} href="RecipeDetails" disabled={values.keys.length === 0}>
+      <LineDivider variant="secondary" lineStyle={styles.lineStyle} />
       <FlexContainer style={{ alignItems: "center" }}>
         <Covers data={values.keys} ShowDivider={false} />
         {Loading && <IsLoading />}
         <FlexContainer newStyle={styles.containerButtons}>
-        <Buttons
-          label={i18next.t("Upload Media")}
-          onPress={pickImage}
-          disabled={isSubmittingLocal || Loading}
-          variant={isSubmittingLocal || Loading ? "disabled" : "primary"}
-          color={isSubmittingLocal || Loading ? "primary" : "dark"}
-        />
+          <Buttons
+            label={i18next.t("Upload Media")}
+            onPress={pickImage}
+            disabled={isSubmittingLocal || Loading}
+            variant={isSubmittingLocal || Loading ? "disabled" : "primary"}
+            color={isSubmittingLocal || Loading ? "primary" : "dark"}
+          />
 
-        <Buttons
-          label={i18next.t("Drafts")}
-          onPress={() => navigation.navigate("RecipeDrafts")}
-          disabled={isSubmittingLocal || Loading}
-          containerButtons={styles.containerButtonss}
-          variant={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
-          variantLabel={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
-        />
-        {
-          values.keys.length > 0 && (
-            <Buttons
-            label={i18next.t("Delete All")}
-            onPress={() => {
-              console.log("Delete All");
-              dispatch(resetUploadState());
-              setValue("keys", []);
-            }}
+          <Buttons
+            label={i18next.t("Drafts")}
+            onPress={() => navigation.navigate("RecipeDrafts")}
             disabled={isSubmittingLocal || Loading}
             containerButtons={styles.containerButtonss}
-            variant={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
-            variantLabel={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
+            variant={isSubmittingLocal || Loading ? "disabled" : "disabled"}
+            variantLabel={isSubmittingLocal || Loading ? "disabled" : "disabled"}
           />
-          )
-        }
+          {values.keys.length > 0 && (
+            <Buttons
+              label={i18next.t("Delete All")}
+              onPress={() => {
+                console.log("Delete All");
+                dispatch(resetUploadState());
+                setValue("keys", []);
+              }}
+              disabled={isSubmittingLocal || Loading}
+              containerButtons={styles.containerButtonss}
+              variant={isSubmittingLocal || Loading ? "disabled" : "disabled"}
+              variantLabel={isSubmittingLocal || Loading ? "disabled" : "disabled"}
+            />
+          )}
         </FlexContainer>
       </FlexContainer>
     </Layout>
@@ -131,13 +129,12 @@ const styles = StyleSheet.create({
   lineStyle: {
     marginTop: SIZES.gapLarge,
   },
-  containerButtonss: {
-  },
+  containerButtonss: {},
   containerButtons: {
     gap: SIZES.gapMedium,
     alignItems: "center",
     marginTop: SIZES.gapLarge,
-  }
+  },
 });
 
 export default RecipeMedia;

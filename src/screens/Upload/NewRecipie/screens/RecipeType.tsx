@@ -1,13 +1,12 @@
 import { memo } from "react";
-import { Text } from "react-native";
 import { useFormContext } from "react-hook-form";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getListTypesService, selectedTypeFromListService } from "@/src/services/recipes";
-import Layout from "../Components/Layout";
-import { ActivityIndicator, ScrollView } from "@/src/components/native";
-import { Hero, LineDivider, LoadingScreen } from "@/src/components/custom";
-import ItemCategory from "../Components/ItemCategory";
+import { ScrollView } from "@/src/components/native";
+import { Container, IsLoading, LoadingScreen } from "@/src/components/custom";
+import ItemCategory from "../components/ItemCategory";
 import i18next from "@/src/Translate";
+import { SIZES } from "@/src/constants/theme";
 
 type TypeListData = {
   id: number;
@@ -23,7 +22,7 @@ type TypeData = {
 const QUERY_KEY = "recipe-list-types-screen";
 
 const RecipeType = memo(() => {
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const values = watch();
 
   const { data, isLoading, isFetching, isError } = useQuery({
@@ -36,14 +35,23 @@ const RecipeType = memo(() => {
 
   const mutation = useMutation({
     mutationKey: [QUERY_KEY],
-    mutationFn: async (typeID: number) => await selectedTypeFromListService(values.id, typeID),
+    mutationFn: async (id: number) => await selectedTypeFromListService(values.id, id),
     onSuccess: (response) => {
-      console.log({ response });
+      queryClient.setQueryData([QUERY_KEY], (oldData: TypeData) => {
+        const newList = oldData.list.map((row) =>
+          row.id === response.id ? { ...row, selected: response.selected } : row
+        );
 
-      queryClient.setQueryData([QUERY_KEY], (oldData: TypeData) => ({
-        ...oldData,
-        list: oldData.list.map((row) => (row.id === response.id ? { ...row, selected: response.selected } : row)),
-      }));
+        setValue(
+          "temporalTypes",
+          newList.filter((row) => row.selected),
+          { shouldDirty: true }
+        );
+        return {
+          ...oldData,
+          list: newList,
+        };
+      });
     },
   });
 
@@ -53,27 +61,16 @@ const RecipeType = memo(() => {
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t("Loading")} />;
 
-  if (isError) return <Text>An ocurred error!</Text>;
-
   if (data) {
     return (
-      <Layout title="" href="RecipeAddDish">
-        <ScrollView>
-          <Hero
-            style={{ marginTop: 20, marginBottom: 20 }}
-            label={i18next.t("Selecciona algunos types!")}
-            sublabel={i18next.t("Esto ayudara muchisimo!")}
-          />
-
-          {mutation.isPending && <ActivityIndicator />}
-
-          <LineDivider />
-
+      <Container label="Types" showBack={true} showHeader={true}>
+        {mutation.isPending && <IsLoading />}
+        <ScrollView contentContainerStyle={{ paddingBottom: SIZES.height / 10 }}>
           {data.list.map((row: TypeListData) => (
             <ItemCategory key={row.name} onPress={() => handleMutation(row.id)} {...row} />
           ))}
         </ScrollView>
-      </Layout>
+      </Container>
     );
   }
 });

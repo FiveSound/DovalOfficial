@@ -1,19 +1,33 @@
 import { memo } from "react";
 import { useFormContext } from "react-hook-form";
-import { Covers } from "../Components/Utils";
-import { Buttons, Container, FlexContainer, Icons, InputLabel, LineDivider, Perks } from "../../../../components/custom";
+import { Covers } from "../components/Utils";
+import {
+  Buttons,
+  Container,
+  FlexContainer,
+  Icons,
+  InputLabel,
+  LineDivider,
+  Perks,
+} from "../../../../components/custom";
 import { FONTS, responsiveHeight, SIZES } from "@/src/constants/theme";
-import MoreOptions from "../Components/MoreOptions";
+import MoreOptions from "../components/MoreOptions";
 import { CloseIcon } from "@/src/constants/IconsPro";
 import { KeyboardAwareScrollView, useNavigation } from "@/src/components/native";
 import { useQuery } from "@tanstack/react-query";
-import { getListCategoriesService, getListTypesService, getVariantsByRecipeService, onCompleteService } from "@/src/services/recipes";
+import {
+  getListCategoriesService,
+  getListTypesService,
+  getVariantsByRecipeService,
+  onCompleteService,
+} from "@/src/services/recipes";
 import { Alert } from "react-native";
 import i18next from "@/src/Translate";
-import { styles } from "../Components/styles";
+import { styles } from "../components/styles";
 import { useTheme } from "@/src/hooks";
 
 const QUERY_KEY = "recipe-variants-component";
+
 const RecipeDetails = memo(() => {
   const { Title } = useTheme();
   const navigation = useNavigation();
@@ -21,22 +35,20 @@ const RecipeDetails = memo(() => {
   const values = watch();
 
   const categories = useQuery({
-    queryKey: ['recipe-list-categories', values.id],
-    queryFn: getListCategoriesService,
+    queryKey: ["recipe-list-categories", values.id],
+    queryFn: async () => await getListCategoriesService(values.id),
   });
 
-  const selecCategories = categories.data?.list.some(
-    (item: any) => item.selected,
-  );
+  const selecCategories = categories.data?.list.some((item: any) => item.selected);
 
   const foodTypes = useQuery({
-    queryKey: ['recipe-list-types', values.id],
-    queryFn: getListTypesService,
+    queryKey: ["recipe-list-types", values.id],
+    queryFn: async () => await getListTypesService(values.id),
   });
 
   const selecFooTypes = foodTypes.data?.list.some((item: any) => item.selected);
 
-   const variants = useQuery({
+  const variants = useQuery({
     queryKey: [QUERY_KEY],
     queryFn: async () => await getVariantsByRecipeService(values.id),
     enabled: values.id ? true : false,
@@ -57,49 +69,42 @@ const RecipeDetails = memo(() => {
     const missingFields = [];
 
     if (!values.name || values.name.trim().length === 0) {
-      missingFields.push('Nombre');
+      missingFields.push("Nombre");
     }
     if (!values.description || values.description.trim().length === 0) {
-      missingFields.push('Descripción');
+      missingFields.push("Descripción");
     }
     if (!values.price || values.price.trim().length === 0) {
-      missingFields.push('Precio');
+      missingFields.push("Precio");
     }
     if (!selecFooTypes) {
-      missingFields.push('Tipos de comida');
+      missingFields.push("Tipos de comida");
     }
     if (variants.data.resume && variants.data.resume.length === 0) {
-      missingFields.push('Acompañamientos');
+      missingFields.push("Acompañamientos");
     }
     if (!selecCategories) {
-      missingFields.push('Categorías');
+      missingFields.push("Categorías");
     }
 
     if (missingFields.length > 0) {
-      Alert.alert(
-        'Campos incompletos',
-        `Por favor, completa los siguientes campos: ${missingFields.join(', ')}`,
-      );
-      return <Perks label={missingFields.join(', ')} status="error" />;
+      Alert.alert("Campos incompletos", `Por favor, completa los siguientes campos: ${missingFields.join(", ")}`);
+      return <Perks label={missingFields.join(", ")} status="error" />;
     }
 
-   const response = await onCompleteService(values.id);
-    console.log('response', response);
+    const response = await onCompleteService(values.id);
+    console.log("response", response);
     if (response.success) {
-      Alert.alert(
-        'Receta agregada con éxito!',
-        '¿Quieres crear otra receta o volver atrás?',
-        [
-          {
-            text: 'Crear mas recetas',
-            onPress: () => {},
-          },
-          {
-            text: 'Volver atrás',
-            onPress: () => navigation.goBack(),
-          },
-        ],
-      );
+      Alert.alert("Receta agregada con éxito!", "¿Quieres crear otra receta o volver atrás?", [
+        {
+          text: "Crear mas recetas",
+          onPress: () => {},
+        },
+        {
+          text: "Volver atrás",
+          onPress: () => navigation.goBack(),
+        },
+      ]);
     }
   };
 
@@ -110,19 +115,17 @@ const RecipeDetails = memo(() => {
       showTwoIconsLabel={true}
       showBack={false}
     >
-           <FlexContainer newStyle={styles.actions}>
+      <FlexContainer newStyle={styles.actions}>
         <Icons
-          appendIcons={
-            <CloseIcon color={Title} width={SIZES.icons} height={SIZES.icons} />
-          }
+          appendIcons={<CloseIcon color={Title} width={SIZES.icons} height={SIZES.icons} />}
           onPress={() => navigation.goBack()}
         />
         <Buttons
-          label={i18next.t('Create Recipe')}
+          label={i18next.t("Create Recipe")}
           onPress={onSubmit}
           containerButtons={styles.containerButtons}
-          variantLabel={disable ? 'disabled' : 'secondary'}
-          variant={disable ? 'disabled' : 'primary'}
+          variantLabel={disable ? "disabled" : "secondary"}
+          variant={disable ? "disabled" : "primary"}
           disabled={disable}
           labelStyle={{
             ...FONTS.semi16,
@@ -140,34 +143,34 @@ const RecipeDetails = memo(() => {
       >
         <Covers data={values.keys} ShowDivider={false} />
 
-      <InputLabel
-        label={i18next.t('Recipe Name')}
-        placeholder={i18next.t('Delicious Recipe Name')}
-        value={values.name}
-        onChangeText={(txt) => {
-          setValue("name", txt);
-        }}
-      />
+        <InputLabel
+          label={i18next.t("Recipe Name")}
+          placeholder={i18next.t("Delicious Recipe Name")}
+          value={values.name}
+          onChangeText={(txt) => {
+            setValue("name", txt);
+          }}
+        />
 
-      <InputLabel
-        label={i18next.t('Price $')}
-        placeholder={i18next.t('Price $')}
-        value={values.price}
-        onChangeText={(txt) => {
-          setValue("price", txt);
-        }}
-      />
+        <InputLabel
+          label={i18next.t("Price $")}
+          placeholder={i18next.t("Price $")}
+          value={values.price}
+          onChangeText={(txt) => {
+            setValue("price", txt);
+          }}
+        />
 
-      <InputLabel
-        placeholder={i18next.t('Describe your recipe and help your customers understand your recipe')}
-        value={values.description}
-        onChangeText={(txt) => {
-          setValue("description", txt);
-        }}
-        labelStyle={{ height: SIZES.height / 14 }}
-        inputStyle={{ height: SIZES.height / 14 }}
-      />
-      <MoreOptions/>
+        <InputLabel
+          placeholder={i18next.t("Describe your recipe and help your customers understand your recipe")}
+          value={values.description}
+          onChangeText={(txt) => {
+            setValue("description", txt);
+          }}
+          labelStyle={{ height: SIZES.height / 14 }}
+          inputStyle={{ height: SIZES.height / 14 }}
+        />
+        <MoreOptions />
       </KeyboardAwareScrollView>
     </Container>
   );

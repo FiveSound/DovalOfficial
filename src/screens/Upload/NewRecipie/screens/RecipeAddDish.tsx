@@ -1,197 +1,126 @@
-import { memo } from "react";
-import { Alert, Text } from "react-native";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { FieldValues, useFormContext } from "react-hook-form";
-import { ActivityIndicator, ScrollView, useNavigation, View } from "@/src/components/native";
-import Layout from "../Components/Layout";
-import { Buttons, Container, Hero, IsLoading, LineDivider, LoadingScreen } from "@/src/components/custom";
-import Variant from "../Components/Variant";
-
-import {
-  addSubVariantService,
-  addVariantService,
-  publishRecipeService,
-  getVariantsByRecipeService,
-  removeSubVariantService,
-  removeVariantService,
-} from "@/src/services/recipes";
-import i18next from "@/src/Translate";
+import { memo, useState } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { Buttons, Container, Hero, IsLoading } from "@/src/components/custom";
+import { ScrollView, TouchableOpacity, Text, View } from "@/src/components/native";
+import { addSubVariantService, addVariantService, removeVariantService } from "@/src/services/recipes";
 import { SIZES } from "@/src/constants/theme";
+import i18next from "@/src/Translate";
+import Variant from "../components/Variant";
+import Subvariant from "../components/Subvariant";
 
-type VariantType = {
-  id: number;
-  userID: string;
-  recipeID: number;
-  title: string;
-  required: boolean;
-  limit_qty: number;
-};
+const RecipeAddDish = memo(() => {
+  const [processing, setProcessing] = useState(false);
+  const { watch, control } = useFormContext();
 
-type SubVariantType = {
-  id: number;
-  variantID: number;
-  name: string;
-  price: string;
-  limit_qty?: number;
-  required?: boolean;
-};
+  const variants_fields = useFieldArray({
+    name: "variants",
+    control,
+    keyName: "variantID",
+  });
 
-type Payload = {
-  variants: VariantType[];
-  subvariants: SubVariantType[];
-};
+  const subvariants_fields = useFieldArray({
+    name: "subvariants",
+    control,
+    keyName: "subVariantID",
+  });
 
-const QUERY_KEY = "recipe-variants-component";
-
-const Variants = memo(() => {
-  const {
-    watch,
-    handleSubmit,
-    reset,
-    formState: { isSubmitting },
-  } = useFormContext();
-  const navigation = useNavigation();
   const values = watch();
 
-  const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: [QUERY_KEY],
-    queryFn: async () => await getVariantsByRecipeService(values.id),
-    enabled: values.id ? true : false,
-  });
+  const handleAddVariant = async (id: number) => {
+    setProcessing(true);
+    const response = await await addVariantService(id);
+    if (response.success) {
+      variants_fields.append(response.item);
+    }
+    setProcessing(false);
+  };
 
-  const queryClient = useQueryClient();
+  const handleRemoveVariant = async (id: number, index: number) => {
+    setProcessing(true);
+    const response = await await removeVariantService(id);
+    if (response.success) {
+      variants_fields.remove(index);
+    }
+    setProcessing(false);
+  };
 
-  const mutationAddVariant = useMutation({
-    mutationKey: [QUERY_KEY],
-    mutationFn: async (id: number) => await addVariantService(id),
-    onSuccess: (data) => {
-      queryClient.setQueryData([QUERY_KEY], ({ variants, ...rest }: { variants: VariantType[] }) => ({
-        ...rest,
-        variants: [...variants, data.item],
-      }));
-    },
-  });
+  const handleAddSubVariant = async (id: number) => {
+    setProcessing(true);
+    const response = await addSubVariantService(id);
 
-  const mutationRemoveVariant = useMutation({
-    mutationKey: [QUERY_KEY],
-    mutationFn: async (id: number) => await removeVariantService(id),
-    onSuccess: (response) => {
-      queryClient.setQueryData([QUERY_KEY], ({ variants, subvariants }: Payload) => ({
-        variants: variants.filter((row) => row.id !== response.id),
-        subvariants: subvariants.filter((row) => row.variantID !== response.id),
-      }));
-    },
-  });
+    if (response.success) {
+      subvariants_fields.append(response.item);
+    }
+    setProcessing(false);
+  };
 
-  const mutationAddSubVariant = useMutation({
-    mutationKey: [QUERY_KEY],
-    mutationFn: async (id: number) => await addSubVariantService(id),
-    onSuccess: (data) => {
-      queryClient.setQueryData([QUERY_KEY], (oldData: { subvariants: SubVariantType[] }) => ({
-        ...oldData,
-        subvariants: [...oldData.subvariants, data.item],
-      }));
-    },
-  });
+  const handleRemoveSubVariant = async (id: number, index: number) => {
+    setProcessing(true);
+    const response = await addSubVariantService(id);
+    if (response.success) {
+      subvariants_fields.remove(index);
+    }
+    setProcessing(false);
+  };
 
-  const mutationRemoveSubVariant = useMutation({
-    mutationKey: [QUERY_KEY],
-    mutationFn: async (id: number) => await removeSubVariantService(id),
-    onSuccess: (data) => {
-      queryClient.setQueryData([QUERY_KEY], ({ subvariants, ...oldData }: { subvariants: SubVariantType[] }) => ({
-        ...oldData,
-        subvariants: subvariants.filter((row) => row.id !== data.id),
-      }));
-    },
-  });
+  const handleAdd = async () => {};
 
-  const mutationEditVariant = useMutation({
-    mutationKey: [QUERY_KEY],
-    mutationFn: async (params: { id: number; name: string; value: string | boolean }) => params,
-    onSuccess: (response) => {
-      queryClient.setQueryData([QUERY_KEY], (oldData: Payload) => {
-        return {
-          ...oldData,
-          variants: oldData.variants.map((row) => {
-            if (row.id === response.id) {
-              return { ...row, [response.name]: response.value };
-            }
+  return (
+    <Container showBack={true} showHeader={true} label="">
+      <ScrollView>
+        <Hero
+          label="Agregar adicionales a tus recetas"
+          sublabel="los adicionales son opciones que puedes agregar a tus recetas para que los clientes puedan elegir entre ellas."
+        />
 
-            return row;
-          }),
-        };
-      });
-    },
-  });
-
-  const mutationEditSubVariant = useMutation({
-    mutationKey: [QUERY_KEY],
-    mutationFn: async (params: { id: number; name: string; value: string | boolean }) => params,
-    onSuccess: (response) => {
-      queryClient.setQueryData([QUERY_KEY], (oldData: Payload) => {
-        return {
-          ...oldData,
-          subvariants: oldData.subvariants.map((row) => {
-            if (row.id === response.id) {
-              return { ...row, [response.name]: response.value };
-            }
-
-            return row;
-          }),
-        };
-      });
-    },
-  });
-
-  if (isLoading || isFetching) return <LoadingScreen label={i18next.t("Loading")} />;
-
-  if (isError) return <Text>An ocurred error!</Text>;
-
-  if (data) {
-    return (
-      <Container showBack={true} showHeader={true} label={i18next.t("Agregar adicionales")}>
-        <ScrollView>
-          <Hero label="Agregar adicionales a tus recetas" sublabel="los adicionales son opciones que puedes agregar a tus recetas para que los clientes puedan elegir entre ellas." />
-
-          {data.variants.map((row: VariantType) => (
-            <Variant
-              key={row.id.toString()}
-              id={row.id}
-              title={row.title}
-              recipeID={row.recipeID}
-              subvariants={data.subvariants.filter((col: SubVariantType) => col.variantID === row.id)}
-              mutationAddSubVariant={mutationAddSubVariant}
-              mutationRemoveVariant={mutationRemoveVariant}
-              mutationRemoveSubVariant={mutationRemoveSubVariant}
-              mutationEditVariant={mutationEditVariant}
-              mutationEditSubVariant={mutationEditSubVariant}
-            />
-          ))}
-
-          {mutationAddVariant.isPending && <IsLoading />}
-          {mutationRemoveSubVariant.isPending && <IsLoading />}
-          {mutationAddSubVariant.isPending && <IsLoading />}
-          {mutationRemoveVariant.isPending && <IsLoading />}
-          {isSubmitting && <IsLoading />}
-
-          <View
-            style={{
-              marginTop: SIZES.gapMedium,
-              alignItems: "center",
-              gap: SIZES.gapMedium,
-            }}
+        {variants_fields.fields.map((row: any, index: number) => (
+          <Variant
+            key={row.variantID}
+            index={index}
+            id={row.variantID}
+            handleRemoveVariant={() => handleRemoveVariant(row.id, index)}
+            limit_qty={row.limit_qty}
+            required={row.required}
+            processing={processing}
           >
-            <Buttons
-              variant='primary'
-              label={i18next.t("Agregar adicionales +")}
-              onPress={() => mutationAddVariant.mutate(values.id)}
-              disabled={mutationAddVariant.isPending}
-            />
-          </View>
-        </ScrollView>
-      </Container>
-    );
-  }
+            {subvariants_fields.fields.map((field: any, i) => {
+              if (field.variantID === row.id) {
+                return (
+                  <Subvariant
+                    key={field.subVariantID}
+                    index={i}
+                    id={field.subVariantID}
+                    handleRemoveSubVariant={() => handleRemoveSubVariant(field.id, i)}
+                    processing={processing}
+                  />
+                );
+              }
+            })}
+            <TouchableOpacity onPress={() => handleAddSubVariant(row.id)} disabled={processing}>
+              <Text>Agregar subadicional +</Text>
+            </TouchableOpacity>
+          </Variant>
+        ))}
+
+        {processing && <IsLoading />}
+
+        <View
+          style={{
+            marginTop: SIZES.gapMedium,
+            alignItems: "center",
+            gap: SIZES.gapMedium,
+          }}
+        >
+          <Buttons
+            variant={processing ? "disabled" : "primary"}
+            label={i18next.t("Agregar adicionales +")}
+            onPress={() => handleAddVariant(values.id)}
+            disabled={processing}
+          />
+        </View>
+      </ScrollView>
+    </Container>
+  );
 });
 
-export default Variants;
+export default RecipeAddDish;

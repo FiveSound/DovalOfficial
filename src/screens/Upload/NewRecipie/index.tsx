@@ -40,6 +40,8 @@ const initialValues = {
   instructions: [],
   variants: [],
   subvariants: [],
+  temporalCategories: [],
+  temporalTypes: [],
 };
 
 const Stack = createStackNavigator();
@@ -76,12 +78,11 @@ const Main = () => {
 
   if (isLoading || isFetching) return <LoadingScreen />;
 
-    if (isError) return <Text>An ocurred error!</Text>;
+  if (isError) return <Text>An ocurred error!</Text>;
 
-    if (data) {
-      return <NewRecipe defaultValues={{ ...data }} />;
-    }
-  
+  if (data) {
+    return <NewRecipe defaultValues={{ ...data }} />;
+  }
 
   return (
     <>
@@ -89,6 +90,5 @@ const Main = () => {
     </>
   );
 };
-
 
 export default Main;

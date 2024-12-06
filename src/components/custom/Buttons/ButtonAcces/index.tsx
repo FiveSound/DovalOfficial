@@ -1,17 +1,12 @@
-import React, { ReactNode } from 'react';
-import { useTheme } from '../../../../hooks';
-import { TouchableOpacity, Text } from '../../../native';
-import {
-  COLORS,
-  FONTS,
-  responsiveFontSize,
-  SIZES,
-} from '../../../../constants/theme';
-import FlexContainer from '../../FlexContainer';
-import Typography from '../../Typography';
-import { ArrowRight01Icon } from '../../../../constants/IconsPro';
-import LineDivider from '../../LineDivider';
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import React, { ReactNode } from "react";
+import { useTheme } from "../../../../hooks";
+import { TouchableOpacity, Text } from "../../../native";
+import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
+import FlexContainer from "../../FlexContainer";
+import Typography from "../../Typography";
+import { ArrowRight01Icon } from "../../../../constants/IconsPro";
+import LineDivider from "../../LineDivider";
+import { StyleSheet, TextStyle, ViewStyle } from "react-native";
 
 export type ButtonsAccessProps = {
   label: string;
@@ -24,7 +19,7 @@ export type ButtonsAccessProps = {
   container?: ViewStyle;
   append?: ReactNode;
   showAppend?: boolean;
-  showAppendBottom?: 'UP' | 'DOWN';
+  showAppendBottom?: "UP" | "DOWN";
   AppendPreview?: ReactNode;
   ShowAppendPreview?: boolean;
 };
@@ -40,7 +35,7 @@ const ButtonAcces = ({
   container,
   append,
   showAppend = true,
-  showAppendBottom = 'UP',
+  showAppendBottom = "UP",
   AppendPreview,
   ShowAppendPreview,
 }: ButtonsAccessProps) => {
@@ -48,24 +43,14 @@ const ButtonAcces = ({
 
   return (
     <>
-      <TouchableOpacity
-        onPress={onPress}
-        style={[styles.touchableOpacity, container]}
-      >
+      <TouchableOpacity onPress={onPress} style={[styles.touchableOpacity, container]}>
         <FlexContainer newStyle={styles.flexContainer} variant="row">
-          {showAppendBottom === 'UP' && append}
-          <Typography
-            variant="H4title"
-            newStyle={{ ...labelStyle, width: SIZES.width / 2.4 }}
-          >
+          {showAppendBottom === "UP" && append}
+          <Typography variant="H4title" newStyle={{ ...labelStyle, width: SIZES.width / 2.4 }}>
             {label}
           </Typography>
           <FlexContainer>
-            <Typography
-              numberOfLines={1}
-              variant="SubDescription"
-              newStyle={styles.subDescription}
-            >
+            <Typography numberOfLines={1} variant="SubDescription" newStyle={styles.subDescription}>
               {subLabel}
             </Typography>
           </FlexContainer>
@@ -79,27 +64,19 @@ const ButtonAcces = ({
                   color: Description,
                   ...FONTS.semi14,
                   width: SIZES.width / 3,
-                  textAlign: 'right',
+                  textAlign: "right",
                 }}
               >
                 {labelPreview}
               </Text>
-              <ArrowRight01Icon
-                width={SIZES.icons * 1.2}
-                height={SIZES.icons * 1.2}
-                color={Description}
-              />
+              <ArrowRight01Icon width={SIZES.icons * 1.2} height={SIZES.icons * 1.2} color={Description} />
             </>
           ) : (
             AppendPreview
           )}
         </FlexContainer>
       </TouchableOpacity>
-      {showAppendBottom === 'DOWN' && (
-        <FlexContainer newStyle={styles.flexContainerAppend}>
-          {append}
-        </FlexContainer>
-      )}
+      {showAppendBottom === "DOWN" && <FlexContainer newStyle={styles.flexContainerAppend}>{append}</FlexContainer>}
       {ShowLineDivider && <LineDivider variant="secondary" />}
     </>
   );
@@ -107,26 +84,26 @@ const ButtonAcces = ({
 
 const styles = StyleSheet.create({
   touchableOpacity: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: SIZES.gapSmall,
     marginLeft: SIZES.gapSmall,
     width: SIZES.width,
   },
   flexContainer: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     gap: SIZES.gapLarge,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     maxWidth: SIZES.width / 2,
   },
   subDescription: {
     width: responsiveFontSize(10),
   },
   flexContainerRow: {
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+    alignItems: "center",
+    backgroundColor: "transparent",
     maxWidth: SIZES.width / 2,
   },
   flexContainerAppend: {
