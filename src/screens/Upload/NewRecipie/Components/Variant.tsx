@@ -1,10 +1,14 @@
 import { memo } from "react";
-import { Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { TextInput, View } from "@/src/components/native";
-import { LineDivider } from "@/src/components/custom";
+import { StyleSheet } from "react-native";
+import { TextInput, TouchableOpacity, View } from "@/src/components/native";
+import { LineDivider, Typography } from "@/src/components/custom";
 import { UseMutationResult } from "@tanstack/react-query";
 import { iconsNative } from "@/src/constants";
 import Subvariant from "./Subvariant";
+import { COLORS, FONTS, responsiveWidth, SIZES } from "@/src/constants/theme";
+import { Delete03IconSharp } from "@/src/constants/IconsPro";
+import { useTheme } from "@/src/hooks";
+import i18next from "@/src/Translate";
 
 type SubVariantType = {
   id: number;
@@ -38,28 +42,35 @@ type Props = {
 };
 
 const Variant = memo((props: Props) => {
+  const { border, Description, Title } = useTheme();
+  const placeholder = i18next.t("Ej: Acompañantes, Bebidas");
+
   return (
+    <>
     <View style={styles.variant}>
-      {/* Variant Header */}
       <View style={styles.variant_header}>
         <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
           <TextInput
-            placeholder="Ej: Acompañantes, Bebidas"
+            placeholder={placeholder}
             onChangeText={(txt) => {
               props.mutationEditVariant.mutate({ id: props.id, name: "title", value: txt });
             }}
-            defaultValue={props.title}
-            style={styles.input_title}
+            placeholderTextColor={Description}
+            defaultValue="Nombre del adicional"
+            style={[styles.input_title, {
+              borderColor: border,
+              color: Title
+            }]}
             autoFocus
           />
-          <Text>({props.subvariants.length})</Text>
+          <Typography variant="subtitle">{props.subvariants.length}</Typography>
         </View>
 
         <TouchableOpacity
           onPress={() => props.mutationRemoveVariant.mutate(props.id)}
           disabled={props.mutationRemoveVariant.isPending}
         >
-          <Image style={{ tintColor: "#444" }} source={iconsNative.DeleteIcon} />
+          <Delete03IconSharp width={SIZES.icons} height={SIZES.icons} color={COLORS.error} />
         </TouchableOpacity>
       </View>
 
@@ -76,15 +87,15 @@ const Variant = memo((props: Props) => {
         />
       ))}
 
-      <Text
+      <Typography
+        variant='subtitle'
         onPress={() => props.mutationAddSubVariant.mutate(props.id)}
-        style={{ marginBottom: 10, fontWeight: "bold", fontSize: 16, color: "green" }}
+        newStyle={{ marginBottom: SIZES.gapMedium, color: COLORS.success }}
       >
-        Add variant +
-      </Text>
-
-      <LineDivider lineStyle={{ marginBottom: 20 }} />
+        Agregar subadicional +
+      </Typography>
     </View>
+          <LineDivider lineStyle={{ marginBottom: SIZES.padding }} variant="secondary" /></>
   );
 });
 
@@ -92,21 +103,18 @@ export default Variant;
 
 const styles = StyleSheet.create({
   variant: {
-    backgroundColor: "#F4F4F4",
-    padding: 10,
+    padding: SIZES.gapLarge,
   },
   variant_header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: SIZES.gapMedium,
   },
   input_title: {
-    marginBottom: 20,
-    minWidth: 210,
-    fontWeight: "bold",
-    fontSize: 18,
-    borderBottomWidth: 1,
-    borderBottomColor: "#444",
+    marginBottom: SIZES.gapMedium,
+    minWidth: responsiveWidth(220),
+    borderBottomWidth: SIZES.borderWidth,
+    ...FONTS.semi16
   },
 });

@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Header } from "../components";
-import { useNavigation, View, Pressable, Switch, Platform, Modal, Button, ScrollView } from "../../../../components/native";
+import { useNavigation, View, Pressable, Switch, Platform, Modal, Button } from "../../../../components/native";
 import { FlexContainer, Hero, Typography } from "../../../../components/custom";
 import { COLORS, responsiveFontSize, SIZES } from "../../../../constants/theme";
 import { SchedulesInterface } from "./data";

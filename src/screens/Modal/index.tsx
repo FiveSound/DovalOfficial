@@ -17,7 +17,7 @@ const Modal: React.FC = () => {
   const modalState = useSelector((state: RootState) => state.modal);
   const bottomSheetRef = useRef<BottomSheetMethods>(null);
   const dispatch = useDispatch();
-  const { TransBack, BackgroundMain } = useTheme();
+  const { TransBack } = useTheme();
 
   useEffect(() => {
     if (modalState.open && bottomSheetRef.current) {
@@ -94,9 +94,7 @@ const Modal: React.FC = () => {
   };
 
   const getBackdropColor = (modalType: number): string => {
-    const { BackgroundMain, backgroundMaingrey, Title } = useTheme();
-    const BgMain = BackgroundMain;
-    const BgMainGrey = backgroundMaingrey;
+    const { Title } = useTheme();
     const TitleColor = Title;
 
     switch (modalType) {

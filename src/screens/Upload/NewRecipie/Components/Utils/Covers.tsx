@@ -3,7 +3,7 @@ import { StyleSheet, ViewToken } from "react-native";
 import { useTheme } from "../../../../../hooks";
 import { View, Image, FlatList } from "../../../../../components/native";
 import { COLORS, SIZES } from "../../../../../constants/theme";
-import { Dots, LineDivider } from "../../../../../components/custom";
+import { Dots, FlexContainer, LineDivider } from "../../../../../components/custom";
 import { CLOUDFRONT } from "../../../../../services";
 import { Ilustrations } from "../../../../../constants";
 
@@ -54,6 +54,7 @@ const Covers = React.memo(({ data, ShowDivider = false }: CoversProps) => {
   }
 
   if (data) {
+  
     return (
       <>
         <FlatList

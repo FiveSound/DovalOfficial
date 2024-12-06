@@ -7,7 +7,7 @@ const SignupSocials = () => (
 
   <>
     {/* <SignupApple /> */}
-    <SignupGoogle />
+    {Platform.OS === 'android' && <SignupGoogle />}
     { Platform.OS === 'android' && <SignupFacebook /> }
   </>
 );

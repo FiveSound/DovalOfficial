@@ -10,7 +10,7 @@ type Props = {
   topAnimation: SharedValue<number>;
   openHeight: number;
   closeHeight: number;
-  backDropColor: string;
+  backDropColor?: string;
   close: () => void;
 };
 

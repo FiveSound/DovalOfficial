@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../../../constants/theme";
+import { COLORS, FONTS, responsiveFontSize, SIZES } from "../../../../constants/theme";
 
 /**
  * Estilos para el componente Variant.
@@ -145,4 +145,19 @@ export const styles = StyleSheet.create({
     height: 1,
     borderRadius: 1,
   },
+  containerButton: {
+    width: SIZES.width / 1.02,
+    marginVertical: SIZES.gapSmall,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: responsiveFontSize(20),
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: SIZES.gapLarge,
+    marginBottom: SIZES.gapLarge,
+  },
+  containerButtons: {
+    width: SIZES.width / 2.5,
+  }
 });

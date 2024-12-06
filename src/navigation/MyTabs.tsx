@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         height: responsiveFontSize(80),
+        zIndex: 1000,
     },
     tabBar: {
         flexDirection: 'row',

@@ -20,13 +20,13 @@ const UsePhoneEmail = (props: Props) => {
 
 
   const tabs = [
-    { 
-      key: 'Phone', 
-      title: i18next.t('Phone'), 
-      content: <Phone />,
-      activeIcon: null,
-      inactiveIcon: null
-    },
+    // { 
+    //   key: 'Phone', 
+    //   title: i18next.t('Phone'), 
+    //   content: <Phone />,
+    //   activeIcon: null,
+    //   inactiveIcon: null
+    // },
     { 
       key: 'Email', 
       title: i18next.t('Email'), 

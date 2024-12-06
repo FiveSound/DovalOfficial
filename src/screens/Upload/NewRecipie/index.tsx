@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
@@ -63,29 +63,32 @@ const NewRecipe = memo(({ defaultValues }: { defaultValues: defaultValues }) => 
 const Main = () => {
   const { params } = useRoute<any>();
   const QUERY_KEY = "form-recipe-screen";
-  if (params?.id) {
-    const { data, isLoading, isFetching, isError } = useQuery({
-      queryKey: [QUERY_KEY, params.id],
-      queryFn: async () => await getDraftService(params.id),
-      enabled: params.id ? true : false,
-    });
+  const { data, isLoading, isFetching, isError } = useQuery({
+    queryKey: [QUERY_KEY, params?.id],
+    queryFn: async () => {
+      if (params?.id) {
+        return await getDraftService(params.id);
+      }
+      return null;
+    },
+    enabled: !!params?.id,
+  });
 
-    if (isLoading || isFetching) return <LoadingScreen />;
+  if (isLoading || isFetching) return <LoadingScreen />;
 
     if (isError) return <Text>An ocurred error!</Text>;
 
     if (data) {
       return <NewRecipe defaultValues={{ ...data }} />;
     }
-  }
+  
 
-  return <SafeAreaView style={styles.flexContainer}><NewRecipe defaultValues={initialValues} /></SafeAreaView>;
+  return (
+    <>
+      <NewRecipe defaultValues={initialValues} />
+    </>
+  );
 };
 
-const styles = StyleSheet.create({
-  flexContainer: {
-    flex: 1,
-  },
-});
 
 export default Main;

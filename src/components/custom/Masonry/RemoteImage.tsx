@@ -62,8 +62,6 @@ const RemoteImage = ({ pin, isFocused }: RemoteImageProps) => {
   const handlePlaybackStatusUpdate = (status: AVPlaybackStatus) => {
     if (status.isLoaded && status.durationMillis) {
       setVideoDuration(status.durationMillis / 1000); 
-    } else {
-      console.warn('Failed to load video');
     }
   };
 

@@ -2,12 +2,12 @@
   "expo": {
     "name": "Doval",
     "slug": "doval",
-    "version": "7.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
-    "scheme": ["doval", "fb703314045273320"],
+    "scheme": "doval",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",

@@ -83,9 +83,8 @@ const RecipeMedia = memo(() => {
   }, [photos]);
 
   return (
-    <Layout title="" href="RecipeDetails" disabled={values.keys.length === 0}>
+    <Layout title={i18next.t('Media')} href="RecipeDetails" disabled={values.keys.length === 0}>
       <LineDivider variant='secondary' lineStyle={styles.lineStyle} />
-
       <FlexContainer style={{ alignItems: "center" }}>
         <Covers data={values.keys} ShowDivider={false} />
         {Loading && <IsLoading />}
@@ -117,7 +116,8 @@ const RecipeMedia = memo(() => {
             }}
             disabled={isSubmittingLocal || Loading}
             containerButtons={styles.containerButtonss}
-            variant={isSubmittingLocal || Loading ? "disabled" : "error"}
+            variant={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
+            variantLabel={isSubmittingLocal || Loading ? "disabled" : 'disabled'}
           />
           )
         }

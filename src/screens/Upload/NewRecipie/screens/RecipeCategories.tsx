@@ -1,13 +1,13 @@
 import { memo } from "react";
-import { Text } from "react-native";
 import { useFormContext } from "react-hook-form";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getListCategoriesService, selectedCategoriesFromListService } from "@/src/services/recipes";
 import Layout from "../Components/Layout";
 import { ActivityIndicator, ScrollView } from "@/src/components/native";
-import { Hero, LineDivider, LoadingScreen } from "@/src/components/custom";
+import { Container, Hero, IsLoading, LineDivider, LoadingScreen } from "@/src/components/custom";
 import ItemCategory from "../Components/ItemCategory";
 import i18next from "@/src/Translate";
+import { SIZES } from "@/src/constants/theme";
 
 type TypeListData = {
   id: number;
@@ -31,7 +31,7 @@ const RecipeCategories = memo(() => {
     queryFn: async () => await getListCategoriesService(values.id),
     enabled: values.id ? true : false,
   });
-
+  
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -51,27 +51,21 @@ const RecipeCategories = memo(() => {
 
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t("Loading")} />;
 
-  if (isError) return <Text>An ocurred error!</Text>;
 
   if (data) {
     return (
-      <Layout title="" href="RecipeType">
-        <ScrollView>
-          <Hero
-            style={{ marginTop: 20, marginBottom: 20 }}
-            label={i18next.t("Selecciona algunas categorias!")}
-            sublabel={i18next.t("Esto ayudara muchisimo!")}
-          />
-
-          {mutation.isPending && <ActivityIndicator />}
-
-          <LineDivider />
-
+      <Container
+        label="Categorias"
+        showBack={true}
+        showHeader={true}
+      >     
+          {mutation.isPending && <IsLoading />}
+        <ScrollView contentContainerStyle={{ paddingBottom: SIZES.height / 10 }}>
           {data.list.map((row: TypeListData) => (
             <ItemCategory key={row.name} onPress={() => handleMutation(row.id)} {...row} />
           ))}
         </ScrollView>
-      </Layout>
+      </Container>
     );
   }
 });

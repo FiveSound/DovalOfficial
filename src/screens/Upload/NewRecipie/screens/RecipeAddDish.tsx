@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues, useFormContext } from "react-hook-form";
 import { ActivityIndicator, ScrollView, useNavigation, View } from "@/src/components/native";
 import Layout from "../Components/Layout";
-import { Buttons, Hero, LineDivider, LoadingScreen } from "@/src/components/custom";
+import { Buttons, Container, Hero, IsLoading, LineDivider, LoadingScreen } from "@/src/components/custom";
 import Variant from "../Components/Variant";
 
 import {
@@ -16,6 +16,7 @@ import {
   removeVariantService,
 } from "@/src/services/recipes";
 import i18next from "@/src/Translate";
+import { SIZES } from "@/src/constants/theme";
 
 type VariantType = {
   id: number;
@@ -142,33 +143,15 @@ const Variants = memo(() => {
     },
   });
 
-  const onSubmit = async (body: FieldValues) => {
-    const response = await publishRecipeService({ ...body, ...data });
-
-    if (response.success) {
-      reset();
-      Alert.alert("Has creado una receta!", "Receta creada con exito!", [
-        {
-          text: "OK",
-          onPress: () => navigation.navigate("MyTabs"),
-        },
-      ]);
-    }
-  };
-
   if (isLoading || isFetching) return <LoadingScreen label={i18next.t("Loading")} />;
 
   if (isError) return <Text>An ocurred error!</Text>;
 
   if (data) {
     return (
-      <Layout title="" href="#" onSubmit={handleSubmit(onSubmit)} submit disabled={isSubmitting}>
+      <Container showBack={true} showHeader={true} label={i18next.t("Agregar adicionales")}>
         <ScrollView>
-          <LineDivider lineStyle={{ marginBottom: 10 }} />
-
-          <Hero label="Companions" sublabel="Create variants" />
-
-          <LineDivider />
+          <Hero label="Agregar adicionales a tus recetas" sublabel="los adicionales son opciones que puedes agregar a tus recetas para que los clientes puedan elegir entre ellas." />
 
           {data.variants.map((row: VariantType) => (
             <Variant
@@ -185,29 +168,28 @@ const Variants = memo(() => {
             />
           ))}
 
-          {mutationAddVariant.isPending && <ActivityIndicator />}
-          {mutationRemoveSubVariant.isPending && <ActivityIndicator />}
-          {mutationAddSubVariant.isPending && <ActivityIndicator />}
-          {mutationRemoveVariant.isPending && <ActivityIndicator />}
-          {isSubmitting && <ActivityIndicator />}
+          {mutationAddVariant.isPending && <IsLoading />}
+          {mutationRemoveSubVariant.isPending && <IsLoading />}
+          {mutationAddSubVariant.isPending && <IsLoading />}
+          {mutationRemoveVariant.isPending && <IsLoading />}
+          {isSubmitting && <IsLoading />}
 
           <View
             style={{
-              marginTop: 10,
+              marginTop: SIZES.gapMedium,
               alignItems: "center",
-              gap: 15,
+              gap: SIZES.gapMedium,
             }}
           >
             <Buttons
-              variant="disabled"
-              label={i18next.t("Add more variants +")}
+              variant='primary'
+              label={i18next.t("Agregar adicionales +")}
               onPress={() => mutationAddVariant.mutate(values.id)}
               disabled={mutationAddVariant.isPending}
             />
           </View>
-          {/* <Text>{JSON.stringify(data, null, 2)}</Text> */}
         </ScrollView>
-      </Layout>
+      </Container>
     );
   }
 });

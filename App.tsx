@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
-import { Linking, SplashScreen as NativeSplashScreen, Platform } from "./src/components/native";
+import { Linking, SplashScreen as NativeSplashScreen, SafeAreaView as SafeAreaViewNative } from "./src/components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ColorSchemeName, LogBox, StatusBar, StyleSheet, useColorScheme } from "react-native";
@@ -12,15 +12,11 @@ import { CartProvider } from "./src/context/CartContext";
 import { enableScreens } from "react-native-screens";
 import RootNavigator from "./src/navigation";
 import { ActiveTabProvider } from "./src/context/ActiveTabContext";
-import { useSplashLoading } from "./src/context/SplashLoadingContext";
 import { DashboardProvider } from "./src/context/DashboardContext";
-import Splash from "./Splash";
 import useLocale from "./src/hooks/useLocale";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LoadingScreen} from "./src/components/custom";
-import { FONTS, SIZES } from "./src/constants/theme";
 import { ToastProvider } from "./src/components/custom/ToastManager";
-import TestAwayLocation from "./src/screens/Feed/components/TestAwayLocation";
 
 
 const queryClient = new QueryClient();
@@ -39,6 +35,7 @@ const AppContent = ({ onLayoutRootView, linking, theme }: { onLayoutRootView: ()
                       {/* <TestAwayLocation /> */}
                       <RootNavigator />
                       <Modal />
+
                     </>
                   </GestureHandlerRootView>
                 </SafeAreaProvider>
@@ -53,7 +50,6 @@ const AppContent = ({ onLayoutRootView, linking, theme }: { onLayoutRootView: ()
 };
 
 const AppWithReload = () => {
-  const { isSplashLoading, setSplashLoading } = useSplashLoading();
   const [appIsReady, setAppIsReady] = useState(false);
   const theme = useColorScheme();
   const { BackgroundMain, Title, backgroundMaingrey } = useTheme();
@@ -79,9 +75,8 @@ const AppWithReload = () => {
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await NativeSplashScreen.hideAsync();
-      setSplashLoading(false); 
     }
-  }, [appIsReady, setSplashLoading]);
+  }, [appIsReady]);
 
   useEffect(() => {
     if (appIsReady) {
@@ -90,7 +85,7 @@ const AppWithReload = () => {
   }, [appIsReady, onLayoutRootView]);
 
   return (
-    isSplashLoading ? (
+    !appIsReady ? (
       <LoadingScreen />
     ) : (
       <ToastProvider >

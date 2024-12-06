@@ -144,7 +144,7 @@ const BottomSheet = forwardRef<BottomSheetMethods, Props>(
 
     return (
       <>
-        {showBackdrop && (
+        {/* {showBackdrop && ( */}
           <BackDrop
             topAnimation={topAnimation}
             backDropColor={backDropColor}
@@ -152,7 +152,7 @@ const BottomSheet = forwardRef<BottomSheetMethods, Props>(
             openHeight={openHeight}
             close={close}
           />
-        )}
+        {/* )} */}
         <GestureDetector gesture={pan}>
           <Animated.View
             style={[

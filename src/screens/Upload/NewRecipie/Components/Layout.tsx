@@ -1,9 +1,9 @@
 import { ReactNode, memo } from "react";
 import { StyleSheet } from "react-native";
 import { ArrowBack, Buttons, Container } from "@/src/components/custom";
-import { Text, useNavigation, View } from "@/src/components/native";
+import { KeyboardAwareScrollView, ScrollView, Text, useNavigation, View } from "@/src/components/native";
 import i18next from "../../../../Translate";
-import { SIZES } from "@/src/constants/theme";
+import { responsiveHeight, SIZES } from "@/src/constants/theme";
 
 type Props = {
   children: ReactNode;
@@ -18,7 +18,7 @@ const Layout = memo((props: Props) => {
   const navigation = useNavigation();
 
   return (
-    <Container showBack={true} showHeader={false} label={i18next.t("")} style={{ flex: 1 }}>
+    <Container showBack={true} showHeader={false} label={props.title} style={{ flex: 1 }}>
       <View style={styles.header}>
         <ArrowBack />
         {props.submit ? (
@@ -34,7 +34,6 @@ const Layout = memo((props: Props) => {
             label={i18next.t("Continue")}
             onPress={() => {
               navigation.navigate(props.href);
-              console.log("Continue!");
             }}
             containerButtons={styles.containerButtonss}
             variant={props.disabled ? "disabled" : "primary"}
@@ -53,6 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: SIZES.gapLarge,
+    backgroundColor: 'transparent',
   },
   containerButtonss: {
     width: "30%",
