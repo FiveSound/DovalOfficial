@@ -1,33 +1,32 @@
-import axios from 'axios';
-import { API_URL } from '../index';
-import { storage } from '@/src/components/native';
-import { USER_TOKEN } from '@/src/constants';
+import axios from "axios";
+import { API_URL } from "../index";
+import { storage } from "@/src/components/native";
+import { USER_TOKEN } from "@/src/constants";
 import AWS from "aws-sdk";
 
 interface UploadProgressCallback {
   (progress: number): void;
 }
 
-
 export const uploadImageService = async (
   file: any,
   response_id: string,
-  setUploadProgress?: UploadProgressCallback,
+  setUploadProgress?: UploadProgressCallback
 ) => {
   try {
     const userToken = storage.getString(USER_TOKEN);
 
     const formData = new FormData();
 
-    formData.append('media', file);
-    formData.append('response_id', response_id);
+    formData.append("media", file);
+    formData.append("response_id", response_id);
 
     const response = await axios.post(`${API_URL}/api/upload/image`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${userToken}`,
       },
-      onUploadProgress: progressEvent => {
+      onUploadProgress: (progressEvent) => {
         if (setUploadProgress) {
           const progress = progressEvent.loaded / (progressEvent.total || 1);
           setUploadProgress(progress);
@@ -45,21 +44,21 @@ export const uploadImageService = async (
 export const uploadVideoService = async (
   file: any,
   response_id: string,
-  setUploadProgress?: UploadProgressCallback,
+  setUploadProgress?: UploadProgressCallback
 ) => {
   try {
     const userToken = storage.getString(USER_TOKEN);
     const formData = new FormData();
 
-    formData.append('media', file);
-    formData.append('response_id', response_id);
+    formData.append("media", file);
+    formData.append("response_id", response_id);
 
     const response = await axios.post(`${API_URL}/api/upload/video`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${userToken}`,
       },
-      onUploadProgress: progressEvent => {
+      onUploadProgress: (progressEvent) => {
         if (setUploadProgress) {
           const progress = progressEvent.loaded / (progressEvent.total || 1);
           setUploadProgress(progress);
@@ -76,9 +75,9 @@ export const uploadVideoService = async (
 
 export const s3Service = async (file: any) => {
   AWS.config.update({
-    accessKeyId: "AKIAVISXIWKHYTSFAM3C",
-    secretAccessKey: "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",
-    region: "sa-east-1",
+    accessKeyId: "",
+    secretAccessKey: "",
+    region: "",
   });
 
   const s3 = new AWS.S3();
@@ -130,4 +129,3 @@ export const uploadMediaServiceV2 = async (file: any) => {
     return { success: false, error };
   }
 };
-
