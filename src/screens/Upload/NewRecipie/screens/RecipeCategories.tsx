@@ -43,7 +43,7 @@ const RecipeCategories = memo(() => {
         );
 
         setValue(
-          "temporalCategories",
+          "categories",
           newList.filter((row) => row.selected),
           { shouldDirty: true }
         );

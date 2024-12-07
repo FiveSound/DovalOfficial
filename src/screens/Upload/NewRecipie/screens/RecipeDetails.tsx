@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { useFormContext } from "react-hook-form";
+import { FieldValues, useFormContext } from "react-hook-form";
 import { Covers } from "../components/Utils";
 import {
   Buttons,
@@ -14,87 +14,34 @@ import { FONTS, responsiveHeight, SIZES } from "@/src/constants/theme";
 import MoreOptions from "../components/MoreOptions";
 import { CloseIcon } from "@/src/constants/IconsPro";
 import { KeyboardAwareScrollView, useNavigation } from "@/src/components/native";
-import { useQuery } from "@tanstack/react-query";
-import {
-  getListCategoriesService,
-  getListTypesService,
-  getVariantsByRecipeService,
-  onCompleteService,
-} from "@/src/services/recipes";
+import { publishRecipeService } from "@/src/services/recipes";
 import { Alert } from "react-native";
 import i18next from "@/src/Translate";
 import { styles } from "../components/styles";
 import { useTheme } from "@/src/hooks";
 
-const QUERY_KEY = "recipe-variants-component";
-
 const RecipeDetails = memo(() => {
   const { Title } = useTheme();
   const navigation = useNavigation();
-  const { setValue, watch } = useFormContext();
+  const {
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { isDirty, isSubmitting },
+    reset,
+  } = useFormContext();
   const values = watch();
 
-  const categories = useQuery({
-    queryKey: ["recipe-list-categories", values.id],
-    queryFn: async () => await getListCategoriesService(values.id),
-  });
+  const onSubmit = async (data: FieldValues) => {
+    const response = await publishRecipeService(data);
 
-  const selecCategories = categories.data?.list.some((item: any) => item.selected);
-
-  const foodTypes = useQuery({
-    queryKey: ["recipe-list-types", values.id],
-    queryFn: async () => await getListTypesService(values.id),
-  });
-
-  const selecFooTypes = foodTypes.data?.list.some((item: any) => item.selected);
-
-  const variants = useQuery({
-    queryKey: [QUERY_KEY],
-    queryFn: async () => await getVariantsByRecipeService(values.id),
-    enabled: values.id ? true : false,
-  });
-
-  const disable =
-    !values.name ||
-    !values.description ||
-    !values.price ||
-    values.name.length === 0 ||
-    values.description.length === 0 ||
-    values.price.length === 0 ||
-    !selecFooTypes ||
-    (variants.data.resume && variants.data.resume.length === 0) ||
-    !selecCategories;
-
-  const onSubmit = async () => {
-    const missingFields = [];
-
-    if (!values.name || values.name.trim().length === 0) {
-      missingFields.push("Nombre");
-    }
-    if (!values.description || values.description.trim().length === 0) {
-      missingFields.push("Descripción");
-    }
-    if (!values.price || values.price.trim().length === 0) {
-      missingFields.push("Precio");
-    }
-    if (!selecFooTypes) {
-      missingFields.push("Tipos de comida");
-    }
-    if (variants.data.resume && variants.data.resume.length === 0) {
-      missingFields.push("Acompañamientos");
-    }
-    if (!selecCategories) {
-      missingFields.push("Categorías");
+    if (response.error) {
+      Alert.alert("Error al publicar la receta", response.message);
+      return <Perks label={response.message} status="error" />;
     }
 
-    if (missingFields.length > 0) {
-      Alert.alert("Campos incompletos", `Por favor, completa los siguientes campos: ${missingFields.join(", ")}`);
-      return <Perks label={missingFields.join(", ")} status="error" />;
-    }
-
-    const response = await onCompleteService(values.id);
-    console.log("response", response);
     if (response.success) {
+      reset();
       Alert.alert("Receta agregada con éxito!", "¿Quieres crear otra receta o volver atrás?", [
         {
           text: "Crear mas recetas",
@@ -122,11 +69,11 @@ const RecipeDetails = memo(() => {
         />
         <Buttons
           label={i18next.t("Create Recipe")}
-          onPress={onSubmit}
+          onPress={handleSubmit(onSubmit)}
           containerButtons={styles.containerButtons}
-          variantLabel={disable ? "disabled" : "secondary"}
-          variant={disable ? "disabled" : "primary"}
-          disabled={disable}
+          variantLabel={isDirty || isSubmitting ? "disabled" : "secondary"}
+          variant={!isDirty || isSubmitting ? "disabled" : "primary"}
+          disabled={!isDirty || isSubmitting}
           labelStyle={{
             ...FONTS.semi16,
           }}
@@ -148,7 +95,7 @@ const RecipeDetails = memo(() => {
           placeholder={i18next.t("Delicious Recipe Name")}
           value={values.name}
           onChangeText={(txt) => {
-            setValue("name", txt);
+            setValue("name", txt, { shouldDirty: true });
           }}
         />
 
@@ -157,7 +104,7 @@ const RecipeDetails = memo(() => {
           placeholder={i18next.t("Price $")}
           value={values.price}
           onChangeText={(txt) => {
-            setValue("price", txt);
+            setValue("price", txt, { shouldDirty: true });
           }}
         />
 
@@ -165,7 +112,7 @@ const RecipeDetails = memo(() => {
           placeholder={i18next.t("Describe your recipe and help your customers understand your recipe")}
           value={values.description}
           onChangeText={(txt) => {
-            setValue("description", txt);
+            setValue("description", txt, { shouldDirty: true });
           }}
           labelStyle={{ height: SIZES.height / 14 }}
           inputStyle={{ height: SIZES.height / 14 }}

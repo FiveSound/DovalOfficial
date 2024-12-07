@@ -1,8 +1,13 @@
 import { memo, useState } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { Buttons, Container, Hero, IsLoading } from "@/src/components/custom";
+import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
+import { Buttons, Container, Hero, IsLoading, LineDivider } from "@/src/components/custom";
 import { ScrollView, TouchableOpacity, Text, View } from "@/src/components/native";
-import { addSubVariantService, addVariantService, removeVariantService } from "@/src/services/recipes";
+import {
+  addSubVariantService,
+  addVariantService,
+  removeSubVariantService,
+  removeVariantService,
+} from "@/src/services/recipes";
 import { SIZES } from "@/src/constants/theme";
 import i18next from "@/src/Translate";
 import Variant from "../components/Variant";
@@ -12,13 +17,13 @@ const RecipeAddDish = memo(() => {
   const [processing, setProcessing] = useState(false);
   const { watch, control } = useFormContext();
 
-  const variants_fields = useFieldArray({
+  const variantsFields = useFieldArray({
     name: "variants",
     control,
     keyName: "variantID",
   });
 
-  const subvariants_fields = useFieldArray({
+  const subvariantsFields = useFieldArray({
     name: "subvariants",
     control,
     keyName: "subVariantID",
@@ -26,79 +31,80 @@ const RecipeAddDish = memo(() => {
 
   const values = watch();
 
-  const handleAddVariant = async (id: number) => {
+  const handle = async (type: string, index: number | null, id: number) => {
     setProcessing(true);
-    const response = await await addVariantService(id);
-    if (response.success) {
-      variants_fields.append(response.item);
+    let response;
+
+    if (type == "ADD_VARIANT") {
+      response = await addVariantService(id);
+      if (response.success) {
+        variantsFields.append(response.item);
+      }
     }
+
+    if (type == "ADD_SUBVARIANT") {
+      response = await addSubVariantService(id);
+      if (response.success) {
+        subvariantsFields.append(response.item);
+      }
+    }
+
+    if (type == "REMOVE_VARIANT") {
+      response = await removeVariantService(id);
+      if (response.success && index) {
+        variantsFields.remove(index);
+      }
+    }
+
+    if (type == "REMOVE_SUBVARIANT") {
+      response = await removeSubVariantService(id);
+      if (response.success && index) {
+        subvariantsFields.remove(index);
+      }
+    }
+
+    console.log({ response });
+
     setProcessing(false);
   };
-
-  const handleRemoveVariant = async (id: number, index: number) => {
-    setProcessing(true);
-    const response = await await removeVariantService(id);
-    if (response.success) {
-      variants_fields.remove(index);
-    }
-    setProcessing(false);
-  };
-
-  const handleAddSubVariant = async (id: number) => {
-    setProcessing(true);
-    const response = await addSubVariantService(id);
-
-    if (response.success) {
-      subvariants_fields.append(response.item);
-    }
-    setProcessing(false);
-  };
-
-  const handleRemoveSubVariant = async (id: number, index: number) => {
-    setProcessing(true);
-    const response = await addSubVariantService(id);
-    if (response.success) {
-      subvariants_fields.remove(index);
-    }
-    setProcessing(false);
-  };
-
-  const handleAdd = async () => {};
 
   return (
     <Container showBack={true} showHeader={true} label="">
       <ScrollView>
         <Hero
-          label="Agregar adicionales a tus recetas"
+          label="Agregar adicionales (opcional)"
           sublabel="los adicionales son opciones que puedes agregar a tus recetas para que los clientes puedan elegir entre ellas."
         />
 
-        {variants_fields.fields.map((row: any, index: number) => (
+        {variantsFields.fields.map((row: FieldValues, index: number) => (
           <Variant
             key={row.variantID}
             index={index}
-            id={row.variantID}
-            handleRemoveVariant={() => handleRemoveVariant(row.id, index)}
+            id={row.id}
             limit_qty={row.limit_qty}
             required={row.required}
             processing={processing}
+            onRemove={() => handle("REMOVE_VARIANT", index, row.id)}
           >
-            {subvariants_fields.fields.map((field: any, i) => {
+            {subvariantsFields.fields.map((field: FieldValues, i: number) => {
               if (field.variantID === row.id) {
                 return (
                   <Subvariant
                     key={field.subVariantID}
                     index={i}
-                    id={field.subVariantID}
-                    handleRemoveSubVariant={() => handleRemoveSubVariant(field.id, i)}
+                    id={field.id}
+                    onRemove={() => handle("REMOVE_SUBVARIANT", i, row.id)}
                     processing={processing}
                   />
                 );
               }
             })}
-            <TouchableOpacity onPress={() => handleAddSubVariant(row.id)} disabled={processing}>
+
+            <TouchableOpacity onPress={() => handle("ADD_SUBVARIANT", null, row.id)} disabled={processing}>
               <Text>Agregar subadicional +</Text>
             </TouchableOpacity>
+
+            <LineDivider variant="primary" lineStyle={{ marginVertical: 10 }} />
           </Variant>
         ))}
 
@@ -114,10 +120,11 @@ const RecipeAddDish = memo(() => {
           <Buttons
             variant={processing ? "disabled" : "primary"}
             label={i18next.t("Agregar adicionales +")}
-            onPress={() => handleAddVariant(values.id)}
+            onPress={() => handle("ADD_VARIANT", null, values.id)}
             disabled={processing}
           />
         </View>
+        <Text>{JSON.stringify(values.variants, null, 2)}</Text>
       </ScrollView>
     </Container>
   );

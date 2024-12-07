@@ -12,7 +12,6 @@ import FoodTypes from "./screens/RecipeType";
 import RecipeAddDish from "./screens/RecipeAddDish";
 import { LoadingScreen } from "@/src/components/custom";
 import { getDraftService } from "@/src/services/recipes";
-import { SafeAreaView } from "@/src/components/native";
 
 type defaultValues = {
   id: number | null;
@@ -40,8 +39,6 @@ const initialValues = {
   instructions: [],
   variants: [],
   subvariants: [],
-  temporalCategories: [],
-  temporalTypes: [],
 };
 
 const Stack = createStackNavigator();
@@ -65,6 +62,7 @@ const NewRecipe = memo(({ defaultValues }: { defaultValues: defaultValues }) => 
 const Main = () => {
   const { params } = useRoute<any>();
   const QUERY_KEY = "form-recipe-screen";
+
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: [QUERY_KEY, params?.id],
     queryFn: async () => {

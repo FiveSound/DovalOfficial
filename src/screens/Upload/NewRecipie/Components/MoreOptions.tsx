@@ -1,4 +1,4 @@
-import { Text, useNavigation, View } from "@/src/components/native";
+import { useNavigation, View } from "@/src/components/native";
 import { ArrowRight, ButtonAcces, FlexContainer, LineDivider, Perks } from "@/src/components/custom";
 import { useTheme } from "@/src/hooks";
 import { FONTS } from "@/src/constants/theme";
@@ -58,12 +58,12 @@ const MoreOptions = () => {
           ))}
 
         {item.id === 2 &&
-          values.temporalCategories.map((row: { id: number; name: string }) => (
+          values.categories.map((row: { id: number; name: string }) => (
             <Perks key={row.id.toString()} label={row.name} status="success" />
           ))}
 
         {item.id === 3 &&
-          values.temporalTypes.map((row: { id: number; name: string }) => (
+          values.food_types.map((row: { id: number; name: string }) => (
             <Perks key={row.id.toString()} label={row.name} status="success" />
           ))}
       </FlexContainer>

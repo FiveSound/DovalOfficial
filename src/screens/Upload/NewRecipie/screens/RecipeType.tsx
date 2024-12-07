@@ -43,7 +43,7 @@ const RecipeType = memo(() => {
         );
 
         setValue(
-          "temporalTypes",
+          "food_types",
           newList.filter((row) => row.selected),
           { shouldDirty: true }
         );

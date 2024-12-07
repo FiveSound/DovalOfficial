@@ -9,12 +9,12 @@ import Pickers from "../components/Pickers";
 
 type Props = {
   index: number;
-  id: string;
-  handleRemoveVariant: () => Promise<void>;
+  id: number;
   limit_qty: string;
-  required?: boolean;
-  children: ReactNode;
+  required: boolean;
   processing: boolean;
+  children: ReactNode;
+  onRemove: () => Promise<void>;
 };
 
 const Variant = memo((props: Props) => {
@@ -64,7 +64,7 @@ const Variant = memo((props: Props) => {
             checked={values.variants[props.index].required}
           />
         </View>
-        <TouchableOpacity onPress={props.handleRemoveVariant} disabled={props.processing}>
+        <TouchableOpacity onPress={props.onRemove} disabled={props.processing}>
           <Delete03IconSharp width={SIZES.icons} height={SIZES.icons} color={COLORS.error} />
         </TouchableOpacity>
       </View>
