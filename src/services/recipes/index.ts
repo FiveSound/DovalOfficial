@@ -353,26 +353,19 @@ export const removeSubVariantService = async (id: number) => {
 };
 
 export const removeVariantService = async (id: number) => {
-  try {
-    const userToken = storage.getString(USER_TOKEN);
+  const userToken = storage.getString(USER_TOKEN);
 
-    const response = await axios.post(
-      `${API_URL}/api/recipes/remove/variant`,
-      { id },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
+  const response = await axios.post(
+    `${API_URL}/api/recipes/remove/variant`,
+    { id },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    }
+  );
 
-    return response.data;
-  } catch (error) {
-    return {
-      success: false,
-      error,
-    };
-  }
+  return response.data;
 };
 
 export const getListCategoriesService = async (id: number) => {

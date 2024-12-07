@@ -35,32 +35,39 @@ const RecipeAddDish = memo(() => {
     setProcessing(true);
     let response;
 
-    if (type == "ADD_VARIANT") {
-      response = await addVariantService(id);
-      if (response.success) {
-        variantsFields.append(response.item);
-      }
-    }
+    // Filter By Need Type
+    switch (type) {
+      case "ADD_VARIANT":
+        response = await addVariantService(id);
+        if (response.item) {
+          variantsFields.append({ ...response.item });
+        }
+        break;
 
-    if (type == "ADD_SUBVARIANT") {
-      response = await addSubVariantService(id);
-      if (response.success) {
-        subvariantsFields.append(response.item);
-      }
-    }
+      case "ADD_SUBVARIANT":
+        response = await addSubVariantService(id);
+        if (response.item) {
+          subvariantsFields.append({ ...response.item });
+        }
+        break;
 
-    if (type == "REMOVE_VARIANT") {
-      response = await removeVariantService(id);
-      if (response.success && index) {
-        variantsFields.remove(index);
-      }
-    }
+      case "REMOVE_VARIANT":
+        response = await removeVariantService(id);
 
-    if (type == "REMOVE_SUBVARIANT") {
-      response = await removeSubVariantService(id);
-      if (response.success && index) {
-        subvariantsFields.remove(index);
-      }
+        if (response.success && index !== null) {
+          variantsFields.remove(index);
+        }
+        break;
+
+      case "REMOVE_SUBVARIANT":
+        response = await removeSubVariantService(id);
+        if (response.success && index !== null) {
+          subvariantsFields.remove(index);
+        }
+        break;
+
+      default:
+        break;
     }
 
     console.log({ response });
@@ -124,7 +131,6 @@ const RecipeAddDish = memo(() => {
             disabled={processing}
           />
         </View>
-        <Text>{JSON.stringify(values.variants, null, 2)}</Text>
       </ScrollView>
     </Container>
   );

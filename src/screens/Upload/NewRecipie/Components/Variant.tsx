@@ -1,7 +1,7 @@
 import { memo, ReactNode } from "react";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { TouchableOpacity, Text, TextInput, View } from "@/src/components/native";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, FieldValues, useFormContext } from "react-hook-form";
 import { responsiveWidth, SIZES, FONTS, COLORS } from "@/src/constants/theme";
 import { Delete03IconSharp } from "@/src/constants/IconsPro";
 import { Checkbox } from "@/src/components/custom";
@@ -22,6 +22,8 @@ const Variant = memo((props: Props) => {
 
   const values = watch();
 
+  let lenghtVariants = values.subvariants.filter((row: FieldValues) => row.variantID === props.id).length;
+
   return (
     <View style={styles.variant}>
       <View style={styles.variant_header}>
@@ -34,7 +36,7 @@ const Variant = memo((props: Props) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              style={[styles.input]}
+              style={[styles.input, { fontSize: 20 }]}
               autoFocus
             />
           )}
@@ -43,7 +45,21 @@ const Variant = memo((props: Props) => {
           <View style={{ width: 50 }}>
             <Text>Limit</Text>
             <Pickers
-              onChange={(value) => setValue(`variants.${props.index}.limit_qty`, value, { shouldDirty: true })}
+              onChange={(value) => {
+                if (lenghtVariants < parseInt(value)) {
+                  Alert.alert("Accion no completada:", "No tienes suficientes subvariantes!", [
+                    {
+                      text: "OK!",
+                      style: "default",
+                      onPress: () => {},
+                      isPreferred: true,
+                    },
+                  ]);
+                  return;
+                }
+
+                setValue(`variants.${props.index}.limit_qty`, value, { shouldDirty: true });
+              }}
               defaultValue="1"
               value={values.variants[props.index].limit_qty}
               list={[
@@ -58,11 +74,17 @@ const Variant = memo((props: Props) => {
           </View>
         )}
         <View style={{ width: 60 }}>
-          <Text>Required*</Text>
-          <Checkbox
-            onChange={(value: boolean) => setValue(`variants.${props.index}.required`, value, { shouldDirty: true })}
-            checked={values.variants[props.index].required}
-          />
+          {lenghtVariants > 0 && (
+            <>
+              <Text>Required</Text>
+              <Checkbox
+                onChange={(value: boolean) => {
+                  setValue(`variants.${props.index}.required`, value, { shouldDirty: true });
+                }}
+                checked={values.variants[props.index].required}
+              />
+            </>
+          )}
         </View>
         <TouchableOpacity onPress={props.onRemove} disabled={props.processing}>
           <Delete03IconSharp width={SIZES.icons} height={SIZES.icons} color={COLORS.error} />
